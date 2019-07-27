@@ -1,0 +1,17 @@
+﻿@model FriendCash.Model.Document
+@{
+   ViewBag.jQueryUI = true;
+   Layout = "~/Views/Shared/Base.cshtml";
+}
+
+@if (Model != null)
+{
+<div class="row">
+   <div class="col-sm-7 col-md-8  col-sm-push-5 col-md-push-4">
+      @Html.Partial("~/Views/Documents/Edit_Form.cshtml", Model)
+   </div>
+   <div class="col-sm-5 col-md-4  col-sm-pull-7 col-md-pull-8">
+      @Html.Action("Indicators", new {id=Model.idDocument })
+   </div>
+</div>
+}

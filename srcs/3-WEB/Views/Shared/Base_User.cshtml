@@ -1,0 +1,39 @@
+﻿@using Microsoft.AspNet.Identity;
+
+@{ 
+   if (User.Identity.IsAuthenticated)
+   {
+      <li class="dropdown">
+         <a href="#" id="menuUser" role="button" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-user"></span>
+            <span> </span>
+            <span>@User.Identity.GetUserName()<b class="caret"></b></span>
+         </a>
+         <ul class="dropdown-menu" role="menu" aria-labelledby="menuUser">
+            <li role="presentation">@Html.ActionLink(FriendCash.Resources.User.PAGE_TITLE_PROFILE, "Manage", "User", routeValues:new { }, htmlAttributes: new { @role="menuitem", @tabindex="-1" })</li>
+            @if (System.Configuration.ConfigurationManager.AppSettings["BetaFunctions"] == "1")
+            {
+               <li role="presentation">@Html.ActionLink("Import Data", "Import", "Tools", routeValues:new { }, htmlAttributes: new { @role="menuitem", @tabindex="-1" })</li>
+            }
+            <li role="presentation"><a role="menuitem" target="_blank" href="https://docs.google.com/forms/d/1zSMPiF8CtJxL5vvUpL8dn9zw-iUwapxzdQ8kA2I7xeg/viewform?usp=send_form">@FriendCash.Resources.User.MENU_DEVIATION</a></li>
+            <li role="presentation" class="divider"></li>
+            <li role="presentation">
+               @using (Html.BeginForm("LogOff", "User", FormMethod.Post, new { id = "logoutForm" })) 
+               { @Html.AntiForgeryToken() }
+               <a href="javascript:document.getElementById('logoutForm').submit()">@FriendCash.Resources.User.LOG_OUT</a>
+            </li>
+         </ul>
+      </li>
+      
+    }
+   else
+   {
+      <li role="presentation">
+         <a href="@Url.Action("Login", "User")">
+            <span class="glyphicon glyphicon-user"></span>
+            <span> </span>
+            <span>@FriendCash.Resources.User.LOG_IN</span>
+         </a>
+      </li>
+    }
+}

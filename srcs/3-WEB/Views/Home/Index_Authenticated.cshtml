@@ -1,0 +1,30 @@
+﻿<div class="row">
+   <div class="col-sm-4">
+      <div class="row">
+         @Html.Action("ResumeAccount", "Flow")
+      </div>
+      <div class="planning-main">
+         <div class="row">
+            @Html.Action("ResumePlanning", "Flow", new { id = (short)FriendCash.Model.Document.enType.Income })
+         </div>
+         <div class="row">
+            @Html.Action("ResumePlanning", "Flow", new { id = (short)FriendCash.Model.Document.enType.Expense })
+         </div>
+         <script type="text/javascript">
+            $(".planning-main").on("click", ".planning-nav", function (e) {
+               var formAction = $(this).attr("data-form-action");
+               var formData = JSON.parse($(this).attr("data-form-data"));
+               var formDiv = $(this).attr("data-form-div");
+               console.log(formData);
+               $.post(formAction, formData, function (formResponse) {
+                  $("#" + formDiv).replaceWith(formResponse)
+               }).fail(function (e) { WaitHide(); ShowMessageException("Error", e.responseText, "lg"); });
+            });
+         </script>
+      </div>
+   </div>
+   <div class="col-sm-8">
+      @Html.Action("ResumeParcels", "Flow")
+      @Html.Action("ResumeMonthlyFlow", "Flow")
+   </div>
+</div>   

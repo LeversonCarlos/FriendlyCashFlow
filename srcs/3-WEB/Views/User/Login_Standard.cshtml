@@ -1,0 +1,25 @@
+﻿@model FriendCash.Model.Membership.LocalLogin
+<div class="panel panel-default">
+   <div class="panel-heading">
+      <div class="row h2">
+         <div class="col-xs-9">
+            <h3>@FriendCash.Resources.User.TITLE_LOCAL_LOGIN</h3>
+         </div>
+         <div class="col-sm-3 text-right">
+            @Html.FriendCommandForCreate(new CommandCreate() { Action = Url.Action("Register") })
+         </div>
+      </div>
+   </div>
+   <div class="panel-body">
+      @using (Html.BeginForm(null, null, new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", @role = "form" })) 
+      {
+         @Html.AntiForgeryToken()
+         @Html.ValidationSummary(true)
+         @Html.FriendTextBoxFor(model => model.UserName)
+         @Html.FriendPasswordFor(model => model.Password)
+         @Html.FriendCheckboxFor(model => model.RememberMe)
+         @Html.FriendCommandForEdit(new CommandSave() { UseCancel = false, UseSubmit = true, Text = FriendCash.Resources.User.COMMAND_LOG_IN, Icon = CommandBase.enIcon.User })
+      }
+   </div>
+</div>
+

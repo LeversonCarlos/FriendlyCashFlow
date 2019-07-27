@@ -1,0 +1,31 @@
+﻿@model FriendCash.Model.Membership.ExternalRegister
+@{
+   ViewBag.jQueryUI = true;
+   Layout = "~/Views/Shared/Base.cshtml";
+}
+
+<div class="panel panel-default">
+   <div class="panel-heading">
+      <div class="row">
+         <div class="col-xs-9">
+            <h3>@string.Format(FriendCash.Resources.User.TITLE_SERVICE_CONFIRMATION, @ViewBag.LoginProvider)</h3>
+         </div>
+         <div class="col-sm-3 text-right">
+         </div>
+      </div>
+   </div>
+   <div class="panel-body">
+      @using (Html.BeginForm("ServiceConfirmation", null, new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", @role = "form" })) 
+      {
+         @Html.AntiForgeryToken()
+         @Html.ValidationSummary(true)
+         @Html.HiddenFor(m => m.ExternalLoginData)
+         <div class="alert alert-success">
+            <p>@string.Format(FriendCash.Resources.User.MSG_INFO_SERVICE_CONFIRMATION, ViewBag.LoginProvider)
+            </p>
+         </div>
+         @Html.FriendTextBoxFor(model => model.UserName)
+         @Html.FriendCommandForEdit(new CommandSave() { UseCancel = false, UseSubmit = true, Text = FriendCash.Resources.User.COMMAND_REGISTER, Icon = CommandBase.enIcon.Save })
+      }
+   </div>
+</div>

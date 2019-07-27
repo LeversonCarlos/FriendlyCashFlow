@@ -1,0 +1,25 @@
+﻿@using Microsoft.Owin.Security
+@{
+   var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
+   if (loginProviders.Count() == 0) 
+   {
+      <div class="alert alert-info">
+         <p>There are no external authentication services configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=313242">this article</a> for details on setting up this ASP.NET application to support logging in via external services.</p>
+      </div>
+    } 
+   else 
+   {
+      using (Html.BeginForm("ServiceLogin", "User", new { ReturnUrl = ViewBag.ReturnUrl })) 
+      {
+         @Html.AntiForgeryToken()
+         foreach (AuthenticationDescription p in loginProviders) 
+         {
+            <button type="submit" name="provider" class="btn btn-default btn-block btn-social btn-social-@p.AuthenticationType.ToLower()"
+               id="@p.AuthenticationType" value="@p.AuthenticationType" 
+               title="@string.Format(FriendCash.Resources.User.MSG_INFO_ADD_SERVICE_LOGIN_TOOLTIP, p.Caption)">
+               @p.AuthenticationType
+            </button>
+         }
+      }
+   }
+}

@@ -1,0 +1,18 @@
+﻿@model IEnumerable<FriendCash.Model.History>
+@{
+   ViewBag.jQueryUI = true;
+   Layout = "~/Views/Shared/Base.cshtml";
+}
+@section TitleRight { 
+   @{  var sDataAction = "data-action=" + Url.Action("NewHistory", new { id = ViewData[FriendCash.Service.Document.TAG_ENTITY_KEY], r = Html.Raw(Url.Action("History")) });  }
+   @Html.FriendCommandForCreate(new CommandCreate() { CSS = "modal-edit", Data = sDataAction }) 
+}
+
+<div class="row">
+   <div class="col-sm-7 col-md-8  col-sm-push-5 col-md-push-4">
+      @Html.Partial("~/Views/History/Index_List.cshtml", Model)
+   </div>
+   <div class="col-sm-5 col-md-4  col-sm-pull-7 col-md-pull-8">
+      @Html.Action("Indicators", new {id=ViewData[FriendCash.Service.Document.TAG_ENTITY_KEY] })
+   </div>
+</div>

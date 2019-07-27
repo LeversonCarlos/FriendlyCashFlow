@@ -1,0 +1,110 @@
+﻿@model FriendCash.Model.History
+@{
+   ViewBag.jQueryUI = true;
+   Layout = "~/Views/Shared/BasePopup.cshtml";
+}
+
+@if (Model != null)
+{
+
+   using (Html.BeginForm("EditHistory", (string)ViewBag.PageController, new { SuccessRedirect = ViewData["SuccessRedirect"] }, FormMethod.Post, new { id="MyPopupForm" }))
+   {
+      @Html.AntiForgeryToken()
+      @Html.ValidationSummary(true)
+      @Html.HiddenFor(model => model.idRow)
+      @Html.HiddenFor(model => model.idHistory)
+      @Html.HiddenFor(model => model.Type)
+
+      @Html.FriendAutoCompleteFor(model => model.idDocument, new AutoCompleteDocument((string)ViewBag.PageController, Model.DocumentDetails), (Model.idDocument == 0))
+      @Html.FriendAutoCompleteFor(model => model.idAccount, new AutoCompleteAccount(Model.AccountDetails))
+      @Html.FriendTextBoxFor(model => model.Value)
+      @Html.FriendTextBoxFor(model => model.DueDate)
+
+      <div class="form-group">
+         <div class="col-sm-3">
+            @Html.LabelFor(m => m.PayDate, new { @class = "control-label" })
+         </div>
+         <div class="col-sm-9">
+            <div class="input-group">
+               <span class="input-group-addon">
+                  @Html.CheckBoxFor(m => m.Settled)
+               </span>
+               @Html.TextBoxFor(m => Model.PayDate, "{0:d}", new { @class = "form-control mask-date", @placeholder = Html.DisplayNameFor(m => m.PayDate).ToString() })
+            </div>
+            @Html.ValidationMessageFor(m => Model.PayDate, string.Empty, new { @class = "help-block" })
+         </div>
+      </div>
+
+   }
+   
+   @section Footer{
+
+      @{
+         CommandRemove oRemove = null;
+         if (Model.idHistory > 0)
+         { 
+            oRemove = new CommandRemove(); 
+            oRemove.Question = FriendCash.Resources.History.MSG_QUESTION_REMOVE; 
+            oRemove.Action = Url.Action("RemoveHistory");
+            oRemove.Data = "data-form-name=MyPopupForm";
+         }
+      }
+      @Html.FriendCommandForEdit(new CommandSave() { UsePopup = true, Data = "data-form-name=MyPopupForm"  }, oRemove)
+
+      <script type="text/javascript">
+
+         $(document).ready(function () { Settled_Changed(); });
+
+         $('#Settled').change(Settled_Changed);
+         function Settled_Changed() {
+            if ($('#Settled').is(":checked")) {
+               $('#PayDate').removeAttr("readonly");
+               if ($('#PayDate').val() == "") 
+               { 
+                  var dPayDate = Globalize.parseDate( $('#DueDate').val(), 'd', '@System.Threading.Thread.CurrentThread.CurrentUICulture.ToString()');
+                  var dToday =new Date($.now());
+                  if (dPayDate > dToday) { dPayDate = dToday; }
+                  var sPayDate = Globalize.format(dPayDate, 'd', '@System.Threading.Thread.CurrentThread.CurrentUICulture.ToString()');
+                  @* sPayDate = '@DateTime.Now.ToShortDateString()' *@
+                  $('#PayDate').val(sPayDate); 
+               }
+            }
+            else {
+               $('#PayDate').attr("readonly", "readonly");
+               $('#PayDate').val("");
+            }
+         }
+
+         $('#idAccount').change(Account_Changed);
+         function Account_Changed() {
+            GetDueDate();
+         }
+
+         function GetDueDate() {
+            var iAccount = $("#idAccount").val();
+            var formData = { id: iAccount };
+            var formAction = '@Url.Action("Details", "Accounts")';
+            $.post(formAction, formData)
+               .done(function () { WaitHide(); })
+               .success(function (data) { GetDueDate_Success(data); })
+               .fail(function (data) { ShowMessageException("Error", data.responseText, "lg"); });
+         }
+
+         function GetDueDate_Success(formResponse) {
+            if (formResponse.OK == true) {
+               var oAccount = formResponse.DATA["@FriendCash.Service.Account.TAG_ENTITY"];
+               var iCreditCard = @((short)FriendCash.Model.Account.enType.CreditCard);
+               if (oAccount != null && oAccount.Type == iCreditCard) {
+                  var dDate = new Date(parseInt(oAccount.DueDate.substr(6)));
+                  var dDateUTC = new Date(dDate.getUTCFullYear(), dDate.getUTCMonth(), dDate.getUTCDate(), 0, 0, 0, 0);
+                  var sDueDate = Globalize.format(dDateUTC, 'd', '@System.Threading.Thread.CurrentThread.CurrentUICulture.ToString()');
+                  $('#DueDate').val(sDueDate);
+               }
+            }
+         }
+
+      </script>
+
+   }
+   
+}

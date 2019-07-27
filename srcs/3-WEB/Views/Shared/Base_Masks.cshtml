@@ -1,0 +1,12 @@
+﻿<script type="text/javascript">
+   $(document).ready(function () {
+               
+      @* $(".mask-date").datepicker({ dateFormat: "dd/mm/yy" }); *@
+      $(".mask-date").mask("00/00/0000", { clearIfNotMatch: true, placeholder: "__/__/____" }); 
+      @* $(".mask-date").inputmask('@Masks.GetDateMask().ToLower()'); *@
+
+      $(".mask-value").mask("@Masks.GetValueMask()", { reverse: true, maxlength: false });
+      @* $(".mask-value").inputmask('decimal', { rightAlign: false, radixPoint: "@Masks.GetDecinalSeparator()", digits: @Masks.GetDecinalDigits() }); *@
+   });
+</script>
+

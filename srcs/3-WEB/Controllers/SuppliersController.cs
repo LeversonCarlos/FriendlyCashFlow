@@ -6,183 +6,163 @@ using System.Web.Mvc;
 
 namespace FriendCash.Web.Controllers
 {
+   [Authorize]
    public class SuppliersController : MasterController
    {
 
-      #region Initialize
+      #region New
       public SuppliersController()
-      {
-         this.PageTitle = "FriendCash :: Suppliers";
-       }
+      { this.PageTitle = Resources.Suppliers.PAGE_TITLE; }
       #endregion
 
-      #region Property
-
-      #region Service
-      private Service.Supplier roService = null;
-      private Service.Supplier Service
-      {
-         get
-         {
-            if (this.roService == null)
-             { this.roService = new Service.Supplier(); }
-            return this.roService;
-          }
-       }
-      #endregion
-
-      #endregion 
-
-      #region Data
-
-      #region GetIndexData
-      public bool GetIndexData(Int16? page, string search)
-      {
-         bool bReturn = false;
-         try
-         {
-
-            // PARAMETERS
-            Service.Parameters oParameters = this.GetParameters(page, ref search);
-
-            // SERVICE CALL
-            Service.Return oReturn = this.Service.GetData(oParameters);
-
-            // CHECK RESULT
-            if (this.CheckResult(oReturn) == true)
-            {
-               ViewData[this.Service.Fields.List] = ((List<Model.Supplier>)oReturn.DATA[this.Service.Fields.List]);
-               ViewData[this.Service.Fields.Search] = search;
-               bReturn = true;
-            }
-         }
-         catch (Exception ex) { ViewData["MSG"] = new List<string>() { ex.Message }; }
-         return bReturn;
-      }
-      #endregion 
-
-      #region GetEditData
-      public bool GetEditData(long id)
-      {
-         bool bReturn = false;
-         try
-         {
-
-            // PARAMETERS
-            Service.Parameters oParameters = this.GetParameters();
-            oParameters.DATA.Add(this.Service.Fields.Key, id);
-
-            // SERVICE CALL
-            Service.Return oReturn = this.Service.GetData(oParameters);
-
-            // CHECK RESULT
-            if (this.CheckResult(oReturn) == true)
-            {
-               ViewData[this.Service.Fields.Entity] = ((List<Model.Supplier>)oReturn.DATA[this.Service.Fields.List]).FirstOrDefault();
-               if (ViewData[this.Service.Fields.Entity] != null)
-                { this.PageTitle += " [" + ((Model.Supplier)ViewData[this.Service.Fields.Entity]).Description + "]"; }
-               bReturn = true;
-            }
-         }
-         catch (Exception ex) { ViewData["MSG"] = new List<string>() { ex.Message }; }
-         return bReturn;
-      }
-      #endregion 
-
-      #region UpdateData
-      public bool UpdateData(Model.Supplier oModel)
-      {
-         bool bReturn = false;
-         try
-         {
-
-            // PARAMETERS
-            Service.Parameters oParameters = this.GetParameters();
-            oParameters.DATA.Add(this.Service.Fields.Entity, oModel);
-
-            // SERVICE
-            Service.Return oReturn = this.Service.Update(oParameters);
-
-            // CHECK RESULT
-            if (this.CheckResult(oReturn) == true)
-            {
-               bReturn = true;
-             }
-
-         }
-         catch (Exception ex) { ViewData["MSG"] = new List<string>() { ex.Message }; }
-
-         return bReturn;
-      }
-      #endregion
-
-      #endregion
-
-      #region Action
 
       #region Index
 
       public ActionResult Index(Int16? page, string search)
       {
-         if (this.GetIndexData(page, search) == true)
-          { return View(ViewData[this.Service.Fields.List]); }
-         else
-          { return View("Error"); }
+         ActionResult oResult = null;
+
+         try
+         {
+
+            // PARAMETERS
+            var oParameters = this.GetParameters(page, ref search);
+
+            // SERVICE CALL
+            var oReturn = Service.Supplier.Index(oParameters);
+
+            // CHECK RESULT
+            if (this.CheckResult(oReturn) == true)
+            {
+               var oList = ((List<Model.Supplier>)oReturn.DATA[Service.Supplier.TAG_ENTITY_LIST]);
+               oResult = View(oList);
+            }
+
+         }
+         catch (Exception ex) { this.AddMessageException(ex.Message); }
+         finally { if (oResult == null) { oResult = View(); } }
+
+         return oResult;
       }
 
       [AcceptVerbs(HttpVerbs.Post)]
-      public ActionResult IndexMore(Int16? page, string search)
+      [ValidateAntiForgeryToken]
+      public ActionResult Index(FriendCash.Web.Search model)
       {
-         if (this.GetIndexData(page, search) == true)
-          { return PartialView("List", ViewData[this.Service.Fields.List]); }
-         else
-          { return View("Error"); }
-       }
-
-      [AcceptVerbs(HttpVerbs.Post)]
-      public ActionResult Index(FriendCash.Web.Code.MyModels.Search model)
-      {
-         if (this.Redirect("Index", model) == true)
-          { return null; }
-         else
-          { return View("Error"); }
+         Int16? page = 1;
+         string search = ""; if (model != null) { search = model.Value; }
+         return this.Index(page, search);
       }
 
       #endregion
 
-      #region New
+      #region Create
       public ActionResult New()
       {
-         if (this.GetEditData(-1) == true)
+         ActionResult oResult = null;
+
+         try
          {
-            this.PageTitle += " [new]";
-            ViewData[this.Service.Fields.Entity] = new Model.Supplier();
-            return View("Edit", ViewData[this.Service.Fields.Entity]);
+
+            // PARAMETERS
+            var oParameters = this.GetParameters();
+
+            // SERVICE CALL
+            var oReturn = Service.Supplier.Create(oParameters);
+
+            // CHECK RESULT
+            if (this.CheckResult(oReturn) == true)
+            {
+               var oEntity = ((Model.Supplier)oReturn.DATA[Service.Supplier.TAG_ENTITY]);
+               this.PageSubTitle = "[new]";
+               oResult = View("Edit", oEntity);
+            }
+
          }
-         else
-          { return View("Error"); }
+         catch (Exception ex) { this.AddMessageException(ex.Message); }
+         finally { if (oResult == null) { oResult = View("Error"); } }
+
+         return oResult;
       }
       #endregion
 
       #region Edit
-
       public ActionResult Edit(long id)
       {
-         if (this.GetEditData(id) == true)
-          { return View(ViewData[this.Service.Fields.Entity]); }
-         else
-          { return View("Error"); }
-      }
+         ActionResult oResult = null;
 
+         try
+         {
+
+            // PARAMETERS
+            var oParameters = this.GetParameters();
+            oParameters.DATA.Add(Service.Supplier.TAG_ENTITY_KEY, id);
+
+            // SERVICE CALL
+            var oReturn = Service.Supplier.Edit(oParameters);
+
+            // CHECK RESULT
+            if (this.CheckResult(oReturn) == true)
+            {
+               var oEntity = ((Model.Supplier)oReturn.DATA[Service.Supplier.TAG_ENTITY]);
+               if (oEntity != null) { this.PageSubTitle = "[" + oEntity.Description + "]"; }
+               oResult = View(oEntity);
+            }
+         }
+         catch (Exception ex) { this.AddMessageException(ex.Message); }
+         finally { if (oResult == null) { oResult = View(); } }
+
+         return oResult;
+      }
+      #endregion
+
+      #region Save
       [AcceptVerbs(HttpVerbs.Post)]
+      [ValidateAntiForgeryToken]
       public ActionResult Edit(Model.Supplier model)
       {
-         if (this.UpdateData(model) == true && this.Redirect("Index") == true)
-          { return null; }
-         else
-          { return View(model); }
-      }
+         var oReturn = new Model.Tools.Package();
 
+         try
+         {
+
+            // PARAMETERS
+            var oParameters = this.GetParameters();
+            oParameters.DATA.Add(Service.Supplier.TAG_ENTITY, model);
+
+            // SERVICE
+            oReturn = Service.Supplier.SaveEdit(oParameters);
+
+         }
+         catch (Exception ex) { oReturn.MSG.Add(new Model.Tools.Message() { Exception = ex.Message }); }
+
+         return this.GetJson(oReturn, Url.Action("Index"));
+      }
+      #endregion
+
+      #region Remove
+      [AcceptVerbs(HttpVerbs.Post)]
+      [ValidateAntiForgeryToken]
+      public JsonResult Remove(Model.Supplier model)
+      {
+         var oReturn = new Model.Tools.Package();
+
+         try
+         {
+
+            // PARAMETERS
+            var oParameters = this.GetParameters();
+            oParameters.DATA.Add(Service.Supplier.TAG_ENTITY, model);
+
+            // SERVICE
+            oReturn = Service.Supplier.SaveRemove(oParameters);
+
+
+         }
+         catch (Exception ex) { oReturn.MSG.Add(new Model.Tools.Message() { Exception = ex.Message }); }
+
+         return this.GetJson(oReturn, Url.Action("Index"));
+      }
       #endregion
 
       #region AutoComplete
@@ -190,24 +170,27 @@ namespace FriendCash.Web.Controllers
       {
          JsonResult oReturn = null;
 
-         // PARAMETERS
-         Service.Parameters oParameters = this.GetParameters(term);
-
-         // SERVICE CALL
-         Service.Return oServiceReturn = this.Service.GetData(oParameters);
-
-         // CHECK RESULT
-         if (this.CheckResult(oServiceReturn) == true)
+         try
          {
-            List<Model.Supplier> oData = ((List<Model.Supplier>)oServiceReturn.DATA[this.Service.Fields.List]);
-            oReturn = Json(oData, JsonRequestBehavior.AllowGet);
+
+            // PARAMETERS
+            var oParameters = this.GetParameters(term);
+
+            // SERVICE CALL
+            var oPackage = Service.Supplier.AutoComplete(oParameters);
+
+            // CHECK RESULT
+            if (this.CheckResult(oPackage) == true)
+            {
+               var oData = ((List<Model.Tools.AutoCompleteData>)oPackage.DATA[Model.Tools.AutoCompleteData.TAG_LIST_NAME]);
+               oReturn = Json(oData, JsonRequestBehavior.AllowGet);
+            }
          }
+         catch { }
 
          return oReturn;
-      } 
+      }
       #endregion
-
-      #endregion 
 
    }
  }

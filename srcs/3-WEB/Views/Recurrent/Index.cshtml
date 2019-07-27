@@ -1,0 +1,49 @@
+﻿@model IEnumerable<FriendCash.Model.Recurrent>
+@{
+   Layout = "~/Views/Shared/Base.cshtml";
+   ViewBag.cssType      = "col-xs-2  col-sm-1";
+   ViewBag.cssDocument  = "col-xs-8  col-sm-4";
+   ViewBag.cssValue     = "col-xs-2  col-sm-2 text-right";
+   ViewBag.cssParcels   = "hidden-xs col-sm-1";
+   ViewBag.cssFrequency = "hidden-xs col-sm-2";
+   ViewBag.cssStatus    = "hidden-xs col-sm-2";
+}
+@section TitleRight 
+{ 
+   @Html.FriendCommandForCreate(new CommandCreate() { Text = FriendCash.Resources.Document.ENUM_TYPE_EXPENSE, Action = Url.Action("NewExpense") })
+   @Html.FriendCommandForCreate(new CommandCreate() { Text = FriendCash.Resources.Document.ENUM_TYPE_INCOME, Action = Url.Action("NewIncome") })
+}
+
+<div class="panel panel-default">
+   <table class="table table-hover">
+      <thead>
+         <tr>
+            <th class="@ViewBag.cssType">@FriendCash.Resources.Document.COLUMN_TYPE</th>
+            <th class="@ViewBag.cssDocument">@FriendCash.Resources.Recurrent.COLUMN_DOCUMENT</th>
+            <th class="@ViewBag.cssValue">@FriendCash.Resources.Recurrent.COLUMN_VALUE</th>
+            <th class="@ViewBag.cssParcels">@FriendCash.Resources.Recurrent.COLUMN_PARCELS</th>
+            <th class="@ViewBag.cssFrequency">@FriendCash.Resources.Recurrent.COLUMN_FREQUENCY</th>
+            <th class="@ViewBag.cssStatus">@FriendCash.Resources.Recurrent.COLUMN_STATUS</th>
+         </tr>
+      </thead>
+      <tbody>
+         @if (Model != null)
+         {
+            foreach (var oItem in Model)
+            {
+               <tr>
+                  <td class="@ViewBag.cssType">@oItem.Type</td>
+                  <td class="@ViewBag.cssDocument">
+                     <a href="@Url.Action("Edit", "Recurrent", new {id=oItem.idRecurrent})">@oItem.DocumentDetails.Description</a>
+                  </td>
+                  <td class="@ViewBag.cssValue">@string.Format("{0:0.00}", oItem.Value)</td>
+                  <td class="@ViewBag.cssParcels">@oItem.ParcelsDescription</td>
+                  <td class="@ViewBag.cssFrequency">@oItem.Frequency</td>
+                  <td class="@ViewBag.cssStatus">@oItem.Status</td>
+               </tr>
+             }
+          }
+      </tbody>
+   </table>
+</div>
+@Html.Partial("Pagination")

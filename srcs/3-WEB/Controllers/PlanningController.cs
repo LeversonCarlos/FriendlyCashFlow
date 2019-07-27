@@ -6,146 +6,46 @@ using System.Web.Mvc;
 
 namespace FriendCash.Web.Controllers
 {
+   [Authorize]
    public class PlanningController : MasterController
    {
 
-      #region Initialize
+      #region New
       public PlanningController()
-      {
-         this.PageTitle = "FriendCash :: Planning";
-       }
+      { this.PageTitle = Resources.Planning.PAGE_TITLE; }
       #endregion
 
-      #region Property
-
-      #region Service
-      private Service.Planning roService = null;
-      private Service.Planning Service
-      {
-         get
-         {
-            if (this.roService == null)
-            { this.roService = new Service.Planning(); }
-            return this.roService;
-         }
-      }
-      #endregion
-
-      #endregion 
-
-      #region Data
-
-      #region GetIndexData
-      private bool GetIndexData(Int16? page, string search)
-      {
-         bool bReturn = false;
-         try
-         {
-
-            // PARAMETERS
-            Service.Parameters oParameters = this.GetParameters(page, ref search);
-            oParameters.DATA.Add("JustParents", true);
-
-            // SERVICE CALL
-            Service.Return oReturn = this.Service.GetData(oParameters);
-
-            // CHECK RESULT
-            if (this.CheckResult(oReturn) == true)
-            {
-               ViewData[this.Service.Fields.List] = ((List<Model.Planning>)oReturn.DATA[this.Service.Fields.List]);
-               ViewData[this.Service.Fields.Search] = search;
-               bReturn = true;
-            }
-         }
-         catch (Exception ex) { ViewData["MSG"] = new List<string>() { ex.Message }; }
-         return bReturn;
-      }
-      #endregion
-
-      #region GetEditData
-      private bool  GetEditData(long id, Model.Document.enType iType)
-      {
-         bool bReturn = false;
-         try
-         {
-
-            // PARAMETERS
-            Service.Parameters oParameters = this.GetParameters();
-            oParameters.DATA.Add(this.Service.Fields.Key, id);
-            oParameters.DATA.Add("BringPlanningTree", true);
-            if (iType != Model.Document.enType.None) { oParameters.DATA.Add("Type", iType); }
-
-            // SERVICE CALL
-            Service.Return oReturn = this.Service.GetData(oParameters);
-
-            // CHECK RESULT
-            if (this.CheckResult(oReturn) == true)
-            {
-               ViewData[this.Service.Fields.Entity] = ((List<Model.Planning>)oReturn.DATA[this.Service.Fields.List]).FirstOrDefault();
-               if (ViewData[this.Service.Fields.Entity] != null)
-                { this.PageTitle += " [" + ((Model.Planning)ViewData[this.Service.Fields.Entity]).Description + "]"; }
-               ViewData["PlanningTree"] = ((List<Model.Planning>)oReturn.DATA["PlanningTree"]);
-               bReturn = true;
-            }
-         }
-         catch (Exception ex) { ViewData["MSG"] = new List<string>() { ex.Message }; }
-         return bReturn;
-      }
-      #endregion
-
-      #region UpdateData
-      public bool UpdateData(Model.Planning oModel)
-      {
-         bool bReturn = false;
-         try
-         {
-
-            // PARAMETERS
-            Service.Parameters oParameters = this.GetParameters();
-            oParameters.DATA.Add(this.Service.Fields.Entity, oModel);
-
-            // SERVICE
-            Service.Return oReturn = this.Service.Update(oParameters);
-
-            // CHECK RESULT
-            if (this.CheckResult(oReturn) == true)
-            {
-               bReturn = true;
-             }
-
-         }
-         catch (Exception ex) { ViewData["MSG"] = new List<string>() { ex.Message }; }
-
-         return bReturn;
-      }
-      #endregion
-
-      #endregion
-
-      #region Action
 
       #region Index
-
       public ActionResult Index(Int16? page, string search)
       {
-         if (this.GetIndexData(page, search) == true)
-          { return View(ViewData[this.Service.Fields.List]); }
-         else
-          { return View("Error"); }
-       }
+         ActionResult oResult = null;
 
-      [AcceptVerbs(HttpVerbs.Post)]
-      public ActionResult Index(FriendCash.Web.Code.MyModels.Search model)
-      {
-         if (this.Redirect("Index", model) == true)
-          { return null; }
-         else
-          { return View("Error"); }
+         try
+         {
+
+            // PARAMETERS
+            var oParameters = this.GetParameters(page, ref search);
+            oParameters.DATA.Add(Service.Planning.TAG_ENTITY_JUST_PARENT, true);
+
+            // SERVICE CALL
+            var oReturn = Service.Planning.Index(oParameters);
+
+            // CHECK RESULT
+            if (this.CheckResult(oReturn) == true)
+            {
+               var oList = ((List<Model.Planning>)oReturn.DATA[Service.Planning.TAG_ENTITY_LIST]);
+               oResult = View(oList);
+            }
+         }
+         catch (Exception ex) { this.AddMessageException(ex.Message); }
+         finally { if (oResult == null) { oResult = View(); } }
+
+         return oResult;
       }
-
       #endregion
 
-      #region New
+      #region Create
 
       public ActionResult NewExpense()
       { return this.New(Model.Document.enType.Expense); }
@@ -155,62 +55,116 @@ namespace FriendCash.Web.Controllers
 
       private ActionResult New(Model.Document.enType iType)
       {
-         if (this.GetEditData(-1, iType) == true)
+         ActionResult oResult = null;
+
+         try
          {
-            this.PageTitle += " [new]";
-            ViewData[this.Service.Fields.Entity] = new Model.Planning() { Type = iType };
-            return View("Edit", ViewData[this.Service.Fields.Entity]);
+
+            // PARAMETERS
+            var oParameters = this.GetParameters();
+            if (iType != Model.Document.enType.None) { oParameters.DATA.Add(Service.Planning.TAG_ENTITY_TYPE, iType); }
+
+            // SERVICE CALL
+            var oReturn = Service.Planning.Create(oParameters);
+
+            // CHECK RESULT
+            if (this.CheckResult(oReturn) == true)
+            {
+               var oEntity = ((Model.Planning)oReturn.DATA[Service.Planning.TAG_ENTITY]);
+               ViewData["PlanningTree"] = ((List<Model.Planning>)oReturn.DATA["PlanningTree"]);
+               this.PageSubTitle = "[new]";
+               oResult = View("Edit", oEntity);
+            }
          }
-         else
-         { return View("Error"); }
+         catch (Exception ex) { this.AddMessageException(ex.Message); }
+         finally { if (oResult == null) { oResult = View("Error"); } }
+
+         return oResult;
       }
 
       #endregion
 
       #region Edit
-
       public ActionResult Edit(long id)
       {
-         if (this.GetEditData(id, Model.Document.enType.None) == true)
-          { return View(ViewData[this.Service.Fields.Entity]); }
-         else
-          { return View("Error"); }
-      }
+         ActionResult oResult = null;
 
-      [AcceptVerbs(HttpVerbs.Post)]
-      public ActionResult Edit(Model.Planning model)
-      {
-         if (this.UpdateData(model) == true && this.Redirect("Index") == true)
-          { return null; }
-         else
-          { return View(model); }
-      }
-
-      #endregion
-
-      #region AutoComplete
-      public JsonResult AutoComplete(string term)
-      {
-         JsonResult oReturn = null;
-
-         // PARAMETERS
-         Service.Parameters oParameters = this.GetParameters(term);
-
-         // SERVICE CALL
-         Service.Return oServiceReturn = this.Service.GetData(oParameters);
-
-         // CHECK RESULT
-         if (this.CheckResult(oServiceReturn) == true)
+         try
          {
-            List<Model.Planning> oData = ((List<Model.Planning>)oServiceReturn.DATA[this.Service.Fields.List]);
-            oReturn = Json(oData, JsonRequestBehavior.AllowGet);
-         }
 
-         return oReturn;
+            // PARAMETERS
+            var oParameters = this.GetParameters();
+            oParameters.DATA.Add(Service.Planning.TAG_ENTITY_KEY, id);
+            oParameters.DATA.Add(Service.Planning.TAG_ENTITY_TYPE, Model.Document.enType.None); // WILL GET FROM MODEL
+
+            // SERVICE CALL
+            var oReturn = Service.Planning.Edit(oParameters);
+
+            // CHECK RESULT
+            if (this.CheckResult(oReturn) == true)
+            {
+               var oEntity = ((Model.Planning)oReturn.DATA[Service.Planning.TAG_ENTITY]);
+               ViewData["PlanningTree"] = ((List<Model.Planning>)oReturn.DATA["PlanningTree"]);
+               if (oEntity != null) { this.PageSubTitle = "[" + oEntity.Description + "]"; }
+               oResult = View(oEntity);
+            }
+         }
+         catch (Exception ex) { this.AddMessageException(ex.Message); }
+         finally { if (oResult == null) { oResult = View(); } }
+
+         return oResult;
       }
       #endregion
 
+      #region Save
+      [AcceptVerbs(HttpVerbs.Post)]
+      [ValidateAntiForgeryToken]
+      public JsonResult Edit(Model.Planning model)
+      {
+         var oReturn = new Model.Tools.Package();
+
+         try
+         {
+
+            // PARAMETERS
+            var oParameters = this.GetParameters();
+            oParameters.DATA.Add(Service.Planning.TAG_ENTITY, model);
+            oParameters.DATA.Add(Service.Planning.TAG_ENTITY_TYPE, model.Type);
+
+            // SERVICE
+            oReturn = Service.Planning.SaveEdit(oParameters);
+            //ViewData["PlanningTree"] = ((List<Model.Planning>)oReturn.DATA["PlanningTree"]); 
+
+         }
+         catch (Exception ex) { oReturn.MSG.Add(new Model.Tools.Message() { Exception = ex.Message }); }
+
+         return this.GetJson(oReturn, Url.Action("Index"));
+      }
       #endregion 
+
+      #region Remove
+      [AcceptVerbs(HttpVerbs.Post)]
+      [ValidateAntiForgeryToken]
+      public JsonResult Remove(Model.Planning model)
+      {
+         var oReturn = new FriendCash.Model.Tools.Package();
+
+         try
+         {
+
+            // PARAMETERS
+            var oParameters = this.GetParameters();
+            oParameters.DATA.Add(Service.Planning.TAG_ENTITY, model);
+
+            // SERVICE
+            oReturn = Service.Planning.SaveRemove(oParameters);
+
+         }
+         catch (Exception ex) { oReturn.MSG.Add(new Model.Tools.Message() { Exception = ex.Message }); }
+
+         return this.GetJson(oReturn, Url.Action("Index"));
+      }
+      #endregion
 
    }
 }

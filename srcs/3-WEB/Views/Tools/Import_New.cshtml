@@ -1,0 +1,22 @@
+﻿@if (((bool)ViewData["ImportExecuting"]) == false) 
+{ 
+   <div class="panel-footer">
+      @using (Html.BeginForm("Import", "Tools", FormMethod.Post, new { enctype = "multipart/form-data" })) 
+      {
+         @Html.AntiForgeryToken()
+         @Html.ValidationSummary(true)
+
+         <div class="row">
+            <div class="col-xs-3">
+               <span>File (csv) to be imported</span>
+            </div>
+            <div class="col-xs-7">
+               <input type="file" name="CsvFile" id="CsvFile"/>
+            </div>
+            <div class="col-xs-2">
+               @Html.FriendCommandForEdit(new CommandSave() { UseCancel = false, UseSubmit = true, Text = "Import", Icon = CommandBase.enIcon.Upload })
+            </div>
+         </div>
+      }
+   </div>
+ }

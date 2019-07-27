@@ -1,0 +1,28 @@
+﻿@model FriendCash.Model.Membership.LocalRegister
+@{
+   ViewBag.jQueryUI = true;
+   Layout = "~/Views/Shared/Base.cshtml";
+}
+
+<div class="panel panel-default">
+   <div class="panel-heading">
+      <div class="row">
+         <div class="col-xs-9">
+            <h3>@FriendCash.Resources.User.TITLE_REGISTER</h3>
+         </div>
+         <div class="col-sm-3 text-right">
+         </div>
+      </div>
+   </div>
+   <div class="panel-body">
+      @using (Html.BeginForm(null, null, new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", @role = "form" })) 
+      {
+         @Html.AntiForgeryToken()
+         @Html.ValidationSummary(true)
+         @Html.FriendTextBoxFor(model => model.UserName)
+         @Html.FriendPasswordFor(model => model.Password)
+         @Html.FriendPasswordFor(model => model.ConfirmPassword)
+         @Html.FriendCommandForEdit(new CommandSave() { UseCancel = false, UseSubmit = true, Text = FriendCash.Resources.User.COMMAND_REGISTER, Icon = CommandBase.enIcon.Save })
+      }
+   </div>
+</div>

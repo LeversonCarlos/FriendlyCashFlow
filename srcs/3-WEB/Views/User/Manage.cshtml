@@ -1,0 +1,14 @@
+﻿@{
+   ViewBag.jQueryUI = true;
+   Layout = "~/Views/Shared/Base.cshtml";
+}
+
+@Html.Partial("Manage_Message")
+<div class="row">
+   <div class="col-sm-9">
+      @Html.Partial("Manage_Password")
+   </div>
+   <div class="col-sm-3">
+      @Html.Partial("Manage_Services")
+   </div>
+</div>

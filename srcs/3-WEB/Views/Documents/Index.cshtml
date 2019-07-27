@@ -1,0 +1,55 @@
+﻿@model IEnumerable<FriendCash.Model.Document>
+@{
+   ViewBag.jQueryUI = true;
+   Layout = "~/Views/Shared/Base.cshtml";
+   ViewBag.SearchModel = new FriendCash.Web.Search(ViewData["Search"], true);
+   ViewBag.cssDescr    = "col-xs-11 col-sm-5 ";
+   ViewBag.cssSupplier = "hidden-xs col-sm-4";
+   ViewBag.cssPlanning = "hidden-xs col-sm-2";
+   ViewBag.cssCommand  = "text-center"; 
+}
+@section TitleRight { @Html.FriendCommandForCreate() }
+
+<div class="panel panel-default">
+   <table class="table table-hover">
+      <thead>
+         <tr>
+            <th class="@ViewBag.cssDescr">@FriendCash.Resources.Document.COLUMN_DESCRIPTION</th>
+            <th class="@ViewBag.cssSupplier">@FriendCash.Resources.Suppliers.COLUMN_ID</th>
+            <th class="@ViewBag.cssPlanning">@FriendCash.Resources.Planning.COLUMN_ID</th>
+            <th class="@ViewBag.cssCommand"></th>
+            <th class="@ViewBag.cssCommand"></th>
+         </tr>
+      </thead>
+      <tbody>
+         @if (Model != null)
+         {
+            foreach (var oItem in Model) {
+               var sDataAction = Url.Action("NewHistory", ViewBag.PageController, new { id = oItem.idDocument, r = Html.Raw(Url.Action("History", ViewBag.PageController, new { id = oItem.idDocument })) }); 
+               <tr>
+                  <td class="@ViewBag.cssDescr">
+                     <a href="@Url.Action("Edit", ViewBag.PageController, new {id=oItem.idDocument})" >
+                        <span class="glyphicon @(oItem.Settled ? "glyphicon-check": "glyphicon-unchecked")"></span>
+                        <span>@oItem.Description</span>
+                        <span class="badge">@oItem.HystoryCount</span>
+                     </a>
+                  </td>
+                  <td class="@ViewBag.cssSupplier">@oItem.SupplierDetails.Description</td>
+                  <td class="@ViewBag.cssPlanning">@oItem.PlanningDetails.Description</td>
+                  <td class="@ViewBag.cssCommand">
+                     <a href="@Url.Action("History", ViewBag.PageController, new {id=oItem.idDocument, page=new Int16?() })" title="@FriendCash.Resources.Document.COMMAND_LIST_HISTORY" >
+                        <span class="glyphicon glyphicon-list"></span>
+                     </a>
+                  </td>
+                  <td class="@ViewBag.cssCommand">
+                     <a class="modal-edit" data-action="@sDataAction" title="@FriendCash.Resources.Document.COMMAND_NEW_HISTORY" >
+                        <span class="glyphicon glyphicon-plus"></span>
+                     </a>
+                  </td>
+               </tr>
+             }
+          }
+      </tbody>
+   </table>
+</div>
+@Html.Partial("Pagination")

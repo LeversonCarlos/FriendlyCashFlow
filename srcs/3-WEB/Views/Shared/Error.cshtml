@@ -1,0 +1,16 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+@{
+   Layout = "~/Views/Shared/Base.cshtml";
+}
+
+<hgroup class="title">
+   <h2 class="error">Error.</h2>
+   <h3 class="error">An error occurred while processing your request.</h3>
+</hgroup>
+@if (Model != null)
+{
+   <div class="alert alert-danger alert-dismissable" >
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <p class="text-danger">@Model.Exception.ToString()</p>
+   </div>
+}

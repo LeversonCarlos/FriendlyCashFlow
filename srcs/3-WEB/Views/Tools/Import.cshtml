@@ -1,0 +1,39 @@
+﻿@{
+   //async
+   ViewBag.jQueryUI = true;
+   Layout = "~/Views/Shared/Base.cshtml";
+   ViewBag.cssCode = "hidden-xs col-sm-2";
+   ViewBag.cssStart = "col-xs-4 col-sm-3";
+   ViewBag.cssFinish = "col-xs-4 col-sm-3";
+   ViewBag.cssStatus = "col-xs-4 col-sm-4";
+}
+
+<div class="panel panel-default">
+   <table class="table table-hover">
+      <thead>
+         <tr>
+            <th class="@ViewBag.cssCode">Code</th>
+            <th class="@ViewBag.cssStart">Start</th>
+            <th class="@ViewBag.cssFinish">Finish</th>
+            <th class="@ViewBag.cssStatus">Status</th>
+         </tr>
+      </thead>
+      <tbody>
+         @foreach (var oItem in ((IEnumerable<FriendCash.Model.ViewImport>)ViewData["Imports"]))
+         {
+            <tr>
+               <td class="@ViewBag.cssCode">@oItem.idImport.ToString()</td>
+               <td class="@ViewBag.cssStart">@string.Format("{0:G}", oItem.StartDate)</td>
+               <td class="@ViewBag.cssFinish">@string.Format("{0:G}", oItem.FinishDate)</td>
+               <td class="@ViewBag.cssStatus">@Html.Partial("Import_ProgressBar", oItem)</td>
+            </tr>
+          }
+      </tbody>
+   </table>
+   @Html.Partial("Import_New")
+</div>
+<script type="text/javascript">
+   $(document).ready(function () {
+      $('.popoverSelector').popover();
+   });
+</script>

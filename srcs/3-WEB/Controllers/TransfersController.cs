@@ -6,186 +6,161 @@ using System.Web.Mvc;
 
 namespace FriendCash.Web.Controllers
 {
+   [Authorize]
    public class TransfersController : MasterController
    {
 
-      #region Initialize
+      #region New
       public TransfersController()
-      {
-         this.PageTitle = "FriendCash :: Transfers";
-       }
+      { this.PageTitle = Resources.Transfer.PAGE_TITLE; }
       #endregion
 
-      #region Property
-
-      #region Service
-      private Service.Transfer roService = null;
-      private Service.Transfer Service
-      {
-         get
-         {
-            if (this.roService == null)
-            { this.roService = new Service.Transfer(); }
-            return this.roService;
-         }
-      }
-      #endregion
-
-      #endregion 
-
-      #region Data
-
-      #region GetIndexData
-      public bool GetIndexData(Int16? page, string search)
-      {
-         bool bReturn = false;
-         try
-         {
-
-            // PARAMETERS
-            Service.Parameters oParameters = this.GetParameters(page, ref search);
-
-            // SERVICE CALL
-            Service.Return oReturn = this.Service.GetData(oParameters);
-
-            // CHECK RESULT
-            if (this.CheckResult(oReturn) == true)
-            {
-               ViewData[this.Service.Fields.List] = ((List<Model.Transfer>)oReturn.DATA[this.Service.Fields.List]);
-               ViewData[this.Service.Fields.Search] = search;
-               bReturn = true;
-             }
-         }
-         catch (Exception ex) { ViewData["MSG"] = new List<string>() { ex.Message }; }
-         return bReturn;
-      }
-      #endregion
-
-      #region GetEditData
-      public bool GetEditData(long id)
-      {
-         bool bReturn = false;
-         try
-         {
-
-            // PARAMETERS
-            Service.Parameters oParameters = this.GetParameters();
-            oParameters.DATA.Add(this.Service.Fields.Key, id);
-
-            // SERVICE CALL
-            Service.Return oReturn = this.Service.GetData(oParameters);
-
-            // CHECK RESULT
-            if (this.CheckResult(oReturn) == true)
-            {
-               ViewData[this.Service.Fields.Entity] = ((List<Model.Transfer>)oReturn.DATA[this.Service.Fields.List]).FirstOrDefault();
-               if (ViewData[this.Service.Fields.Entity] != null)
-                { this.PageTitle += " [" + ((Model.Transfer)ViewData[this.Service.Fields.Entity]).DocumentDetails.Description + "]"; }
-               bReturn = true;
-            }
-         }
-         catch (Exception ex) { ViewData["MSG"] = new List<string>() { ex.Message }; }
-         return bReturn;
-      }
-      #endregion
-
-      #region UpdateData
-      public bool UpdateData(Model.Transfer oModel)
-      {
-         bool bReturn = false;
-         try
-         {
-
-            // PARAMETERS
-            Service.Parameters oParameters = this.GetParameters();
-            oParameters.DATA.Add(this.Service.Fields.Entity, oModel);
-
-            // SERVICE
-            Service.Return oReturn = this.Service.Update(oParameters);
-
-            // CHECK RESULT
-            if (this.CheckResult(oReturn) == true)
-            {
-               bReturn = true;
-             }
-
-         }
-         catch (Exception ex) { ViewData["MSG"] = new List<string>() { ex.Message }; }
-
-         return bReturn;
-      }
-      #endregion
-
-      #endregion
-
-      #region Action
 
       #region Index
 
       public ActionResult Index(Int16? page, string search)
       {
-         if (this.GetIndexData(page, search) == true)
-          { return View(ViewData[this.Service.Fields.List]); }
-         else
-          { return View("Error"); }
+         ActionResult oResult = null;
+
+         try
+         {
+
+            // PARAMETERS
+            var oParameters = this.GetParameters(page, ref search);
+
+            // SERVICE CALL
+            var oReturn = Service.Transfer.Index(oParameters);
+
+            // CHECK RESULT
+            if (this.CheckResult(oReturn) == true)
+            {
+               var oList = ((List<Model.Transfer>)oReturn.DATA[Service.Transfer.TAG_ENTITY_LIST]);
+               oResult = View(oList);
+            }
+         }
+         catch (Exception ex) { this.AddMessageException(ex.Message); }
+         finally { if (oResult == null) { oResult = View(); } }
+
+         return oResult;
       }
 
       [AcceptVerbs(HttpVerbs.Post)]
-      public ActionResult IndexMore(Int16? page, string search)
+      [ValidateAntiForgeryToken]
+      public ActionResult Index(FriendCash.Web.Search model)
       {
-         if (this.GetIndexData(page, search) == true)
-          { return PartialView("List", ViewData[this.Service.Fields.List]); }
-         else
-          { return View("Error"); }
-      }
-
-      [AcceptVerbs(HttpVerbs.Post)]
-      public ActionResult Index(FriendCash.Web.Code.MyModels.Search model)
-      {
-         if (this.Redirect("Index", model) == true)
-          { return null; }
-         else
-          { return View("Error"); }
+         Int16? page = 1;
+         string search = ""; if (model != null) { search = model.Value; }
+         return this.Index(page, search);
       }
 
       #endregion
 
-      #region New
+      #region Create
       public ActionResult New()
       {
-         if (this.GetEditData(-1) == true)
+         ActionResult oResult = null;
+
+         try
          {
-            this.PageTitle += " [new]";
-            ViewData[this.Service.Fields.Entity] = new Model.Transfer() { DueDate = DateTime.Now };
-            return View("Edit", ViewData[this.Service.Fields.Entity]);
+
+            // PARAMETERS
+            var oParameters = this.GetParameters();
+
+            // SERVICE CALL
+            var oReturn = Service.Transfer.Create(oParameters);
+
+            // CHECK RESULT
+            if (this.CheckResult(oReturn) == true)
+            {
+               var oEntity = ((Model.Transfer)oReturn.DATA[Service.Transfer.TAG_ENTITY]);
+               this.PageSubTitle = "[new]";
+               oResult = View("Edit", oEntity);
+            }
          }
-         else
-         { return View("Error"); }
+         catch (Exception ex) { this.AddMessageException(ex.Message); }
+         finally { if (oResult == null) { oResult = View("Edit"); } }
+
+         return oResult;
       }
       #endregion
 
       #region Edit
-
       public ActionResult Edit(long id)
       {
-         if (this.GetEditData(id) == true)
-          { return View(ViewData[this.Service.Fields.Entity]); }
-         else
-          { return View("Error"); }
-      }
+         ActionResult oResult = null;
 
-      [AcceptVerbs(HttpVerbs.Post)]
-      public ActionResult Edit(Model.Transfer model)
-      {
-         if (this.UpdateData(model) == true && this.Redirect("Index") == true)
-          { return null; }
-         else
-          { return View(model); }
-      }
+         try
+         {
 
+            // PARAMETERS
+            var oParameters = this.GetParameters();
+            oParameters.DATA.Add(Service.Transfer.TAG_ENTITY_KEY, id);
+
+            // SERVICE CALL
+            var oReturn = Service.Transfer.Edit(oParameters);
+
+            // CHECK RESULT
+            if (this.CheckResult(oReturn) == true)
+            {
+               var oEntity = ((Model.Transfer)oReturn.DATA[Service.Transfer.TAG_ENTITY]);
+               if (oEntity != null && oEntity.DocumentDetails != null) { this.PageSubTitle = "[" + oEntity.DocumentDetails.Description + "]"; }
+               oResult = View(oEntity);
+            }
+         }
+         catch (Exception ex) { this.AddMessageException(ex.Message); }
+         finally { if (oResult == null) { oResult = View(); } }
+
+         return oResult;
+      }
       #endregion
 
+      #region Save
+      [AcceptVerbs(HttpVerbs.Post)]
+      [ValidateAntiForgeryToken]
+      public JsonResult Edit(Model.Transfer model)
+      {
+         var oReturn = new Model.Tools.Package();
+
+         try
+         {
+
+            // PARAMETERS
+            var oParameters = this.GetParameters();
+            oParameters.DATA.Add(Service.Transfer.TAG_ENTITY, model);
+
+            // SERVICE
+            oReturn = Service.Transfer.SaveEdit(oParameters);
+
+         }
+         catch (Exception ex) { oReturn.MSG.Add(new Model.Tools.Message() { Exception = ex.Message }); }
+
+         return this.GetJson(oReturn, Url.Action("Index"));
+      }
       #endregion 
+
+      #region Remove
+      [AcceptVerbs(HttpVerbs.Post)]
+      [ValidateAntiForgeryToken]
+      public JsonResult Remove(Model.Transfer model)
+      {
+         var oReturn = new Model.Tools.Package();
+
+         try
+         {
+
+            // PARAMETERS
+            var oParameters = this.GetParameters();
+            oParameters.DATA.Add(Service.Transfer.TAG_ENTITY, model);
+
+            // SERVICE
+            oReturn = Service.Transfer.SaveRemove(oParameters);
+
+         }
+         catch (Exception ex) { oReturn.MSG.Add(new Model.Tools.Message() { Exception = ex.Message }); }
+
+         return this.GetJson(oReturn, Url.Action("Index"));
+      }
+      #endregion
 
    }
 }

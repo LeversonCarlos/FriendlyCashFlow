@@ -6,194 +6,173 @@ using System.Web.Mvc;
 
 namespace FriendCash.Web.Controllers
 {
+   [Authorize]
    public partial class DocumentsController : MasterController
    {
 
-      #region Initialize
+      #region New
       protected DocumentsController(FriendCash.Model.Document.enType iType)
       {
          this.Type = iType;
-         this.PageTitle = "FriendCash :: " + this.Type.ToString() + "s";
+         ViewBag.PageController = this.Type.ToString() + "s";
+         if (this.Type == Model.Document.enType.Expense) { ViewBag.PageTitle = Resources.Document.ENUM_TYPE_EXPENSE; }
+         else if (this.Type == Model.Document.enType.Income) { ViewBag.PageTitle = Resources.Document.ENUM_TYPE_INCOME; }
        }
-      #endregion
-
-      #region Property
-
-      #region Type
       protected FriendCash.Model.Document.enType Type { get; private set; }
       #endregion
 
-      #region ServiceDocument
-      private Service.Document roServiceDocument = null;
-      private Service.Document ServiceDocument
-      {
-         get
-         {
-            if (this.roServiceDocument == null)
-            { this.roServiceDocument = new Service.Document(); }
-            return this.roServiceDocument;
-         }
-      }
-      #endregion
-
-      #endregion
-
-      #region Data
-
-      #region GetDocumentIndexData
-      private bool GetDocumentIndexData(Int16? page, string search)
-      {
-         bool bReturn = false;
-         try
-         {
-
-            // PARAMETERS
-            Service.Parameters oParameters = this.GetParameters(page, ref search);
-            oParameters.DATA.Add("Type", this.Type);
-
-            // SERVICE CALL
-            Service.Return oReturn = this.ServiceDocument.GetData(oParameters);
-
-            // CHECK RESULT
-            if (this.CheckResult(oReturn) == true)
-            {
-               ViewData[this.ServiceDocument.Fields.List] = ((List<Model.Document>)oReturn.DATA[this.ServiceDocument.Fields.List]);
-               ViewData[this.ServiceDocument.Fields.Search] = search;
-               bReturn = true;
-             }
-
-          }
-         catch (Exception ex) { ViewData["MSG"] = new List<string>() { ex.Message }; }
-         return bReturn;
-       }
-      #endregion
-
-      #region GetDocumentEditData
-      public bool GetDocumentEditData(long id)
-      {
-         bool bReturn = false;
-         try
-         {
-
-            // PARAMETERS
-            Service.Parameters oParameters = this.GetParameters();
-            oParameters.DATA.Add("BringPlanningTree", true);
-            oParameters.DATA.Add("Type", this.Type);
-            oParameters.DATA.Add(this.ServiceDocument.Fields.Key, id);
-
-            // SERVICE CALL
-            Service.Return oReturn = this.ServiceDocument.GetData(oParameters);
-
-            // CHECK RESULT
-            if (this.CheckResult(oReturn) == true)
-            {
-               ViewData[this.ServiceDocument.Fields.Entity] = ((List<Model.Document>)oReturn.DATA[this.ServiceDocument.Fields.List]).FirstOrDefault();
-               if (ViewData[this.ServiceDocument.Fields.Entity] != null)
-                { this.PageTitle += " [" + ((Model.Document)ViewData[this.ServiceDocument.Fields.Entity]).Description + "]"; }
-               ViewData["PlanningTree"] = ((List<Model.Planning>)oReturn.DATA["PlanningTree"]);
-               bReturn = true;
-            }
-         }
-         catch (Exception ex) { ViewData["MSG"] = new List<string>() { ex.Message }; }
-         return bReturn;
-      }
-      #endregion
-
-      #region UpdateDocumentData
-      public bool UpdateDocumentData(Model.Document oModel)
-      {
-         bool bReturn = false;
-         try
-         {
-
-            // PARAMETERS
-            Service.Parameters oParameters = this.GetParameters();
-            oModel.Type = this.Type;
-            oParameters.DATA.Add(this.ServiceDocument.Fields.Entity, oModel);
-
-            // SERVICE
-            Service.Return oReturn = this.ServiceDocument.Update(oParameters);
-
-            // CHECK RESULT
-            if (this.CheckResult(oReturn) == true)
-            {
-               bReturn = true;
-             }
-
-         }
-         catch (Exception ex) { ViewData["MSG"] = new List<string>() { ex.Message }; }
-
-         return bReturn;
-      }
-      #endregion
-
-      #endregion
-
-      #region Action
 
       #region Index
 
       public ActionResult Index(Int16? page, string search)
       {
-         if (this.GetDocumentIndexData(page, search) == true)
-          { return View("~/Views/Documents/Index.aspx", ViewData[this.ServiceDocument.Fields.List]); }
-         else
-          { return View("Error"); }
-       }
+         ActionResult oResult = null;
+
+         try
+         {
+
+            // PARAMETERS
+            var oParameters = this.GetParameters(page, ref search, true);
+            oParameters.DATA.Add(Service.Document.TAG_ENTITY_TYPE, this.Type);
+
+            // SERVICE CALL
+            var oReturn = Service.Document.Index(oParameters);
+
+            // CHECK RESULT
+            if (this.CheckResult(oReturn) == true)
+            {
+               var oList = ((List<Model.Document>)oReturn.DATA[Service.Document.TAG_ENTITY_LIST]);
+               oResult = View("~/Views/Documents/Index.cshtml", oList);
+            }
+
+         }
+         catch (Exception ex) { this.AddMessageException(ex.Message); }
+         finally { if (oResult == null) { oResult = View("~/Views/Documents/Index.cshtml"); } }
+
+         return oResult;
+      }
 
       [AcceptVerbs(HttpVerbs.Post)]
-      public ActionResult IndexMore(Int16? page, string search)
+      [ValidateAntiForgeryToken]
+      public ActionResult Index(FriendCash.Web.Search model)
       {
-         if (this.GetDocumentIndexData(page, search) == true)
-         { return PartialView("~/Views/Documents/List.ascx", ViewData[this.ServiceDocument.Fields.List]); }
-         else
-          { return View("Error"); }
-       }
-
-      [AcceptVerbs(HttpVerbs.Post)]
-      public ActionResult Index(FriendCash.Web.Code.MyModels.Search model)
-      {
-         if (this.Redirect("Index", model) == true)
-          { return null; }
-         else
-          { return View("Error"); }
+         Int16? page = 1;
+         string search = ""; if (model != null) { search = model.Value; }
+         return this.Index(page, search);
       }
 
       #endregion
 
-      #region New
+      #region Create
       public ActionResult New()
       {
-         if (this.GetDocumentEditData(-1) == true)
+         ActionResult oResult = null;
+
+         try
          {
-            this.PageTitle += " [new]";
-            ViewData[this.ServiceDocument.Fields.Entity] = new Model.Document();
-            return View("~/Views/Documents/Edit.aspx", ViewData[this.ServiceDocument.Fields.Entity]);
-          }
-         else
-         { return View("Error"); }
+
+            // PARAMETERS
+            var oParameters = this.GetParameters();
+            oParameters.DATA.Add(Service.Document.TAG_ENTITY_TYPE, this.Type);
+
+            // SERVICE CALL
+            var oReturn = Service.Document.Create(oParameters);
+
+            // CHECK RESULT
+            if (this.CheckResult(oReturn) == true)
+            {
+               var oEntity = ((Model.Document)oReturn.DATA[Service.Document.TAG_ENTITY]);
+               ViewData["PlanningTree"] = ((List<Model.Planning>)oReturn.DATA["PlanningTree"]);
+               this.PageSubTitle = "[new]";
+               oResult = View("~/Views/Documents/Edit.cshtml", oEntity);
+            }
+         }
+         catch (Exception ex) { this.AddMessageException(ex.Message); }
+         finally { if (oResult == null) { oResult = View("~/Views/Documents/Edit.cshtml"); } }
+
+         return oResult;
        }
       #endregion
 
       #region Edit
-
       public ActionResult Edit(long id)
       {
-         if (this.GetDocumentEditData(id) == true)
-         { return View("~/Views/Documents/Edit.aspx", ViewData[this.ServiceDocument.Fields.Entity]); }
-         else
-          { return View("Error"); }
+         ActionResult oResult = null;
+
+         try
+         {
+
+            // PARAMETERS
+            var oParameters = this.GetParameters();
+            oParameters.DATA.Add(Service.Document.TAG_ENTITY_TYPE, this.Type);
+            oParameters.DATA.Add(Service.Document.TAG_ENTITY_KEY, id);
+
+            // SERVICE CALL
+            var oReturn = Service.Document.Edit(oParameters);
+
+            // CHECK RESULT
+            if (this.CheckResult(oReturn) == true)
+            {
+               var oEntity = ((Model.Document)oReturn.DATA[Service.Document.TAG_ENTITY]);
+               ViewData["PlanningTree"] = ((List<Model.Planning>)oReturn.DATA["PlanningTree"]);
+               if (oEntity != null) { this.PageSubTitle = "[" + oEntity.Description + "]"; }
+               oResult = View("~/Views/Documents/Edit.cshtml", oEntity);
+            }
+         }
+         catch (Exception ex) { this.AddMessageException(ex.Message); }
+         finally { if (oResult == null) { oResult = View("~/Views/Documents/Edit.cshtml"); } }
+
+         return oResult;
       }
+      #endregion
 
+      #region Save
       [AcceptVerbs(HttpVerbs.Post)]
-      public ActionResult Edit(Model.Document model)
+      [ValidateAntiForgeryToken]
+      public JsonResult Edit(Model.Document model)
       {
-         if (this.UpdateDocumentData(model) == true && this.Redirect("Index") == true)
-          { return null; }
-         else
-          { return View("~/Views/Documents/Edit.aspx", model); }
-       }
+         var oReturn = new Model.Tools.Package();
 
+         try
+         {
+
+            // PARAMETERS
+            var oParameters = this.GetParameters();
+            oParameters.DATA.Add(Service.Document.TAG_ENTITY, model);
+
+            // SERVICE
+            oReturn = Service.Document.SaveEdit(oParameters);
+            //ViewData["PlanningTree"] = ((List<Model.Planning>)oReturn.DATA["PlanningTree"]);
+
+         }
+         catch (Exception ex) { oReturn.MSG.Add(new Model.Tools.Message() { Exception = ex.Message }); }
+
+         return this.GetJson(oReturn, Url.Action("Index"));
+      }
+      #endregion
+
+      #region Remove
+      [AcceptVerbs(HttpVerbs.Post)]
+      [ValidateAntiForgeryToken]
+      public JsonResult Remove(Model.Document oModel)
+      {
+         var oReturn = new Model.Tools.Package();
+
+         try
+         {
+
+            // PARAMETERS
+            var oParameters = this.GetParameters();
+            oParameters.DATA.Add(Service.Document.TAG_ENTITY, oModel);
+
+            // SERVICE
+            oReturn = Service.Document.SaveRemove(oParameters);
+
+         }
+         catch (Exception ex) { oReturn.MSG.Add(new Model.Tools.Message() { Exception = ex.Message }); }
+
+         return this.GetJson(oReturn, Url.Action("Index"));
+      }
       #endregion
 
       #region AutoComplete
@@ -202,16 +181,16 @@ namespace FriendCash.Web.Controllers
          JsonResult oReturn = null;
 
          // PARAMETERS
-         Service.Parameters oParameters = this.GetParameters(term);
-         oParameters.DATA.Add("Type", this.Type);
+         var oParameters = this.GetParameters(term);
+         oParameters.DATA.Add(Service.Document.TAG_ENTITY_TYPE, this.Type);
 
          // SERVICE CALL
-         Service.Return oServiceReturn = this.ServiceDocument.GetData(oParameters);
+         var oServiceReturn = Service.Document.AutoComplete(oParameters);
 
          // CHECK RESULT
          if (this.CheckResult(oServiceReturn) == true)
          {
-            List<Model.Document> oData = ((List<Model.Document>)oServiceReturn.DATA[this.ServiceDocument.Fields.List]);
+            var oData = ((List<Model.Tools.AutoCompleteData>)oServiceReturn.DATA[Model.Tools.AutoCompleteData.TAG_LIST_NAME]);
             oReturn = Json(oData, JsonRequestBehavior.AllowGet);
           }
 
@@ -219,6 +198,34 @@ namespace FriendCash.Web.Controllers
       }
       #endregion
 
+      #region Indicators
+      public PartialViewResult Indicators(long id)
+      {
+         PartialViewResult oResult = null;
+
+         try
+         {
+
+            // PARAMETERS
+            var oParameters = this.GetParameters();
+            oParameters.DATA.Add(Service.Document.TAG_ENTITY_TYPE, this.Type);
+            oParameters.DATA.Add(Service.Document.TAG_ENTITY_KEY, id);
+
+            // SERVICE CALL
+            var oReturn = Service.Document.GetIndicators(oParameters);
+
+            // CHECK RESULT
+            if (this.CheckResult(oReturn) == true)
+            {
+               var oEntity = ((Model.DocumentIndicators)oReturn.DATA[Service.Document.TAG_ENTITY_INDICATORS]);
+               oResult = PartialView("~/Views/Documents/Indicators.cshtml", oEntity);
+            }
+         }
+         catch (Exception ex) { this.AddMessageException(ex.Message); }
+         finally { if (oResult == null) { oResult = PartialView("~/Views/Documents/Indicators.cshtml"); } }
+
+         return oResult;
+      }
       #endregion
 
    }

@@ -1,0 +1,50 @@
+﻿@model IEnumerable<FriendCash.Model.History>
+@{
+      ViewBag.cssDate = "text-center col-xs-6  col-sm-4  hidden-md hidden-lg";
+   ViewBag.cssDueDate = "text-center hidden-xs hidden-sm col-md-3";
+     ViewBag.cssValue = "text-right  col-xs-6  col-sm-4  col-md-3";
+   ViewBag.cssPayDate = "text-center hidden-xs hidden-sm col-md-3";
+   ViewBag.cssAccount = "text-left   hidden-xs col-sm-4  col-md-3";
+}
+
+<div class="panel panel-default">
+   <table class="table table-hover">
+      <thead>
+         <tr>
+            <th></th>
+            <th class="@ViewBag.cssDate">@FriendCash.Resources.Flow.COLUMN_DATE</th>
+            <th class="@ViewBag.cssDueDate">@FriendCash.Resources.History.COLUMN_DUE_DATE</th>
+            <th class="@ViewBag.cssValue">@FriendCash.Resources.History.COLUMN_VALUE</th>
+            <th class="@ViewBag.cssPayDate">@FriendCash.Resources.History.COLUMN_PAY_DATE</th>
+            <th class="@ViewBag.cssAccount">@FriendCash.Resources.Accounts.COLUMN_ID</th>
+         </tr>
+      </thead>
+      <tbody>
+         @if (Model != null)
+         {
+            foreach (var oItem in Model)
+            {
+               var sDataAction = Url.Action("EditHistory", ViewBag.PageController, new { id = oItem.idHistory, r = Html.Raw(Url.Action("History", ViewBag.PageController)) });
+               <tr>
+                  <td><span class="glyphicon @(oItem.Settled ? "glyphicon-check": "glyphicon-unchecked")"></span></td>
+                  <td class="@ViewBag.cssDate">
+                     <a class="modal-edit" data-action="@sDataAction">
+                        @if (oItem.Settled){ <span>@string.Format("{0:d}", oItem.PayDate)</span> }
+                        else { <span>@string.Format("{0:d}", oItem.DueDate)</span> }
+                     </a>
+                  </td>
+                  <td class="@ViewBag.cssDueDate">
+                     <a class="modal-edit" data-action="@sDataAction">
+                        <span>@string.Format("{0:d}", oItem.DueDate)</span>
+                     </a>
+                  </td>
+                  <td class="@ViewBag.cssValue">@string.Format("{0:c2}", oItem.Value)</td>
+                  <td class="@ViewBag.cssPayDate">@string.Format("{0:d}", oItem.PayDate)</td>
+                  <td class="@ViewBag.cssAccount">@(oItem.AccountDetails==null? string.Empty: oItem.AccountDetails.Description)</td>
+               </tr>
+             }
+          }
+      </tbody>
+   </table>
+</div>
+@Html.Partial("Pagination")

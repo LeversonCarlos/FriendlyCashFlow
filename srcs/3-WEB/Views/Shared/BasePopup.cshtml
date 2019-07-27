@@ -1,0 +1,25 @@
+﻿<div id='MyPopup' class='modal fade modal-primary' tabindex='-1' role='dialog' aria-labelledby='MyPopupTitle' aria-hidden='false'>
+   <div class='modal-dialog modal-lg'>
+      <div class='modal-content'>
+
+         <div class='modal-header'>
+            <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+            <h4 class='modal-title' id='MyPopupTitle'>@ViewBag.PageTitle<small class="hidden-xs"> @ViewBag.PageSubTitle</small></h4>
+         </div>
+
+         <div class='modal-body'>
+            <div class="row">
+               @RenderBody()
+            </div>
+         </div>
+
+         <div class='modal-footer'>
+            <div class="row text-left">
+               @RenderSection("Footer", required: false)
+            </div>
+            @Html.Partial("Base_Masks")
+         </div>
+
+      </div>
+   </div>
+</div>

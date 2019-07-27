@@ -1,0 +1,21 @@
+﻿section {margin-top:42px; margin-bottom:25px;}
+.navbar-brand {width:150px; height:40px; background:url(Coins.png) no-repeat top left; }
+.navbar-brand:hover {background-color:transparent !important;}
+
+.div-table { display: table; width:100%; }
+.div-table-row { display: table-row; }
+.div-table-cell { display: table-cell; padding:3px 5px; }
+
+<!-- 
+.navbar-xs { min-height:22px; border-radius:0} 
+.navbar-xs .navbar-brand{ padding: 2px 8px; font-size:14px; line-height:14px; max-height:22px; } 
+.navbar-xs .navbar-nav > li > a { border-right:1px solid #ddd; padding-top: 2px; padding-bottom: 2px; line-height: 16px }
+.navbar-xs input {    }
+-->
+
+.btn-social {background-color:#ddd; border-color:#000; color:#fff; }
+.btn-social-google {background-color:#dd4b39; }
+.btn-social-twitter {background-color:#00aced; }
+.btn-social-facebook {background-color:#3b5998; }
+
+.affix-top {position:fixed; z-index:1; top:60px; right:5px; }

@@ -9,7 +9,7 @@ namespace FriendCash.Web.Controllers
    public class IncomesController : DocumentsController
    {
 
-      #region Initialize
+      #region New
       public IncomesController() : base(Model.Document.enType.Income)
       { }
       #endregion

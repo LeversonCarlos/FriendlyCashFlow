@@ -1,0 +1,135 @@
+﻿// AUTO COMPLETE
+.ui-autocomplete { .list-group; position: absolute; z-index:1060; }
+.ui-autocomplete .ui-menu-item { 
+   .list-group-item; 
+   .list-group-item-foranchor; 
+   background-color: @input-bg;
+   border-color: @input-border;
+   color: @input-color;
+   cursor: default;
+}
+
+// DATE PICKER
+// .ui-datepicker { .panel; .panel-default; }
+
+.nowrap {
+   white-space: nowrap; 
+   overflow: hidden;
+}
+
+.navbar-nav {
+
+   > li {
+      border-width: 0px 1px 0px 0px;
+      border-style: solid;
+   }
+
+   > li:first-child {
+      border-left-width: 1px;
+   }
+
+   > li.create-new {
+      min-width: @navbar-height;
+      text-align: center;
+
+      @media (max-width: @grid-float-breakpoint) {
+         min-width: auto; 
+         text-align: left;
+      }
+
+      ul{
+         text-align: left;
+      }
+
+   }
+}
+
+.navbar-default {
+   .navbar-nav {
+
+      > li {
+         border-color: @navbar-default-border;
+      }
+      > li:hover{
+         background-color: darken(@navbar-default-bg, 5%);
+      }
+
+   }
+}
+
+.navbar-inverse {
+   .navbar-nav {
+
+      > li {
+         border-color: @navbar-inverse-border;
+      }
+      > li:hover{
+         background-color: darken(@navbar-inverse-bg, 5%);
+      }
+
+   }
+}
+.navbar-title {
+   .navbar-text;
+   .h4;
+   color: @brand-black;
+   small { color:@gray-darker; }
+}
+
+// GRAPH
+.graph {
+   height: 100%;
+   width: 100%;
+   }
+
+.graph-grid {
+   stroke: @table-border-color;
+   stroke-width: 0.3px;
+   }
+
+.graph-avg {
+   stroke: @table-border-color;
+   stroke-width: 0.1px;
+}
+
+.graph-label {
+   font-size:3px;
+   fill: @text-color;
+   }
+
+.graph-value {
+   font-size:3px;
+   fill: @text-color;
+   }
+
+.graph-success {fill: @brand-success; }
+.graph-danger {fill: @brand-danger; }
+
+
+// TREEVIEW
+.treeview-group {
+   border:0px; 
+   border-top:1px solid lighten(@table-border-color, 5%);
+   margin-bottom:0px;
+}
+
+.treeview-group-item {
+   border:0px; 
+   border-bottom:1px solid lighten(@table-border-color, 5%);
+   margin:0px;
+   padding:2px;
+   padding-left:10px;
+}
+
+// MODAL
+.modal-edit {
+   cursor: pointer;
+}
+.modal-primary {
+   .modal-header {
+      background-color: darken(@brand-silver,15%);
+   }
+   .modal-footer {
+      background-color: darken(@brand-silver,5%);
+   }
+}

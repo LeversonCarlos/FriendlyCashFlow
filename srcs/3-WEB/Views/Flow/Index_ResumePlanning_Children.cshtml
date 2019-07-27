@@ -1,0 +1,32 @@
+﻿@model List<FriendCash.Model.ViewPlanningFlow>
+@foreach (var oPlanning in Model)
+{
+   var sAccordion = "accordion" + Model.FirstOrDefault().idPlanning.ToString();
+   var bHasChildrens = (oPlanning.Childrens != null && oPlanning.Childrens.Count != 0);
+   <div class="list-group-item treeview-group-item" id="@sAccordion" >
+      <a data-toggle="collapse" data-parent="#@(sAccordion)" href="#collapse@(oPlanning.idPlanning)" class="collapsed">
+         <span class="glyphicon glyphicon-@( (bHasChildrens?"expand":"unchecked") )"></span>
+         <span>@oPlanning.Description</span>
+         <span class="pull-right">@string.Format("{0:c2}", oPlanning.Value)</span>
+      </a>
+      @if (bHasChildrens)
+      {
+         <div id="collapse@(oPlanning.idPlanning)" class="collapse list-group treeview-group">
+            @Html.Partial("Index_ResumePlanning_Children", oPlanning.Childrens)
+            @*
+            @{
+               var oGraphBar =
+                  (from FLOW in Model
+                     where FLOW.idPlanning == oPlanning.idPlanning
+                     select new GraphBar
+                     {
+                        Text = string.Format("{0:MMM}", FLOW.Date).ToUpper(),
+                        Value = FLOW.Value, 
+                     }).ToList();
+               }
+            @Html.Partial("Graph_Bars", oGraphBar)
+            *@
+         </div>
+      }
+   </div>
+ }

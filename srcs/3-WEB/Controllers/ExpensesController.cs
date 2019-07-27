@@ -9,9 +9,8 @@ namespace FriendCash.Web.Controllers
    public class ExpensesController : DocumentsController
    {
 
-      #region Initialize
-      public ExpensesController()
-         : base(Model.Document.enType.Expense)
+      #region New
+      public ExpensesController() : base(Model.Document.enType.Expense)
       { }
       #endregion
 

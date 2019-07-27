@@ -1,0 +1,43 @@
+﻿@model FriendCash.Model.ViewImport
+
+@if (Model.Status == FriendCash.Model.Import.enStatus.Canceled) 
+{
+   <a class="popoverSelector" rel="popover" data-trigger="hover" data-content="@Model.Message" data-placement="bottom" >@Model.Status.ToString()</a>
+ }
+
+else if (Model.Status == FriendCash.Model.Import.enStatus.Finished) 
+{ 
+   @Model.Status.ToString() <span>(Imported @Model.ImportedSucess.ToString() records)</span>
+ }
+
+else 
+{
+   <div id='ProgressBar@(Model.idImport.ToString())' class="progress progress-striped active" style="margin-bottom:0px;">
+      <div id='ProgressText@(Model.idImport.ToString())' class="progress-bar">@Model.Status.ToString()</div>
+   </div>
+
+   <script type="text/javascript">
+      $(document).ready(function () {
+         var progressRefresh = setInterval(function () {
+            GetProgressStep@(Model.idImport.ToString())(progressRefresh);
+         }, 1000);
+      });
+      function GetProgressStep@(Model.idImport.ToString())(progressRefresh) {
+         $.ajax({
+            type: 'GET',
+            url: 'ImportProgressStep/@Model.idImport.ToString()/',
+            datatype: "application/json; charset=utf-8",
+            success: function (Data) {
+               $('#ProgressText@(Model.idImport.ToString())').html(Data.StatusDescr + ' (' + Data.ProgressPercent + '%)');
+               $('#ProgressText@(Model.idImport.ToString())').css("width", Data.ProgressPercent + "%");
+               if (Data.StatusDescr == 'Canceled' || Data.StatusDescr == 'Finished') {
+                  $('#ProgressBar@(Model.idImport.ToString())').removeClass("active");
+                  clearInterval(progressRefresh);
+                  window.location = '@Url.Action("Import")';
+               }
+            }
+         }).fail(function (e) { window.location = '@Url.Action("Import")'; });
+      };
+   </script>
+
+ }

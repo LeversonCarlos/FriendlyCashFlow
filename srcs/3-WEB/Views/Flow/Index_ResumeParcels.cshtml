@@ -1,0 +1,48 @@
+﻿@{
+   ViewBag.cssDate = "hidden-xs col-sm-2";
+   ViewBag.cssDescription = "col-xs-8 col-sm-7";
+   ViewBag.cssValue = "col-xs-4 col-sm-3 text-right";
+}
+
+<div class="panel panel-default">
+   <table class="table table-hover">
+      <thead>
+         <tr>
+            <th></th>
+            <th class="@ViewBag.cssDate">@FriendCash.Resources.Flow.COLUMN_DATE</th>
+            <th class="@ViewBag.cssDescription">@FriendCash.Resources.Document.COLUMN_ID</th>
+            <th class="@ViewBag.cssValue">@FriendCash.Resources.Flow.COLUMN_VALUE</th>
+         </tr>
+      </thead>
+      <tbody>
+         @{
+            var oFlow = ((List<FriendCash.Model.Flow>)ViewData["Flows"]);
+            if (oFlow != null)
+            {
+               foreach (var oItem in oFlow) 
+               {
+                  // VALUE COLOR
+                  var sColor = "primary";
+                  if (oItem.Value < 0) { sColor = "danger"; }
+                  if (oItem.Value > 0) { sColor = "success"; }
+
+                  // EDIT URL
+                  var sController = (oItem.Type.ToString() + "s"); var sAction = "EditHistory"; object oIDs = new { id = oItem.idHistory, r = Html.Raw(Url.Action("Index", "Home")) };
+                  if (oItem.idTransfer.HasValue && oItem.idTransfer.Value > 0)
+                  { sController = "Transfers"; sAction = "Edit"; oIDs = new { id = oItem.idTransfer }; }
+                  var sDataAction = Url.Action(sAction, sController, oIDs);
+                             
+                  <tr>
+                     <td>@if (oItem.DueDate <= DateTime.Now) { <span class="glyphicon glyphicon-exclamation-sign"></span> }</td>
+                     <td class="@ViewBag.cssDate">@string.Format("{0:d}", oItem.DueDate)</td>
+                     <td class="@ViewBag.cssDescription">
+                        <a class="modal-edit" data-action="@sDataAction">@oItem.Description</a>
+                     </td>
+                     <td class="@ViewBag.cssValue"><span class="text-@sColor">@string.Format("{0:c2}", oItem.Value)</span></td>
+                  </tr>
+                }
+             }
+         }
+      </tbody>
+   </table>
+</div>

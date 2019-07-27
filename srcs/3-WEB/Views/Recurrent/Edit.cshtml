@@ -1,0 +1,39 @@
+﻿@model FriendCash.Model.Recurrent
+@{
+   ViewBag.jQueryUI = true;
+   Layout = "~/Views/Shared/Base.cshtml";
+}
+
+@if (Model != null)
+{
+   using (Html.BeginForm("Edit", "Recurrent", FormMethod.Post)) 
+   {
+      @Html.AntiForgeryToken()
+      @Html.ValidationSummary(true)
+      @Html.HiddenFor(model => model.idRow)
+      @Html.HiddenFor(model => model.idRecurrent)
+      @Html.HiddenFor(model => model.Type)
+
+      <div class="panel panel-default">
+         <div class="panel-body">
+            @{ var sDocumentsController = (Model.Type == FriendCash.Model.Document.enType.Income ? "Incomes" : "Expenses"); }
+            @Html.FriendAutoCompleteFor(model => model.idDocument, new AutoCompleteDocument(sDocumentsController, Model.DocumentDetails), (Model.idRecurrent==0))
+            @Html.FriendTextBoxFor(model => model.Value)
+            @Html.FriendDropDownListFor(model => model.Frequency, typeof(FriendCash.Model.Recurrent.enFrequency))
+            @Html.FriendTextBoxFor(model => model.Parcels)
+            @Html.FriendTextBoxFor(model => model.StartDate)
+            @Html.FriendDropDownListFor(model => model.Status, typeof(FriendCash.Model.Recurrent.enStatus))
+         </div>
+         <div class="panel-footer">
+            <div class="row">
+               @{
+                  CommandRemove oRemove = null;
+                  if (Model.idRecurrent > 0)
+                  { oRemove = new CommandRemove(); oRemove.Question = FriendCash.Resources.Recurrent.MSG_QUESTION_REMOVE; }
+               }
+               @Html.FriendCommandForEdit(new CommandSave(), oRemove)
+            </div>
+         </div>
+      </div>
+   }
+}
