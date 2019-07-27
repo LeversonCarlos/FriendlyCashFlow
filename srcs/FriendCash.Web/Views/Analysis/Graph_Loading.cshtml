@@ -1,0 +1,16 @@
+﻿<div class="graph-loading vertical-center-align center-align white" data-bind="visible:isLoading">
+   @Html.Partial("_Control_Spinner")
+</div>
+<style type="text/css">
+   .graph-loading {
+      position:absolute;
+      height:100vh;
+      opacity:0.5;
+      z-index:1;
+      right:0;
+      left:240px;
+   }
+   @@media only screen and (max-width: 992px) {
+      .graph-loading{ left:0; }
+   }
+</style>

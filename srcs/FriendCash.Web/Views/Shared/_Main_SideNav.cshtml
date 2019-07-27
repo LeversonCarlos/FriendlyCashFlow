@@ -1,0 +1,8 @@
+﻿@if (User.Identity.IsAuthenticated)
+{
+   <div class="side-nav fixed collection" id="side-navigation">
+      @Html.Partial("_Main_SideNav_Header")
+      @Html.Partial("_Main_SideNav_Operations")
+      @Html.Partial("_Main_SideNav_User")
+   </div>
+}

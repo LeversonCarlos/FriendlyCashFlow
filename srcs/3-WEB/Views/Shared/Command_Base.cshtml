@@ -1,6 +1,0 @@
-﻿@model CommandBase
-<button @Model.GetName() @Model.GetButtonType() @Model.GetClick() @Model.Data class="btn @Model.GetColor() @Model.CSS" >
-   @if (Model.Icon != CommandBase.enIcon.None)
-   { <span class="glyphicon glyphicon-@Model.GetIcon()"></span> }
-   <span class="hidden-xs"> @Model.Text</span>
-</button>

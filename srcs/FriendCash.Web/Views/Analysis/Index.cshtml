@@ -1,0 +1,24 @@
+﻿@{ ViewBag.Title = Html.FsTranslationFor("TITLE_ANALYSIS_MAIN"); }
+@section Header { <div class="hide-on-small-and-down">@Html.Partial("Commands", new Tuple<string, string>("koAnalysisIntervalHeader", "right"))</div> }
+@section SubHeader { <div class="hide-on-med-and-up nav-content">@Html.Partial("Commands", new Tuple<string, string>("koAnalysisIntervalBody", "right"))</div> }
+
+<div class="row" style="margin-bottom:0">
+   <div id="mainAnalysisData" class="col s12 m12 hide">
+      @Html.Partial("Data")
+   </div>
+   <div id="mainAnalysisGraph" class="col s12 m12">
+      @Html.Partial("Graph")
+   </div>
+</div>
+
+@section Scripts {
+   <style type="text/css">
+      @@media only screen and (max-width: 600px) {
+          nav { height:auto; }
+         .navbar-fixed { height:112px; }
+         .nav-wrapper { min-height: 56px; }
+         .nav-content { min-height: 56px; }
+      }
+   </style>
+   @Html.IncludeJS("~/Scripts/analysis.min.js")
+}

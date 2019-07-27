@@ -1,0 +1,22 @@
+﻿<div class="row">
+   <div class="col  s12">
+
+      <div class="vertical-center-align center-align" data-bind="visible:!isLoading() && dataFiltered().length==0">
+         @Html.Partial("_Control_EmptyList")
+      </div>
+      <div class="vertical-center-align center-align" data-bind="visible:isLoading">
+         @Html.Partial("_Control_Spinner")
+      </div>
+
+      <ul class="collection" data-bind="foreach:dataFiltered">
+         <li>
+
+            <a class="collapsible-header" data-bind="attr:{'href':'@Url.Action("Details", "Users")?id=' + ID()}">
+               <span data-bind="text:FullName"></span>
+            </a>
+
+         </li>
+      </ul>
+
+   </div>
+</div>

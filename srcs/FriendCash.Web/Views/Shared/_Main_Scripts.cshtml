@@ -1,0 +1,53 @@
+﻿@Html.IncludeJS("~/Content/materialize/materialize.min.js")
+<script type="text/javascript" src="~/Content/knockout/knockout.min.js"></script>
+@Html.IncludeJS("~/Scripts/general.min.js")
+<script type="text/javascript" src="~/Scripts/moment-with-locales.min.js"></script>
+<script type="text/javascript" src="~/Content/hichcharts/highcharts.min.js"></script>
+
+<script type="text/javascript" src="~/Content/jquery-mask/jquery.mask.js"></script>
+<script type="text/javascript" src="~/Content/material-datepicker/js/material.datepicker.js"></script>
+<link rel="stylesheet" href="~/Content/material-datepicker/css/material.datepicker.css" />
+
+@{ 
+   FriendCash.Web.Controllers.UserTicket userTicket = null;
+   var userIdentityIsAuthenticated = (this.User.Identity.IsAuthenticated && this.User.GetType().IsAssignableFrom(typeof(System.Security.Claims.ClaimsPrincipal)));
+   if (userIdentityIsAuthenticated) {
+      userTicket = new FriendCash.Web.Controllers.UserTicket(this.User);
+      if (!userTicket.IsActiveUser) {
+      <div class="chip red white-text" style="position:fixed; bottom:4vh; margin-left:1vw;">
+         <i class="small left material-icons" style="margin:2px 0 0 0;">keyboard_arrow_left</i>
+         <span>@Html.FsTranslationFor("MSG_USERSSIGNATURE_FOOTER_ALERT").ToUpper()</span>
+      </div>
+         }
+      }
+   }
+
+<script type="text/javascript">
+   var baseActionURL = "@Url.Action("BaseAction", "BaseController")";
+
+   var baseMaskDecimalSeparator = "@Masks.GetDecimalSeparator()";
+   function GetLanguage() {
+      return window.navigator.language;
+   };
+
+   var authUserTicketData = null;
+   @if (userIdentityIsAuthenticated)
+   {
+      var userTicketData = new { userTicket.UserName, userTicket.IsActiveUser, userTicket.AccessExpirationSeconds };
+      <text>
+         authUserTicketData = getUserTicketData(@Html.Raw(Json.Encode(userTicketData)));
+      </text>
+   }
+
+   $(document).ready(function () {
+      moment.locale(GetLanguage());
+      $(".data-mask-date").mask("00/00/0000", { clearIfNotMatch: true, placeholder: "__/__/____" });
+      $(".data-mask-decimal").mask("@Masks.GetValueMask()", { reverse: true, maxlength: false });
+
+      $(".button-collapse").sideNav({ menuWidth: 240, closeOnClick: false, draggable: true });
+
+      @if (userIdentityIsAuthenticated)
+      { <text>refreshAuthToken();</text> }
+   });
+
+</script>

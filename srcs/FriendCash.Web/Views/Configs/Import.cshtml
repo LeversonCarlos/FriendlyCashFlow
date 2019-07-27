@@ -1,0 +1,90 @@
+﻿@using FriendCash.Service.Imports.Model;
+@model viewImport
+
+<div id="koImport" class="card" data-bind="visible:false">
+
+   <div class="card-content">
+      <div class="card-title">@Html.FsTranslationFor("TITLE_IMPORT")</div>
+      <table class="striped" data-bind="visible:data().length>0">
+
+         <thead>
+            <tr>
+               <th></th>
+               <th></th>
+               <th>@Html.FsTranslationFor(Html.FsDescriptionFor(m => Model.Accounts))</th>
+               <th>@Html.FsTranslationFor(Html.FsDescriptionFor(m => Model.Categories))</th>
+               <th>@Html.FsTranslationFor(Html.FsDescriptionFor(m => Model.Entries))</th>
+            </tr>
+         </thead>
+
+         <tbody data-bind="foreach:data">
+            <tr>
+               <td>
+                  <i class="material-icons" data-bind="visible:State()==0">lens</i>
+                  <i class="material-icons" data-bind="visible:State()==1">play_circle_filled</i>
+                  <i class="material-icons" data-bind="visible:State()==2">check_circle</i>
+                  <i class="material-icons" data-bind="visible:State()==9">info</i>
+               </td>
+               <td>
+                  <span data-bind="text:RowDateHumanized"></span>
+               </td>
+               <td class="center-align">
+                  <span data-bind="text:ImportedAccounts"></span>
+               </td>
+               <td class="center-align">
+                  <span data-bind="text:ImportedCategories"></span>
+               </td>
+               <td class="center-align">
+                  <span data-bind="text:ImportedEntries"></span>
+               </td>
+            </tr>
+            <!-- ko if:State()==1 -->
+            <tr>
+               <td colspan="2"></td>
+               <td colspan="3">
+                  <div class="progress">
+                     <!-- ko if:Accounts()<100 -->
+                     <div class="determinate" data-bind="style:{'width':Accounts()+'%'}"></div>
+                     <!-- /ko -->
+                     <!-- ko if:Categories()<100 -->
+                     <div class="determinate" data-bind="style:{'width':Categories()+'%'}"></div>
+                     <!-- /ko -->
+                     <!-- ko if:Entries()<100 -->
+                     <div class="determinate" data-bind="style:{'width':Entries()+'%'}"></div>
+                     <!-- /ko -->
+                  </div>
+               </td>
+            </tr>
+            <!-- /ko -->
+         </tbody>
+
+      </table>
+   </div>
+
+   <div class="card-action row">
+      <div class="col s9 m10 l11 no-padding input-field file-field">
+         <div class="btn btn-small blue-grey">
+            <i class="material-icons">folder</i>
+            <input type="file" id="importFile">
+         </div>
+         <div class="file-path-wrapper">
+            <input class="file-path validate" type="text">
+         </div>
+      </div>
+      <div class="col s3 m2 l1 no-padding input-field right-align">
+         <a href="#!" class="btn btn-small waves-effect white-text" data-bind="click:importClick">
+            <i class="material-icons">backup</i>
+         </a>
+      </div>
+   </div>
+
+</div>
+<style type="text/css">
+   .btn-small {padding-left:15px; padding-right:15px; height:3rem; line-height:3rem; }
+</style>
+<script type="text/javascript">
+   $(document).ready(function () {
+      ko.applyBindings(new koImportContext(), document.getElementById("koImport"));
+   });
+</script>
+@Html.IncludeJS("~/Scripts/import.min.js")

@@ -1,0 +1,48 @@
+﻿<div id="koAnalysisGraph" class="row">
+   <div class="col s12">
+      @Html.Partial("Graph_Loading")
+   </div>
+   <div class="col s12 m12 l6">
+      @Html.Partial("Graph_CategoryDetails", (short)FriendCash.Service.Categories.Model.enCategoryType.Income)
+   </div>
+   <div class="col s12 m12 l6">
+      @Html.Partial("Graph_CategoryDetails", (short)FriendCash.Service.Categories.Model.enCategoryType.Expense)
+   </div>
+   <div class="col s12 m12 l5">
+      @Html.Partial("Graph_DailyFlow")
+   </div>
+   <div class="col s12 m12 l7">
+      @Html.Partial("Graph_CategoryGoal")
+   </div>
+   <div class="col s12">
+      @Html.Partial("Graph_CategoryTrend")
+   </div>
+   <div class="col s12">
+      @Html.Partial("Graph_CumulatedEntries")
+   </div>
+   <div class="col s12">
+      @Html.Partial("Graph_BalanceTrend")
+   </div>
+</div>
+<script type="text/javascript">
+   $(document).ready(function () {
+      ko.applyBindings(new koAnalysisGraphContext(), document.getElementById("koAnalysisGraph"));
+   });
+</script>
+<style type="text/css">
+   svg text { text-decoration: none !important; font-family: "Roboto", sans-serif; }
+   .highcharts-title { font-size:1.8vh !important; font-weight:bold; }
+   .highcharts-axis-labels text { font-size:0.8vh !important; }
+   .highcharts-xaxis-labels text { font-size:1.2vh !important; font-weight:bold !important; }
+   .highcharts-legend-item text { font-size:1.1vh !important; font-weight:normal !important; }
+   .highcharts-drilldown-data-label text { font-size:1vh !important; }
+   .highcharts-button text {
+      font-size: 2.5vh !important; font-weight:bold; 
+   }
+   .highcharts-button rect {
+      fill: #ddd !important;
+      stroke: #ccc !important; 
+      height: 3vh !important;
+   }
+   .highcharts-button rect:hover { fill:#eee !important; cursor:pointer; }
+</style>

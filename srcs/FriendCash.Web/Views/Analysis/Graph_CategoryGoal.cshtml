@@ -1,0 +1,11 @@
+﻿<div class="card white card-expandable">
+   @Html.Partial("Graph_ExpandableButton", "category-goal-expandable-button")
+   <div class="card-content graph-content">
+      <content class="small"></content>
+      <code data-bind="notifyer:function(element){graphCategoryGoal(element,$data)}"></code>
+   </div>
+</div>
+<script type="text/javascript">
+   var titleCategoryGoal = '@Html.Raw(Html.FsTranslationFor("TITLE_ANALYSIS_CATEGORY_GOAL"))';
+   var labelCategoryGoal = '@Html.Raw(Html.FsTranslationFor("LABEL_ANALYSIS_CATEGORY_GOAL"))';
+</script>

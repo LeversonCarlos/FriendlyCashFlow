@@ -1,0 +1,102 @@
+﻿/* HEADER SIDEBAR */
+.side-nav-header {
+   position: relative;
+   padding:0;
+   height:22vh;
+   overflow: hidden;
+}
+.side-nav-header:hover { background-color: transparent; }
+.side-nav-header-title {
+   display: block;
+   position: absolute;
+   bottom:0;
+   left:0;
+   right:0;
+   padding:0vh 2vh 0vh 2vh !important;
+   line-height: 6vh !important;
+   height:6vh !important;
+   cursor:pointer;
+   color:#fff;
+}
+.side-nav-header-title span {
+}
+.side-nav-header-title a {
+   line-height: 6vh !important;
+   float:right;   
+   font-size: 5vh;
+   margin-right: 2vh;
+}
+.smoke {
+   background-color: #000000; 
+   opacity:0.6;
+}
+
+.side-nav.fixed {
+  a {
+    display: block;
+    padding: 0 $sidenav-padding;
+    color: $sidenav-font-color;
+  }
+}
+
+.side-nav > a.side-nav-item {
+   height:$navbar-height-mobile !important; 
+   span, i { 
+      height:$navbar-height-mobile !important; 
+      line-height:$navbar-height-mobile !important;
+      color: inherit !important;
+   }
+   &.footer {
+      width: 238px; 
+      position: fixed;
+      bottom: 60px;
+      border-top:1px solid $collection-border-color;
+   }
+}
+@media #{$medium-and-up} {
+
+   .side-nav > a.side-nav-item {
+      height:$navbar-height !important; 
+      span, i { 
+         height:$navbar-height !important; 
+         line-height:$navbar-height !important;
+      }
+   }
+
+   .side-nav-header { 
+      height:15vh;
+   }
+   .side-nav-header-title {
+      padding:1vh !important;
+      line-height: 2vh !important;
+      height:4vh !important;
+   }
+   .side-nav-header-title span {
+      line-height: 2vh !important;
+   }
+   .side-nav-header-title a {
+      line-height: 2vh !important;
+      font-size: 3vh;
+      margin-right: 2vh;
+   }
+
+}
+
+body.stickSideNav {
+   header, main, footer { 
+      padding-left: 240px; 
+      ul.right {
+         padding-right: 240px; 
+      }
+   }
+}
+@media #{$medium-and-down} {
+   body.stickSideNav {
+      header, main, footer { 
+         padding-left: 0; 
+         ul.right {
+            padding-right: 0; 
+         }
+      }
+   }
+}

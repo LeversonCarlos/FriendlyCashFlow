@@ -1,0 +1,10 @@
+﻿<div class="card white card-expandable">
+   @Html.Partial("Graph_ExpandableButton", "balance-trend-expandable-button")
+   <div class="card-content graph-content">
+      <content class="default"></content>
+      <code data-bind="notifyer:function(element){graphBalanceTrend(element,$data)}"></code>
+   </div>
+</div>
+<script type="text/javascript">
+   var titleBalanceTrend = '@Html.Raw(Html.FsTranslationFor("TITLE_ANALYSIS_BALANCE_TREND"))';
+</script>

@@ -1,0 +1,31 @@
+﻿@using FriendCash.Auth.Model;
+@{
+   ViewBag.Title = Html.FsTranslationFor("TITLE_AUTH_REGISTER_ACTIVATE");
+   var ApiResult = (FriendCash.Service.Base.Bundle<bool>)ViewBag.ApiResult;
+   var colorClass = "teal-text"; 
+   if (ApiResult != null && !ApiResult.Result) { colorClass = "red-text"; }
+}
+
+<div class="row">
+   <div class="col offset-s1 s10 offset-m2 m8 offset-l3 l6">
+      <div class="card">
+         <div class="card-content @colorClass">
+            <div class="card-title">@Html.FsTranslationFor("LABEL_AUTH_REGISTER_ACTIVATE")</div>
+
+            @if (ApiResult != null && ApiResult.Result)
+            { @Html.Raw(Html.FsTranslationFor("MSG_AUTH_REGISTER_ACTIVATE")) }
+            else if (ApiResult != null && !ApiResult.Result)
+            {
+               foreach (var m in ApiResult.Messages)
+               { <span>@m.Text</span> }
+            }
+
+         </div>
+         <div class="card-action">
+            @if (ApiResult != null && ApiResult.Result)
+            { <a href="@Url.Action("login", "auth")">@Html.FsTranslationFor("LINK_AUTH_REGISTER_ACTIVATE_LOGIN")</a> }
+            else { <a href="@Url.Action("register", "auth")">@Html.FsTranslationFor("LINK_AUTH_REGISTER_ACTIVATE_REGISTER")</a> }
+         </div>
+      </div>
+   </div>
+</div>

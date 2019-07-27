@@ -1,0 +1,26 @@
+﻿<div id="koAnalysisData">
+   <ul class="collapsible popout" data-collapsible="accordion" data-bind="with:data">
+      <!-- ko with:Dimensions -->
+      <li>
+         @Html.Partial("Data_Item", new Tuple<string, string, string>("Accounts", Html.FsTranslationFor("TITLE_ACCOUNTS_MAIN"), "account_balance"))
+      </li>
+      <li>
+         @Html.Partial("Data_Item", new Tuple<string, string, string>("Categories", Html.FsTranslationFor("TITLE_CATEGORIES_MAIN"), "label"))
+      </li>
+      <li>
+         @Html.Partial("Data_Item", new Tuple<string, string, string>("Planned", Html.FsTranslationFor("TITLE_ANALYSIS_DIMENSION_PLANNED"), "assignment"))
+      </li>
+      <li>
+         @Html.Partial("Data_Item", new Tuple<string, string, string>("Paid", Html.FsTranslationFor("TITLE_ANALYSIS_DIMENSION_PAID"), "playlist_add_check"))
+      </li>
+      <li>
+         @Html.Partial("Data_Item", new Tuple<string, string, string>("Patterns", Html.FsTranslationFor("TITLE_ANALYSIS_DIMENSION_PATTERNS"), "toc"))
+      </li>
+      <!-- /ko -->
+   </ul>
+</div>
+<script type="text/javascript">
+   $(document).ready(function () {
+      ko.applyBindings(new koAnalysisDataContext(), document.getElementById("koAnalysisData"));
+   });
+</script>

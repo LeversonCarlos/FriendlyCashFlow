@@ -1,0 +1,11 @@
+﻿<div class="card white card-expandable">
+   @Html.Partial("Graph_ExpandableButton", "daily-flow-expandable-button")
+   <div class="card-content graph-content">
+      <content class="small"></content>
+      <code data-bind="notifyer:function(element){graphDailyFlow(element,$data)}"></code>
+   </div>
+</div>
+<script type="text/javascript">
+   var titleDailyFlow = '@Html.Raw(Html.FsTranslationFor("TITLE_ANALYSIS_DAILY_FLOW"))';
+   var labelDailyFlowToday = '@Html.Raw(Html.FsTranslationFor("LABEL_ANALYSIS_DAILY_FLOW_TODAY"))';
+</script>

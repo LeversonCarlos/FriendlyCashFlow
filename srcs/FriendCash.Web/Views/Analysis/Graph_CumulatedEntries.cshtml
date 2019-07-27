@@ -1,0 +1,10 @@
+﻿<div class="card white card-expandable">
+   @Html.Partial("Graph_ExpandableButton", "cumulated-entries-expandable-button")
+   <div class="card-content graph-content">
+      <content class="default"></content>
+      <code data-bind="notifyer:function(element){graphCumulatedEntries(element,$data)}"></code>
+   </div>
+</div>
+<script type="text/javascript">
+   var titleCumulatedEntries = '@Html.Raw(Html.FsTranslationFor("TITLE_ANALYSIS_CUMULATED_ENTRIES"))';
+</script>

@@ -1,0 +1,14 @@
+﻿<div class="row">
+   <div class="col s12 m4">
+      @Html.Partial("../Dashboard/AccountsBalance")
+   </div>
+   <div class="col s12 m8">
+      @Html.Partial("../Dashboard/PendingEntries")
+   </div>
+   @Html.Partial("../Dashboard/PendingEntries_Modal")
+   <style type="text/css">
+      .card .collection-item.row { padding-left:5px !important; padding-right:5px !important; }
+   </style>
+   @Html.IncludeJS("~/Scripts/dashboard.js")
+</div>
+

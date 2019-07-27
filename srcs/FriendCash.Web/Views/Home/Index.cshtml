@@ -1,0 +1,10 @@
+﻿@{ ViewBag.Title = "Friendly Cash Flow"; }
+
+@if (User.Identity.IsAuthenticated) { @Html.Partial("Authenticated") }
+else { @Html.Partial("Anonymous") }
+
+@*
+   <div class="hide-on-med-and-up">SMALL</div>
+   <div class="hide-on-small-only hide-on-large-only">MEDIUM</div>
+   <div class="hide-on-med-and-down">LARGE</div>
+*@

@@ -1,0 +1,35 @@
+﻿@using FriendCash.Service.Accounts.Model
+@{ ViewBag.Title = Html.FsTranslationFor("TITLE_ACCOUNTS_MAIN"); }
+
+<div id="koAccount" class="row">
+   @Html.Partial("List")
+   @Html.Partial("Details")
+
+   <div class="fs-fab">
+      <!-- ko if:IsActiveUser() -->
+         <a class="fs-fab-btn" data-bind="click:addData">
+            <i class="material-icons">add</i>
+         </a>
+      <!-- /ko -->
+      <!-- ko if:!IsActiveUser() -->
+         <span class="fs-fab-btn" title="@Html.FsTranslationFor("LABEL_AUTH_NOT_ISACTIVEUSER")">
+            <i class="material-icons">add</i>
+         </span>
+      <!-- /ko -->
+   </div>
+
+</div>
+
+@section Scripts {
+   <script type="text/javascript">
+      var typeGeneral = @((short)enAccountType.General);
+      var typeBank = @((short)enAccountType.Bank);
+      var typeCreditCard = @((short)enAccountType.CreditCard);
+      var typeInvestment = @((short)enAccountType.Investment);
+      var typeService = @((short)enAccountType.Service);
+      $(document).ready(function () {
+         ko.applyBindings(new koAccountContext(), document.getElementById("koAccount"));
+      });
+   </script>
+   @Html.IncludeJS("~/Scripts/accounts.min.js")
+}

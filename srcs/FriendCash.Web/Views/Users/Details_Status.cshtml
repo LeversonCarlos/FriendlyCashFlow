@@ -1,0 +1,17 @@
+﻿@using FriendCash.Auth.Model
+@model viewUser
+
+<!-- ko with:data -->
+<div class="card">
+   <div class="card-content row">
+      <div class="col s12 input-field">
+         @Html.FsTextBoxFor(m => Model.JoinDate)
+         @Html.FsLabelFor(m => Model.JoinDate)
+      </div>
+      <div class="col s12 input-field">
+         @Html.FsTextBoxFor(m => Model.ExpirationDate)
+         @Html.FsLabelFor(m => Model.ExpirationDate)
+      </div>
+   </div>
+</div>
+<!-- /ko -->

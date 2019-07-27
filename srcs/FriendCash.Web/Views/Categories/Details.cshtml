@@ -1,0 +1,42 @@
+﻿@using FriendCash.Service.Categories.Model
+@model viewCategory
+
+<div id="editModal" class="modal details-modal">
+   <div class="modal-content" data-bind="with:selectedData">
+      <div class="row">
+         <div class="col s12 input-field input-field-large">
+            @Html.FsTextBoxFor(m => Model.Text)
+            @Html.FsLabelFor(m => Model.Text)
+         </div>
+      </div>
+      <div class="row hide">
+         <div class="col s12 input-field">
+            @Html.FsDropBoxFor(m => Model.Type)
+            @Html.FsLabelFor(m => Model.Type)
+         </div>
+      </div>
+      <div class="row">
+         <div class="col s12 input-field">
+            @Html.FsRelatedBoxFor(m => Model.idParentRow, new RelatedBox<string>("Categories", "Income"))
+            @Html.FsLabelFor(m => Model.idParentRow)
+         </div>
+      </div>
+   </div>
+   <div class="modal-progress" data-bind="style:{opacity:isSaving() ? 1 : 0}">
+      <div class="indeterminate"></div>
+   </div>
+   <div class="modal-footer">
+      <!-- ko if:$root.IsActiveUser() -->
+         <a href="#!" 
+            class="btn error-command left" 
+            data-bind="click:$root.removeData">@Html.FsTranslationFor("COMMAND_REMOVE")</a>
+         <a href="#!" 
+            class="btn success-command right" 
+            data-bind="click:$root.saveData">@Html.FsTranslationFor("COMMAND_SAVE")</a>
+      <!-- /ko -->
+      <!-- ko if:!$root.IsActiveUser() -->
+         <span class="btn error-command left" title="@Html.FsTranslationFor("LABEL_AUTH_NOT_ISACTIVEUSER")">@Html.FsTranslationFor("COMMAND_REMOVE")</span>
+         <span class="btn success-command right" title="@Html.FsTranslationFor("LABEL_AUTH_NOT_ISACTIVEUSER")">@Html.FsTranslationFor("COMMAND_SAVE")</span>
+      <!-- /ko -->
+   </div>
+</div>

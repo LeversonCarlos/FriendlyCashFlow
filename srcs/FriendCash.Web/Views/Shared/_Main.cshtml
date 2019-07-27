@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+   <title>@ViewBag.Title</title>
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon"> 
+   @* <link href="~/Content/media/manifest.json" rel="manifest" > *@
+   @Html.IncludeCSS("~/Content/materialize/materialize.min.css")
+   <script type="text/javascript" src="~/Content/jquery/jquery-1.10.2.min.js"></script>
+</head>
+<body class="@(User.Identity.IsAuthenticated ? "stickSideNav" : "")">
+
+   <header class="navbar-fixed">
+      <nav role="navigation">
+         <div class="nav-wrapper">
+            <a href="@Url.Action("Index", "Home")" class="brand-logo">@ViewBag.Title</a>
+            @RenderSection("Header", required: false)
+            @Html.Partial("_Main_SideNav_Icon")
+         </div>
+         @RenderSection("SubHeader", required: false)
+      </nav>
+   </header>
+   @Html.Partial("_Main_SideNav")
+
+   <main>
+      @RenderBody()
+   </main>
+
+   <footer class="page-footer white-text">
+      @RenderSection("MessageFooter", required: false)
+      <small class="right hide-on-small-only">
+         <span>©2016 Friendship</span>
+         <span>&nbsp;</span>
+      </small>
+      @Html.Partial("_Main_Scripts")
+      @RenderSection("Scripts", required: false)
+   </footer>
+
+</body>
+</html>

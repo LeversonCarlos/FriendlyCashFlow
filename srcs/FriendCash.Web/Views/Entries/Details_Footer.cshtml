@@ -1,0 +1,29 @@
+﻿<div class="modal-footer">
+
+   <!-- ko if:$root.IsActiveUser() -->
+
+      <a href="#!" class="btn error-command left" data-bind="click:$root.removeData">@Html.FsTranslationFor("COMMAND_REMOVE")</a>
+
+      <!-- ko with:idRecurrencyView -->
+
+         <!-- ko if: !hasRecurrency() || $parent.idEntry()==0 -->
+         <a href="#!" class="btn success-command right" data-bind="click:$root.saveData">@Html.FsTranslationFor("COMMAND_SAVE")</a>
+         <!-- /ko -->
+
+         <!-- ko if: hasRecurrency() && $parent.idEntry()!=0 -->
+         <a href="#!" class="btn dropdown-button success-command right" data-activates='saveDataDropdown'>@Html.FsTranslationFor("COMMAND_SAVE")</a>
+         <ul id='saveDataDropdown' class='dropdown-content'>
+            <li><a href="#!" data-bind="click:$root.saveDataCurrent">@Html.FsTranslationFor("ENUM_RECURRENCYUPDATE_CURRENT")</a></li>
+            <li><a href="#!" data-bind="click:$root.saveDataFutures">@Html.FsTranslationFor("ENUM_RECURRENCYUPDATE_FUTURES")</a></li>
+         </ul>
+         <!-- /ko -->
+
+      <!-- /ko -->
+
+   <!-- /ko -->
+   <!-- ko if:!$root.IsActiveUser() -->
+      <span class="btn error-command left" title="@Html.FsTranslationFor("LABEL_AUTH_NOT_ISACTIVEUSER")">@Html.FsTranslationFor("COMMAND_REMOVE")</span>
+      <span class="btn success-command right" title="@Html.FsTranslationFor("LABEL_AUTH_NOT_ISACTIVEUSER")">@Html.FsTranslationFor("COMMAND_SAVE")</span>
+   <!-- /ko -->
+
+</div>

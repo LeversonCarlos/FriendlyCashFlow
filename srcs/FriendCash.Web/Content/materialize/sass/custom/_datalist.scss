@@ -1,0 +1,119 @@
+﻿.fs-datalist {
+   @extend .col;
+   @extend .s12;
+   @extend .offset-m1;
+   @extend .m10;
+   @extend .offset-l2;
+   @extend .l8;
+   
+   .fs-datalist-empty {
+      @extend .card-panel;
+      @extend .primary-color.lighten-4;
+      @extend .black-text;
+      @extend .center
+   }
+
+   .fs-datalist-content {
+      @extend .collection;
+      @extend .with-header;
+      @extend .z-depth-1;
+      border:0;
+
+      h5 {
+         @extend .collection-header;
+         margin-bottom:0;
+         margin-top:0;
+      }
+
+      .fs-datalist-contentitem {
+         @extend .collection-item;
+         @extend .waves-effect;
+         padding:10px;
+
+         .fs-datalist-contentitem {
+            padding:5px 5px;
+            margin: 0px -10px;
+            border:0 !important;
+
+            .material-icons.place-holder-icon { font-size:1.3rem; float:left; margin-right:0.5rem; }
+            span { padding:0 2px; }
+            small { padding:0 6px; font-size:0.75rem; line-height: 0.8rem; }
+
+         }
+
+         .fs-datalist-contentfooter {
+            padding:2px 5px;
+            margin: 0px -10px;
+
+            span { padding:0 2px; }
+
+         }
+
+      }
+
+      .fs-datalist-contentfooter {
+         @extend .row;
+         
+         .total {
+            color: color("grey", "lighten-1");
+            border-top:1px solid color("grey", "lighten-1") !important;
+            //font-weight: bold;
+         }
+
+      }
+
+      .fs-datalist-disabled {
+         &:hover { background-color: $collection-bg-color !important; cursor:default !important; }
+      }
+
+   }
+
+}
+
+.fs-filterpanel{
+   @extend .primary-color.lighten-3;
+   @extend .auto-overflow; 
+   label[for] { @extend .black-text; }
+   
+}
+
+.fs-fab {
+   @extend .fixed-action-btn;
+   bottom: 45px !important; right: 24px !important;
+   a.fs-fab-btn {
+      @extend .btn;
+      @extend .btn-floating;
+      @extend .btn-large;
+      @extend .waves-effect;
+      @extend .waves-light;
+      @extend .indigo;
+      .material-icons{ line-height:3.5rem; }
+   }
+   .divider { background-color:transparent; }
+   span.fs-fab-btn {
+      @extend .btn;
+      @extend .btn-floating;
+      @extend .btn-large;
+      @extend .indigo;
+      @extend .lighten-4;
+      @extend .z-depth-0;
+      cursor:default;
+   }
+}
+
+
+.collapsible {
+   .collapsible-header {
+      .material-icons:first-child { margin-left:-1rem; }
+      .material-icons {margin-right:0; }
+   }
+   .collapsible-body.collection {
+      .collection-item {
+         padding:5px 5px;
+         &.disabled {
+            &:hover { background-color: $collection-bg-color !important; cursor:default !important; }
+         }
+      .material-icons{ font-size:18px; height:15px; line-height:1rem; position:relative; top:3px; overflow:hidden; }
+      }
+   }
+}

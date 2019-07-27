@@ -1,0 +1,142 @@
+[
+  {
+    "outputFileName": "Scripts/categories.js",
+    "inputFiles": [
+      "Scripts/categories-context.js",
+      "Scripts/categories-model.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/general.js",
+   "inputFiles": [
+      "Scripts/general-post.js",
+      "Scripts/general-translation.js",
+      "Scripts/general-message.js",
+      "Scripts/general-auth.js"
+   ]
+  },
+  {
+    "outputFileName": "Content/materialize/materialize.js",
+   "inputFiles": [
+      "Content/materialize/js/velocity.min.js",
+      "Content/materialize/js/global.js",
+      "Content/materialize/js/waves.js",
+      "Content/materialize/js/animation.js",
+      "Content/materialize/js/buttons.js",
+      "Content/materialize/js/cards.js",
+      "Content/materialize/js/carousel.js",
+      "Content/materialize/js/character_counter.js",
+      "Content/materialize/js/chips.js",
+      "Content/materialize/js/collapsible.js",
+      "Content/materialize/js/dropdown.js",
+      "Content/materialize/js/forms.js",
+      "Content/materialize/js/hammer.min.js",
+      "Content/materialize/js/initial.js",
+      "Content/materialize/js/jquery.easing.1.3.js",
+      "Content/materialize/js/jquery.hammer.js",
+      "Content/materialize/js/jquery.timeago.min.js",
+      "Content/materialize/js/modal.js",
+      "Content/materialize/js/materialbox.js",
+      "Content/materialize/js/parallax.js",
+      "Content/materialize/js/prism.js",
+      "Content/materialize/js/pushpin.js",
+      "Content/materialize/js/scrollFire.js",
+      "Content/materialize/js/scrollspy.js",
+      "Content/materialize/js/sideNav.js",
+      "Content/materialize/js/slider.js",
+      "Content/materialize/js/tabs.js",
+      "Content/materialize/js/tapTarget.js",
+      "Content/materialize/js/toasts.js",
+      "Content/materialize/js/tooltip.js",
+      "Content/materialize/js/transitions.js",
+      "Content/materialize/js/date_picker/picker.js",
+      "Content/materialize/js/date_picker/picker.date.js"
+   ]
+  },
+  {
+    "outputFileName": "Scripts/accounts.js",
+    "inputFiles": [
+      "Scripts/accounts-context.js",
+      "Scripts/accounts-model.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/entries.js",
+    "inputFiles": [
+      "Scripts/entries-context.js",
+      "Scripts/entries-crud.js",
+      "Scripts/entries-filter.js",
+      "Scripts/entries-model.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/auth.js",
+    "inputFiles": [
+      "Scripts/auth-login.js",
+      "Scripts/auth-register.js",
+      "Scripts/auth-deleteUserData"
+    ]
+  },
+  {
+    "outputFileName": "Content/knockout/knockout.js",
+    "inputFiles": [
+      "Content/knockout/knockout-3.3.0.debug.js",
+      "Content/knockout/knockout-notifyer.js",
+      "Content/knockout/knockout-related-editor.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/import.js",
+    "inputFiles": [
+      "Scripts/import-context.js",
+      "Scripts/import-model.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/dashboard.js",
+    "inputFiles": [
+      "Scripts/entries-model.js",
+      "Scripts/dashboard-pending.js",
+      "Scripts/dashboard-balance.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/hichcharts/highcharts.js",
+    "inputFiles": [
+      "Content/hichcharts/highcharts.src.js",
+      "Content/hichcharts/highcharts-more.src.js",
+      "Content/hichcharts/highcharts-drilldown.js",
+      "Content/hichcharts/highcharts-treemap.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/analysis.js",
+    "inputFiles": [
+      "Scripts/analysis-intervalContext.js",
+      "Scripts/analysis-intervalModel.js",
+      "Scripts/analysis-dataContext.js",
+      "Scripts/analysis-dataModel.js",
+      "Scripts/analysis-graphContext.js",
+      "Scripts/analysis-graphDailyFlow.js",
+      "Scripts/analysis-graphCategoryDetails.js",
+      "Scripts/analysis-graphCategoryGoal.js",
+      "Scripts/analysis-graphCategoryTrend.js",
+      "Scripts/analysis-graphBalanceTrend.js",
+      "Scripts/analysis-graphCumulatedEntries.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/configs.js",
+    "inputFiles": [
+      "Scripts/configs-deleteUserData.js",
+      "Scripts/auth-password.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/users.js",
+    "inputFiles": [
+      "Scripts/users-context.js",
+      "Scripts/users-models.js"
+    ]
+  }
+]

@@ -1,0 +1,76 @@
+﻿@using FriendCash.Service.Entries.Model
+@model viewEntry
+
+<div id="entryModal" class="modal details-modal">
+   <!-- ko with: selectedData -->
+   <div class="modal-content" data-bind="css:{'red-featured': Type()==entryTypeExpense, 'green-featured': Type()==entryTypeIncome}">
+      <div class="row">
+         <div class="col s12 input-field input-field-large" data-bind="visible:Type()!=entryTypeTransfer">
+            @Html.FsRelatedBoxFor(m => Model.idPattern, new RelatedBox<string>("Patterns", "Income"))
+            @Html.FsLabelFor(m => Model.idPattern)
+         </div>
+         <div class="col s12 input-field" data-bind="visible:false">
+            @Html.FsTextBoxFor(m => Model.Text)
+            @Html.FsLabelFor(m => Model.Text)
+         </div>
+         <div class="col s12 input-field" data-bind="visible:Type()!=entryTypeTransfer">
+            @Html.FsRelatedBoxFor(m => Model.idAccount, new RelatedBox("Accounts") { RelatedDataModel = true })
+            @Html.FsLabelFor(m => Model.idAccount)
+         </div>
+         <div class="col s12 m6 input-field" data-bind="visible:Type()==entryTypeTransfer">
+            @Html.FsRelatedBoxFor(m => Model.idAccountExpense, new RelatedBox("Accounts"))
+            @Html.FsLabelFor(m => Model.idAccountExpense)
+         </div>
+         <div class="col s12 m6 input-field" data-bind="visible:Type()==entryTypeTransfer">
+            @Html.FsRelatedBoxFor(m => Model.idAccountIncome, new RelatedBox("Accounts"))
+            @Html.FsLabelFor(m => Model.idAccountIncome)
+         </div>
+         <div class="col s6 input-field">
+            @Html.FsTextBoxFor(m => Model.EntryValue)
+            @Html.FsLabelFor(m => Model.EntryValue)
+         </div>
+         <div class="col s6 input-field">
+            @Html.FsTextBoxFor(m => Model.DueDate)
+            @Html.FsLabelFor(m => Model.DueDate)
+         </div>
+
+         <!-- ko if: Type()!=entryTypeTransfer -->
+         <div class="col s12 input-field">
+            @Html.FsRelatedBoxFor(m => Model.idCategory, new RelatedBox<string>("Categories", "Income"))
+            @Html.FsLabelFor(m => Model.idCategory)
+         </div>
+         <div class="col s4 m2 input-field">
+            @Html.FsCheckBoxFor(m => Model.Paid)
+            @Html.FsLabelFor(m => Model.Paid)
+         </div>
+         <div class="col s8 m10 input-field">
+            @Html.FsTextBoxFor(m => Model.PayDate, new string[] { "enable:Paid" })
+            @Html.FsLabelFor(m => Model.PayDate)
+         </div>
+         @Html.Partial("../Entries/Details_Recurrency")
+         <!-- /ko -->
+
+      </div>
+   </div>
+   <div class="modal-progress" data-bind="style:{opacity:$parent.isLoading() ? 1 : 0}">
+      <div class="indeterminate"></div>
+   </div>
+   @Html.Partial("../Entries/Details_Footer")
+   <!-- /ko -->
+</div>
+<script type="text/javascript">
+
+   var entryTypeIncome = @((short)enEntryType.Income);
+   var entryTypeExpense = @((short)enEntryType.Expense);
+   var entryTypeTransfer = @((short)enEntryType.None);
+
+   var accountTypeGeneral = @((short)FriendCash.Service.Accounts.Model.enAccountType.General);
+   var accountTypeBank = @((short)FriendCash.Service.Accounts.Model.enAccountType.Bank);
+   var accountTypeCreditCard = @((short)FriendCash.Service.Accounts.Model.enAccountType.CreditCard);
+   var accountTypeInvestment = @((short)FriendCash.Service.Accounts.Model.enAccountType.Investment);
+   var accountTypeService = @((short)FriendCash.Service.Accounts.Model.enAccountType.Service);
+
+   $(document).ready(function () {
+      ko.applyBindings(new koEntryCrud(), document.getElementById("entryModal"));
+   });
+</script>

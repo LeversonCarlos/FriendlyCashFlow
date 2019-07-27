@@ -1,0 +1,12 @@
+﻿@{ ViewBag.Title = Html.FsTranslationFor("TITLE_USERS_MAIN"); }
+<div id="koUser">
+   @Html.Partial("List")
+</div>
+@section Scripts {
+   <script type="text/javascript">
+      $(document).ready(function () {
+         ko.applyBindings(new koUsersContext(), document.getElementById("koUser"));
+      });
+   </script>
+   @Html.IncludeJS("~/Scripts/users.min.js")
+}

@@ -1,7 +1,0 @@
-﻿@{
-   if (User.Identity.IsAuthenticated) { ViewBag.jQueryUI = true; }
-   Layout = "~/Views/Shared/Base.cshtml";
-}
-@if (User.Identity.IsAuthenticated)
-{ @Html.Partial("Index_Authenticated") }
-else { @Html.Partial("Index_Anonymous") }

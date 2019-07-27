@@ -1,0 +1,38 @@
+﻿@model string
+@{ 
+   var mainID = "koEntryToolbar" + Model;
+   var accountID = "filterAccount" + Model;
+   var CLASS = "";
+   if (Model == "Header") { CLASS = "right"; }
+   else if (Model == "SubHeader") { CLASS = ""; }
+}
+<ul id="@mainID" class="@CLASS">
+   <!-- ko with:data -->
+   <li class="current-account" data-bind="with:FilterCurrentAccount">
+      <a href="#!" class="dropdown-button" data-activates="@accountID">
+         <span data-bind="text:Text"></span>
+         <i class="material-icons right">arrow_drop_down</i>
+      </a>
+      <ul id="@accountID" class="dropdown-content" data-bind="foreach:$parent.FilterAccountList">
+         <li>
+            <a href="#!" data-bind="click:$parents[2].accountClick,text:Text"></a>
+         </li>
+      </ul>
+   </li>
+   <li class="previous-month" data-bind="with:FilterPreviousMonth">
+      <a href="#!" class="waves-effect" data-bind="click:$parents[1].monthClick"><i class="material-icons">chevron_left</i></a>
+   </li>
+   <li class="current-month" data-bind="with:FilterCurrentMonth"><span data-bind="text:Text"></span></li>
+   <li class="next-month" data-bind="with:FilterNextMonth">
+      <a href="#!" class="waves-effect" data-bind="click:$parents[1].monthClick"><i class="material-icons">chevron_right</i></a>
+   </li>
+   <!-- /ko -->
+</ul>
+<script type="text/javascript">
+   $(document).ready(function () {
+      var initialYear = @DateTime.Now.Year;
+      var initialMonth = @DateTime.Now.Month;
+      var initialAccount = @ViewBag.initialAccount;
+      ko.applyBindings(new koEntryFilterContext(initialYear, initialMonth, initialAccount), document.getElementById("@mainID"));
+   });
+</script>

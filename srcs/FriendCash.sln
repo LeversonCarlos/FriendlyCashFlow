@@ -1,74 +1,49 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "1-MODEL\Model.csproj", "{A889B680-6558-4970-8E51-4EDFD146E674}"
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FriendCash.Service", "FriendCash.Service\FriendCash.Service.csproj", "{17315474-BDB2-4433-9DA0-B81583B106EC}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1-MODEL", "1-MODEL", "{5D67B2D8-0E4F-45C0-8DE7-57FEF25978FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FriendCash.Web", "FriendCash.Web\FriendCash.Web.csproj", "{A65BBA31-480D-4FC9-88B0-F35222259F9C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2-SERVICE", "2-SERVICE", "{1EDE5968-B325-4E1C-9C97-5D6978670E32}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "2-SERVICE\Service.csproj", "{52A62D0B-B22F-436A-9C9A-D701313A959D}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3-WEB", "3-WEB", "{3257593D-30DF-481E-992B-9E200E89B09C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "3-WEB\Web.csproj", "{89474358-76FE-4C7E-A675-6D05FD65484D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resources", "0-RESOURCES\Resources\Resources.csproj", "{00165DAD-1448-4F2B-A5F7-C7B1169BC300}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0-RESOURCES", "0-RESOURCES", "{6E587058-79A8-4AB4-9064-CFD2D5AC52EC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FriendCash.Model", "FriendCash.Model\FriendCash.Model.csproj", "{2E9758F1-9A6F-43EB-BC41-BE8DE036218D}"
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 5
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://friendship.visualstudio.com/defaultcollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = 1-MODEL\\Model.csproj
-		SccProjectTopLevelParentUniqueName1 = FriendCash.sln
-		SccProjectName1 = 1-MODEL
-		SccLocalPath1 = 1-MODEL
-		SccProjectUniqueName2 = 2-SERVICE\\Service.csproj
-		SccProjectTopLevelParentUniqueName2 = FriendCash.sln
-		SccProjectName2 = 2-SERVICE
-		SccLocalPath2 = 2-SERVICE
-		SccProjectUniqueName3 = 3-WEB\\Web.csproj
-		SccProjectTopLevelParentUniqueName3 = FriendCash.sln
-		SccProjectName3 = 3-WEB
-		SccLocalPath3 = 3-WEB
-		SccProjectUniqueName4 = 0-RESOURCES\\Resources\\Resources.csproj
-		SccProjectTopLevelParentUniqueName4 = FriendCash.sln
-		SccProjectName4 = 0-RESOURCES/Resources
-		SccLocalPath4 = 0-RESOURCES\\Resources
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A889B680-6558-4970-8E51-4EDFD146E674}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A889B680-6558-4970-8E51-4EDFD146E674}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A889B680-6558-4970-8E51-4EDFD146E674}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A889B680-6558-4970-8E51-4EDFD146E674}.Release|Any CPU.Build.0 = Release|Any CPU
-		{52A62D0B-B22F-436A-9C9A-D701313A959D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{52A62D0B-B22F-436A-9C9A-D701313A959D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{52A62D0B-B22F-436A-9C9A-D701313A959D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{52A62D0B-B22F-436A-9C9A-D701313A959D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{89474358-76FE-4C7E-A675-6D05FD65484D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{89474358-76FE-4C7E-A675-6D05FD65484D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{89474358-76FE-4C7E-A675-6D05FD65484D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{89474358-76FE-4C7E-A675-6D05FD65484D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{00165DAD-1448-4F2B-A5F7-C7B1169BC300}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{00165DAD-1448-4F2B-A5F7-C7B1169BC300}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{00165DAD-1448-4F2B-A5F7-C7B1169BC300}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{00165DAD-1448-4F2B-A5F7-C7B1169BC300}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17315474-BDB2-4433-9DA0-B81583B106EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17315474-BDB2-4433-9DA0-B81583B106EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17315474-BDB2-4433-9DA0-B81583B106EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17315474-BDB2-4433-9DA0-B81583B106EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A65BBA31-480D-4FC9-88B0-F35222259F9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A65BBA31-480D-4FC9-88B0-F35222259F9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A65BBA31-480D-4FC9-88B0-F35222259F9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A65BBA31-480D-4FC9-88B0-F35222259F9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E9758F1-9A6F-43EB-BC41-BE8DE036218D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E9758F1-9A6F-43EB-BC41-BE8DE036218D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E9758F1-9A6F-43EB-BC41-BE8DE036218D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E9758F1-9A6F-43EB-BC41-BE8DE036218D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{A889B680-6558-4970-8E51-4EDFD146E674} = {5D67B2D8-0E4F-45C0-8DE7-57FEF25978FB}
-		{52A62D0B-B22F-436A-9C9A-D701313A959D} = {1EDE5968-B325-4E1C-9C97-5D6978670E32}
-		{89474358-76FE-4C7E-A675-6D05FD65484D} = {3257593D-30DF-481E-992B-9E200E89B09C}
-		{00165DAD-1448-4F2B-A5F7-C7B1169BC300} = {6E587058-79A8-4AB4-9064-CFD2D5AC52EC}
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://friendship.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = FriendCash.Service\\FriendCash.Service.csproj
+		SccProjectName1 = FriendCash.Service
+		SccLocalPath1 = FriendCash.Service
+		SccProjectUniqueName2 = FriendCash.Web\\FriendCash.Web.csproj
+		SccProjectName2 = FriendCash.Web
+		SccLocalPath2 = FriendCash.Web
+		SccProjectUniqueName3 = FriendCash.Model\\FriendCash.Model.csproj
+		SccProjectName3 = FriendCash.Model
+		SccLocalPath3 = FriendCash.Model
 	EndGlobalSection
 EndGlobal

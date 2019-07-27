@@ -1,0 +1,66 @@
+﻿@using FriendCash.Service.Entries.Model
+@{
+   ViewBag.Title = Html.FsTranslationFor("TITLE_ENTRIES_MAIN");
+}
+@section Header { <div class="hide-on-small-and-down"> @Html.Partial("Toolbar", "Header")</div> }
+@section SubHeader { <div class="hide-on-med-and-up nav-content"> @Html.Partial("Toolbar", "SubHeader")</div> }
+<div id="koEntry" class="row">
+   @Html.Partial("List")
+
+   <div class="fs-fab fixed-action-btn">
+
+      <!-- ko if:IsActiveUser() -->
+         <a class="fs-fab-btn">
+            <i class="material-icons">add</i>
+         </a>
+         <ul>
+            <li>
+               <a class="btn-floating green" data-bind="click:addIncome">
+                  <i class="material-icons">file_download</i>
+                  <span>INCOME</span>
+               </a>
+            </li>
+            <li>
+               <a class="btn-floating red" data-bind="click:addExpense">
+                  <i class="material-icons">file_upload</i>
+                  <span>EXPENSE</span>
+               </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+               <a class="btn-floating grey" data-bind="click:addTransfer">
+                  <i class="material-icons">shuffle</i>
+                  <span>TRANSFER</span>
+               </a>
+            </li>
+         </ul>
+      <!-- /ko -->
+      <!-- ko if:!IsActiveUser() -->
+         <span class="fs-fab-btn" title="@Html.FsTranslationFor("LABEL_AUTH_NOT_ISACTIVEUSER")">
+            <i class="material-icons">add</i>
+         </span>
+      <!-- /ko -->
+   </div>
+
+</div>
+@Html.Partial("Details")
+@section Scripts {
+   <style type="text/css">
+      @@media only screen and (max-width: 600px) {
+          nav { height:auto; }
+         .navbar-fixed { height:112px; }
+         .nav-wrapper { min-height: 56px; }
+         .nav-content { min-height: 56px; }
+         .current-account { width:49vw; height:56px; }
+      }
+   </style>
+   <script type="text/javascript">
+      var initialYear = @(DateTime.Now.Year);
+      var initialMonth = @(DateTime.Now.Month);
+      var msgTextEntryTypeTransfer = '@Html.Raw(Html.FsTranslationFor("ENUM_CATEGORYTYPE_TRANSFER"))';
+      $(document).ready(function () {
+         ko.applyBindings(new koEntryContext(initialYear, initialMonth), document.getElementById("koEntry"));
+      });
+   </script>
+   @Html.IncludeJS("~/Scripts/entries.min.js")
+}

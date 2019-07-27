@@ -1,0 +1,58 @@
+﻿@using FriendCash.Service.Accounts.Model
+<div id="koBalance" class="card">
+   <div class="card-title">
+      <h5>@Html.FsTranslationFor("TITLE_DASHBOARD_ACCOUNTS_BALANCE")</h5>
+   </div>  
+   <div class="card-content center-align" data-bind="visible:isLoading">
+      @Html.Partial("_Control_Spinner")
+   </div>
+   <ul class="collapsible z-depth-0" data-collapsible="accordion">
+      <li class="collapsible-header blue-text" data-bind="visible:data().length==0,click:function(){window.location='@Url.Action("Index", "Accounts")'}">
+         <i class="material-icons left">add_circle</i>
+         <span>@Html.FsTranslationFor("MSG_ACCOUNTS_ADD_NEW")</span>
+      </li>
+      <!-- ko foreach:data -->
+      <li>
+         <div class="collapsible-header">
+            <!-- ko if:Type() == typeGeneral --><i class="material-icons left">account_balance_wallet</i><!-- /ko -->
+            <!-- ko if:Type() == typeBank --><i class="material-icons left">account_balance</i><!-- /ko -->
+            <!-- ko if:Type() == typeCreditCard --><i class="material-icons left">credit_card</i><!-- /ko -->
+            <!-- ko if:Type() == typeInvestment --><i class="material-icons left">local_atm</i><!-- /ko -->
+            <!-- ko if:Type() == typeService --><i class="material-icons left">card_giftcard</i><!-- /ko -->
+            <span class="" data-bind="text:Text"></span>
+            <small class="secondary-content" data-bind="text:CurrentBalance,css:{'red-text':Type()==typeCreditCard}"></small>
+         </div>
+         <div class="collapsible-body collection" data-bind="foreach:Accounts">
+            <a href="#!" class="collection-item grey lighten-3" data-bind="click:itemClick">
+               <span data-bind="text:Text"></span>
+               <small class="badge due-date" data-bind="text:DueDate,visible:Type()==typeCreditCard"></small>
+               <small class="secondary-content">
+                  <span data-bind="text:CurrentBalance,css:{'red-text':!positiveCurrentBalance(),'green-text':positiveCurrentBalance()}"></span>
+                  <!-- ko if:hasPendingBalance -->
+                  <small data-bind="css:{'red-text':!positivePendingBalance(),'green-text':positivePendingBalance()}">
+                      (<span data-bind="text:PendingBalance"></span>)
+                  </small>
+                  <!-- /ko -->
+               </small>
+            </a>
+         </div>
+      </li>
+      <!-- /ko -->
+   </ul>
+</div>
+<script type="text/javascript">
+   var typeGeneral = @((short)enAccountType.General);
+   var typeBank = @((short)enAccountType.Bank);
+   var typeCreditCard = @((short)enAccountType.CreditCard);
+   var typeInvestment = @((short)enAccountType.Investment);
+   var typeService = @((short)enAccountType.Service);
+   $(document).ready(function () {
+      ko.applyBindings(new koBalanceContext(), document.getElementById("koBalance"));
+   });
+</script>
+<style type="text/css">
+   #koBalance .card-title { padding:10px 20px; }
+   #koBalance .collapsible { margin-top:0; }
+   #koBalance .collapsible-header .material-icons { margin-right:5px; margin-left:-5px; }
+   #koBalance .badge.due-date { font-size:0.55em; line-height:1em; position:initial; right:auto; }  
+</style>

@@ -1,0 +1,59 @@
+﻿@using FriendCash.Service.Entries.Model
+@model viewRecurrency
+<!-- ko with:idRecurrencyView -->
+<!-- ko if: !hasRecurrency() || $parent.idEntry()==0 -->
+<div class="col s12 card-panel grey lighten-4" data-bind="css:{'z-depth-0':!hasRecurrency()}">
+   <div class="row recurrency-box" >
+
+      <!-- ko if: $parent.idEntry()==0 -->
+      <div class="col s12">
+         <input type="checkbox" class="filled-in" id="hasRecurrency" name="hasRecurrency" data-bind="checked:hasRecurrency" />
+         @Html.FsLabelFor(m => Model.hasRecurrency)
+      </div>
+      <div class="col s7 input-field" data-bind="visible:hasRecurrency">
+         @Html.FsDropBoxFor(m => Model.Type)
+         @Html.FsLabelFor(m => Model.Type)
+      </div>
+      @*
+   <div class="col s3 input-field" data-bind="visible:hasRecurrency">
+      @Html.FsCheckBoxFor(m => Model.Fixed)
+      @Html.FsLabelFor(m => Model.Fixed)
+   </div>
+      *@
+      <div class="col s5 input-field" data-bind="visible:hasRecurrency">
+         @Html.FsTextBoxFor(m => Model.Quantity, new string[] { "enable:Fixed" })
+         @Html.FsLabelFor(m => Model.Quantity)
+      </div>
+      <!-- /ko -->
+
+      <!-- ko if: $parent.idEntry()!=0 -->
+      <div class="col s12"><!-- THIS IS REQUIRED --></div> 
+      <div class="col s12 input-field" data-bind="visible:hasRecurrency">
+         @Html.FsDropBoxFor(m => Model.Update)
+         @Html.FsLabelFor(m => Model.Update)
+      </div>
+      @*
+      <div class="col s12" data-bind="visible:hasRecurrency">
+         <div>
+            @Html.FsLabelFor(m => Model.Update)
+         </div>
+         <div>
+            <input name="Update" id="Update1" type="radio" value="@((short)enRecurrencyUpdate.Current)" data-bind="checked:Update()" />
+            <label for="Update1">@Html.FsTranslationFor("ENUM_RECURRENCYUPDATE_" + enRecurrencyUpdate.Current.ToString().ToUpper())</label>
+         </div>
+         <div>
+            <input name="Update" id="Update2" type="radio" value="@((short)enRecurrencyUpdate.Futures)" data-bind="checked:Update()" />
+            <label for="Update2">@Html.FsTranslationFor("ENUM_RECURRENCYUPDATE_" + enRecurrencyUpdate.Futures.ToString().ToUpper())</label>
+         </div>
+      </div>
+      *@
+      <!-- /ko -->
+
+   </div>
+   <style type="text/css">
+      .recurrency-box { margin-bottom:0; }
+      .recurrency-box .col:first-child { margin: 5px auto 0px -7px !important; padding:0; }
+   </style>            
+</div>
+<!-- /ko -->
+<!-- /ko -->

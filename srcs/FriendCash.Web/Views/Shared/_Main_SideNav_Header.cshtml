@@ -1,0 +1,9 @@
+﻿@{ var userTicket = new FriendCash.Web.Controllers.UserTicket(this.User); }
+<div class="side-nav-header">
+   <img class="responsive-img" src="~/Content/media/sidebarHeader.png">
+   <div class="side-nav-header-title smoke"></div>
+   <div class="side-nav-header-title">
+      <span>@userTicket.FullName</span>
+      <a href="@Url.Action("Logout", "Auth")" class="material-icons red-text">power_settings_new</a>
+   </div>
+</div>
