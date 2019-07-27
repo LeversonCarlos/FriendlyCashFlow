@@ -1,0 +1,19 @@
+﻿/* GENERAL */
+body {font-family:"Tahoma"; font-size:18px; }
+      
+/* MAIN-HEADER */      
+div#main {width:480px; }
+div#main-header-menu {width:410px; font-size:0.65em; }
+
+/* MAIN-DRAWER */
+div#main-drawer-content {width:436px; }
+div.DrawerLeft {width:130px; }
+div.DrawerRight {width:304px; }
+div.DrawerRight input[type=text] {width:60%; }
+
+/* MAIN-CONTENT */
+div#main_title {width:370px; }
+div#main_title h1 {font-size:20px; line-height:20px; }
+
+/* FORM */
+div.editor-form {width:480px; }
