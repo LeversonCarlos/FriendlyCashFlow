@@ -14,8 +14,8 @@ const providers = [
 */
 
 if (environment.production) {
-  enableProdMode();
+   enableProdMode();
 }
 
 platformBrowserDynamic(/* providers*/).bootstrapModule(AppModule)
-  .catch(err => console.error(err));
+   .catch(err => console.error(err));

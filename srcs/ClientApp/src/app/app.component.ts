@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'fs-root',
-  template: `
+   selector: 'fs-root',
+   template: `
     <!--The content below is only a placeholder and can be replaced.-->
     <div style="text-align:center">
       <h1>
@@ -24,8 +24,8 @@ import { Component } from '@angular/core';
     </ul>
     <router-outlet></router-outlet>
   `,
-  styles: []
+   styles: []
 })
 export class AppComponent {
-  title = 'FriendlyCashFlow';
+   title = 'FriendlyCashFlow';
 }
