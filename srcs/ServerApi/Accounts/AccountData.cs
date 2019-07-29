@@ -1,5 +1,14 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
+
+namespace FriendlyCashFlow.API.Shared
+{
+   partial class dbContext
+   {
+      internal DbSet<Accounts.AccountData> Accounts { get; set; }
+   }
+}
 
 namespace FriendlyCashFlow.API.Accounts
 {
