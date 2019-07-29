@@ -1,7 +1,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 
-namespace FriendlyCashFlow.API.Shared
+namespace FriendlyCashFlow.API.Base
 {
    internal partial class dbContext : DbContext, IDisposable
    {

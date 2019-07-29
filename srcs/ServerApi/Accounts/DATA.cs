@@ -2,19 +2,11 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace FriendlyCashFlow.API.Shared
-{
-   partial class dbContext
-   {
-      internal DbSet<Accounts.AccountData> Accounts { get; set; }
-   }
-}
-
 namespace FriendlyCashFlow.API.Accounts
 {
 
    [Table("v5_dataAccounts")]
-   internal class AccountData : Shared.BaseData
+   internal class AccountData : Base.BaseData
    {
 
       [Column("AccountID"), Key]
@@ -40,4 +32,12 @@ namespace FriendlyCashFlow.API.Accounts
 
    }
 
+}
+
+namespace FriendlyCashFlow.API.Base
+{
+   partial class dbContext
+   {
+      internal DbSet<Accounts.AccountData> Accounts { get; set; }
+   }
 }

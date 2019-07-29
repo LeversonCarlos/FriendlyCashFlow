@@ -2,10 +2,9 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace FriendlyCashFlow.API.Shared
+namespace FriendlyCashFlow.API.Base
 {
    public enum enRowStatus : short { Removed = -1, Temporary = 0, Active = 1 }
-
    public class BaseData : IDisposable
    {
 
@@ -25,5 +24,4 @@ namespace FriendlyCashFlow.API.Shared
       { /* throw new NotImplementedException(); */ }
 
    }
-
 }
