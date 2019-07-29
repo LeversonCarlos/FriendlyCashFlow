@@ -8,7 +8,9 @@ namespace FriendlyCashFlow
 
       private void AddDataServices(IServiceCollection services)
       {
-         services.AddDbContext<API.Shared.dbContext>(x => x.UseInMemoryDatabase("FriendlyCashFlowDb"));
+         var appSettings = this.GetAppSettings(services);
+         services.AddDbContext<API.Shared.dbContext>(x => x.UseSqlServer(appSettings.ConnStr));
+         // services.AddDbContext<API.Shared.dbContext>(x => x.UseInMemoryDatabase("FriendlyCashFlowDb"));
       }
 
    }
