@@ -6,7 +6,7 @@ namespace FriendlyCashFlow.API.Shared
 {
    partial class dbContext
    {
-      internal DbSet<Accounts.AccountData> Accounts { get; set; }
+      // internal DbSet<Accounts.AccountData> Accounts { get; set; }
    }
 }
 

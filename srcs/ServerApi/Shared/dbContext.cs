@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FriendlyCashFlow.API.Shared
 {
-   internal partial class dbContext : DbContext, IDisposable
+   public partial class dbContext : DbContext, IDisposable
    {
 
       public IServiceProvider serviceProvider { get; set; }
