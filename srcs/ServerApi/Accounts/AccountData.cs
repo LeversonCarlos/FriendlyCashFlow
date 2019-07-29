@@ -6,7 +6,7 @@ namespace FriendlyCashFlow.API.Shared
 {
    partial class dbContext
    {
-      // internal DbSet<Accounts.AccountData> Accounts { get; set; }
+      internal DbSet<Accounts.AccountData> Accounts { get; set; }
    }
 }
 
@@ -14,7 +14,7 @@ namespace FriendlyCashFlow.API.Accounts
 {
 
    [Table("v5_dataAccounts")]
-   public class AccountData : Shared.BaseData
+   internal class AccountData : Shared.BaseData
    {
 
       [Column("AccountID"), Key]
