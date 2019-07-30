@@ -2,17 +2,13 @@
 
    <header class="layout-header">
       <mat-toolbar color="primary">
-         <span>
-            <ng-content select="[title]"></ng-content>
-         </span>
-         <span>
-            <ng-content select="[toolbar]"></ng-content>
-         </span>
+         <ng-content select="[left-header]"></ng-content>
+         <ng-content select="[right-header]"></ng-content>
       </mat-toolbar>
    </header>
 
-   <section class="layout-content">
-      <ng-content select="[content]"></ng-content>
+   <section class="layout-details">
+      <ng-content select="[details]"></ng-content>
    </section>
 
 </div>

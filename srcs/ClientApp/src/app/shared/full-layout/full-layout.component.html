@@ -1,0 +1,12 @@
+<fs-base-layout>
+   <div left-header>
+      <ng-content select="[title]"></ng-content>
+   </div>
+   <div right-header>
+      <ng-content select="[toolbar]"></ng-content>
+   </div>
+   <div details>
+      <ng-content class="layout-content" select="[content]"></ng-content>
+      <ng-content class="layout-footer" select="[footer]"></ng-content>
+   </div>
+</fs-base-layout>
