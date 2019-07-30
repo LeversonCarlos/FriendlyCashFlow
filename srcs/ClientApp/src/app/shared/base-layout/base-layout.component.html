@@ -1,0 +1,18 @@
+<div class="layout-container">
+
+   <header class="layout-header">
+      <mat-toolbar color="primary">
+         <span>
+            <ng-content select="[title]"></ng-content>
+         </span>
+         <span>
+            <ng-content select="[toolbar]"></ng-content>
+         </span>
+      </mat-toolbar>
+   </header>
+
+   <section class="layout-content">
+      <ng-content select="[content]"></ng-content>
+   </section>
+
+</div>
