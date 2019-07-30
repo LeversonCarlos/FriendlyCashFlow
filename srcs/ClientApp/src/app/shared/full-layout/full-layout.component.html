@@ -6,7 +6,11 @@
       <ng-content select="[toolbar]"></ng-content>
    </div>
    <div details>
-      <ng-content class="layout-content" select="[content]"></ng-content>
-      <ng-content class="layout-footer" select="[footer]"></ng-content>
+      <div class="layout-content">
+         <ng-content select="[content]"></ng-content>
+      </div>
+      <div class="layout-footer">
+         <ng-content select="[footer]"></ng-content>
+      </div>
    </div>
 </fs-base-layout>
