@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { AppRouting } from './app.routing';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
+import { SecureModule } from './secure/secure.module';
 
 @NgModule({
    declarations: [
@@ -12,7 +13,7 @@ import { CoreModule } from './core/core.module';
    ],
    imports: [
       BrowserModule, BrowserAnimationsModule,
-      AppRouting, CoreModule
+      AppRouting, CoreModule, SecureModule
    ],
    bootstrap: [AppComponent]
 })
