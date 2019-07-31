@@ -2,7 +2,7 @@
 
    <mat-sidenav #snav fixedInViewport="true" [mode]="mobileQuery.matches ? 'over' : 'side'"
       [opened]="!mobileQuery.matches" (keydown.escape)="snav.close()">
-      <img src="assets/sidebarHeader.png" />
+      <img class="sidebarHeader" src="assets/sidebarHeader.png" />
       <mat-action-list>
          <button mat-list-item>
             <span>Dashboard</span>
