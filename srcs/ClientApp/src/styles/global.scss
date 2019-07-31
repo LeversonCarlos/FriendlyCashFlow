@@ -1,0 +1,9 @@
+@import './screenSizes.scss';
+
+.full-screen {
+   height: $details-height;
+   display: flex;
+   flex-direction: column;
+   align-content: center;
+   justify-content: center;
+}

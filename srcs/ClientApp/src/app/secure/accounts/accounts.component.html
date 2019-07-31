@@ -4,22 +4,22 @@
    </span>
    <div toolbar>
    </div>
-   <div content>
+   <div content class="full-screen">
 
       <mat-card>
          <mat-card-content>
             <mat-tab-group>
                <mat-tab label="Active Accounts">
                   <mat-action-list>
-                     <button mat-list-item *ngFor="let item of ActiveData">
+                     <button mat-list-item *ngFor="let item of ActiveData" (click)="OnItemSelect(item)" >
                         <span>{{ item.Text }}</span>
                         <mat-icon matListIcon>{{ item.Icon }}</mat-icon>
                      </button>
                   </mat-action-list>
                </mat-tab>
-               <mat-tab label="Arquived Accouncs">
+               <mat-tab label="Arquived">
                   <mat-action-list>
-                     <button mat-list-item *ngFor="let item of ArquivedData">
+                     <button mat-list-item *ngFor="let item of ArquivedData" (click)="OnItemSelect(item)" >
                         <span>{{ item.Text }}</span>
                         <mat-icon matListIcon>{{ item.Icon }}</mat-icon>
                      </button>
