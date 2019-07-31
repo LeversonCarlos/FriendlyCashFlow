@@ -1,15 +1,20 @@
 import { Component, OnInit } from '@angular/core';
+import { MediaMatcher } from '@angular/cdk/layout';
 
 @Component({
-  selector: 'fs-full-layout',
-  templateUrl: './full-layout.component.html',
-  styleUrls: ['./full-layout.component.scss']
+   selector: 'fs-full-layout',
+   templateUrl: './full-layout.component.html',
+   styleUrls: ['./full-layout.component.scss']
 })
 export class FullLayoutComponent implements OnInit {
 
-  constructor() { }
+   constructor(private media: MediaMatcher) {
+      this.mobileQuery = media.matchMedia('(max-width: 600px)');
+   }
 
-  ngOnInit() {
-  }
+   public mobileQuery: MediaQueryList
+
+   public ngOnInit() {
+   }
 
 }

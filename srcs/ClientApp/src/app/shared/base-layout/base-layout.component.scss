@@ -1,5 +1,13 @@
-.layout-header {
-  .mat-toolbar {
-     justify-content: space-between;
+.layout-container {
+  height: -webkit-fill-available;
+  display: flex;
+  flex-direction: column;
+  .layout-header {
+    .mat-toolbar {
+      justify-content: space-between;
+    }
+  }
+  .layout-details {
+    flex-grow: 1;
   }
 }
