@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AccountsService } from '../accounts.service';
 
 @Component({
    selector: 'fs-account-details',
@@ -8,10 +9,15 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AccountDetailsComponent implements OnInit {
 
-   constructor(private route: ActivatedRoute) { }
+   constructor(private service: AccountsService, private route: ActivatedRoute) { }
 
-   public ngOnInit() {
-      this.route.params.subscribe(params => console.log(params.id));
+   public async ngOnInit() {
+      const accountID: number = Number(this.route.snapshot.params.id)
+      if (!accountID || accountID == 0) { console.error('todo'); return; }
+
+      const account = await this.service.getAccount(accountID);
+      if (!account) { console.error('todo'); return; }
+      console.log(account);
    }
 
 }
