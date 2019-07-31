@@ -12,7 +12,8 @@
                <mat-tab label="Active Accounts">
                   <mat-action-list *ngFor="let item of Data">
                      <button mat-list-item>
-                        <span>{{ item.Text}}</span>
+                        <span>{{ item.Text }}</span>
+                        <mat-icon matListIcon>{{ item.Icon }}</mat-icon>
                      </button>
                   </mat-action-list>
                </mat-tab>
