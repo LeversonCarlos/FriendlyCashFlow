@@ -1,10 +1,18 @@
 <mat-sidenav-container (backdropClick)="snav.close()">
 
-   <mat-sidenav #snav (keydown.escape)="snav.close()" [mode]="mobileQuery.matches ? 'over' : 'side'"
-      fixedInViewport="true">
-      <mat-nav-list>
-         <a mat-list-item routerLink=".">Home</a>
-      </mat-nav-list>
+   <mat-sidenav #snav fixedInViewport="true" [mode]="mobileQuery.matches ? 'over' : 'side'"
+      [opened]="!mobileQuery.matches" (keydown.escape)="snav.close()">
+      <img src="assets/sidebarHeader.png" />
+      <mat-action-list>
+         <button mat-list-item>
+            <span>Dashboard</span>
+            <mat-icon matListIcon>dashboard</mat-icon>
+         </button>
+         <button mat-list-item>
+            <span>Entries</span>
+            <mat-icon matListIcon>receipt</mat-icon>
+         </button>
+      </mat-action-list>
    </mat-sidenav>
 
    <mat-sidenav-content>
