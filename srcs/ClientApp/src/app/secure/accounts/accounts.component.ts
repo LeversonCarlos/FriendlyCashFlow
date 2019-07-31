@@ -9,7 +9,14 @@ import { AccountsService, Account } from './accounts.service';
 export class AccountsComponent implements OnInit {
 
    constructor(private service: AccountsService) { }
+
    public Data: Account[];
+   public get ActiveData(): Account[] {
+      return this.Data && this.Data.filter(item => item.Active);
+   }
+   public get ArquivedData(): Account[] {
+      return this.Data && this.Data.filter(item => !item.Active);
+   }
 
    public async ngOnInit() {
       this.Data = await this.service.getAccounts();
