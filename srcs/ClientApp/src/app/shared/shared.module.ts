@@ -10,9 +10,10 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { BaseLayoutComponent } from './base-layout/base-layout.component';
 import { FullLayoutComponent } from './full-layout/full-layout.component';
+import { SideNavComponent } from './side-nav/side-nav.component';
 
 @NgModule({
-   declarations: [BaseLayoutComponent, FullLayoutComponent],
+   declarations: [BaseLayoutComponent, FullLayoutComponent, SideNavComponent],
    imports: [
       CommonModule,
       MatToolbarModule, MatSidenavModule, MatListModule, MatIconModule, MatButtonModule

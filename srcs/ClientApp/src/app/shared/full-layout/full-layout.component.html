@@ -2,17 +2,7 @@
 
    <mat-sidenav #snav fixedInViewport="true" [mode]="mobileQuery.matches ? 'over' : 'side'"
       [opened]="!mobileQuery.matches" (keydown.escape)="snav.close()">
-      <img class="sidebarHeader" src="assets/sidebarHeader.png" />
-      <mat-action-list>
-         <button mat-list-item>
-            <span>Dashboard</span>
-            <mat-icon matListIcon>dashboard</mat-icon>
-         </button>
-         <button mat-list-item>
-            <span>Entries</span>
-            <mat-icon matListIcon>receipt</mat-icon>
-         </button>
-      </mat-action-list>
+      <fs-side-nav></fs-side-nav>
    </mat-sidenav>
 
    <mat-sidenav-content>
