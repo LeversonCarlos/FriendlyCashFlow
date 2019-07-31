@@ -1,3 +1,6 @@
+$header-height: 56px;
+$details-height: calc(100vh - #{$header-height});
+
 $max-width-xs: 599px;
 $min-width-sm: 600px;
 $max-width-sm: 959px;

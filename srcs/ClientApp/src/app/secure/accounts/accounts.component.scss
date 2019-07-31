@@ -1,0 +1,27 @@
+@import "../../../styles/screenSizes.scss";
+
+$screenPadding: 3px;
+$cardPadding: 16px;
+$tabsHeader: 49px;
+$cardActions: 44px;
+
+div[content] {
+  height: $details-height;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+
+  .mat-card {
+    .mat-card-content {
+      margin: 0;
+    }
+    .mat-action-list {
+      height: 40vh;
+      @media (max-width: $max-width-xs) {
+        height: calc(#{$details-height} - (#{$screenPadding} * 2) - (#{$cardPadding} * 2) - #{$tabsHeader} - #{$cardActions});
+      }
+      overflow-y: scroll;
+    }
+  }
+}

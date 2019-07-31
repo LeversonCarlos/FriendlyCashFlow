@@ -10,16 +10,16 @@
          <mat-card-content>
             <mat-tab-group>
                <mat-tab label="Active Accounts">
-                  <mat-action-list *ngFor="let item of ActiveData">
-                     <button mat-list-item>
+                  <mat-action-list>
+                     <button mat-list-item *ngFor="let item of ActiveData">
                         <span>{{ item.Text }}</span>
                         <mat-icon matListIcon>{{ item.Icon }}</mat-icon>
                      </button>
                   </mat-action-list>
                </mat-tab>
                <mat-tab label="Arquived Accouncs">
-                  <mat-action-list *ngFor="let item of ArquivedData">
-                     <button mat-list-item>
+                  <mat-action-list>
+                     <button mat-list-item *ngFor="let item of ArquivedData">
                         <span>{{ item.Text }}</span>
                         <mat-icon matListIcon>{{ item.Icon }}</mat-icon>
                      </button>

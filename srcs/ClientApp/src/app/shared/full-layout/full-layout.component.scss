@@ -1,9 +1,14 @@
 @import "../../../styles/screenSizes.scss";
+
 .layout-container-content {
-  padding: 3px;
+  padding: 0 3px;
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  .layout-full-content {
+    width: 100%;
+  }
 
   .layout-content {
     width: 50vw;
