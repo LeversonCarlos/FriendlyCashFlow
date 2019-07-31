@@ -9,7 +9,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
 export class FullLayoutComponent implements OnInit {
 
    constructor(private media: MediaMatcher) {
-      this.mobileQuery = media.matchMedia('(max-width: 600px)');
+      this.mobileQuery = media.matchMedia('(max-width: 960px)');
    }
 
    public mobileQuery: MediaQueryList

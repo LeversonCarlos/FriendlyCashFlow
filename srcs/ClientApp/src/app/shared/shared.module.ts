@@ -5,6 +5,7 @@ import 'hammerjs';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -17,10 +18,12 @@ import { SideNavComponent } from './side-nav/side-nav.component';
    declarations: [BaseLayoutComponent, FullLayoutComponent, SideNavComponent],
    imports: [
       CommonModule, RouterModule,
-      MatToolbarModule, MatSidenavModule, MatListModule, MatIconModule, MatButtonModule
+      MatToolbarModule, MatSidenavModule, MatCardModule, MatListModule,
+      MatIconModule, MatButtonModule
    ],
    exports: [
-      MatToolbarModule, MatSidenavModule, MatListModule, MatIconModule, MatButtonModule,
+      MatToolbarModule, MatSidenavModule, MatCardModule, MatListModule,
+      MatIconModule, MatButtonModule,
       BaseLayoutComponent, FullLayoutComponent
    ]
 })
