@@ -11,7 +11,11 @@ namespace FriendlyCashFlow
       private void AddMvcServices(IServiceCollection services)
       {
          services.AddMvc()
-            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+            .AddJsonOptions(options =>
+            {
+               options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver();
+            });
       }
 
       private void UseMvcServices(IApplicationBuilder app, IHostingEnvironment env)

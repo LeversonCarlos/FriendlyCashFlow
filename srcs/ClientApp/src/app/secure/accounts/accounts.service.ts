@@ -19,7 +19,6 @@ export class AccountsService {
    public async getAccounts(): Promise<Account[]> {
       try {
          const dataList = await this.http.get<Account[]>("api/accounts").toPromise();
-         console.log(dataList)
          return dataList;
       }
       catch (ex) { console.error(ex); return null; }
