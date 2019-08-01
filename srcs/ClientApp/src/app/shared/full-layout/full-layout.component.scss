@@ -11,7 +11,13 @@
   }
 
   .layout-content {
-    width: 50vw;
+    width: 60vw;
+    @media (max-width: $max-width-lg) {
+      width: 70%;
+    }
+    @media (max-width: $max-width-md) {
+      width: 80%;
+    }
     @media (max-width: $max-width-sm) {
       width: 90%;
     }

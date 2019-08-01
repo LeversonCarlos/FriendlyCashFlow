@@ -1,20 +1,31 @@
 @import "../../../styles/screenSizes.scss";
 
+$cardPadding: 16px;
+$tabsHeader: 49px;
+$cardActions: 44px;
+
+div[content] {
+  padding-top: $cardPadding;
+}
+
 .mat-card-content {
   margin: 0;
 }
 
 .mat-action-list {
-  height: 40vh;
-  @media (max-width: $max-width-xs) {
-    $screenPadding: 3px;
-    $cardPadding: 16px;
-    $tabsHeader: 49px;
-    $cardActions: 44px;
+  height: 50vh;
+  overflow-y: scroll;
+}
+
+@media (max-width: $max-width-xs) {
+  .mat-action-list {
+    $screenPadding: 2px;
     $listHeight: calc(
       #{$details-height} - (#{$screenPadding} * 2) - (#{$cardPadding} * 2) - #{$tabsHeader} - #{$cardActions}
     );
     height: $listHeight;
   }
-  overflow-y: scroll;
+  div[content] {
+    padding-top: 0;
+  }
 }
