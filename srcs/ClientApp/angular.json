@@ -31,7 +31,8 @@
                      "src/styles/colors.scss",
                      "src/styles/theme.scss",
                      "src/styles/screenSizes.scss",
-                     "src/styles/global.scss"
+                     "src/styles/global.scss",
+                     "src/styles/mobile.scss"
                   ],
                   "scripts": []
                },

@@ -5,11 +5,7 @@
   display: flex;
   flex-direction: column;
   align-content: center;
-
   padding: $screen-padding 0;
-  @media (max-width: $max-width-xs) {
-    padding: 3px 0;
-  }
 }
 
 .mat-card-actions {
@@ -23,19 +19,3 @@
   }
 }
 
-/* mobile */
-@media (max-width: $max-width-xs) {
-  .mat-card {
-    &.full-card {
-      flex-grow: 1;
-      margin-bottom: 5px;
-      .mat-card-actions {
-        position: absolute;
-        margin: 0;
-        left: 0;
-        bottom: 8px;
-        right: 0;
-      }
-    }
-  }
-}
