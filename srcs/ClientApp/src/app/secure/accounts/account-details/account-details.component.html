@@ -7,11 +7,12 @@
    <div content class="full-screen">
 
       <mat-card class="full-card">
-         <form *ngIf="inputForm" [formGroup]="inputForm">
-            <mat-card-content>
+
+         <mat-card-content>
+            <form *ngIf="inputForm" [formGroup]="inputForm">
                <mat-form-field [style.fontSize.px]="20">
                   <mat-label>Account Description</mat-label>
-                  <input matInput formControlName="Text">
+                  <input type="text" matInput formControlName="Text">
                </mat-form-field>
                <mat-form-field>
                   <mat-label>Type</mat-label>
@@ -19,24 +20,21 @@
                </mat-form-field>
                <mat-form-field>
                   <mat-label>Due Day</mat-label>
-                  <input matInput formControlName="DueDay">
+                  <input type="number" matInput formControlName="DueDay">
                </mat-form-field>
                <mat-form-field>
                   <mat-label>Active</mat-label>
                   <input matInput formControlName="Active">
                </mat-form-field>
-               <pre>
-               {{ Data | json }}
-            </pre>
-            </mat-card-content>
-            <mat-card-actions class="between">
-               <button mat-button color="warn">Remove</button>
-               <div>
-                  <button mat-button>Cancel</button>
-                  <button mat-button color="primary">Save</button>
-               </div>
-            </mat-card-actions>
-         </form>
+            </form>
+         </mat-card-content>
+         <mat-card-actions class="between">
+            <button mat-button color="warn" [disabled]="inputForm?.dirty">Remove</button>
+            <div>
+               <button mat-button>Cancel</button>
+               <button mat-button color="primary" [disabled]="!inputForm?.valid">Save</button>
+            </div>
+         </mat-card-actions>
       </mat-card>
 
    </div>

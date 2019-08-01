@@ -37,6 +37,7 @@ export class AccountDetailsComponent implements OnInit {
          this.Data.DueDay = values.DueDay;
          this.Data.Active = values.Type || false;
       });
+      this.inputForm.dirty
    }
 
 }
