@@ -1,1 +1,22 @@
-<p>account-details works!</p>
+<fs-full-layout>
+   <span title>
+      Account
+   </span>
+   <div toolbar>
+   </div>
+   <div content class="full-screen">
+
+      <mat-card>
+         <mat-card-content>
+            <pre>
+               {{ Data | json }}
+            </pre>
+         </mat-card-content>
+         <mat-card-actions>
+            <button mat-button color="warn">Remove</button>
+            <button mat-button color="primary">Save</button>
+         </mat-card-actions>
+      </mat-card>
+
+   </div>
+</fs-full-layout>
