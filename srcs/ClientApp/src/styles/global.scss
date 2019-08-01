@@ -1,8 +1,19 @@
-@import './screenSizes.scss';
+@import "./screenSizes.scss";
 
 .full-screen {
-   height: $details-height;
-   display: flex;
-   flex-direction: column;
-   align-content: center;
+  height: $details-height;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+
+.mat-card-actions {
+  display: flex !important;
+  justify-content: flex-end;
+  &.between {
+    justify-content: space-between;
+  }
+  button {
+     text-transform: uppercase;
+  }
 }
