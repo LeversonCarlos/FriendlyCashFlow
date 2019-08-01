@@ -22,10 +22,9 @@
                   <mat-label>Due Day</mat-label>
                   <input type="number" matInput formControlName="DueDay">
                </mat-form-field>
-               <mat-form-field>
-                  <mat-label>Active</mat-label>
-                  <input matInput formControlName="Active">
-               </mat-form-field>
+               <div class="mat-form-field-infix">
+                  <mat-slide-toggle formControlName="Active">Activated</mat-slide-toggle>
+               </div>
             </form>
          </mat-card-content>
          <mat-card-actions class="between">

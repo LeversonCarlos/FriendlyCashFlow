@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { BaseLayoutComponent } from './base-layout/base-layout.component';
 import { FullLayoutComponent } from './full-layout/full-layout.component';
@@ -24,13 +25,13 @@ import { SideNavComponent } from './side-nav/side-nav.component';
       CommonModule, RouterModule, FormsModule, ReactiveFormsModule,
       MatToolbarModule, MatSidenavModule, MatCardModule, MatTabsModule, MatListModule,
       MatIconModule, MatButtonModule,
-      MatFormFieldModule, MatInputModule
+      MatFormFieldModule, MatInputModule, MatSlideToggleModule
    ],
    exports: [
       FormsModule, ReactiveFormsModule,
       MatToolbarModule, MatSidenavModule, MatCardModule, MatTabsModule, MatListModule,
       MatIconModule, MatButtonModule,
-      MatFormFieldModule, MatInputModule,
+      MatFormFieldModule, MatInputModule, MatSlideToggleModule,
       BaseLayoutComponent, FullLayoutComponent
    ]
 })
