@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import 'hammerjs';
 
@@ -20,12 +21,13 @@ import { SideNavComponent } from './side-nav/side-nav.component';
 @NgModule({
    declarations: [BaseLayoutComponent, FullLayoutComponent, SideNavComponent],
    imports: [
-      CommonModule, RouterModule,
+      CommonModule, RouterModule, FormsModule, ReactiveFormsModule,
       MatToolbarModule, MatSidenavModule, MatCardModule, MatTabsModule, MatListModule,
       MatIconModule, MatButtonModule,
       MatFormFieldModule, MatInputModule
    ],
    exports: [
+      FormsModule, ReactiveFormsModule,
       MatToolbarModule, MatSidenavModule, MatCardModule, MatTabsModule, MatListModule,
       MatIconModule, MatButtonModule,
       MatFormFieldModule, MatInputModule,

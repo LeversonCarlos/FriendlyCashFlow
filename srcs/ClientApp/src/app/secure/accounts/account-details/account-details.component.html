@@ -7,30 +7,36 @@
    <div content class="full-screen">
 
       <mat-card class="full-card">
-         <mat-card-content>
-            <mat-form-field>
-               <input matInput placeholder="Account Description">
-            </mat-form-field>
-            <mat-form-field>
-               <input matInput placeholder="Type">
-            </mat-form-field>
-            <mat-form-field>
-               <input matInput placeholder="Due Day">
-            </mat-form-field>
-            <mat-form-field>
-               <input matInput placeholder="Active">
-            </mat-form-field>
-            <pre>
+         <form *ngIf="inputForm" [formGroup]="inputForm">
+            <mat-card-content>
+               <mat-form-field [style.fontSize.px]="20">
+                  <mat-label>Account Description</mat-label>
+                  <input matInput formControlName="Text">
+               </mat-form-field>
+               <mat-form-field>
+                  <mat-label>Type</mat-label>
+                  <input matInput formControlName="Type">
+               </mat-form-field>
+               <mat-form-field>
+                  <mat-label>Due Day</mat-label>
+                  <input matInput formControlName="DueDay">
+               </mat-form-field>
+               <mat-form-field>
+                  <mat-label>Active</mat-label>
+                  <input matInput formControlName="Active">
+               </mat-form-field>
+               <pre>
                {{ Data | json }}
             </pre>
-         </mat-card-content>
-         <mat-card-actions class="between">
-            <button mat-button color="warn">Remove</button>
-            <div>
-               <button mat-button>Cancel</button>
-               <button mat-button color="primary">Save</button>
-            </div>
-         </mat-card-actions>
+            </mat-card-content>
+            <mat-card-actions class="between">
+               <button mat-button color="warn">Remove</button>
+               <div>
+                  <button mat-button>Cancel</button>
+                  <button mat-button color="primary">Save</button>
+               </div>
+            </mat-card-actions>
+         </form>
       </mat-card>
 
    </div>
