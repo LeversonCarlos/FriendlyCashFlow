@@ -8,13 +8,28 @@
 
       <mat-card class="full-card">
          <mat-card-content>
+            <mat-form-field>
+               <input matInput placeholder="Account Description">
+            </mat-form-field>
+            <mat-form-field>
+               <input matInput placeholder="Type">
+            </mat-form-field>
+            <mat-form-field>
+               <input matInput placeholder="Due Day">
+            </mat-form-field>
+            <mat-form-field>
+               <input matInput placeholder="Active">
+            </mat-form-field>
             <pre>
                {{ Data | json }}
             </pre>
          </mat-card-content>
          <mat-card-actions class="between">
             <button mat-button color="warn">Remove</button>
-            <button mat-button color="primary">Save</button>
+            <div>
+               <button mat-button>Cancel</button>
+               <button mat-button color="primary">Save</button>
+            </div>
          </mat-card-actions>
       </mat-card>
 

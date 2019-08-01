@@ -10,6 +10,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 import { BaseLayoutComponent } from './base-layout/base-layout.component';
 import { FullLayoutComponent } from './full-layout/full-layout.component';
@@ -20,11 +22,13 @@ import { SideNavComponent } from './side-nav/side-nav.component';
    imports: [
       CommonModule, RouterModule,
       MatToolbarModule, MatSidenavModule, MatCardModule, MatTabsModule, MatListModule,
-      MatIconModule, MatButtonModule
+      MatIconModule, MatButtonModule,
+      MatFormFieldModule, MatInputModule
    ],
    exports: [
       MatToolbarModule, MatSidenavModule, MatCardModule, MatTabsModule, MatListModule,
       MatIconModule, MatButtonModule,
+      MatFormFieldModule, MatInputModule,
       BaseLayoutComponent, FullLayoutComponent
    ]
 })
