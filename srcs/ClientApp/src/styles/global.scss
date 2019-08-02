@@ -8,7 +8,7 @@
   padding: $screen-padding 0;
 }
 
-.mat-card-actions {
+.mat-card-actions,.mat-dialog-actions {
   display: flex !important;
   justify-content: flex-end;
   &.between {

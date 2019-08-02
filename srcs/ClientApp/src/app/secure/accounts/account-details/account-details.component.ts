@@ -58,7 +58,8 @@ export class AccountDetailsComponent implements OnInit {
       this.inputForm.dirty
    }
 
-   public OnRemoveClick() {
+   public async OnRemoveClick() {
+      if (!await this.msg.Confirm('Do you want to remove this account?', 'Remove')) { return; }
       this.service.showList();
    }
 

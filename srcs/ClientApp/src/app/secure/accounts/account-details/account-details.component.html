@@ -28,7 +28,7 @@
             </form>
          </mat-card-content>
          <mat-card-actions class="between">
-            <button mat-button (click)="OnRemoveClick()" color="warn" [disabled]="inputForm?.dirty" >{{ 'Remove' | translation | async }}</button>
+            <button mat-button (click)="OnRemoveClick()" color="warn" [disabled]="!Data?.AccountID || inputForm?.dirty" >{{ 'Remove' | translation | async }}</button>
             <div>
                <button mat-button (click)="OnCancelClick()" >{{ 'Cancel' | translation | async }}</button>
                <button mat-button (click)="OnSaveClick()" color="primary" [disabled]="!inputForm?.valid">{{ 'Save' | translation | async }}</button>

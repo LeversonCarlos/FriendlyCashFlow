@@ -30,7 +30,7 @@ import { MessageService } from './message/message.service';
 import { ConfirmComponent } from './message/confirm.component';
 
 @NgModule({
-   entryComponents: [MessageComponent],
+   entryComponents: [MessageComponent, ConfirmComponent],
    declarations: [BaseLayoutComponent, FullLayoutComponent, SideNavComponent,
       BusyComponent, TranslationPipe, MessageComponent, ConfirmComponent],
    imports: [

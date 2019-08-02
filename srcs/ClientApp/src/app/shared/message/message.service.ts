@@ -52,7 +52,7 @@ export class MessageService {
       this.ShowMessage(data);
    }
 
-   public async Confirm(message: string, confirmText = 'BASE_COMMAND_CONFIRM', cancelText = 'BASE_COMMAND_CANCEL'): Promise<boolean> {
+   public async Confirm(message: string, confirmText = 'Confirm', cancelText = 'Cancel'): Promise<boolean> {
       try {
          let data = Object.assign(new ConfirmData, {});
          if (message) { data.Message = await this.translation.getValue(message); }
