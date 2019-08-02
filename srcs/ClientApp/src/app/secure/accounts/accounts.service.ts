@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { BusyService } from 'src/app/shared/busy/busy.service';
 import { Router } from '@angular/router';
+import { SelectData } from 'src/app/shared/common/common.models';
+import { TranslationService } from 'src/app/shared/translation/translation.service';
 
 export enum enAccountType { General = 0, Bank = 1, CreditCard = 2, Investment = 3, Service = 4 };
 export class Account {
@@ -32,12 +34,26 @@ export class Account {
 })
 export class AccountsService {
 
-   constructor(private busy: BusyService,
+   constructor(private busy: BusyService, private translation: TranslationService,
       private http: HttpClient, private router: Router) { }
 
    public showList() { this.router.navigate(['/accounts']); }
    public showDetails(id: number) { this.router.navigate(['/account', id]); }
    public showNew() { this.router.navigate(['/account', 'new']); }
+
+   public getAccountTypes(): SelectData<enAccountType>[] {
+      const accountTypes = [
+         { value: enAccountType.General, description: 'enAccountType.General' },
+         { value: enAccountType.Bank, description: 'enAccountType.Bank' },
+         { value: enAccountType.CreditCard, description: 'enAccountType.CreditCard' },
+         { value: enAccountType.Investment, description: 'enAccountType.Investment' },
+         { value: enAccountType.Service, description: 'enAccountType.Service' },
+      ];
+      accountTypes.forEach(async item => await this.translation.getValue(item.description));
+      const result = accountTypes
+         .map(item => Object.assign(new SelectData<enAccountType>(), item));
+      return result;
+   }
 
    public async getAccounts(): Promise<Account[]> {
       try {
