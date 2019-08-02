@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AccountsService, Account } from '../accounts.service';
+import { AccountsService, Account, enAccountType } from '../accounts.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MessageService } from 'src/app/shared/message/message.service';
+import { SelectData } from 'src/app/shared/common/common.models';
 
 @Component({
    selector: 'fs-account-details',
@@ -15,6 +16,7 @@ export class AccountDetailsComponent implements OnInit {
       private route: ActivatedRoute, private fb: FormBuilder) { }
 
    public Data: Account;
+   public AccountTypes: SelectData<enAccountType>[];
    public inputForm: FormGroup;
 
    public async ngOnInit() {
@@ -39,6 +41,8 @@ export class AccountDetailsComponent implements OnInit {
          this.service.showList();
          return false;
       }
+
+      this.AccountTypes = this.service.getAccountTypes();
       return true;
    }
 

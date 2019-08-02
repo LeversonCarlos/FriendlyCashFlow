@@ -14,9 +14,14 @@
                   <mat-label>{{ 'Account Description' | translation | async }}</mat-label>
                   <input type="text" matInput formControlName="Text" autofocus>
                </mat-form-field>
+
                <mat-form-field>
                   <mat-label>{{ 'Type' | translation | async }}</mat-label>
-                  <input matInput formControlName="Type">
+                  <mat-select formControlName="Type">
+                     <mat-option *ngFor="let item of AccountTypes" [value]="item.value">
+                        {{ item.description }}
+                     </mat-option>
+                  </mat-select>
                </mat-form-field>
                <mat-form-field>
                   <mat-label>{{ 'Due Day' | translation | async }}</mat-label>
@@ -28,10 +33,12 @@
             </form>
          </mat-card-content>
          <mat-card-actions class="between">
-            <button mat-button (click)="OnRemoveClick()" color="warn" [disabled]="!Data?.AccountID || inputForm?.dirty" >{{ 'Remove' | translation | async }}</button>
+            <button mat-button (click)="OnRemoveClick()" color="warn"
+               [disabled]="!Data?.AccountID || inputForm?.dirty">{{ 'Remove' | translation | async }}</button>
             <div>
-               <button mat-button (click)="OnCancelClick()" >{{ 'Cancel' | translation | async }}</button>
-               <button mat-button (click)="OnSaveClick()" color="primary" [disabled]="!inputForm?.valid">{{ 'Save' | translation | async }}</button>
+               <button mat-button (click)="OnCancelClick()">{{ 'Cancel' | translation | async }}</button>
+               <button mat-button (click)="OnSaveClick()" color="primary"
+                  [disabled]="!inputForm?.valid">{{ 'Save' | translation | async }}</button>
             </div>
          </mat-card-actions>
       </mat-card>
