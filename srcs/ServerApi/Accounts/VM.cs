@@ -7,6 +7,7 @@ namespace FriendlyCashFlow.API.Accounts
       public long AccountID { get; set; }
       public string Text { get; set; }
       public enAccountType Type { get; set; }
+      public short? ClosingDay { get; set; }
       public short? DueDay { get; set; }
       public bool Active { get; set; }
 
@@ -17,6 +18,7 @@ namespace FriendlyCashFlow.API.Accounts
             AccountID = value.AccountID,
             Text = value.Text,
             Type = (enAccountType)value.Type,
+            ClosingDay = value.ClosingDay,
             DueDay = value.DueDay,
             Active = value.Active
          };

@@ -24,6 +24,9 @@ namespace FriendlyCashFlow.API.Accounts
       [Column("Type")]
       public short Type { get; set; }
 
+      [Column("ClosingDay")]
+      public short? ClosingDay { get; set; }
+
       [Column("DueDay")]
       public short? DueDay { get; set; }
 
