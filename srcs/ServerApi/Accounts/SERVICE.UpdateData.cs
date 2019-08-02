@@ -11,13 +11,13 @@ namespace FriendlyCashFlow.API.Accounts
    partial class AccountsService
    {
 
-      public async Task<ActionResult<AccountVM>> UpdateDataAsync(AccountVM value)
+      public async Task<ActionResult<AccountVM>> UpdateDataAsync(long accountID, AccountVM value)
       {
          try
          {
 
             // VALIDATE DUPLICITY
-            if (this.GetDataQuery().Count(x => x.AccountID != value.AccountID && x.Text == value.Text) != 0)
+            if (this.GetDataQuery().Count(x => x.AccountID != accountID && x.Text == value.Text) != 0)
             { return this.WarningResponse("A account with this text already exists"); }
 
             // VALIDATE CREDIT CARD
@@ -28,7 +28,7 @@ namespace FriendlyCashFlow.API.Accounts
             }
 
             // LOCATE DATA
-            var data = await this.GetDataQuery().Where(x => x.AccountID == value.AccountID).FirstOrDefaultAsync();
+            var data = await this.GetDataQuery().Where(x => x.AccountID == accountID).FirstOrDefaultAsync();
             if (data == null) { return this.NotFoundResponse(); }
 
             // APPLY
