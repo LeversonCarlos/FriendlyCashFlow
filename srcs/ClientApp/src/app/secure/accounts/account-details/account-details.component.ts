@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AccountsService, Account } from '../accounts.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { MessageService } from 'src/app/shared/message/message.service';
 
 @Component({
    selector: 'fs-account-details',
@@ -10,7 +11,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 })
 export class AccountDetailsComponent implements OnInit {
 
-   constructor(private service: AccountsService,
+   constructor(private service: AccountsService, private msg: MessageService,
       private route: ActivatedRoute, private fb: FormBuilder) { }
 
    public Data: Account;
@@ -27,13 +28,18 @@ export class AccountDetailsComponent implements OnInit {
 
       const accountID: number = Number(paramID);
       if (!accountID || accountID == 0) {
-         console.error('registro nao encontrado');
+         this.msg.ShowWarning('Account record not found to be displayed!');
          this.service.showList();
          return false;
       }
 
       this.Data = await this.service.getAccount(accountID);
-      return (this.Data && this.Data.AccountID == accountID);
+      if (!this.Data || this.Data.AccountID != accountID) {
+         this.msg.ShowWarning('Account record not found to be displayed!');
+         this.service.showList();
+         return false;
+      }
+      return true;
    }
 
    private OnFormCreate() {

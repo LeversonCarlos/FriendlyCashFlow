@@ -25,8 +25,10 @@ import { BusyService } from './busy/busy.service';
 import { TranslationService } from './translation/translation.service';
 import { TranslationPipe } from './translation/translation.pipe';
 import { MessageComponent } from './message/message.component';
+import { MessageService } from './message/message.service';
 
 @NgModule({
+   entryComponents: [MessageComponent],
    declarations: [BaseLayoutComponent, FullLayoutComponent, SideNavComponent,
       BusyComponent, TranslationPipe, MessageComponent],
    imports: [
@@ -44,6 +46,6 @@ import { MessageComponent } from './message/message.component';
       BaseLayoutComponent, FullLayoutComponent,
       TranslationPipe
    ],
-   providers: [BusyService, TranslationService]
+   providers: [BusyService, TranslationService, MessageService]
 })
 export class SharedModule { }
