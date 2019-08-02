@@ -7,7 +7,7 @@
          <span>{{ 'Dashboard' | translation | async }}</span>
          <mat-icon matListIcon>dashboard</mat-icon>
       </button>
-      <button mat-list-item routerLink="/entries">
+      <button mat-list-item routerLink="/entries" disabled>
          <span>{{ 'Entries' | translation | async }}</span>
          <mat-icon matListIcon>receipt</mat-icon>
       </button>
@@ -15,11 +15,11 @@
          <span>{{ 'Accounts' | translation | async }}</span>
          <mat-icon matListIcon>account_balance</mat-icon>
       </button>
-      <button mat-list-item routerLink="/categories">
+      <button mat-list-item routerLink="/categories" disabled>
          <span>{{ 'Categories' | translation | async }}</span>
          <mat-icon matListIcon>label</mat-icon>
       </button>
-      <button mat-list-item routerLink="/analysis">
+      <button mat-list-item routerLink="/analysis" disabled>
          <span>{{ 'Analysis' | translation | async }}</span>
          <mat-icon matListIcon>equalizer</mat-icon>
       </button>
@@ -28,11 +28,11 @@
    <div class="sidenav-spacer"></div>
 
    <mat-action-list class="sidenav-settings">
-      <button mat-list-item routerLink="/settings">
+      <button mat-list-item routerLink="/settings" disabled>
          <span>{{ 'Settings' | translation | async }}</span>
          <mat-icon matListIcon>settings</mat-icon>
       </button>
-      <button mat-list-item>
+      <button mat-list-item disabled>
          <span>{{ 'Logout' | translation | async }}</span>
          <mat-icon matListIcon>power_settings_new</mat-icon>
       </button>

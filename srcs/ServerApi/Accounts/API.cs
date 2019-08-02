@@ -8,7 +8,7 @@ namespace FriendlyCashFlow.API.Accounts
 
    // [Authorize]
    [Route("api/accounts")]
-   public partial class AccountController : Base.BaseController
+   public class AccountController : Base.BaseController
    {
       public AccountController(IServiceProvider _serviceProvider) : base(_serviceProvider) { }
 
