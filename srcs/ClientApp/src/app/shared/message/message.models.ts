@@ -3,9 +3,16 @@ export enum MessageDataType {
 }
 
 export class MessageData {
-   Title: string;
+   // Title: string;
    Messages: string[];
    Details: string;
    Type: MessageDataType;
    Duration: number;
 }
+
+export class ConfirmData {
+   // Title: string;
+   Message: string;
+   CancelText: string;
+   ConfirmText: string;
+ }
