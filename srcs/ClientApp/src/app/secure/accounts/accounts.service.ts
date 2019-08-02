@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { BusyService } from 'src/app/shared/busy/busy.service';
 
 export enum enAccountType { General = 0, Bank = 1, CreditCard = 2, Investment = 3, Service = 4 };
 export class Account {
@@ -30,10 +31,11 @@ export class Account {
 })
 export class AccountsService {
 
-   constructor(private http: HttpClient) { }
+   constructor(private busy: BusyService, private http: HttpClient) { }
 
    public async getAccounts(): Promise<Account[]> {
       try {
+         this.busy.show();
          const dataList = await this.http.get<Account[]>("api/accounts")
             .pipe(map(items => items.map(item => Object.assign(new Account, item))))
             .toPromise();
