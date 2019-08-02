@@ -15,6 +15,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { BaseLayoutComponent } from './base-layout/base-layout.component';
 import { FullLayoutComponent } from './full-layout/full-layout.component';
@@ -23,15 +24,17 @@ import { BusyComponent } from './busy/busy.component';
 import { BusyService } from './busy/busy.service';
 import { TranslationService } from './translation/translation.service';
 import { TranslationPipe } from './translation/translation.pipe';
+import { MessageComponent } from './message/message.component';
 
 @NgModule({
    declarations: [BaseLayoutComponent, FullLayoutComponent, SideNavComponent,
-      BusyComponent, TranslationPipe],
+      BusyComponent, TranslationPipe, MessageComponent],
    imports: [
       CommonModule, RouterModule, FormsModule, ReactiveFormsModule,
       MatToolbarModule, MatSidenavModule, MatCardModule, MatTabsModule, MatListModule,
       MatIconModule, MatButtonModule, MatProgressBarModule,
-      MatFormFieldModule, MatInputModule, MatSlideToggleModule
+      MatFormFieldModule, MatInputModule, MatSlideToggleModule,
+      MatSnackBarModule
    ],
    exports: [
       RouterModule, FormsModule, ReactiveFormsModule,

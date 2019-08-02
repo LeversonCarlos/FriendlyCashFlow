@@ -1,0 +1,19 @@
+p {
+  white-space: pre-line;
+}
+
+pre {
+   max-height: 60vh;
+   overflow-x: hidden;
+   overflow-y: scroll;
+   white-space: unset !important;
+   background-color: transparent !important;
+   color: gray !important;
+   border: 0 !important;
+ }
+
+ .close {
+   position: absolute;
+   top: 0;
+   right: 0;
+ }
