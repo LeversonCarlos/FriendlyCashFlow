@@ -11,6 +11,7 @@ export class Account {
    AccountID: number;
    Text: string;
    Type: enAccountType;
+   ClosingDay?: number;
    DueDay?: number;
    Active: boolean;
    get Icon(): string {

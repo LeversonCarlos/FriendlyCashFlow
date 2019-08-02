@@ -51,15 +51,20 @@ export class AccountDetailsComponent implements OnInit {
          Text: [this.Data.Text, Validators.required],
          Type: [this.Data.Type, Validators.required],
          DueDay: new FormControl({ value: this.Data.DueDay, disabled: true }),
+         ClosingDay: new FormControl({ value: this.Data.ClosingDay, disabled: true }),
          Active: [this.Data.Active]
       });
       this.inputForm.valueChanges.subscribe(values => {
          this.Data.Text = values.Text || '';
          this.Data.Type = values.Type || enAccountType.General;
          this.Data.DueDay = values.DueDay;
+         this.Data.ClosingDay = values.ClosingDay;
          this.Data.Active = values.Active || false;
       });
-      this.inputForm.controls['Type'].valueChanges.subscribe((type) => this.OnCreditCardChanged(type, 'DueDay'));
+      this.inputForm.controls['Type'].valueChanges.subscribe((type) => {
+         this.OnCreditCardChanged(type, 'ClosingDay');
+         this.OnCreditCardChanged(type, 'DueDay');
+      });
    }
 
    private OnCreditCardChanged(type: enAccountType, controlName: string) {
