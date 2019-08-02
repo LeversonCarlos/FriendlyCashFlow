@@ -18,9 +18,10 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { BaseLayoutComponent } from './base-layout/base-layout.component';
 import { FullLayoutComponent } from './full-layout/full-layout.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
+import { BusyComponent } from './busy/busy.component';
 
 @NgModule({
-   declarations: [BaseLayoutComponent, FullLayoutComponent, SideNavComponent],
+   declarations: [BaseLayoutComponent, FullLayoutComponent, SideNavComponent, BusyComponent],
    imports: [
       CommonModule, RouterModule, FormsModule, ReactiveFormsModule,
       MatToolbarModule, MatSidenavModule, MatCardModule, MatTabsModule, MatListModule,
