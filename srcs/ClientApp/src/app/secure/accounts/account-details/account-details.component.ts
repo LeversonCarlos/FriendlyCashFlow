@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AccountsService, Account, enAccountType } from '../accounts.service';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { MessageService } from 'src/app/shared/message/message.service';
 import { SelectData } from 'src/app/shared/common/common.models';
 
@@ -50,16 +50,32 @@ export class AccountDetailsComponent implements OnInit {
       this.inputForm = this.fb.group({
          Text: [this.Data.Text, Validators.required],
          Type: [this.Data.Type, Validators.required],
-         DueDay: [this.Data.DueDay],
+         DueDay: new FormControl({ value: this.Data.DueDay, disabled: true }),
          Active: [this.Data.Active]
       });
       this.inputForm.valueChanges.subscribe(values => {
          this.Data.Text = values.Text || '';
-         this.Data.Type = values.Type || 0;
+         this.Data.Type = values.Type || enAccountType.General;
          this.Data.DueDay = values.DueDay;
          this.Data.Active = values.Active || false;
       });
-      this.inputForm.dirty
+      this.inputForm.controls['Type'].valueChanges.subscribe((type) => this.OnCreditCardChanged(type, 'DueDay'));
+   }
+
+   private OnCreditCardChanged(type: enAccountType, controlName: string) {
+      const control = this.inputForm.controls[controlName];
+      if (type == enAccountType.CreditCard) {
+         control.enable();
+         control.setValidators([Validators.required, Validators.min(1), Validators.max(31)]);
+         control.markAsTouched();
+      }
+      else {
+         control.clearValidators();
+         control.markAsUntouched();
+         control.setValue('');
+         control.disable();
+      }
+      control.updateValueAndValidity();
    }
 
    public async OnRemoveClick() {
