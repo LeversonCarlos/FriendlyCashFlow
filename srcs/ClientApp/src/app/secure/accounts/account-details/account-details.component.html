@@ -28,10 +28,10 @@
             </form>
          </mat-card-content>
          <mat-card-actions class="between">
-            <button mat-button color="warn" [disabled]="inputForm?.dirty">{{ 'Remove' | translation | async }}</button>
+            <button mat-button (click)="OnRemoveClick()" color="warn" [disabled]="inputForm?.dirty" >{{ 'Remove' | translation | async }}</button>
             <div>
-               <button mat-button>{{ 'Cancel' | translation | async }}</button>
-               <button mat-button color="primary" [disabled]="!inputForm?.valid">{{ 'Save' | translation | async }}</button>
+               <button mat-button (click)="OnCancelClick()" >{{ 'Cancel' | translation | async }}</button>
+               <button mat-button (click)="OnSaveClick()" color="primary" [disabled]="!inputForm?.valid">{{ 'Save' | translation | async }}</button>
             </div>
          </mat-card-actions>
       </mat-card>

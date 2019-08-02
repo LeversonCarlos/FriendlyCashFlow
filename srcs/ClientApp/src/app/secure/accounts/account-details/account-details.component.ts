@@ -52,4 +52,16 @@ export class AccountDetailsComponent implements OnInit {
       this.inputForm.dirty
    }
 
+   public OnRemoveClick() {
+      this.service.showList();
+   }
+
+   public OnCancelClick() {
+      this.service.showList();
+   }
+
+   public OnSaveClick() {
+      this.service.showList();
+   }
+
 }
