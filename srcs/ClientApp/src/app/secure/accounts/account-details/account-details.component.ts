@@ -25,6 +25,8 @@ export class AccountDetailsComponent implements OnInit {
    }
 
    private async OnDataLoad(): Promise<boolean> {
+      this.AccountTypes = this.service.getAccountTypes();
+
       const paramID: string = this.route.snapshot.params.id;
       if (paramID == 'new') { this.Data = Object.assign(new Account, { Active: true }); return true; }
 
@@ -42,7 +44,6 @@ export class AccountDetailsComponent implements OnInit {
          return false;
       }
 
-      this.AccountTypes = this.service.getAccountTypes();
       return true;
    }
 

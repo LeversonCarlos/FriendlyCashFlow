@@ -17,7 +17,7 @@
                      </button>
                   </mat-action-list>
                </mat-tab>
-               <mat-tab label="{{ 'Arquived' | translation | async }}">
+               <mat-tab label="{{ 'Arquived' | translation | async }}" [disabled]="!ArquivedData?.length">
                   <mat-action-list>
                      <button mat-list-item *ngFor="let item of ArquivedData" (click)="OnItemClick(item)" >
                         <span>{{ item.Text }}</span>

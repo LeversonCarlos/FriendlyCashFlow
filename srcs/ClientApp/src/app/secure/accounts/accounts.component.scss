@@ -4,6 +4,10 @@
   margin: 0;
 }
 
+.mat-action-list {
+   min-height: 50vh;
+}
+
 @media (max-width: $max-width-xs) {
   $screenPadding: 3px;
   $cardPadding: 16px;
