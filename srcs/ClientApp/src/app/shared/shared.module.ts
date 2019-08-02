@@ -21,9 +21,12 @@ import { FullLayoutComponent } from './full-layout/full-layout.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { BusyComponent } from './busy/busy.component';
 import { BusyService } from './busy/busy.service';
+import { TranslationService } from './translation/translation.service';
+import { TranslationPipe } from './translation/translation.pipe';
 
 @NgModule({
-   declarations: [BaseLayoutComponent, FullLayoutComponent, SideNavComponent, BusyComponent],
+   declarations: [BaseLayoutComponent, FullLayoutComponent, SideNavComponent,
+      BusyComponent, TranslationPipe],
    imports: [
       CommonModule, RouterModule, FormsModule, ReactiveFormsModule,
       MatToolbarModule, MatSidenavModule, MatCardModule, MatTabsModule, MatListModule,
@@ -35,8 +38,9 @@ import { BusyService } from './busy/busy.service';
       MatToolbarModule, MatSidenavModule, MatCardModule, MatTabsModule, MatListModule,
       MatIconModule, MatButtonModule, MatProgressBarModule,
       MatFormFieldModule, MatInputModule, MatSlideToggleModule,
-      BaseLayoutComponent, FullLayoutComponent
+      BaseLayoutComponent, FullLayoutComponent,
+      TranslationPipe
    ],
-   providers: [BusyService]
+   providers: [BusyService, TranslationService]
 })
 export class SharedModule { }
