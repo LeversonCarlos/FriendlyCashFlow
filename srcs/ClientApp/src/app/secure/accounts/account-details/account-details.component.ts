@@ -47,7 +47,7 @@ export class AccountDetailsComponent implements OnInit {
          Text: [this.Data.Text, Validators.required],
          Type: [this.Data.Type, Validators.required],
          DueDay: [this.Data.DueDay],
-         Active: [this.Data.Active, Validators.required]
+         Active: [this.Data.Active]
       });
       this.inputForm.valueChanges.subscribe(values => {
          this.Data.Text = values.Text || '';
@@ -60,7 +60,7 @@ export class AccountDetailsComponent implements OnInit {
 
    public async OnRemoveClick() {
       if (!await this.msg.Confirm('Do you want to remove this account?', 'Remove')) { return; }
-      // TODO
+      if (!await this.service.removeAccount(this.Data)) { return; }
       this.service.showList();
    }
 
