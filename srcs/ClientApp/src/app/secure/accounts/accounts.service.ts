@@ -64,4 +64,20 @@ export class AccountsService {
       finally { this.busy.hide(); }
    }
 
+   public async saveAccount(value: Account): Promise<boolean> {
+      try {
+         this.busy.show();
+         let result: Account = null;
+         if (value.AccountID == 0) {
+            result = await this.http.post<Account>(`api/accounts`, value).toPromise();
+         }
+         else {
+            result = await this.http.put<Account>(`api/accounts/${value.AccountID}`, value).toPromise();
+         }
+         return result != null;
+      }
+      catch (ex) { console.error(ex); return null; }
+      finally { this.busy.hide(); }
+   }
+
 }

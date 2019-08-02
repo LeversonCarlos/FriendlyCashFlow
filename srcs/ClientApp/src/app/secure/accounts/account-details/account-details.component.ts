@@ -53,7 +53,7 @@ export class AccountDetailsComponent implements OnInit {
          this.Data.Text = values.Text || '';
          this.Data.Type = values.Type || 0;
          this.Data.DueDay = values.DueDay;
-         this.Data.Active = values.Type || false;
+         this.Data.Active = values.Active || false;
       });
       this.inputForm.dirty
    }
@@ -65,14 +65,14 @@ export class AccountDetailsComponent implements OnInit {
    }
 
    public async OnCancelClick() {
-      if (!this.inputForm.pristine){
+      if (!this.inputForm.pristine) {
          if (!await this.msg.Confirm('Do you want to cancel and lose changes?', 'Cancel Anyway', 'Go Back')) { return; }
       }
       this.service.showList();
    }
 
-   public OnSaveClick() {
-      // TODO
+   public async OnSaveClick() {
+      if (!await this.service.saveAccount(this.Data)) { return; }
       this.service.showList();
    }
 
