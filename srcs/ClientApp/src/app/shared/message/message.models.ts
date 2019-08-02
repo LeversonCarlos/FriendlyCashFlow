@@ -7,7 +7,16 @@ export class MessageData {
    Messages: string[];
    Details: string;
    Type: MessageDataType;
-   Duration: number;
+   get Duration(): number {
+      switch (this.Type) {
+         case MessageDataType.Error:
+            return 0;
+         case MessageDataType.Warning:
+            return 5000;
+         default:
+            return 3000;
+      }
+   }
 }
 
 export class ConfirmData {
@@ -15,4 +24,4 @@ export class ConfirmData {
    Message: string;
    CancelText: string;
    ConfirmText: string;
- }
+}

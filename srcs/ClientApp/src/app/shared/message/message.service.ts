@@ -14,7 +14,7 @@ export class MessageService {
    constructor(private translation: TranslationService,
       private snackBar: MatSnackBar, private dialog: MatDialog, ) { }
 
-   private ShowMessage(data: MessageData): void {
+   public ShowMessage(data: MessageData): void {
       this.snackBar.openFromComponent(MessageComponent, {
          panelClass: 'message-snack-panel',
          data: data,
@@ -26,8 +26,7 @@ export class MessageService {
 
    public async ShowInfo(...messages: string[]): Promise<void> {
       let data = Object.assign(new MessageData, {
-         Type: MessageDataType.Information,
-         Duration: 3000
+         Type: MessageDataType.Information
       });
       if (messages) { data.Messages = await Promise.all(messages.map(async message => await this.translation.getValue(message))); }
       this.ShowMessage(data);
@@ -35,8 +34,7 @@ export class MessageService {
 
    public async ShowWarning(...messages: string[]): Promise<void> {
       let data = Object.assign(new MessageData, {
-         Type: MessageDataType.Warning,
-         Duration: 5000
+         Type: MessageDataType.Warning
       });
       if (messages) { data.Messages = await Promise.all(messages.map(async message => await this.translation.getValue(message))); }
       this.ShowMessage(data);
@@ -46,8 +44,7 @@ export class MessageService {
       let data = Object.assign(new MessageData, {
          Messages: messages,
          Details: details,
-         Type: MessageDataType.Error,
-         Duration: 0
+         Type: MessageDataType.Error
       });
       this.ShowMessage(data);
    }

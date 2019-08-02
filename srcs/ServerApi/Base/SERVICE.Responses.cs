@@ -55,7 +55,7 @@ namespace FriendlyCashFlow.API.Base
          var modelState = new Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary();
          modelState.AddModelError("EXCEPTION_", ex.Message);
          if (ex.InnerException != null)
-         { modelState.AddModelError("EXCEPTION_INNER_", ex.InnerException.Message); }
+         { modelState.AddModelError("INNER_EXCEPTION_", ex.InnerException.Message); }
          return new BadRequestObjectResult(modelState);
       }
 
