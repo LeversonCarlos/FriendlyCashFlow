@@ -27,10 +27,8 @@
                </mat-tab>
             </mat-tab-group>
          </mat-card-content>
-         <mat-card-actions>
-            <button mat-button color="accent" (click)="OnNewClick()" >{{ 'New Account' | translation | async }}</button>
-         </mat-card-actions>
       </mat-card>
 
    </div>
 </fs-full-layout>
+<fab-button (click)="OnNewClick()" ></fab-button>

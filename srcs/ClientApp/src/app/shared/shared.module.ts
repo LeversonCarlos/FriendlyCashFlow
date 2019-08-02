@@ -29,11 +29,12 @@ import { TranslationPipe } from './translation/translation.pipe';
 import { MessageComponent } from './message/message.component';
 import { MessageService } from './message/message.service';
 import { ConfirmComponent } from './message/confirm.component';
+import { FabButtonComponent } from './fab-button/fab-button.component';
 
 @NgModule({
    entryComponents: [MessageComponent, ConfirmComponent],
    declarations: [BaseLayoutComponent, FullLayoutComponent, SideNavComponent,
-      BusyComponent, TranslationPipe, MessageComponent, ConfirmComponent],
+      BusyComponent, TranslationPipe, MessageComponent, ConfirmComponent, FabButtonComponent],
    imports: [
       CommonModule, RouterModule, FormsModule, ReactiveFormsModule,
       MatToolbarModule, MatSidenavModule, MatCardModule, MatTabsModule, MatListModule,
@@ -46,7 +47,7 @@ import { ConfirmComponent } from './message/confirm.component';
       MatToolbarModule, MatSidenavModule, MatCardModule, MatTabsModule, MatListModule,
       MatIconModule, MatButtonModule, MatProgressBarModule,
       MatFormFieldModule, MatInputModule, MatSelectModule, MatSlideToggleModule,
-      BaseLayoutComponent, FullLayoutComponent,
+      BaseLayoutComponent, FullLayoutComponent, FabButtonComponent,
       TranslationPipe
    ],
    providers: [BusyService, TranslationService, MessageService]
