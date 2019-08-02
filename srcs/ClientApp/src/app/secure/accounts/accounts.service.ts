@@ -47,7 +47,7 @@ export class AccountsService {
             .toPromise();
          return dataList;
       }
-      catch (ex) { console.error(ex); return null; }
+      catch (ex) { return null; }
       finally { this.busy.hide(); }
 
    }
@@ -60,7 +60,7 @@ export class AccountsService {
             .toPromise();
          return dataList;
       }
-      catch (ex) { console.error(ex); return null; }
+      catch (ex) { return null; }
       finally { this.busy.hide(); }
    }
 
@@ -76,7 +76,7 @@ export class AccountsService {
          }
          return result != null;
       }
-      catch (ex) { console.error(ex); return null; }
+      catch (ex) { return null; }
       finally { this.busy.hide(); }
    }
 
@@ -86,7 +86,7 @@ export class AccountsService {
          const result = await this.http.delete<boolean>(`api/accounts/${value.AccountID}`).toPromise();
          return result;
       }
-      catch (ex) { console.error(ex); return null; }
+      catch (ex) { return null; }
       finally { this.busy.hide(); }
    }
 

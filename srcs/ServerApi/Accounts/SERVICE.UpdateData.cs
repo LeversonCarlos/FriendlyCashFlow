@@ -16,16 +16,9 @@ namespace FriendlyCashFlow.API.Accounts
          try
          {
 
-            // VALIDATE DUPLICITY
-            if (this.GetDataQuery().Count(x => x.AccountID != accountID && x.Text == value.Text) != 0)
-            { return this.WarningResponse("A account with this text already exists"); }
-
-            // VALIDATE CREDIT CARD
-            if (value.Type == enAccountType.CreditCard)
-            {
-               if (!value.DueDay.HasValue || value.DueDay <= 0 || value.DueDay >= 31)
-               { return this.WarningResponse("A valid due day must be informed"); }
-            }
+            // VALIDATE
+            var validateMessage = await this.ValidateDataAsync(value);
+            if (!validateMessage.Value) { return validateMessage.Result; }
 
             // LOCATE DATA
             var data = await this.GetDataQuery().Where(x => x.AccountID == accountID).FirstOrDefaultAsync();

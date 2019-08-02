@@ -16,9 +16,9 @@ namespace FriendlyCashFlow.API.Accounts
          try
          {
 
-            // VALIDATE DUPLICITY
-            if (this.GetDataQuery().Count(x => x.Text == value.Text) != 0)
-            { return this.WarningResponse("A account with this text already exists"); }
+            // VALIDATE
+            var validateMessage = await this.ValidateDataAsync(value);
+            if (!validateMessage.Value) { return validateMessage.Result; }
 
             // NEW MODEL
             var data = new AccountData()
