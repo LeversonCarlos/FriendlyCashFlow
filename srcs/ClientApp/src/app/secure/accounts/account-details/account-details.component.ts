@@ -17,11 +17,23 @@ export class AccountDetailsComponent implements OnInit {
    public inputForm: FormGroup;
 
    public async ngOnInit() {
-      const accountID: number = Number(this.route.snapshot.params.id)
-      if (!accountID || accountID == 0) { console.error('todo'); return; }
+      if (!await this.OnDataLoad()) { return; }
+      this.OnFormCreate();
+   }
+
+   private async OnDataLoad(): Promise<boolean> {
+      const paramID: string = this.route.snapshot.params.id;
+      if (paramID == 'new') { this.Data = new Account(); return true; }
+
+      const accountID: number = Number(paramID);
+      if (!accountID || accountID == 0) {
+         console.error('registro nao encontrado');
+         this.service.showList();
+         return false;
+      }
 
       this.Data = await this.service.getAccount(accountID);
-      this.OnFormCreate();
+      return (this.Data && this.Data.AccountID == accountID);
    }
 
    private OnFormCreate() {

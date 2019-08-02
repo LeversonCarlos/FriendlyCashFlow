@@ -11,7 +11,7 @@
             <mat-tab-group dynamicHeight="false">
                <mat-tab label="{{ 'Active Accounts' | translation | async }}">
                   <mat-action-list>
-                     <button mat-list-item *ngFor="let item of ActiveData" (click)="OnItemSelect(item)" >
+                     <button mat-list-item *ngFor="let item of ActiveData" (click)="OnItemClick(item)" >
                         <span>{{ item.Text }}</span>
                         <mat-icon matListIcon>{{ item.Icon }}</mat-icon>
                      </button>
@@ -19,7 +19,7 @@
                </mat-tab>
                <mat-tab label="{{ 'Arquived' | translation | async }}">
                   <mat-action-list>
-                     <button mat-list-item *ngFor="let item of ArquivedData" (click)="OnItemSelect(item)" >
+                     <button mat-list-item *ngFor="let item of ArquivedData" (click)="OnItemClick(item)" >
                         <span>{{ item.Text }}</span>
                         <mat-icon matListIcon>{{ item.Icon }}</mat-icon>
                      </button>
@@ -28,7 +28,7 @@
             </mat-tab-group>
          </mat-card-content>
          <mat-card-actions>
-            <button mat-button color="accent">{{ 'New Account' | translation | async }}</button>
+            <button mat-button color="accent" (click)="OnNewClick()" >{{ 'New Account' | translation | async }}</button>
          </mat-card-actions>
       </mat-card>
 

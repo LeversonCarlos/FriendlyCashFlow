@@ -34,7 +34,7 @@ import { TranslationPipe } from './translation/translation.pipe';
       MatFormFieldModule, MatInputModule, MatSlideToggleModule
    ],
    exports: [
-      FormsModule, ReactiveFormsModule,
+      RouterModule, FormsModule, ReactiveFormsModule,
       MatToolbarModule, MatSidenavModule, MatCardModule, MatTabsModule, MatListModule,
       MatIconModule, MatButtonModule, MatProgressBarModule,
       MatFormFieldModule, MatInputModule, MatSlideToggleModule,

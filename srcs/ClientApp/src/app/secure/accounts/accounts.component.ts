@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountsService, Account } from './accounts.service';
-import { Router } from '@angular/router';
 
 @Component({
    selector: 'fs-accounts',
@@ -9,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class AccountsComponent implements OnInit {
 
-   constructor(private service: AccountsService, private router: Router) { }
+   constructor(private service: AccountsService) { }
 
    public Data: Account[];
    public get ActiveData(): Account[] {
@@ -23,8 +22,12 @@ export class AccountsComponent implements OnInit {
       this.Data = await this.service.getAccounts();
    }
 
-   public OnItemSelect(item: Account) {
-      this.router.navigate(['/account', item.AccountID]);
+   public OnItemClick(item: Account) {
+      this.service.showDetails(item.AccountID);
+   }
+
+   public OnNewClick() {
+      this.service.showNew();
    }
 
 }

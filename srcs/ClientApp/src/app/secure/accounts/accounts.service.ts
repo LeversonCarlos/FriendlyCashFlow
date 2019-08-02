@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { BusyService } from 'src/app/shared/busy/busy.service';
+import { Router } from '@angular/router';
 
 export enum enAccountType { General = 0, Bank = 1, CreditCard = 2, Investment = 3, Service = 4 };
 export class Account {
@@ -31,7 +32,12 @@ export class Account {
 })
 export class AccountsService {
 
-   constructor(private busy: BusyService, private http: HttpClient) { }
+   constructor(private busy: BusyService,
+      private http: HttpClient, private router: Router) { }
+
+   public showList() { this.router.navigate(['/accounts']); }
+   public showDetails(id: number) { this.router.navigate(['/account', id]); }
+   public showNew() { this.router.navigate(['/account', 'new']); }
 
    public async getAccounts(): Promise<Account[]> {
       try {

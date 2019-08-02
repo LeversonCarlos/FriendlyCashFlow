@@ -12,7 +12,7 @@
             <form *ngIf="inputForm" [formGroup]="inputForm">
                <mat-form-field [style.fontSize.px]="20">
                   <mat-label>{{ 'Account Description' | translation | async }}</mat-label>
-                  <input type="text" matInput formControlName="Text">
+                  <input type="text" matInput formControlName="Text" autofocus>
                </mat-form-field>
                <mat-form-field>
                   <mat-label>{{ 'Type' | translation | async }}</mat-label>
