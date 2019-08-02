@@ -18,7 +18,8 @@ namespace FriendlyCashFlow.API.Accounts
 
             // VALIDATE
             var validateMessage = await this.ValidateDataAsync(value);
-            if (!validateMessage.Value) { return validateMessage.Result; }
+            var validateResult = this.GetValue(validateMessage);
+            if (!validateResult) { return validateMessage.Result; }
 
             // NEW MODEL
             var data = new AccountData()
