@@ -3,14 +3,8 @@ import { BusyService } from './busy.service';
 
 @Component({
    selector: 'fs-busy',
-   template: `<mat-progress-bar *ngIf="IsBusy" mode="indeterminate"></mat-progress-bar>`,
-   styles: [`
-      .mat-progress-bar {
-         position: fixed;
-         top:0; left:0; right:0; height:2px;
-         z-index: 1001;
-      }
-   `]
+   templateUrl: './busy.component.html',
+   styleUrls: ['./busy.component.scss']
 })
 export class BusyComponent implements OnInit {
 

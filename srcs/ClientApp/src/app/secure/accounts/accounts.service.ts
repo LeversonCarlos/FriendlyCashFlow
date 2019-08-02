@@ -42,18 +42,20 @@ export class AccountsService {
          return dataList;
       }
       catch (ex) { console.error(ex); return null; }
+      finally { this.busy.hide(); }
 
    }
 
    public async getAccount(accountID: number): Promise<Account> {
       try {
+         this.busy.show();
          const dataList = await this.http.get<Account>(`api/accounts/${accountID}`)
             .pipe(map(item => Object.assign(new Account, item)))
             .toPromise();
          return dataList;
       }
       catch (ex) { console.error(ex); return null; }
-
+      finally { this.busy.hide(); }
    }
 
 }
