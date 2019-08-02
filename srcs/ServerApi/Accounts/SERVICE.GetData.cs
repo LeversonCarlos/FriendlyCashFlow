@@ -10,11 +10,12 @@ namespace FriendlyCashFlow.API.Accounts
 {
    partial class AccountsService
    {
+      private const string resourceID = "{ResourceID}";
 
       private IQueryable<AccountData> GetDataQuery()
       {
          return this.dbContext.Accounts
-            .Where(x => x.RowStatus == 1 && x.ResourceID == "{ResourceID}")
+            .Where(x => x.RowStatus == 1 && x.ResourceID == resourceID)
             .AsQueryable();
       }
 

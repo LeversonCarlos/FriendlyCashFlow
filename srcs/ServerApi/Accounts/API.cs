@@ -33,6 +33,14 @@ namespace FriendlyCashFlow.API.Accounts
          { return await service.GetDataAsync(id); }
       }
 
+      [HttpPost("")]
+      // [Authorize(Roles = "ActiveUser")]
+      public async Task<ActionResult<AccountVM>> CancelLoadAsync([FromBody]AccountVM value)
+      {
+         using (var service = new AccountsService(this.serviceProvider))
+         { return await service.CreateDataAsync(value); }
+      }
+
    }
 
 }
