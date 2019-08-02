@@ -60,14 +60,19 @@ export class AccountDetailsComponent implements OnInit {
 
    public async OnRemoveClick() {
       if (!await this.msg.Confirm('Do you want to remove this account?', 'Remove')) { return; }
+      // TODO
       this.service.showList();
    }
 
-   public OnCancelClick() {
+   public async OnCancelClick() {
+      if (!this.inputForm.pristine){
+         if (!await this.msg.Confirm('Do you want to cancel and lose changes?', 'Cancel Anyway', 'Go Back')) { return; }
+      }
       this.service.showList();
    }
 
    public OnSaveClick() {
+      // TODO
       this.service.showList();
    }
 
