@@ -42,15 +42,22 @@ export class AccountsService {
    public showDetails(id: number) { this.router.navigate(['/account', id]); }
    public showNew() { this.router.navigate(['/account', 'new']); }
 
-   public getAccountTypes(): SelectData<enAccountType>[] {
+   public async getAccountTypes(): Promise<SelectData<enAccountType>[]> {
+
+      const enAccountType_General = await this.translation.getValue('enAccountType.General');
+      const enAccountType_Bank = await this.translation.getValue('enAccountType.Bank');
+      const enAccountType_CreditCard = await this.translation.getValue('enAccountType.CreditCard');
+      const enAccountType_Investment = await this.translation.getValue('enAccountType.Investment');
+      const enAccountType_Service = await this.translation.getValue('enAccountType.Service');
+
       const accountTypes = [
-         { value: enAccountType.General, description: 'enAccountType.General' },
-         { value: enAccountType.Bank, description: 'enAccountType.Bank' },
-         { value: enAccountType.CreditCard, description: 'enAccountType.CreditCard' },
-         { value: enAccountType.Investment, description: 'enAccountType.Investment' },
-         { value: enAccountType.Service, description: 'enAccountType.Service' },
+         { value: enAccountType.General, description: enAccountType_General },
+         { value: enAccountType.Bank, description: enAccountType_Bank },
+         { value: enAccountType.CreditCard, description: enAccountType_CreditCard },
+         { value: enAccountType.Investment, description: enAccountType_Investment },
+         { value: enAccountType.Service, description: enAccountType_Service },
       ];
-      accountTypes.forEach(async item => await this.translation.getValue(item.description));
+
       const result = accountTypes
          .map(item => Object.assign(new SelectData<enAccountType>(), item));
       return result;

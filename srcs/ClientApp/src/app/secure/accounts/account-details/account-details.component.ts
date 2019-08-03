@@ -25,7 +25,7 @@ export class AccountDetailsComponent implements OnInit {
    }
 
    private async OnDataLoad(): Promise<boolean> {
-      this.AccountTypes = this.service.getAccountTypes();
+      this.AccountTypes = await this.service.getAccountTypes();
 
       const paramID: string = this.route.snapshot.params.id;
       if (paramID == 'new') { this.Data = Object.assign(new Account, { Type: enAccountType.General, Active: true }); return true; }

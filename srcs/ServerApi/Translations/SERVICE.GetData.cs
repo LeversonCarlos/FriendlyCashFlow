@@ -12,9 +12,9 @@ namespace FriendlyCashFlow.API.Translations
    {
       private const string langID = "pt-BR";
 
-      public async Task<ActionResult<string>> GetDataAsync(string key)
+      public async Task<ActionResult<string[]>> GetDataAsync(string key)
       {
-         return this.OkResponse(key);
+         return this.OkResponse(new string[] { $"{key}" });
       }
 
    }

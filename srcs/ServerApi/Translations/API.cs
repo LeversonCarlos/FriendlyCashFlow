@@ -13,7 +13,7 @@ namespace FriendlyCashFlow.API.Translations
       public TranslationController(IServiceProvider _serviceProvider) : base(_serviceProvider) { }
 
       [HttpGet("{key}")]
-      public async Task<ActionResult<string>> GetDataAsync(string key)
+      public async Task<ActionResult<string[]>> GetDataAsync(string key)
       {
          using (var service = new TranslationService(this.serviceProvider))
          { return await service.GetDataAsync(key); }
