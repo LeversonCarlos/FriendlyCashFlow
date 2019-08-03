@@ -1,0 +1,15 @@
+<div class="layout-container">
+
+   <header class="layout-header">
+      <mat-toolbar color="primary">
+         <ng-content select="[left-header]"></ng-content>
+         <ng-content select="[right-header]"></ng-content>
+      </mat-toolbar>
+   </header>
+
+   <section class="layout-details">
+      <ng-content select="[details]"></ng-content>
+   </section>
+
+</div>
+<fs-busy></fs-busy>

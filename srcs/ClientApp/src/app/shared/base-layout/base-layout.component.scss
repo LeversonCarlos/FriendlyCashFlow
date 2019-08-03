@@ -1,0 +1,17 @@
+@import "../../../styles/screenSizes.scss";
+
+.layout-container {
+  height: 100vh;
+
+  .layout-header {
+    height: $header-height;
+    .mat-toolbar {
+      justify-content: space-between;
+    }
+  }
+
+  .layout-details {
+    height: $details-height;
+    overflow-y: hidden;
+  }
+}

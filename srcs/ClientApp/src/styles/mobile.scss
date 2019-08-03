@@ -1,0 +1,22 @@
+@import "./screenSizes.scss";
+
+/* mobile */
+@media (max-width: $max-width-xs) {
+  .full-screen {
+    padding: 3px 0;
+  }
+
+  .mat-card {
+    &.full-card {
+      flex-grow: 1;
+      margin-bottom: 5px;
+      .mat-card-actions {
+        position: absolute;
+        margin: 0;
+        left: 0;
+        bottom: 16px;
+        right: 0;
+      }
+    }
+  }
+}

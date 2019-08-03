@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
    selector: 'fs-home',
@@ -8,11 +7,9 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HomeComponent implements OnInit {
 
-   constructor(private http: HttpClient) { }
-   public Data: any;
+   constructor() { }
 
    public async ngOnInit() {
-      this.Data = await this.http.get<any>("api/SampleData/WeatherForecasts").toPromise();
    }
 
 }

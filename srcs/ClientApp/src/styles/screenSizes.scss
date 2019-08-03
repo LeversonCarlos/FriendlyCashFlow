@@ -1,0 +1,12 @@
+$header-height: 56px;
+$details-height: calc(100vh - #{$header-height});
+$screen-padding: 30px;
+
+$max-width-xs: 599px;
+$min-width-sm: 600px;
+$max-width-sm: 959px;
+$min-width-md: 960px;
+$max-width-md: 1279px;
+$min-width-lg: 1280px;
+$max-width-lg: 1919px;
+$min-width-xl: 1920px;

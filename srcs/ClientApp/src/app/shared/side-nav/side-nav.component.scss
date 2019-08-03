@@ -1,0 +1,17 @@
+.sidenav-container {
+  height: -webkit-fill-available;
+  display: flex;
+  flex-direction: column;
+
+  .sidenav-Header {
+    height: 130px;
+  }
+
+  .sidenav-programs {
+     padding: 0;
+  }
+
+  .sidenav-spacer {
+    flex-grow: 1;
+  }
+}

@@ -1,0 +1,52 @@
+<fs-full-layout>
+   <span title>
+      {{ 'Account' | translation | async }}
+   </span>
+   <div toolbar>
+   </div>
+   <div content class="full-screen">
+
+      <mat-card class="full-card">
+
+         <mat-card-content>
+            <form *ngIf="inputForm" [formGroup]="inputForm">
+               <mat-form-field [style.fontSize.px]="20">
+                  <mat-label>{{ 'Account Description' | translation | async }}</mat-label>
+                  <input type="text" matInput formControlName="Text" autofocus>
+               </mat-form-field>
+               <mat-form-field>
+                  <mat-label>{{ 'Type' | translation | async }}</mat-label>
+                  <mat-select formControlName="Type">
+                     <mat-option *ngFor="let item of AccountTypes" [value]="item.value">
+                        {{ item.description }}
+                     </mat-option>
+                  </mat-select>
+               </mat-form-field>
+               <div class="mat-form-field-row">
+                  <mat-form-field>
+                     <mat-label>{{ 'Closing Day' | translation | async }}</mat-label>
+                     <input type="number" matInput formControlName="ClosingDay">
+                  </mat-form-field>
+                  <mat-form-field>
+                     <mat-label>{{ 'Due Day' | translation | async }}</mat-label>
+                     <input type="number" matInput formControlName="DueDay">
+                  </mat-form-field>
+               </div>
+               <div class="mat-form-field-infix">
+                  <mat-slide-toggle formControlName="Active">{{ 'Activated' | translation | async }}</mat-slide-toggle>
+               </div>
+            </form>
+         </mat-card-content>
+         <mat-card-actions class="between">
+            <button mat-button (click)="OnRemoveClick()" color="warn"
+               [disabled]="!Data?.AccountID || inputForm?.dirty">{{ 'Remove' | translation | async }}</button>
+            <div>
+               <button mat-button (click)="OnCancelClick()">{{ 'Cancel' | translation | async }}</button>
+               <button mat-button (click)="OnSaveClick()" color="primary"
+                  [disabled]="!inputForm?.valid">{{ 'Save' | translation | async }}</button>
+            </div>
+         </mat-card-actions>
+      </mat-card>
+
+   </div>
+</fs-full-layout>

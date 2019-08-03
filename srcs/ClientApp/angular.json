@@ -10,7 +10,26 @@
          "prefix": "fs",
          "schematics": {
             "@schematics/angular:component": {
-               "style": "scss"
+               "style": "scss",
+               "skipTests": true
+            },
+            "@schematics/angular:class": {
+               "skipTests": true
+            },
+            "@schematics/angular:directive": {
+               "skipTests": true
+            },
+            "@schematics/angular:guard": {
+               "skipTests": true
+            },
+            "@schematics/angular:module": {
+               "skipTests": true
+            },
+            "@schematics/angular:pipe": {
+               "skipTests": true
+            },
+            "@schematics/angular:service": {
+               "skipTests": true
             }
          },
          "architect": {
@@ -28,7 +47,12 @@
                      "src/assets"
                   ],
                   "styles": [
-                     "src/styles.scss"
+                     "src/styles/colors.scss",
+                     "src/styles/theme.scss",
+                     "src/styles/screenSizes.scss",
+                     "src/styles/form.scss",
+                     "src/styles/global.scss",
+                     "src/styles/mobile.scss"
                   ],
                   "scripts": []
                },
