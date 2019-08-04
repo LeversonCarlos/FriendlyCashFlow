@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ACCOUNTS_ACCOUNT_TEXT_ALREADY_EXISTS_WARNING" xml:space="preserve">
+    <value>Uma conta com essa descrição já existe!</value>
+  </data>
   <data name="ACCOUNTS_ACTIVATED_LABEL" xml:space="preserve">
     <value>Ativada</value>
   </data>
@@ -152,6 +155,9 @@
   </data>
   <data name="ACCOUNTS_ENACCOUNTTYPE_SERVICE" xml:space="preserve">
     <value>Serviço</value>
+  </data>
+  <data name="ACCOUNTS_INVALID_DUE_DAY_WARNING" xml:space="preserve">
+    <value>Um dia para vencimento válido precisa ser informado!</value>
   </data>
   <data name="ACCOUNTS_MAIN_TITLE" xml:space="preserve">
     <value>Contas</value>

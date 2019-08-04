@@ -18,13 +18,13 @@ namespace FriendlyCashFlow.API.Accounts
 
             // VALIDATE DUPLICITY
             if (await this.GetDataQuery().CountAsync(x => x.AccountID != value.AccountID && x.Text == value.Text) != 0)
-            { return this.WarningResponse("A account with this text already exists"); }
+            { return this.WarningResponse(this.GetTranslation("ACCOUNTS_ACCOUNT_TEXT_ALREADY_EXISTS_WARNING")); }
 
             // VALIDATE CREDIT CARD
             if (value.Type == enAccountType.CreditCard)
             {
                if (!value.DueDay.HasValue || value.DueDay <= 0 || value.DueDay >= 31)
-               { return this.WarningResponse("A valid due day must be informed"); }
+               { return this.WarningResponse(this.GetTranslation("ACCOUNTS_INVALID_DUE_DAY_WARNING")); }
             }
 
             // RESULT
