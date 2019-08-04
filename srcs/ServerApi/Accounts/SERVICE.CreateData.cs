@@ -28,7 +28,7 @@ namespace FriendlyCashFlow.API.Accounts
                Text = value.Text,
                Type = (short)value.Type,
                Active = value.Active,
-               // ClosingDay = value.ClosingDay,
+               ClosingDay = value.ClosingDay,
                DueDay = value.DueDay,
                RowStatus = 1
             };

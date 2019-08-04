@@ -28,7 +28,7 @@ namespace FriendlyCashFlow.API.Accounts
             // APPLY
             data.Text = value.Text;
             data.Type = (short)value.Type;
-            // data.ClosingDay = value.ClosingDay;
+            data.ClosingDay = value.ClosingDay;
             data.DueDay = value.DueDay;
             data.Active = value.Active;
             await this.dbContext.SaveChangesAsync();

@@ -66,6 +66,8 @@ export class AccountDetailsComponent implements OnInit {
          this.OnCreditCardChanged(type, 'ClosingDay');
          this.OnCreditCardChanged(type, 'DueDay');
       });
+      this.OnCreditCardChanged(this.Data.Type, 'ClosingDay');
+      this.OnCreditCardChanged(this.Data.Type, 'DueDay');
    }
 
    private OnCreditCardChanged(type: enAccountType, controlName: string) {
