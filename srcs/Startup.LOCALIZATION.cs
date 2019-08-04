@@ -1,10 +1,9 @@
-using System.Collections.Generic;
-using System.Globalization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace FriendlyCashFlow
 {
@@ -31,11 +30,9 @@ namespace FriendlyCashFlow
             DefaultRequestCulture = new RequestCulture("en-US", "en-US"),
             SupportedCultures = supportedCultures,
             SupportedUICultures = supportedCultures
-            /*,
+            /*
             RequestCultureProviders = new List<IRequestCultureProvider>
-            {
-               new AcceptLanguageHeaderRequestCultureProvider ()
-            }
+            { new AcceptLanguageHeaderRequestCultureProvider () }
             */
          });
       }
