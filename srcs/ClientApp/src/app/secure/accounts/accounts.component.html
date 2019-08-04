@@ -1,6 +1,6 @@
 <fs-full-layout>
    <span title>
-      {{ 'Accounts' | translation | async }}
+      {{ 'ACCOUNTS_TITLE' | translation | async }}
    </span>
    <div toolbar>
    </div>
@@ -9,7 +9,7 @@
       <mat-card class="full-card">
          <mat-card-content>
             <mat-tab-group dynamicHeight="false">
-               <mat-tab label="{{ 'Active Accounts' | translation | async }}">
+               <mat-tab label="{{ 'ACCOUNTS_ACTIVE_ACCOUNTS_LABEL' | translation | async }}">
                   <mat-action-list>
                      <button mat-list-item *ngFor="let item of ActiveData" (click)="OnItemClick(item)" >
                         <span>{{ item.Text }}</span>
@@ -17,7 +17,7 @@
                      </button>
                   </mat-action-list>
                </mat-tab>
-               <mat-tab label="{{ 'Arquived' | translation | async }}" [disabled]="!ArquivedData?.length">
+               <mat-tab label="{{ 'ACCOUNTS_ARQUIVED_ACCOUNTS_LABEL' | translation | async }}" [disabled]="!ArquivedData?.length">
                   <mat-action-list>
                      <button mat-list-item *ngFor="let item of ArquivedData" (click)="OnItemClick(item)" >
                         <span>{{ item.Text }}</span>

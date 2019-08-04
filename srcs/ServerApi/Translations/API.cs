@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace FriendlyCashFlow.API.Translations
 {
@@ -10,13 +11,20 @@ namespace FriendlyCashFlow.API.Translations
    [Route("api/translations")]
    public class TranslationController : Base.BaseController
    {
-      public TranslationController(IServiceProvider _serviceProvider) : base(_serviceProvider) { }
+      private readonly IStringLocalizer<FriendlyCashFlow.Translations.Strings> localizer;
+      public TranslationController(IServiceProvider _serviceProvider, IStringLocalizer<FriendlyCashFlow.Translations.Strings> _localizer) : base(_serviceProvider)
+      {
+         this.localizer = _localizer;
+      }
 
       [HttpGet("{key}")]
-      public async Task<ActionResult<string[]>> GetDataAsync(string key)
+      public string[] GetData(string key)
       {
-         using (var service = new TranslationService(this.serviceProvider))
-         { return await service.GetDataAsync(key); }
+         try
+         {
+            return new string[] { this.localizer[key] };
+         }
+         catch { return new string[] { $"{key.ToUpper().Replace(" ", "_")}" }; }
       }
 
    }
