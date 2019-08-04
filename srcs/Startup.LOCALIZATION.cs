@@ -13,8 +13,8 @@ namespace FriendlyCashFlow
 
       private void AddLocalizationServices(IServiceCollection services)
       {
-         services.AddLocalization(o =>
-         {
+         services.AddLocalization(o => 
+         {           
             o.ResourcesPath = "";
          });
       }
@@ -24,13 +24,19 @@ namespace FriendlyCashFlow
          var supportedCultures = new List<CultureInfo>
          {
             new CultureInfo("en-US"),
-            new CultureInfo("pt-BR"),
+            new CultureInfo("pt-BR")
          };
          app.UseRequestLocalization(new RequestLocalizationOptions
          {
-            DefaultRequestCulture = new RequestCulture("en-US"),
+            DefaultRequestCulture = new RequestCulture("en-US", "en-US"),
             SupportedCultures = supportedCultures,
             SupportedUICultures = supportedCultures
+            /*,
+            RequestCultureProviders = new List<IRequestCultureProvider>
+            {
+               new AcceptLanguageHeaderRequestCultureProvider ()
+            }
+            */
          });
       }
 
