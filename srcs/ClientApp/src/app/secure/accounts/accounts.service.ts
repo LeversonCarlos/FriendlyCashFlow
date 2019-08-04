@@ -44,11 +44,11 @@ export class AccountsService {
 
    public async getAccountTypes(): Promise<SelectData<enAccountType>[]> {
 
-      const enAccountType_General = await this.translation.getValue('enAccountType.General');
-      const enAccountType_Bank = await this.translation.getValue('enAccountType.Bank');
-      const enAccountType_CreditCard = await this.translation.getValue('enAccountType.CreditCard');
-      const enAccountType_Investment = await this.translation.getValue('enAccountType.Investment');
-      const enAccountType_Service = await this.translation.getValue('enAccountType.Service');
+      const enAccountType_General = await this.translation.getValue('ACCOUNTS_ENACCOUNTTYPE_GENERAL');
+      const enAccountType_Bank = await this.translation.getValue('ACCOUNTS_ENACCOUNTTYPE_BANK');
+      const enAccountType_CreditCard = await this.translation.getValue('ACCOUNTS_ENACCOUNTTYPE_CREDITCARD');
+      const enAccountType_Investment = await this.translation.getValue('ACCOUNTS_ENACCOUNTTYPE_INVESTMENT');
+      const enAccountType_Service = await this.translation.getValue('ACCOUNTS_ENACCOUNTTYPE_SERVICE');
 
       const accountTypes = [
          { value: enAccountType.General, description: enAccountType_General },

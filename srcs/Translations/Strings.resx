@@ -117,20 +117,77 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ACCOUNTS_ACTIVATED_LABEL" xml:space="preserve">
+    <value>Activated</value>
+  </data>
   <data name="ACCOUNTS_ACTIVE_ACCOUNTS_LABEL" xml:space="preserve">
     <value>Active Accounts</value>
   </data>
   <data name="ACCOUNTS_ARQUIVED_ACCOUNTS_LABEL" xml:space="preserve">
     <value>Arquived</value>
   </data>
+  <data name="ACCOUNTS_CLOSING_DAY_LABEL" xml:space="preserve">
+    <value>Closing Day</value>
+  </data>
+  <data name="ACCOUNTS_DESCRIPTION_LABEL" xml:space="preserve">
+    <value>Account Description</value>
+  </data>
+  <data name="ACCOUNTS_DETAILS_TITLE" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="ACCOUNTS_DUE_DAY_LABEL" xml:space="preserve">
+    <value>Due Day</value>
+  </data>
+  <data name="ACCOUNTS_ENACCOUNTTYPE_BANK" xml:space="preserve">
+    <value>Bank</value>
+  </data>
+  <data name="ACCOUNTS_ENACCOUNTTYPE_CREDITCARD" xml:space="preserve">
+    <value>Credit Card</value>
+  </data>
+  <data name="ACCOUNTS_ENACCOUNTTYPE_GENERAL" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="ACCOUNTS_ENACCOUNTTYPE_INVESTMENT" xml:space="preserve">
+    <value>Investment</value>
+  </data>
+  <data name="ACCOUNTS_ENACCOUNTTYPE_SERVICE" xml:space="preserve">
+    <value>Service</value>
+  </data>
+  <data name="ACCOUNTS_MAIN_TITLE" xml:space="preserve">
+    <value>Accounts</value>
+  </data>
   <data name="ACCOUNTS_MENU" xml:space="preserve">
     <value>Accounts</value>
   </data>
-  <data name="ACCOUNTS_TITLE" xml:space="preserve">
-    <value>Accounts</value>
+  <data name="ACCOUNTS_RECORD_NOT_FOUND_WARNING" xml:space="preserve">
+    <value>Account record not found to be displayed!</value>
+  </data>
+  <data name="ACCOUNTS_REMOVE_CONFIRMATION_TEXT" xml:space="preserve">
+    <value>Do you want to remove this account?</value>
+  </data>
+  <data name="ACCOUNTS_TYPE_LABEL" xml:space="preserve">
+    <value>Type</value>
   </data>
   <data name="ANALYSIS_MENU" xml:space="preserve">
     <value>Analysis</value>
+  </data>
+  <data name="BASE_CANCEL_CHANGES_ABORT" xml:space="preserve">
+    <value>Go Back</value>
+  </data>
+  <data name="BASE_CANCEL_CHANGES_CONFIRM" xml:space="preserve">
+    <value>Cancel Anyway</value>
+  </data>
+  <data name="BASE_CANCEL_CHANGES_CONFIRMATION_TEXT" xml:space="preserve">
+    <value>Do you want to cancel and lose changes?</value>
+  </data>
+  <data name="BASE_CANCEL_COMMAND" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="BASE_REMOVE_COMMAND" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="BASE_SAVE_COMMAND" xml:space="preserve">
+    <value>Save</value>
   </data>
   <data name="CATEGORIES_MENU" xml:space="preserve">
     <value>Categories</value>

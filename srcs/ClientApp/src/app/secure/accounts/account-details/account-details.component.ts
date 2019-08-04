@@ -32,14 +32,14 @@ export class AccountDetailsComponent implements OnInit {
 
       const accountID: number = Number(paramID);
       if (!accountID || accountID == 0) {
-         this.msg.ShowWarning('Account record not found to be displayed!');
+         this.msg.ShowWarning('ACCOUNTS_RECORD_NOT_FOUND_WARNING');
          this.service.showList();
          return false;
       }
 
       this.Data = await this.service.getAccount(accountID);
       if (!this.Data || this.Data.AccountID != accountID) {
-         this.msg.ShowWarning('Account record not found to be displayed!');
+         this.msg.ShowWarning('ACCOUNTS_RECORD_NOT_FOUND_WARNING');
          this.service.showList();
          return false;
       }
@@ -85,14 +85,14 @@ export class AccountDetailsComponent implements OnInit {
    }
 
    public async OnRemoveClick() {
-      if (!await this.msg.Confirm('Do you want to remove this account?', 'Remove')) { return; }
+      if (!await this.msg.Confirm('ACCOUNTS_REMOVE_CONFIRMATION_TEXT', 'BASE_REMOVE_COMMAND')) { return; }
       if (!await this.service.removeAccount(this.Data)) { return; }
       this.service.showList();
    }
 
    public async OnCancelClick() {
       if (!this.inputForm.pristine) {
-         if (!await this.msg.Confirm('Do you want to cancel and lose changes?', 'Cancel Anyway', 'Go Back')) { return; }
+         if (!await this.msg.Confirm('BASE_CANCEL_CHANGES_CONFIRMATION_TEXT', 'BASE_CANCEL_CHANGES_CONFIRM', 'BASE_CANCEL_CHANGES_ABORT')) { return; }
       }
       this.service.showList();
    }
