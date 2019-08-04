@@ -22,7 +22,8 @@ namespace FriendlyCashFlow.API.Translations
       {
          try
          {
-            return new string[] { this.localizer[key] };
+            var result = this.localizer[key];
+            return new string[] { result };
          }
          catch { return new string[] { $"{key.ToUpper().Replace(" ", "_")}" }; }
       }
