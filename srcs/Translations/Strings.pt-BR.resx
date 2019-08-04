@@ -165,6 +165,9 @@
   <data name="ACCOUNTS_REMOVE_CONFIRMATION_TEXT" xml:space="preserve">
     <value>Você deseja remover essa conta?</value>
   </data>
+  <data name="ACCOUNTS_TYPE_LABEL" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
   <data name="ANALYSIS_MENU" xml:space="preserve">
     <value>Análise</value>
   </data>
