@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Localization;
+using System;
 
 namespace FriendlyCashFlow.API.Translations
 {
@@ -11,22 +8,22 @@ namespace FriendlyCashFlow.API.Translations
    [Route("api/translations")]
    public class TranslationController : Base.BaseController
    {
-      private readonly IStringLocalizer<FriendlyCashFlow.Translations.Strings> localizer;
-      public TranslationController(IServiceProvider _serviceProvider, IStringLocalizer<FriendlyCashFlow.Translations.Strings> _localizer) : base(_serviceProvider)
-      {
-         this.localizer = _localizer;
-      }
+      public TranslationController(IServiceProvider _serviceProvider) : base(_serviceProvider) { }
 
       [HttpGet("{key}")]
       public string[] GetData(string key)
       {
-         try
+         using (var service = new TranslationsService(this.serviceProvider))
          {
-            return new string[] { this.localizer[key] };
+            return new string[] { service.GetTranslation(key) };
          }
-         catch { return new string[] { $"{key.ToUpper().Replace(" ", "_")}" }; }
       }
 
+   }
+
+   internal partial class TranslationsService : Base.BaseService
+   {
+      public TranslationsService(IServiceProvider serviceProvider) : base(serviceProvider) { }
    }
 
 }

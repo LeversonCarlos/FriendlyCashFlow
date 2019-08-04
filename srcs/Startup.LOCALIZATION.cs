@@ -1,10 +1,9 @@
-using System.Collections.Generic;
-using System.Globalization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace FriendlyCashFlow
 {
@@ -13,8 +12,8 @@ namespace FriendlyCashFlow
 
       private void AddLocalizationServices(IServiceCollection services)
       {
-         services.AddLocalization(o =>
-         {
+         services.AddLocalization(o => 
+         {           
             o.ResourcesPath = "";
          });
       }
@@ -24,13 +23,17 @@ namespace FriendlyCashFlow
          var supportedCultures = new List<CultureInfo>
          {
             new CultureInfo("en-US"),
-            new CultureInfo("pt-BR"),
+            new CultureInfo("pt-BR")
          };
          app.UseRequestLocalization(new RequestLocalizationOptions
          {
-            DefaultRequestCulture = new RequestCulture("en-US"),
+            DefaultRequestCulture = new RequestCulture("en-US", "en-US"),
             SupportedCultures = supportedCultures,
             SupportedUICultures = supportedCultures
+            /*
+            RequestCultureProviders = new List<IRequestCultureProvider>
+            { new AcceptLanguageHeaderRequestCultureProvider () }
+            */
          });
       }
 
