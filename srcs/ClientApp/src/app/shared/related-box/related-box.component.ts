@@ -20,7 +20,7 @@ export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAcces
       this.fm.monitor(elRef.nativeElement, true).subscribe(origin => {
          this.focused = !!origin;
          this.stateChanges.next();
-       });
+      });
    }
 
    public ngOnInit() {
@@ -78,8 +78,11 @@ export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAcces
    /* FOCUSED */
    focused: boolean = false;
 
+   /* EMPTY */
+   public get empty(): boolean {
+      return !this.value;
+   }
 
-   empty: boolean;
    shouldLabelFloat: boolean;
    required: boolean;
    disabled: boolean;
