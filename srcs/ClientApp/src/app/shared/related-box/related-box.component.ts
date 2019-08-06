@@ -26,7 +26,7 @@ export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAcces
             map(() => this.inputValue),
             debounceTime(this.delay)
          );
-      this.inputValueChanged.subscribe(val => { this.writeValue(null); this.optionsChanging.emit(val); });
+      this.inputValueChanged.subscribe(val => this.OnInputValueChanging(val));
    }
 
    /* PROPERTIES */
@@ -35,20 +35,29 @@ export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAcces
    @Input() public delay: number = 500;
    @Input() public value: RelatedData<any>;
 
+   /* INPUT VALUE */
+   public inputValue: string;
+   private inputValueChanged: Observable<string>;
+   private OnInputValueChanging(val: string) {
+      this.writeValue(null);
+      this.optionsChanging.emit(val);
+   }
+
    /* OPTIONS */
    @Input() public options: RelatedData<any>[] = [];
    @Output() public optionsChanging: EventEmitter<string>;
-   public inputValue: string;
-   private inputValueChanged: Observable<string>;
-   displayFn(option?: RelatedData<any>): string {
+   public OnOptionSelected(val: MatAutocompleteSelectedEvent) {
+      this.writeValue(val.option.value);
+   }
+   public OnDisplayWith(option?: RelatedData<any>): string {
       return option && option.description;
+   }
+   public OnFocus() {
+      this.OnInputValueChanging('');
    }
 
    /* VALUE ACCESSOR  */
-   optionSelected(val: MatAutocompleteSelectedEvent) {
-      this.writeValue(val.option.value);
-   }
-   writeValue(val: RelatedData<any>): void {
+   public writeValue(val: RelatedData<any>): void {
       this.value = val
       this.onChange(val);
    }
