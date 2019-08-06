@@ -1,6 +1,6 @@
-import { Component, OnInit, OnDestroy, Input, Optional, Self, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Optional, Self, ElementRef, HostBinding } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
-import { fromEvent, Observable } from 'rxjs';
+import { fromEvent, Observable, Subject } from 'rxjs';
 import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { MatFormFieldControl } from '@angular/material/form-field';
 
@@ -12,7 +12,7 @@ import { MatFormFieldControl } from '@angular/material/form-field';
 })
 export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAccessor, MatFormFieldControl<string> {
 
-   constructor(@Optional() @Self() private ngControl: NgControl, private elRef: ElementRef<HTMLElement>) {
+   constructor(@Optional() @Self() public ngControl: NgControl, private elRef: ElementRef<HTMLElement>) {
       if (this.ngControl != null) {
          this.ngControl.valueAccessor = this;
       }
@@ -39,6 +39,7 @@ export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAcces
    writeValue(val: string): void {
       this.value = val
       this.onChange(val);
+      this.stateChanges.next();
    }
    onChange = (val: string) => { };
    registerOnChange(fn: any): void {
@@ -51,9 +52,34 @@ export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAcces
       // throw new Error("Method not implemented.");
    }
 
+   /* MatFormFieldControl */
+   stateChanges = new Subject<void>();
+
+   private static nextID = 0;
+   @HostBinding() id: string = `related-box-${RelatedBoxComponent.nextID++}`;
+
+   placeholder: string;
+
+   focused: boolean;
+   empty: boolean;
+   shouldLabelFloat: boolean;
+   required: boolean;
+   disabled: boolean;
+   errorState: boolean;
+   controlType?: string;
+   autofilled?: boolean;
+   setDescribedByIds(ids: string[]): void {
+      throw new Error("Method not implemented.");
+   }
+   onContainerClick(event: MouseEvent): void {
+      throw new Error("Method not implemented.");
+   }
+
    // DESTROY
    public ngOnDestroy(): void {
       this.eventStream = null;
+      this.stateChanges.complete();
+      this.stateChanges = null;
    }
 
 }
