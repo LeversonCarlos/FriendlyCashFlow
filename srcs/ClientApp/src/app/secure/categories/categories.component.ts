@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { RelatedData } from 'src/app/shared/related-box/related-box.models';
+import { Account } from '../accounts/accounts.service';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 @Component({
    selector: 'fs-categories',
@@ -7,11 +11,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CategoriesComponent implements OnInit {
 
-   constructor() { }
+   constructor(private http: HttpClient) { }
 
-   public selectedValue: string;
+   public selectedValue: RelatedData<Account>;
 
-   public filteredOptions: string[] = ['Casa', "Camelo", 'Coisas']
+   public async optionsChanging(val: string) {
+      this.options = await this.http.get<Account[]>(`api/accounts/${val || ''}`)
+         .pipe(map(items => items.map(item => Object.assign(new Account, item))))
+         .pipe(map(items => items.map(item => Object.assign(new RelatedData, { id: item.AccountID, description: item.Text, value: item }))))
+         .toPromise();
+   }
+
+   public options: RelatedData<Account>[] = []
 
    ngOnInit() {
    }

@@ -1,7 +1,9 @@
-import { Component, OnInit, OnDestroy, Optional, Self, Input, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, Optional, Self, Input, ElementRef, Output, EventEmitter } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { fromEvent, Observable } from 'rxjs';
 import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { RelatedData } from './related-box.models';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 @Component({
    selector: 'related-box',
@@ -11,36 +13,46 @@ import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
    constructor(@Optional() @Self() private ngControl: NgControl, private elRef: ElementRef<HTMLElement>) {
+      this.optionsChanging = new EventEmitter<string>();
       if (this.ngControl != null) {
          this.ngControl.valueAccessor = this;
       }
    }
 
    public ngOnInit() {
-      this.inputValue = this.value;
-      this.eventStream = fromEvent(this.elRef.nativeElement, 'keyup')
+      this.inputValue = this.value && this.value.description;
+      this.inputValueChanged = fromEvent(this.elRef.nativeElement, 'keyup')
          .pipe(
             map(() => this.inputValue),
-            debounceTime(this.delay),
-            distinctUntilChanged()
+            debounceTime(this.delay)
          );
-      this.eventStream.subscribe(val => this.writeValue(val))
+      this.inputValueChanged.subscribe(val => { this.writeValue(null); this.optionsChanging.emit(val); });
    }
 
    /* PROPERTIES */
    @Input() public placeholder: string = '';
    @Input() public disabled: boolean = false;
    @Input() public delay: number = 500;
-   @Input() public value: string;
-   public inputValue: string
-   private eventStream: Observable<string>;
+   @Input() public value: RelatedData<any>;
+
+   /* OPTIONS */
+   @Input() public options: RelatedData<any>[] = [];
+   @Output() public optionsChanging: EventEmitter<string>;
+   public inputValue: string;
+   private inputValueChanged: Observable<string>;
+   displayFn(option?: RelatedData<any>): string {
+      return option && option.description;
+   }
 
    /* VALUE ACCESSOR  */
-   writeValue(val: string): void {
+   optionSelected(val: MatAutocompleteSelectedEvent) {
+      this.writeValue(val.option.value);
+   }
+   writeValue(val: RelatedData<any>): void {
       this.value = val
       this.onChange(val);
    }
-   onChange = (val: string) => { };
+   onChange = (val: RelatedData<any>) => { };
    registerOnChange(fn: any): void {
       this.onChange = fn;
    }
@@ -52,7 +64,9 @@ export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAcces
    }
 
    public ngOnDestroy(): void {
-      this.eventStream = null;
+      this.inputValueChanged = null;
+      this.optionsChanging.complete();
+      this.optionsChanging = null;
    }
 
 }
