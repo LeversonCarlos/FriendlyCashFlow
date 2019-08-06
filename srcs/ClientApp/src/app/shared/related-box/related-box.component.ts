@@ -52,13 +52,25 @@ export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAcces
       // throw new Error("Method not implemented.");
    }
 
-   /* MatFormFieldControl */
-   stateChanges = new Subject<void>();
-
+   /* ID */
    private static nextID = 0;
    @HostBinding() id: string = `related-box-${RelatedBoxComponent.nextID++}`;
 
-   placeholder: string;
+   /* PLACEHOLDER */
+   @Input()
+   public get placeholder() {
+      return this._placeholder;
+   }
+   public set placeholder(val: string) {
+      this._placeholder = val;
+      this.stateChanges.next();
+   }
+   private _placeholder: string;
+
+   /* MatFormFieldControl */
+   stateChanges = new Subject<void>();
+
+
 
    focused: boolean;
    empty: boolean;
