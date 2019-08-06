@@ -30,11 +30,12 @@ import { MessageComponent } from './message/message.component';
 import { MessageService } from './message/message.service';
 import { ConfirmComponent } from './message/confirm.component';
 import { FabButtonComponent } from './fab-button/fab-button.component';
+import { RelatedBoxComponent } from './related-box/related-box.component';
 
 @NgModule({
    entryComponents: [MessageComponent, ConfirmComponent],
    declarations: [BaseLayoutComponent, FullLayoutComponent, SideNavComponent,
-      BusyComponent, TranslationPipe, MessageComponent, ConfirmComponent, FabButtonComponent],
+      BusyComponent, TranslationPipe, MessageComponent, ConfirmComponent, FabButtonComponent, RelatedBoxComponent],
    imports: [
       CommonModule, RouterModule, FormsModule, ReactiveFormsModule,
       MatToolbarModule, MatSidenavModule, MatCardModule, MatTabsModule, MatListModule,
