@@ -100,7 +100,15 @@ export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAcces
    }
    private _required = false;
 
-   disabled: boolean;
+   /* DISABLED */
+   @Input()
+   get disabled(): boolean { return this._disabled; }
+   set disabled(value: boolean) {
+     this._disabled = coerceBooleanProperty(value);
+     this.stateChanges.next();
+   }
+   private _disabled = false;
+
    errorState: boolean;
    controlType?: string;
    autofilled?: boolean;
