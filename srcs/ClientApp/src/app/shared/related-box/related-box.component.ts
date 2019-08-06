@@ -3,6 +3,7 @@ import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { fromEvent, Observable, Subject } from 'rxjs';
 import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { MatFormFieldControl } from '@angular/material/form-field';
+import { FocusMonitor } from '@angular/cdk/a11y';
 
 @Component({
    selector: 'related-box',
@@ -12,10 +13,14 @@ import { MatFormFieldControl } from '@angular/material/form-field';
 })
 export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAccessor, MatFormFieldControl<string> {
 
-   constructor(@Optional() @Self() public ngControl: NgControl, private elRef: ElementRef<HTMLElement>) {
+   constructor(@Optional() @Self() public ngControl: NgControl, private elRef: ElementRef<HTMLElement>, private fm: FocusMonitor) {
       if (this.ngControl != null) {
          this.ngControl.valueAccessor = this;
       }
+      this.fm.monitor(elRef.nativeElement, true).subscribe(origin => {
+         this.focused = !!origin;
+         this.stateChanges.next();
+       });
    }
 
    public ngOnInit() {
@@ -52,6 +57,9 @@ export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAcces
       // throw new Error("Method not implemented.");
    }
 
+   /* STATE CHANGES */
+   stateChanges = new Subject<void>();
+
    /* ID */
    private static nextID = 0;
    @HostBinding() id: string = `related-box-${RelatedBoxComponent.nextID++}`;
@@ -67,12 +75,10 @@ export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAcces
    }
    private _placeholder: string;
 
-   /* MatFormFieldControl */
-   stateChanges = new Subject<void>();
+   /* FOCUSED */
+   focused: boolean = false;
 
 
-
-   focused: boolean;
    empty: boolean;
    shouldLabelFloat: boolean;
    required: boolean;
@@ -92,6 +98,7 @@ export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAcces
       this.eventStream = null;
       this.stateChanges.complete();
       this.stateChanges = null;
+      this.fm.stopMonitoring(this.elRef.nativeElement);
    }
 
 }
