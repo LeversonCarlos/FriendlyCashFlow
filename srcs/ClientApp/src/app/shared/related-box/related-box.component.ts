@@ -4,6 +4,7 @@ import { fromEvent, Observable, Subject } from 'rxjs';
 import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { FocusMonitor } from '@angular/cdk/a11y';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 @Component({
    selector: 'related-box',
@@ -88,7 +89,17 @@ export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAcces
       return this.focused || !this.empty;
    }
 
-   required: boolean;
+   /* REQUIRED */
+   @Input()
+   get required() {
+     return this._required;
+   }
+   set required(req) {
+     this._required = coerceBooleanProperty(req);
+     this.stateChanges.next();
+   }
+   private _required = false;
+
    disabled: boolean;
    errorState: boolean;
    controlType?: string;
