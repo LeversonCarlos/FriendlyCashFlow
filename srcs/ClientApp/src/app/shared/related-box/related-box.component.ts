@@ -120,9 +120,13 @@ export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAcces
    }
 
    autofilled?: boolean;
+
+   /* DESCRIBED BY */
+   @HostBinding('attr.aria-describedby') describedBy = '';
    setDescribedByIds(ids: string[]): void {
-      throw new Error("Method not implemented.");
+      this.describedBy = ids.join(' ');
    }
+
    onContainerClick(event: MouseEvent): void {
       throw new Error("Method not implemented.");
    }
