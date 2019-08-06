@@ -111,10 +111,14 @@ export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAcces
 
    /* ERROR STATE */
    public get errorState(): boolean {
-      return !this.ngControl.valid;
+      return this.ngControl && !this.ngControl.valid;
    }
 
-   controlType?: string;
+   /* CONTROL TYPE */
+   public get controlType(): string {
+      return 'related-box';
+   }
+
    autofilled?: boolean;
    setDescribedByIds(ids: string[]): void {
       throw new Error("Method not implemented.");
