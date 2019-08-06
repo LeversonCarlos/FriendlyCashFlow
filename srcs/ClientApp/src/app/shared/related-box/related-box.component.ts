@@ -92,11 +92,11 @@ export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAcces
    /* REQUIRED */
    @Input()
    get required() {
-     return this._required;
+      return this._required;
    }
    set required(req) {
-     this._required = coerceBooleanProperty(req);
-     this.stateChanges.next();
+      this._required = coerceBooleanProperty(req);
+      this.stateChanges.next();
    }
    private _required = false;
 
@@ -104,12 +104,16 @@ export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAcces
    @Input()
    get disabled(): boolean { return this._disabled; }
    set disabled(value: boolean) {
-     this._disabled = coerceBooleanProperty(value);
-     this.stateChanges.next();
+      this._disabled = coerceBooleanProperty(value);
+      this.stateChanges.next();
    }
    private _disabled = false;
 
-   errorState: boolean;
+   /* ERROR STATE */
+   public get errorState(): boolean {
+      return !this.ngControl.valid;
+   }
+
    controlType?: string;
    autofilled?: boolean;
    setDescribedByIds(ids: string[]): void {
