@@ -127,8 +127,11 @@ export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAcces
       this.describedBy = ids.join(' ');
    }
 
+   /* CONTAINER CLICK */
    onContainerClick(event: MouseEvent): void {
-      throw new Error("Method not implemented.");
+      if ((event.target as Element).tagName.toLowerCase() != 'input') {
+         this.elRef.nativeElement.querySelector('input').focus();
+      }
    }
 
    // DESTROY
