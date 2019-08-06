@@ -14,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -40,15 +41,16 @@ import { RelatedBoxComponent } from './related-box/related-box.component';
       CommonModule, RouterModule, FormsModule, ReactiveFormsModule,
       MatToolbarModule, MatSidenavModule, MatCardModule, MatTabsModule, MatListModule,
       MatIconModule, MatButtonModule, MatProgressBarModule,
-      MatFormFieldModule, MatInputModule, MatSelectModule, MatSlideToggleModule,
+      MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatSelectModule, MatSlideToggleModule,
       MatSnackBarModule, MatDialogModule
    ],
    exports: [
       RouterModule, FormsModule, ReactiveFormsModule,
       MatToolbarModule, MatSidenavModule, MatCardModule, MatTabsModule, MatListModule,
       MatIconModule, MatButtonModule, MatProgressBarModule,
-      MatFormFieldModule, MatInputModule, MatSelectModule, MatSlideToggleModule,
-      BaseLayoutComponent, FullLayoutComponent, FabButtonComponent,
+      MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatSelectModule, MatSlideToggleModule,
+      BaseLayoutComponent, FullLayoutComponent,
+      FabButtonComponent, RelatedBoxComponent,
       TranslationPipe
    ],
    providers: [BusyService, TranslationService, MessageService]

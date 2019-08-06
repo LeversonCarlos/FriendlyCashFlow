@@ -1,12 +1,5 @@
-<mat-form-field>
-   <mat-label>{{ 'ACCOUNTS_CLOSING_DAY_LABEL' | translation | async }}</mat-label>
-   <related-box [(ngModel)]="selectedValue">
-      <mat-option value="-">Selecione</mat-option>
-      <mat-option *ngFor="let option of filteredOptions" [value]="option">
-         {{option}}
-      </mat-option>
-   </related-box>
-</mat-form-field>
+<related-box placeholder="ACCOUNTS_CLOSING_DAY_LABEL" [(ngModel)]="selectedValue">
+</related-box>
 <pre>
    {{ selectedValue }}
 </pre>

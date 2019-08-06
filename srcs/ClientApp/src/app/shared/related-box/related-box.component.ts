@@ -1,27 +1,19 @@
-import { Component, OnInit, OnDestroy, Input, Optional, Self, ElementRef, HostBinding } from '@angular/core';
+import { Component, OnInit, OnDestroy, Optional, Self, Input, ElementRef } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
-import { fromEvent, Observable, Subject } from 'rxjs';
+import { fromEvent, Observable } from 'rxjs';
 import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { MatFormFieldControl } from '@angular/material/form-field';
-import { FocusMonitor } from '@angular/cdk/a11y';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 @Component({
    selector: 'related-box',
    templateUrl: './related-box.component.html',
-   styleUrls: ['./related-box.component.scss'],
-   providers: [{ provide: MatFormFieldControl, useExisting: RelatedBoxComponent }]
+   styleUrls: ['./related-box.component.scss']
 })
-export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAccessor, MatFormFieldControl<string> {
+export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
-   constructor(@Optional() @Self() public ngControl: NgControl, private elRef: ElementRef<HTMLElement>, private fm: FocusMonitor) {
+   constructor(@Optional() @Self() private ngControl: NgControl, private elRef: ElementRef<HTMLElement>) {
       if (this.ngControl != null) {
          this.ngControl.valueAccessor = this;
       }
-      this.fm.monitor(elRef.nativeElement, true).subscribe(origin => {
-         this.focused = !!origin;
-         this.stateChanges.next();
-      });
    }
 
    public ngOnInit() {
@@ -36,6 +28,8 @@ export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAcces
    }
 
    /* PROPERTIES */
+   @Input() public placeholder: string = '';
+   @Input() public disabled: boolean = false;
    @Input() public delay: number = 500;
    @Input() public value: string;
    public inputValue: string
@@ -45,7 +39,6 @@ export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAcces
    writeValue(val: string): void {
       this.value = val
       this.onChange(val);
-      this.stateChanges.next();
    }
    onChange = (val: string) => { };
    registerOnChange(fn: any): void {
@@ -58,88 +51,8 @@ export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAcces
       // throw new Error("Method not implemented.");
    }
 
-   /* STATE CHANGES */
-   stateChanges = new Subject<void>();
-
-   /* ID */
-   private static nextID = 0;
-   @HostBinding() id: string = `related-box-${RelatedBoxComponent.nextID++}`;
-
-   /* PLACEHOLDER */
-   @Input()
-   public get placeholder() {
-      return this._placeholder;
-   }
-   public set placeholder(val: string) {
-      this._placeholder = val;
-      this.stateChanges.next();
-   }
-   private _placeholder: string;
-
-   /* FOCUSED */
-   focused: boolean = false;
-
-   /* EMPTY */
-   public get empty(): boolean {
-      return !this.value;
-   }
-
-   /* SHOULD LABEL FLOAT */
-   public get shouldLabelFloat(): boolean {
-      return this.focused || !this.empty;
-   }
-
-   /* REQUIRED */
-   @Input()
-   get required() {
-      return this._required;
-   }
-   set required(req) {
-      this._required = coerceBooleanProperty(req);
-      this.stateChanges.next();
-   }
-   private _required = false;
-
-   /* DISABLED */
-   @Input()
-   get disabled(): boolean { return this._disabled; }
-   set disabled(value: boolean) {
-      this._disabled = coerceBooleanProperty(value);
-      this.stateChanges.next();
-   }
-   private _disabled = false;
-
-   /* ERROR STATE */
-   public get errorState(): boolean {
-      return this.ngControl && !this.ngControl.valid;
-   }
-
-   /* CONTROL TYPE */
-   public get controlType(): string {
-      return 'related-box';
-   }
-
-   autofilled?: boolean;
-
-   /* DESCRIBED BY */
-   @HostBinding('attr.aria-describedby') describedBy = '';
-   setDescribedByIds(ids: string[]): void {
-      this.describedBy = ids.join(' ');
-   }
-
-   /* CONTAINER CLICK */
-   onContainerClick(event: MouseEvent): void {
-      if ((event.target as Element).tagName.toLowerCase() != 'input') {
-         this.elRef.nativeElement.querySelector('input').focus();
-      }
-   }
-
-   // DESTROY
    public ngOnDestroy(): void {
       this.eventStream = null;
-      this.stateChanges.complete();
-      this.stateChanges = null;
-      this.fm.stopMonitoring(this.elRef.nativeElement);
    }
 
 }
