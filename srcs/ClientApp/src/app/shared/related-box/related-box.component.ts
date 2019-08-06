@@ -83,7 +83,11 @@ export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAcces
       return !this.value;
    }
 
-   shouldLabelFloat: boolean;
+   /* SHOULD LABEL FLOAT */
+   public get shouldLabelFloat(): boolean {
+      return this.focused || !this.empty;
+   }
+
    required: boolean;
    disabled: boolean;
    errorState: boolean;
