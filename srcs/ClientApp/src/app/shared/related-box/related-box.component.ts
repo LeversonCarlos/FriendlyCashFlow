@@ -34,12 +34,14 @@ export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAcces
    @Input() public disabled: boolean = false;
    @Input() public delay: number = 500;
    @Input() public value: RelatedData<any>;
+   @Input() public minSize: number = 0;
 
    /* INPUT VALUE */
    public inputValue: string;
    private inputValueChanged: Observable<string>;
    private OnInputValueChanging(val: string) {
       this.writeValue(null);
+      if (val.length < this.minSize) { return; }
       this.optionsChanging.emit(val);
    }
 
