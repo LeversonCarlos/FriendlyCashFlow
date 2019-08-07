@@ -12,6 +12,7 @@ namespace FriendlyCashFlow.API.Categories
    {
       public CategoriesController(IServiceProvider _serviceProvider) : base(_serviceProvider) { }
 
+
       [HttpGet("types")]
       public async Task<ActionResult<List<CategoryTypeVM>>> GetCategoryTypeAsync()
       {
@@ -19,28 +20,30 @@ namespace FriendlyCashFlow.API.Categories
          { return await service.GetCategoryTypesAsync(); }
       }
 
-      /*
-      [HttpGet("")]
-      public async Task<ActionResult<List<AccountVM>>> GetDataAsync()
+
+      [HttpGet("search/{categoryType}")]
+      public async Task<ActionResult<List<CategoryVM>>> GetDataAsync(enCategoryType categoryType)
       {
-         using (var service = new AccountsService(this.serviceProvider))
-         { return await service.GetDataAsync(); }
+         using (var service = new CategoriesService(this.serviceProvider))
+         { return await service.GetDataAsync(categoryType); }
       }
 
-      [HttpGet("{searchText}")]
-      public async Task<ActionResult<List<AccountVM>>> GetDataAsync(string searchText)
+      [HttpGet("search/{categoryType}/{searchText}")]
+      public async Task<ActionResult<List<CategoryVM>>> GetDataAsync(enCategoryType categoryType, string searchText)
       {
-         using (var service = new AccountsService(this.serviceProvider))
-         { return await service.GetDataAsync(searchText); }
+         using (var service = new CategoriesService(this.serviceProvider))
+         { return await service.GetDataAsync(categoryType, searchText); }
       }
 
       [HttpGet("{id:long}")]
-      public async Task<ActionResult<AccountVM>> GetDataAsync(long id)
+      public async Task<ActionResult<CategoryVM>> GetDataAsync(long id)
       {
-         using (var service = new AccountsService(this.serviceProvider))
+         using (var service = new CategoriesService(this.serviceProvider))
          { return await service.GetDataAsync(id); }
       }
 
+
+      /*
       [HttpPost("")]
       // [Authorize(Roles = "ActiveUser")]
       public async Task<ActionResult<AccountVM>> CreateDataAsync([FromBody]AccountVM value)
