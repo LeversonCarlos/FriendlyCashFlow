@@ -12,14 +12,23 @@ namespace FriendlyCashFlow.API.Accounts
    {
       public AccountController(IServiceProvider _serviceProvider) : base(_serviceProvider) { }
 
-      [HttpGet("")]
+
+      [HttpGet("types")]
+      public async Task<ActionResult<List<AccountTypeVM>>> GetCategoryTypeAsync()
+      {
+         using (var service = new AccountsService(this.serviceProvider))
+         { return await service.GetAccountTypesAsync(); }
+      }
+
+
+      [HttpGet("search")]
       public async Task<ActionResult<List<AccountVM>>> GetDataAsync()
       {
          using (var service = new AccountsService(this.serviceProvider))
          { return await service.GetDataAsync(); }
       }
 
-      [HttpGet("{searchText}")]
+      [HttpGet("search/{searchText}")]
       public async Task<ActionResult<List<AccountVM>>> GetDataAsync(string searchText)
       {
          using (var service = new AccountsService(this.serviceProvider))
@@ -32,6 +41,7 @@ namespace FriendlyCashFlow.API.Accounts
          using (var service = new AccountsService(this.serviceProvider))
          { return await service.GetDataAsync(id); }
       }
+
 
       [HttpPost("")]
       // [Authorize(Roles = "ActiveUser")]

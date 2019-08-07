@@ -1,4 +1,4 @@
-export class SelectData<T> {
-   value: T;
-   description: string;
+export class EnumVM<T> {
+   Value: T;
+   Text: string;
 }

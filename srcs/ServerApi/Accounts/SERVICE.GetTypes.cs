@@ -14,7 +14,7 @@ namespace FriendlyCashFlow.API.Accounts
       {
          try
          {
-            var accountText = $"{"Categories".ToUpper()}_{"enAccountType".ToUpper()}";
+            var accountText = $"{"Accounts".ToUpper()}_{"enAccountType".ToUpper()}";
             var accountTypes = new enAccountType[] { enAccountType.General, enAccountType.Bank, enAccountType.CreditCard, enAccountType.Investment, enAccountType.Service };
             var result = accountTypes
                 .Select(x => new AccountTypeVM
