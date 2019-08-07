@@ -22,6 +22,7 @@ namespace FriendlyCashFlow.API.Categories
                    CategoryTypeID = x,
                    Text = this.GetTranslation($"{categoryText}_{x.ToString().ToUpper()}")
                 })
+                .OrderBy(x=> x.Text)
                 .ToList();
             result = await Task.FromResult(result); // just to keep it async
             return this.OkResponse(result);
