@@ -19,7 +19,7 @@ namespace FriendlyCashFlow.API.Categories
             var result = categoryTypes
                 .Select(x => new CategoryTypeVM
                 {
-                   CategoryTypeID = x,
+                   Value = x,
                    Text = this.GetTranslation($"{categoryText}_{x.ToString().ToUpper()}")
                 })
                 .OrderBy(x=> x.Text)
