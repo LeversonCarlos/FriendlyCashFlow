@@ -45,7 +45,10 @@ namespace FriendlyCashFlow.API.Categories
             { query = query.Where(x => x.HierarchyText.Contains(searchText, StringComparison.CurrentCultureIgnoreCase)); }
 
             var data = await query.ToListAsync();
-            var result = data.Select(x => CategoryVM.Convert(x)).ToList();
+            var result = data
+               .OrderBy(x => x.HierarchyText)
+               .Select(x => CategoryVM.Convert(x))
+               .ToList();
             return this.OkResponse(result);
 
          }

@@ -32,11 +32,13 @@ namespace FriendlyCashFlow.API.Categories
          if (!string.IsNullOrEmpty(result.HierarchyText))
          {
             result.SplitedText = result.HierarchyText.Split(" / ", System.StringSplitOptions.RemoveEmptyEntries);
+            /*
             if (result.SplitedText.Length > 1)
             {
-               for (int i = 0; i < result.SplitedText.Length - 2; i++)
+               for (int i = 0; i < result.SplitedText.Length - 1; i++)
                { result.SplitedText[i] = ""; }
             }
+             */
          }
          return result;
       }
