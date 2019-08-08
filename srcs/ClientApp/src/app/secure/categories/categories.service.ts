@@ -41,4 +41,17 @@ export class CategoriesService {
       finally { this.busy.hide(); }
    }
 
+   // CATEGORIES
+   public async getCategories(categoryType: enCategoryType): Promise<Category[]> {
+      try {
+         this.busy.show();
+         const dataList = await this.http.get<Category[]>(`api/categories/search/${categoryType}`)
+            .pipe(map(items => items.map(item => Object.assign(new Category, item))))
+            .toPromise();
+         return dataList;
+      }
+      catch (ex) { return null; }
+      finally { this.busy.hide(); }
+   }
+
 }

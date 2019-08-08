@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { RelatedData } from 'src/app/shared/related-box/related-box.models';
 import { Account } from '../accounts/accounts.service';
-import { CategoriesService } from './categories.service';
+import { CategoriesService, enCategoryType } from './categories.service';
 
 @Component({
    selector: 'fs-categories',
@@ -27,8 +27,9 @@ export class CategoriesComponent implements OnInit {
    public options: RelatedData<Account>[] = []
 
    public async ngOnInit() {
-      const categoryTypes = await this.service.getCategoryTypes();
-      console.log('categoryTypes', categoryTypes);
+      console.log('categoryTypes', await this.service.getCategoryTypes());
+      console.log('categoriesExpense', await this.service.getCategories(enCategoryType.Expense));
+      console.log('categoriesIncome', await this.service.getCategories(enCategoryType.Income));
    }
 
 }
