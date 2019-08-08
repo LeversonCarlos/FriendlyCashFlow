@@ -2,16 +2,16 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace FriendlyCashFlow.API.Accounts
+namespace FriendlyCashFlow.API.Categories
 {
 
-   [Table("v6_dataAccounts")]
-   internal class AccountData : Base.BaseData
+   [Table("v6_dataCategories")]
+   internal class CategoryData : Base.BaseData
    {
 
-      [Column("AccountID"), Key]
+      [Column("CategoryID"), Key]
       [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-      public long AccountID { get; set; }
+      public long CategoryID { get; set; }
 
       [Column("ResourceID", TypeName = "varchar(128)")]
       [StringLength(128), Required]
@@ -21,17 +21,15 @@ namespace FriendlyCashFlow.API.Accounts
       [StringLength(500), Required]
       public string Text { get; set; }
 
-      [Column("Type")]
+      [Column("Type"), Required]
       public short Type { get; set; }
 
-      [Column("ClosingDay")]
-      public short? ClosingDay { get; set; }
+      [Column("ParentID")]
+      public long? ParentID { get; set; }
 
-      [Column("DueDay")]
-      public short? DueDay { get; set; }
-
-      [Column("Active")]
-      public bool Active { get; set; }
+      [Column("HierarchyText", TypeName = "varchar(4000)")]
+      [StringLength(4000), Required]
+      public string HierarchyText { get; set; }
 
    }
 
@@ -41,6 +39,6 @@ namespace FriendlyCashFlow.API.Base
 {
    partial class dbContext
    {
-      internal DbSet<Accounts.AccountData> Accounts { get; set; }
+      internal DbSet<Categories.CategoryData> Categories { get; set; }
    }
 }

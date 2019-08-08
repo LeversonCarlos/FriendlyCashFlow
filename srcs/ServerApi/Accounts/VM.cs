@@ -1,6 +1,9 @@
 namespace FriendlyCashFlow.API.Accounts
 {
+
    public enum enAccountType : short { General = 0, Bank = 1, CreditCard = 2, Investment = 3, Service = 4 }
+   public class AccountTypeVM : Base.EnumVM<enAccountType> { }
+
    public class AccountVM
    {
 

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FriendlyCashFlow.Migrations
 {
     [DbContext(typeof(dbContext))]
-    [Migration("20190729195304_AddAccounts")]
-    partial class AddAccounts
+    [Migration("20190808222640_Accounts")]
+    partial class Accounts
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,6 +30,9 @@ namespace FriendlyCashFlow.Migrations
 
                     b.Property<bool>("Active")
                         .HasColumnName("Active");
+
+                    b.Property<short?>("ClosingDay")
+                        .HasColumnName("ClosingDay");
 
                     b.Property<short?>("DueDay")
                         .HasColumnName("DueDay");
@@ -57,7 +60,7 @@ namespace FriendlyCashFlow.Migrations
 
                     b.HasKey("AccountID");
 
-                    b.ToTable("v5_dataAccounts");
+                    b.ToTable("v6_dataAccounts");
                 });
 #pragma warning restore 612, 618
         }

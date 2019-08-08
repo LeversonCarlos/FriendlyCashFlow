@@ -195,6 +195,12 @@
   <data name="BASE_SAVE_COMMAND" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="CATEGORIES_ENCATEGORYTYPE_EXPENSE" xml:space="preserve">
+    <value>Expense</value>
+  </data>
+  <data name="CATEGORIES_ENCATEGORYTYPE_INCOME" xml:space="preserve">
+    <value>Income</value>
+  </data>
   <data name="CATEGORIES_MENU" xml:space="preserve">
     <value>Categories</value>
   </data>

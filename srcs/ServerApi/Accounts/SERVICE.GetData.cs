@@ -10,7 +10,6 @@ namespace FriendlyCashFlow.API.Accounts
 {
    partial class AccountsService
    {
-      private const string resourceID = "{ResourceID}";
 
       private IQueryable<AccountData> GetDataQuery()
       {

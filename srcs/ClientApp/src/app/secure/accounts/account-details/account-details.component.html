@@ -17,8 +17,8 @@
                <mat-form-field>
                   <mat-label>{{ 'ACCOUNTS_TYPE_LABEL' | translation | async }}</mat-label>
                   <mat-select formControlName="Type">
-                     <mat-option *ngFor="let item of AccountTypes" [value]="item.value">
-                        {{ item.description }}
+                     <mat-option *ngFor="let item of AccountTypes" [value]="item.Value">
+                        {{ item.Text }}
                      </mat-option>
                   </mat-select>
                </mat-form-field>

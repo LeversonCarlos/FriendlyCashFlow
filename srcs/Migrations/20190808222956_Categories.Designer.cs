@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FriendlyCashFlow.Migrations
 {
     [DbContext(typeof(dbContext))]
-    [Migration("20190802183114_Add-Accounts-ClosingDay")]
-    partial class AddAccountsClosingDay
+    [Migration("20190808222956_Categories")]
+    partial class Categories
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -60,7 +60,49 @@ namespace FriendlyCashFlow.Migrations
 
                     b.HasKey("AccountID");
 
-                    b.ToTable("v5_dataAccounts");
+                    b.ToTable("v6_dataAccounts");
+                });
+
+            modelBuilder.Entity("FriendlyCashFlow.API.Categories.CategoryData", b =>
+                {
+                    b.Property<long>("CategoryID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("CategoryID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("HierarchyText")
+                        .IsRequired()
+                        .HasColumnName("HierarchyText")
+                        .HasColumnType("varchar(4000)")
+                        .HasMaxLength(4000);
+
+                    b.Property<long?>("ParentID")
+                        .HasColumnName("ParentID");
+
+                    b.Property<string>("ResourceID")
+                        .IsRequired()
+                        .HasColumnName("ResourceID")
+                        .HasColumnType("varchar(128)")
+                        .HasMaxLength(128);
+
+                    b.Property<DateTime>("RowDate")
+                        .HasColumnName("RowDate");
+
+                    b.Property<short>("RowStatus")
+                        .HasColumnName("RowStatus");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnName("Text")
+                        .HasColumnType("varchar(500)")
+                        .HasMaxLength(500);
+
+                    b.Property<short>("Type")
+                        .HasColumnName("Type");
+
+                    b.HasKey("CategoryID");
+
+                    b.ToTable("v6_dataCategories");
                 });
 #pragma warning restore 612, 618
         }

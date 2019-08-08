@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { BusyService } from 'src/app/shared/busy/busy.service';
 import { Router } from '@angular/router';
-import { SelectData } from 'src/app/shared/common/common.models';
+import { EnumVM } from 'src/app/shared/common/common.models';
 import { TranslationService } from 'src/app/shared/translation/translation.service';
 
 export enum enAccountType { General = 0, Bank = 1, CreditCard = 2, Investment = 3, Service = 4 };
@@ -38,44 +38,38 @@ export class AccountsService {
    constructor(private busy: BusyService, private translation: TranslationService,
       private http: HttpClient, private router: Router) { }
 
+   // NAVIGATES
    public showList() { this.router.navigate(['/accounts']); }
    public showDetails(id: number) { this.router.navigate(['/account', id]); }
    public showNew() { this.router.navigate(['/account', 'new']); }
 
-   public async getAccountTypes(): Promise<SelectData<enAccountType>[]> {
-
-      const enAccountType_General = await this.translation.getValue('ACCOUNTS_ENACCOUNTTYPE_GENERAL');
-      const enAccountType_Bank = await this.translation.getValue('ACCOUNTS_ENACCOUNTTYPE_BANK');
-      const enAccountType_CreditCard = await this.translation.getValue('ACCOUNTS_ENACCOUNTTYPE_CREDITCARD');
-      const enAccountType_Investment = await this.translation.getValue('ACCOUNTS_ENACCOUNTTYPE_INVESTMENT');
-      const enAccountType_Service = await this.translation.getValue('ACCOUNTS_ENACCOUNTTYPE_SERVICE');
-
-      const accountTypes = [
-         { value: enAccountType.General, description: enAccountType_General },
-         { value: enAccountType.Bank, description: enAccountType_Bank },
-         { value: enAccountType.CreditCard, description: enAccountType_CreditCard },
-         { value: enAccountType.Investment, description: enAccountType_Investment },
-         { value: enAccountType.Service, description: enAccountType_Service },
-      ];
-
-      const result = accountTypes
-         .map(item => Object.assign(new SelectData<enAccountType>(), item));
-      return result;
+   // ACCOUNT TYPES
+   public async getAccountTypes(): Promise<EnumVM<enAccountType>[]> {
+      try {
+         this.busy.show();
+         const dataList = await this.http.get<EnumVM<enAccountType>[]>("api/accounts/types")
+            .pipe(map(items => items.map(item => Object.assign(new EnumVM<enAccountType>(), item))))
+            .toPromise();
+         return dataList;
+      }
+      catch (ex) { return null; }
+      finally { this.busy.hide(); }
    }
 
+   // ACCOUNTS
    public async getAccounts(): Promise<Account[]> {
       try {
          this.busy.show();
-         const dataList = await this.http.get<Account[]>("api/accounts")
+         const dataList = await this.http.get<Account[]>("api/accounts/search")
             .pipe(map(items => items.map(item => Object.assign(new Account, item))))
             .toPromise();
          return dataList;
       }
       catch (ex) { return null; }
       finally { this.busy.hide(); }
-
    }
 
+   // ACCOUNT
    public async getAccount(accountID: number): Promise<Account> {
       try {
          this.busy.show();
@@ -88,6 +82,7 @@ export class AccountsService {
       finally { this.busy.hide(); }
    }
 
+   // SAVE
    public async saveAccount(value: Account): Promise<boolean> {
       try {
          this.busy.show();
@@ -104,6 +99,7 @@ export class AccountsService {
       finally { this.busy.hide(); }
    }
 
+   // REMOVE
    public async removeAccount(value: Account): Promise<boolean> {
       try {
          this.busy.show();
