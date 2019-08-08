@@ -30,6 +30,7 @@ export class CategoriesComponent implements OnInit {
       console.log('categoryTypes', await this.service.getCategoryTypes());
       console.log('categoriesExpense', await this.service.getCategories(enCategoryType.Expense));
       console.log('categoriesIncome', await this.service.getCategories(enCategoryType.Income));
+      console.log('category4', await this.service.getCategory(4));
    }
 
 }
