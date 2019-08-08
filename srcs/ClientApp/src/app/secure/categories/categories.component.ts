@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoriesService, CategoryType } from './categories.service';
+import { CategoriesService, CategoryType, Category, enCategoryType } from './categories.service';
 
 @Component({
    selector: 'fs-categories',
@@ -18,8 +18,17 @@ export class CategoriesComponent implements OnInit {
       }
    }
 
+   private currentCategoryType: enCategoryType;
    public OnTypeSelected(tabIndex: number) {
-      console.log(this.Data[tabIndex].Categories);
+      this.currentCategoryType = this.Data[tabIndex].Value;
+   }
+
+   public OnItemClick(item: Category) {
+      this.service.showDetails(item.CategoryID);
+   }
+
+   public OnNewClick() {
+      this.service.showNew(this.currentCategoryType);
    }
 
    /*

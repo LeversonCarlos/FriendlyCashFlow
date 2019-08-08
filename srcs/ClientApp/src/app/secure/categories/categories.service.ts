@@ -29,7 +29,7 @@ export class CategoriesService {
    // NAVIGATES
    public showList() { this.router.navigate(['/categories']); }
    public showDetails(id: number) { this.router.navigate(['/category', id]); }
-   public showNew() { this.router.navigate(['/category', 'new']); }
+   public showNew(categoryType: enCategoryType) { this.router.navigate(['/category', 'new', categoryType]); }
 
    // CATEGORY TYPES
    public async getCategoryTypes(): Promise<CategoryType[]> {
