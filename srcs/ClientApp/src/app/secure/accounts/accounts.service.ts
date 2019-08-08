@@ -38,6 +38,7 @@ export class AccountsService {
    constructor(private busy: BusyService, private translation: TranslationService,
       private http: HttpClient, private router: Router) { }
 
+   // NAVIGATES
    public showList() { this.router.navigate(['/accounts']); }
    public showDetails(id: number) { this.router.navigate(['/account', id]); }
    public showNew() { this.router.navigate(['/account', 'new']); }
