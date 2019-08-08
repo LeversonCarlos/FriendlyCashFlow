@@ -12,11 +12,13 @@
                <mat-tab *ngFor="let categoryType of Data" label="{{ categoryType.Text }}">
 
                   <mat-action-list>
-                     <button mat-list-item *ngFor="let category of categoryType.Categories" (click)="OnItemClick(item)" >
+                     <button mat-list-item *ngFor="let category of categoryType.Categories" (click)="OnItemClick(item)">
                         <div class="splited-text">
                            <span *ngFor="let text of category.SplitedText; let i=index">
-                              <span *ngIf="i!=category.SplitedText.length-1"><mat-icon matListIcon>chevron_right</mat-icon></span>
-                              <span *ngIf="i==category.SplitedText.length-1" >{{ text }}</span>
+                              <span *ngIf="i!=category.SplitedText.length-1">
+                                 <mat-icon [class.visible-icon]="i==category.SplitedText.length-2" matListIcon>chevron_right</mat-icon>
+                              </span>
+                              <span *ngIf="i==category.SplitedText.length-1">{{ text }}</span>
                            </span>
                         </div>
                      </button>

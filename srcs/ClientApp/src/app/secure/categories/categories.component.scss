@@ -2,4 +2,10 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  .mat-icon {
+    opacity: 0;
+    &.visible-icon {
+      opacity: 1;
+    }
+  }
 }
