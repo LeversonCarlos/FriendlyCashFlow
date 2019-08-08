@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { SharedModule } from '../shared/shared.module';
-import { AccountsComponent } from './accounts/accounts.component';
+
 import { AccountsService } from './accounts/accounts.service';
+import { AccountsComponent } from './accounts/accounts.component';
 import { AccountDetailsComponent } from './accounts/account-details/account-details.component';
+
+import { CategoriesService } from './categories/categories.service';
 import { CategoriesComponent } from './categories/categories.component';
 
 @NgModule({
@@ -12,6 +14,6 @@ import { CategoriesComponent } from './categories/categories.component';
    imports: [
       CommonModule, SharedModule
    ],
-   providers: [AccountsService]
+   providers: [AccountsService, CategoriesService]
 })
 export class SecureModule { }

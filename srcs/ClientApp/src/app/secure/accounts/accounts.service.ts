@@ -43,6 +43,7 @@ export class AccountsService {
    public showDetails(id: number) { this.router.navigate(['/account', id]); }
    public showNew() { this.router.navigate(['/account', 'new']); }
 
+   // ACCOUNT TYPES
    public async getAccountTypes(): Promise<EnumVM<enAccountType>[]> {
       try {
          this.busy.show();

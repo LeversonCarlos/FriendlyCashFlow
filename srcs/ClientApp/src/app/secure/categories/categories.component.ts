@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { RelatedData } from 'src/app/shared/related-box/related-box.models';
-import { Account } from '../accounts/accounts.service';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { RelatedData } from 'src/app/shared/related-box/related-box.models';
+import { Account } from '../accounts/accounts.service';
+import { CategoriesService } from './categories.service';
 
 @Component({
    selector: 'fs-categories',
@@ -11,7 +12,8 @@ import { map } from 'rxjs/operators';
 })
 export class CategoriesComponent implements OnInit {
 
-   constructor(private http: HttpClient) { }
+   constructor(private service: CategoriesService,
+      private http: HttpClient) { }
 
    public selectedValue: RelatedData<Account>;
 
@@ -24,7 +26,9 @@ export class CategoriesComponent implements OnInit {
 
    public options: RelatedData<Account>[] = []
 
-   ngOnInit() {
+   public async ngOnInit() {
+      const categoryTypes = await this.service.getCategoryTypes();
+      console.log('categoryTypes', categoryTypes);
    }
 
 }
