@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace FriendlyCashFlow.API.Accounts
 {
 
-   [Table("v5_dataAccounts")]
+   [Table("v6_dataAccounts")]
    internal class AccountData : Base.BaseData
    {
 

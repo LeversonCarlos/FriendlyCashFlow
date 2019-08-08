@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace FriendlyCashFlow.API.Categories
 {
 
-   [Table("v5_dataCategories")]
+   [Table("v6_dataCategories")]
    internal class CategoryData : Base.BaseData
    {
 
