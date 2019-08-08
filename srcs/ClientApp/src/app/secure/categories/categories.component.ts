@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { RelatedData } from 'src/app/shared/related-box/related-box.models';
 import { Account } from '../accounts/accounts.service';
 import { CategoriesService, enCategoryType } from './categories.service';
+import { EnumVM } from 'src/app/shared/common/common.models';
 
 @Component({
    selector: 'fs-categories',
@@ -14,6 +15,15 @@ export class CategoriesComponent implements OnInit {
 
    constructor(private service: CategoriesService,
       private http: HttpClient) { }
+
+   public async ngOnInit() {
+      this.CategoryTypes = await this.service.getCategoryTypes();
+      console.log('categoriesExpense', await this.service.getCategories(enCategoryType.Expense));
+      console.log('categoriesIncome', await this.service.getCategories(enCategoryType.Income));
+      console.log('category4', await this.service.getCategory(4));
+   }
+
+   public CategoryTypes: EnumVM<enCategoryType>[] = [];
 
    public selectedValue: RelatedData<Account>;
 
@@ -26,11 +36,5 @@ export class CategoriesComponent implements OnInit {
 
    public options: RelatedData<Account>[] = []
 
-   public async ngOnInit() {
-      console.log('categoryTypes', await this.service.getCategoryTypes());
-      console.log('categoriesExpense', await this.service.getCategories(enCategoryType.Expense));
-      console.log('categoriesIncome', await this.service.getCategories(enCategoryType.Income));
-      console.log('category4', await this.service.getCategory(4));
-   }
 
 }

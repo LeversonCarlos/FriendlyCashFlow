@@ -1,5 +1,35 @@
-<related-box placeholder="ACCOUNTS_CLOSING_DAY_LABEL" minSize="0" [(ngModel)]="selectedValue" [options]="options" (optionsChanging)="optionsChanging($event)">
-</related-box>
-<pre>
-   {{ selectedValue | json }}
-</pre>
+<fs-full-layout>
+   <span title>
+      {{ 'CATEGORIES_MAIN_TITLE' | translation | async }}
+   </span>
+   <div toolbar>
+   </div>
+   <div content class="full-screen">
+
+      <mat-card class="full-card">
+         <mat-card-content>
+            <mat-tab-group dynamicHeight="false">
+               <mat-tab *ngFor="let category of CategoryTypes" label="{{ category.Text }}">
+
+                  <pre>{{ category | json }}</pre>
+                  <related-box placeholder="ACCOUNTS_CLOSING_DAY_LABEL" minSize="0" [(ngModel)]="selectedValue"
+                     [options]="options" (optionsChanging)="optionsChanging($event)">
+                  </related-box>
+                  <pre>{{ selectedValue | json }}</pre>
+
+                  <!--
+                  <mat-action-list>
+                     <button mat-list-item *ngFor="let item of ActiveData" (click)="OnItemClick(item)" >
+                        <span>{{ item.Text }}</span>
+                        <mat-icon matListIcon>{{ item.Icon }}</mat-icon>
+                     </button>
+                  </mat-action-list>
+                  -->
+               </mat-tab>
+            </mat-tab-group>
+         </mat-card-content>
+      </mat-card>
+
+   </div>
+</fs-full-layout>
+<fab-button (click)="OnNewClick()"></fab-button>
