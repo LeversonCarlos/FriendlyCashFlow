@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { RelatedData } from 'src/app/shared/related-box/related-box.models';
 import { Account } from '../accounts/accounts.service';
-import { CategoriesService, enCategoryType } from './categories.service';
-import { EnumVM } from 'src/app/shared/common/common.models';
+import { CategoriesService, enCategoryType, CategoryType } from './categories.service';
+import { async } from 'rxjs/internal/scheduler/async';
 
 @Component({
    selector: 'fs-categories',
@@ -15,15 +15,18 @@ export class CategoriesComponent implements OnInit {
 
    constructor(private service: CategoriesService,
       private http: HttpClient) { }
+   public Data: CategoryType[] = [];
 
    public async ngOnInit() {
-      this.CategoryTypes = await this.service.getCategoryTypes();
-      console.log('categoriesExpense', await this.service.getCategories(enCategoryType.Expense));
-      console.log('categoriesIncome', await this.service.getCategories(enCategoryType.Income));
-      console.log('category4', await this.service.getCategory(4));
+      this.Data = await this.service.getCategoryTypes();
+      for (const item of this.Data) {
+         item.Categories = await this.service.getCategories(item.Value);
+      }
    }
 
-   public CategoryTypes: EnumVM<enCategoryType>[] = [];
+   public OnTypeSelected(tabIndex: number) {
+      console.log(this.Data[tabIndex]);
+   }
 
    public selectedValue: RelatedData<Account>;
 

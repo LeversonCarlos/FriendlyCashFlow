@@ -8,10 +8,10 @@
 
       <mat-card class="full-card">
          <mat-card-content>
-            <mat-tab-group dynamicHeight="false">
-               <mat-tab *ngFor="let category of CategoryTypes" label="{{ category.Text }}">
+            <mat-tab-group dynamicHeight="false" (selectedIndexChange)="OnTypeSelected($event)">
+               <mat-tab *ngFor="let categoryType of Data" label="{{ categoryType.Text }}">
 
-                  <pre>{{ category | json }}</pre>
+                  <pre>{{ categoryType | json }}</pre>
                   <related-box placeholder="ACCOUNTS_CLOSING_DAY_LABEL" minSize="0" [(ngModel)]="selectedValue"
                      [options]="options" (optionsChanging)="optionsChanging($event)">
                   </related-box>

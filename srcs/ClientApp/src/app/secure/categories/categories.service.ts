@@ -14,6 +14,9 @@ export class Category {
    HierarchyText: string;
    SplitedText: string[];
 }
+export class CategoryType extends EnumVM<enCategoryType> {
+   Categories: Category[] = []
+}
 
 @Injectable({
    providedIn: 'root'
@@ -29,11 +32,11 @@ export class CategoriesService {
    public showNew() { this.router.navigate(['/category', 'new']); }
 
    // CATEGORY TYPES
-   public async getCategoryTypes(): Promise<EnumVM<enCategoryType>[]> {
+   public async getCategoryTypes(): Promise<CategoryType[]> {
       try {
          this.busy.show();
-         const dataList = await this.http.get<EnumVM<enCategoryType>[]>("api/categories/types")
-            .pipe(map(items => items.map(item => Object.assign(new EnumVM<enCategoryType>(), item))))
+         const dataList = await this.http.get<CategoryType[]>("api/categories/types")
+            .pipe(map(items => items.map(item => Object.assign(new CategoryType(), item))))
             .toPromise();
          return dataList;
       }
