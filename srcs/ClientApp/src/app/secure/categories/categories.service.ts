@@ -45,10 +45,12 @@ export class CategoriesService {
    }
 
    // CATEGORIES
-   public async getCategories(categoryType: enCategoryType): Promise<Category[]> {
+   public async getCategories(categoryType: enCategoryType, searchText: string = ''): Promise<Category[]> {
       try {
          this.busy.show();
-         const dataList = await this.http.get<Category[]>(`api/categories/search/${categoryType}`)
+         let url = `api/categories/search/${categoryType}`;
+         if (searchText) { url = `${url}/${searchText}`; }
+         const dataList = await this.http.get<Category[]>(url)
             .pipe(map(items => items.map(item => Object.assign(new Category, item))))
             .toPromise();
          return dataList;

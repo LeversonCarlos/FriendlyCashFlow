@@ -14,10 +14,9 @@
                   <mat-label>{{ 'CATEGORIES_DESCRIPTION_LABEL' | translation | async }}</mat-label>
                   <input type="text" matInput formControlName="Text" autofocus>
                </mat-form-field>
-               <mat-form-field>
-                  <mat-label>{{ 'CATEGORIES_PARENT_LABEL' | translation | async }}</mat-label>
-                  <input type="number" matInput formControlName="ParentID">
-               </mat-form-field>
+               <related-box placeholder="CATEGORIES_PARENT_LABEL" minSize="0" formControlName="ParentRow"
+                  [options]="ParentOptions" (optionsChanging)="OnParentChanging($event)">
+               </related-box>
             </form>
          </mat-card-content>
          <mat-card-actions class="between">
@@ -30,6 +29,8 @@
             </div>
          </mat-card-actions>
       </mat-card>
+
+      <pre>{{ inputForm?.value | json }}</pre>
 
    </div>
 </fs-full-layout>

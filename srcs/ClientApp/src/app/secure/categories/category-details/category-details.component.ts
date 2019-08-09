@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { enCategoryType, CategoriesService, Category } from '../categories.service';
 import { MessageService } from 'src/app/shared/message/message.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RelatedData } from 'src/app/shared/related-box/related-box.models';
 
 @Component({
    selector: 'fs-category-details',
@@ -15,6 +16,7 @@ export class CategoryDetailsComponent implements OnInit {
       private route: ActivatedRoute, private fb: FormBuilder) { }
    public Data: Category;
    public inputForm: FormGroup;
+   private categoryType: enCategoryType;
 
    public async ngOnInit() {
       if (!await this.OnDataLoad()) { return; }
@@ -25,8 +27,8 @@ export class CategoryDetailsComponent implements OnInit {
 
       const paramID: string = this.route.snapshot.params.id;
       if (paramID.startsWith('new-')) {
-         const categoryType: enCategoryType = (paramID.replace('new-', '') as any);
-         this.Data = Object.assign(new Category, { Type: categoryType });
+         this.categoryType = (paramID.replace('new-', '') as any);
+         this.Data = Object.assign(new Category, { Type: this.categoryType });
          return true;
       }
 
@@ -50,12 +52,25 @@ export class CategoryDetailsComponent implements OnInit {
    private OnFormCreate() {
       this.inputForm = this.fb.group({
          Text: [this.Data.Text, Validators.required],
-         ParentID: [this.Data.ParentID]
+         Type: [this.categoryType],
+         ParentID: [this.Data.ParentID],
+         ParentRow: []
       });
       this.inputForm.valueChanges.subscribe(values => {
          this.Data.Text = values.Text || '';
+         values.ParentID = null;
+         if (values.ParentRow && values.ParentRow.id) {
+            values.ParentID = values.ParentRow.id;
+         }
          this.Data.ParentID = values.ParentID;
       });
+   }
+
+   public ParentOptions: RelatedData<Category>[] = []
+   public async OnParentChanging(val: string) {
+      const categoryList = await this.service.getCategories(this.categoryType, val);
+      this.ParentOptions = categoryList
+         .map(item => Object.assign(new RelatedData, { id: item.CategoryID, description: item.Text, value: item }));
    }
 
 }
