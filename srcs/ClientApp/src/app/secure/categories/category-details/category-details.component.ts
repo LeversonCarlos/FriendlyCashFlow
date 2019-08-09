@@ -16,7 +16,6 @@ export class CategoryDetailsComponent implements OnInit {
       private route: ActivatedRoute, private fb: FormBuilder) { }
    public Data: Category;
    public inputForm: FormGroup;
-   private categoryType: enCategoryType;
 
    public async ngOnInit() {
       if (!await this.OnDataLoad()) { return; }
@@ -27,8 +26,8 @@ export class CategoryDetailsComponent implements OnInit {
 
       const paramID: string = this.route.snapshot.params.id;
       if (paramID.startsWith('new-')) {
-         this.categoryType = (paramID.replace('new-', '') as any);
-         this.Data = Object.assign(new Category, { Type: this.categoryType });
+         const categoryType = (paramID.replace('new-', '') as any);
+         this.Data = Object.assign(new Category, { Type: categoryType });
          return true;
       }
 
@@ -56,28 +55,26 @@ export class CategoryDetailsComponent implements OnInit {
    private OnFormCreate() {
       this.inputForm = this.fb.group({
          Text: [this.Data.Text, Validators.required],
-         Type: [this.categoryType],
-         ParentID: [this.Data.ParentID],
          ParentRow: [this.ParentOptions && this.ParentOptions.length ? this.ParentOptions[0] : null]
       });
       this.inputForm.valueChanges.subscribe(values => {
          this.Data.Text = values.Text || '';
-         values.ParentID = null;
+         this.Data.ParentID = null;
          if (values.ParentRow && values.ParentRow.id) {
-            values.ParentID = values.ParentRow.id;
+            this.Data.ParentID = values.ParentRow.id;
          }
-         this.Data.ParentID = values.ParentID;
       });
    }
 
    public ParentOptions: RelatedData<Category>[] = [];
    public async OnParentChanging(val: string) {
-      const categoryList = await this.service.getCategories(this.categoryType, val);
+      const categoryList = await this.service.getCategories(this.Data.Type, val);
+      if (categoryList == null) { return; }
       this.ParentOptions = categoryList
          .map(item => this.OnParentParse(item));
    }
-   private OnParentParse(item: Category) {
-      return Object.assign(new RelatedData, { id: item.CategoryID, description: item.Text, value: item });
+   private OnParentParse(item: Category): RelatedData<Category> {
+      return Object.assign(new RelatedData, { id: item.CategoryID, description: item.HierarchyText, value: item });
    }
 
 }

@@ -42,7 +42,10 @@ namespace FriendlyCashFlow.API.Categories
             if (categoryID != 0) { query = query.Where(x => x.CategoryID == categoryID); }
             if (categoryType != enCategoryType.None) { query = query.Where(x => x.Type == (short)categoryType); }
             if (!string.IsNullOrEmpty(searchText))
-            { query = query.Where(x => x.HierarchyText.Contains(searchText, StringComparison.CurrentCultureIgnoreCase)); }
+            {
+               searchText = System.Web.HttpUtility.UrlDecode(searchText);
+               query = query.Where(x => x.HierarchyText.Contains(searchText, StringComparison.CurrentCultureIgnoreCase));
+            }
 
             var categoryList = await query.ToListAsync();
             var parentIDs = categoryList.Where(x => x.ParentID.HasValue).Select(x => x.ParentID.Value).Distinct().ToArray();

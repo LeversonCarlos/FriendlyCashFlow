@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Optional, Self, Input, ElementRef, Output, EventEmitter } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { fromEvent, Observable } from 'rxjs';
-import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { map, debounceTime } from 'rxjs/operators';
 import { RelatedData } from './related-box.models';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
@@ -40,6 +40,7 @@ export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAcces
    public inputValue: string;
    private inputValueChanged: Observable<string>;
    private OnInputValueChanging(val: string) {
+      if (typeof val !== 'string') { return; }
       this.writeValue(null);
       if (val.length < this.minSize) { return; }
       this.optionsChanging.emit(val);
@@ -52,10 +53,13 @@ export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAcces
       this.writeValue(val.option.value);
    }
    public OnDisplayWith(option?: RelatedData<any>): string {
-      return option && option.description;
+      if (!option) { return ''; }
+      else if (typeof option === 'string') { return option; }
+      else { return option.description; }
    }
+
    public OnFocus() {
-      this.OnInputValueChanging('');
+      this.OnInputValueChanging(this.inputValue);
    }
 
    /* VALUE ACCESSOR  */

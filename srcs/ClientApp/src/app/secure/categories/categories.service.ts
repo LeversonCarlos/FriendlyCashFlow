@@ -50,7 +50,7 @@ export class CategoriesService {
       try {
          this.busy.show();
          let url = `api/categories/search/${categoryType}`;
-         if (searchText) { url = `${url}/${searchText}`; }
+         if (searchText) { url = `${url}/${encodeURIComponent(searchText)}`; }
          const dataList = await this.http.get<Category[]>(url)
             .pipe(map(items => items.map(item => Object.assign(new Category, item))))
             .toPromise();
