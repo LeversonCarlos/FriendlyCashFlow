@@ -11,6 +11,7 @@ export class Category {
    Text: string;
    Type: enCategoryType;
    ParentID: number;
+   ParentRow?: Category;
    HierarchyText: string;
    SplitedText: string[];
 }

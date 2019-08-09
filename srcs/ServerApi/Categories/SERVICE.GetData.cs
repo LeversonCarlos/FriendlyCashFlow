@@ -44,10 +44,14 @@ namespace FriendlyCashFlow.API.Categories
             if (!string.IsNullOrEmpty(searchText))
             { query = query.Where(x => x.HierarchyText.Contains(searchText, StringComparison.CurrentCultureIgnoreCase)); }
 
-            var data = await query.ToListAsync();
-            var result = data
+            var categoryList = await query.ToListAsync();
+            var parentIDs = categoryList.Where(x => x.ParentID.HasValue).Select(x => x.ParentID.Value).Distinct().ToArray();
+            var parentList = await this.GetDataQuery().Where(x => parentIDs.Contains(x.CategoryID)).ToListAsync();
+
+            var result = categoryList
                .OrderBy(x => x.HierarchyText)
-               .Select(x => CategoryVM.Convert(x))
+               .Select(x => new { Category = x, ParentRow = parentList.Where(p => p.CategoryID == x.ParentID).FirstOrDefault() })
+               .Select(x => CategoryVM.Convert(x.Category, x.ParentRow))
                .ToList();
             return this.OkResponse(result);
 

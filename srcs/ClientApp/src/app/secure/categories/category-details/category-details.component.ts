@@ -46,6 +46,10 @@ export class CategoryDetailsComponent implements OnInit {
          return false;
       }
 
+      if (this.Data.ParentRow) {
+         this.ParentOptions = [this.OnParentParse(this.Data.ParentRow)];
+      }
+
       return true;
    }
 
@@ -54,7 +58,7 @@ export class CategoryDetailsComponent implements OnInit {
          Text: [this.Data.Text, Validators.required],
          Type: [this.categoryType],
          ParentID: [this.Data.ParentID],
-         ParentRow: []
+         ParentRow: [this.ParentOptions && this.ParentOptions.length ? this.ParentOptions[0] : null]
       });
       this.inputForm.valueChanges.subscribe(values => {
          this.Data.Text = values.Text || '';
@@ -66,11 +70,14 @@ export class CategoryDetailsComponent implements OnInit {
       });
    }
 
-   public ParentOptions: RelatedData<Category>[] = []
+   public ParentOptions: RelatedData<Category>[] = [];
    public async OnParentChanging(val: string) {
       const categoryList = await this.service.getCategories(this.categoryType, val);
       this.ParentOptions = categoryList
-         .map(item => Object.assign(new RelatedData, { id: item.CategoryID, description: item.Text, value: item }));
+         .map(item => this.OnParentParse(item));
+   }
+   private OnParentParse(item: Category) {
+      return Object.assign(new RelatedData, { id: item.CategoryID, description: item.Text, value: item });
    }
 
 }
