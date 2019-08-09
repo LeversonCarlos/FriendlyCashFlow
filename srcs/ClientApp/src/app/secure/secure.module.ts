@@ -8,9 +8,12 @@ import { AccountDetailsComponent } from './accounts/account-details/account-deta
 
 import { CategoriesService } from './categories/categories.service';
 import { CategoriesComponent } from './categories/categories.component';
+import { CategoryDetailsComponent } from './categories/category-details/category-details.component';
 
 @NgModule({
-   declarations: [AccountsComponent, AccountDetailsComponent, CategoriesComponent],
+   declarations: [
+      AccountsComponent, AccountDetailsComponent,
+      CategoriesComponent, CategoryDetailsComponent],
    imports: [
       CommonModule, SharedModule
    ],
