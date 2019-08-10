@@ -90,4 +90,15 @@ export class CategoriesService {
       finally { this.busy.hide(); }
    }
 
+   // REMOVE
+   public async removeCategory(value: Category): Promise<boolean> {
+      try {
+         this.busy.show();
+         const result = await this.http.delete<boolean>(`api/categories/${value.CategoryID}`).toPromise();
+         return result;
+      }
+      catch (ex) { return null; }
+      finally { this.busy.hide(); }
+   }
+
 }

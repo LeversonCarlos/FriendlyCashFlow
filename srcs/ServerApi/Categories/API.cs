@@ -59,17 +59,13 @@ namespace FriendlyCashFlow.API.Categories
          { return await service.UpdateDataAsync(id, value); }
       }
 
-
-      /*
-
       [HttpDelete("{id:long}")]
       // [Authorize(Roles = "ActiveUser")]
       public async Task<ActionResult<bool>> RemoveDataAsync(long id)
       {
-         using (var service = new AccountsService(this.serviceProvider))
+         using (var service = new CategoriesService(this.serviceProvider))
          { return await service.RemoveDataAsync(id); }
       }
-      */
 
    }
 

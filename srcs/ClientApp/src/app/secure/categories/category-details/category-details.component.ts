@@ -89,6 +89,10 @@ export class CategoryDetailsComponent implements OnInit {
       this.service.showList();
    }
 
-
+   public async OnRemoveClick() {
+      if (!await this.msg.Confirm('CATEGORIES_REMOVE_CONFIRMATION_TEXT', 'BASE_REMOVE_COMMAND')) { return; }
+      if (!await this.service.removeCategory(this.Data)) { return; }
+      this.service.showList();
+   }
 
 }
