@@ -32,11 +32,11 @@ namespace FriendlyCashFlow.API.Categories
             };
 
             // HIERARCHY TEXT
-            var parentRow = await this.GetDataQuery().Where(x => x.CategoryID == data.ParentID).FirstOrDefaultAsync();
+            var parentRow = await this.GetDataQuery().Where(x => x.CategoryID == value.ParentID).FirstOrDefaultAsync();
             data.HierarchyText = string.Empty;
             if (parentRow != null)
             { data.HierarchyText = $"{parentRow.HierarchyText} / "; }
-            data.HierarchyText += data.Text;
+            data.HierarchyText += value.Text;
 
             // APPLY
             await this.dbContext.Categories.AddAsync(data);

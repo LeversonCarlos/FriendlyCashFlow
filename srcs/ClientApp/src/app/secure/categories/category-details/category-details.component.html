@@ -7,7 +7,6 @@
    <div content class="full-screen">
 
       <mat-card class="full-card">
-
          <mat-card-content>
             <form *ngIf="inputForm" [formGroup]="inputForm">
                <mat-form-field [style.fontSize.px]="20">
@@ -29,8 +28,6 @@
             </div>
          </mat-card-actions>
       </mat-card>
-
-      <pre>{{ inputForm?.value | json }}</pre>
 
    </div>
 </fs-full-layout>
