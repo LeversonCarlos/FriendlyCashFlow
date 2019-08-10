@@ -77,4 +77,18 @@ export class CategoryDetailsComponent implements OnInit {
       return Object.assign(new RelatedData, { id: item.CategoryID, description: item.HierarchyText, value: item });
    }
 
+   public async OnCancelClick() {
+      if (!this.inputForm.pristine) {
+         if (!await this.msg.Confirm('BASE_CANCEL_CHANGES_CONFIRMATION_TEXT', 'BASE_CANCEL_CHANGES_CONFIRM', 'BASE_CANCEL_CHANGES_ABORT')) { return; }
+      }
+      this.service.showList();
+   }
+
+   public async OnSaveClick() {
+      if (!await this.service.saveCategory(this.Data)) { return; }
+      this.service.showList();
+   }
+
+
+
 }

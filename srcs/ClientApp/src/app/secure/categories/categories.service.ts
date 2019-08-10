@@ -73,4 +73,21 @@ export class CategoriesService {
       finally { this.busy.hide(); }
    }
 
+   // SAVE
+   public async saveCategory(value: Category): Promise<boolean> {
+      try {
+         this.busy.show();
+         let result: Category = null;
+         if (!value.CategoryID || value.CategoryID == 0) {
+            result = await this.http.post<Category>(`api/categories`, value).toPromise();
+         }
+         else {
+            result = await this.http.put<Category>(`api/categories/${value.CategoryID}`, value).toPromise();
+         }
+         return result != null;
+      }
+      catch (ex) { return null; }
+      finally { this.busy.hide(); }
+   }
+
 }
