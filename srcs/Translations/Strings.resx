@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ACCOUNTS_ACCOUNT_TEXT_ALREADY_EXISTS_WARNING" xml:space="preserve">
-    <value>A account with this text already exists!</value>
+    <value>An account with this text already exists!</value>
   </data>
   <data name="ACCOUNTS_ACTIVATED_LABEL" xml:space="preserve">
     <value>Activated</value>
@@ -195,14 +195,38 @@
   <data name="BASE_SAVE_COMMAND" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="CATEGORIES_CATEGORY_TEXT_ALREADY_EXISTS_WARNING" xml:space="preserve">
+    <value>A category with this text already exists!</value>
+  </data>
+  <data name="CATEGORIES_CHILDREN_CANT_BE_DEFINED_AS_PARENT_CATEGORY_WARNING" xml:space="preserve">
+    <value>Category child can not be defined as it´s parent category</value>
+  </data>
+  <data name="CATEGORIES_DESCRIPTION_LABEL" xml:space="preserve">
+    <value>Category Description</value>
+  </data>
+  <data name="CATEGORIES_DETAILS_TITLE" xml:space="preserve">
+    <value>Category</value>
+  </data>
   <data name="CATEGORIES_ENCATEGORYTYPE_EXPENSE" xml:space="preserve">
     <value>Expense</value>
   </data>
   <data name="CATEGORIES_ENCATEGORYTYPE_INCOME" xml:space="preserve">
     <value>Income</value>
   </data>
+  <data name="CATEGORIES_MAIN_TITLE" xml:space="preserve">
+    <value>Categories</value>
+  </data>
   <data name="CATEGORIES_MENU" xml:space="preserve">
     <value>Categories</value>
+  </data>
+  <data name="CATEGORIES_PARENT_LABEL" xml:space="preserve">
+    <value>Parent Category</value>
+  </data>
+  <data name="CATEGORIES_RECORD_NOT_FOUND_WARNING" xml:space="preserve">
+    <value>Category record not found to be displayed!</value>
+  </data>
+  <data name="CATEGORIES_REMOVE_CONFIRMATION_TEXT" xml:space="preserve">
+    <value>Do you want to remove this category?</value>
   </data>
   <data name="DASHBOARD_MENU" xml:space="preserve">
     <value>Dashboard</value>

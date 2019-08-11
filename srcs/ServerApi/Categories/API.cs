@@ -43,20 +43,19 @@ namespace FriendlyCashFlow.API.Categories
       }
 
 
-      /*
       [HttpPost("")]
       // [Authorize(Roles = "ActiveUser")]
-      public async Task<ActionResult<AccountVM>> CreateDataAsync([FromBody]AccountVM value)
+      public async Task<ActionResult<CategoryVM>> CreateDataAsync([FromBody]CategoryVM value)
       {
-         using (var service = new AccountsService(this.serviceProvider))
+         using (var service = new CategoriesService(this.serviceProvider))
          { return await service.CreateDataAsync(value); }
       }
 
       [HttpPut("{id:long}")]
       // [Authorize(Roles = "ActiveUser")]
-      public async Task<ActionResult<AccountVM>> UpdateDataAsync(long id, [FromBody]AccountVM value)
+      public async Task<ActionResult<CategoryVM>> UpdateDataAsync(long id, [FromBody]CategoryVM value)
       {
-         using (var service = new AccountsService(this.serviceProvider))
+         using (var service = new CategoriesService(this.serviceProvider))
          { return await service.UpdateDataAsync(id, value); }
       }
 
@@ -64,10 +63,9 @@ namespace FriendlyCashFlow.API.Categories
       // [Authorize(Roles = "ActiveUser")]
       public async Task<ActionResult<bool>> RemoveDataAsync(long id)
       {
-         using (var service = new AccountsService(this.serviceProvider))
+         using (var service = new CategoriesService(this.serviceProvider))
          { return await service.RemoveDataAsync(id); }
       }
-      */
 
    }
 

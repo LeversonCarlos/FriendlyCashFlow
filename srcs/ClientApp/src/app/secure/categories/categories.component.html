@@ -10,7 +10,6 @@
          <mat-card-content>
             <mat-tab-group dynamicHeight="false" (selectedIndexChange)="OnTypeSelected($event)">
                <mat-tab *ngFor="let categoryType of Data" label="{{ categoryType.Text }}">
-
                   <mat-action-list>
                      <button mat-list-item *ngFor="let category of categoryType.Categories" (click)="OnItemClick(category)">
                         <div class="splited-text">
@@ -23,14 +22,6 @@
                         </div>
                      </button>
                   </mat-action-list>
-
-                  <!--
-                  <related-box placeholder="ACCOUNTS_CLOSING_DAY_LABEL" minSize="0" [(ngModel)]="selectedValue"
-                     [options]="options" (optionsChanging)="optionsChanging($event)">
-                  </related-box>
-                  <pre>{{ selectedValue | json }}</pre>
-                  -->
-
                </mat-tab>
             </mat-tab-group>
          </mat-card-content>

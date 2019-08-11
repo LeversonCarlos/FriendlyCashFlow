@@ -11,6 +11,7 @@ export class Category {
    Text: string;
    Type: enCategoryType;
    ParentID: number;
+   ParentRow?: Category;
    HierarchyText: string;
    SplitedText: string[];
 }
@@ -29,7 +30,7 @@ export class CategoriesService {
    // NAVIGATES
    public showList() { this.router.navigate(['/categories']); }
    public showDetails(id: number) { this.router.navigate(['/category', id]); }
-   public showNew(categoryType: enCategoryType) { this.router.navigate(['/category', 'new', categoryType]); }
+   public showNew(categoryType: enCategoryType) { this.router.navigate(['/category', `new-${categoryType}`]); }
 
    // CATEGORY TYPES
    public async getCategoryTypes(): Promise<CategoryType[]> {
@@ -45,10 +46,12 @@ export class CategoriesService {
    }
 
    // CATEGORIES
-   public async getCategories(categoryType: enCategoryType): Promise<Category[]> {
+   public async getCategories(categoryType: enCategoryType, searchText: string = ''): Promise<Category[]> {
       try {
          this.busy.show();
-         const dataList = await this.http.get<Category[]>(`api/categories/search/${categoryType}`)
+         let url = `api/categories/search/${categoryType}`;
+         if (searchText) { url = `${url}/${encodeURIComponent(searchText)}`; }
+         const dataList = await this.http.get<Category[]>(url)
             .pipe(map(items => items.map(item => Object.assign(new Category, item))))
             .toPromise();
          return dataList;
@@ -65,6 +68,34 @@ export class CategoriesService {
             .pipe(map(item => Object.assign(new Category, item)))
             .toPromise();
          return dataList;
+      }
+      catch (ex) { return null; }
+      finally { this.busy.hide(); }
+   }
+
+   // SAVE
+   public async saveCategory(value: Category): Promise<boolean> {
+      try {
+         this.busy.show();
+         let result: Category = null;
+         if (!value.CategoryID || value.CategoryID == 0) {
+            result = await this.http.post<Category>(`api/categories`, value).toPromise();
+         }
+         else {
+            result = await this.http.put<Category>(`api/categories/${value.CategoryID}`, value).toPromise();
+         }
+         return result != null;
+      }
+      catch (ex) { return null; }
+      finally { this.busy.hide(); }
+   }
+
+   // REMOVE
+   public async removeCategory(value: Category): Promise<boolean> {
+      try {
+         this.busy.show();
+         const result = await this.http.delete<boolean>(`api/categories/${value.CategoryID}`).toPromise();
+         return result;
       }
       catch (ex) { return null; }
       finally { this.busy.hide(); }

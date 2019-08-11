@@ -86,12 +86,6 @@ export class AccountDetailsComponent implements OnInit {
       control.updateValueAndValidity();
    }
 
-   public async OnRemoveClick() {
-      if (!await this.msg.Confirm('ACCOUNTS_REMOVE_CONFIRMATION_TEXT', 'BASE_REMOVE_COMMAND')) { return; }
-      if (!await this.service.removeAccount(this.Data)) { return; }
-      this.service.showList();
-   }
-
    public async OnCancelClick() {
       if (!this.inputForm.pristine) {
          if (!await this.msg.Confirm('BASE_CANCEL_CHANGES_CONFIRMATION_TEXT', 'BASE_CANCEL_CHANGES_CONFIRM', 'BASE_CANCEL_CHANGES_ABORT')) { return; }
@@ -101,6 +95,12 @@ export class AccountDetailsComponent implements OnInit {
 
    public async OnSaveClick() {
       if (!await this.service.saveAccount(this.Data)) { return; }
+      this.service.showList();
+   }
+
+   public async OnRemoveClick() {
+      if (!await this.msg.Confirm('ACCOUNTS_REMOVE_CONFIRMATION_TEXT', 'BASE_REMOVE_COMMAND')) { return; }
+      if (!await this.service.removeAccount(this.Data)) { return; }
       this.service.showList();
    }
 

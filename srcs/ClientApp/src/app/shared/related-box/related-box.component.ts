@@ -1,9 +1,9 @@
-import { Component, OnInit, OnDestroy, Optional, Self, Input, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, Optional, Self, Input, ElementRef, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { fromEvent, Observable } from 'rxjs';
-import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { map, debounceTime } from 'rxjs/operators';
 import { RelatedData } from './related-box.models';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatAutocompleteSelectedEvent, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 
 @Component({
    selector: 'related-box',
@@ -18,6 +18,7 @@ export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAcces
          this.ngControl.valueAccessor = this;
       }
    }
+   @ViewChild(MatAutocompleteTrigger, { read: MatAutocompleteTrigger, static: false }) autoComplete: MatAutocompleteTrigger;
 
    public ngOnInit() {
       this.inputValue = this.value && this.value.description;
@@ -39,10 +40,11 @@ export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAcces
    /* INPUT VALUE */
    public inputValue: string;
    private inputValueChanged: Observable<string>;
-   private OnInputValueChanging(val: string) {
+   private OnInputValueChanging(option: any) {
+      const value = this.OnDisplayWith(option);
       this.writeValue(null);
-      if (val.length < this.minSize) { return; }
-      this.optionsChanging.emit(val);
+      if (value.length < this.minSize) { return; }
+      this.optionsChanging.emit(value);
    }
 
    /* OPTIONS */
@@ -52,10 +54,14 @@ export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAcces
       this.writeValue(val.option.value);
    }
    public OnDisplayWith(option?: RelatedData<any>): string {
-      return option && option.description;
+      if (!option) { return ''; }
+      else if (typeof option === 'string') { return option; }
+      else { return option.description; }
    }
+
    public OnFocus() {
-      this.OnInputValueChanging('');
+      this.OnInputValueChanging(this.inputValue);
+      this.autoComplete.openPanel();
    }
 
    /* VALUE ACCESSOR  */

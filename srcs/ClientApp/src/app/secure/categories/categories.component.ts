@@ -31,15 +31,4 @@ export class CategoriesComponent implements OnInit {
       this.service.showNew(this.currentCategoryType);
    }
 
-   /*
-   public selectedValue: RelatedData<Account>;
-   public async optionsChanging(val: string) {
-      this.options = await this.http.get<Account[]>(`api/accounts/${val || ''}`)
-         .pipe(map(items => items.map(item => Object.assign(new Account, item))))
-         .pipe(map(items => items.map(item => Object.assign(new RelatedData, { id: item.AccountID, description: item.Text, value: item }))))
-         .toPromise();
-   }
-   public options: RelatedData<Account>[] = []
-   */
-
 }
