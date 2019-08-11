@@ -166,7 +166,7 @@
     <value>Contas</value>
   </data>
   <data name="ACCOUNTS_RECORD_NOT_FOUND_WARNING" xml:space="preserve">
-    <value>Registro da conta não foi encontrado para exibir!</value>
+    <value>Conta não foi encontrado para exibir!</value>
   </data>
   <data name="ACCOUNTS_REMOVE_CONFIRMATION_TEXT" xml:space="preserve">
     <value>Você deseja remover essa conta?</value>
@@ -195,14 +195,38 @@
   <data name="BASE_SAVE_COMMAND" xml:space="preserve">
     <value>Gravar</value>
   </data>
+  <data name="CATEGORIES_CATEGORY_TEXT_ALREADY_EXISTS_WARNING" xml:space="preserve">
+    <value>Uma categoria com essa descrição já existe!</value>
+  </data>
+  <data name="CATEGORIES_CHILDREN_CANT_BE_DEFINED_AS_PARENT_CATEGORY_WARNING" xml:space="preserve">
+    <value>Categorias filha não podem ser definidas como seus pais</value>
+  </data>
+  <data name="CATEGORIES_DESCRIPTION_LABEL" xml:space="preserve">
+    <value>Descrição da Categoria</value>
+  </data>
+  <data name="CATEGORIES_DETAILS_TITLE" xml:space="preserve">
+    <value>Categoria</value>
+  </data>
   <data name="CATEGORIES_ENCATEGORYTYPE_EXPENSE" xml:space="preserve">
     <value>Despesa</value>
   </data>
   <data name="CATEGORIES_ENCATEGORYTYPE_INCOME" xml:space="preserve">
     <value>Receita</value>
   </data>
+  <data name="CATEGORIES_MAIN_TITLE" xml:space="preserve">
+    <value>Categorias</value>
+  </data>
   <data name="CATEGORIES_MENU" xml:space="preserve">
     <value>Categorias</value>
+  </data>
+  <data name="CATEGORIES_PARENT_LABEL" xml:space="preserve">
+    <value>Categoria Pai</value>
+  </data>
+  <data name="CATEGORIES_RECORD_NOT_FOUND_WARNING" xml:space="preserve">
+    <value>Categoria não foi encontrada para exibir!</value>
+  </data>
+  <data name="CATEGORIES_REMOVE_CONFIRMATION_TEXT" xml:space="preserve">
+    <value>Você deseja remover essa categoria?</value>
   </data>
   <data name="DASHBOARD_MENU" xml:space="preserve">
     <value>Home</value>

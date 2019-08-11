@@ -16,7 +16,7 @@ namespace FriendlyCashFlow.API.Categories
          {
 
             // VALIDATE DUPLICITY
-            if (await this.GetDataQuery().CountAsync(x => x.CategoryID != value.CategoryID && x.ParentID == x.ParentID && x.Text == value.Text) != 0)
+            if (await this.GetDataQuery().CountAsync(x => x.CategoryID != value.CategoryID && x.ParentID == value.ParentID && x.Text == value.Text) != 0)
             { return this.WarningResponse(this.GetTranslation("CATEGORIES_CATEGORY_TEXT_ALREADY_EXISTS_WARNING")); }
 
             // CHECK HIERARCHY BREAK
@@ -31,10 +31,12 @@ namespace FriendlyCashFlow.API.Categories
                if (foundChildren) { return this.WarningResponse(this.GetTranslation("CATEGORIES_CHILDREN_CANT_BE_DEFINED_AS_PARENT_CATEGORY_WARNING")); }
 
                // CHECK IF WE ARE DEFINING A PARENT AS A CHLID
+               /*
                var foundParent = await this.GetDataQuery()
                   .Where(x => x.CategoryID == value.ParentID && hierarchyText.Contains(x.HierarchyText))
                   .AnyAsync();
                if (foundChildren) { return this.WarningResponse(this.GetTranslation("CATEGORIES_PARENT_CANT_BE_DEFINED_AS_CHILD_CATEGORY_WARNING")); }
+               */
 
             }
 

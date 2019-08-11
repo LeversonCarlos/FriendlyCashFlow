@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { enCategoryType, CategoriesService, Category } from '../categories.service';
+import { enCategoryType, CategoriesService, Category, CategoryType } from '../categories.service';
 import { MessageService } from 'src/app/shared/message/message.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RelatedData } from 'src/app/shared/related-box/related-box.models';
@@ -14,8 +14,16 @@ export class CategoryDetailsComponent implements OnInit {
 
    constructor(private service: CategoriesService, private msg: MessageService,
       private route: ActivatedRoute, private fb: FormBuilder) { }
+
    public Data: Category;
    public inputForm: FormGroup;
+   public CategoryTypes: CategoryType[];
+   public get CategoryType(): CategoryType {
+      if (!this.CategoryTypes || !this.Data) { return null; }
+      const categoryTypes = this.CategoryTypes.filter(x => x.Value == this.Data.Type);
+      if (!categoryTypes || categoryTypes.length != 1) { return null; }
+      return categoryTypes[0];
+   }
 
    public async ngOnInit() {
       if (!await this.OnDataLoad()) { return; }
@@ -23,6 +31,8 @@ export class CategoryDetailsComponent implements OnInit {
    }
 
    private async OnDataLoad(): Promise<boolean> {
+
+      this.CategoryTypes = await this.service.getCategoryTypes();
 
       const paramID: string = this.route.snapshot.params.id;
       if (paramID.startsWith('new-')) {
