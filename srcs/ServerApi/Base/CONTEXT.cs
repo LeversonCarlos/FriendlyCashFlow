@@ -10,6 +10,12 @@ namespace FriendlyCashFlow.API.Base
       public dbContext(DbContextOptions<dbContext> options, IServiceProvider _serviceProvider) : base(options)
       { this.serviceProvider = _serviceProvider; }
 
+      protected override void OnModelCreating(ModelBuilder modelBuilder)
+      {
+         this.OnModelCreating_UserRoles(modelBuilder);
+         base.OnModelCreating(modelBuilder);
+      }
+
       /*
          dotnet ef migrations add Initial
          dotnet ef database update
