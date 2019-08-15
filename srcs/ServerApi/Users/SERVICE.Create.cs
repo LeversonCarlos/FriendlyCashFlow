@@ -48,7 +48,8 @@ namespace FriendlyCashFlow.API.Users
 
             // ACTIVATION LINK
             var appSettings = this.GetService<IOptions<AppSettings>>().Value;
-            var mailBodyCommandLink = $"{appSettings.BaseHost}/api/users/activate/{data.UserID}";
+            var activationCode = $"{data.UserID}-{data.UserName}-{data.JoinDate.ToString("yyyyMMdd-HHmmss")}";
+            var mailBodyCommandLink = $"{appSettings.BaseHost}/api/users/activate/{data.UserID}/{cryptService.Encrypt(activationCode)}";
 
             // SEND ACTIVATION MAIL
             var mailService = this.GetService<Helpers.Mail>();
