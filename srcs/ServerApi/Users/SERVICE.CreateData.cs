@@ -56,7 +56,7 @@ namespace FriendlyCashFlow.API.Users
             var mailBodyTitle = string.Format(this.GetTranslation("USERS_ACTIVATION_MAIL_BODY_TITLE"), "Cash Flow");
             var mailBodyMessage = string.Format(this.GetTranslation("USERS_ACTIVATION_MAIL_BODY_MESSAGE"), "Cash Flow");
             var mailBodyCommandText = this.GetTranslation("USERS_ACTIVATION_MAIL_BODY_COMMAND");
-            var mailBody = string.Format(await this.CreateDataAsync_GetMailBody(), mailBodyTitle, mailBodyMessage, mailBodyCommandLink, mailBodyCommandText);
+            var mailBody = string.Format(this.CreateDataAsync_GetMailBody(), mailBodyTitle, mailBodyMessage, mailBodyCommandLink, mailBodyCommandText);
             await mailService.SendAsync(mailSubject, mailBody, data.UserName);
 
             // RESULT
@@ -66,14 +66,16 @@ namespace FriendlyCashFlow.API.Users
          catch (Exception ex) { return this.ExceptionResponse(ex); }
       }
 
-      private async Task<string> CreateDataAsync_GetMailBody()
+      private string CreateDataAsync_GetMailBody()
       {
          return @"
          <html>
          <body>
-            <h3>{0}</h3>
-            <p>{1}</p>
-            <a href='{2}'>{3}</a>
+            <div style='margin-bottom:50px;'>
+               <h3>{0}</h3>
+               <p>{1}</p>
+               <a href='{2}' style='display:inline-block; margin:20px auto;padding: 10px 20px;border:1px solid;text-decoration:none;background-color:#f5f5f5;border-radius:4px;'>{3}</a>
+            </div>
          </body>
          </html>
          ";

@@ -14,12 +14,12 @@ namespace FriendlyCashFlow.Helpers
       private readonly IOptions<AppSettings> _appSettings;
       public Mail([FromServices] IOptions<AppSettings> appSettings) { this._appSettings = appSettings; }
 
-      public async Task SendAsync(string subject, string body, params string[] addresses)
+      public Task SendAsync(string subject, string body, params string[] addresses)
       {
          try
          {
             var mailSettings = this._appSettings.Value.Mail;
-            if (mailSettings == null) { return; }
+            if (mailSettings == null) { return Task.CompletedTask; }
 
             // MESSAGE
             var mailMessage = new MailMessage();
@@ -37,10 +37,10 @@ namespace FriendlyCashFlow.Helpers
             smtpServer.Credentials = new NetworkCredential(mailSettings.FromAddress, mailSettings.FromPassword);
 
             // SEND
-            await smtpServer.SendMailAsync(mailMessage);
+            return smtpServer.SendMailAsync(mailMessage);
 
          }
-         catch (Exception) { }
+         catch (Exception) { return Task.CompletedTask;}
       }
 
    }
