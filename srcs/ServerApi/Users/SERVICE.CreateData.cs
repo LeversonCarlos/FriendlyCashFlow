@@ -21,7 +21,8 @@ namespace FriendlyCashFlow.API.Users
             // TODO
 
             // VALIDATE PASSWORD COMPLEXITY
-            // TODO
+            var passwordMessages = this.ValidatePassword(value.Password);
+            if (passwordMessages.Length != 0) { return this.WarningResponse(passwordMessages); }
 
             // VALIDATE DUPLICITY
             if (await this.GetDataQuery().CountAsync(x => x.UserName == value.UserName) != 0)
@@ -38,7 +39,7 @@ namespace FriendlyCashFlow.API.Users
 
             // HASH THE PASSWORD
             var appSettings = this.GetService<IOptions<AppSettings>>().Value;
-            data.PasswordHash = Helpers.Crypt.Encrypt(value.Password, appSettings.PasswordSalt);
+            data.PasswordHash = Helpers.Crypt.Encrypt(value.Password, appSettings.Passwords.PasswordSalt);
 
             // APPLY
             data.UserID = System.Guid.NewGuid().ToString();

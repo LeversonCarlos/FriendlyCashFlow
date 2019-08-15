@@ -21,7 +21,17 @@ namespace FriendlyCashFlow
       // public AppSettings() { this.CustomValues = new Dictionary<string, string>(); }
       // public Dictionary<string, string> CustomValues { get; set; }
       public string ConnStr { get; set; }
+      public AppSettingsPasswords Passwords { get; set; }
+   }
+
+   public class AppSettingsPasswords
+   {
       public string PasswordSalt { get; set; }
+      public bool RequireUpperCases { get; set; }
+      public bool RequireLowerCases { get; set; }
+      public bool RequireNumbers { get; set; }
+      public bool RequireSymbols { get; set; }
+      public short MinimumSize { get; set; }
    }
 
 }
