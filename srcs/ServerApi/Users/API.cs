@@ -29,6 +29,13 @@ namespace FriendlyCashFlow.API.Users
          { return await service.CreateDataAsync(value); }
       }
 
+      [HttpGet("activate/{userID}/{activationCode}")]
+      public async Task<ActionResult<UserVM>> ActivateDataAsync(string userID, string activationCode)
+      {
+         using (var service = new UsersService(this.serviceProvider))
+         { return await service.ActivateDataAsync(userID, activationCode); }
+      }
+
       /*
       [HttpPut("{id:long}")]
       // [Authorize(Roles = "ActiveUser")]

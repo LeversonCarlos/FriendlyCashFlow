@@ -4,10 +4,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FriendlyCashFlow.API.Users
 {
+   public enum UserRoleEnum : short { None = 0, Viewer }
 
    [Table("v6_identityUserRoles")]
    internal class UserRoleData : Base.BaseData
    {
+
+      public UserRoleData() : base()
+      {
+         this.RowStatus = (short)Base.enRowStatus.Active;
+      }
 
       [Column(Order = 0, TypeName = "varchar(128)")]
       [StringLength(128), Required]
