@@ -46,10 +46,17 @@ namespace FriendlyCashFlow.API.Users
             await this.dbContext.Users.AddAsync(data);
             await this.dbContext.SaveChangesAsync();
 
-            // SEND CONFIRMATION MAIL
+            // ACTIVATION LINK
+            var appSettings = this.GetService<IOptions<AppSettings>>().Value;
+            var mailBodyCommandLink = $"{appSettings.BaseHost}/api/users/activate/{data.UserID}";
+
+            // SEND ACTIVATION MAIL
             var mailService = this.GetService<Helpers.Mail>();
-            var mailSubject = this.GetTranslation("USERS_CONFIRMATION_MAIL_SUBJECT_TITLE");
-            var mailBody = this.GetTranslation("USERS_CONFIRMATION_MAIL_BODY_TITLE");
+            var mailSubject = string.Format(this.GetTranslation("USERS_ACTIVATION_MAIL_SUBJECT"), "Cash Flow");
+            var mailBodyTitle = string.Format(this.GetTranslation("USERS_ACTIVATION_MAIL_BODY_TITLE"), "Cash Flow");
+            var mailBodyMessage = string.Format(this.GetTranslation("USERS_ACTIVATION_MAIL_BODY_MESSAGE"), "Cash Flow");
+            var mailBodyCommandText = this.GetTranslation("USERS_ACTIVATION_MAIL_BODY_COMMAND");
+            var mailBody = string.Format(await this.CreateDataAsync_GetMailBody(), mailBodyTitle, mailBodyMessage, mailBodyCommandLink, mailBodyCommandText);
             await mailService.SendAsync(mailSubject, mailBody, data.UserName);
 
             // RESULT
@@ -57,6 +64,19 @@ namespace FriendlyCashFlow.API.Users
             return this.CreatedResponse("users", result.UserID, result);
          }
          catch (Exception ex) { return this.ExceptionResponse(ex); }
+      }
+
+      private async Task<string> CreateDataAsync_GetMailBody()
+      {
+         return @"
+         <html>
+         <body>
+            <h3>{0}</h3>
+            <p>{1}</p>
+            <a href='{2}'>{3}</a>
+         </body>
+         </html>
+         ";
       }
 
    }
