@@ -102,58 +102,6 @@ namespace FriendlyCashFlow.Migrations
 
                     b.ToTable("v6_dataCategories");
                 });
-
-            modelBuilder.Entity("FriendlyCashFlow.API.Users.UserData", b =>
-                {
-                    b.Property<long>("UserID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("JoinDate");
-
-                    b.Property<string>("PasswordHash")
-                        .IsRequired()
-                        .HasColumnType("varchar(max)");
-
-                    b.Property<DateTime>("RowDate")
-                        .HasColumnName("RowDate");
-
-                    b.Property<short>("RowStatus")
-                        .HasColumnName("RowStatus");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("varchar(500)")
-                        .HasMaxLength(500);
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("varchar(128)")
-                        .HasMaxLength(128);
-
-                    b.HasKey("UserID");
-
-                    b.ToTable("v6_identityUsers");
-                });
-
-            modelBuilder.Entity("FriendlyCashFlow.API.Users.UserRoleData", b =>
-                {
-                    b.Property<long>("UserID");
-
-                    b.Property<string>("RoleID")
-                        .HasColumnType("varchar(15)")
-                        .HasMaxLength(15);
-
-                    b.Property<DateTime>("RowDate")
-                        .HasColumnName("RowDate");
-
-                    b.Property<short>("RowStatus")
-                        .HasColumnName("RowStatus");
-
-                    b.HasKey("UserID", "RoleID");
-
-                    b.ToTable("v6_identityUserRoles");
-                });
 #pragma warning restore 612, 618
         }
     }
