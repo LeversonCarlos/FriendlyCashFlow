@@ -46,8 +46,11 @@ namespace FriendlyCashFlow.API.Users
             await this.dbContext.Users.AddAsync(data);
             await this.dbContext.SaveChangesAsync();
 
-            // SEND MAIL
-            // TODO
+            // SEND CONFIRMATION MAIL
+            var mailService = this.GetService<Helpers.Mail>();
+            var mailSubject = this.GetTranslation("USERS_CONFIRMATION_MAIL_SUBJECT_TITLE");
+            var mailBody = this.GetTranslation("USERS_CONFIRMATION_MAIL_BODY_TITLE");
+            await mailService.SendAsync(mailSubject, mailBody, data.UserName);
 
             // RESULT
             var result = UserVM.Convert(data);

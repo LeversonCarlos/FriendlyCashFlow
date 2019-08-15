@@ -6,6 +6,13 @@ namespace FriendlyCashFlow
    partial class Startup
    {
 
+      private void AddSettingsServices(IServiceCollection services)
+      {
+         var appSettings = this.GetAppSettings(services);
+         services.AddSingleton<Helpers.Mail>();
+      }
+
+
       private AppSettings GetAppSettings(IServiceCollection services)
       {
          var appSettingsSection = this.Configuration.GetSection("AppSettings");
@@ -22,6 +29,7 @@ namespace FriendlyCashFlow
       // public Dictionary<string, string> CustomValues { get; set; }
       public string ConnStr { get; set; }
       public AppSettingsPasswords Passwords { get; set; }
+      public AppSettingsMail Mail { get; set; }
    }
 
    public class AppSettingsPasswords
@@ -32,6 +40,15 @@ namespace FriendlyCashFlow
       public bool RequireNumbers { get; set; }
       public bool RequireSymbols { get; set; }
       public short MinimumSize { get; set; }
+   }
+
+   public class AppSettingsMail
+   {
+      public string SmtpHost { get; set; }
+      public short SmtpPort { get; set; }
+      public string FromAddress { get; set; }
+      public string FromName { get; set; }
+      public string FromPassword { get; set; }
    }
 
 }
