@@ -25,10 +25,10 @@ namespace FriendlyCashFlow.Helpers
          }
 
          var passwordSettings = this._appSettings.Value.Passwords;
-         result.IsUpperCasesAttended = passwordSettings.RequireUpperCases || result.UpperCases > 0;
-         result.IsLowerCasesAttended = passwordSettings.RequireLowerCases || result.LowerCases > 0;
-         result.IsNumbersAttended = passwordSettings.RequireNumbers || result.Numbers > 0;
-         result.IsSymbolsAttended = passwordSettings.RequireSymbols || result.Symbols > 0;
+         result.IsUpperCasesAttended = !passwordSettings.RequireUpperCases || result.UpperCases > 0;
+         result.IsLowerCasesAttended = !passwordSettings.RequireLowerCases || result.LowerCases > 0;
+         result.IsNumbersAttended = !passwordSettings.RequireNumbers || result.Numbers > 0;
+         result.IsSymbolsAttended = !passwordSettings.RequireSymbols || result.Symbols > 0;
          result.IsSizeAttended = result.Size >= passwordSettings.MinimumSize;
 
          return result;
