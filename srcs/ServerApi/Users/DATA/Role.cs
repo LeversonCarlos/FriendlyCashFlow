@@ -9,8 +9,9 @@ namespace FriendlyCashFlow.API.Users
    internal class UserRoleData : Base.BaseData
    {
 
-      [Column(Order = 0)]
-      public long UserID { get; set; }
+      [Column(Order = 0, TypeName = "varchar(128)")]
+      [StringLength(128), Required]
+      public string UserID { get; set; }
 
       [Column(Order = 1, TypeName = "varchar(15)")]
       [StringLength(15), Required]
