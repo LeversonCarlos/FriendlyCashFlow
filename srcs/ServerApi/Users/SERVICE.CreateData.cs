@@ -41,6 +41,7 @@ namespace FriendlyCashFlow.API.Users
             data.PasswordHash = Helpers.Crypt.Encrypt(value.Password, appSettings.PasswordSalt);
 
             // APPLY
+            data.UserID = System.Guid.NewGuid().ToString();
             await this.dbContext.Users.AddAsync(data);
             await this.dbContext.SaveChangesAsync();
 

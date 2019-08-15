@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FriendlyCashFlow.Helpers
 {
-   public class Crypt
+   internal class Crypt
    {
 
       public static string Encrypt(string value, string salt)

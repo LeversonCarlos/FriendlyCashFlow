@@ -10,8 +10,9 @@ namespace FriendlyCashFlow.API.Users
    internal class UserData : Base.BaseData
    {
 
-      [Key, DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-      public long UserID { get; set; }
+      [Key, Column(TypeName = "varchar(128)")]
+      [StringLength(128), Required]
+      public string UserID { get; set; }
 
       [Column(TypeName = "varchar(128)")]
       [StringLength(128), Required]

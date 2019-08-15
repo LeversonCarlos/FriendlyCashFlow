@@ -10,8 +10,7 @@ namespace FriendlyCashFlow.API.Users
    public class UserVM
    {
 
-      public long UserID { get; set; }
-      public string UserName { get; set; }
+      public string UserID { get; set; }
       public string Text { get; set; }
 
       internal static UserVM Convert(UserData value)
@@ -19,7 +18,6 @@ namespace FriendlyCashFlow.API.Users
          return new UserVM
          {
             UserID = value.UserID,
-            UserName = value.UserName,
             Text = value.Text
          };
       }
