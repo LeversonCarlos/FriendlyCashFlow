@@ -38,8 +38,8 @@ namespace FriendlyCashFlow.API.Users
             };
 
             // HASH THE PASSWORD
-            var appSettings = this.GetService<IOptions<AppSettings>>().Value;
-            data.PasswordHash = Helpers.Crypt.Encrypt(value.Password, appSettings.Passwords.PasswordSalt);
+            var cryptService = this.GetService<Helpers.Crypt>();
+            data.PasswordHash = cryptService.Encrypt(value.Password);
 
             // APPLY
             data.UserID = System.Guid.NewGuid().ToString();
