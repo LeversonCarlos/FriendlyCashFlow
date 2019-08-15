@@ -11,6 +11,7 @@ namespace FriendlyCashFlow
          var appSettings = this.GetAppSettings(services);
          services.AddSingleton<Helpers.Mail>();
          services.AddSingleton<Helpers.Crypt>();
+         services.AddSingleton<Helpers.PasswordStrengthService>();
       }
 
 

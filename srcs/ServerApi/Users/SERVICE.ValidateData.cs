@@ -13,23 +13,21 @@ namespace FriendlyCashFlow.API.Users
          try
          {
             var msgs = new List<string>();
-            var appSettings = this.GetService<IOptions<AppSettings>>().Value;
+            var passwordStrength = this.GetService<Helpers.PasswordStrengthService>().Analyze(value);
 
-            var passwordStrength = new Helpers.PasswordStrength(value);
-
-            if (!passwordStrength.IsSizeAttended(appSettings.Passwords.MinimumSize))
+            if (!passwordStrength.IsSizeAttended)
             { msgs.Add("USERS_PASSWORD_MINIMUM_SIZE_WARNING"); }
 
-            if (!passwordStrength.IsUpperCasesAttended(appSettings.Passwords.RequireUpperCases))
+            if (!passwordStrength.IsUpperCasesAttended)
             { msgs.Add("USERS_PASSWORD_REQUIRE_UPPER_CASES_WARNING"); }
 
-            if (!passwordStrength.IsLowerCasesAttended(appSettings.Passwords.RequireLowerCases))
+            if (!passwordStrength.IsLowerCasesAttended)
             { msgs.Add("USERS_PASSWORD_REQUIRE_LOWER_CASES_WARNING"); }
 
-            if (!passwordStrength.IsNumbersAttended(appSettings.Passwords.RequireNumbers))
+            if (!passwordStrength.IsNumbersAttended)
             { msgs.Add("USERS_PASSWORD_REQUIRE_NUMBERS_WARNING"); }
 
-            if (!passwordStrength.IsSymbolsAttended(appSettings.Passwords.RequireSymbols))
+            if (!passwordStrength.IsSymbolsAttended)
             { msgs.Add("USERS_PASSWORD_REQUIRE_SYMBOLS_WARNING"); }
 
             return msgs.ToArray();
