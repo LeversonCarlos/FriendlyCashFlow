@@ -34,6 +34,15 @@ export class AuthService {
       finally { this.busy.hide(); }
    }
 
+   public async activateUser(userID: string, activationCode: string) {
+      try {
+         this.busy.show();
+         await this.http.get<User>(`api/users/activate/${userID}/${encodeURIComponent(activationCode)}`).toPromise();
+      }
+      catch (ex) { console.error(ex); }
+      finally { this.busy.hide(); }
+   }
+
    public async signin(value: SignIn) {
       try {
          this.busy.show();

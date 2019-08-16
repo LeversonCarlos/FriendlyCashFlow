@@ -38,7 +38,7 @@ namespace FriendlyCashFlow.API.Users
       }
 
       [HttpGet("activate/{userID}/{activationCode}")]
-      public async Task<ActionResult<UserVM>> ActivateUserAsync(string userID, string activationCode)
+      public async Task<ActionResult<bool>> ActivateUserAsync(string userID, string activationCode)
       {
          using (var service = new UsersService(this.serviceProvider))
          { return await service.ActivateUserAsync(userID, activationCode); }

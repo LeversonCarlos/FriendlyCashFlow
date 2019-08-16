@@ -24,7 +24,9 @@ namespace FriendlyCashFlow.API.Users
             var appSettings = this.GetService<IOptions<AppSettings>>().Value;
             var cryptService = this.GetService<Helpers.Crypt>();
             var activationCode = $"{data.UserID}-{data.UserName}-{data.JoinDate.ToString("yyyyMMdd-HHmmss")}";
-            var mailBodyCommandLink = $"{appSettings.BaseHost}/api/users/activate/{data.UserID}/{cryptService.Encrypt(activationCode)}";
+            activationCode = cryptService.Encrypt(activationCode);
+            activationCode = System.Web.HttpUtility.UrlEncode(activationCode);
+            var mailBodyCommandLink = $"{appSettings.BaseHost}/activate/{data.UserID}/{activationCode}";
 
             // SEND ACTIVATION MAIL
             var mailService = this.GetService<Helpers.Mail>();
@@ -40,7 +42,7 @@ namespace FriendlyCashFlow.API.Users
          catch (Exception ex) { return this.ExceptionResponse(ex); }
       }
 
-      public async Task<ActionResult<UserVM>> ActivateUserAsync(string userID, string activationCode)
+      public async Task<ActionResult<bool>> ActivateUserAsync(string userID, string activationCode)
       {
          try
          {
@@ -52,6 +54,7 @@ namespace FriendlyCashFlow.API.Users
 
             // ACTIVATION CODE
             var cryptService = this.GetService<Helpers.Crypt>();
+            activationCode = System.Web.HttpUtility.UrlDecode(activationCode);
             var userActivationCode = cryptService.Encrypt($"{data.UserID}-{data.UserName}-{data.JoinDate.ToString("yyyyMMdd-HHmmss")}");
             if (userActivationCode != activationCode)
             { return this.WarningResponse(this.GetTranslation("USERS_INVALID_ACTIVATION_CODE_WARNING")); }
@@ -62,7 +65,7 @@ namespace FriendlyCashFlow.API.Users
 
             // RESULT
             var result = UserVM.Convert(data);
-            return this.CreatedResponse("users", result.UserID, result);
+            return this.OkResponse(true);
          }
          catch (Exception ex) { return this.ExceptionResponse(ex); }
       }

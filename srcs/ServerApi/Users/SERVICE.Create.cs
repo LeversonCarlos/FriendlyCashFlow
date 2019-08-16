@@ -44,7 +44,7 @@ namespace FriendlyCashFlow.API.Users
             // APPLY
             data.UserID = System.Guid.NewGuid().ToString();
             await this.dbContext.Users.AddAsync(data);
-            await this.dbContext.SaveChangesAsync();
+            // await this.dbContext.SaveChangesAsync();
 
             // SEND ACTIVATION MAIL
             await this.SendActivationMailAsync(data.UserID);
