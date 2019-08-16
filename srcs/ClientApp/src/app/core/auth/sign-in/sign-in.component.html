@@ -25,17 +25,13 @@
                </mat-form-field>
 
             </mat-card-content>
-            <mat-card-actions>
-               <button mat-flat-button color="primary" [disabled]="!inputForm?.valid" (click)="OnClick()">Sign in</button>
+            <mat-card-actions class="between">
+               <button mat-button color="accent" routerLink="/signup" matTooltip="Click here if you dont have an account yet">Sign Up</button>
+               <button mat-flat-button color="primary" [disabled]="!inputForm?.valid" (click)="OnClick()">Sign In</button>
             </mat-card-actions>
          </mat-card>
       </form>
-      <button mat-button color="accent" routerLink="/signup">click here if you dont have an account yet</button>
-
-      <mat-card class="activate-info" *ngIf="signupUser">
-         <p>{{ signupUser.Text }}, an email was sent to you with instructions on how to activate your account.</p>
-         <a (click)="OnActivationClick()">Click here to sent it again</a>
-      </mat-card>
+      <button *ngIf="signupUser" mat-button color="accent" (click)="OnActivationClick()">send me the activation link again</button>
 
    </div>
 

@@ -1,11 +1,8 @@
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
 namespace FriendlyCashFlow.API.Users
 {
@@ -44,7 +41,7 @@ namespace FriendlyCashFlow.API.Users
             // APPLY
             data.UserID = System.Guid.NewGuid().ToString();
             await this.dbContext.Users.AddAsync(data);
-            // await this.dbContext.SaveChangesAsync();
+            await this.dbContext.SaveChangesAsync();
 
             // SEND ACTIVATION MAIL
             await this.SendActivationMailAsync(data.UserID);
