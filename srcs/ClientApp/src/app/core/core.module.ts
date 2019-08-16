@@ -6,9 +6,10 @@ import { baseUrlProvider, UrlInterceptorProvider } from './interceptors/url.inte
 import { ErrorInterceptorProvider } from './interceptors/error.interceptor';
 import { SharedModule } from '../shared/shared.module';
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
+import { SignInComponent } from './auth/sign-in/sign-in.component';
 
 @NgModule({
-   declarations: [HomeComponent, SignUpComponent],
+   declarations: [HomeComponent, SignUpComponent, SignInComponent],
    imports: [
       CommonModule, HttpClientModule, SharedModule
    ],

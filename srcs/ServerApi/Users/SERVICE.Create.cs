@@ -25,14 +25,14 @@ namespace FriendlyCashFlow.API.Users
             if (passwordMessages.Length != 0) { return this.WarningResponse(passwordMessages); }
 
             // VALIDATE DUPLICITY
-            if (await this.GetDataQuery().CountAsync(x => x.UserName == value.UserMail) != 0)
+            if (await this.GetDataQuery().CountAsync(x => x.UserName == value.UserName) != 0)
             { return this.WarningResponse(this.GetTranslation("USERS_USER_NAME_ALREADY_EXISTS_WARNING")); }
 
             // NEW MODEL
             var data = new UserData()
             {
-               UserName = value.UserMail,
-               Text = value.UserText,
+               UserName = value.UserName,
+               Text = value.Description,
                JoinDate = DateTime.Now,
                RowStatus = 1
             };
