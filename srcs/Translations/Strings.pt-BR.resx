@@ -255,4 +255,7 @@
   <data name="USERS_PASSWORD_REQUIRE_UPPER_CASES_WARNING" xml:space="preserve">
     <value>A senha precisa ter caracteres maiúsculos.</value>
   </data>
+  <data name="USERS_USER_NAME_ALREADY_EXISTS_WARNING" xml:space="preserve">
+    <value>Email de usuário já utilizado.</value>
+  </data>
 </root>

@@ -13,9 +13,6 @@ namespace FriendlyCashFlow.API.Users
          try
          {
 
-            // VALIDATE EMAIL FORMAT
-            // TODO
-
             // VALIDATE PASSWORD COMPLEXITY
             var passwordMessages = this.ValidatePassword(value.Password);
             if (passwordMessages.Length != 0) { return this.WarningResponse(passwordMessages); }
