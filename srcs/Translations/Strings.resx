@@ -258,6 +258,9 @@
   <data name="USERS_PASSWORD_REQUIRE_LOWER_CASES_WARNING" xml:space="preserve">
     <value>Password must have lower case characters.</value>
   </data>
+  <data name="USERS_PASSWORD_REQUIRE_NUMBERS_WARNING" xml:space="preserve">
+    <value>Password must have numbers characters.</value>
+  </data>
   <data name="USERS_PASSWORD_REQUIRE_UPPER_CASES_WARNING" xml:space="preserve">
     <value>Password must have upper case characters.</value>
   </data>
