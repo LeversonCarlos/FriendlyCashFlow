@@ -249,6 +249,9 @@
   <data name="USERS_PASSWORD_REQUIRE_NUMBERS_WARNING" xml:space="preserve">
     <value>A senha precisa ter caracteres numericos.</value>
   </data>
+  <data name="USERS_PASSWORD_REQUIRE_SYMBOLS_WARNING" xml:space="preserve">
+    <value>A senha precisa ter caracteres de simbolos.</value>
+  </data>
   <data name="USERS_PASSWORD_REQUIRE_UPPER_CASES_WARNING" xml:space="preserve">
     <value>A senha precisa ter caracteres maiúsculos.</value>
   </data>

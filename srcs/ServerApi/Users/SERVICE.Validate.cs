@@ -26,7 +26,7 @@ namespace FriendlyCashFlow.API.Users
             { msgs.Add(this.GetTranslation("USERS_PASSWORD_REQUIRE_NUMBERS_WARNING")); }
 
             if (!passwordStrength.IsSymbolsAttended)
-            { msgs.Add("USERS_PASSWORD_REQUIRE_SYMBOLS_WARNING"); }
+            { msgs.Add(this.GetTranslation("USERS_PASSWORD_REQUIRE_SYMBOLS_WARNING")); }
 
             return msgs.ToArray();
 

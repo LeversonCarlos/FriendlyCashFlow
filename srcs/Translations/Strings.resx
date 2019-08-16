@@ -259,7 +259,10 @@
     <value>Password must have lower case characters.</value>
   </data>
   <data name="USERS_PASSWORD_REQUIRE_NUMBERS_WARNING" xml:space="preserve">
-    <value>Password must have numbers characters.</value>
+    <value>Password must have number characters.</value>
+  </data>
+  <data name="USERS_PASSWORD_REQUIRE_SYMBOLS_WARNING" xml:space="preserve">
+    <value>Password must have symbol characters.</value>
   </data>
   <data name="USERS_PASSWORD_REQUIRE_UPPER_CASES_WARNING" xml:space="preserve">
     <value>Password must have upper case characters.</value>
