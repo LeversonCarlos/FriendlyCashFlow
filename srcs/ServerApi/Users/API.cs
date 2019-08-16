@@ -29,11 +29,19 @@ namespace FriendlyCashFlow.API.Users
          { return await service.CreateDataAsync(value); }
       }
 
-      [HttpGet("activate/{userID}/{activationCode}")]
-      public async Task<ActionResult<UserVM>> ActivateDataAsync(string userID, string activationCode)
+      [HttpPost("sendActivation/{userID}")]
+      // [Authorize(Roles = "ActiveUser")]
+      public async Task<ActionResult<bool>> SendActivationMailAsync(string userID)
       {
          using (var service = new UsersService(this.serviceProvider))
-         { return await service.ActivateDataAsync(userID, activationCode); }
+         { return await service.SendActivationMailAsync(userID); }
+      }
+
+      [HttpGet("activate/{userID}/{activationCode}")]
+      public async Task<ActionResult<UserVM>> ActivateUserAsync(string userID, string activationCode)
+      {
+         using (var service = new UsersService(this.serviceProvider))
+         { return await service.ActivateUserAsync(userID, activationCode); }
       }
 
       /*

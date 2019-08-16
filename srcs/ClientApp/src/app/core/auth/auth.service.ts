@@ -25,6 +25,15 @@ export class AuthService {
       finally { this.busy.hide(); }
    }
 
+   public async sendActivation(userID: string) {
+      try {
+         this.busy.show();
+         await this.http.post<boolean>(`api/users/sendActivation/${userID}`, null).toPromise();
+      }
+      catch (ex) { console.error(ex); return null; }
+      finally { this.busy.hide(); }
+   }
+
    public async signin(value: SignIn) {
       try {
          this.busy.show();

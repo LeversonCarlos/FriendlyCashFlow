@@ -46,19 +46,8 @@ namespace FriendlyCashFlow.API.Users
             await this.dbContext.Users.AddAsync(data);
             await this.dbContext.SaveChangesAsync();
 
-            // ACTIVATION LINK
-            var appSettings = this.GetService<IOptions<AppSettings>>().Value;
-            var activationCode = $"{data.UserID}-{data.UserName}-{data.JoinDate.ToString("yyyyMMdd-HHmmss")}";
-            var mailBodyCommandLink = $"{appSettings.BaseHost}/api/users/activate/{data.UserID}/{cryptService.Encrypt(activationCode)}";
-
             // SEND ACTIVATION MAIL
-            var mailService = this.GetService<Helpers.Mail>();
-            var mailSubject = string.Format(this.GetTranslation("USERS_ACTIVATION_MAIL_SUBJECT"), "Cash Flow");
-            var mailBodyTitle = string.Format(this.GetTranslation("USERS_ACTIVATION_MAIL_BODY_TITLE"), "Cash Flow");
-            var mailBodyMessage = string.Format(this.GetTranslation("USERS_ACTIVATION_MAIL_BODY_MESSAGE"), "Cash Flow");
-            var mailBodyCommandText = this.GetTranslation("USERS_ACTIVATION_MAIL_BODY_COMMAND");
-            var mailBody = string.Format(this.CreateDataAsync_GetMailBody(), mailBodyTitle, mailBodyMessage, mailBodyCommandLink, mailBodyCommandText);
-            await mailService.SendAsync(mailSubject, mailBody, data.UserName);
+            await this.SendActivationMailAsync(data.UserID);
 
             // RESULT
             var result = UserVM.Convert(data);

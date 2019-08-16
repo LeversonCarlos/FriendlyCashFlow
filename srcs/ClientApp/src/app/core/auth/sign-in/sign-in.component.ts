@@ -26,9 +26,13 @@ export class SignInComponent implements OnInit {
       });
    }
 
-   public async OnClick() {
+   public OnClick() {
       if (!this.inputForm.valid) { return; }
       this.service.signin(this.inputForm.value);
+   }
+
+   public OnActivationClick() {
+      this.service.sendActivation(this.signupUser.UserID);
    }
 
 }
