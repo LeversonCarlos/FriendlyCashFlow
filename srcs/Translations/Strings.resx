@@ -244,7 +244,7 @@
     <value>Activate Account</value>
   </data>
   <data name="USERS_ACTIVATION_MAIL_BODY_MESSAGE" xml:space="preserve">
-    <value>Click the button below to activate your account and start using it.</value>
+    <value>Click the button below to activate your account and start using the system.</value>
   </data>
   <data name="USERS_ACTIVATION_MAIL_BODY_TITLE" xml:space="preserve">
     <value>Hi {0}, welcome to {1}!</value>
@@ -252,8 +252,17 @@
   <data name="USERS_ACTIVATION_MAIL_SUBJECT" xml:space="preserve">
     <value>{0} Activation Instruction</value>
   </data>
+  <data name="USERS_ALREADY_HAVE_ACCOUNT_MESSAGE" xml:space="preserve">
+    <value>Click here if you already have an account</value>
+  </data>
+  <data name="USERS_DESCRIPTION_INSTRUCTION_LABEL" xml:space="preserve">
+    <value>Type in your name</value>
+  </data>
   <data name="USERS_INVALID_ACTIVATION_CODE_WARNING" xml:space="preserve">
     <value>Invalid activation code.</value>
+  </data>
+  <data name="USERS_PASSWORD_INSTRUCTION_LABEL" xml:space="preserve">
+    <value>Type in your password</value>
   </data>
   <data name="USERS_PASSWORD_MINIMUM_SIZE_WARNING" xml:space="preserve">
     <value>Password must have at least {0} characters.</value>
@@ -269,6 +278,21 @@
   </data>
   <data name="USERS_PASSWORD_REQUIRE_UPPER_CASES_WARNING" xml:space="preserve">
     <value>Password must have upper case characters.</value>
+  </data>
+  <data name="USERS_SIGNIN_COMMAND" xml:space="preserve">
+    <value>Sign In</value>
+  </data>
+  <data name="USERS_SIGNUP_COMMAND" xml:space="preserve">
+    <value>Sign Up</value>
+  </data>
+  <data name="USERS_SIGNUP_INSTRUCTIONS" xml:space="preserve">
+    <value>Click to sign up a new account</value>
+  </data>
+  <data name="USERS_SIGNUP_TITLE" xml:space="preserve">
+    <value>Sign Up</value>
+  </data>
+  <data name="USERS_USERNAME_INSTRUCTION_LABEL" xml:space="preserve">
+    <value>Type in your email</value>
   </data>
   <data name="USERS_USER_NAME_ALREADY_EXISTS_WARNING" xml:space="preserve">
     <value>User mail already been used.</value>

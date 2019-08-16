@@ -241,10 +241,10 @@
     <value>Configurações</value>
   </data>
   <data name="USERS_ACTIVATION_MAIL_BODY_COMMAND" xml:space="preserve">
-    <value>Ativar sua Conta</value>
+    <value>Ativar Usuário</value>
   </data>
   <data name="USERS_ACTIVATION_MAIL_BODY_MESSAGE" xml:space="preserve">
-    <value>Clique no botão abaixo para ativar sua conta e começar a usá-la.</value>
+    <value>Clique no botão abaixo para ativar seu usuário e começar a usr o sistema.</value>
   </data>
   <data name="USERS_ACTIVATION_MAIL_BODY_TITLE" xml:space="preserve">
     <value>Hi {0}, welcome to {1}!</value>
@@ -252,8 +252,17 @@
   <data name="USERS_ACTIVATION_MAIL_SUBJECT" xml:space="preserve">
     <value>{0} Instruções para Ativação</value>
   </data>
+  <data name="USERS_ALREADY_HAVE_ACCOUNT_MESSAGE" xml:space="preserve">
+    <value>Clique aqui se você já tiver uma conta</value>
+  </data>
+  <data name="USERS_DESCRIPTION_INSTRUCTION_LABEL" xml:space="preserve">
+    <value>Informe seu nome</value>
+  </data>
   <data name="USERS_INVALID_ACTIVATION_CODE_WARNING" xml:space="preserve">
     <value>Código de ativação inválido.</value>
+  </data>
+  <data name="USERS_PASSWORD_INSTRUCTION_LABEL" xml:space="preserve">
+    <value>Informe sua senha</value>
   </data>
   <data name="USERS_PASSWORD_MINIMUM_SIZE_WARNING" xml:space="preserve">
     <value>A senha precisa ter ao menos {0} caracteres.</value>
@@ -269,6 +278,21 @@
   </data>
   <data name="USERS_PASSWORD_REQUIRE_UPPER_CASES_WARNING" xml:space="preserve">
     <value>A senha precisa ter caracteres maiúsculos.</value>
+  </data>
+  <data name="USERS_SIGNIN_COMMAND" xml:space="preserve">
+    <value>Acessar</value>
+  </data>
+  <data name="USERS_SIGNUP_COMMAND" xml:space="preserve">
+    <value>Registrar</value>
+  </data>
+  <data name="USERS_SIGNUP_INSTRUCTIONS" xml:space="preserve">
+    <value>Clique para registrar seu usuário</value>
+  </data>
+  <data name="USERS_SIGNUP_TITLE" xml:space="preserve">
+    <value>Registrar usuário</value>
+  </data>
+  <data name="USERS_USERNAME_INSTRUCTION_LABEL" xml:space="preserve">
+    <value>Informe seu email</value>
   </data>
   <data name="USERS_USER_NAME_ALREADY_EXISTS_WARNING" xml:space="preserve">
     <value>Email de usuário já utilizado.</value>
