@@ -1,4 +1,5 @@
 @import "../../../../styles/screenSizes.scss";
+@import "../../../../styles/colors.scss";
 
 .background::before {
   content: "";
@@ -28,4 +29,10 @@ div[details] {
       width: 80vw;
     }
   }
+}
+
+.activate-info {
+   @extend .backcolor-green;
+   @extend .forecolor-white;
+   margin-top: 15px;
 }

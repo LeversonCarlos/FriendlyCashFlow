@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BusyService } from 'src/app/shared/busy/busy.service';
+import { AuthService } from '../auth.service';
+import { User } from '../auth.models';
 
 @Component({
    selector: 'fs-sign-in',
@@ -9,9 +10,9 @@ import { BusyService } from 'src/app/shared/busy/busy.service';
 })
 export class SignInComponent implements OnInit {
 
-   constructor(private busy: BusyService,
-      private fb: FormBuilder) { }
+   constructor(private service: AuthService, private fb: FormBuilder) { }
 
+   public get signupUser(): User { return this.service && this.service.signupUser; }
    public inputForm: FormGroup;
 
    public ngOnInit() {
@@ -26,12 +27,8 @@ export class SignInComponent implements OnInit {
    }
 
    public async OnClick() {
-      try {
-         this.busy.show();
-         console.log(this.inputForm.value);
-      }
-      catch (ex) { console.error(ex); return null; }
-      finally { this.busy.hide(); }
+      if (!this.inputForm.valid) { return; }
+      this.service.signin(this.inputForm.value);
    }
 
 }

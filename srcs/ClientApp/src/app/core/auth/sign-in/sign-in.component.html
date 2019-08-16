@@ -30,7 +30,12 @@
             </mat-card-actions>
          </mat-card>
       </form>
-      <button mat-button color="accent" routerLink="/signup" >click here if you dont have an account yet</button>
+      <button mat-button color="accent" routerLink="/signup">click here if you dont have an account yet</button>
+
+      <mat-card class="activate-info" *ngIf="signupUser">
+         <p>Hi {{ signupUser.Text }}. An email was sent to you with instructions on how to activate your account.</p>
+         <a>Click here to sent it again</a>
+      </mat-card>
 
    </div>
 

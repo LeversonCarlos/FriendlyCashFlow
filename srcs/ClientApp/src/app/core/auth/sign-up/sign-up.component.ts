@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { BusyService } from 'src/app/shared/busy/busy.service';
-import { HttpClient } from '@angular/common/http';
-import { User } from '../auth.models';
+import { AuthService } from '../auth.service';
 
 @Component({
    selector: 'fs-sign-up',
@@ -11,8 +9,7 @@ import { User } from '../auth.models';
 })
 export class SignUpComponent implements OnInit {
 
-   constructor(private busy: BusyService,
-      private http: HttpClient, private fb: FormBuilder) { }
+   constructor(private service: AuthService, private fb: FormBuilder) { }
 
    public inputForm: FormGroup;
 
@@ -22,20 +19,15 @@ export class SignUpComponent implements OnInit {
 
    private OnFormCreate() {
       this.inputForm = this.fb.group({
-         Description: ['', Validators.required],
-         UserName: ['', [Validators.required, Validators.email]],
-         Password: ['', Validators.required]
+         Description: ['Leverson Carlos', Validators.required],
+         UserName: ['lcjohnny@hotmail.com', [Validators.required, Validators.email]],
+         Password: ['abc1234', Validators.required]
       });
    }
 
-   public async OnClick() {
-      try {
-         this.busy.show();
-         const result = await this.http.post<User>(`api/users`, this.inputForm.value).toPromise();;
-         return result != null && result.UserID != null;
-      }
-      catch (ex) { console.error(ex); return null; }
-      finally { this.busy.hide(); }
+   public OnClick() {
+      if (!this.inputForm.valid) { return; }
+      this.service.signup(this.inputForm.value);
    }
 
 }
