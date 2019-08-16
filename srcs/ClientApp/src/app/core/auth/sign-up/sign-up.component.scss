@@ -1,10 +1,15 @@
+@import "../../../../styles/screenSizes.scss";
+
 div[details] {
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
-   align-items: center;
-   height: -webkit-fill-available;
-   .mat-card {
-      width: 40vw;
-   }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: -webkit-fill-available;
+  .mat-card {
+    width: 30vw;
+    @media (max-width: $max-width-xs) {
+      width: 80vw;
+    }
+  }
 }
