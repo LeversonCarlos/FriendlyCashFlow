@@ -240,4 +240,82 @@
   <data name="SETTINGS_MENU" xml:space="preserve">
     <value>Configurações</value>
   </data>
+  <data name="USERS_ACCOUNT_HAS_BEEN_ACTIVATED_MESSAGE" xml:space="preserve">
+    <value>Seu usuário foi ativado, você pode acessá-lo agora</value>
+  </data>
+  <data name="USERS_ACTIVATION_INSTRUCTIONS_WAS_SENT_MESSAGE" xml:space="preserve">
+    <value>Um email foi enviado com instruções de como ativar seu usuário.</value>
+  </data>
+  <data name="USERS_ACTIVATION_MAIL_BODY_COMMAND" xml:space="preserve">
+    <value>Ativar Usuário</value>
+  </data>
+  <data name="USERS_ACTIVATION_MAIL_BODY_MESSAGE" xml:space="preserve">
+    <value>Clique no botão abaixo para ativar seu usuário e começar a usr o sistema.</value>
+  </data>
+  <data name="USERS_ACTIVATION_MAIL_BODY_TITLE" xml:space="preserve">
+    <value>Hi {0}, welcome to {1}!</value>
+  </data>
+  <data name="USERS_ACTIVATION_MAIL_SUBJECT" xml:space="preserve">
+    <value>{0} Instruções para Ativação</value>
+  </data>
+  <data name="USERS_ALREADY_HAVE_ACCOUNT_MESSAGE" xml:space="preserve">
+    <value>Clique aqui se você já tiver uma conta</value>
+  </data>
+  <data name="USERS_DESCRIPTION_INSTRUCTIONS" xml:space="preserve">
+    <value>Informe seu nome</value>
+  </data>
+  <data name="USERS_DONT_HAVE_ACCOUNT_MESSAGE" xml:space="preserve">
+    <value>Clique aqui se você não tem um usuário ainda</value>
+  </data>
+  <data name="USERS_INVALID_ACTIVATION_CODE_WARNING" xml:space="preserve">
+    <value>Código de ativação inválido.</value>
+  </data>
+  <data name="USERS_PASSWORD_INSTRUCTIONS" xml:space="preserve">
+    <value>Informe sua senha</value>
+  </data>
+  <data name="USERS_PASSWORD_MINIMUM_SIZE_WARNING" xml:space="preserve">
+    <value>A senha precisa ter ao menos {0} caracteres.</value>
+  </data>
+  <data name="USERS_PASSWORD_REQUIRE_LOWER_CASES_WARNING" xml:space="preserve">
+    <value>A senha precisa ter caracteres minúsculos.</value>
+  </data>
+  <data name="USERS_PASSWORD_REQUIRE_NUMBERS_WARNING" xml:space="preserve">
+    <value>A senha precisa ter caracteres numericos.</value>
+  </data>
+  <data name="USERS_PASSWORD_REQUIRE_SYMBOLS_WARNING" xml:space="preserve">
+    <value>A senha precisa ter caracteres de simbolos.</value>
+  </data>
+  <data name="USERS_PASSWORD_REQUIRE_UPPER_CASES_WARNING" xml:space="preserve">
+    <value>A senha precisa ter caracteres maiúsculos.</value>
+  </data>
+  <data name="USERS_SEND_ACTIVATION_LINK_AGAIN_MESSAGE" xml:space="preserve">
+    <value>Me envie novamente o link para ativação</value>
+  </data>
+  <data name="USERS_SIGNIN_COMMAND" xml:space="preserve">
+    <value>Acessar</value>
+  </data>
+  <data name="USERS_SIGNIN_INSTRUCTIONS" xml:space="preserve">
+    <value>Clique para acessar o sistema</value>
+  </data>
+  <data name="USERS_SIGNIN_TITLE" xml:space="preserve">
+    <value>Acesso</value>
+  </data>
+  <data name="USERS_SIGNUP_COMMAND" xml:space="preserve">
+    <value>Registrar</value>
+  </data>
+  <data name="USERS_SIGNUP_INSTRUCTIONS" xml:space="preserve">
+    <value>Clique para registrar seu usuário</value>
+  </data>
+  <data name="USERS_SIGNUP_TITLE" xml:space="preserve">
+    <value>Registrar usuário</value>
+  </data>
+  <data name="USERS_USERNAME_INSTRUCTIONS" xml:space="preserve">
+    <value>Informe seu email</value>
+  </data>
+  <data name="USERS_USER_NAME_ALREADY_EXISTS_WARNING" xml:space="preserve">
+    <value>Email de usuário já utilizado.</value>
+  </data>
+  <data name="USERS_USER_NOT_FOUND_WARNING" xml:space="preserve">
+    <value>Usuário não encontrado.</value>
+  </data>
 </root>

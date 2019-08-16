@@ -20,6 +20,10 @@ namespace FriendlyCashFlow.API.Base
       { return new CreatedResult(new Uri($"/api/{controller}/{id}", UriKind.Relative), value);}
 
       [DebuggerStepThrough]
+      protected ActionResult<T> CreatedResponse<T>(string controller, string id, T value)
+      { return new CreatedResult(new Uri($"/api/{controller}/{id}", UriKind.Relative), value);}
+
+      [DebuggerStepThrough]
       protected ActionResult InformationResponse(params string[] messages)
       { return this.MessagesResponse(messages, enStatusCode.Info); }
 

@@ -17,6 +17,7 @@ namespace FriendlyCashFlow
       public void ConfigureServices(IServiceCollection services)
       {
          this.AddLocalizationServices(services);
+         this.AddSettingsServices(services);
          this.AddMvcServices(services);
          this.AddDataServices(services);
          this.AddSpaServices(services);

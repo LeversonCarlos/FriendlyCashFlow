@@ -1,0 +1,10 @@
+<fs-base-layout class="background">
+   <div details class="full-screen">
+
+      <mat-card *ngIf="!activatedUser">
+         Wait...
+      </mat-card>
+      <button *ngIf="activatedUser" mat-flat-button color="accent" routerLink="/signin">Click here to sign in</button>
+
+   </div>
+</fs-base-layout>

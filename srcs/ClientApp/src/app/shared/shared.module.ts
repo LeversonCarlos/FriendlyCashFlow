@@ -19,6 +19,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { BaseLayoutComponent } from './base-layout/base-layout.component';
 import { FullLayoutComponent } from './full-layout/full-layout.component';
@@ -42,13 +43,14 @@ import { RelatedBoxComponent } from './related-box/related-box.component';
       MatToolbarModule, MatSidenavModule, MatCardModule, MatTabsModule, MatListModule,
       MatIconModule, MatButtonModule, MatProgressBarModule,
       MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatSelectModule, MatSlideToggleModule,
-      MatSnackBarModule, MatDialogModule
+      MatSnackBarModule, MatDialogModule, MatTooltipModule
    ],
    exports: [
       RouterModule, FormsModule, ReactiveFormsModule,
       MatToolbarModule, MatSidenavModule, MatCardModule, MatTabsModule, MatListModule,
       MatIconModule, MatButtonModule, MatProgressBarModule,
       MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatSelectModule, MatSlideToggleModule,
+      MatTooltipModule,
       BaseLayoutComponent, FullLayoutComponent,
       FabButtonComponent, RelatedBoxComponent,
       TranslationPipe

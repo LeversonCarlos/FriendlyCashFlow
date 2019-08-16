@@ -7,14 +7,18 @@
 
    <mat-sidenav-content>
       <fs-base-layout>
-         <div left-header>
-            <button mat-icon-button (click)="snav.toggle()" *ngIf="mobileQuery.matches">
-               <mat-icon>menu</mat-icon>
-            </button>
-            <ng-content select="[title]"></ng-content>
-         </div>
-         <div right-header>
-            <ng-content select="[toolbar]"></ng-content>
+         <div header>
+            <mat-toolbar color="primary">
+               <div>
+                  <button mat-icon-button (click)="snav.toggle()" *ngIf="mobileQuery.matches">
+                     <mat-icon>menu</mat-icon>
+                  </button>
+                  <ng-content select="[title]"></ng-content>
+               </div>
+               <div>
+                  <ng-content select="[toolbar]"></ng-content>
+               </div>
+            </mat-toolbar>
          </div>
 
          <div details>

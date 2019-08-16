@@ -1,0 +1,39 @@
+<fs-base-layout class="background">
+   <div details class="full-screen">
+
+      <form *ngIf="inputForm" [formGroup]="inputForm" (ngSubmit)="OnClick()">
+         <mat-card>
+            <mat-card-header>
+               <mat-card-title>
+                  Cash Flow: {{ 'USERS_SIGNUP_TITLE' | translation | async }}
+               </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+
+               <mat-form-field>
+                  <mat-label>{{ 'USERS_DESCRIPTION_INSTRUCTIONS' | translation | async }}</mat-label>
+                  <input type="text" matInput formControlName="Description" autofocus>
+               </mat-form-field>
+
+               <mat-form-field>
+                  <mat-label>{{ 'USERS_USERNAME_INSTRUCTIONS' | translation | async }}</mat-label>
+                  <input type="email" matInput formControlName="UserName">
+               </mat-form-field>
+
+               <mat-form-field>
+                  <mat-label>{{ 'USERS_PASSWORD_INSTRUCTIONS' | translation | async }}</mat-label>
+                  <input type="password" matInput formControlName="Password">
+               </mat-form-field>
+
+            </mat-card-content>
+            <mat-card-actions class="between">
+               <button mat-button color="accent" routerLink="/signin"
+                  matTooltip='{{ "USERS_ALREADY_HAVE_ACCOUNT_MESSAGE" | translation | async }}'>{{ 'USERS_SIGNIN_COMMAND' | translation | async }}</button>
+               <button mat-flat-button color="primary" [disabled]="!inputForm?.valid" (click)="OnClick()"
+                  matTooltip='{{ "USERS_SIGNUP_INSTRUCTIONS" | translation | async }}'>{{ 'USERS_SIGNUP_COMMAND' | translation | async }}</button>
+            </mat-card-actions>
+         </mat-card>
+      </form>
+
+   </div>
+</fs-base-layout>

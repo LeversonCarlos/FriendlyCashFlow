@@ -1,5 +1,11 @@
 @import "../../../styles/screenSizes.scss";
 
+div[header] {
+  .mat-toolbar {
+    justify-content: space-between;
+  }
+}
+
 .layout-container-content {
   padding: 0 3px;
   display: flex;
@@ -25,11 +31,4 @@
       width: 100%;
     }
   }
-}
-
-.layout-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
 }
