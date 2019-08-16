@@ -1,22 +1,14 @@
 @import "../../../../styles/screenSizes.scss";
-@import "../../../../styles/colors.scss";
 
-div[details] {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.full-screen {
   align-items: center;
-  height: -webkit-fill-available;
-  .mat-card {
-    width: 30vw;
-    @media (max-width: $max-width-xs) {
-      width: 80vw;
-    }
-  }
+  justify-content: center;
 }
 
-.activate-info {
-   @extend .backcolor-green;
-   @extend .forecolor-white;
-   margin-top: 15px;
+.mat-card {
+  margin-bottom: 30px;
+  width: 30vw;
+  @media (max-width: $max-width-xs) {
+    width: 80vw;
+  }
 }

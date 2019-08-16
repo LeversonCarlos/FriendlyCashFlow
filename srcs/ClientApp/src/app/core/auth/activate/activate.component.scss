@@ -1,9 +1,8 @@
 @import "../../../../styles/screenSizes.scss";
-@import "../../../../styles/colors.scss";
 
 .full-screen {
-   align-items: center;
-   justify-content: center;
+  align-items: center;
+  justify-content: center;
 }
 
 .mat-card {
@@ -11,9 +10,4 @@
   @media (max-width: $max-width-xs) {
     width: 80vw;
   }
-}
-
-.activate-info {
-  @extend .backcolor-green;
-  @extend .forecolor-white;
 }

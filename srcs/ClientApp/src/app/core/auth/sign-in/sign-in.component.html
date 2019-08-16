@@ -1,9 +1,5 @@
 <fs-base-layout class="background">
-
-   <div header>
-   </div>
-
-   <div details>
+   <div details class="full-screen">
 
       <form *ngIf="inputForm" [formGroup]="inputForm" (ngSubmit)="OnClick()">
          <mat-card>
@@ -26,13 +22,15 @@
 
             </mat-card-content>
             <mat-card-actions class="between">
-               <button mat-button color="accent" routerLink="/signup" matTooltip="Click here if you dont have an account yet">Sign Up</button>
-               <button mat-flat-button color="primary" [disabled]="!inputForm?.valid" (click)="OnClick()">Sign In</button>
+               <button mat-button color="accent" routerLink="/signup"
+                  matTooltip="Click here if you dont have an account yet">Sign Up</button>
+               <button mat-flat-button color="primary" [disabled]="!inputForm?.valid" (click)="OnClick()">Sign
+                  In</button>
             </mat-card-actions>
          </mat-card>
       </form>
-      <button *ngIf="signupUser" mat-button color="accent" (click)="OnActivationClick()">send me the activation link again</button>
+      <button *ngIf="signupUser" mat-button color="accent" (click)="OnActivationClick()">send me the activation link
+         again</button>
 
    </div>
-
 </fs-base-layout>
