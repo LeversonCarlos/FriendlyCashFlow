@@ -24,8 +24,8 @@
             <mat-card-actions class="between">
                <button mat-button color="accent" routerLink="/signup"
                   matTooltip="Click here if you dont have an account yet">Sign Up</button>
-               <button mat-flat-button color="primary" [disabled]="!inputForm?.valid" (click)="OnClick()">Sign
-                  In</button>
+               <button mat-flat-button color="primary" [disabled]="!inputForm?.valid" (click)="OnClick()"
+                  matTooltip="Click to sign in with your account">Sign In</button>
             </mat-card-actions>
          </mat-card>
       </form>

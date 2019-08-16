@@ -30,6 +30,7 @@ namespace FriendlyCashFlow.Helpers
          result.IsNumbersAttended = !passwordSettings.RequireNumbers || result.Numbers > 0;
          result.IsSymbolsAttended = !passwordSettings.RequireSymbols || result.Symbols > 0;
          result.IsSizeAttended = result.Size >= passwordSettings.MinimumSize;
+         result.MinimumSize = passwordSettings.MinimumSize;
 
          return result;
       }
@@ -51,6 +52,7 @@ namespace FriendlyCashFlow.Helpers
       public short Symbols { get; set; }
       public bool IsSymbolsAttended { get; set; }
 
+      public short MinimumSize { get; set; }
       public short Size { get; set; }
       public bool IsSizeAttended { get; set; }
 
