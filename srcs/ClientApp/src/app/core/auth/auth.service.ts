@@ -19,7 +19,7 @@ export class AuthService {
          this.busy.show();
          this.signupUser = await this.http.post<User>(`api/users`, value).toPromise();
          if (this.signupUser && this.signupUser.UserID != null) {
-            this.msg.ShowInfo('An email was sent to you with instructions on how to activate your account.')
+            this.msg.ShowInfo('USERS_ACTIVATION_INSTRUCTIONS_WAS_SENT_MESSAGE')
             this.router.navigate(['/signin']);
          }
       }

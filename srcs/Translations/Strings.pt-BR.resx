@@ -240,6 +240,9 @@
   <data name="SETTINGS_MENU" xml:space="preserve">
     <value>Configurações</value>
   </data>
+  <data name="USERS_ACTIVATION_INSTRUCTIONS_WAS_SENT_MESSAGE" xml:space="preserve">
+    <value>Um email foi enviado com instruções de como ativar seu usuário.</value>
+  </data>
   <data name="USERS_ACTIVATION_MAIL_BODY_COMMAND" xml:space="preserve">
     <value>Ativar Usuário</value>
   </data>

@@ -19,9 +19,9 @@ export class SignUpComponent implements OnInit {
 
    private OnFormCreate() {
       this.inputForm = this.fb.group({
-         Description: ['Leverson Carlos', Validators.required],
-         UserName: ['lcjohnny@hotmail.com', [Validators.required, Validators.email]],
-         Password: ['abc1234', Validators.required]
+         Description: ['', Validators.required],
+         UserName: ['', [Validators.required, Validators.email]],
+         Password: ['', Validators.required]
       });
    }
 

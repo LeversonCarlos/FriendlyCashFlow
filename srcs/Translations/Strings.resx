@@ -240,6 +240,9 @@
   <data name="SETTINGS_MENU" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="USERS_ACTIVATION_INSTRUCTIONS_WAS_SENT_MESSAGE" xml:space="preserve">
+    <value>An email was sent to you with instructions on how to activate your account.</value>
+  </data>
   <data name="USERS_ACTIVATION_MAIL_BODY_COMMAND" xml:space="preserve">
     <value>Activate Account</value>
   </data>
