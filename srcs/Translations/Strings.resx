@@ -244,10 +244,10 @@
     <value>Activate Account</value>
   </data>
   <data name="USERS_ACTIVATION_MAIL_BODY_MESSAGE" xml:space="preserve">
-    <value>Click the button below to activate your {0} account and start using it.</value>
+    <value>Click the button below to activate your account and start using it.</value>
   </data>
   <data name="USERS_ACTIVATION_MAIL_BODY_TITLE" xml:space="preserve">
-    <value>Welcome to {0}!</value>
+    <value>Hi {0}, welcome to {1}!</value>
   </data>
   <data name="USERS_ACTIVATION_MAIL_SUBJECT" xml:space="preserve">
     <value>{0} Activation Instruction</value>

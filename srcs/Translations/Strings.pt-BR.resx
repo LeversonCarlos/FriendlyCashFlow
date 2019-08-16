@@ -240,6 +240,18 @@
   <data name="SETTINGS_MENU" xml:space="preserve">
     <value>Configurações</value>
   </data>
+  <data name="USERS_ACTIVATION_MAIL_BODY_COMMAND" xml:space="preserve">
+    <value>Ativar sua Conta</value>
+  </data>
+  <data name="USERS_ACTIVATION_MAIL_BODY_MESSAGE" xml:space="preserve">
+    <value>Clique no botão abaixo para ativar sua conta e começar a usá-la.</value>
+  </data>
+  <data name="USERS_ACTIVATION_MAIL_BODY_TITLE" xml:space="preserve">
+    <value>Hi {0}, welcome to {1}!</value>
+  </data>
+  <data name="USERS_ACTIVATION_MAIL_SUBJECT" xml:space="preserve">
+    <value>{0} Instruções para Ativação</value>
+  </data>
   <data name="USERS_INVALID_ACTIVATION_CODE_WARNING" xml:space="preserve">
     <value>Código de ativação inválido.</value>
   </data>

@@ -30,8 +30,8 @@ namespace FriendlyCashFlow.API.Users
             // SEND ACTIVATION MAIL
             var mailService = this.GetService<Helpers.Mail>();
             var mailSubject = string.Format(this.GetTranslation("USERS_ACTIVATION_MAIL_SUBJECT"), "Cash Flow");
-            var mailBodyTitle = string.Format(this.GetTranslation("USERS_ACTIVATION_MAIL_BODY_TITLE"), "Cash Flow");
-            var mailBodyMessage = string.Format(this.GetTranslation("USERS_ACTIVATION_MAIL_BODY_MESSAGE"), "Cash Flow");
+            var mailBodyTitle = string.Format(this.GetTranslation("USERS_ACTIVATION_MAIL_BODY_TITLE"), data.Text, "Cash Flow");
+            var mailBodyMessage = this.GetTranslation("USERS_ACTIVATION_MAIL_BODY_MESSAGE");
             var mailBodyCommandText = this.GetTranslation("USERS_ACTIVATION_MAIL_BODY_COMMAND");
             var mailBody = string.Format(this.CreateDataAsync_GetMailBody(), mailBodyTitle, mailBodyMessage, mailBodyCommandLink, mailBodyCommandText);
             await mailService.SendAsync(mailSubject, mailBody, data.UserName);
