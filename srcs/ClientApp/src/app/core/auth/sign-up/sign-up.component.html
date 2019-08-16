@@ -12,27 +12,27 @@
             </mat-card-title>
          </mat-card-header>
          <mat-card-content>
-            <form>
+            <form *ngIf="inputForm" [formGroup]="inputForm">
 
                <mat-form-field>
                   <mat-label>Your Name</mat-label>
-                  <input type="text" matInput autofocus>
+                  <input type="text" matInput formControlName="UserText" autofocus>
                </mat-form-field>
 
                <mat-form-field>
                   <mat-label>Your Email</mat-label>
-                  <input type="email" matInput>
+                  <input type="email" matInput formControlName="UserMail">
                </mat-form-field>
 
                <mat-form-field>
                   <mat-label>Your Password</mat-label>
-                  <input type="password" matInput>
+                  <input type="password" matInput formControlName="Password">
                </mat-form-field>
 
             </form>
          </mat-card-content>
          <mat-card-actions>
-            <button mat-flat-button color="primary">Sign Up</button>
+            <button mat-flat-button color="primary" [disabled]="!inputForm?.valid" (click)="OnClick()">Sign Up</button>
          </mat-card-actions>
       </mat-card>
       <button mat-button color="accent">i already have an account to sign in</button>
