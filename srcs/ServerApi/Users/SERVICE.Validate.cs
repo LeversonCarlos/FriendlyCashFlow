@@ -20,7 +20,7 @@ namespace FriendlyCashFlow.API.Users
             { msgs.Add(this.GetTranslation("USERS_PASSWORD_REQUIRE_UPPER_CASES_WARNING")); }
 
             if (!passwordStrength.IsLowerCasesAttended)
-            { msgs.Add("USERS_PASSWORD_REQUIRE_LOWER_CASES_WARNING"); }
+            { msgs.Add(this.GetTranslation("USERS_PASSWORD_REQUIRE_LOWER_CASES_WARNING")); }
 
             if (!passwordStrength.IsNumbersAttended)
             { msgs.Add("USERS_PASSWORD_REQUIRE_NUMBERS_WARNING"); }

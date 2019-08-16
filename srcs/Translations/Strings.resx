@@ -255,7 +255,10 @@
   <data name="USERS_PASSWORD_MINIMUM_SIZE_WARNING" xml:space="preserve">
     <value>Password must have at least {0} characters.</value>
   </data>
+  <data name="USERS_PASSWORD_REQUIRE_LOWER_CASES_WARNING" xml:space="preserve">
+    <value>Password must have lower case characters.</value>
+  </data>
   <data name="USERS_PASSWORD_REQUIRE_UPPER_CASES_WARNING" xml:space="preserve">
-    <value>Password must have upper cases characters</value>
+    <value>Password must have upper case characters.</value>
   </data>
 </root>
