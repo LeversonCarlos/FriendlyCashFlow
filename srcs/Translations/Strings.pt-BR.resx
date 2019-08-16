@@ -240,6 +240,9 @@
   <data name="SETTINGS_MENU" xml:space="preserve">
     <value>Configurações</value>
   </data>
+  <data name="USERS_INVALID_ACTIVATION_CODE_WARNING" xml:space="preserve">
+    <value>Código de ativação inválido.</value>
+  </data>
   <data name="USERS_PASSWORD_MINIMUM_SIZE_WARNING" xml:space="preserve">
     <value>A senha precisa ter ao menos {0} caracteres.</value>
   </data>

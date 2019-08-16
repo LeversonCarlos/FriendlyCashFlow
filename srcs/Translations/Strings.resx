@@ -252,6 +252,9 @@
   <data name="USERS_ACTIVATION_MAIL_SUBJECT" xml:space="preserve">
     <value>{0} Activation Instruction</value>
   </data>
+  <data name="USERS_INVALID_ACTIVATION_CODE_WARNING" xml:space="preserve">
+    <value>Invalid activation code.</value>
+  </data>
   <data name="USERS_PASSWORD_MINIMUM_SIZE_WARNING" xml:space="preserve">
     <value>Password must have at least {0} characters.</value>
   </data>
