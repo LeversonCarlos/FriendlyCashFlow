@@ -40,10 +40,11 @@ export class AuthService {
    public async activateUser(userID: string, activationCode: string) {
       try {
          this.busy.show();
-         await this.http.get<User>(`api/users/activate/${userID}/${encodeURIComponent(activationCode)}`).toPromise();
+         const result = await this.http.get<User>(`api/users/activate/${userID}/${encodeURIComponent(activationCode)}`).toPromise();
+         if (result) { this.msg.ShowInfo('Your account has been activated, you can sign in now.') }
       }
       catch (ex) { console.error(ex); }
-      finally { this.busy.hide(); }
+      finally { this.busy.hide(); this.router.navigate(['/signin']); }
    }
 
    public async signin(value: SignIn) {

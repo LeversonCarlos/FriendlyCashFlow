@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { User } from '../auth.models';
 
@@ -10,7 +10,7 @@ import { User } from '../auth.models';
 })
 export class ActivateComponent implements OnInit {
 
-   constructor(private service: AuthService, private activatedRoute: ActivatedRoute, private router: Router) { }
+   constructor(private service: AuthService, private activatedRoute: ActivatedRoute) { }
 
    public activatedUser: User;
 
@@ -18,7 +18,6 @@ export class ActivateComponent implements OnInit {
       const userID: string = this.activatedRoute.snapshot.params["id"];
       const activationCode: string = this.activatedRoute.snapshot.params["code"];
       await this.service.activateUser(userID, activationCode);
-      this.router.navigate(['/signin']);
    }
 
 }
