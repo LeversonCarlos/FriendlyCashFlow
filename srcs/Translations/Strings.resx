@@ -255,13 +255,13 @@
   <data name="USERS_ALREADY_HAVE_ACCOUNT_MESSAGE" xml:space="preserve">
     <value>Click here if you already have an account</value>
   </data>
-  <data name="USERS_DESCRIPTION_INSTRUCTION_LABEL" xml:space="preserve">
+  <data name="USERS_DESCRIPTION_INSTRUCTIONS" xml:space="preserve">
     <value>Type in your name</value>
   </data>
   <data name="USERS_INVALID_ACTIVATION_CODE_WARNING" xml:space="preserve">
     <value>Invalid activation code.</value>
   </data>
-  <data name="USERS_PASSWORD_INSTRUCTION_LABEL" xml:space="preserve">
+  <data name="USERS_PASSWORD_INSTRUCTIONS" xml:space="preserve">
     <value>Type in your password</value>
   </data>
   <data name="USERS_PASSWORD_MINIMUM_SIZE_WARNING" xml:space="preserve">
@@ -291,7 +291,7 @@
   <data name="USERS_SIGNUP_TITLE" xml:space="preserve">
     <value>Sign Up</value>
   </data>
-  <data name="USERS_USERNAME_INSTRUCTION_LABEL" xml:space="preserve">
+  <data name="USERS_USERNAME_INSTRUCTIONS" xml:space="preserve">
     <value>Type in your email</value>
   </data>
   <data name="USERS_USER_NAME_ALREADY_EXISTS_WARNING" xml:space="preserve">
