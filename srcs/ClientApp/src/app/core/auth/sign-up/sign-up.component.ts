@@ -23,7 +23,7 @@ export class SignUpComponent implements OnInit {
    private OnFormCreate() {
       this.inputForm = this.fb.group({
          UserText: ['', Validators.required],
-         UserMail: ['', Validators.required],
+         UserMail: ['', [Validators.required, Validators.email]],
          Password: ['', Validators.required]
       });
    }

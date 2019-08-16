@@ -5,14 +5,15 @@
 
    <div details>
 
-      <mat-card>
-         <mat-card-header>
-            <mat-card-title>
-               Cash Flow
-            </mat-card-title>
-         </mat-card-header>
-         <mat-card-content>
-            <form *ngIf="inputForm" [formGroup]="inputForm">
+      <form *ngIf="inputForm" [formGroup]="inputForm" (ngSubmit)="OnClick()">
+         <mat-card>
+            <mat-card-header>
+               <mat-card-title>
+                  Cash Flow
+               </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+
 
                <mat-form-field>
                   <mat-label>Your Name</mat-label>
@@ -29,12 +30,14 @@
                   <input type="password" matInput formControlName="Password">
                </mat-form-field>
 
-            </form>
-         </mat-card-content>
-         <mat-card-actions>
-            <button mat-flat-button color="primary" [disabled]="!inputForm?.valid" (click)="OnClick()">Sign Up</button>
-         </mat-card-actions>
-      </mat-card>
+
+            </mat-card-content>
+            <mat-card-actions>
+               <button mat-flat-button color="primary" [disabled]="!inputForm?.valid" (click)="OnClick()">Sign
+                  Up</button>
+            </mat-card-actions>
+         </mat-card>
+      </form>
       <button mat-button color="accent">i already have an account to sign in</button>
 
    </div>
