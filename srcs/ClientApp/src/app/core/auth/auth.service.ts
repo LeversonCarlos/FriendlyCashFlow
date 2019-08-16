@@ -19,11 +19,11 @@ export class AuthService {
          this.busy.show();
          this.signupUser = await this.http.post<User>(`api/users`, value).toPromise();
          if (this.signupUser && this.signupUser.UserID != null) {
-            this.msg.ShowInfo('USERS_ACTIVATION_INSTRUCTIONS_WAS_SENT_MESSAGE')
+            await this.msg.ShowInfo('USERS_ACTIVATION_INSTRUCTIONS_WAS_SENT_MESSAGE')
             this.router.navigate(['/signin']);
          }
       }
-      catch (ex) { console.error(ex); return null; }
+      catch (ex) { console.error(ex); }
       finally { this.busy.hide(); }
    }
 
@@ -31,9 +31,9 @@ export class AuthService {
       try {
          this.busy.show();
          const result = await this.http.post<boolean>(`api/users/sendActivation/${userID}`, null).toPromise();
-         if (result) { this.msg.ShowInfo('An email was sent to you with instructions on how to activate your account.') }
+         if (result) { await this.msg.ShowInfo('USERS_ACTIVATION_INSTRUCTIONS_WAS_SENT_MESSAGE') }
       }
-      catch (ex) { console.error(ex); return null; }
+      catch (ex) { console.error(ex); }
       finally { this.busy.hide(); }
    }
 
@@ -41,7 +41,7 @@ export class AuthService {
       try {
          this.busy.show();
          const result = await this.http.get<User>(`api/users/activate/${userID}/${encodeURIComponent(activationCode)}`).toPromise();
-         if (result) { this.msg.ShowInfo('Your account has been activated, you can sign in now.') }
+         if (result) { await this.msg.ShowInfo('USERS_ACCOUNT_HAS_BEEN_ACTIVATED_MESSAGE'); }
       }
       catch (ex) { console.error(ex); }
       finally { this.busy.hide(); this.router.navigate(['/signin']); }
@@ -53,7 +53,7 @@ export class AuthService {
          console.log(value);
          // this.signupUser = await this.http.post<User>(`api/users`, value).toPromise();
       }
-      catch (ex) { console.error(ex); return null; }
+      catch (ex) { console.error(ex); }
       finally { this.busy.hide(); }
    }
 
