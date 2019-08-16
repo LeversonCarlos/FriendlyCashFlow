@@ -1,0 +1,10 @@
+div[details] {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   height: -webkit-fill-available;
+   .mat-card {
+      width: 40vw;
+   }
+}
