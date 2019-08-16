@@ -270,4 +270,7 @@
   <data name="USERS_USER_NAME_ALREADY_EXISTS_WARNING" xml:space="preserve">
     <value>User mail already been used.</value>
   </data>
+  <data name="USERS_USER_NOT_FOUND_WARNING" xml:space="preserve">
+    <value>User not found.</value>
+  </data>
 </root>

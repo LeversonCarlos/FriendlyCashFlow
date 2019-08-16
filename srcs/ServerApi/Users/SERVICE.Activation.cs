@@ -49,7 +49,7 @@ namespace FriendlyCashFlow.API.Users
             // LOCATE USER
             var data = await this.GetDataQuery().Where(x => x.UserID == userID).FirstOrDefaultAsync();
             if (data == null)
-            { return this.WarningResponse(this.GetTranslation("USERS_NOT_FOUND_WARNING")); }
+            { return this.WarningResponse(this.GetTranslation("USERS_USER_NOT_FOUND_WARNING")); }
 
             // ACTIVATION CODE
             var cryptService = this.GetService<Helpers.Crypt>();
