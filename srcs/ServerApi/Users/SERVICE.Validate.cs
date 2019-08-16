@@ -17,7 +17,7 @@ namespace FriendlyCashFlow.API.Users
             { msgs.Add(string.Format(this.GetTranslation("USERS_PASSWORD_MINIMUM_SIZE_WARNING"), passwordStrength.MinimumSize)); }
 
             if (!passwordStrength.IsUpperCasesAttended)
-            { msgs.Add("USERS_PASSWORD_REQUIRE_UPPER_CASES_WARNING"); }
+            { msgs.Add(this.GetTranslation("USERS_PASSWORD_REQUIRE_UPPER_CASES_WARNING")); }
 
             if (!passwordStrength.IsLowerCasesAttended)
             { msgs.Add("USERS_PASSWORD_REQUIRE_LOWER_CASES_WARNING"); }

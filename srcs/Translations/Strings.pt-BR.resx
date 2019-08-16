@@ -243,4 +243,7 @@
   <data name="USERS_PASSWORD_MINIMUM_SIZE_WARNING" xml:space="preserve">
     <value>A senha precisa ter ao menos {0} caracteres.</value>
   </data>
+  <data name="USERS_PASSWORD_REQUIRE_UPPER_CASES_WARNING" xml:space="preserve">
+    <value>A senha precisa ter caracteres maiúsculos.</value>
+  </data>
 </root>
