@@ -1,36 +1,49 @@
 @import "./screenSizes.scss";
 
 .full-screen {
-  height: $details-height;
   display: flex;
   flex-direction: column;
   align-content: center;
   padding: $screen-padding 0;
 }
 
-.mat-card-actions,.mat-dialog-actions {
+fs-base-layout {
+  .full-screen {
+    height: 100vh;
+  }
+}
+
+fs-full-layout {
+  .full-screen {
+    height: $details-height;
+  }
+}
+
+.mat-card-actions,
+.mat-dialog-actions {
   display: flex !important;
   justify-content: flex-end;
   &.between {
     justify-content: space-between;
   }
-  button,a {
+  button,
+  a {
     text-transform: uppercase;
   }
 }
 
 .background::before {
-   content: "";
-   position: absolute;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 100%;
-   opacity: 0.2;
-   z-index: -1;
-   background-image: url(../assets/background.jpg);
-   background-repeat: no-repeat;
-   background-position: center;
-   background-size: cover;
-   overflow: hidden;
- }
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.2;
+  z-index: -1;
+  background-image: url(../assets/background.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  overflow: hidden;
+}

@@ -5,7 +5,7 @@
          <mat-card>
             <mat-card-header>
                <mat-card-title>
-                  Cash Flow: {{ 'USERS_SIGNUP_TITLE' | translation | async }}
+                  {{ 'USERS_SIGNUP_TITLE' | translation | async }}
                </mat-card-title>
             </mat-card-header>
             <mat-card-content>
@@ -27,9 +27,9 @@
 
             </mat-card-content>
             <mat-card-actions class="between">
-               <button mat-button color="accent" routerLink="/signin"
+               <button type="button" mat-button color="accent" routerLink="/signin"
                   matTooltip='{{ "USERS_ALREADY_HAVE_ACCOUNT_MESSAGE" | translation | async }}'>{{ 'USERS_SIGNIN_COMMAND' | translation | async }}</button>
-               <button mat-flat-button color="primary" [disabled]="!inputForm?.valid" (click)="OnClick()"
+               <button type="submit" mat-flat-button color="primary" [disabled]="!inputForm?.valid"
                   matTooltip='{{ "USERS_SIGNUP_INSTRUCTIONS" | translation | async }}'>{{ 'USERS_SIGNUP_COMMAND' | translation | async }}</button>
             </mat-card-actions>
          </mat-card>
