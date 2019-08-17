@@ -5,7 +5,7 @@
          <mat-card>
             <mat-card-header>
                <mat-card-title>
-                  Cash Flow: {{ 'USERS_SIGNIN_TITLE' | translation | async }}
+                  {{ 'USERS_SIGNIN_TITLE' | translation | async }}
                </mat-card-title>
             </mat-card-header>
             <mat-card-content>
@@ -29,7 +29,7 @@
             </mat-card-actions>
          </mat-card>
       </form>
-      <button *ngIf="signupUser" mat-button color="accent" (click)="OnActivationClick()">
+      <button class="activation-link-button" *ngIf="signupUser" mat-button color="accent" (click)="OnActivationClick()">
          {{ "USERS_SEND_ACTIVATION_LINK_AGAIN_MESSAGE" | translation | async }}
       </button>
 

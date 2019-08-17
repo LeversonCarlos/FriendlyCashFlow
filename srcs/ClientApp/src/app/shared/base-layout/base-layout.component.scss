@@ -1,14 +1,4 @@
-@import "../../../styles/screenSizes.scss";
-
 .layout-container {
   height: 100vh;
-
-  .layout-header {
-    height: $header-height;
-  }
-
-  .layout-details {
-    height: $details-height;
-    overflow-y: hidden;
-  }
+  overflow: hidden;
 }
