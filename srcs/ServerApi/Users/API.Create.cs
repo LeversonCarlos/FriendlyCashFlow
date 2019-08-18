@@ -1,10 +1,25 @@
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace FriendlyCashFlow.API.Users
 {
+
+   partial class UserController
+   {
+
+      [HttpPost("")]
+      [AllowAnonymous]
+      public async Task<ActionResult<UserVM>> CreateDataAsync([FromBody]CreateVM value)
+      {
+         using (var service = new UsersService(this.serviceProvider))
+         { return await service.CreateDataAsync(value); }
+      }
+
+   }
+
    partial class UsersService
    {
 

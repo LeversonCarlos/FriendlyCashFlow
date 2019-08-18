@@ -1,12 +1,35 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 namespace FriendlyCashFlow.API.Users
 {
+
+   partial class UserController
+   {
+
+      [HttpPost("sendActivation/{userID}")]
+      [AllowAnonymous]
+      public async Task<ActionResult<bool>> SendActivationMailAsync(string userID)
+      {
+         using (var service = new UsersService(this.serviceProvider))
+         { return await service.SendActivationMailAsync(userID); }
+      }
+
+      [HttpGet("activate/{userID}/{activationCode}")]
+      [AllowAnonymous]
+      public async Task<ActionResult<bool>> ActivateUserAsync(string userID, string activationCode)
+      {
+         using (var service = new UsersService(this.serviceProvider))
+         { return await service.ActivateUserAsync(userID, activationCode); }
+      }
+
+   }
+
    partial class UsersService
    {
 
