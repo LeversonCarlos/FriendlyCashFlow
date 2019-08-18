@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SignUp, User, SignIn } from './auth.models';
+import { SignUp, User, SignIn, Token } from './auth.models';
 import { BusyService } from 'src/app/shared/busy/busy.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -50,8 +50,11 @@ export class AuthService {
    public async signin(value: SignIn) {
       try {
          this.busy.show();
-         console.log(value);
-         // this.signupUser = await this.http.post<User>(`api/users`, value).toPromise();
+         const token = await this.http.post<Token>(`api/users/auth`, value).toPromise();
+         console.log('token', token);
+         if (token && token.UserID != null) {
+            this.router.navigate(['/home']);
+         }
       }
       catch (ex) { console.error(ex); }
       finally { this.busy.hide(); }

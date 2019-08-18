@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
-import { User } from '../auth.models';
+import { User, SignIn } from '../auth.models';
 
 @Component({
    selector: 'fs-sign-in',
@@ -28,7 +28,7 @@ export class SignInComponent implements OnInit {
 
    public OnClick() {
       if (!this.inputForm.valid) { return; }
-      this.service.signin(this.inputForm.value);
+      this.service.signin(Object.assign(new SignIn, this.inputForm.value));
    }
 
    public OnActivationClick() {
