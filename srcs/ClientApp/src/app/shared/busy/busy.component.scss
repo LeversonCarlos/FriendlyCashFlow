@@ -1,13 +1,8 @@
-@import "../../../styles/screenSizes.scss";
-
 .mat-progress-bar {
   position: fixed;
   z-index: 1001;
   left: 0;
   right: 0;
   height: 2px;
-  top: 62px;
-  @media (max-width: $max-width-xs) {
-    top: 54px;
-  }
+  top: 0;
 }
