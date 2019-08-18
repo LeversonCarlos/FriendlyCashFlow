@@ -1,9 +1,13 @@
 using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace FriendlyCashFlow.API.Users
 {
@@ -24,13 +28,39 @@ namespace FriendlyCashFlow.API.Users
             {/* TODO */ }
             if (user == null) { return this.InformationResponse("USERS_AUTHENTICATE_NOT_FOUND_WARNING"); }
 
-            // CREATE TOKEN
-            var token = new Users.TokenVM
+            // INITIALIZE RESULT
+            var result = new Users.TokenVM
             {
                UserID = user.UserID
             };
 
-            return this.OkResponse(token);
+            // IDENTITY
+            var claimsIdentity = new ClaimsIdentity(
+               new GenericIdentity(user.UserID, "Login"),
+               new Claim[] {
+                  new Claim(ClaimTypes.NameIdentifier, user.UserID),
+                  new Claim(ClaimTypes.Name, user.UserName),
+                  new Claim(ClaimTypes.GivenName, user.Text),
+                  new Claim(JwtRegisteredClaimNames.UniqueName, user.UserID)
+               }
+            );
+
+            // CREATE TOKEN
+            var tokenConfig = this.GetService<Helpers.Token>();
+            var securityToken = new SecurityTokenDescriptor
+            {
+               Issuer = tokenConfig.Configs.Issuer,
+               Audience = tokenConfig.Configs.Audience,
+               SigningCredentials = tokenConfig.GetSigningCredentials(),
+               Subject = claimsIdentity,
+               NotBefore = DateTime.UtcNow,
+               Expires = DateTime.UtcNow.AddSeconds(tokenConfig.Configs.AccessExpirationInSeconds)
+            };
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var token = tokenHandler.CreateToken(securityToken);
+            result.AccessToken = tokenHandler.WriteToken(token);
+
+            return this.OkResponse(result);
          }
          catch (Exception ex) { return this.ExceptionResponse(ex); }
       }

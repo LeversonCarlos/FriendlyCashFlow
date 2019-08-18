@@ -12,6 +12,7 @@ namespace FriendlyCashFlow
          services.AddSingleton<Helpers.Mail>();
          services.AddSingleton<Helpers.Crypt>();
          services.AddSingleton<Helpers.PasswordStrengthService>();
+         services.AddSingleton<Helpers.Token>();
       }
 
 
@@ -32,6 +33,7 @@ namespace FriendlyCashFlow
       public string BaseHost { get; set; }
       public string ConnStr { get; set; }
       public AppSettingsPasswords Passwords { get; set; }
+      public AppSettingsToken Token { get; set; }
       public AppSettingsMail Mail { get; set; }
    }
 
@@ -52,6 +54,14 @@ namespace FriendlyCashFlow
       public string FromAddress { get; set; }
       public string FromName { get; set; }
       public string FromPassword { get; set; }
+   }
+
+   public class AppSettingsToken
+   {
+      public string Secret { get; set; }
+      public string Issuer { get; set; }
+      public string Audience { get; set; }
+      public int AccessExpirationInSeconds { get; set; }
    }
 
 }
