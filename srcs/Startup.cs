@@ -40,6 +40,7 @@ namespace FriendlyCashFlow
          app.UseHttpsRedirection();
          app.UseStaticFiles();
          app.UseSpaStaticFiles();
+         app.UseAuthentication();
          this.UseLocalizationServices(app, env);
          this.UseMvcServices(app, env);
          this.UseSpaServices(app, env);
