@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FriendlyCashFlow.API.Accounts
 {
 
-   // [Authorize]
+   [Authorize]
    [Route("api/accounts")]
    public class AccountController : Base.BaseController
    {

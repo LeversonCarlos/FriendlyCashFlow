@@ -25,6 +25,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                   }
                   */
 
+                  if (!error.error) { console.error('ErrorInterceptor', error); return; }
                   const message = this.GetMessage(error.error);
                   this.msg.ShowMessage(message);
 

@@ -12,7 +12,7 @@ export class AuthInterceptor implements HttpInterceptor {
    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
       req = this.GetRequestWithAuthorization(req);
       return next.handle(req).pipe(
-         catchError(this.RequestError)
+         catchError((error: HttpErrorResponse) => this.RequestError(error))
       );
    }
 
@@ -28,16 +28,19 @@ export class AuthInterceptor implements HttpInterceptor {
    }
 
    private RequestError(error: HttpErrorResponse): Observable<never> {
+      console.log('RequestError', error);
 
-      /* UNAUTHORIZED
+      // UNAUTHORIZED
       if (error.status == 401) {
          if (this.auth.Token && this.auth.Token.RefreshToken) {
             // this.auth.logout();
             // location.reload(true);
             // return;
          }
+         this.auth.Token = null;
+         location.reload(true);
+         return Observable.create();
       }
-      */
 
       return Observable.throw(error);
    }
