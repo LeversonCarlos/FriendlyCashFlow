@@ -32,7 +32,7 @@ export class SignInComponent implements OnInit {
 
    public OnClick() {
       if (!this.inputForm.valid) { return; }
-      this.service.signin(Object.assign(new SignIn, this.inputForm.value), this.returnUrl);
+      this.service.signIn(Object.assign(new SignIn, this.inputForm.value), this.returnUrl);
    }
 
    public OnActivationClick() {

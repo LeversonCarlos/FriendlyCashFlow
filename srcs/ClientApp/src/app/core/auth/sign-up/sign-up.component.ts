@@ -27,7 +27,7 @@ export class SignUpComponent implements OnInit {
 
    public OnClick() {
       if (!this.inputForm.valid) { return; }
-      this.service.signup(this.inputForm.value);
+      this.service.signUp(this.inputForm.value);
    }
 
 }

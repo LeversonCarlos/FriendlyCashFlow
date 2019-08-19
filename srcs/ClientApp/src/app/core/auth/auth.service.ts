@@ -17,7 +17,7 @@ export class AuthService {
 
    /* SIGN UP */
    public signupUser: User;
-   public async signup(value: SignUp) {
+   public async signUp(value: SignUp) {
       try {
          this.busy.show();
          this.signupUser = await this.http.post<User>(`api/users`, value).toPromise();
@@ -69,7 +69,7 @@ export class AuthService {
 
 
    /* SIGN IN */
-   public async signin(value: SignIn, returnUrl: string): Promise<boolean> {
+   public async signIn(value: SignIn, returnUrl: string): Promise<boolean> {
       try {
          this.busy.show();
          this.Token = await this.http.post<Token>(`api/users/auth`, value).toPromise();
@@ -88,6 +88,16 @@ export class AuthService {
          return this.http.post<Token>(`api/users/auth`, Object.assign(new SignRefresh, { RefreshToken: this.Token.RefreshToken }));
       }
       catch (ex) { console.error(ex); return null; }
+   }
+
+
+   /* SIGN OUT */
+   public async signOut() {
+      try {
+         this.Token = null;
+         this.router.navigate(['/home']);
+      }
+      catch (ex) { console.error(ex); }
    }
 
 
