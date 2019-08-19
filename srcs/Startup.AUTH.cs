@@ -45,7 +45,9 @@ namespace FriendlyCashFlow
                   {
                      try
                      {
-                        //var userID = long.Parse(context.Principal.Identity.Name);
+                        var user = context.HttpContext.RequestServices.GetRequiredService<Helpers.User>();
+                        user.Identity = context.Principal.Identity;
+                        user.UserID = user.Identity.Name;
                         return Task.CompletedTask;
                      }
                      catch (Exception) { throw; }
@@ -53,8 +55,8 @@ namespace FriendlyCashFlow
                };
             });
 
-         // CONFIGURE INJECTION FOR USER SERVICES
-         // services.AddScoped<Shared.Users.IUserService, Shared.Users.UserService>();
+         // CONFIGURE INJECTION FOR USER HELPER
+         services.AddScoped<Helpers.User>();
 
          services.AddAuthorization(auth =>
             {

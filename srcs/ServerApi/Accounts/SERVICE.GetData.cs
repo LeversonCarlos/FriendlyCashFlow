@@ -13,8 +13,9 @@ namespace FriendlyCashFlow.API.Accounts
 
       private IQueryable<AccountData> GetDataQuery()
       {
+         var user = this.GetService<Helpers.User>();
          return this.dbContext.Accounts
-            .Where(x => x.RowStatus == 1 && x.ResourceID == resourceID)
+            .Where(x => x.RowStatus == 1 && x.ResourceID == user.UserID)
             .AsQueryable();
       }
 

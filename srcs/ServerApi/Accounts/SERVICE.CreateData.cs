@@ -1,10 +1,7 @@
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace FriendlyCashFlow.API.Accounts
 {
@@ -15,6 +12,7 @@ namespace FriendlyCashFlow.API.Accounts
       {
          try
          {
+            var user = this.GetService<Helpers.User>();
 
             // VALIDATE
             var validateMessage = await this.ValidateDataAsync(value);
@@ -24,7 +22,7 @@ namespace FriendlyCashFlow.API.Accounts
             // NEW MODEL
             var data = new AccountData()
             {
-               ResourceID = resourceID,
+               ResourceID = user.UserID,
                Text = value.Text,
                Type = (short)value.Type,
                Active = value.Active,
