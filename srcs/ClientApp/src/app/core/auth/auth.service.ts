@@ -48,15 +48,15 @@ export class AuthService {
       finally { this.busy.hide(); this.router.navigate(['/signin']); }
    }
 
-   public async signin(value: SignIn) {
+   public async signin(value: SignIn, returnUrl: string): Promise<boolean> {
       try {
          this.busy.show();
          this.token.Data = await this.http.post<Token>(`api/users/auth`, value).toPromise();
          if (this.token.Data && this.token.Data.UserID != null) {
-            this.router.navigate(['/home']);
+            this.router.navigateByUrl(returnUrl);
          }
       }
-      catch (ex) { console.error(ex); }
+      catch (ex) { console.error(ex); return false; }
       finally { this.busy.hide(); }
    }
 
