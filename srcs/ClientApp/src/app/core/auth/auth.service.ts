@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { MessageService } from 'src/app/shared/message/message.service';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
    providedIn: 'root'
@@ -85,7 +86,9 @@ export class AuthService {
    /* SIGN REFRESH */
    public signRefresh(): Observable<Token> {
       try {
-         return this.http.post<Token>(`api/users/auth`, Object.assign(new SignRefresh, { RefreshToken: this.Token.RefreshToken }));
+         return this.http
+            .post<Token>(`api/users/auth`, Object.assign(new SignRefresh, { RefreshToken: this.Token.RefreshToken }))
+            .pipe(tap(x => this.Token = x));
       }
       catch (ex) { console.error(ex); return null; }
    }

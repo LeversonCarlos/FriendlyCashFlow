@@ -25,7 +25,7 @@ namespace FriendlyCashFlow.API.Users
             if (value.GrantType == "password")
             { user = await this.AuthenticateAsync_GetUser(value); }
             else if (value.GrantType == "refresh_token")
-            {/* TODO */ }
+            { user = await this.AuthenticateAsync_GetUser(value.RefreshToken); }
             if (user == null) { return this.InformationResponse("USERS_AUTHENTICATE_NOT_FOUND_WARNING"); }
 
             // INITIALIZE RESULT
@@ -60,6 +60,9 @@ namespace FriendlyCashFlow.API.Users
             var token = tokenHandler.CreateToken(securityToken);
             result.AccessToken = tokenHandler.WriteToken(token);
 
+            // REFRESH TOKEN
+            result.RefreshToken = result.UserID; /* TODO */
+
             return this.OkResponse(result);
          }
          catch (Exception ex) { return this.ExceptionResponse(ex); }
@@ -77,6 +80,21 @@ namespace FriendlyCashFlow.API.Users
             // LOCATE USER
             var user = await this.GetDataQuery()
                .Where(x => x.UserName == value.UserName && x.PasswordHash == passwordHash)
+               .FirstOrDefaultAsync();
+            return user;
+
+         }
+         catch (Exception) { throw; }
+      }
+
+      private async Task<UserData> AuthenticateAsync_GetUser(string refreshToken)
+      {
+         try
+         {
+
+            // LOCATE USER
+            var user = await this.GetDataQuery()
+               .Where(x => x.UserID == refreshToken)
                .FirstOrDefaultAsync();
             return user;
 
