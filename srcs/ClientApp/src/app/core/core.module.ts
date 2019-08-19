@@ -9,7 +9,6 @@ import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { AuthService } from './auth/auth.service';
 import { ActivateComponent } from './auth/activate/activate.component';
-import { TokenService } from './auth/token.service';
 
 @NgModule({
    declarations: [HomeComponent, SignUpComponent, SignInComponent, ActivateComponent],
@@ -17,6 +16,6 @@ import { TokenService } from './auth/token.service';
       CommonModule, HttpClientModule, SharedModule
    ],
    exports: [HttpClientModule],
-   providers: [baseUrlProvider, UrlInterceptorProvider, ErrorInterceptorProvider, AuthService, TokenService]
+   providers: [baseUrlProvider, UrlInterceptorProvider, ErrorInterceptorProvider, AuthService]
 })
 export class CoreModule { }

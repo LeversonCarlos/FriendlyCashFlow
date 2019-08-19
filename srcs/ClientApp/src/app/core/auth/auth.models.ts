@@ -19,3 +19,9 @@ export class SignRefresh {
    RefreshToken: string;
    GrantType: string = 'refresh_token';
 }
+
+export class Token {
+   UserID: string;
+   AccessToken: string;
+   RefreshToken: string;
+}
