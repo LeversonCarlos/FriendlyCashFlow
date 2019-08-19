@@ -45,7 +45,7 @@ namespace FriendlyCashFlow.API.Accounts
 
 
       [HttpPost("")]
-      // [Authorize(Roles = "ActiveUser")]
+      [Authorize(Roles = "Editor")]
       public async Task<ActionResult<AccountVM>> CreateDataAsync([FromBody]AccountVM value)
       {
          using (var service = new AccountsService(this.serviceProvider))
@@ -53,7 +53,7 @@ namespace FriendlyCashFlow.API.Accounts
       }
 
       [HttpPut("{id:long}")]
-      // [Authorize(Roles = "ActiveUser")]
+      [Authorize(Roles = "Editor")]
       public async Task<ActionResult<AccountVM>> UpdateDataAsync(long id, [FromBody]AccountVM value)
       {
          using (var service = new AccountsService(this.serviceProvider))
@@ -61,7 +61,7 @@ namespace FriendlyCashFlow.API.Accounts
       }
 
       [HttpDelete("{id:long}")]
-      // [Authorize(Roles = "ActiveUser")]
+      [Authorize(Roles = "Editor")]
       public async Task<ActionResult<bool>> RemoveDataAsync(long id)
       {
          using (var service = new AccountsService(this.serviceProvider))
