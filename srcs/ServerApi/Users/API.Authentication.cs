@@ -26,7 +26,7 @@ namespace FriendlyCashFlow.API.Users
             { user = await this.AuthenticateAsync_GetUser(value); }
             else if (value.GrantType == "refresh_token")
             { user = await this.AuthenticateAsync_GetUser(value.RefreshToken); }
-            if (user == null) { return this.InformationResponse("USERS_AUTHENTICATE_NOT_FOUND_WARNING"); }
+            if (user == null) { return this.InformationResponse("USERS_USER_NOT_FOUND_WARNING"); }
 
             // INITIALIZE RESULT
             var result = new Users.TokenVM
@@ -44,6 +44,16 @@ namespace FriendlyCashFlow.API.Users
                   new Claim(JwtRegisteredClaimNames.UniqueName, user.UserID)
                }
             );
+
+            // LOCATE ROLES
+            var roleList = await this.AuthenticateAsync_GetRoles(user.UserID);
+            if (roleList == null || roleList.Length == 0)
+            {
+               await this.SendActivationMailAsync(user.UserID);
+               return this.InformationResponse("USERS_USER_NOT_ACTIVATED_WARNING", "USERS_ACTIVATION_INSTRUCTIONS_WAS_SENT_MESSAGE");
+            }
+            foreach (var role in roleList)
+            { claimsIdentity.Claims.Append(new Claim(ClaimTypes.Role, role)); }
 
             // CREATE TOKEN
             var tokenConfig = this.GetService<Helpers.Token>();
@@ -98,6 +108,26 @@ namespace FriendlyCashFlow.API.Users
                .FirstOrDefaultAsync();
             return user;
 
+         }
+         catch (Exception) { throw; }
+      }
+
+      private async Task<string[]> AuthenticateAsync_GetRoles(string userID)
+      {
+         try
+         {
+
+            // LOAD USER ROLES
+            var roleList = await this.dbContext.UserRoles
+               .Where(x => x.RowStatus == 1 && x.UserID == userID)
+               .Select(x => x.RoleID)
+               .ToListAsync();
+
+            // CHECK SIGNATURES
+            // TODO
+
+            // RESULT
+            return roleList.ToArray();
          }
          catch (Exception) { throw; }
       }
