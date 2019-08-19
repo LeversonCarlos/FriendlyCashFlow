@@ -12,7 +12,6 @@ namespace FriendlyCashFlow
          services.AddSingleton<Helpers.Mail>();
          services.AddSingleton<Helpers.Crypt>();
          services.AddSingleton<Helpers.PasswordStrengthService>();
-         services.AddSingleton<Helpers.Token>();
       }
 
 

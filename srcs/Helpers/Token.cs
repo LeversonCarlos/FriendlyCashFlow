@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace FriendlyCashFlow.Helpers
@@ -7,17 +5,19 @@ namespace FriendlyCashFlow.Helpers
    internal class Token
    {
 
-      private readonly IOptions<AppSettings> _appSettings;
-      public Token([FromServices] IOptions<AppSettings> appSettings) { this._appSettings = appSettings; }
+      public readonly AppSettingsToken Configs;
+      public readonly SymmetricSecurityKey SecurityKey;
+      public readonly SigningCredentials SigningCredentials;
 
-      public AppSettingsToken Configs { get { return this._appSettings.Value.Token; } }
-
-      public SigningCredentials GetSigningCredentials()
+      public Token(AppSettings appSettings)
       {
+
+         this.Configs = appSettings.Token;
+
          var secretBytes = System.Text.Encoding.ASCII.GetBytes(this.Configs.Secret);
-         var securityKey = new SymmetricSecurityKey(secretBytes);
-         var signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
-         return signingCredentials;
+         this.SecurityKey = new SymmetricSecurityKey(secretBytes);
+
+         this.SigningCredentials = new SigningCredentials(this.SecurityKey, SecurityAlgorithms.HmacSha256Signature);
       }
 
    }

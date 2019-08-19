@@ -51,7 +51,7 @@ namespace FriendlyCashFlow.API.Users
             {
                Issuer = tokenConfig.Configs.Issuer,
                Audience = tokenConfig.Configs.Audience,
-               SigningCredentials = tokenConfig.GetSigningCredentials(),
+               SigningCredentials = tokenConfig.SigningCredentials,
                Subject = claimsIdentity,
                NotBefore = DateTime.UtcNow,
                Expires = DateTime.UtcNow.AddSeconds(tokenConfig.Configs.AccessExpirationInSeconds)
