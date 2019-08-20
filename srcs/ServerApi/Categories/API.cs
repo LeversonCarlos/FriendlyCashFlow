@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,6 +10,12 @@ namespace FriendlyCashFlow.API.Categories
    public partial class CategoriesController : Base.BaseController
    {
       public CategoriesController(IServiceProvider _serviceProvider) : base(_serviceProvider) { }
+   }
+
+   internal partial class CategoriesService : Base.BaseService
+   {
+      private const string resourceID = "{ResourceID}";
+      public CategoriesService(IServiceProvider serviceProvider) : base(serviceProvider) { }
    }
 
 }
