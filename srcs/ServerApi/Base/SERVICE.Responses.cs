@@ -46,8 +46,7 @@ namespace FriendlyCashFlow.API.Base
          var prefix = (statusCode == enStatusCode.Info ? "INFO" : "WARNING");
          foreach (var messageKey in messages)
          {
-            // var messageValue = this.GetTranslation(messageKey);
-            var messageValue = messageKey;
+            var messageValue = this.GetTranslation(messageKey);
             modelState.AddModelError($"{prefix}_{messageKey}", messageValue);
          }
          return new BadRequestObjectResult(modelState);

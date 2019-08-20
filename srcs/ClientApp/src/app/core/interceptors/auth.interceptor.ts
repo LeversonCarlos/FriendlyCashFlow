@@ -31,6 +31,11 @@ export class ResponseAuthInterceptor implements HttpInterceptor {
                if (this.auth.Token && this.auth.Token.RefreshToken) {
                   return this.auth.signRefresh()
                      .pipe(
+                        catchError(() => {
+                           this.auth.Token = null;
+                           location.reload(true);
+                           return throwError(error);
+                        }),
                         switchMap(() => {
                            req = req.clone({
                               setHeaders: {
