@@ -8,13 +8,18 @@ namespace FriendlyCashFlow
 
       private void AddDataServices(IServiceCollection services)
       {
+
+         // DATA CONTEXT
          var appSettings = this.GetAppSettings(services);
          services.AddDbContext<API.Base.dbContext>(x =>
             x.UseSqlServer(appSettings.ConnStr, opt =>
             {
                opt.MigrationsHistoryTable("v6_MigrationsHistory");
             }));
-         // services.AddDbContext<API.Shared.dbContext>(x => x.UseInMemoryDatabase("FriendlyCashFlowDb"));
+
+         // CONFIGURE INJECTION FOR DATA SERVICES
+         services.AddScoped<API.Accounts.AccountsService>();
+
       }
 
    }

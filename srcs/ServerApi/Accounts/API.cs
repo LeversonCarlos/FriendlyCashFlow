@@ -9,17 +9,9 @@ namespace FriendlyCashFlow.API.Accounts
 
    [Authorize]
    [Route("api/accounts")]
-   public class AccountController : Base.BaseController
+   public partial class AccountController : Base.BaseController
    {
       public AccountController(IServiceProvider _serviceProvider) : base(_serviceProvider) { }
-
-
-      [HttpGet("types")]
-      public async Task<ActionResult<List<AccountTypeVM>>> GetCategoryTypeAsync()
-      {
-         using (var service = new AccountsService(this.serviceProvider))
-         { return await service.GetAccountTypesAsync(); }
-      }
 
 
       [HttpGet("search")]
