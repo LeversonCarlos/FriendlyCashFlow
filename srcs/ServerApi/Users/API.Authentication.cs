@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -37,17 +38,6 @@ namespace FriendlyCashFlow.API.Users
             // LOCATE RESOURCE
             var resourceID = await this.AuthenticateAsync_GetResource(user.UserID);
 
-            // IDENTITY
-            var claimsIdentity = new ClaimsIdentity(
-               new GenericIdentity(user.UserID, "Login"),
-               new Claim[] {
-                  new Claim(ClaimTypes.NameIdentifier, user.UserID),
-                  new Claim(ClaimTypes.Name, user.UserName),
-                  new Claim(ClaimTypes.GivenName, user.Text),
-                  new Claim(ClaimTypes.System, resourceID)
-               }
-            );
-
             // LOCATE ROLES
             var roleList = await this.AuthenticateAsync_GetRoles(user.UserID, resourceID);
             if (roleList == null || roleList.Length == 0)
@@ -55,8 +45,20 @@ namespace FriendlyCashFlow.API.Users
                await this.SendActivationMailAsync(user.UserID);
                return this.InformationResponse("USERS_USER_NOT_ACTIVATED_WARNING", "USERS_ACTIVATION_INSTRUCTIONS_WAS_SENT_MESSAGE");
             }
+            var claimsList = new List<Claim>{
+               new Claim(ClaimTypes.NameIdentifier, user.UserID),
+               new Claim(ClaimTypes.Name, user.UserName),
+               new Claim(ClaimTypes.GivenName, user.Text),
+               new Claim(ClaimTypes.System, resourceID)
+            };
             foreach (var role in roleList)
-            { claimsIdentity.Claims.Append(new Claim(ClaimTypes.Role, role)); }
+            { claimsList.Add(new Claim(ClaimTypes.Role, role)); }
+
+            // IDENTITY
+            var claimsIdentity = new ClaimsIdentity(
+               new GenericIdentity(user.UserID, "Login"),
+               claimsList.ToArray()
+            );
 
             // CREATE TOKEN
             var tokenConfig = this.GetService<Helpers.Token>();
@@ -122,7 +124,7 @@ namespace FriendlyCashFlow.API.Users
             // TODO
             // TRY TO LOCATE ON PREVIOUS TOKEN LOGINS
             // TAKE THE DEFAULT VALUE FROM THE USER
-            return await Task.FromResult(userID);
+            return await Task.FromResult(userID.Replace("-", ""));
          }
          catch (Exception) { throw; }
       }
