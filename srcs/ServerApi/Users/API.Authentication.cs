@@ -28,23 +28,22 @@ namespace FriendlyCashFlow.API.Users
             else if (value.GrantType == "refresh_token")
             { user = await this.AuthenticateAsync_GetUser(value.RefreshToken); }
             if (user == null) { return this.InformationResponse("USERS_USER_NOT_FOUND_WARNING"); }
+            var result = new Users.TokenVM { UserID = user.UserID };
 
-            // INITIALIZE RESULT
-            var result = new Users.TokenVM
-            {
-               UserID = user.UserID
-            };
-
-            // LOCATE RESOURCE
-            var resourceID = await this.AuthenticateAsync_GetResource(user.UserID);
-
-            // LOCATE ROLES
-            var roleList = await this.AuthenticateAsync_GetRoles(user.UserID, resourceID);
-            if (roleList == null || roleList.Length == 0)
+            // CHECK ACTIVATION
+            if (user.RowStatus == (short)Base.enRowStatus.Temporary)
             {
                await this.SendActivationMailAsync(user.UserID);
                return this.InformationResponse("USERS_USER_NOT_ACTIVATED_WARNING", "USERS_ACTIVATION_INSTRUCTIONS_WAS_SENT_MESSAGE");
             }
+
+            // LOCATE RESOURCE AND ROLES
+            var resourceID = await this.AuthenticateAsync_GetResource(user.UserID);
+            var roleList = await this.AuthenticateAsync_GetRoles(user.UserID, resourceID);
+            if (roleList == null || roleList.Length == 0)
+            { return this.InformationResponse("USERS_USER_HAS_NO_ACCESS_TO_THIS_RESOURCE_WARNING"); }
+
+            // GENERATE IDENTITY
             var claimsList = new List<Claim>{
                new Claim(ClaimTypes.NameIdentifier, user.UserID),
                new Claim(ClaimTypes.Name, user.UserName),
@@ -53,8 +52,6 @@ namespace FriendlyCashFlow.API.Users
             };
             foreach (var role in roleList)
             { claimsList.Add(new Claim(ClaimTypes.Role, role)); }
-
-            // IDENTITY
             var claimsIdentity = new ClaimsIdentity(
                new GenericIdentity(user.UserID, "Login"),
                claimsList.ToArray()
@@ -93,8 +90,8 @@ namespace FriendlyCashFlow.API.Users
             var passwordHash = cryptService.Encrypt(value.Password);
 
             // LOCATE USER
-            var user = await this.GetDataQuery()
-               .Where(x => x.UserName == value.UserName && x.PasswordHash == passwordHash)
+            var user = await this.dbContext.Users
+               .Where(x => x.RowStatus != (short)Base.enRowStatus.Removed && x.UserName == value.UserName && x.PasswordHash == passwordHash)
                .FirstOrDefaultAsync();
             return user;
 
