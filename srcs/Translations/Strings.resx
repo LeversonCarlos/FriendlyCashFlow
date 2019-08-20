@@ -189,6 +189,9 @@
   <data name="BASE_CANCEL_COMMAND" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="BASE_FORBIDDEN_MESSAGE" xml:space="preserve">
+    <value>Forbidden access. Check your permissions on this resource and the status of your signature.</value>
+  </data>
   <data name="BASE_REMOVE_COMMAND" xml:space="preserve">
     <value>Remove</value>
   </data>
@@ -312,8 +315,14 @@
   <data name="USERS_USERNAME_INSTRUCTIONS" xml:space="preserve">
     <value>Type in your email</value>
   </data>
+  <data name="USERS_USER_ALREADY_ACTIVATED_WARNING" xml:space="preserve">
+    <value>User already activated</value>
+  </data>
   <data name="USERS_USER_NAME_ALREADY_EXISTS_WARNING" xml:space="preserve">
     <value>User mail already been used.</value>
+  </data>
+  <data name="USERS_USER_NOT_ACTIVATED_WARNING" xml:space="preserve">
+    <value>User not activated yet.</value>
   </data>
   <data name="USERS_USER_NOT_FOUND_WARNING" xml:space="preserve">
     <value>User not found.</value>

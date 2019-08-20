@@ -40,8 +40,6 @@ namespace FriendlyCashFlow.API.Users
             // LOCATE RESOURCE AND ROLES
             var resourceID = await this.AuthenticateAsync_GetResource(user.UserID);
             var roleList = await this.AuthenticateAsync_GetRoles(user.UserID, resourceID);
-            if (roleList == null || roleList.Length == 0)
-            { return this.InformationResponse("USERS_USER_HAS_NO_ACCESS_TO_THIS_RESOURCE_WARNING"); }
 
             // GENERATE IDENTITY
             var claimsList = new List<Claim>{

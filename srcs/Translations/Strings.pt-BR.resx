@@ -189,6 +189,9 @@
   <data name="BASE_CANCEL_COMMAND" xml:space="preserve">
     <value>Cancelar</value>
   </data>
+  <data name="BASE_FORBIDDEN_MESSAGE" xml:space="preserve">
+    <value>Acesso negado. Verifique suas permissões no recurso e o status de sua assinatura.</value>
+  </data>
   <data name="BASE_REMOVE_COMMAND" xml:space="preserve">
     <value>Remover</value>
   </data>
@@ -312,8 +315,14 @@
   <data name="USERS_USERNAME_INSTRUCTIONS" xml:space="preserve">
     <value>Informe seu email</value>
   </data>
+  <data name="USERS_USER_ALREADY_ACTIVATED_WARNING" xml:space="preserve">
+    <value>Usuário já ativado</value>
+  </data>
   <data name="USERS_USER_NAME_ALREADY_EXISTS_WARNING" xml:space="preserve">
     <value>Email de usuário já utilizado.</value>
+  </data>
+  <data name="USERS_USER_NOT_ACTIVATED_WARNING" xml:space="preserve">
+    <value>Usuário ainda não ativado.</value>
   </data>
   <data name="USERS_USER_NOT_FOUND_WARNING" xml:space="preserve">
     <value>Usuário não encontrado.</value>
