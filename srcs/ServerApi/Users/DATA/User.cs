@@ -26,6 +26,10 @@ namespace FriendlyCashFlow.API.Users
       [StringLength(500), Required]
       public string Text { get; set; }
 
+      [Column(TypeName = "varchar(128)")]
+      [StringLength(128)]
+      public string SelectedResourceID { get; set; }
+
       [DataType(DataType.DateTime)]
       public DateTime JoinDate { get; set; }
 

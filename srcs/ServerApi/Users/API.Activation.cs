@@ -83,6 +83,7 @@ namespace FriendlyCashFlow.API.Users
                .ToList();
 
             // APPLY
+            data.SelectedResourceID = resource.ResourceID;
             data.RowStatus = (short)Base.enRowStatus.Active;
             await this.dbContext.UserRoles.AddRangeAsync(userRoles);
             await this.dbContext.SaveChangesAsync();
