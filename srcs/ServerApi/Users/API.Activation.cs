@@ -27,7 +27,8 @@ namespace FriendlyCashFlow.API.Users
             var cryptService = this.GetService<Helpers.Crypt>();
             var activationCode = $"{data.UserID}-{data.UserName}-{data.JoinDate.ToString("yyyyMMdd-HHmmss")}";
             activationCode = cryptService.Encrypt(activationCode);
-            activationCode = System.Web.HttpUtility.UrlEncode(activationCode);
+            // activationCode = System.Web.HttpUtility.UrlEncode(activationCode);
+            activationCode = Uri.EscapeDataString(activationCode);
             var mailBodyCommandLink = $"{appSettings.BaseHost}/activate/{data.UserID}/{activationCode}";
 
             // SEND ACTIVATION MAIL
@@ -56,7 +57,8 @@ namespace FriendlyCashFlow.API.Users
 
             // ACTIVATION CODE
             var cryptService = this.GetService<Helpers.Crypt>();
-            activationCode = System.Web.HttpUtility.UrlDecode(activationCode);
+            // activationCode = System.Web.HttpUtility.UrlDecode(activationCode);
+            activationCode = Uri.UnescapeDataString(activationCode);
             var userActivationCode = cryptService.Encrypt($"{data.UserID}-{data.UserName}-{data.JoinDate.ToString("yyyyMMdd-HHmmss")}");
             if (userActivationCode != activationCode)
             { return this.WarningResponse(this.GetTranslation("USERS_INVALID_ACTIVATION_CODE_WARNING")); }

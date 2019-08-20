@@ -44,7 +44,8 @@ export class AuthService {
    public async activateUser(userID: string, activationCode: string) {
       try {
          this.busy.show();
-         const result = await this.http.get<User>(`api/users/activate/${userID}/${encodeURIComponent(activationCode)}`).toPromise();
+         const url = `api/users/activate/${userID}/${encodeURIComponent(activationCode)}`;
+         const result = await this.http.get<User>(url).toPromise();
          if (result) { await this.msg.ShowInfo('USERS_ACCOUNT_HAS_BEEN_ACTIVATED_MESSAGE'); }
       }
       catch (ex) { console.error(ex); }
