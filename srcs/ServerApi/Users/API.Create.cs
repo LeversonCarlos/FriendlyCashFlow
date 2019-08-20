@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -6,19 +7,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FriendlyCashFlow.API.Users
 {
-
-   partial class UserController
-   {
-
-      [HttpPost("")]
-      [AllowAnonymous]
-      public async Task<ActionResult<UserVM>> CreateDataAsync([FromBody]CreateVM value)
-      {
-         using (var service = new UsersService(this.serviceProvider))
-         { return await service.CreateDataAsync(value); }
-      }
-
-   }
 
    partial class UsersService
    {
@@ -33,7 +21,7 @@ namespace FriendlyCashFlow.API.Users
             if (passwordMessages.Length != 0) { return this.WarningResponse(passwordMessages); }
 
             // VALIDATE DUPLICITY
-            if (await this.GetDataQuery().CountAsync(x => x.UserName == value.UserName) != 0)
+            if (await this.dbContext.Users.CountAsync(x => x.UserName == value.UserName) != 0)
             { return this.WarningResponse(this.GetTranslation("USERS_USER_NAME_ALREADY_EXISTS_WARNING")); }
 
             // NEW MODEL
@@ -42,7 +30,7 @@ namespace FriendlyCashFlow.API.Users
                UserName = value.UserName,
                Text = value.Description,
                JoinDate = DateTime.Now,
-               RowStatus = 1
+               RowStatus = (short)Base.enRowStatus.Temporary
             };
 
             // HASH THE PASSWORD
@@ -80,4 +68,18 @@ namespace FriendlyCashFlow.API.Users
       }
 
    }
+
+   partial class UserController
+   {
+
+      [HttpPost("")]
+      [AllowAnonymous]
+      public async Task<ActionResult<UserVM>> CreateDataAsync([FromBody]CreateVM value)
+      {
+         var service = this.GetService<UsersService>();
+         return await service.CreateDataAsync(value);
+      }
+
+   }
+
 }

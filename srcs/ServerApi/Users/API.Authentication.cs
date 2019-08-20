@@ -34,6 +34,9 @@ namespace FriendlyCashFlow.API.Users
                UserID = user.UserID
             };
 
+            // LOCATE RESOURCE
+            var resourceID = await this.AuthenticateAsync_GetResource(user.UserID);
+
             // IDENTITY
             var claimsIdentity = new ClaimsIdentity(
                new GenericIdentity(user.UserID, "Login"),
@@ -41,12 +44,12 @@ namespace FriendlyCashFlow.API.Users
                   new Claim(ClaimTypes.NameIdentifier, user.UserID),
                   new Claim(ClaimTypes.Name, user.UserName),
                   new Claim(ClaimTypes.GivenName, user.Text),
-                  new Claim(JwtRegisteredClaimNames.UniqueName, user.UserID)
+                  new Claim(ClaimTypes.System, resourceID)
                }
             );
 
             // LOCATE ROLES
-            var roleList = await this.AuthenticateAsync_GetRoles(user.UserID);
+            var roleList = await this.AuthenticateAsync_GetRoles(user.UserID, resourceID);
             if (roleList == null || roleList.Length == 0)
             {
                await this.SendActivationMailAsync(user.UserID);
@@ -112,7 +115,19 @@ namespace FriendlyCashFlow.API.Users
          catch (Exception) { throw; }
       }
 
-      private async Task<string[]> AuthenticateAsync_GetRoles(string userID)
+      private async Task<string> AuthenticateAsync_GetResource(string userID)
+      {
+         try
+         {
+            // TODO
+            // TRY TO LOCATE ON PREVIOUS TOKEN LOGINS
+            // TAKE THE DEFAULT VALUE FROM THE USER
+            return userID;
+         }
+         catch (Exception) { throw; }
+      }
+
+      private async Task<string[]> AuthenticateAsync_GetRoles(string userID, string resourceID)
       {
          try
          {
@@ -141,9 +156,8 @@ namespace FriendlyCashFlow.API.Users
       [HttpPost("auth")]
       public async Task<ActionResult<Users.TokenVM>> AuthenticateAsync([FromBody]Users.AuthVM value)
       {
-         //var userService = this.GetInjectedService<Users.IUserService>();
-         using (var service = new UsersService(this.serviceProvider))
-         { return await service.AuthenticateAsync(value); }
+         var service = this.GetService<UsersService>();
+         return await service.AuthenticateAsync(value);
       }
 
    }
