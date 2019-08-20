@@ -15,6 +15,7 @@ namespace FriendlyCashFlow.API.Base
          this.OnModelCreating_Users(modelBuilder);
          this.OnModelCreating_UserResources(modelBuilder);
          this.OnModelCreating_UserRoles(modelBuilder);
+         this.OnModelCreating_UserToken(modelBuilder);
          this.OnModelCreating_Accounts(modelBuilder);
          this.OnModelCreating_Categories(modelBuilder);
          base.OnModelCreating(modelBuilder);
