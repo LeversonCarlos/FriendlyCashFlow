@@ -1,13 +1,13 @@
-
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace FriendlyCashFlow.API.Accounts
 {
+
    partial class AccountsService
    {
 
@@ -31,4 +31,16 @@ namespace FriendlyCashFlow.API.Accounts
       }
 
    }
+
+   partial class AccountController
+   {
+      [HttpDelete("{id:long}")]
+      [Authorize(Roles = "Editor")]
+      public async Task<ActionResult<bool>> RemoveDataAsync(long id)
+      {
+         var service = this.GetService<AccountsService>();
+         return await service.RemoveDataAsync(id);
+      }
+   }
+
 }

@@ -1,13 +1,12 @@
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace FriendlyCashFlow.API.Accounts
 {
+
    partial class AccountsService
    {
 
@@ -15,6 +14,7 @@ namespace FriendlyCashFlow.API.Accounts
       {
          try
          {
+            var user = this.GetService<Helpers.User>();
 
             // VALIDATE
             var validateMessage = await this.ValidateDataAsync(value);
@@ -24,7 +24,7 @@ namespace FriendlyCashFlow.API.Accounts
             // NEW MODEL
             var data = new AccountData()
             {
-               ResourceID = resourceID,
+               ResourceID = user.ResourceID,
                Text = value.Text,
                Type = (short)value.Type,
                Active = value.Active,
@@ -45,4 +45,16 @@ namespace FriendlyCashFlow.API.Accounts
       }
 
    }
+
+   partial class AccountController
+   {
+      [HttpPost("")]
+      [Authorize(Roles = "Editor")]
+      public async Task<ActionResult<AccountVM>> CreateDataAsync([FromBody]AccountVM value)
+      {
+         var service = this.GetService<AccountsService>();
+         return await service.CreateDataAsync(value);
+      }
+   }
+
 }

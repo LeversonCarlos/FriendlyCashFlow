@@ -19,20 +19,13 @@ export class ErrorInterceptor implements HttpInterceptor {
                   if (!error || !error.status || error.status == 200) { return; }
                   if (req.url.includes('api/translations')) { return; }
 
-                  /* TODO: UNAUTHORIZED
-                  if (error.status == 401) {
-                     this.auth.logout();
-                     location.reload(true);
-                     return;
-                  }
-                  */
-
-                  /* TODO: FORBIDDEN
+                  // FORBIDDEN
                   if (error.status == 403) {
+                     this.msg.ShowInfo("BASE_FORBIDDEN_MESSAGE");
                      return;
                   }
-                  */
 
+                  if (!error.error) { console.error('ErrorInterceptor', error); return; }
                   const message = this.GetMessage(error.error);
                   this.msg.ShowMessage(message);
 

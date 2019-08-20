@@ -32,7 +32,7 @@
          <span>{{ 'SETTINGS_MENU' | translation | async }}</span>
          <mat-icon matListIcon>settings</mat-icon>
       </button>
-      <button mat-list-item disabled>
+      <button mat-list-item (click)="OnLogoutClick()">
          <span>{{ 'LOGOUT_MENU' | translation | async }}</span>
          <mat-icon matListIcon>power_settings_new</mat-icon>
       </button>

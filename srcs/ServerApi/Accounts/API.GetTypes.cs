@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FriendlyCashFlow.API.Accounts
 {
+
    partial class AccountsService
    {
 
@@ -32,4 +32,15 @@ namespace FriendlyCashFlow.API.Accounts
       }
 
    }
+
+   partial class AccountController
+   {
+      [HttpGet("types")]
+      public async Task<ActionResult<List<AccountTypeVM>>> GetAccountTypesAsync()
+      {
+         var service = this.GetService<AccountsService>();
+         return await service.GetAccountTypesAsync();
+      }
+   }
+
 }

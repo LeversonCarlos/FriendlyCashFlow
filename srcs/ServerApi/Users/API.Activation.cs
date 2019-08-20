@@ -1,12 +1,14 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 namespace FriendlyCashFlow.API.Users
 {
+
    partial class UsersService
    {
 
@@ -16,8 +18,9 @@ namespace FriendlyCashFlow.API.Users
          {
 
             // LOAD DATA
-            var data = await this.GetDataQuery().Where(x => x.UserID == userID).FirstOrDefaultAsync();
+            var data = await this.dbContext.Users.Where(x => x.UserID == userID).FirstOrDefaultAsync();
             if (data == null) { return this.NotFoundResponse(); }
+            if (data.RowStatus != (short)Base.enRowStatus.Temporary) { return this.WarningResponse(this.GetTranslation("USERS_USER_ALREADY_ACTIVATED_WARNING")); }
 
             // ACTIVATION LINK
             var appSettings = this.GetService<IOptions<AppSettings>>().Value;
@@ -47,9 +50,9 @@ namespace FriendlyCashFlow.API.Users
          {
 
             // LOCATE USER
-            var data = await this.GetDataQuery().Where(x => x.UserID == userID).FirstOrDefaultAsync();
-            if (data == null)
-            { return this.WarningResponse(this.GetTranslation("USERS_USER_NOT_FOUND_WARNING")); }
+            var data = await this.dbContext.Users.Where(x => x.UserID == userID).FirstOrDefaultAsync();
+            if (data == null) { return this.WarningResponse(this.GetTranslation("USERS_USER_NOT_FOUND_WARNING")); }
+            if (data.RowStatus != (short)Base.enRowStatus.Temporary) { return this.WarningResponse(this.GetTranslation("USERS_USER_ALREADY_ACTIVATED_WARNING")); }
 
             // ACTIVATION CODE
             var cryptService = this.GetService<Helpers.Crypt>();
@@ -58,8 +61,20 @@ namespace FriendlyCashFlow.API.Users
             if (userActivationCode != activationCode)
             { return this.WarningResponse(this.GetTranslation("USERS_INVALID_ACTIVATION_CODE_WARNING")); }
 
+            // GENERATE RESOURCE
+            var resourceID = data.UserID.Replace("-", ""); /* TODO */
+            var userRoles = (new UserRoleEnum[] { UserRoleEnum.Viewer, UserRoleEnum.Editor, UserRoleEnum.Owner })
+               .Select(x => new UserRoleData
+               {
+                  UserID = data.UserID,
+                  //ResourceID = resourceID,
+                  RoleID = x.ToString()
+               })
+               .ToList();
+
             // APPLY
-            await this.dbContext.UserRoles.AddAsync(new UserRoleData { UserID = data.UserID, RoleID = UserRoleEnum.Viewer.ToString() });
+            data.RowStatus = (short)Base.enRowStatus.Active;
+            await this.dbContext.UserRoles.AddRangeAsync(userRoles);
             await this.dbContext.SaveChangesAsync();
 
             // RESULT
@@ -70,4 +85,26 @@ namespace FriendlyCashFlow.API.Users
       }
 
    }
+
+   partial class UserController
+   {
+
+      [HttpPost("sendActivation/{userID}")]
+      [AllowAnonymous]
+      public async Task<ActionResult<bool>> SendActivationMailAsync(string userID)
+      {
+         var service = this.GetService<UsersService>();
+         return await service.SendActivationMailAsync(userID);
+      }
+
+      [HttpGet("activate/{userID}/{activationCode}")]
+      [AllowAnonymous]
+      public async Task<ActionResult<bool>> ActivateUserAsync(string userID, string activationCode)
+      {
+         var service = this.GetService<UsersService>();
+         return await service.ActivateUserAsync(userID, activationCode);
+      }
+
+   }
+
 }

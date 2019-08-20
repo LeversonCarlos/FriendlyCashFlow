@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FriendlyCashFlow.API.Users
 {
-   public enum UserRoleEnum : short { None = 0, Viewer }
+   public enum UserRoleEnum : short { None = 0, Viewer = 1, Editor = 2, Owner = 3 }
 
    [Table("v6_identityUserRoles")]
    internal class UserRoleData : Base.BaseData
