@@ -1,13 +1,13 @@
-
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace FriendlyCashFlow.API.Categories
 {
+
    partial class CategoriesService
    {
 
@@ -50,4 +50,16 @@ namespace FriendlyCashFlow.API.Categories
       }
 
    }
+
+   partial class CategoriesController
+   {
+      [HttpPost("")]
+      [Authorize(Roles = "Editor")]
+      public async Task<ActionResult<CategoryVM>> CreateDataAsync([FromBody]CategoryVM value)
+      {
+         using (var service = new CategoriesService(this.serviceProvider))
+         { return await service.CreateDataAsync(value); }
+      }
+   }
+
 }

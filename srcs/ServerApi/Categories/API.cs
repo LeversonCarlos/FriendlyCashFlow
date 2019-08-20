@@ -1,24 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FriendlyCashFlow.API.Categories
 {
 
-   // [Authorize]
+   [Authorize]
    [Route("api/categories")]
-   public class CategoriesController : Base.BaseController
+   public partial class CategoriesController : Base.BaseController
    {
       public CategoriesController(IServiceProvider _serviceProvider) : base(_serviceProvider) { }
-
-
-      [HttpGet("types")]
-      public async Task<ActionResult<List<CategoryTypeVM>>> GetCategoryTypeAsync()
-      {
-         using (var service = new CategoriesService(this.serviceProvider))
-         { return await service.GetCategoryTypesAsync(); }
-      }
 
 
       [HttpGet("search/{categoryType}")]
@@ -42,14 +35,6 @@ namespace FriendlyCashFlow.API.Categories
          { return await service.GetDataAsync(id); }
       }
 
-
-      [HttpPost("")]
-      // [Authorize(Roles = "ActiveUser")]
-      public async Task<ActionResult<CategoryVM>> CreateDataAsync([FromBody]CategoryVM value)
-      {
-         using (var service = new CategoriesService(this.serviceProvider))
-         { return await service.CreateDataAsync(value); }
-      }
 
       [HttpPut("{id:long}")]
       // [Authorize(Roles = "ActiveUser")]

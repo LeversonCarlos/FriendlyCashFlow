@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FriendlyCashFlow.API.Categories
 {
+
    partial class CategoriesService
    {
 
@@ -22,7 +22,7 @@ namespace FriendlyCashFlow.API.Categories
                    Value = x,
                    Text = this.GetTranslation($"{categoryText}_{x.ToString().ToUpper()}")
                 })
-                .OrderBy(x=> x.Text)
+                .OrderBy(x => x.Text)
                 .ToList();
             result = await Task.FromResult(result); // just to keep it async
             return this.OkResponse(result);
@@ -32,4 +32,15 @@ namespace FriendlyCashFlow.API.Categories
       }
 
    }
+
+   partial class CategoriesController
+   {
+      [HttpGet("types")]
+      public async Task<ActionResult<List<CategoryTypeVM>>> GetCategoryTypeAsync()
+      {
+         var service = this.GetService<CategoriesService>();
+         return await service.GetCategoryTypesAsync();
+      }
+   }
+
 }
