@@ -62,7 +62,7 @@ namespace FriendlyCashFlow.API.Users
             { return this.WarningResponse(this.GetTranslation("USERS_INVALID_ACTIVATION_CODE_WARNING")); }
 
             // GENERATE RESOURCE
-            var resourceID = data.UserID; /* TODO */
+            var resourceID = data.UserID.Replace("-", ""); /* TODO */
             var userRoles = (new UserRoleEnum[] { UserRoleEnum.Viewer, UserRoleEnum.Editor, UserRoleEnum.Owner })
                .Select(x => new UserRoleData
                {
