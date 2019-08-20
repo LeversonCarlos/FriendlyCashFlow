@@ -14,14 +14,6 @@ namespace FriendlyCashFlow.API.Accounts
       public AccountController(IServiceProvider _serviceProvider) : base(_serviceProvider) { }
 
 
-      [HttpPut("{id:long}")]
-      [Authorize(Roles = "Editor")]
-      public async Task<ActionResult<AccountVM>> UpdateDataAsync(long id, [FromBody]AccountVM value)
-      {
-         using (var service = new AccountsService(this.serviceProvider))
-         { return await service.UpdateDataAsync(id, value); }
-      }
-
       [HttpDelete("{id:long}")]
       [Authorize(Roles = "Editor")]
       public async Task<ActionResult<bool>> RemoveDataAsync(long id)
