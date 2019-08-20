@@ -19,7 +19,11 @@ namespace FriendlyCashFlow.API.Users
       [StringLength(128), Required]
       public string UserID { get; set; }
 
-      [Column(Order = 1, TypeName = "varchar(15)")]
+      [Column(Order = 1, TypeName = "varchar(128)")]
+      [StringLength(128), Required]
+      public string ResourceID { get; set; }
+
+      [Column(Order = 2, TypeName = "varchar(15)")]
       [StringLength(15), Required]
       public string RoleID { get; set; }
 
@@ -37,6 +41,9 @@ namespace FriendlyCashFlow.API.Base
       {
          modelBuilder.Entity<Users.UserRoleData>()
             .HasKey(c => new { c.UserID, c.RoleID });
+         modelBuilder.Entity<Users.UserRoleData>()
+            .HasIndex(x => new { x.RowStatus, x.UserID, x.ResourceID, x.RoleID })
+            .HasName("v6_identityUserRoles_index_Search");
       }
 
    }

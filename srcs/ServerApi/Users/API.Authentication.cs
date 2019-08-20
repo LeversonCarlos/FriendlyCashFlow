@@ -139,7 +139,7 @@ namespace FriendlyCashFlow.API.Users
 
             // LOAD USER ROLES
             var roleList = await this.dbContext.UserRoles
-               .Where(x => x.RowStatus == 1 && x.UserID == userID)
+               .Where(x => x.RowStatus == 1 && x.UserID == userID && x.ResourceID == resourceID)
                .Select(x => x.RoleID)
                .ToListAsync();
 

@@ -75,7 +75,7 @@ namespace FriendlyCashFlow.API.Users
                .Select(x => new UserRoleData
                {
                   UserID = data.UserID,
-                  //ResourceID = resourceID,
+                  ResourceID = resource.ResourceID,
                   RoleID = x.ToString()
                })
                .ToList();
