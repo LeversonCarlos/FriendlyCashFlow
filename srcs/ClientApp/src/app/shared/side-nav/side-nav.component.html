@@ -7,7 +7,7 @@
          <span>{{ 'DASHBOARD_MENU' | translation | async }}</span>
          <mat-icon matListIcon>dashboard</mat-icon>
       </button>
-      <button mat-list-item routerLink="/entries" disabled>
+      <button mat-list-item routerLink="/entries" *ngIf="false">
          <span>{{ 'ENTRIES_MENU' | translation | async }}</span>
          <mat-icon matListIcon>receipt</mat-icon>
       </button>
@@ -19,7 +19,7 @@
          <span>{{ 'CATEGORIES_MENU' | translation | async }}</span>
          <mat-icon matListIcon>label</mat-icon>
       </button>
-      <button mat-list-item routerLink="/analysis" disabled>
+      <button mat-list-item routerLink="/analysis" *ngIf="false">
          <span>{{ 'ANALYSIS_MENU' | translation | async }}</span>
          <mat-icon matListIcon>equalizer</mat-icon>
       </button>
@@ -28,7 +28,7 @@
    <div class="sidenav-spacer"></div>
 
    <mat-action-list class="sidenav-settings">
-      <button mat-list-item routerLink="/settings" disabled>
+      <button mat-list-item routerLink="/settings" *ngIf="false">
          <span>{{ 'SETTINGS_MENU' | translation | async }}</span>
          <mat-icon matListIcon>settings</mat-icon>
       </button>

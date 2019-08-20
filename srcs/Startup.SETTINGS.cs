@@ -61,6 +61,7 @@ namespace FriendlyCashFlow
       public string Issuer { get; set; }
       public string Audience { get; set; }
       public int AccessExpirationInSeconds { get; set; }
+      public int RefreshExpirationInSeconds { get; set; }
    }
 
 }

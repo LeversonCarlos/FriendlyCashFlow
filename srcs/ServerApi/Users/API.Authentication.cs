@@ -24,10 +24,15 @@ namespace FriendlyCashFlow.API.Users
             // LOCATE USER
             UserData user = null;
             if (value.GrantType == "password")
-            { user = await this.AuthenticateAsync_GetUser(value); }
+            {
+               user = await this.AuthenticateAsync_GetUser(value);
+               if (user == null) { return this.InformationResponse("USERS_USER_NOT_FOUND_WARNING"); }
+            }
             else if (value.GrantType == "refresh_token")
-            { user = await this.AuthenticateAsync_GetUser(value.RefreshToken); }
-            if (user == null) { return this.InformationResponse("USERS_USER_NOT_FOUND_WARNING"); }
+            {
+               user = await this.AuthenticateAsync_GetUser(value.RefreshToken);
+               if (user == null) { return this.InformationResponse("USERS_TOKEN_HAS_EXPIRED_WARNING"); }
+            }
             var result = new Users.TokenVM { UserID = user.UserID };
 
             // CHECK ACTIVATION
@@ -37,16 +42,13 @@ namespace FriendlyCashFlow.API.Users
                return this.InformationResponse("USERS_USER_NOT_ACTIVATED_WARNING", "USERS_ACTIVATION_INSTRUCTIONS_WAS_SENT_MESSAGE");
             }
 
-            // LOCATE RESOURCE AND ROLES
-            var resourceID = await this.AuthenticateAsync_GetResource(user.UserID);
-            var roleList = await this.AuthenticateAsync_GetRoles(user.UserID, resourceID);
-
             // GENERATE IDENTITY
+            var roleList = await this.AuthenticateAsync_GetRoles(user.UserID, user.SelectedResourceID);
             var claimsList = new List<Claim>{
                new Claim(ClaimTypes.NameIdentifier, user.UserID),
                new Claim(ClaimTypes.Name, user.UserName),
                new Claim(ClaimTypes.GivenName, user.Text),
-               new Claim(ClaimTypes.System, resourceID)
+               new Claim(ClaimTypes.System, user.SelectedResourceID)
             };
             foreach (var role in roleList)
             { claimsList.Add(new Claim(ClaimTypes.Role, role)); }
@@ -71,7 +73,7 @@ namespace FriendlyCashFlow.API.Users
             result.AccessToken = tokenHandler.WriteToken(token);
 
             // REFRESH TOKEN
-            result.RefreshToken = result.UserID; /* TODO */
+            result.RefreshToken = await this.AuthenticateAsync_GetRefreshToken(user.UserID, tokenConfig.Configs.RefreshExpirationInSeconds);
 
             return this.OkResponse(result);
          }
@@ -105,28 +107,24 @@ namespace FriendlyCashFlow.API.Users
          try
          {
 
+            // LOCATE TOKEN
+            var token = await this.dbContext.UserTokens
+               .Where(x => x.RefreshToken == refreshToken)
+               .FirstOrDefaultAsync();
+            if (token == null) { return null; }
+
+            // REMOVE TOKEN
+            this.dbContext.UserTokens.Remove(token);
+            await this.dbContext.SaveChangesAsync();
+
+            // CHECK EXPIRATION
+            if (token.ExpirationDate < DateTime.UtcNow) { return null; }
+
             // LOCATE USER
             var user = await this.GetDataQuery()
-               .Where(x => x.UserID == refreshToken)
+               .Where(x => x.UserID == token.UserID)
                .FirstOrDefaultAsync();
             return user;
-
-         }
-         catch (Exception) { throw; }
-      }
-
-      private async Task<string> AuthenticateAsync_GetResource(string userID)
-      {
-         try
-         {
-            // TRY TO LOCATE ON PREVIOUS TOKEN LOGINS
-            // TODO
-
-            // TAKE THE DEFAULT VALUE FROM THE USER
-            return await this.dbContext.UserResources
-               .Where(x => x.RowStatus == 1 && x.UserID == userID)
-               .Select(x => x.ResourceID)
-               .FirstOrDefaultAsync();
 
          }
          catch (Exception) { throw; }
@@ -148,6 +146,41 @@ namespace FriendlyCashFlow.API.Users
 
             // RESULT
             return roleList.ToArray();
+         }
+         catch (Exception) { throw; }
+      }
+
+      private async Task<string> AuthenticateAsync_GetRefreshToken(string userID, int expirationInSeconds)
+      {
+         try
+         {
+
+            // INITIALIZE
+            var token = new UserTokenData
+            {
+               UserID = userID,
+               ExpirationDate = DateTime.UtcNow.AddSeconds(expirationInSeconds)
+            };
+
+            // RANDOMIZE TOKEN
+            using (var rng = System.Security.Cryptography.RandomNumberGenerator.Create())
+            {
+               var randomNumber = new byte[32];
+               rng.GetBytes(randomNumber);
+               token.RefreshToken = Convert.ToBase64String(randomNumber);
+               token.RefreshToken = token.RefreshToken
+                  .Replace("+", string.Empty)
+                  .Replace("&", string.Empty)
+                  .Replace("=", string.Empty)
+                  .Replace("/", string.Empty);
+            }
+
+            // SAVE IT
+            await this.dbContext.UserTokens.AddAsync(token);
+            await this.dbContext.SaveChangesAsync();
+
+            // RESULT
+            return token.RefreshToken;
          }
          catch (Exception) { throw; }
       }
