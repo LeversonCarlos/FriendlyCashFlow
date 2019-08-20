@@ -32,6 +32,9 @@ namespace FriendlyCashFlow.API.Categories
             { data.HierarchyText = $"{parentRow.HierarchyText} / "; }
             data.HierarchyText += value.Text;
 
+            // UPDATE CHILDREN
+            await this.UpdateDataAsync_Children(data.CategoryID, data.HierarchyText);
+
             // APPLY
             data.Text = value.Text;
             data.ParentID = value.ParentID;
@@ -42,6 +45,16 @@ namespace FriendlyCashFlow.API.Categories
             return this.OkResponse(result);
          }
          catch (Exception ex) { return this.ExceptionResponse(ex); }
+      }
+
+      private async Task UpdateDataAsync_Children(long parentID, string parentText)
+      {
+         var children = await this.GetDataQuery().Where(x => x.ParentID == parentID).ToListAsync();
+         foreach (var child in children)
+         {
+            child.HierarchyText = $"{parentText} / {child.Text}";
+            await this.UpdateDataAsync_Children(child.CategoryID, child.HierarchyText);
+         }
       }
 
    }
