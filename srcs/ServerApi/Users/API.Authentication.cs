@@ -122,7 +122,7 @@ namespace FriendlyCashFlow.API.Users
             // TODO
             // TRY TO LOCATE ON PREVIOUS TOKEN LOGINS
             // TAKE THE DEFAULT VALUE FROM THE USER
-            return userID;
+            return await Task.FromResult(userID);
          }
          catch (Exception) { throw; }
       }

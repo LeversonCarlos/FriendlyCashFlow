@@ -13,8 +13,9 @@ namespace FriendlyCashFlow.API.Categories
 
       private IQueryable<CategoryData> GetDataQuery()
       {
+         var user = this.GetService<Helpers.User>();
          return this.dbContext.Categories
-            .Where(x => x.RowStatus == 1 && x.ResourceID == resourceID)
+            .Where(x => x.RowStatus == 1 && x.ResourceID == user.ResourceID)
             .AsQueryable();
       }
 

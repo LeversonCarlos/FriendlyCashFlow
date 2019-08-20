@@ -24,7 +24,7 @@ namespace FriendlyCashFlow.API.Accounts
             // NEW MODEL
             var data = new AccountData()
             {
-               ResourceID = user.UserID,
+               ResourceID = user.ResourceID,
                Text = value.Text,
                Type = (short)value.Type,
                Active = value.Active,

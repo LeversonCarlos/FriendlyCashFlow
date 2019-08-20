@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace FriendlyCashFlow
@@ -48,6 +49,10 @@ namespace FriendlyCashFlow
                         var user = context.HttpContext.RequestServices.GetRequiredService<Helpers.User>();
                         user.Identity = context.Principal.Identity;
                         user.UserID = user.Identity.Name;
+                        user.ResourceID = ((System.Security.Claims.ClaimsPrincipal)context.Principal).Claims
+                           .Where(claim => claim.Type == System.Security.Claims.ClaimTypes.System)
+                           .Select(claim => claim.Value)
+                           .FirstOrDefault();
                         return Task.CompletedTask;
                      }
                      catch (Exception) { throw; }

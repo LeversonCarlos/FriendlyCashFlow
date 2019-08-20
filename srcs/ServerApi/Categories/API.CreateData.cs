@@ -22,9 +22,10 @@ namespace FriendlyCashFlow.API.Categories
             if (!validateResult) { return validateMessage.Result; }
 
             // NEW MODEL
+            var user = this.GetService<Helpers.User>();
             var data = new CategoryData()
             {
-               ResourceID = resourceID,
+               ResourceID = user.ResourceID,
                Text = value.Text,
                Type = (short)value.Type,
                ParentID = value.ParentID,
