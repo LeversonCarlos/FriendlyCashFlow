@@ -14,27 +14,6 @@ namespace FriendlyCashFlow.API.Categories
       public CategoriesController(IServiceProvider _serviceProvider) : base(_serviceProvider) { }
 
 
-      [HttpGet("search/{categoryType}")]
-      public async Task<ActionResult<List<CategoryVM>>> GetDataAsync(enCategoryType categoryType)
-      {
-         using (var service = new CategoriesService(this.serviceProvider))
-         { return await service.GetDataAsync(categoryType); }
-      }
-
-      [HttpGet("search/{categoryType}/{searchText}")]
-      public async Task<ActionResult<List<CategoryVM>>> GetDataAsync(enCategoryType categoryType, string searchText)
-      {
-         using (var service = new CategoriesService(this.serviceProvider))
-         { return await service.GetDataAsync(categoryType, searchText); }
-      }
-
-      [HttpGet("{id:long}")]
-      public async Task<ActionResult<CategoryVM>> GetDataAsync(long id)
-      {
-         using (var service = new CategoriesService(this.serviceProvider))
-         { return await service.GetDataAsync(id); }
-      }
-
 
       [HttpPut("{id:long}")]
       // [Authorize(Roles = "ActiveUser")]

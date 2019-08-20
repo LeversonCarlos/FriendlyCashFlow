@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FriendlyCashFlow.API.Categories
 {
+
    partial class CategoriesService
    {
 
@@ -63,4 +63,31 @@ namespace FriendlyCashFlow.API.Categories
       }
 
    }
+
+   partial class CategoriesController
+   {
+
+      [HttpGet("search/{categoryType}")]
+      public async Task<ActionResult<List<CategoryVM>>> GetDataAsync(enCategoryType categoryType)
+      {
+         var service = this.GetService<CategoriesService>();
+         return await service.GetDataAsync(categoryType);
+      }
+
+      [HttpGet("search/{categoryType}/{searchText}")]
+      public async Task<ActionResult<List<CategoryVM>>> GetDataAsync(enCategoryType categoryType, string searchText)
+      {
+         var service = this.GetService<CategoriesService>();
+         return await service.GetDataAsync(categoryType, searchText);
+      }
+
+      [HttpGet("{id:long}")]
+      public async Task<ActionResult<CategoryVM>> GetDataAsync(long id)
+      {
+         var service = this.GetService<CategoriesService>();
+         return await service.GetDataAsync(id);
+      }
+
+   }
+
 }
