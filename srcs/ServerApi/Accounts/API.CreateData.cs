@@ -1,10 +1,12 @@
 
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FriendlyCashFlow.API.Accounts
 {
+
    partial class AccountsService
    {
 
@@ -43,4 +45,16 @@ namespace FriendlyCashFlow.API.Accounts
       }
 
    }
+
+   partial class AccountController
+   {
+      [HttpPost("")]
+      [Authorize(Roles = "Editor")]
+      public async Task<ActionResult<AccountVM>> CreateDataAsync([FromBody]AccountVM value)
+      {
+         var service = this.GetService<AccountsService>();
+         return await service.CreateDataAsync(value);
+      }
+   }
+
 }
