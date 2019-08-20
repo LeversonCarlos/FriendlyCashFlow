@@ -18,8 +18,8 @@ namespace FriendlyCashFlow.API.Users
       [StringLength(128), Required]
       public string UserName { get; set; }
 
-      [Column(TypeName = "varchar(max)")]
-      [Required]
+      [Column(TypeName = "varchar(500)")]
+      [StringLength(500), Required]
       public string PasswordHash { get; set; }
 
       [Column(TypeName = "varchar(500)")]

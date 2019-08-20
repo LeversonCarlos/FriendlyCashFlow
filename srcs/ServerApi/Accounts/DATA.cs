@@ -42,7 +42,7 @@ namespace FriendlyCashFlow.API.Base
    partial class dbContext
    {
       internal DbSet<Accounts.AccountData> Accounts { get; set; }
-      private void OnModelCreating_Account(ModelBuilder modelBuilder)
+      private void OnModelCreating_Accounts(ModelBuilder modelBuilder)
       {
          modelBuilder.Entity<Accounts.AccountData>()
             .HasIndex(x => new { x.RowStatus, x.ResourceID, x.AccountID, x.Text })
