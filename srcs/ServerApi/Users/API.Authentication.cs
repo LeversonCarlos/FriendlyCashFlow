@@ -89,7 +89,10 @@ namespace FriendlyCashFlow.API.Users
 
             // LOCATE USER
             var user = await this.dbContext.Users
-               .Where(x => x.RowStatus != (short)Base.enRowStatus.Removed && x.UserName == value.UserName && x.PasswordHash == passwordHash)
+               .Where(x =>
+                  x.RowStatus != (short)Base.enRowStatus.Removed &&
+                  x.UserName == value.UserName &&
+                  x.PasswordHash == passwordHash)
                .FirstOrDefaultAsync();
             return user;
 
@@ -116,10 +119,15 @@ namespace FriendlyCashFlow.API.Users
       {
          try
          {
-            // TODO
             // TRY TO LOCATE ON PREVIOUS TOKEN LOGINS
+            // TODO
+
             // TAKE THE DEFAULT VALUE FROM THE USER
-            return await Task.FromResult(userID.Replace("-", ""));
+            return await this.dbContext.UserResources
+               .Where(x => x.RowStatus == 1 && x.UserID == userID)
+               .Select(x => x.ResourceID)
+               .FirstOrDefaultAsync();
+
          }
          catch (Exception) { throw; }
       }
@@ -131,7 +139,7 @@ namespace FriendlyCashFlow.API.Users
 
             // LOAD USER ROLES
             var roleList = await this.dbContext.UserRoles
-               .Where(x => x.RowStatus == 1 && x.UserID == userID)
+               .Where(x => x.RowStatus == 1 && x.UserID == userID && x.ResourceID == resourceID)
                .Select(x => x.RoleID)
                .ToListAsync();
 

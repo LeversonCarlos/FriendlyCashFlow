@@ -4,14 +4,16 @@ using FriendlyCashFlow.API.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FriendlyCashFlow.Migrations
 {
     [DbContext(typeof(dbContext))]
-    partial class dbContextModelSnapshot : ModelSnapshot
+    [Migration("20190820132831_PasswordSize")]
+    partial class PasswordSize
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,9 +60,6 @@ namespace FriendlyCashFlow.Migrations
 
                     b.HasKey("AccountID");
 
-                    b.HasIndex("RowStatus", "ResourceID", "AccountID", "Text")
-                        .HasName("v6_dataAccounts_index_Search");
-
                     b.ToTable("v6_dataAccounts");
                 });
 
@@ -103,12 +102,6 @@ namespace FriendlyCashFlow.Migrations
 
                     b.HasKey("CategoryID");
 
-                    b.HasIndex("RowStatus", "ResourceID", "CategoryID", "HierarchyText")
-                        .HasName("v6_dataCategories_index_Search");
-
-                    b.HasIndex("RowStatus", "ResourceID", "ParentID", "CategoryID", "Text")
-                        .HasName("v6_dataCategories_index_Parent");
-
                     b.ToTable("v6_dataCategories");
                 });
 
@@ -144,37 +137,7 @@ namespace FriendlyCashFlow.Migrations
 
                     b.HasKey("UserID");
 
-                    b.HasIndex("RowStatus", "UserID")
-                        .HasName("v6_identityUsers_index_UserID");
-
-                    b.HasIndex("RowStatus", "UserName", "PasswordHash")
-                        .HasName("v6_identityUsers_index_Login");
-
                     b.ToTable("v6_identityUsers");
-                });
-
-            modelBuilder.Entity("FriendlyCashFlow.API.Users.UserResourceData", b =>
-                {
-                    b.Property<string>("UserID")
-                        .HasColumnType("varchar(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("ResourceID")
-                        .HasColumnType("varchar(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<DateTime>("RowDate")
-                        .HasColumnName("RowDate");
-
-                    b.Property<short>("RowStatus")
-                        .HasColumnName("RowStatus");
-
-                    b.HasKey("UserID", "ResourceID");
-
-                    b.HasIndex("RowStatus", "UserID", "ResourceID")
-                        .HasName("v6_identityUserResources_index_Search");
-
-                    b.ToTable("v6_identityUserResources");
                 });
 
             modelBuilder.Entity("FriendlyCashFlow.API.Users.UserRoleData", b =>
@@ -187,11 +150,6 @@ namespace FriendlyCashFlow.Migrations
                         .HasColumnType("varchar(15)")
                         .HasMaxLength(15);
 
-                    b.Property<string>("ResourceID")
-                        .IsRequired()
-                        .HasColumnType("varchar(128)")
-                        .HasMaxLength(128);
-
                     b.Property<DateTime>("RowDate")
                         .HasColumnName("RowDate");
 
@@ -199,9 +157,6 @@ namespace FriendlyCashFlow.Migrations
                         .HasColumnName("RowStatus");
 
                     b.HasKey("UserID", "RoleID");
-
-                    b.HasIndex("RowStatus", "UserID", "ResourceID", "RoleID")
-                        .HasName("v6_identityUserRoles_index_Search");
 
                     b.ToTable("v6_identityUserRoles");
                 });

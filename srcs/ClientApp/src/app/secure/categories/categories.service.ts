@@ -16,7 +16,7 @@ export class Category {
    SplitedText: string[];
 }
 export class CategoryType extends EnumVM<enCategoryType> {
-   Categories: Category[] = []
+   Categories: Category[] = [];
 }
 
 @Injectable({
@@ -33,6 +33,7 @@ export class CategoriesService {
    public showNew(categoryType: enCategoryType) { this.router.navigate(['/category', `new-${categoryType}`]); }
 
    // CATEGORY TYPES
+   public SelectedCategoryType: enCategoryType = enCategoryType.None;
    public async getCategoryTypes(): Promise<CategoryType[]> {
       try {
          this.busy.show();

@@ -18,8 +18,8 @@ namespace FriendlyCashFlow.API.Users
       [StringLength(128), Required]
       public string UserName { get; set; }
 
-      [Column(TypeName = "varchar(max)")]
-      [Required]
+      [Column(TypeName = "varchar(500)")]
+      [StringLength(500), Required]
       public string PasswordHash { get; set; }
 
       [Column(TypeName = "varchar(500)")]
@@ -38,5 +38,14 @@ namespace FriendlyCashFlow.API.Base
    partial class dbContext
    {
       internal DbSet<Users.UserData> Users { get; set; }
+      private void OnModelCreating_Users(ModelBuilder modelBuilder)
+      {
+         modelBuilder.Entity<Users.UserData>()
+            .HasIndex(x => new { x.RowStatus, x.UserID })
+            .HasName("v6_identityUsers_index_UserID");
+         modelBuilder.Entity<Users.UserData>()
+            .HasIndex(x => new { x.RowStatus, x.UserName, x.PasswordHash })
+            .HasName("v6_identityUsers_index_Login");
+      }
    }
 }

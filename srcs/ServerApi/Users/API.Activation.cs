@@ -27,7 +27,8 @@ namespace FriendlyCashFlow.API.Users
             var cryptService = this.GetService<Helpers.Crypt>();
             var activationCode = $"{data.UserID}-{data.UserName}-{data.JoinDate.ToString("yyyyMMdd-HHmmss")}";
             activationCode = cryptService.Encrypt(activationCode);
-            activationCode = System.Web.HttpUtility.UrlEncode(activationCode);
+            // activationCode = System.Web.HttpUtility.UrlEncode(activationCode);
+            activationCode = Uri.EscapeDataString(activationCode);
             var mailBodyCommandLink = $"{appSettings.BaseHost}/activate/{data.UserID}/{activationCode}";
 
             // SEND ACTIVATION MAIL
@@ -56,18 +57,27 @@ namespace FriendlyCashFlow.API.Users
 
             // ACTIVATION CODE
             var cryptService = this.GetService<Helpers.Crypt>();
-            activationCode = System.Web.HttpUtility.UrlDecode(activationCode);
+            // activationCode = System.Web.HttpUtility.UrlDecode(activationCode);
+            activationCode = Uri.UnescapeDataString(activationCode);
             var userActivationCode = cryptService.Encrypt($"{data.UserID}-{data.UserName}-{data.JoinDate.ToString("yyyyMMdd-HHmmss")}");
             if (userActivationCode != activationCode)
             { return this.WarningResponse(this.GetTranslation("USERS_INVALID_ACTIVATION_CODE_WARNING")); }
 
             // GENERATE RESOURCE
-            var resourceID = data.UserID.Replace("-", ""); /* TODO */
+            var resource = new UserResourceData
+            {
+               UserID = data.UserID,
+               ResourceID = System.Guid.NewGuid().ToString(),
+               RowStatus = (short)Base.enRowStatus.Active
+            };
+            await this.dbContext.UserResources.AddAsync(resource);
+
+            // USER ROLES
             var userRoles = (new UserRoleEnum[] { UserRoleEnum.Viewer, UserRoleEnum.Editor, UserRoleEnum.Owner })
                .Select(x => new UserRoleData
                {
                   UserID = data.UserID,
-                  //ResourceID = resourceID,
+                  ResourceID = resource.ResourceID,
                   RoleID = x.ToString()
                })
                .ToList();
