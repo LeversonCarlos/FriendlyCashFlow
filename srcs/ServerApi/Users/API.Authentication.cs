@@ -119,10 +119,15 @@ namespace FriendlyCashFlow.API.Users
       {
          try
          {
-            // TODO
             // TRY TO LOCATE ON PREVIOUS TOKEN LOGINS
+            // TODO
+
             // TAKE THE DEFAULT VALUE FROM THE USER
-            return await Task.FromResult(userID.Replace("-", ""));
+            return await this.dbContext.UserResources
+               .Where(x => x.RowStatus == 1 && x.UserID == userID)
+               .Select(x => x.ResourceID)
+               .FirstOrDefaultAsync();
+
          }
          catch (Exception) { throw; }
       }
