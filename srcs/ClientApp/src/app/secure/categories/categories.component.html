@@ -8,7 +8,7 @@
 
       <mat-card class="full-card">
          <mat-card-content>
-            <mat-tab-group dynamicHeight="false" (selectedIndexChange)="OnTypeSelected($event)">
+            <mat-tab-group dynamicHeight="false" [selectedIndex]="SelectedTabIndex" (selectedIndexChange)="OnTypeSelected($event)">
                <mat-tab *ngFor="let categoryType of Data" label="{{ categoryType.Text }}">
                   <mat-action-list>
                      <button mat-list-item *ngFor="let category of categoryType.Categories" (click)="OnItemClick(category)">

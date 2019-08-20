@@ -27,6 +27,7 @@ export class CategoryDetailsComponent implements OnInit {
 
    public async ngOnInit() {
       if (!await this.OnDataLoad()) { return; }
+      this.service.SelectedCategoryType = this.CategoryType.Value;
       this.OnFormCreate();
    }
 

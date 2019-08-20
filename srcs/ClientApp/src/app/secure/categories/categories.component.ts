@@ -10,11 +10,17 @@ export class CategoriesComponent implements OnInit {
 
    constructor(private service: CategoriesService) { }
    public Data: CategoryType[] = [];
+   public SelectedTabIndex: number;
 
    public async ngOnInit() {
       this.Data = await this.service.getCategoryTypes();
+      let tabIndex = 0;
       for (const item of this.Data) {
+         if (item.Value == this.service.SelectedCategoryType) {
+            this.SelectedTabIndex = tabIndex;
+         }
          item.Categories = await this.service.getCategories(item.Value);
+         tabIndex++;
       }
    }
 
