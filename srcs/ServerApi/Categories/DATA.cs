@@ -40,5 +40,14 @@ namespace FriendlyCashFlow.API.Base
    partial class dbContext
    {
       internal DbSet<Categories.CategoryData> Categories { get; set; }
+      private void OnModelCreating_Category(ModelBuilder modelBuilder)
+      {
+         modelBuilder.Entity<Categories.CategoryData>()
+            .HasIndex(x => new { x.RowStatus, x.ResourceID, x.CategoryID, x.HierarchyText })
+            .HasName("v6_dataCategories_index_Search");
+         modelBuilder.Entity<Categories.CategoryData>()
+            .HasIndex(x => new { x.RowStatus, x.ResourceID, x.ParentID, x.CategoryID, x.Text })
+            .HasName("v6_dataCategories_index_Parent");
+      }
    }
 }

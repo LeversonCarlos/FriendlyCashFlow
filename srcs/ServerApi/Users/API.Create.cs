@@ -20,8 +20,13 @@ namespace FriendlyCashFlow.API.Users
             var passwordMessages = this.ValidatePassword(value.Password);
             if (passwordMessages.Length != 0) { return this.WarningResponse(passwordMessages); }
 
-            // VALIDATE DUPLICITY
-            if (await this.dbContext.Users.CountAsync(x => x.UserName == value.UserName) != 0)
+            // VALIDATE DUPLICITY [use this columns so we use the index]
+            if (await this.dbContext.Users
+               .Where(x =>
+                  x.RowStatus != (short)Base.enRowStatus.Removed &&
+                  x.UserName == value.UserName &&
+                  x.PasswordHash != "")
+               .CountAsync() != 0)
             { return this.WarningResponse(this.GetTranslation("USERS_USER_NAME_ALREADY_EXISTS_WARNING")); }
 
             // NEW MODEL

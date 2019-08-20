@@ -8,7 +8,7 @@ namespace FriendlyCashFlow.API.Users
       private IQueryable<UserData> GetDataQuery()
       {
          return this.dbContext.Users
-            .Where(x => x.RowStatus == 1)
+            .Where(x => x.RowStatus == (short)Base.enRowStatus.Active)
             .AsQueryable();
       }
 

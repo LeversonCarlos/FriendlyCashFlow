@@ -89,7 +89,10 @@ namespace FriendlyCashFlow.API.Users
 
             // LOCATE USER
             var user = await this.dbContext.Users
-               .Where(x => x.RowStatus != (short)Base.enRowStatus.Removed && x.UserName == value.UserName && x.PasswordHash == passwordHash)
+               .Where(x =>
+                  x.RowStatus != (short)Base.enRowStatus.Removed &&
+                  x.UserName == value.UserName &&
+                  x.PasswordHash == passwordHash)
                .FirstOrDefaultAsync();
             return user;
 

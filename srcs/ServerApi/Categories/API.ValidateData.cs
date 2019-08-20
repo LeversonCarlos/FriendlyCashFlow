@@ -16,7 +16,7 @@ namespace FriendlyCashFlow.API.Categories
          {
 
             // VALIDATE DUPLICITY
-            if (await this.GetDataQuery().CountAsync(x => x.CategoryID != value.CategoryID && x.ParentID == value.ParentID && x.Text == value.Text) != 0)
+            if (await this.GetDataQuery().CountAsync(x => x.ParentID == value.ParentID && x.CategoryID != value.CategoryID && x.Text == value.Text) != 0)
             { return this.WarningResponse(this.GetTranslation("CATEGORIES_CATEGORY_TEXT_ALREADY_EXISTS_WARNING")); }
 
             // CHECK HIERARCHY BREAK

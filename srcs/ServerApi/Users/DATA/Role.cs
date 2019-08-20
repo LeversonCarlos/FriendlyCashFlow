@@ -36,7 +36,7 @@ namespace FriendlyCashFlow.API.Base
       private void OnModelCreating_UserRoles(ModelBuilder modelBuilder)
       {
          modelBuilder.Entity<Users.UserRoleData>()
-             .HasKey(c => new { c.UserID, c.RoleID });
+            .HasKey(c => new { c.UserID, c.RoleID });
       }
 
    }
