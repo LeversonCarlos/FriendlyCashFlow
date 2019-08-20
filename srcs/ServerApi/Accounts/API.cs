@@ -14,28 +14,6 @@ namespace FriendlyCashFlow.API.Accounts
       public AccountController(IServiceProvider _serviceProvider) : base(_serviceProvider) { }
 
 
-      [HttpGet("search")]
-      public async Task<ActionResult<List<AccountVM>>> GetDataAsync()
-      {
-         using (var service = new AccountsService(this.serviceProvider))
-         { return await service.GetDataAsync(); }
-      }
-
-      [HttpGet("search/{searchText}")]
-      public async Task<ActionResult<List<AccountVM>>> GetDataAsync(string searchText)
-      {
-         using (var service = new AccountsService(this.serviceProvider))
-         { return await service.GetDataAsync(searchText); }
-      }
-
-      [HttpGet("{id:long}")]
-      public async Task<ActionResult<AccountVM>> GetDataAsync(long id)
-      {
-         using (var service = new AccountsService(this.serviceProvider))
-         { return await service.GetDataAsync(id); }
-      }
-
-
       [HttpPost("")]
       [Authorize(Roles = "Editor")]
       public async Task<ActionResult<AccountVM>> CreateDataAsync([FromBody]AccountVM value)

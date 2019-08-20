@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FriendlyCashFlow.API.Accounts
 {
+
    partial class AccountsService
    {
 
@@ -53,4 +54,31 @@ namespace FriendlyCashFlow.API.Accounts
       }
 
    }
+
+   partial class AccountController
+   {
+
+      [HttpGet("search")]
+      public async Task<ActionResult<List<AccountVM>>> GetDataAsync()
+      {
+         var service = this.GetService<AccountsService>();
+         return await service.GetDataAsync();
+      }
+
+      [HttpGet("search/{searchText}")]
+      public async Task<ActionResult<List<AccountVM>>> GetDataAsync(string searchText)
+      {
+         var service = this.GetService<AccountsService>();
+         return await service.GetDataAsync(searchText);
+      }
+
+      [HttpGet("{id:long}")]
+      public async Task<ActionResult<AccountVM>> GetDataAsync(long id)
+      {
+         var service = this.GetService<AccountsService>();
+         return await service.GetDataAsync(id);
+      }
+
+   }
+
 }
