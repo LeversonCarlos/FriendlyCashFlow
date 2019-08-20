@@ -12,10 +12,10 @@ namespace FriendlyCashFlow.API.Base
 
       protected override void OnModelCreating(ModelBuilder modelBuilder)
       {
-         //this.OnModelCreating_Users(modelBuilder);
+         this.OnModelCreating_Users(modelBuilder);
          this.OnModelCreating_UserRoles(modelBuilder);
-         //this.OnModelCreating_Accounts(modelBuilder);
-         //this.OnModelCreating_Categories(modelBuilder);
+         this.OnModelCreating_Accounts(modelBuilder);
+         this.OnModelCreating_Categories(modelBuilder);
          base.OnModelCreating(modelBuilder);
       }
 
