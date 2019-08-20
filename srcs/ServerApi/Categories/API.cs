@@ -14,17 +14,8 @@ namespace FriendlyCashFlow.API.Categories
       public CategoriesController(IServiceProvider _serviceProvider) : base(_serviceProvider) { }
 
 
-
-      [HttpPut("{id:long}")]
-      // [Authorize(Roles = "ActiveUser")]
-      public async Task<ActionResult<CategoryVM>> UpdateDataAsync(long id, [FromBody]CategoryVM value)
-      {
-         using (var service = new CategoriesService(this.serviceProvider))
-         { return await service.UpdateDataAsync(id, value); }
-      }
-
       [HttpDelete("{id:long}")]
-      // [Authorize(Roles = "ActiveUser")]
+      [Authorize(Roles = "Editor")]
       public async Task<ActionResult<bool>> RemoveDataAsync(long id)
       {
          using (var service = new CategoriesService(this.serviceProvider))
