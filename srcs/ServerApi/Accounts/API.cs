@@ -12,4 +12,9 @@ namespace FriendlyCashFlow.API.Accounts
       public AccountController(IServiceProvider _serviceProvider) : base(_serviceProvider) { }
    }
 
+   internal partial class AccountsService : Base.BaseService
+   {
+      public AccountsService(IServiceProvider serviceProvider) : base(serviceProvider) { }
+   }
+
 }
