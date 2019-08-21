@@ -19,6 +19,7 @@ namespace FriendlyCashFlow.API.Base
          this.OnModelCreating_Accounts(modelBuilder);
          this.OnModelCreating_Categories(modelBuilder);
          this.OnModelCreating_Balances(modelBuilder);
+         this.OnModelCreating_Patterns(modelBuilder);
          base.OnModelCreating(modelBuilder);
       }
 
