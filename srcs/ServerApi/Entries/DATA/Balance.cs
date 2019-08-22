@@ -38,12 +38,10 @@ namespace FriendlyCashFlow.API.Base
    partial class dbContext
    {
       internal DbSet<Entries.Balance> Balances { get; set; }
-
       private void OnModelCreating_Balances(ModelBuilder modelBuilder)
       {
          modelBuilder.Entity<Entries.Balance>()
             .HasKey(c => new { c.ResourceID, c.AccountID, c.Date });
       }
-
    }
 }

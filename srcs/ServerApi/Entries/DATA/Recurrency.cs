@@ -28,7 +28,6 @@ namespace FriendlyCashFlow.API.Entries
       [Required]
       public long AccountID { get; set; }
 
-
       [Column(TypeName = "decimal(15,2)")]
       [Required]
       public decimal EntryValue { get; set; }
@@ -36,7 +35,6 @@ namespace FriendlyCashFlow.API.Entries
       [DataType(DataType.DateTime)]
       [Required]
       public DateTime EntryDate { get; set; }
-
 
       [Required]
       public short Type { get; set; }

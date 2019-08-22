@@ -41,13 +41,11 @@ namespace FriendlyCashFlow.API.Base
    partial class dbContext
    {
       internal DbSet<Entries.Pattern> Patterns { get; set; }
-
       private void OnModelCreating_Patterns(ModelBuilder modelBuilder)
       {
          modelBuilder.Entity<Entries.Pattern>()
             .HasIndex(x => new { x.RowStatus, x.ResourceID, x.Type, x.CategoryID, x.Text })
             .HasName("v6_dataPattern_index_Search");
       }
-
    }
 }
