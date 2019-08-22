@@ -8,8 +8,7 @@ namespace FriendlyCashFlow.API.Entries
    // public enum enRecurrencyType : short { Weekly = 1, Monthly = 2, Bimonthly = 3, Quarterly = 4, SemiYearly = 5, Yearly = 6 }
    // public enum enRecurrencyState : short { Inactive = 0, Active = 1 }
 
-
-   [Table("v6_dataRecurrencies")]
+   [Table("v6_dataRecurrency")]
    internal class Recurrency : Base.BaseData
    {
 
