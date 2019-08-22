@@ -1,7 +1,7 @@
 declare @resourceID varchar(128) = 'a0e03962-54a3-47be-a733-652311ef196a';
 declare @accountID bigint = 0;
 declare @dateYear smallint = 2019;
-declare @dateMonth smallint = 07;
+declare @dateMonth smallint = 08;
 declare @searchText varchar(255) = '';
 
 set nocount on;
@@ -141,7 +141,17 @@ if (@dateYear <> 0 and @dateMonth <> 0) begin
    where 
       ResourceID = @resourceID
       and AccountID in (select distinct AccountID from #dataEntries)
-      and Date = cast(ltrim(str(@dateYear))+'-'+ltrim(str(@dateMonth))+'-01' as datetime); 
+      and Date = dateadd(month,-1,cast(ltrim(str(@dateYear))+'-'+ltrim(str(@dateMonth))+'-01' as datetime)); 
+
+   update #dataEntries
+   set 
+      BalanceTotalValue = 
+         (select top 1 TotalValue from #dataBalance as dataBalance where dataBalance.AccountID=dataEntries.AccountID) + 
+         (select sum(EntryValue) from #dataEntries as dataEntriesI where dataEntriesI.AccountID=dataEntries.AccountID and dataEntriesI.Sorting <= dataEntries.Sorting), 
+      BalancePaidValue = 
+         (select top 1 PaidValue from #dataBalance as dataBalance where dataBalance.AccountID=dataEntries.AccountID) + 
+         (select sum(EntryValue) from #dataEntries as dataEntriesI where dataEntriesI.AccountID=dataEntries.AccountID and dataEntriesI.Sorting <= dataEntries.Sorting and dataEntriesI.Paid=1)
+   from #dataEntries as dataEntries;
 
    drop table #dataBalance;
 end
