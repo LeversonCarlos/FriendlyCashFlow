@@ -6,6 +6,9 @@ declare @searchText varchar(255) = '';
 
 set nocount on;
 
+declare @typeExpense smallint = 1;
+declare @typeIncome smallint = 2;
+
 /* INITIAL COMMAND */
 declare @command nvarchar(max);
 set @command = '
@@ -58,6 +61,7 @@ print @command;
 create table #IDs (EntryID bigint);
 execute sp_executesql @command;
 
+/* ENTRIES MAIN DATA */
 select 
    dataEntries.EntryID, 
    dataEntries.Type, 
@@ -72,7 +76,9 @@ select
    dataEntries.PayDate, 
    dataEntries.PatternID, 
    dataEntries.RecurrencyID, 
-   dataEntries.TransferID 
+   dataEntries.TransferID, 
+   dataEntries.Sorting 
+into #dataEntries
 from v6_dataEntries As dataEntries 
    inner join v6_dataCategories As dataCategories on (dataCategories.CategoryID = dataEntries.CategoryID)
    left join v6_dataAccounts As dataAccounts on (dataAccounts.AccountID = dataEntries.AccountID)
@@ -81,5 +87,55 @@ where
 order by 
    dataEntries.Sorting;
 
+/* GROUP TRANSFER DATA */
+select TransferID,
+   max(TransferIncomeEntryID) as TransferIncomeEntryID, max(TransferExpenseEntryID) as TransferExpenseEntryID,
+   max(TransferIncomeAccountID) as TransferIncomeAccountID, max(TransferExpenseAccountID) as TransferExpenseAccountID,
+   max(TransferIncomeAccountText) as TransferIncomeAccountText, max(TransferExpenseAccountText) as TransferExpenseAccountText
+into #dataTransfer
+from
+(
+   select 
+      TransferID, 
+      (case when Type=@typeIncome then EntryID else 0 end) as TransferIncomeEntryID, 
+      (case when Type=@typeExpense then EntryID else 0 end) as TransferExpenseEntryID, 
+      (case when Type=@typeIncome then AccountID else 0 end) as TransferIncomeAccountID, 
+      (case when Type=@typeExpense then AccountID else 0 end) as TransferExpenseAccountID, 
+      (case when Type=@typeIncome then AccountText else '' end) as TransferIncomeAccountText, 
+      (case when Type=@typeExpense then AccountText else '' end) as TransferExpenseAccountText 
+   from 
+   (
+      select TransferID, Type, EntryID, AccountID, AccountText
+      from #dataEntries
+      where 
+         coalesce(TransferID,'') <> ''
+   ) SUB1
+) SUB2
+group by TransferID;
+
+/* APPLY TRANSFER DATA */
+alter table #dataEntries add 
+   TransferIncomeEntryID bigint, TransferExpenseEntryID bigint, 
+   TransferIncomeAccountID bigint, TransferExpenseAccountID bigint, 
+   TransferIncomeAccountText varchar(50), TransferExpenseAccountText varchar(50);
+update #dataEntries 
+set 
+   TransferIncomeEntryID = dataTransfer.TransferIncomeEntryID,
+   TransferExpenseEntryID = dataTransfer.TransferExpenseEntryID,
+   TransferIncomeAccountID = dataTransfer.TransferIncomeAccountID, 
+   TransferExpenseAccountID = dataTransfer.TransferExpenseAccountID, 
+   TransferIncomeAccountText = dataTransfer.TransferIncomeAccountText, 
+   TransferExpenseAccountText = dataTransfer.TransferExpenseAccountText 
+from #dataEntries as dataEntries
+   inner join #dataTransfer as dataTransfer on (dataTransfer.TransferID=dataEntries.TransferID)
+where 
+   coalesce(dataEntries.TransferID,'') <> '';
+
+/* RESULT */
+select * from #dataEntries order by Sorting;
+
+/* CLEAR */
+drop table #dataTransfer;
+drop table #dataEntries;
 drop table #IDs;
 set nocount off;
