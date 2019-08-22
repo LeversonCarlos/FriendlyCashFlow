@@ -40,7 +40,7 @@ namespace FriendlyCashFlow.API.Entries
 
 
       [Required]
-      public short RecurrencyType { get; set; }
+      public short Type { get; set; }
 
       [Required]
       public bool Fixed { get; set; }

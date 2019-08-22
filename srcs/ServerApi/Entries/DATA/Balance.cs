@@ -21,7 +21,7 @@ namespace FriendlyCashFlow.API.Entries
 
       [DataType(DataType.DateTime)]
       [Required]
-      public DateTime SearchDate { get; set; }
+      public DateTime Date { get; set; }
 
       [Column(TypeName = "decimal(15,2)")]
       public decimal TotalValue { get; set; }
@@ -42,7 +42,7 @@ namespace FriendlyCashFlow.API.Base
       private void OnModelCreating_Balances(ModelBuilder modelBuilder)
       {
          modelBuilder.Entity<Entries.Balance>()
-            .HasKey(c => new { c.ResourceID, c.AccountID, c.SearchDate });
+            .HasKey(c => new { c.ResourceID, c.AccountID, c.Date });
       }
 
    }
