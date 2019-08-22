@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace FriendlyCashFlow.API.Entries
 {
 
-   [Table("v6_dataEntry")]
+   [Table("v6_dataEntries")]
    internal class Entry : Base.BaseData
    {
 
@@ -32,6 +32,9 @@ namespace FriendlyCashFlow.API.Entries
       [Column(TypeName = "varchar(500)")]
       [Required, StringLength(500)]
       public string Text { get; set; }
+
+      [Required]
+      public long CategoryID { get; set; }
 
       [Required]
       public long PatternID { get; set; }
@@ -72,11 +75,11 @@ namespace FriendlyCashFlow.API.Base
       private void OnModelCreating_Entries(ModelBuilder modelBuilder)
       {
          modelBuilder.Entity<Entries.Entry>()
-            .HasIndex(x => new { x.RowStatus, x.ResourceID, x.Type, x.AccountID, x.SearchDate })
-            .HasName("v6_dataPattern_index_SearchDate");
+            .HasIndex(x => new { x.RowStatus, x.ResourceID, x.AccountID, x.SearchDate })
+            .HasName("v6_dataEntries_index_SearchDate");
          modelBuilder.Entity<Entries.Entry>()
-            .HasIndex(x => new { x.RowStatus, x.ResourceID, x.Type, x.AccountID, x.Text })
-            .HasName("v6_dataPattern_index_SearchText");
+            .HasIndex(x => new { x.RowStatus, x.ResourceID, x.AccountID, x.Text })
+            .HasName("v6_dataEntries_index_SearchText");
       }
    }
 }
