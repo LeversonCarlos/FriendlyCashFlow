@@ -67,7 +67,7 @@ select
    dataEntries.Type, 
    dataEntries.Text, 
    dataEntries.DueDate, 
-   dataEntries.Value, 
+   dataEntries.Value * (case when dataEntries.Type=@typeExpense then -1 else 1 end) As EntryValue, 
    dataEntries.AccountID, 
    dataAccounts.Text As AccountText,
    dataEntries.CategoryID, 
@@ -130,6 +130,21 @@ from #dataEntries as dataEntries
    inner join #dataTransfer as dataTransfer on (dataTransfer.TransferID=dataEntries.TransferID)
 where 
    coalesce(dataEntries.TransferID,'') <> '';
+
+/* BALANCE */
+alter table #dataEntries add BalanceTotalValue decimal(15,2), BalancePaidValue decimal(15,2);
+if (@dateYear <> 0 and @dateMonth <> 0) begin
+
+   select AccountID, TotalValue, PaidValue 
+   into #dataBalance
+   from v6_dataBalance as dataBalance
+   where 
+      ResourceID = @resourceID
+      and AccountID in (select distinct AccountID from #dataEntries)
+      and Date = cast(ltrim(str(@dateYear))+'-'+ltrim(str(@dateMonth))+'-01' as datetime); 
+
+   drop table #dataBalance;
+end
 
 /* RESULT */
 select * from #dataEntries order by Sorting;
