@@ -1,4 +1,3 @@
-
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,19 +24,19 @@ namespace FriendlyCashFlow.API.Patterns
             // ADD NEW IF DOESNT FOUND
             if (data == null)
             {
-               data = new Pattern
+               data = new PatternData
                {
                   ResourceID = user.ResourceID,
                   CategoryID = categoryID,
                   Text = entryText,
-                  Quantity = 0,
+                  Count = 0,
                   RowStatus = 1
                };
                await this.dbContext.Patterns.AddAsync(data);
             }
 
             // INCREASE QUANTITY AND SAVE IT
-            data.Quantity++;
+            data.Count++;
             await this.dbContext.SaveChangesAsync();
 
             // RESULT

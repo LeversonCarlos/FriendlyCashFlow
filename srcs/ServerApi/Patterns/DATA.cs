@@ -7,10 +7,10 @@ namespace FriendlyCashFlow.API.Patterns
 {
 
    [Table("v6_dataPatterns")]
-   internal class Pattern : Base.BaseData
+   internal class PatternData : Base.BaseData
    {
 
-      public Pattern() : base() { }
+      public PatternData() : base() { }
 
       [Key]
       [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
@@ -30,7 +30,7 @@ namespace FriendlyCashFlow.API.Patterns
       [Required, StringLength(500)]
       public string Text { get; set; }
 
-      public short Quantity { get; set; }
+      public short Count { get; set; }
 
    }
 
@@ -40,10 +40,10 @@ namespace FriendlyCashFlow.API.Base
 {
    partial class dbContext
    {
-      internal DbSet<Patterns.Pattern> Patterns { get; set; }
+      internal DbSet<Patterns.PatternData> Patterns { get; set; }
       private void OnModelCreating_Patterns(ModelBuilder modelBuilder)
       {
-         modelBuilder.Entity<Patterns.Pattern>()
+         modelBuilder.Entity<Patterns.PatternData>()
             .HasIndex(x => new { x.RowStatus, x.ResourceID, x.Type, x.CategoryID, x.Text })
             .HasName("v6_dataPatterns_index_Search");
       }
