@@ -7,10 +7,10 @@ namespace FriendlyCashFlow.API.Balances
 
    /*
    [Authorize]
-   [Route("api/patterns")]
-   public partial class AccountController : Base.BaseController
+   [Route("api/balances")]
+   public partial class BalancesController : Base.BaseController
    {
-      public AccountController(IServiceProvider _serviceProvider) : base(_serviceProvider) { }
+      public BalancesController(IServiceProvider _serviceProvider) : base(_serviceProvider) { }
    }
    */
 

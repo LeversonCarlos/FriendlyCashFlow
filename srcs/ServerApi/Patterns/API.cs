@@ -8,9 +8,9 @@ namespace FriendlyCashFlow.API.Patterns
    /*
    [Authorize]
    [Route("api/patterns")]
-   public partial class AccountController : Base.BaseController
+   public partial class PatternsController : Base.BaseController
    {
-      public AccountController(IServiceProvider _serviceProvider) : base(_serviceProvider) { }
+      public PatternsController(IServiceProvider _serviceProvider) : base(_serviceProvider) { }
    }
    */
 
