@@ -15,7 +15,7 @@ set @command = '
    insert into #IDs
    select EntryID
    from v6_dataEntries
-   where 
+   where
       RowStatus = 1
    ';
 
@@ -45,8 +45,8 @@ if (@searchText <> '') begin
    while (select count(*) from #searchTerms)>0 begin
       declare @searchTerm varchar(255);
       select top 1 @searchTerm=searchTerm from #searchTerms;
-      set @searchTextCommand = @searchTextCommand + 
-         (case when @searchTextCommand='' then '' else ' and ' end) + 
+      set @searchTextCommand = @searchTextCommand +
+         (case when @searchTextCommand='' then '' else ' and ' end) +
          'Text like ''%' + @searchTerm + '%''';
       delete from #searchTerms where searchTerm=@searchTerm;
    end
@@ -62,29 +62,29 @@ create table #IDs (EntryID bigint);
 execute sp_executesql @command;
 
 /* ENTRIES MAIN DATA */
-select 
-   dataEntries.EntryID, 
-   dataEntries.Type, 
-   dataEntries.Text, 
-   dataEntries.DueDate, 
-   dataEntries.Value * (case when dataEntries.Type=@typeExpense then -1 else 1 end) As EntryValue, 
-   dataEntries.AccountID, 
+select
+   dataEntries.EntryID,
+   dataEntries.Type,
+   dataEntries.Text,
+   dataEntries.DueDate,
+   dataEntries.EntryValue * (case when dataEntries.Type=@typeExpense then -1 else 1 end) As EntryValue,
+   dataEntries.AccountID,
    dataAccounts.Text As AccountText,
-   dataEntries.CategoryID, 
+   dataEntries.CategoryID,
    dataCategories.HierarchyText As CategoryText,
-   dataEntries.Paid, 
-   dataEntries.PayDate, 
-   dataEntries.PatternID, 
-   dataEntries.RecurrencyID, 
-   dataEntries.TransferID, 
-   dataEntries.Sorting 
+   dataEntries.Paid,
+   dataEntries.PayDate,
+   dataEntries.PatternID,
+   dataEntries.RecurrencyID,
+   dataEntries.TransferID,
+   dataEntries.Sorting
 into #dataEntries
-from v6_dataEntries As dataEntries 
+from v6_dataEntries As dataEntries
    inner join v6_dataCategories As dataCategories on (dataCategories.CategoryID = dataEntries.CategoryID)
    left join v6_dataAccounts As dataAccounts on (dataAccounts.AccountID = dataEntries.AccountID)
-where 
+where
    dataEntries.EntryID in (select EntryID from #IDs)
-order by 
+order by
    dataEntries.Sorting;
 
 /* GROUP TRANSFER DATA */
@@ -95,61 +95,61 @@ select TransferID,
 into #dataTransfer
 from
 (
-   select 
-      TransferID, 
-      (case when Type=@typeIncome then EntryID else 0 end) as TransferIncomeEntryID, 
-      (case when Type=@typeExpense then EntryID else 0 end) as TransferExpenseEntryID, 
-      (case when Type=@typeIncome then AccountID else 0 end) as TransferIncomeAccountID, 
-      (case when Type=@typeExpense then AccountID else 0 end) as TransferExpenseAccountID, 
-      (case when Type=@typeIncome then AccountText else '' end) as TransferIncomeAccountText, 
-      (case when Type=@typeExpense then AccountText else '' end) as TransferExpenseAccountText 
-   from 
+   select
+      TransferID,
+      (case when Type=@typeIncome then EntryID else 0 end) as TransferIncomeEntryID,
+      (case when Type=@typeExpense then EntryID else 0 end) as TransferExpenseEntryID,
+      (case when Type=@typeIncome then AccountID else 0 end) as TransferIncomeAccountID,
+      (case when Type=@typeExpense then AccountID else 0 end) as TransferExpenseAccountID,
+      (case when Type=@typeIncome then AccountText else '' end) as TransferIncomeAccountText,
+      (case when Type=@typeExpense then AccountText else '' end) as TransferExpenseAccountText
+   from
    (
       select TransferID, Type, EntryID, AccountID, AccountText
       from #dataEntries
-      where 
+      where
          coalesce(TransferID,'') <> ''
    ) SUB1
 ) SUB2
 group by TransferID;
 
 /* APPLY TRANSFER DATA */
-alter table #dataEntries add 
-   TransferIncomeEntryID bigint, TransferExpenseEntryID bigint, 
-   TransferIncomeAccountID bigint, TransferExpenseAccountID bigint, 
+alter table #dataEntries add
+   TransferIncomeEntryID bigint, TransferExpenseEntryID bigint,
+   TransferIncomeAccountID bigint, TransferExpenseAccountID bigint,
    TransferIncomeAccountText varchar(50), TransferExpenseAccountText varchar(50);
-update #dataEntries 
-set 
+update #dataEntries
+set
    TransferIncomeEntryID = dataTransfer.TransferIncomeEntryID,
    TransferExpenseEntryID = dataTransfer.TransferExpenseEntryID,
-   TransferIncomeAccountID = dataTransfer.TransferIncomeAccountID, 
-   TransferExpenseAccountID = dataTransfer.TransferExpenseAccountID, 
-   TransferIncomeAccountText = dataTransfer.TransferIncomeAccountText, 
-   TransferExpenseAccountText = dataTransfer.TransferExpenseAccountText 
+   TransferIncomeAccountID = dataTransfer.TransferIncomeAccountID,
+   TransferExpenseAccountID = dataTransfer.TransferExpenseAccountID,
+   TransferIncomeAccountText = dataTransfer.TransferIncomeAccountText,
+   TransferExpenseAccountText = dataTransfer.TransferExpenseAccountText
 from #dataEntries as dataEntries
    inner join #dataTransfer as dataTransfer on (dataTransfer.TransferID=dataEntries.TransferID)
-where 
+where
    coalesce(dataEntries.TransferID,'') <> '';
 
 /* BALANCE */
 alter table #dataEntries add BalanceTotalValue decimal(15,2), BalancePaidValue decimal(15,2);
 if (@dateYear <> 0 and @dateMonth <> 0) begin
 
-   select AccountID, TotalValue, PaidValue 
+   select AccountID, TotalValue, PaidValue
    into #dataBalance
    from v6_dataBalance as dataBalance
-   where 
+   where
       ResourceID = @resourceID
       and AccountID in (select distinct AccountID from #dataEntries)
-      and Date = dateadd(month,-1,cast(ltrim(str(@dateYear))+'-'+ltrim(str(@dateMonth))+'-01' as datetime)); 
+      and Date = dateadd(month,-1,cast(ltrim(str(@dateYear))+'-'+ltrim(str(@dateMonth))+'-01' as datetime));
 
    update #dataEntries
-   set 
-      BalanceTotalValue = 
-         (select top 1 TotalValue from #dataBalance as dataBalance where dataBalance.AccountID=dataEntries.AccountID) + 
-         (select sum(EntryValue) from #dataEntries as dataEntriesI where dataEntriesI.AccountID=dataEntries.AccountID and dataEntriesI.Sorting <= dataEntries.Sorting), 
-      BalancePaidValue = 
-         (select top 1 PaidValue from #dataBalance as dataBalance where dataBalance.AccountID=dataEntries.AccountID) + 
+   set
+      BalanceTotalValue =
+         (select top 1 TotalValue from #dataBalance as dataBalance where dataBalance.AccountID=dataEntries.AccountID) +
+         (select sum(EntryValue) from #dataEntries as dataEntriesI where dataEntriesI.AccountID=dataEntries.AccountID and dataEntriesI.Sorting <= dataEntries.Sorting),
+      BalancePaidValue =
+         (select top 1 PaidValue from #dataBalance as dataBalance where dataBalance.AccountID=dataEntries.AccountID) +
          (select sum(EntryValue) from #dataEntries as dataEntriesI where dataEntriesI.AccountID=dataEntries.AccountID and dataEntriesI.Sorting <= dataEntries.Sorting and dataEntriesI.Paid=1)
    from #dataEntries as dataEntries;
 

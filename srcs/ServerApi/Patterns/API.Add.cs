@@ -16,8 +16,7 @@ namespace FriendlyCashFlow.API.Patterns
             var user = this.GetService<Helpers.User>();
 
             // TRY TO LOCATE PATTERN
-            var data = await this.dbContext.Patterns
-               .Where(x => x.RowStatus == 1 && x.ResourceID == user.ResourceID)
+            var data = await this.GetDataQuery()
                .Where(x => x.CategoryID == categoryID && x.Text == entryText)
                .FirstOrDefaultAsync();
 

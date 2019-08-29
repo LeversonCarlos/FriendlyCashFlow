@@ -1,10 +1,19 @@
 using System;
+using System.Linq;
 
 namespace FriendlyCashFlow.API.Entries
 {
 
    partial class EntriesService
    {
+
+      private IQueryable<EntryData> GetDataQuery()
+      {
+         var user = this.GetService<Helpers.User>();
+         return this.dbContext.Entries
+            .Where(x => x.RowStatus == (short)Base.enRowStatus.Active && x.ResourceID == user.ResourceID)
+            .AsQueryable();
+      }
 
       private void ApplySorting(EntryData data)
       {
