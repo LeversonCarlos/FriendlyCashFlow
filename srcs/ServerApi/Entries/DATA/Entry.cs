@@ -42,7 +42,7 @@ namespace FriendlyCashFlow.API.Entries
       public long? RecurrencyID { get; set; }
 
       [Column(TypeName = "varchar(128)")]
-      [Required, StringLength(128)]
+      [StringLength(128)]
       public string TransferID { get; set; }
 
       [DataType(DataType.Date)]
