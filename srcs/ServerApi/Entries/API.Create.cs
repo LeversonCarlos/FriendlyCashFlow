@@ -44,7 +44,7 @@ namespace FriendlyCashFlow.API.Entries
             // { oData.idTransfer = value.idTransfer; }
 
             // PATTERN
-            var patternService = this.GetService<API.Patterns.PatternsService>();
+            var patternService = this.GetService<Patterns.PatternsService>();
             data.PatternID = await patternService.AddPatternAsync(data.CategoryID, data.Text);
 
             // RECURRENCY
@@ -69,12 +69,8 @@ namespace FriendlyCashFlow.API.Entries
             data.Sorting += (data.EntryID / (decimal)Math.Pow(10, data.EntryID.ToString().Length));
 
             // BALANCE
-
-            // RECURRENCY THREAD
-            // if (newRecurrency && recurrencyModel != null)
-            // {
-            //    await this.generateRecurrency(recurrencyModel);
-            // }
+            var balanceService = this.GetService<Balances.BalancesService>();
+            await balanceService.AddBalanceAsync(data);
 
             // RESULT
             var result = EntryVM.Convert(data);
