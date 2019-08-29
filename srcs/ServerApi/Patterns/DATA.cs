@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace FriendlyCashFlow.API.Entries
+namespace FriendlyCashFlow.API.Patterns
 {
 
    [Table("v6_dataPatterns")]
@@ -40,10 +40,10 @@ namespace FriendlyCashFlow.API.Base
 {
    partial class dbContext
    {
-      internal DbSet<Entries.Pattern> Patterns { get; set; }
+      internal DbSet<Patterns.Pattern> Patterns { get; set; }
       private void OnModelCreating_Patterns(ModelBuilder modelBuilder)
       {
-         modelBuilder.Entity<Entries.Pattern>()
+         modelBuilder.Entity<Patterns.Pattern>()
             .HasIndex(x => new { x.RowStatus, x.ResourceID, x.Type, x.CategoryID, x.Text })
             .HasName("v6_dataPatterns_index_Search");
       }
