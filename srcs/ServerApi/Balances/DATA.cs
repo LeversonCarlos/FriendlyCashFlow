@@ -7,10 +7,10 @@ namespace FriendlyCashFlow.API.Balances
 {
 
    [Table("v6_dataBalance")]
-   internal class Balance : Base.BaseData
+   internal class BalanceData : Base.BaseData
    {
 
-      public Balance() : base() { }
+      public BalanceData() : base() { }
 
       [Column(TypeName = "varchar(128)")]
       [StringLength(128), Required]
@@ -37,10 +37,10 @@ namespace FriendlyCashFlow.API.Base
 {
    partial class dbContext
    {
-      internal DbSet<Balances.Balance> Balances { get; set; }
+      internal DbSet<Balances.BalanceData> Balances { get; set; }
       private void OnModelCreating_Balances(ModelBuilder modelBuilder)
       {
-         modelBuilder.Entity<Balances.Balance>()
+         modelBuilder.Entity<Balances.BalanceData>()
             .HasKey(c => new { c.ResourceID, c.AccountID, c.Date });
       }
    }

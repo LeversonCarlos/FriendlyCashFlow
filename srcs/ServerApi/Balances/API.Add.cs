@@ -26,7 +26,7 @@ namespace FriendlyCashFlow.API.Balances
             // ADD NEW IF DOESNT FOUND
             if (data == null)
             {
-               data = new Balance
+               data = new BalanceData
                {
                   ResourceID = user.ResourceID,
                   Date = date,
