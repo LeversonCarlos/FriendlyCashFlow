@@ -39,10 +39,6 @@ namespace FriendlyCashFlow.API.Entries
             if (value.Paid && value.PayDate.HasValue) { data.PayDate = value.PayDate; }
             if (value.AccountID.HasValue) { data.AccountID = value.AccountID; }
 
-            // TRANSFER
-            // if (!string.IsNullOrEmpty(value.idTransfer))
-            // { oData.idTransfer = value.idTransfer; }
-
             // PATTERN
             var patternService = this.GetService<Patterns.PatternsService>();
             data.PatternID = await patternService.AddPatternAsync(data.CategoryID, data.Text);
