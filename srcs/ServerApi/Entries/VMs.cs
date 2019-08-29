@@ -6,14 +6,14 @@ namespace FriendlyCashFlow.API.Entries
    public class EntryVM
    {
       public long EntryID { get; set; }
-      public short Type { get; set; }
-      public string Text { get; set; }
 
+      public Categories.enCategoryType Type { get; set; }
+      public string Text { get; set; }
       public long PatternID { get; set; }
       public long CategoryID { get; set; }
 
       public DateTime DueDate { get; set; }
-      public decimal Value { get; set; }
+      public decimal EntryValue { get; set; }
 
       public bool Paid { get; set; }
       public DateTime? PayDate { get; set; }
@@ -28,11 +28,11 @@ namespace FriendlyCashFlow.API.Entries
          var result = new EntryVM
          {
             EntryID = value.EntryID,
-            Type = value.Type,
+            Type = (Categories.enCategoryType)value.Type,
             Text = value.Text,
             CategoryID = value.CategoryID,
             DueDate = value.DueDate,
-            Value = value.Value,
+            EntryValue = value.EntryValue,
             Paid = value.Paid,
             PayDate = value.PayDate,
             AccountID = value.AccountID

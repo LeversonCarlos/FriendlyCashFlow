@@ -51,7 +51,7 @@ namespace FriendlyCashFlow.API.Entries
 
       [Column(TypeName = "decimal(15,2)")]
       [Required]
-      public decimal Value { get; set; }
+      public decimal EntryValue { get; set; }
 
       [Required]
       public bool Paid { get; set; }

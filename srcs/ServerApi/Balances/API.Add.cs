@@ -37,7 +37,7 @@ namespace FriendlyCashFlow.API.Balances
             }
 
             // APPLY VALUE
-            var entryValue = value.Value * (value.Type == (short)Categories.enCategoryType.Expense ? -1 : 1);
+            var entryValue = value.EntryValue * (value.Type == (short)Categories.enCategoryType.Expense ? -1 : 1);
             data.TotalValue += entryValue;
             if (value.Paid) { data.PaidValue += entryValue; }
             await this.dbContext.SaveChangesAsync();

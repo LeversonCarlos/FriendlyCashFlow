@@ -32,7 +32,7 @@ namespace FriendlyCashFlow.API.Entries
                Text = value.Text,
                CategoryID = value.CategoryID,
                DueDate = value.DueDate,
-               Value = Math.Abs(value.Value),
+               EntryValue = Math.Abs(value.EntryValue),
                Paid = value.Paid,
                RowStatus = 1
             };
