@@ -18,8 +18,7 @@ namespace FriendlyCashFlow.API.Balances
             var date = new DateTime(value.SearchDate.Year, value.SearchDate.Month, 1);
 
             // TRY TO LOCATE DATA
-            var data = await this.dbContext.Balances
-               .Where(x => x.RowStatus == 1 && x.ResourceID == user.ResourceID)
+            var data = await this.GetDataQuery()
                .Where(x => x.Date == date && x.AccountID == value.AccountID.Value)
                .FirstOrDefaultAsync();
 

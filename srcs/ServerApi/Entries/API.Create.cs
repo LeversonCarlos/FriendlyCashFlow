@@ -41,7 +41,7 @@ namespace FriendlyCashFlow.API.Entries
 
             // PATTERN
             var patternService = this.GetService<Patterns.PatternsService>();
-            data.PatternID = await patternService.AddPatternAsync(data.CategoryID, data.Text);
+            data.PatternID = await patternService.AddPatternAsync(value);
 
             // RECURRENCY
             var recurrencyService = this.GetService<Recurrencies.RecurrenciesService>();
