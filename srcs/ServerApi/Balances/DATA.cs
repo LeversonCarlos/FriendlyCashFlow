@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace FriendlyCashFlow.API.Entries
+namespace FriendlyCashFlow.API.Balances
 {
 
    [Table("v6_dataBalance")]
@@ -37,10 +37,10 @@ namespace FriendlyCashFlow.API.Base
 {
    partial class dbContext
    {
-      internal DbSet<Entries.Balance> Balances { get; set; }
+      internal DbSet<Balances.Balance> Balances { get; set; }
       private void OnModelCreating_Balances(ModelBuilder modelBuilder)
       {
-         modelBuilder.Entity<Entries.Balance>()
+         modelBuilder.Entity<Balances.Balance>()
             .HasKey(c => new { c.ResourceID, c.AccountID, c.Date });
       }
    }
