@@ -8,6 +8,8 @@ namespace FriendlyCashFlow.API.Entries
       public long EntryID { get; set; }
       public short Type { get; set; }
       public string Text { get; set; }
+
+      public long PatternID { get; set; }
       public long CategoryID { get; set; }
 
       public DateTime DueDate { get; set; }
@@ -16,6 +18,9 @@ namespace FriendlyCashFlow.API.Entries
       public bool Paid { get; set; }
       public DateTime? PayDate { get; set; }
       public long? AccountID { get; set; }
+
+      public long? RecurrencyID { get; set; }
+      public Recurrencies.RecurrencyVM Recurrency { get; set; }
 
       internal static EntryVM Convert(EntryData value)
       {

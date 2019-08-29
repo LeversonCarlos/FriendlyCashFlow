@@ -44,13 +44,8 @@ namespace FriendlyCashFlow.API.Entries
             data.PatternID = await patternService.AddPatternAsync(data.CategoryID, data.Text);
 
             // RECURRENCY
-            // var newRecurrency = false; Model.bindRecurrency recurrencyModel = null;
-            // if (value.idRecurrency.HasValue && value.idRecurrency.Value != 0) { oData.idRecurrency = value.idRecurrency.Value; }
-            // else
-            // {
-            //    recurrencyModel = await this.addRecurrency(value);
-            //    if (recurrencyModel != null) { oData.idRecurrency = recurrencyModel.idRecurrency; newRecurrency = true; }
-            // }
+            var recurrencyService = this.GetService<Recurrencies.RecurrenciesService>();
+            data.RecurrencyID = await recurrencyService.AddRecurrencyAsync(value.Recurrency);
 
             // SEARCH DATE
             data.SearchDate = data.DueDate;

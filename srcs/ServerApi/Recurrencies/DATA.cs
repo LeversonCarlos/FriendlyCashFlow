@@ -9,10 +9,10 @@ namespace FriendlyCashFlow.API.Recurrencies
    // public enum enRecurrencyState : short { Inactive = 0, Active = 1 }
 
    [Table("v6_dataRecurrencies")]
-   internal class Recurrency : Base.BaseData
+   internal class RecurrencyData : Base.BaseData
    {
 
-      public Recurrency() : base() { }
+      public RecurrencyData() : base() { }
 
       [Key]
       [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
@@ -39,10 +39,7 @@ namespace FriendlyCashFlow.API.Recurrencies
       [Required]
       public short Type { get; set; }
 
-      [Required]
-      public bool Fixed { get; set; }
-
-      public int? Quantity { get; set; }
+      public int Count { get; set; }
 
       [DataType(DataType.DateTime)]
       [Required]
@@ -50,9 +47,6 @@ namespace FriendlyCashFlow.API.Recurrencies
 
       [DataType(DataType.DateTime)]
       public DateTime? LastDate { get; set; }
-
-      [Required]
-      public short StateValue { get; set; }
 
    }
 
@@ -62,6 +56,6 @@ namespace FriendlyCashFlow.API.Base
 {
    partial class dbContext
    {
-      internal DbSet<Recurrencies.Recurrency> Recurrencies { get; set; }
+      internal DbSet<Recurrencies.RecurrencyData> Recurrencies { get; set; }
    }
 }
