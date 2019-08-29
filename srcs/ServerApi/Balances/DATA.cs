@@ -42,6 +42,9 @@ namespace FriendlyCashFlow.API.Base
       {
          modelBuilder.Entity<Balances.BalanceData>()
             .HasKey(c => new { c.ResourceID, c.AccountID, c.Date });
+         modelBuilder.Entity<Balances.BalanceData>()
+            .HasIndex(x => new { x.RowStatus, x.ResourceID, x.Date, x.AccountID })
+            .HasName("v6_dataBalance_index_Search");
       }
    }
 }
