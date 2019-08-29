@@ -7,10 +7,10 @@ namespace FriendlyCashFlow.API.Entries
 {
 
    [Table("v6_dataEntries")]
-   internal class Entry : Base.BaseData
+   internal class EntryData : Base.BaseData
    {
 
-      public Entry() : base() { }
+      public EntryData() : base() { }
 
       [Key]
       [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
@@ -71,13 +71,13 @@ namespace FriendlyCashFlow.API.Base
 {
    partial class dbContext
    {
-      internal DbSet<Entries.Entry> Entries { get; set; }
+      internal DbSet<Entries.EntryData> Entries { get; set; }
       private void OnModelCreating_Entries(ModelBuilder modelBuilder)
       {
-         modelBuilder.Entity<Entries.Entry>()
+         modelBuilder.Entity<Entries.EntryData>()
             .HasIndex(x => new { x.RowStatus, x.ResourceID, x.AccountID, x.SearchDate })
             .HasName("v6_dataEntries_index_SearchDate");
-         modelBuilder.Entity<Entries.Entry>()
+         modelBuilder.Entity<Entries.EntryData>()
             .HasIndex(x => new { x.RowStatus, x.ResourceID, x.AccountID, x.Text })
             .HasName("v6_dataEntries_index_SearchText");
       }
