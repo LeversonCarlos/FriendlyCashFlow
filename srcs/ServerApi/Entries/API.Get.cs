@@ -1,5 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FriendlyCashFlow.API.Entries
 {
@@ -15,6 +19,23 @@ namespace FriendlyCashFlow.API.Entries
             .AsQueryable();
       }
 
+      internal async Task<ActionResult<List<EntryVM>>> GetDataAsync(short searchYear, short searchMonth, long accountID)
+      { return await this.GetDataAsync(searchYear, searchMonth, searchText: "", accountID); }
+
+      internal async Task<ActionResult<List<EntryVM>>> GetDataAsync(string searchText, long accountID)
+      { return await this.GetDataAsync(searchYear: 0, searchMonth: 0, searchText, accountID); }
+
+      private async Task<ActionResult<List<EntryVM>>> GetDataAsync(short searchYear, short searchMonth, string searchText, long accountID)
+      {
+         try
+         {
+            var queryPath = "FriendlyCashFlow.ServerApi.Entries.QUERY.EntriesSearch.sql";
+            var queryContent = Helpers.EmbededResource.GetResourceContent(queryPath);
+            return null;
+         }
+         catch (Exception ex) { return this.ExceptionResponse(ex); }
+      }
+
       private void ApplySorting(EntryData data)
       {
          try
@@ -24,6 +45,36 @@ namespace FriendlyCashFlow.API.Entries
          }
          catch (Exception) { throw; }
       }
+
+   }
+
+   partial class EntriesController
+   {
+
+      [HttpGet("search/{searchYear:short}/{searchMonth:short}/{accountID:long}/")]
+      [HttpGet("search/{searchYear:short}/{searchMonth:short}/")]
+      public async Task<ActionResult<List<EntryVM>>> GetDataAsync(short searchYear, short searchMonth, long accountID = 0)
+      {
+         var service = this.GetService<EntriesService>();
+         return await service.GetDataAsync(searchYear, searchMonth, accountID);
+      }
+
+      [HttpGet("search/{searchText}/{accountID:long}/")]
+      [HttpGet("search/{searchText}/")]
+      public async Task<ActionResult<List<EntryVM>>> GetDataAsync(string searchText, long accountID = 0)
+      {
+         var service = this.GetService<EntriesService>();
+         return await service.GetDataAsync(searchText, accountID);
+      }
+
+      /*
+      [HttpGet("{id:long}")]
+      public async Task<ActionResult<EntryVM>> GetDataAsync(long id)
+      {
+         var service = this.GetService<EntriesService>();
+         return await service.GetDataAsync(id);
+      }
+      */
 
    }
 
