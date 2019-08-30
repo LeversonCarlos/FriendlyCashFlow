@@ -32,6 +32,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ServerApi\Entries\QUERY.EntriesSearch.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="ServerApi\Entries\QUERY.EntriesSearch.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Update="Translations\Strings.resx">
       <Generator></Generator>
     </EmbeddedResource>
