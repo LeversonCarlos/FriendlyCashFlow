@@ -1,8 +1,8 @@
-declare @resourceID varchar(128) = 'a0e03962-54a3-47be-a733-652311ef196a';
-declare @accountID bigint = 0;
-declare @dateYear smallint = 2019;
-declare @dateMonth smallint = 08;
-declare @searchText varchar(255) = '';
+declare @resourceID varchar(128) = @paramResourceID;
+declare @accountID bigint = @paramAccountID;
+declare @searchYear smallint = @paramSearchYear;
+declare @searchMonth smallint = @paramSearchMonth;
+declare @searchText varchar(255) = @paramSearchText;
 
 set nocount on;
 
@@ -31,8 +31,8 @@ if (@accountID = 0) begin
 end
 
 /* DATE CONDITION */
-if (@dateYear <> 0 and @dateMonth <> 0) begin
-   declare @initialDate datetime = cast(ltrim(str(@dateYear))+'-'+ltrim(str(@dateMonth))+'-01' as datetime);
+if (@searchYear <> 0 and @searchMonth <> 0) begin
+   declare @initialDate datetime = cast(ltrim(str(@searchYear))+'-'+ltrim(str(@searchMonth))+'-01' as datetime);
    declare @finalDate datetime = dateadd(day, -1, dateadd(month,1,@initialDate));
    set @command = @command + char(10) + ' and SearchDate >= '''+ convert(varchar(10),@initialDate,121) +'''';
    set @command = @command + char(10) + ' and SearchDate <= '''+ convert(varchar(10),@finalDate,121) +'''';
@@ -133,7 +133,7 @@ where
 
 /* BALANCE */
 alter table #dataEntries add BalanceTotalValue decimal(15,2), BalancePaidValue decimal(15,2);
-if (@dateYear <> 0 and @dateMonth <> 0) begin
+if (@searchYear <> 0 and @searchMonth <> 0) begin
 
    select AccountID, TotalValue, PaidValue
    into #dataBalance
@@ -141,7 +141,7 @@ if (@dateYear <> 0 and @dateMonth <> 0) begin
    where
       ResourceID = @resourceID
       and AccountID in (select distinct AccountID from #dataEntries)
-      and Date = dateadd(month,-1,cast(ltrim(str(@dateYear))+'-'+ltrim(str(@dateMonth))+'-01' as datetime));
+      and Date = dateadd(month,-1,cast(ltrim(str(@searchYear))+'-'+ltrim(str(@searchMonth))+'-01' as datetime));
 
    update #dataEntries
    set

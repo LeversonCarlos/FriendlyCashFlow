@@ -18,6 +18,7 @@ namespace FriendlyCashFlow
             }));
 
          // CONFIGURE INJECTION FOR DATA SERVICES
+         services.AddScoped<Helpers.DataReaderService>();
          services.AddScoped<API.Accounts.AccountsService>();
          services.AddScoped<API.Categories.CategoriesService>();
          services.AddScoped<API.Patterns.PatternsService>();

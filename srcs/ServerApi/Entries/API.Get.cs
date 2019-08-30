@@ -28,9 +28,21 @@ namespace FriendlyCashFlow.API.Entries
       {
          try
          {
+            var user = this.GetService<Helpers.User>();
             var queryPath = "FriendlyCashFlow.ServerApi.Entries.QUERY.EntriesSearch.sql";
-            var queryContent = Helpers.EmbededResource.GetResourceContent(queryPath);
-            return null;
+            var queryContent = await Helpers.EmbededResource.GetResourceContent(queryPath);
+            using (var queryReader = this.GetService<Helpers.DataReaderService>().GetDataReader(queryContent))
+            {
+               queryReader.AddParameter("@paramResourceID", user.ResourceID);
+               queryReader.AddParameter("@paramAccountID", accountID);
+               queryReader.AddParameter("@paramSearchYear", searchYear);
+               queryReader.AddParameter("@paramSearchMonth", searchMonth);
+               queryReader.AddParameter("@paramSearchText", searchText);
+               if (!await queryReader.ExecuteReaderAsync()) { return this.WarningResponse("data query error"); }
+
+               var queryResult = await queryReader.GetDataResultAsync<EntryVM>();
+               return queryResult;
+            }
          }
          catch (Exception ex) { return this.ExceptionResponse(ex); }
       }
