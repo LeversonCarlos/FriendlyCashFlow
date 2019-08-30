@@ -62,15 +62,15 @@ namespace FriendlyCashFlow.API.Entries
    partial class EntriesController
    {
 
-      [HttpGet("search/{searchYear:short}/{searchMonth:short}/{accountID:long}/")]
-      [HttpGet("search/{searchYear:short}/{searchMonth:short}/")]
+      [HttpGet("flow/{searchYear}/{searchMonth}/{accountID}/")]
+      [HttpGet("flow/{searchYear}/{searchMonth}/")]
       public async Task<ActionResult<List<EntryVM>>> GetDataAsync(short searchYear, short searchMonth, long accountID = 0)
       {
          var service = this.GetService<EntriesService>();
          return await service.GetDataAsync(searchYear, searchMonth, accountID);
       }
 
-      [HttpGet("search/{searchText}/{accountID:long}/")]
+      [HttpGet("search/{searchText}/{accountID}/")]
       [HttpGet("search/{searchText}/")]
       public async Task<ActionResult<List<EntryVM>>> GetDataAsync(string searchText, long accountID = 0)
       {
