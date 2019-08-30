@@ -26,7 +26,7 @@ namespace FriendlyCashFlow.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "v6_dataEntry",
+                name: "v6_dataEntries",
                 columns: table => new
                 {
                     EntryID = table.Column<long>(nullable: false)
@@ -38,22 +38,23 @@ namespace FriendlyCashFlow.Migrations
                     AccountID = table.Column<long>(nullable: true),
                     SearchDate = table.Column<DateTime>(nullable: false),
                     Text = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false),
+                    CategoryID = table.Column<long>(nullable: false),
                     PatternID = table.Column<long>(nullable: false),
                     RecurrencyID = table.Column<long>(nullable: true),
-                    TransferID = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: false),
+                    TransferID = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: true),
                     DueDate = table.Column<DateTime>(nullable: false),
-                    Value = table.Column<decimal>(type: "decimal(15,2)", nullable: false),
+                    EntryValue = table.Column<decimal>(type: "decimal(15,2)", nullable: false),
                     Paid = table.Column<bool>(nullable: false),
                     PayDate = table.Column<DateTime>(nullable: true),
                     Sorting = table.Column<decimal>(type: "decimal(20,10)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_v6_dataEntry", x => x.EntryID);
+                    table.PrimaryKey("PK_v6_dataEntries", x => x.EntryID);
                 });
 
             migrationBuilder.CreateTable(
-                name: "v6_dataPattern",
+                name: "v6_dataPatterns",
                 columns: table => new
                 {
                     PatternID = table.Column<long>(nullable: false)
@@ -64,15 +65,15 @@ namespace FriendlyCashFlow.Migrations
                     Type = table.Column<short>(nullable: false),
                     CategoryID = table.Column<long>(nullable: false),
                     Text = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false),
-                    Quantity = table.Column<short>(nullable: false)
+                    Count = table.Column<short>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_v6_dataPattern", x => x.PatternID);
+                    table.PrimaryKey("PK_v6_dataPatterns", x => x.PatternID);
                 });
 
             migrationBuilder.CreateTable(
-                name: "v6_dataRecurrency",
+                name: "v6_dataRecurrencies",
                 columns: table => new
                 {
                     RecurrencyID = table.Column<long>(nullable: false)
@@ -85,20 +86,23 @@ namespace FriendlyCashFlow.Migrations
                     EntryValue = table.Column<decimal>(type: "decimal(15,2)", nullable: false),
                     EntryDate = table.Column<DateTime>(nullable: false),
                     Type = table.Column<short>(nullable: false),
-                    Fixed = table.Column<bool>(nullable: false),
-                    Quantity = table.Column<int>(nullable: true),
+                    Count = table.Column<int>(nullable: false),
                     InitialDate = table.Column<DateTime>(nullable: false),
-                    LastDate = table.Column<DateTime>(nullable: true),
-                    StateValue = table.Column<short>(nullable: false)
+                    LastDate = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_v6_dataRecurrency", x => x.RecurrencyID);
+                    table.PrimaryKey("PK_v6_dataRecurrencies", x => x.RecurrencyID);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "v6_dataPattern_index_Search",
-                table: "v6_dataPattern",
+                name: "v6_dataBalance_index_Search",
+                table: "v6_dataBalance",
+                columns: new[] { "RowStatus", "ResourceID", "Date", "AccountID" });
+
+            migrationBuilder.CreateIndex(
+                name: "v6_dataPatterns_index_Search",
+                table: "v6_dataPatterns",
                 columns: new[] { "RowStatus", "ResourceID", "Type", "CategoryID", "Text" });
         }
 
@@ -108,13 +112,13 @@ namespace FriendlyCashFlow.Migrations
                 name: "v6_dataBalance");
 
             migrationBuilder.DropTable(
-                name: "v6_dataEntry");
+                name: "v6_dataEntries");
 
             migrationBuilder.DropTable(
-                name: "v6_dataPattern");
+                name: "v6_dataPatterns");
 
             migrationBuilder.DropTable(
-                name: "v6_dataRecurrency");
+                name: "v6_dataRecurrencies");
         }
     }
 }

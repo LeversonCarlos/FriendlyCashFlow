@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FriendlyCashFlow.Migrations
 {
     [DbContext(typeof(dbContext))]
-    [Migration("20190829193624_EntriesChanges05")]
-    partial class EntriesChanges05
+    [Migration("20190830133623_Entries")]
+    partial class Entries
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
