@@ -10,25 +10,6 @@ export class MonthPickerComponent implements OnInit {
 
    constructor(private route: ActivatedRoute) { }
 
-   private currentMonth: Date;
-   public get CurrentMonth(): Date {
-      return this.currentMonth;
-   }
-   public set CurrentMonth(val: Date) {
-      this.currentMonth = val;
-      this.Changed.emit(this.currentMonth);
-   }
-
-   public get PreviousMonth(): Date {
-      if (!this.CurrentMonth) { return null }
-      else { return new Date(new Date(this.CurrentMonth).setMonth(this.CurrentMonth.getMonth() - 1)); }
-   }
-
-   public get NextMonth(): Date {
-      if (!this.CurrentMonth) { return null }
-      else { return new Date(new Date(this.CurrentMonth).setMonth(this.CurrentMonth.getMonth() + 1)); }
-   }
-
    public ngOnInit() {
       try {
          const year: number = Number(this.route.snapshot.params.year);
@@ -42,9 +23,23 @@ export class MonthPickerComponent implements OnInit {
       catch{ this.CurrentMonth = new Date(); return; }
    }
 
+   private currentMonth: Date;
+   public get CurrentMonth(): Date {
+      return this.currentMonth;
+   }
+   public set CurrentMonth(val: Date) {
+      this.PreviousMonth = new Date(new Date(val).setMonth(val.getMonth() - 1));
+      this.currentMonth = val;
+      this.NextMonth = new Date(new Date(val).setMonth(val.getMonth() + 1));
+      this.Changed.emit(this.currentMonth);
+   }
+
+   public PreviousMonth: Date;
+   public OnPreviousMonthClick() { this.CurrentMonth = this.PreviousMonth; }
+   public NextMonth: Date;
+   public OnNextMonthClick() { this.CurrentMonth = this.NextMonth; }
+
    @Output()
    public Changed: EventEmitter<Date> = new EventEmitter<Date>();
-   public OnPreviousMonthClick() { this.CurrentMonth = this.PreviousMonth; }
-   public OnNextMonthClick() { this.CurrentMonth = this.NextMonth; }
 
 }

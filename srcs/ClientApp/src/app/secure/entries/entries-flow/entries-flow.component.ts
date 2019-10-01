@@ -11,11 +11,9 @@ export class EntriesFlowComponent implements OnInit {
    constructor(private service: EntriesService) { }
 
    public ngOnInit() {
-      console.log('EntriesFlowComponent.OnInit')
    }
 
    public OnMonthChanged(month: Date) {
-      console.log('OnMonthChanged', month)
       this.service.showFlow(month.getFullYear(), month.getMonth() + 1);
    }
 
