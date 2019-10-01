@@ -1,5 +1,1 @@
-<div (click)="OnPreviousMonthClick()"> {{ PreviousMonth | date : 'dd/MM/yyyy'  }} </div>
-<div>
-   <strong>{{ CurrentMonth | date : 'dd/MM/yyyy' }}</strong>
-</div>
-<div (click)="OnNextMonthClick()">{{ NextMonth | date : 'dd/MM/yyyy' }}</div>
+<fs-month-picker (Changed)="OnMonthChanged($event)"></fs-month-picker>
