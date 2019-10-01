@@ -26,6 +26,7 @@ namespace FriendlyCashFlow.API.Base
       /*
          dotnet ef migrations add Initial
          dotnet ef database update
+         git remote prune origin
        */
 
    }
