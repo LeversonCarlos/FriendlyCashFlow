@@ -1,1 +1,18 @@
-<fs-month-picker (Changed)="OnMonthChanged($event)"></fs-month-picker>
+<fs-full-layout>
+   <span title>
+      {{ 'ENTRIES_MAIN_TITLE' | translation | async }}
+   </span>
+   <div toolbar>
+      <fs-month-picker (Changed)="OnMonthChanged($event)"></fs-month-picker>
+   </div>
+   <div content class="full-screen">
+
+      <mat-card class="full-card">
+         <mat-card-content>
+
+         </mat-card-content>
+      </mat-card>
+
+   </div>
+</fs-full-layout>
+<fab-button (click)="OnNewClick()"></fab-button>
