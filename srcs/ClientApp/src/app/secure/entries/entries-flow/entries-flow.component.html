@@ -9,7 +9,12 @@
 
       <mat-card class="full-card">
          <mat-card-content>
-
+            <mat-action-list>
+               <button mat-list-item *ngFor="let item of DataList" (click)="OnItemClick(item)">
+                  <span>{{ item.Text }}</span>
+                  <!-- <mat-icon matListIcon>{{ item.Icon }}</mat-icon> -->
+               </button>
+            </mat-action-list>
          </mat-card-content>
       </mat-card>
 

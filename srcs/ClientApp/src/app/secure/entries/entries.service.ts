@@ -55,7 +55,7 @@ export class EntriesService {
          this.DataList = await this.http.get<Entry[]>(url)
             .pipe(map(items => items.map(item => Object.assign(new Entry, item))))
             .toPromise();
-         console.log(this.CurrentMonth)
+         console.log(this.DataList)
          return (this.DataList != null);
       }
       catch (ex) { return null; }
