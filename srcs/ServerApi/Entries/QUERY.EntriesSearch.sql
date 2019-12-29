@@ -27,7 +27,7 @@ if (@accountID <> 0) begin
    set @command = @command + char(10) + ' and AccountID = '+ ltrim(str(@accountID));
 end
 if (@accountID = 0) begin
-   set @command = @command + char(10) + ' and AccountID <> 0'; /* just to be using the table index */
+   set @command = @command + char(10) + ' and coalesce(AccountID,0) >= 0'; /* just to be using the table index */
 end
 
 /* DATE CONDITION */

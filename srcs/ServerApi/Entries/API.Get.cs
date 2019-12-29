@@ -18,8 +18,28 @@ namespace FriendlyCashFlow.API.Entries
             .AsQueryable();
       }
 
-      internal async Task<ActionResult<List<EntryVM>>> GetDataAsync(short searchYear, short searchMonth, long accountID)
-      { return await this.GetDataAsync(searchYear, searchMonth, searchText: "", accountID); }
+      internal async Task<ActionResult<List<EntryFlowVM>>> GetDataAsync(short searchYear, short searchMonth, long accountID)
+      {
+         var entryListMessage = await this.GetDataAsync(searchYear, searchMonth, searchText: "", accountID);
+         var entryList = this.GetValue(entryListMessage);
+         if (entryList == null) { return entryListMessage.Result; }
+         var flowList = entryList
+            .GroupBy(x => x.DueDate.Day)
+            .Select(x => new
+            {
+               Day = x.Key,
+               EntryList = entryList.Where(e => e.DueDate.Day == x.Key).ToList()
+            })
+            .Select(x => new EntryFlowVM
+            {
+               Day = x.Day.ToString().PadLeft(2, "0".ToCharArray()[0]),
+               EntryList = x.EntryList.OrderBy(e => e.Sorting).ToArray(),
+               BalanceTotalValue = x.EntryList.OrderByDescending(e => e.Sorting).Select(e => e.BalanceTotalValue).FirstOrDefault(),
+               BalancePaidValue = x.EntryList.OrderByDescending(e => e.Sorting).Select(e => e.BalancePaidValue).FirstOrDefault()
+            })
+            .ToList();
+         return flowList;
+      }
 
       internal async Task<ActionResult<List<EntryVM>>> GetDataAsync(string searchText, long accountID)
       { return await this.GetDataAsync(searchYear: 0, searchMonth: 0, searchText, accountID); }
@@ -64,18 +84,16 @@ namespace FriendlyCashFlow.API.Entries
 
       [HttpGet("flow/{searchYear}/{searchMonth}/{accountID}/")]
       [HttpGet("flow/{searchYear}/{searchMonth}/")]
-      public async Task<ActionResult<List<EntryVM>>> GetDataAsync(short searchYear, short searchMonth, long accountID = 0)
+      public async Task<ActionResult<List<EntryFlowVM>>> GetDataAsync(short searchYear, short searchMonth, long accountID = 0)
       {
-         var service = this.GetService<EntriesService>();
-         return await service.GetDataAsync(searchYear, searchMonth, accountID);
+         return await this.GetService<EntriesService>().GetDataAsync(searchYear, searchMonth, accountID);
       }
 
       [HttpGet("search/{searchText}/{accountID}/")]
       [HttpGet("search/{searchText}/")]
       public async Task<ActionResult<List<EntryVM>>> GetDataAsync(string searchText, long accountID = 0)
       {
-         var service = this.GetService<EntriesService>();
-         return await service.GetDataAsync(searchText, accountID);
+         return await this.GetService<EntriesService>().GetDataAsync(searchText, accountID);
       }
 
       /*

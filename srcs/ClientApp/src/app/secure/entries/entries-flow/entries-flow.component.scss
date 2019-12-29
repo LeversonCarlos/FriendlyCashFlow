@@ -1,0 +1,17 @@
+.flow-row {
+  width: 100%;
+  display: flex;
+}
+
+.flow-day {
+  align-self: flex-start;
+}
+.flow-list {
+  flex-grow: 1;
+  .mat-action-list {
+    padding-top: 0;
+  }
+}
+.flow-balance {
+  align-self: flex-end;
+}

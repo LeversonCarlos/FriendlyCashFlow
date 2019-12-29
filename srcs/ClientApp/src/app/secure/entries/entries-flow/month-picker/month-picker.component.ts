@@ -39,7 +39,7 @@ export class MonthPickerComponent implements OnInit {
       this.PreviousMonth = new Date(new Date(val).setMonth(val.getMonth() - 1));
       this.service.CurrentMonth = val;
       this.NextMonth = new Date(new Date(val).setMonth(val.getMonth() + 1));
-      this.service.loadEntries().then(() => this.service.showFlow(val.getFullYear(), val.getMonth() + 1))
+      this.service.loadFlowList().then(() => this.service.showFlow(val.getFullYear(), val.getMonth() + 1))
    }
 
    public PreviousMonth: Date;

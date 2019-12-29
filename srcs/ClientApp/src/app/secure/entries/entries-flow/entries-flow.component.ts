@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EntriesService, Entry } from '../entries.service';
+import { EntriesService, EntryFlow } from '../entries.service';
 
 @Component({
    selector: 'fs-entries-flow',
@@ -10,7 +10,7 @@ export class EntriesFlowComponent implements OnInit {
 
    constructor(private service: EntriesService) { }
 
-   public get DataList(): Entry[] { return this.service.DataList }
+   public get FlowList(): EntryFlow[] { return this.service.FlowList }
 
    public ngOnInit() {
    }

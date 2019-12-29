@@ -8,8 +8,10 @@ export class Entry {
    EntryID: number;
    Type: any;
    Text: string;
+
    PatternID: number;
    CategoryID: number;
+   CategoryText: string;
 
    DueDate: Date;
    EntryValue: number;
@@ -17,9 +19,23 @@ export class Entry {
    Paid: boolean;
    PayDate?: Date;
    AccountID?: number;
+   AccountText: string;
 
    RecurrencyID?: number;
    Recurrency?: any;
+
+   TransferID: string;
+
+   BalanceTotalValue: number
+   BalancePaidValue: number
+   Sorting: number
+}
+
+export class EntryFlow {
+   Day: string
+   EntryList: Entry[]
+   BalanceTotalValue: number
+   BalancePaidValue: number
 }
 
 @Injectable({
@@ -41,10 +57,10 @@ export class EntriesService {
    // DATA
    public CurrentMonth: Date;
    public CurrentAccount: number = 0;
-   public DataList: Entry[];
+   public FlowList: EntryFlow[];
 
-   // LOAD ENTRIES
-   public async loadEntries(): Promise<boolean> {
+   // LOAD FLOW LIST
+   public async loadFlowList(): Promise<boolean> {
       try {
          this.busy.show();
          const year = this.CurrentMonth.getFullYear();
@@ -52,11 +68,14 @@ export class EntriesService {
          const accountID = this.CurrentAccount;
          let url = `api/entries/flow/${year}/${month}`;
          if (accountID && accountID > 0) { url = `${url}/${accountID}`; }
-         this.DataList = await this.http.get<Entry[]>(url)
-            .pipe(map(items => items.map(item => Object.assign(new Entry, item))))
+         this.FlowList = await this.http.get<EntryFlow[]>(url)
+            .pipe(map(flows => flows.map(flow => {
+               flow.EntryList = flow.EntryList.map(entry => Object.assign(new Entry, entry));
+               return Object.assign(new EntryFlow, flow);
+            })))
             .toPromise();
-         console.log(this.DataList)
-         return (this.DataList != null);
+         console.log(this.FlowList)
+         return (this.FlowList != null);
       }
       catch (ex) { return null; }
       finally { this.busy.hide(); }

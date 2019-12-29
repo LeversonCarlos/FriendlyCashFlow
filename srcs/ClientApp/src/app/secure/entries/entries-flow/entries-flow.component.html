@@ -9,12 +9,20 @@
 
       <mat-card class="full-card">
          <mat-card-content>
-            <mat-action-list>
-               <button mat-list-item *ngFor="let item of DataList" (click)="OnItemClick(item)">
-                  <span>{{ item.Text }}</span>
-                  <!-- <mat-icon matListIcon>{{ item.Icon }}</mat-icon> -->
-               </button>
-            </mat-action-list>
+            <div class="flow-row" *ngFor="let flow of FlowList">
+               <div class="flow-day"> <span class="mat-subheading">{{ flow.Day}}</span> </div>
+               <div class="flow-list">
+                  <mat-action-list>
+                     <button mat-list-item *ngFor="let item of flow.EntryList" (click)="OnItemClick(item)">
+                        <h3 matLine>{{ item.Text }} - {{ item.EntryValue }} </h3>
+                        <p matLine>{{ item.CategoryText }} - {{ item.AccountText }}</p>
+                        <!-- <mat-icon matListIcon>{{ item.Icon }}</mat-icon> -->
+                     </button>
+                  </mat-action-list>
+               </div>
+               <div class="flow-balance">{{ flow.BalanceTotalValue }}</div>
+            </div>
+
          </mat-card-content>
       </mat-card>
 

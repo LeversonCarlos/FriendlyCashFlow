@@ -9,8 +9,10 @@ namespace FriendlyCashFlow.API.Entries
 
       public Categories.enCategoryType Type { get; set; }
       public string Text { get; set; }
+
       public long PatternID { get; set; }
       public long CategoryID { get; set; }
+      public string CategoryText { get; set; }
 
       public DateTime DueDate { get; set; }
       public decimal EntryValue { get; set; }
@@ -18,9 +20,22 @@ namespace FriendlyCashFlow.API.Entries
       public bool Paid { get; set; }
       public DateTime? PayDate { get; set; }
       public long? AccountID { get; set; }
+      public string AccountText { get; set; }
 
       public long? RecurrencyID { get; set; }
       public Recurrencies.RecurrencyVM Recurrency { get; set; }
+
+      public string TransferID { get; set; }
+      // public long TransferIncomeEntryID { get; set; }
+      // public long TransferExpenseEntryID { get; set; }
+      // public long TransferIncomeAccountID { get; set; }
+      // public string TransferIncomeAccountText { get; set; }
+      // public long TransferExpenseAccountID { get; set; }
+      // public string TransferExpenseAccountText { get; set; }
+
+      public decimal BalanceTotalValue { get; set; }
+      public decimal BalancePaidValue { get; set; }
+      public decimal Sorting { get; set; }
 
       internal static EntryVM Convert(EntryData value)
       {
@@ -42,6 +57,14 @@ namespace FriendlyCashFlow.API.Entries
       }
 
 
+   }
+
+   public class EntryFlowVM
+   {
+      public string Day { get; set; }
+      public EntryVM[] EntryList { get; set; }
+      public decimal BalanceTotalValue { get; set; }
+      public decimal BalancePaidValue { get; set; }
    }
 
 }
