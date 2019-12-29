@@ -38,16 +38,25 @@ export class EntriesService {
    public showEntryNew() { this.router.navigate(['/entries', 'entry', 'new'], { skipLocationChange: true }); }
    public showTransferNew() { this.router.navigate(['/entries', 'transfer', 'new'], { skipLocationChange: true }); }
 
-   // ENTRIES
-   public async getEntries(year: number, month: number, accountID: number = 0): Promise<Entry[]> {
+   // DATA
+   public CurrentMonth: Date;
+   public CurrentAccount: number = 0;
+   public DataList: Entry[];
+
+   // LOAD ENTRIES
+   public async loadEntries(): Promise<boolean> {
       try {
          this.busy.show();
+         const year = this.CurrentMonth.getFullYear();
+         const month = this.CurrentMonth.getMonth() + 1;
+         const accountID = this.CurrentAccount;
          let url = `api/entries/flow/${year}/${month}`;
          if (accountID && accountID > 0) { url = `${url}/${accountID}`; }
-         const dataList = await this.http.get<Entry[]>(url)
+         this.DataList = await this.http.get<Entry[]>(url)
             .pipe(map(items => items.map(item => Object.assign(new Entry, item))))
             .toPromise();
-         return dataList;
+         console.log(this.CurrentMonth)
+         return (this.DataList != null);
       }
       catch (ex) { return null; }
       finally { this.busy.hide(); }

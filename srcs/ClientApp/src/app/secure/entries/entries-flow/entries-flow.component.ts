@@ -8,13 +8,9 @@ import { EntriesService } from '../entries.service';
 })
 export class EntriesFlowComponent implements OnInit {
 
-   constructor(private service: EntriesService) { }
+   constructor() { }
 
    public ngOnInit() {
-   }
-
-   public OnMonthChanged(month: Date) {
-      this.service.showFlow(month.getFullYear(), month.getMonth() + 1);
    }
 
 }
