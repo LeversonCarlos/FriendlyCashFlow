@@ -1,24 +1,37 @@
+.mat-card {
+  margin-bottom: 6px;
+  padding: 0;
+
+  .mat-card-content {
+     margin: 0;
+  }
+
+  .mat-card-footer {
+     text-align: right;
+     margin-right: 16px;
+  }
+}
+
 .flow-row {
   width: 100%;
   display: flex;
 }
 .flow-day {
-  align-self: center;
-  padding-right: 10px;
+  align-self: flex-start;
+  padding: 0 10px;
+  margin-top: 6px;
 }
 .flow-list {
   flex-grow: 1;
   .mat-action-list {
     padding-top: 0;
   }
-  .mat-divider {
-    opacity: 0.5;
-  }
 }
 .flow-balance {
-  align-self: center;
-  padding-left: 10px;
-}
+   align-self: flex-end;
+   padding: 0 10px;
+   margin-bottom: 12px;
+ }
 
 .item-row {
   width: 100%;
