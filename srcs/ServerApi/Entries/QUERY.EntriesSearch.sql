@@ -135,22 +135,38 @@ where
 alter table #dataEntries add BalanceTotalValue decimal(15,2), BalancePaidValue decimal(15,2);
 if (@searchYear <> 0 and @searchMonth <> 0) begin
 
-   select AccountID, TotalValue, PaidValue
+   select sum(TotalValue) as TotalValue, sum(PaidValue) as PaidValue
    into #dataBalance
-   from v6_dataBalance as dataBalance
+   from v6_dataBalance
    where
       ResourceID = @resourceID
       and AccountID in (select distinct AccountID from #dataEntries)
-      and Date = dateadd(month,-1,cast(ltrim(str(@searchYear))+'-'+ltrim(str(@searchMonth))+'-01' as datetime));
+      and Date = dateFromParts(@searchYear, @searchMonth, 1);
+
+   /* INITIAL BALANCE */
+   insert into #dataEntries(EntryID, Type, Text, DueDate, EntryValue, Paid, PayDate, CategoryID, CategoryText, PatternID, Sorting)
+   select
+      0 as EntryID,
+      (case when EntryValue<0 then @typeIncome else @typeExpense end) as Type,
+      'Saldo Inicial' as Text,
+      DueDate, EntryValue, 1 as Paid, DueDate as PayDate,
+      0 as CategoryID, '' as CategoryText, 0 as PatternID,
+      0 as Sorting
+   from
+   (
+      select
+         dateFromParts(@searchYear, @searchMonth, 1) as DueDate,
+         coalesce((select top 1 PaidValue from #dataBalance as dataBalance),0) as EntryValue
+   ) SUB
 
    update #dataEntries
    set
       BalanceTotalValue =
-         coalesce((select top 1 TotalValue from #dataBalance as dataBalance where (dataBalance.AccountID=dataEntries.AccountID or @accountID=0)),0) +
-         (select sum(EntryValue) from #dataEntries as dataEntriesI where (dataEntriesI.AccountID=dataEntries.AccountID or @accountID=0) and dataEntriesI.Sorting <= dataEntries.Sorting),
+         coalesce((select top 1 TotalValue from #dataBalance),0) +
+         (select sum(EntryValue) from #dataEntries as dataEntriesI where dataEntriesI.Sorting <= dataEntries.Sorting),
       BalancePaidValue =
-         coalesce((select top 1 PaidValue from #dataBalance as dataBalance where (dataBalance.AccountID=dataEntries.AccountID or @accountID=0)),0) +
-         (select sum(EntryValue) from #dataEntries as dataEntriesI where (dataEntriesI.AccountID=dataEntries.AccountID or @accountID=0) and dataEntriesI.Sorting <= dataEntries.Sorting and dataEntriesI.Paid=1)
+         coalesce((select top 1 PaidValue from #dataBalance),0) +
+         (select sum(EntryValue) from #dataEntries as dataEntriesI where dataEntriesI.Sorting <= dataEntries.Sorting and dataEntriesI.Paid=1)
    from #dataEntries as dataEntries;
 
    drop table #dataBalance;
