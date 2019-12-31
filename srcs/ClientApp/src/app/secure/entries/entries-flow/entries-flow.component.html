@@ -19,7 +19,8 @@
 
                   <div class="flow-details">
                      <mat-action-list>
-                        <button mat-list-item *ngFor="let item of flow.EntryList" (click)="OnItemClick(item)">
+                        <button mat-list-item *ngFor="let item of flow.EntryList" [disabled]="item.EntryID==0"
+                           (click)="OnItemClick(item)">
                            <div class="item-row mat-body">
                               <div class="item-details">
                                  <div>{{ item.Text }}</div>
@@ -42,8 +43,13 @@
                <div class="flow-row">
                   <div class="flow-details"></div>
                   <div class="flow-balance mat-body">
-                     <span class="" [class.forecolor-red]="flow.BalanceTotalValue < 0"
-                        [class.forecolor-green]="flow.BalanceTotalValue > 0">{{ flow.BalanceTotalValue | number : '1.2-2' }}</span>
+                     <span [class.forecolor-red]="flow.BalancePaidValue < 0"
+                        [class.forecolor-green]="flow.BalancePaidValue > 0">
+                        {{ flow.BalancePaidValue | number : '1.2-2' }}</span>
+                     <small *ngIf="flow.BalanceTotalValue != flow.BalancePaidValue"
+                        [class.forecolor-red]="flow.BalanceTotalValue < 0"
+                        [class.forecolor-green]="flow.BalanceTotalValue > 0">
+                        ({{ flow.BalanceTotalValue  | number : '1.2-2' }})</small>
                   </div>
                </div>
             </mat-card-content>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EntriesService, EntryFlow } from '../entries.service';
+import { EntriesService, EntryFlow, Entry } from '../entries.service';
 
 @Component({
    selector: 'fs-entries-flow',
@@ -13,6 +13,14 @@ export class EntriesFlowComponent implements OnInit {
    public get FlowList(): EntryFlow[] { return this.service.FlowList }
 
    public ngOnInit() {
+   }
+
+   public OnItemClick(item: Entry) {
+      // this.service.showDetails(item.EntryID);
+   }
+
+   public OnNewClick() {
+      // this.service.showNew();
    }
 
 }
