@@ -7,7 +7,7 @@
    </div>
    <div content class="full-screen">
 
-      <mat-card class="full-card">
+      <mat-card class="full-card mat-body">
          <mat-card-content>
             <div class="flow-row" *ngFor="let flow of FlowList; last as islast">
                <div class="flow-day">
@@ -21,21 +21,26 @@
                               <div>{{ item.Text }}</div>
                               <div>
                                  <small>{{ item.CategoryText }}</small>
-                                 <small *ngIf="item.CategoryText && item.AccountText" > - </small>
+                                 <small *ngIf="item.CategoryText && item.AccountText"> - </small>
                                  <small>{{ item.AccountText }}</small>
                               </div>
                            </div>
-                           <div class="item-value">
+                           <div class="item-value" [class.forecolor-red]="item.EntryValue < 0"
+                              [class.forecolor-green]="item.EntryValue > 0">
                               {{ item.EntryValue | number : '1.2-2' }}
                            </div>
                         </div>
                         <!-- <mat-icon matListIcon>{{ item.Icon }}</mat-icon> -->
                      </button>
                   </mat-action-list>
+                  <div class="item-row">
+                     <div class="item-details"></div>
+                     <div class="item-balance" [class.forecolor-red]="flow.BalanceTotalValue < 0"
+                        [class.forecolor-green]="flow.BalanceTotalValue > 0">
+                        <span class="">{{ flow.BalanceTotalValue | number : '1.2-2' }}</span>
+                     </div>
+                  </div>
                   <mat-divider *ngIf="!islast"></mat-divider>
-               </div>
-               <div class="flow-balance">
-                  <span class="mat-subheading-1">{{ flow.BalanceTotalValue | number : '1.2-2' }}</span>
                </div>
             </div>
 

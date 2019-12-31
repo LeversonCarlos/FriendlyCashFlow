@@ -146,11 +146,11 @@ if (@searchYear <> 0 and @searchMonth <> 0) begin
    update #dataEntries
    set
       BalanceTotalValue =
-         coalesce((select top 1 TotalValue from #dataBalance as dataBalance where dataBalance.AccountID=dataEntries.AccountID),0) +
-         (select sum(EntryValue) from #dataEntries as dataEntriesI where dataEntriesI.AccountID=dataEntries.AccountID and dataEntriesI.Sorting <= dataEntries.Sorting),
+         coalesce((select top 1 TotalValue from #dataBalance as dataBalance where (dataBalance.AccountID=dataEntries.AccountID or @accountID=0)),0) +
+         (select sum(EntryValue) from #dataEntries as dataEntriesI where (dataEntriesI.AccountID=dataEntries.AccountID or @accountID=0) and dataEntriesI.Sorting <= dataEntries.Sorting),
       BalancePaidValue =
-         coalesce((select top 1 PaidValue from #dataBalance as dataBalance where dataBalance.AccountID=dataEntries.AccountID),0) +
-         (select sum(EntryValue) from #dataEntries as dataEntriesI where dataEntriesI.AccountID=dataEntries.AccountID and dataEntriesI.Sorting <= dataEntries.Sorting and dataEntriesI.Paid=1)
+         coalesce((select top 1 PaidValue from #dataBalance as dataBalance where (dataBalance.AccountID=dataEntries.AccountID or @accountID=0)),0) +
+         (select sum(EntryValue) from #dataEntries as dataEntriesI where (dataEntriesI.AccountID=dataEntries.AccountID or @accountID=0) and dataEntriesI.Sorting <= dataEntries.Sorting and dataEntriesI.Paid=1)
    from #dataEntries as dataEntries;
 
    drop table #dataBalance;
