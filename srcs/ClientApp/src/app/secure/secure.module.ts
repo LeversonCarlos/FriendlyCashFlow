@@ -13,11 +13,12 @@ import { CategoryDetailsComponent } from './categories/category-details/category
 import { EntriesService } from './entries/entries.service';
 import { EntriesFlowComponent } from './entries/entries-flow/entries-flow.component';
 import { MonthPickerComponent } from './entries/entries-flow/month-picker/month-picker.component';
+import { AddButtonComponent } from './entries/add-button/add-button.component';
 
 @NgModule({
    declarations: [
       AccountsComponent, AccountDetailsComponent,
-      CategoriesComponent, CategoryDetailsComponent, EntriesFlowComponent, MonthPickerComponent],
+      CategoriesComponent, CategoryDetailsComponent, EntriesFlowComponent, MonthPickerComponent, AddButtonComponent],
    imports: [
       CommonModule, SharedModule
    ],

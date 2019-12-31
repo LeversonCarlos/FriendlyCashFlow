@@ -1,0 +1,17 @@
+<button mat-fab [matMenuTriggerFor]="newMenu" color="primary">
+   <mat-icon>add</mat-icon>
+</button>
+<mat-menu #newMenu="matMenu">
+   <button mat-menu-item>
+      <mat-icon>dialpad</mat-icon>
+      <span>ENTRADA</span>
+   </button>
+   <button mat-menu-item disabled>
+      <mat-icon>voicemail</mat-icon>
+      <span>Saida</span>
+   </button>
+   <button mat-menu-item>
+      <mat-icon>notifications_off</mat-icon>
+      <span>Transferencia</span>
+   </button>
+</mat-menu>

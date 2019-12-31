@@ -11,6 +11,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu'
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -41,14 +42,14 @@ import { RelatedBoxComponent } from './related-box/related-box.component';
    imports: [
       CommonModule, RouterModule, FormsModule, ReactiveFormsModule,
       MatToolbarModule, MatSidenavModule, MatCardModule, MatTabsModule, MatListModule,
-      MatIconModule, MatButtonModule, MatProgressBarModule,
+      MatIconModule, MatButtonModule, MatMenuModule, MatProgressBarModule,
       MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatSelectModule, MatSlideToggleModule,
       MatSnackBarModule, MatDialogModule, MatTooltipModule
    ],
    exports: [
       RouterModule, FormsModule, ReactiveFormsModule,
       MatToolbarModule, MatSidenavModule, MatCardModule, MatTabsModule, MatListModule,
-      MatIconModule, MatButtonModule, MatProgressBarModule,
+      MatIconModule, MatButtonModule, MatMenuModule, MatProgressBarModule,
       MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatSelectModule, MatSlideToggleModule,
       MatTooltipModule,
       BaseLayoutComponent, FullLayoutComponent,
