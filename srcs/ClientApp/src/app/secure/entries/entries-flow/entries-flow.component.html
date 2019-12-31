@@ -16,7 +16,7 @@
                   <span>{{ flow.Day }}</span>
                </div>
 
-               <div class="flow-list">
+               <div class="flow-details">
                   <mat-action-list>
                      <button mat-list-item *ngFor="let item of flow.EntryList" (click)="OnItemClick(item)">
                         <div class="item-row mat-body">
@@ -37,11 +37,13 @@
                   </mat-action-list>
                </div>
 
-               <div class="flow-balance">
+            </div>
+            <div class="flow-row">
+               <div class="flow-details"></div>
+               <div class="flow-balance mat-body">
                   <span class="" [class.forecolor-red]="flow.BalanceTotalValue < 0"
                      [class.forecolor-green]="flow.BalanceTotalValue > 0">{{ flow.BalanceTotalValue | number : '1.2-2' }}</span>
                </div>
-
             </div>
          </mat-card-content>
 
