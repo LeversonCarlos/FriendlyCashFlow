@@ -7,47 +7,49 @@
    </div>
    <div content class="full-screen">
 
-      <mat-card *ngFor="let flow of FlowList; last as islast">
+      <div class="full-card">
+         <mat-card *ngFor="let flow of FlowList; last as islast">
 
-         <mat-card-content>
-            <div class="flow-row">
+            <mat-card-content>
+               <div class="flow-row">
 
-               <div class="flow-day">
-                  <span>{{ flow.Day }}</span>
-               </div>
+                  <div class="flow-day">
+                     <span>{{ flow.Day }}</span>
+                  </div>
 
-               <div class="flow-details">
-                  <mat-action-list>
-                     <button mat-list-item *ngFor="let item of flow.EntryList" (click)="OnItemClick(item)">
-                        <div class="item-row mat-body">
-                           <div class="item-details">
-                              <div>{{ item.Text }}</div>
-                              <div>
-                                 <small>{{ item.CategoryText }}</small>
-                                 <small *ngIf="item.CategoryText && item.AccountText"> - </small>
-                                 <small>{{ item.AccountText }}</small>
+                  <div class="flow-details">
+                     <mat-action-list>
+                        <button mat-list-item *ngFor="let item of flow.EntryList" (click)="OnItemClick(item)">
+                           <div class="item-row mat-body">
+                              <div class="item-details">
+                                 <div>{{ item.Text }}</div>
+                                 <div>
+                                    <small>{{ item.CategoryText }}</small>
+                                    <small *ngIf="item.CategoryText && item.AccountText"> - </small>
+                                    <small>{{ item.AccountText }}</small>
+                                 </div>
+                              </div>
+                              <div class="item-value" [class.forecolor-red]="item.EntryValue < 0"
+                                 [class.forecolor-green]="item.EntryValue > 0">
+                                 {{ item.EntryValue | number : '1.2-2' }}
                               </div>
                            </div>
-                           <div class="item-value" [class.forecolor-red]="item.EntryValue < 0"
-                              [class.forecolor-green]="item.EntryValue > 0">
-                              {{ item.EntryValue | number : '1.2-2' }}
-                           </div>
-                        </div>
-                     </button>
-                  </mat-action-list>
-               </div>
+                        </button>
+                     </mat-action-list>
+                  </div>
 
-            </div>
-            <div class="flow-row">
-               <div class="flow-details"></div>
-               <div class="flow-balance mat-body">
-                  <span class="" [class.forecolor-red]="flow.BalanceTotalValue < 0"
-                     [class.forecolor-green]="flow.BalanceTotalValue > 0">{{ flow.BalanceTotalValue | number : '1.2-2' }}</span>
                </div>
-            </div>
-         </mat-card-content>
+               <div class="flow-row">
+                  <div class="flow-details"></div>
+                  <div class="flow-balance mat-body">
+                     <span class="" [class.forecolor-red]="flow.BalanceTotalValue < 0"
+                        [class.forecolor-green]="flow.BalanceTotalValue > 0">{{ flow.BalanceTotalValue | number : '1.2-2' }}</span>
+                  </div>
+               </div>
+            </mat-card-content>
 
-      </mat-card>
+         </mat-card>
+      </div>
 
    </div>
 </fs-full-layout>
