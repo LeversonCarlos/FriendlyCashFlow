@@ -9,8 +9,10 @@
 
       <mat-card class="full-card">
          <mat-card-content>
-            <div class="flow-row" *ngFor="let flow of FlowList">
-               <div class="flow-day"> <span class="mat-subheading">{{ flow.Day}}</span> </div>
+            <div class="flow-row" *ngFor="let flow of FlowList; last as islast">
+               <div class="flow-day">
+                  <span class="mat-subheading-1">{{ flow.Day}}</span>
+               </div>
                <div class="flow-list">
                   <mat-action-list>
                      <button mat-list-item *ngFor="let item of flow.EntryList" (click)="OnItemClick(item)">
@@ -19,8 +21,11 @@
                         <!-- <mat-icon matListIcon>{{ item.Icon }}</mat-icon> -->
                      </button>
                   </mat-action-list>
+                  <mat-divider *ngIf="!islast"></mat-divider>
                </div>
-               <div class="flow-balance">{{ flow.BalanceTotalValue }}</div>
+               <div class="flow-balance">
+                  <span class="mat-subheading-1">{{ flow.BalanceTotalValue | number : '1.2-2' }}</span>
+               </div>
             </div>
 
          </mat-card-content>

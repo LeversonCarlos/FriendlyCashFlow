@@ -4,14 +4,19 @@
 }
 
 .flow-day {
-  align-self: flex-start;
+  align-self: center;
+  padding-right: 10px;
 }
 .flow-list {
   flex-grow: 1;
   .mat-action-list {
     padding-top: 0;
   }
+  .mat-divider {
+     opacity: 0.5;
+  }
 }
 .flow-balance {
-  align-self: flex-end;
+  align-self: center;
+  padding-left: 10px;
 }
