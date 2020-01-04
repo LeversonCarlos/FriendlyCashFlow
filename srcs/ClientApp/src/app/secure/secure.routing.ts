@@ -5,6 +5,7 @@ import { AccountDetailsComponent } from './accounts/account-details/account-deta
 import { CategoriesComponent } from './categories/categories.component';
 import { CategoryDetailsComponent } from './categories/category-details/category-details.component';
 import { EntriesFlowComponent } from './entries/entries-flow/entries-flow.component';
+import { EntryDetailsComponent } from './entries/entry-details/entry-details.component';
 
 export const secureRoutes: Routes = [
    { path: 'accounts', canActivate: [AuthGuard], component: AccountsComponent },
@@ -14,4 +15,5 @@ export const secureRoutes: Routes = [
    { path: 'entries/flow/:year/:month', canActivate: [AuthGuard], component: EntriesFlowComponent },
    { path: 'entries/flow', canActivate: [AuthGuard], component: EntriesFlowComponent },
    { path: 'entries', canActivate: [AuthGuard], component: EntriesFlowComponent },
+   { path: 'entries/entry/:id', canActivate: [AuthGuard], component: EntryDetailsComponent },
 ];

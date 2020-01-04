@@ -47,7 +47,13 @@ export class EntriesService {
       private http: HttpClient, private router: Router) { }
 
    // NAVIGATES
-   public showFlow(year: number, month: number) { this.router.navigate(['/entries', 'flow', year, month]); }
+   public showFlow(year?: number, month?: number) {
+      console.log('showFlowA', { year, month })
+      if (!year && this.CurrentMonth) { year = this.CurrentMonth.getFullYear(); }
+      if (!month && this.CurrentMonth) { month = this.CurrentMonth.getMonth() + 1; }
+      console.log('showFlowB', { year, month })
+      this.router.navigate(['/entries', 'flow', year, month]);
+   }
    public showSearch(searchText: string, accountID: number = 0) { this.router.navigate(['/entries', 'search', searchText, accountID]); }
    public showEntryDetails(id: number) { this.router.navigate(['/entries', 'entry', id], { skipLocationChange: true }); }
    public showTransferDetails(id: number) { this.router.navigate(['/entries', 'transfer', id], { skipLocationChange: true }); }
@@ -76,6 +82,19 @@ export class EntriesService {
             .toPromise();
          console.log(this.FlowList)
          return (this.FlowList != null);
+      }
+      catch (ex) { return null; }
+      finally { this.busy.hide(); }
+   }
+
+   // ENTRY
+   public async getEntry(entryID: number): Promise<Entry> {
+      try {
+         this.busy.show();
+         const dataList = await this.http.get<Entry>(`api/entries/${entryID}`)
+            .pipe(map(item => Object.assign(new Entry, item)))
+            .toPromise();
+         return dataList;
       }
       catch (ex) { return null; }
       finally { this.busy.hide(); }
