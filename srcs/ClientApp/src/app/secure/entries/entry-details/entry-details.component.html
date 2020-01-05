@@ -1,1 +1,27 @@
-<p>entry-details works!</p>
+<fs-full-layout>
+   <span title>
+      {{ 'ENTRIES_DETAILS_TITLE' | translation | async }}
+   </span>
+   <div toolbar>
+   </div>
+   <div content class="full-screen">
+      <mat-card class="full-card">
+
+         <mat-card-content>
+
+            <pre>{{ Data | json }}</pre>
+
+         </mat-card-content>
+         <mat-card-actions class="between">
+            <button mat-button (click)="OnRemoveClick()" color="warn"
+               [disabled]="!Data?.AccountID || inputForm?.dirty">{{ 'BASE_REMOVE_COMMAND' | translation | async }}</button>
+            <div>
+               <button mat-button (click)="OnCancelClick()">{{ 'BASE_CANCEL_COMMAND' | translation | async }}</button>
+               <button mat-button (click)="OnSaveClick()" color="primary"
+                  [disabled]="!inputForm?.valid">{{ 'BASE_SAVE_COMMAND' | translation | async }}</button>
+            </div>
+         </mat-card-actions>
+
+      </mat-card>
+   </div>
+</fs-full-layout>
