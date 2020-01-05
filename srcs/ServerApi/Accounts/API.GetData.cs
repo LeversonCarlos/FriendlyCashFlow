@@ -60,22 +60,19 @@ namespace FriendlyCashFlow.API.Accounts
       [HttpGet("search")]
       public async Task<ActionResult<List<AccountVM>>> GetDataAsync()
       {
-         var service = this.GetService<AccountsService>();
-         return await service.GetDataAsync();
+         return await this.GetService<AccountsService>().GetDataAsync();
       }
 
       [HttpGet("search/{searchText}")]
       public async Task<ActionResult<List<AccountVM>>> GetDataAsync(string searchText)
       {
-         var service = this.GetService<AccountsService>();
-         return await service.GetDataAsync(searchText);
+         return await this.GetService<AccountsService>().GetDataAsync(searchText);
       }
 
       [HttpGet("{id:long}")]
       public async Task<ActionResult<AccountVM>> GetDataAsync(long id)
       {
-         var service = this.GetService<AccountsService>();
-         return await service.GetDataAsync(id);
+         return await this.GetService<AccountsService>().GetDataAsync(id);
       }
 
    }
