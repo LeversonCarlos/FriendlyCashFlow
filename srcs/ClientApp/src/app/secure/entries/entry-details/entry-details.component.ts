@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Entry, EntriesService } from '../entries.service';
+import { EntriesService } from '../entries.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MessageService } from 'src/app/shared/message/message.service';
 import { ActivatedRoute } from '@angular/router';
+import { Entry } from '../entries.viewmodels';
+import { RelatedData } from 'src/app/shared/related-box/related-box.models';
+import { Category, CategoriesService } from '../../categories/categories.service';
 
 @Component({
    selector: 'fs-entry-details',
@@ -12,6 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 export class EntryDetailsComponent implements OnInit {
 
    constructor(private service: EntriesService, private msg: MessageService,
+      private categoryService: CategoriesService,
       private route: ActivatedRoute, private fb: FormBuilder) { }
 
    public Data: Entry;
@@ -36,11 +40,14 @@ export class EntryDetailsComponent implements OnInit {
          }
 
          this.Data = await this.service.getEntry(entryID);
-         console.log('OnDataLoad', { entryID, data: this.Data })
          if (!this.Data || this.Data.EntryID != entryID) {
             this.msg.ShowWarning('ENTRIES_RECORD_NOT_FOUND_WARNING');
             this.service.showFlow();
             return false;
+         }
+
+         if (this.Data.CategoryRow) {
+            this.CategoryOptions = [this.OnCategoryParse(this.Data.CategoryRow)];
          }
 
          return true;
@@ -53,8 +60,15 @@ export class EntryDetailsComponent implements OnInit {
          Text: [this.Data.Text, Validators.required],
          EntryValue: [this.Data.EntryValue, Validators.required],
          DueDate: [this.Data.DueDate, Validators.required],
+         CategoryRow: [this.CategoryOptions && this.CategoryOptions.length ? this.CategoryOptions[0] : null],
          Paid: [this.Data.Paid],
          PayDate: [this.Data.EntryValue]
+      });
+      this.inputForm.get("CategoryRow").valueChanges.subscribe(value => {
+         this.Data.CategoryID = null;
+         if (value && value.id) {
+            this.Data.CategoryID = value.id;
+         }
       });
       this.inputForm.valueChanges.subscribe(values => {
          this.Data.Text = values.Text || '';
@@ -66,6 +80,17 @@ export class EntryDetailsComponent implements OnInit {
       this.inputForm.controls['Paid'].valueChanges.subscribe((paid) => {
          console.log('Paid', paid)
       });
+   }
+
+   public CategoryOptions: RelatedData<Category>[] = [];
+   public async OnCategoryChanging(val: string) {
+      const categoryList = await this.categoryService.getCategories(this.Data.Type, val);
+      if (categoryList == null) { return; }
+      this.CategoryOptions = categoryList
+         .map(item => this.OnCategoryParse(item));
+   }
+   private OnCategoryParse(item: Category): RelatedData<Category> {
+      return Object.assign(new RelatedData, { id: item.CategoryID, description: item.HierarchyText, value: item });
    }
 
    public async OnCancelClick() {

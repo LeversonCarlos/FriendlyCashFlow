@@ -3,40 +3,7 @@ import { Router } from '@angular/router';
 import { BusyService } from 'src/app/shared/busy/busy.service';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-
-export class Entry {
-   EntryID: number;
-   Type: any;
-   Text: string;
-
-   PatternID: number;
-   CategoryID: number;
-   CategoryText: string;
-
-   DueDate: Date;
-   EntryValue: number;
-
-   Paid: boolean;
-   PayDate?: Date;
-   AccountID?: number;
-   AccountText: string;
-
-   RecurrencyID?: number;
-   Recurrency?: any;
-
-   TransferID: string;
-
-   BalanceTotalValue: number
-   BalancePaidValue: number
-   Sorting: number
-}
-
-export class EntryFlow {
-   Day: string
-   EntryList: Entry[]
-   BalanceTotalValue: number
-   BalancePaidValue: number
-}
+import { EntryFlow, Entry } from './entries.viewmodels';
 
 @Injectable({
    providedIn: 'root'

@@ -9,6 +9,16 @@
 
          <mat-card-content>
 
+            <form *ngIf="inputForm" [formGroup]="inputForm">
+               <mat-form-field [style.fontSize.px]="20">
+                  <mat-label>{{ 'ENTRIES_DESCRIPTION_LABEL' | translation | async }}</mat-label>
+                  <input type="text" matInput formControlName="Text" autofocus>
+               </mat-form-field>
+               <related-box placeholder="ENTRIES_CATEGORY_LABEL" minSize="0" [options]="CategoryOptions"
+                  formControlName="CategoryRow" (optionsChanging)="OnCategoryChanging($event)">
+               </related-box>
+            </form>
+
             <pre>{{ Data | json }}</pre>
 
          </mat-card-content>

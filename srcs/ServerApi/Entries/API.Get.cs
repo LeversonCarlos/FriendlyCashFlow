@@ -49,10 +49,16 @@ namespace FriendlyCashFlow.API.Entries
       {
          try
          {
+
             var data = await this.GetDataQuery()
                .Where(x => x.EntryID == entryID)
                .FirstOrDefaultAsync();
-            return this.OkResponse(EntryVM.Convert(data));
+            var viewModel = EntryVM.Convert(data);
+
+            var categoryMessage = await this.GetService<Categories.CategoriesService>().GetDataAsync(data.CategoryID);
+            viewModel.CategoryRow = this.GetValue(categoryMessage);
+
+            return this.OkResponse(viewModel);
          }
          catch (Exception ex) { return this.ExceptionResponse(ex); }
       }

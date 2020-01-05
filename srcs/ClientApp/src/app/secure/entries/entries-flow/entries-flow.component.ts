@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { EntriesService, EntryFlow, Entry } from '../entries.service';
+import { EntriesService } from '../entries.service';
+import { EntryFlow, Entry } from '../entries.viewmodels';
 
 @Component({
    selector: 'fs-entries-flow',
