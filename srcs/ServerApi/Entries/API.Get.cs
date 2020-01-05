@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FriendlyCashFlow.API.Entries
 {
@@ -43,6 +44,18 @@ namespace FriendlyCashFlow.API.Entries
 
       internal async Task<ActionResult<List<EntryVM>>> GetDataAsync(string searchText, long accountID)
       { return await this.GetDataAsync(searchYear: 0, searchMonth: 0, searchText, accountID); }
+
+      internal async Task<ActionResult<EntryVM>> GetDataAsync(long entryID)
+      {
+         try
+         {
+            var data = await this.GetDataQuery()
+               .Where(x => x.EntryID == entryID)
+               .FirstOrDefaultAsync();
+            return this.OkResponse(EntryVM.Convert(data));
+         }
+         catch (Exception ex) { return this.ExceptionResponse(ex); }
+      }
 
       private async Task<ActionResult<List<EntryVM>>> GetDataAsync(short searchYear, short searchMonth, string searchText, long accountID)
       {
@@ -96,14 +109,11 @@ namespace FriendlyCashFlow.API.Entries
          return await this.GetService<EntriesService>().GetDataAsync(searchText, accountID);
       }
 
-      /*
-      [HttpGet("{id:long}")]
+      [HttpGet("entry/{id:long}")]
       public async Task<ActionResult<EntryVM>> GetDataAsync(long id)
       {
-         var service = this.GetService<EntriesService>();
-         return await service.GetDataAsync(id);
+         return await this.GetService<EntriesService>().GetDataAsync(id);
       }
-      */
 
    }
 

@@ -16,7 +16,6 @@ export class EntriesFlowComponent implements OnInit {
    }
 
    public OnItemClick(item: Entry) {
-      console.log(item)
       if (item.TransferID && item.TransferID != '') {
          this.service.showTransferDetails(item.EntryID)
       }

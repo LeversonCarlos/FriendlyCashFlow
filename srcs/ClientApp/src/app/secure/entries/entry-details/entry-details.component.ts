@@ -36,6 +36,7 @@ export class EntryDetailsComponent implements OnInit {
          }
 
          this.Data = await this.service.getEntry(entryID);
+         console.log('OnDataLoad', { entryID, data: this.Data })
          if (!this.Data || this.Data.EntryID != entryID) {
             this.msg.ShowWarning('ENTRIES_RECORD_NOT_FOUND_WARNING');
             this.service.showFlow();

@@ -80,7 +80,6 @@ export class EntriesService {
                return Object.assign(new EntryFlow, flow);
             })))
             .toPromise();
-         console.log(this.FlowList)
          return (this.FlowList != null);
       }
       catch (ex) { return null; }
@@ -91,12 +90,13 @@ export class EntriesService {
    public async getEntry(entryID: number): Promise<Entry> {
       try {
          this.busy.show();
-         const dataList = await this.http.get<Entry>(`api/entries/${entryID}`)
+         const dataList = await this.http.get<Entry>(`api/entries/entry/${entryID}`)
             .pipe(map(item => Object.assign(new Entry, item)))
             .toPromise();
+         console.log('getEntry', dataList)
          return dataList;
       }
-      catch (ex) { return null; }
+      catch (ex) { console.error(ex); return null; }
       finally { this.busy.hide(); }
    }
 
