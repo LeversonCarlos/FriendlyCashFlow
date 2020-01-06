@@ -58,7 +58,7 @@ export class EntryDetailsComponent implements OnInit {
    private OnFormCreate() {
       this.inputForm = this.fb.group({
          Text: [this.Data.Text, Validators.required],
-         EntryValue: [this.Data.EntryValue, Validators.required],
+         EntryValue: [this.Data.EntryValue, [Validators.required, Validators.min(0.01)]],
          DueDate: [this.Data.DueDate, Validators.required],
          CategoryRow: [this.CategoryOptions && this.CategoryOptions.length ? this.CategoryOptions[0] : null],
          Paid: [this.Data.Paid],
