@@ -19,14 +19,12 @@
                      <mat-label>{{ 'ENTRIES_ENTRYVALUE_LABEL' | translation | async }}</mat-label>
                      <input type="number" step="0.01" matInput formControlName="EntryValue">
                   </mat-form-field>
-                  <!--
                   <mat-form-field>
                      <mat-label>{{ 'ENTRIES_DUEDATE_LABEL' | translation | async }}</mat-label>
                      <input matInput [matDatepicker]="dueDatePicker" formControlName="DueDate">
                      <mat-datepicker-toggle matSuffix [for]="dueDatePicker"></mat-datepicker-toggle>
                      <mat-datepicker #dueDatePicker></mat-datepicker>
                   </mat-form-field>
-                  -->
                </div>
                <related-box placeholder="ENTRIES_CATEGORY_LABEL" minSize="0" [options]="CategoryOptions"
                   formControlName="CategoryRow" (optionsChanging)="OnCategoryChanging($event)">

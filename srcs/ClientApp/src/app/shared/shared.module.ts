@@ -17,7 +17,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-// import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -46,7 +46,7 @@ import { RelatedBoxComponent } from './related-box/related-box.component';
       MatToolbarModule, MatSidenavModule, MatCardModule, MatTabsModule, MatListModule,
       MatIconModule, MatButtonModule, MatMenuModule, MatProgressBarModule,
       MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatSelectModule, MatSlideToggleModule,
-      MatDatepickerModule, // MatMomentDateModule,
+      MatDatepickerModule, MatMomentDateModule,
       MatSnackBarModule, MatDialogModule, MatTooltipModule
    ],
    exports: [
@@ -54,7 +54,7 @@ import { RelatedBoxComponent } from './related-box/related-box.component';
       MatToolbarModule, MatSidenavModule, MatCardModule, MatTabsModule, MatListModule,
       MatIconModule, MatButtonModule, MatMenuModule, MatProgressBarModule,
       MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatSelectModule, MatSlideToggleModule,
-      MatDatepickerModule, // MatMomentDateModule,
+      MatDatepickerModule, MatMomentDateModule,
       MatTooltipModule,
       BaseLayoutComponent, FullLayoutComponent,
       FabButtonComponent, RelatedBoxComponent,
