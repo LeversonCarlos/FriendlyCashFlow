@@ -1,4 +1,10 @@
 .mat-form-field-paid {
-   flex-grow: unset;
-   align-self: center;
+  height: 50px;
+  flex-grow: unset;
+  align-self: center;
+  place-self: flex-start;
+  display: flex;
+  .mat-slide-toggle {
+    align-self: center;
+  }
 }
