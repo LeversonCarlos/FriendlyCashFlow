@@ -62,7 +62,7 @@ export class EntryDetailsComponent implements OnInit {
          DueDate: [this.Data.DueDate, Validators.required],
          CategoryRow: [this.CategoryOptions && this.CategoryOptions.length ? this.CategoryOptions[0] : null],
          Paid: [this.Data.Paid],
-         PayDate: [this.Data.EntryValue]
+         PayDate: [this.Data.PayDate]
       });
       this.inputForm.get("CategoryRow").valueChanges.subscribe(value => {
          this.Data.CategoryID = null;
@@ -77,9 +77,25 @@ export class EntryDetailsComponent implements OnInit {
          this.Data.Paid = values.Paid || false;
          this.Data.PayDate = values.PayDate;
       });
-      this.inputForm.controls['Paid'].valueChanges.subscribe((paid) => {
-         console.log('Paid', paid)
-      });
+      this.inputForm.controls['Paid'].valueChanges.subscribe((paid) => this.OnPaidChanged(paid));
+      this.OnPaidChanged(this.Data.Paid)
+   }
+
+   private OnPaidChanged(paid: boolean) {
+      const payDateControl = this.inputForm.controls['PayDate'];
+      if (paid == true) {
+         payDateControl.enable();
+         payDateControl.setValidators([Validators.required]);
+         payDateControl.setValue(this.Data.DueDate);
+         payDateControl.markAsTouched();
+      }
+      else {
+         payDateControl.clearValidators();
+         payDateControl.markAsUntouched();
+         payDateControl.setValue('');
+         payDateControl.disable();
+      }
+      payDateControl.updateValueAndValidity();
    }
 
    public CategoryOptions: RelatedData<Category>[] = [];
