@@ -22,6 +22,7 @@ namespace FriendlyCashFlow.API.Entries
       public bool Paid { get; set; }
       public DateTime? PayDate { get; set; }
       public long? AccountID { get; set; }
+      public Accounts.AccountVM AccountRow { get; set; }
       public string AccountText { get; set; }
 
       public long? RecurrencyID { get; set; }

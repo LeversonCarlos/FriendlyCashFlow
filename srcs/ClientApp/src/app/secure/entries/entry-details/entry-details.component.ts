@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Entry } from '../entries.viewmodels';
 import { RelatedData } from 'src/app/shared/related-box/related-box.models';
 import { Category, CategoriesService } from '../../categories/categories.service';
+import { Account, AccountsService } from '../../accounts/accounts.service';
 
 @Component({
    selector: 'fs-entry-details',
@@ -15,7 +16,7 @@ import { Category, CategoriesService } from '../../categories/categories.service
 export class EntryDetailsComponent implements OnInit {
 
    constructor(private service: EntriesService, private msg: MessageService,
-      private categoryService: CategoriesService,
+      private categoryService: CategoriesService, private accountService: AccountsService,
       private route: ActivatedRoute, private fb: FormBuilder) { }
 
    public Data: Entry;
@@ -46,6 +47,9 @@ export class EntryDetailsComponent implements OnInit {
             return false;
          }
 
+         if (this.Data.AccountRow) {
+            this.AccountOptions = [this.OnAccountParse(this.Data.AccountRow)];
+         }
          if (this.Data.CategoryRow) {
             this.CategoryOptions = [this.OnCategoryParse(this.Data.CategoryRow)];
          }
@@ -58,17 +62,12 @@ export class EntryDetailsComponent implements OnInit {
    private OnFormCreate() {
       this.inputForm = this.fb.group({
          Text: [this.Data.Text, Validators.required],
+         AccountRow: [this.AccountOptions && this.AccountOptions.length ? this.AccountOptions[0] : null],
          EntryValue: [this.Data.EntryValue, [Validators.required, Validators.min(0.01)]],
          DueDate: [this.Data.DueDate, Validators.required],
          CategoryRow: [this.CategoryOptions && this.CategoryOptions.length ? this.CategoryOptions[0] : null],
          Paid: [this.Data.Paid],
          PayDate: [this.Data.PayDate]
-      });
-      this.inputForm.get("CategoryRow").valueChanges.subscribe(value => {
-         this.Data.CategoryID = null;
-         if (value && value.id) {
-            this.Data.CategoryID = value.id;
-         }
       });
       this.inputForm.valueChanges.subscribe(values => {
          this.Data.Text = values.Text || '';
@@ -77,8 +76,42 @@ export class EntryDetailsComponent implements OnInit {
          this.Data.Paid = values.Paid || false;
          this.Data.PayDate = values.PayDate;
       });
+      this.inputForm.get("AccountRow").valueChanges.subscribe(value => {
+         this.Data.AccountID = null;
+         if (value && value.id) {
+            this.Data.AccountID = value.id;
+         }
+      });
+      this.inputForm.get("CategoryRow").valueChanges.subscribe(value => {
+         this.Data.CategoryID = null;
+         if (value && value.id) {
+            this.Data.CategoryID = value.id;
+         }
+      });
       this.inputForm.controls['Paid'].valueChanges.subscribe((paid) => this.OnPaidChanged(paid));
       this.OnPaidChanged(this.Data.Paid)
+   }
+
+   public AccountOptions: RelatedData<Account>[] = [];
+   public async OnAccountChanging(val: string) {
+      const accountList = await this.accountService.getAccounts(val);
+      if (accountList == null) { return; }
+      this.AccountOptions = accountList
+         .map(item => this.OnAccountParse(item));
+   }
+   private OnAccountParse(item: Account): RelatedData<Account> {
+      return Object.assign(new RelatedData, { id: item.AccountID, description: item.Text, value: item });
+   }
+
+   public CategoryOptions: RelatedData<Category>[] = [];
+   public async OnCategoryChanging(val: string) {
+      const categoryList = await this.categoryService.getCategories(this.Data.Type, val);
+      if (categoryList == null) { return; }
+      this.CategoryOptions = categoryList
+         .map(item => this.OnCategoryParse(item));
+   }
+   private OnCategoryParse(item: Category): RelatedData<Category> {
+      return Object.assign(new RelatedData, { id: item.CategoryID, description: item.HierarchyText, value: item });
    }
 
    private OnPaidChanged(paid: boolean) {
@@ -96,17 +129,6 @@ export class EntryDetailsComponent implements OnInit {
          payDateControl.disable();
       }
       payDateControl.updateValueAndValidity();
-   }
-
-   public CategoryOptions: RelatedData<Category>[] = [];
-   public async OnCategoryChanging(val: string) {
-      const categoryList = await this.categoryService.getCategories(this.Data.Type, val);
-      if (categoryList == null) { return; }
-      this.CategoryOptions = categoryList
-         .map(item => this.OnCategoryParse(item));
-   }
-   private OnCategoryParse(item: Category): RelatedData<Category> {
-      return Object.assign(new RelatedData, { id: item.CategoryID, description: item.HierarchyText, value: item });
    }
 
    public async OnCancelClick() {

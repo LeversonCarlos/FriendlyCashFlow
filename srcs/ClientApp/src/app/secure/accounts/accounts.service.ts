@@ -57,10 +57,12 @@ export class AccountsService {
    }
 
    // ACCOUNTS
-   public async getAccounts(): Promise<Account[]> {
+   public async getAccounts(searchText: string = ''): Promise<Account[]> {
       try {
          this.busy.show();
-         const dataList = await this.http.get<Account[]>("api/accounts/search")
+         let url = `api/accounts/search`;
+         if (searchText) { url = `${url}/${encodeURIComponent(searchText)}`; }
+         const dataList = await this.http.get<Account[]>(url)
             .pipe(map(items => items.map(item => Object.assign(new Account, item))))
             .toPromise();
          return dataList;

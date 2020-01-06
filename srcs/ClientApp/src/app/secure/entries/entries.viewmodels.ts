@@ -1,3 +1,4 @@
+import { Account } from '../accounts/accounts.service';
 import { Category, enCategoryType } from '../categories/categories.service';
 
 export class Entry {
@@ -16,7 +17,9 @@ export class Entry {
 
    Paid: boolean;
    PayDate?: Date;
+
    AccountID?: number;
+   AccountRow?: Account;
    AccountText: string;
 
    RecurrencyID?: number;
