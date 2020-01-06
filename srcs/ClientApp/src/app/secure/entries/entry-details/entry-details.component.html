@@ -26,6 +26,17 @@
                      <mat-datepicker #dueDatePicker></mat-datepicker>
                   </mat-form-field>
                </div>
+               <div class="mat-form-field-row">
+                  <div class="mat-form-field mat-form-field-paid">
+                     <mat-slide-toggle>{{ 'ENTRIES_PAID_LABEL' | translation | async }}</mat-slide-toggle>
+                  </div>
+                  <mat-form-field>
+                     <mat-label>{{ 'ENTRIES_PAYDATE_LABEL' | translation | async }}</mat-label>
+                     <input matInput [matDatepicker]="payDatePicker" formControlName="PayDate">
+                     <mat-datepicker-toggle matSuffix [for]="payDatePicker"></mat-datepicker-toggle>
+                     <mat-datepicker #payDatePicker></mat-datepicker>
+                  </mat-form-field>
+               </div>
                <related-box placeholder="ENTRIES_CATEGORY_LABEL" minSize="0" [options]="CategoryOptions"
                   formControlName="CategoryRow" (optionsChanging)="OnCategoryChanging($event)">
                </related-box>
