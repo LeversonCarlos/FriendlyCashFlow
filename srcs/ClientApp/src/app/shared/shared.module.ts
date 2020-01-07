@@ -36,6 +36,7 @@ import { MessageService } from './message/message.service';
 import { ConfirmComponent } from './message/confirm.component';
 import { FabButtonComponent } from './fab-button/fab-button.component';
 import { RelatedBoxComponent } from './related-box/related-box.component';
+import { LocaleService, LocaleServiceProvider } from './locale/locale.service';
 
 @NgModule({
    entryComponents: [MessageComponent, ConfirmComponent],
@@ -60,6 +61,6 @@ import { RelatedBoxComponent } from './related-box/related-box.component';
       FabButtonComponent, RelatedBoxComponent,
       TranslationPipe
    ],
-   providers: [BusyService, TranslationService, MessageService]
+   providers: [BusyService, TranslationService, MessageService, LocaleService, LocaleServiceProvider]
 })
 export class SharedModule { }
