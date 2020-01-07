@@ -143,7 +143,7 @@ if (@searchYear <> 0 and @searchMonth <> 0) begin
    where
       ResourceID = @resourceID
       and AccountID in (select AccountID from #accountIDs)
-      and Date = dateadd(month, -1, dateFromParts(@searchYear, @searchMonth, 1));
+      and Date <dateFromParts(@searchYear, @searchMonth, 1);
 
    /* INITIAL BALANCE */
    insert into #dataEntries(EntryID, Type, Text, DueDate, EntryValue, Paid, PayDate, CategoryID, CategoryText, PatternID, Sorting)
