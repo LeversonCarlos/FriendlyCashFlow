@@ -31,6 +31,7 @@ namespace FriendlyCashFlow.API.Entries
             await this.GetService<Balances.BalancesService>().RemoveBalanceAsync(data);
 
             // REMOVE PATTERN
+            viewModel.PatternID = await this.GetService<Patterns.PatternsService>().GetPatternAsync(viewModel);
             if (data.PatternID != viewModel.PatternID)
             { await this.GetService<Patterns.PatternsService>().RemovePatternAsync(viewModel); }
 

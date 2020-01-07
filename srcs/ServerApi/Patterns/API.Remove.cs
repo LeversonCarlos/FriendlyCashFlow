@@ -27,6 +27,10 @@ namespace FriendlyCashFlow.API.Patterns
             if (data.Count == 0) { data.RowStatus = 0; }
             await this.dbContext.SaveChangesAsync();
 
+            // DELETE REMOVED ROWS
+            var removedRows = await this.GetDataQuery().Where(x=> x.RowStatus ==0).ToListAsync();
+            this.dbContext.RemoveRange(removedRows);
+
          }
          catch (Exception) { throw; }
       }
