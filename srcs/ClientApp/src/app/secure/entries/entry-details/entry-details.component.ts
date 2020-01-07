@@ -139,8 +139,8 @@ export class EntryDetailsComponent implements OnInit {
    }
 
    public async OnSaveClick() {
-      // if (!await this.service.saveAccount(this.Data)) { return; }
-      // this.service.showList();
+      if (!await this.service.saveEntry(this.Data)) { return; }
+      this.service.showFlow();
    }
 
    public async OnRemoveClick() {

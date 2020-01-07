@@ -65,4 +65,21 @@ export class EntriesService {
       finally { this.busy.hide(); }
    }
 
+   // SAVE
+   public async saveEntry(value: Entry): Promise<boolean> {
+      try {
+         this.busy.show();
+         let result: Entry = null;
+         if (!value.EntryID || value.EntryID == 0) {
+            result = await this.http.post<Entry>(`api/entries`, value).toPromise();
+         }
+         else {
+            result = await this.http.put<Entry>(`api/entries/${value.EntryID}`, value).toPromise();
+         }
+         return result != null;
+      }
+      catch (ex) { return null; }
+      finally { this.busy.hide(); }
+   }
+
 }

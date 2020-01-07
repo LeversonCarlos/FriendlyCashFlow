@@ -11,7 +11,7 @@ namespace FriendlyCashFlow.API.Entries
    partial class EntriesService
    {
 
-      public async Task<ActionResult<EntryVM>> CreateAsync(EntryVM value)
+      public async Task<ActionResult<EntryVM>> UpdateAsync(long entryID, EntryVM viewModel)
       {
          try
          {
@@ -23,32 +23,30 @@ namespace FriendlyCashFlow.API.Entries
             if (!validateResult) { return validateMessage.Result; }
             */
 
-            // NEW MODEL
-            var user = this.GetService<Helpers.User>();
-            var data = new EntryData()
-            {
-               ResourceID = user.ResourceID,
-               Type = (short)value.Type,
-               Text = value.Text,
-               CategoryID = value.CategoryID,
-               DueDate = value.DueDate,
-               EntryValue = Math.Abs(value.EntryValue),
-               Paid = value.Paid,
-               RowStatus = 1
-            };
-            if (value.Paid && value.PayDate.HasValue) { data.PayDate = value.PayDate; }
-            if (value.AccountID.HasValue) { data.AccountID = value.AccountID; }
+            // LOCATE DATA
+            var data = await this.GetDataQuery().Where(x => x.EntryID == entryID).FirstOrDefaultAsync();
+            if (data == null) { return this.NotFoundResponse(); }
+
+            // APPLY CHANGES
+            data.Text = viewModel.Text;
+            data.CategoryID = viewModel.CategoryID;
+            data.DueDate = viewModel.DueDate;
+            data.EntryValue = Math.Abs(viewModel.EntryValue);
+
+            // PAID
+            data.Paid = viewModel.Paid;
+            if (viewModel.Paid && viewModel.PayDate.HasValue) { data.PayDate = viewModel.PayDate; } else { data.PayDate = null; }
+            if (viewModel.AccountID.HasValue) { data.AccountID = viewModel.AccountID; }
 
             // SEARCH DATE
             data.SearchDate = data.DueDate;
             if (data.Paid && data.PayDate.HasValue) { data.SearchDate = data.PayDate.Value; }
 
             // AUXILIARY
-            data.PatternID = await this.GetService<Patterns.PatternsService>().AddPatternAsync(value);
-            data.RecurrencyID = await this.GetService<Recurrencies.RecurrenciesService>().AddRecurrencyAsync(value.Recurrency);
+            // data.PatternID = await this.GetService<Patterns.PatternsService>().AddPatternAsync(viewModel);
+            // data.RecurrencyID = await this.GetService<Recurrencies.RecurrenciesService>().AddRecurrencyAsync(viewModel.Recurrency);
 
-            // APPLY
-            await this.dbContext.Entries.AddAsync(data);
+            // SAVE IT
             await this.dbContext.SaveChangesAsync();
 
             // SORTING
@@ -60,7 +58,7 @@ namespace FriendlyCashFlow.API.Entries
 
             // RESULT
             var result = EntryVM.Convert(data);
-            return this.CreatedResponse("entries", result.EntryID, result);
+            return this.OkResponse(result);
          }
          catch (Exception ex) { return this.ExceptionResponse(ex); }
       }
@@ -69,12 +67,12 @@ namespace FriendlyCashFlow.API.Entries
 
    partial class EntriesController
    {
-      [HttpPost("")]
+      [HttpPut("{id:long}")]
       [Authorize(Roles = "Editor")]
-      public async Task<ActionResult<EntryVM>> CreateAsync([FromBody]EntryVM value)
+      public async Task<ActionResult<EntryVM>> UpdateAsync(long id, [FromBody]EntryVM value)
       {
          using (var service = new EntriesService(this.serviceProvider))
-         { return await service.CreateAsync(value); }
+         { return await service.UpdateAsync(id, value); }
       }
    }
 
