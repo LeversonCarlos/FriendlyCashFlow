@@ -24,11 +24,14 @@ namespace FriendlyCashFlow.API.Patterns
             // DECREASE QUANTITY AND SAVE IT
             data.Count--;
             if (data.Count < 0) { data.Count = 0; }
-            if (data.Count == 0) { data.RowStatus = 0; }
+            if (data.Count == 0) { data.RowStatus = -1; }
             await this.dbContext.SaveChangesAsync();
 
             // DELETE REMOVED ROWS
-            var removedRows = await this.GetDataQuery().Where(x=> x.RowStatus ==0).ToListAsync();
+            var user = this.GetService<Helpers.User>();
+            var removedRows = await this.dbContext.Patterns
+               .Where(x => x.RowStatus == (short)Base.enRowStatus.Removed && x.ResourceID == user.ResourceID)
+               .ToListAsync();
             this.dbContext.RemoveRange(removedRows);
 
          }
