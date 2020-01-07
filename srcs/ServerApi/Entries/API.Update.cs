@@ -31,18 +31,8 @@ namespace FriendlyCashFlow.API.Entries
             await this.GetService<Balances.BalancesService>().RemoveBalanceAsync(data);
 
             // REMOVE PATTERN
-            /*
             if (data.PatternID != viewModel.PatternID)
-            {
-               await this.GetService<Recurrencies.RecurrenciesService>().RemoveRecurrencyAsync(viewModel.Recurrency);
-               var patternModel = await this.addPattern(value);
-               if (patternModel != null)
-               {
-                  oData.idPattern = patternModel.idPattern;
-                  value.idPattern = oData.idPattern;
-               }
-            }
-            */
+            { await this.GetService<Patterns.PatternsService>().RemovePatternAsync(viewModel); }
 
             // APPLY CHANGES
             data.Text = viewModel.Text;
@@ -58,8 +48,11 @@ namespace FriendlyCashFlow.API.Entries
             if (data.Paid && data.PayDate.HasValue) { data.SearchDate = data.PayDate.Value; }
             this.ApplySorting(data);
 
+            // ADD PATTERN
+            if (data.PatternID != viewModel.PatternID)
+            { data.PatternID = await this.GetService<Patterns.PatternsService>().AddPatternAsync(viewModel); }
+
             // AUXILIARY
-            // data.PatternID = await this.GetService<Patterns.PatternsService>().AddPatternAsync(viewModel);
             // data.RecurrencyID = await this.GetService<Recurrencies.RecurrenciesService>().AddRecurrencyAsync(viewModel.Recurrency);
 
             // SAVE IT

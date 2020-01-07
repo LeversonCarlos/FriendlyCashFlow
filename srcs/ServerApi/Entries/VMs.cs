@@ -53,7 +53,10 @@ namespace FriendlyCashFlow.API.Entries
             EntryValue = value.EntryValue,
             Paid = value.Paid,
             PayDate = value.PayDate,
-            AccountID = value.AccountID
+            AccountID = value.AccountID,
+            PatternID = value.PatternID,
+            RecurrencyID = value.RecurrencyID,
+            TransferID = value.TransferID
          };
 
          return result;

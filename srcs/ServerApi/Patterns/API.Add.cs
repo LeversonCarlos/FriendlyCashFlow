@@ -9,11 +9,18 @@ namespace FriendlyCashFlow.API.Patterns
    partial class PatternsService
    {
 
+      internal async Task<long> GetPatternAsync(Entries.EntryVM value)
+      {
+         return await this.GetDataQuery()
+            .Where(x => x.Type == (short)value.Type && x.CategoryID == value.CategoryID && x.Text == value.Text)
+            .Select(x => x.PatternID)
+            .FirstOrDefaultAsync();
+      }
+
       internal async Task<long> AddPatternAsync(Entries.EntryVM value)
       {
          try
          {
-            var user = this.GetService<Helpers.User>();
 
             // TRY TO LOCATE PATTERN
             var data = await this.GetDataQuery()
@@ -25,7 +32,7 @@ namespace FriendlyCashFlow.API.Patterns
             {
                data = new PatternData
                {
-                  ResourceID = user.ResourceID,
+                  ResourceID = this.GetService<Helpers.User>().ResourceID,
                   Type = (short)value.Type,
                   CategoryID = value.CategoryID,
                   Text = value.Text,
