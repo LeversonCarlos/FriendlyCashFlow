@@ -23,12 +23,14 @@ set @command = '
 set @command = @command + ' and ResourceID = '''+ @resourceID +'''';
 
 /* ACCOUNT CONDITION */
+create table #accountIDs (AccountID bigint);
 if (@accountID <> 0) begin
-   set @command = @command + char(10) + ' and AccountID = '+ ltrim(str(@accountID));
+   insert into #accountIDs values(@accountID);
 end
 if (@accountID = 0) begin
-   set @command = @command + char(10) + ' and coalesce(AccountID,0) >= 0'; /* just to be using the table index */
+   insert into #accountIDs select AccountID from v6_dataAccounts where ResourceID=@resourceID and RowStatus=1 and Active=1
 end
+set @command = @command + char(10) + ' and AccountID in (select AccountID from #accountIDs) ';
 
 /* DATE CONDITION */
 if (@searchYear <> 0 and @searchMonth <> 0) begin
@@ -140,7 +142,7 @@ if (@searchYear <> 0 and @searchMonth <> 0) begin
    from v6_dataBalance
    where
       ResourceID = @resourceID
-      and AccountID in (select distinct AccountID from #dataEntries)
+      and AccountID in (select AccountID from #accountIDs)
       and Date = dateadd(month, -1, dateFromParts(@searchYear, @searchMonth, 1));
 
    /* INITIAL BALANCE */
@@ -148,16 +150,27 @@ if (@searchYear <> 0 and @searchMonth <> 0) begin
    select
       0 as EntryID,
       (case when EntryValue<0 then @typeIncome else @typeExpense end) as Type,
-      'Saldo Inicial' as Text,
-      DueDate, EntryValue, 1 as Paid, DueDate as PayDate,
+      Text, DueDate, EntryValue,
+      Paid, (case when Paid=1 then DueDate else null end) as PayDate,
       0 as CategoryID, '' as CategoryText, 0 as PatternID,
-      0 as Sorting
+      Sorting
    from
    (
       select
+         'Saldo Inicial' as Text,
+         1 as Paid,
          dateFromParts(@searchYear, @searchMonth, 1) as DueDate,
-         coalesce((select top 1 PaidValue from #dataBalance as dataBalance),0) as EntryValue
+         coalesce((select top 1 PaidValue from #dataBalance as dataBalance),0) as EntryValue,
+         0 as Sorting
+      union
+      select
+         'Lançamentos Atrasados' as Text,
+         0 as Paid,
+         dateFromParts(@searchYear, @searchMonth, 1) as DueDate,
+         coalesce((select top 1 TotalValue-PaidValue from #dataBalance as dataBalance),0) as EntryValue,
+         1 as Sorting
    ) SUB
+   where EntryValue <> 0 or Paid = 1
 
    update #dataEntries
    set
@@ -179,4 +192,5 @@ select * from #dataEntries order by Sorting;
 drop table #dataTransfer;
 drop table #dataEntries;
 drop table #IDs;
+drop table #accountIDs;
 set nocount off;

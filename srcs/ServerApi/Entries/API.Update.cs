@@ -27,13 +27,28 @@ namespace FriendlyCashFlow.API.Entries
             var data = await this.GetDataQuery().Where(x => x.EntryID == entryID).FirstOrDefaultAsync();
             if (data == null) { return this.NotFoundResponse(); }
 
+            // REMOVE BALANCE
+            await this.GetService<Balances.BalancesService>().RemoveBalanceAsync(data);
+
+            // REMOVE PATTERN
+            /*
+            if (data.PatternID != viewModel.PatternID)
+            {
+               await this.GetService<Recurrencies.RecurrenciesService>().RemoveRecurrencyAsync(viewModel.Recurrency);
+               var patternModel = await this.addPattern(value);
+               if (patternModel != null)
+               {
+                  oData.idPattern = patternModel.idPattern;
+                  value.idPattern = oData.idPattern;
+               }
+            }
+            */
+
             // APPLY CHANGES
             data.Text = viewModel.Text;
             data.CategoryID = viewModel.CategoryID;
             data.DueDate = viewModel.DueDate;
             data.EntryValue = Math.Abs(viewModel.EntryValue);
-
-            // PAID
             data.Paid = viewModel.Paid;
             if (viewModel.Paid && viewModel.PayDate.HasValue) { data.PayDate = viewModel.PayDate; } else { data.PayDate = null; }
             if (viewModel.AccountID.HasValue) { data.AccountID = viewModel.AccountID; }
@@ -41,6 +56,7 @@ namespace FriendlyCashFlow.API.Entries
             // SEARCH DATE
             data.SearchDate = data.DueDate;
             if (data.Paid && data.PayDate.HasValue) { data.SearchDate = data.PayDate.Value; }
+            this.ApplySorting(data);
 
             // AUXILIARY
             // data.PatternID = await this.GetService<Patterns.PatternsService>().AddPatternAsync(viewModel);
@@ -49,11 +65,7 @@ namespace FriendlyCashFlow.API.Entries
             // SAVE IT
             await this.dbContext.SaveChangesAsync();
 
-            // SORTING
-            this.ApplySorting(data);
-            await this.dbContext.SaveChangesAsync();
-
-            // BALANCE
+            // ADD BALANCE
             await this.GetService<Balances.BalancesService>().AddBalanceAsync(data);
 
             // RESULT
