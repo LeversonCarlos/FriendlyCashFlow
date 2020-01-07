@@ -15,15 +15,17 @@ export class EntriesService {
 
    // NAVIGATES
    public showFlow(year?: number, month?: number) {
-      if (!year && this.CurrentMonth) { year = this.CurrentMonth.getFullYear(); }
-      if (!month && this.CurrentMonth) { month = this.CurrentMonth.getMonth() + 1; }
+      console.log({ year, month })
+      if (year == undefined && this.CurrentMonth) { year = this.CurrentMonth.getFullYear(); }
+      if (month == undefined && this.CurrentMonth) { month = this.CurrentMonth.getMonth() + 1; }
+      if (year == undefined || month == undefined) { this.router.navigate(['/entries']); }
       this.router.navigate(['/entries', 'flow', year, month]);
    }
    public showSearch(searchText: string, accountID: number = 0) { this.router.navigate(['/entries', 'search', searchText, accountID]); }
    public showEntryDetails(id: number) { this.router.navigate(['/entries', 'entry', id]); }
    public showTransferDetails(id: number) { this.router.navigate(['/entries', 'transfer', id]); }
-   public showEntryNew() { this.router.navigate(['/entries', 'entry', 'new'], { skipLocationChange: true }); }
-   public showTransferNew() { this.router.navigate(['/entries', 'transfer', 'new'], { skipLocationChange: true }); }
+   public showEntryNew(type: string) { this.router.navigate(['/entries', 'entry', 'new', 'type']); }
+   public showTransferNew() { this.router.navigate(['/entries', 'transfer', 'new']); }
 
    // DATA
    public CurrentMonth: Date;

@@ -2,16 +2,16 @@
    <mat-icon>add</mat-icon>
 </button>
 <mat-menu #newMenu="matMenu">
-   <button mat-menu-item>
+   <button mat-menu-item class="income" (click)='OnIncomeClick()'>
       <mat-icon>add_circle</mat-icon>
-      <span>ENTRADA</span>
+      <span>{{ 'ENTRIES_NEW_INCOME_COMMAND' | translation | async }}</span>
    </button>
-   <button mat-menu-item disabled>
+   <button mat-menu-item class="expense" (click)='OnExpenseClick()'>
       <mat-icon>remove_circle</mat-icon>
-      <span>Saida</span>
+      <span>{{ 'ENTRIES_NEW_EXPENSE_COMMAND' | translation | async }}</span>
    </button>
-   <button mat-menu-item>
+   <button mat-menu-item class="transfer" (click)='OnTransferClick()'>
       <mat-icon>shuffle</mat-icon>
-      <span>Transferencia</span>
+      <span>{{ 'ENTRIES_NEW_TRANSFER_COMMAND' | translation | async }}</span>
    </button>
 </mat-menu>

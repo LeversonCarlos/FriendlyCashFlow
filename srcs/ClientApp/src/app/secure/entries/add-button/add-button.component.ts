@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EntriesService } from '../entries.service';
 
 @Component({
    selector: 'fs-add-button',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddButtonComponent implements OnInit {
 
-   constructor() { }
+   constructor(private service: EntriesService) { }
 
-   ngOnInit() {
+   public ngOnInit() {
    }
+
+   public OnIncomeClick() { this.service.showEntryNew('income') }
+   public OnExpenseClick() { this.service.showEntryNew('expense') }
+   public OnTransferClick() { this.service.showTransferNew() }
 
 }
