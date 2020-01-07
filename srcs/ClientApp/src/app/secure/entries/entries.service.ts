@@ -58,7 +58,6 @@ export class EntriesService {
          const dataList = await this.http.get<Entry>(`api/entries/entry/${entryID}`)
             .pipe(map(item => Object.assign(new Entry, item)))
             .toPromise();
-         console.log('getEntry', dataList)
          return dataList;
       }
       catch (ex) { console.error(ex); return null; }

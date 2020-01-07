@@ -1,8 +1,11 @@
 div {
-   display: flex;
-   align-items: center;
+  display: flex;
+  align-items: center;
+}
+strong {
+  text-transform: uppercase;
 }
 button {
-   padding: 0;
-   min-width: 36px;
+  padding: 0;
+  min-width: 36px;
 }
