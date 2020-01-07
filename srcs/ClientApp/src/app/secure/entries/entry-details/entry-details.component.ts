@@ -29,9 +29,12 @@ export class EntryDetailsComponent implements OnInit {
 
    private async OnDataLoad(): Promise<boolean> {
       try {
-
          const paramID: string = this.route.snapshot.params.id;
-         if (paramID == 'new') { this.Data = Object.assign(new Entry, { Active: true }); return true; }
+         const paramType: string = this.route.snapshot.params.type;
+
+         if (paramID == undefined && paramType != undefined) {
+            this.Data = Object.assign(new Entry, { Type: paramType, Active: true }); return true;
+         }
 
          const entryID: number = Number(paramID);
          if (!entryID || entryID == 0) {

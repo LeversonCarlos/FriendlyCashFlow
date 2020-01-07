@@ -15,7 +15,6 @@ export class EntriesService {
 
    // NAVIGATES
    public showFlow(year?: number, month?: number) {
-      console.log({ year, month })
       if (year == undefined && this.CurrentMonth) { year = this.CurrentMonth.getFullYear(); }
       if (month == undefined && this.CurrentMonth) { month = this.CurrentMonth.getMonth() + 1; }
       if (year == undefined || month == undefined) { this.router.navigate(['/entries']); }
@@ -24,7 +23,7 @@ export class EntriesService {
    public showSearch(searchText: string, accountID: number = 0) { this.router.navigate(['/entries', 'search', searchText, accountID]); }
    public showEntryDetails(id: number) { this.router.navigate(['/entries', 'entry', id]); }
    public showTransferDetails(id: number) { this.router.navigate(['/entries', 'transfer', id]); }
-   public showEntryNew(type: string) { this.router.navigate(['/entries', 'entry', 'new', 'type']); }
+   public showEntryNew(type: string) { this.router.navigate(['/entries', 'entry', 'new', type]); }
    public showTransferNew() { this.router.navigate(['/entries', 'transfer', 'new']); }
 
    // DATA

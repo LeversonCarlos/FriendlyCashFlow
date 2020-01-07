@@ -13,8 +13,8 @@ export class AddButtonComponent implements OnInit {
    public ngOnInit() {
    }
 
-   public OnIncomeClick() { this.service.showEntryNew('income') }
-   public OnExpenseClick() { this.service.showEntryNew('expense') }
+   public OnIncomeClick() { this.service.showEntryNew('Income') }
+   public OnExpenseClick() { this.service.showEntryNew('Expense') }
    public OnTransferClick() { this.service.showTransferNew() }
 
 }
