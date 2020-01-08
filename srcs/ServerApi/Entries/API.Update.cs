@@ -17,11 +17,9 @@ namespace FriendlyCashFlow.API.Entries
          {
 
             // VALIDATE
-            /* TODO
-            var validateMessage = await this.ValidateDataAsync(value);
+            var validateMessage = await this.ValidateAsync(viewModel);
             var validateResult = this.GetValue(validateMessage);
             if (!validateResult) { return validateMessage.Result; }
-            */
 
             // LOCATE DATA
             var data = await this.GetDataQuery().Where(x => x.EntryID == entryID).FirstOrDefaultAsync();

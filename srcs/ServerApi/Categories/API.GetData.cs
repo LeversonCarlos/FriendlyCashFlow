@@ -11,7 +11,7 @@ namespace FriendlyCashFlow.API.Categories
    partial class CategoriesService
    {
 
-      private IQueryable<CategoryData> GetDataQuery()
+      internal IQueryable<CategoryData> GetDataQuery()
       {
          var user = this.GetService<Helpers.User>();
          return this.dbContext.Categories

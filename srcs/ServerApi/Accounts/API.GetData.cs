@@ -11,7 +11,7 @@ namespace FriendlyCashFlow.API.Accounts
    partial class AccountsService
    {
 
-      private IQueryable<AccountData> GetDataQuery()
+      internal IQueryable<AccountData> GetDataQuery()
       {
          var user = this.GetService<Helpers.User>();
          return this.dbContext.Accounts

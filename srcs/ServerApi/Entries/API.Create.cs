@@ -1,9 +1,7 @@
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using System;
+using System.Threading.Tasks;
 
 namespace FriendlyCashFlow.API.Entries
 {
@@ -17,11 +15,9 @@ namespace FriendlyCashFlow.API.Entries
          {
 
             // VALIDATE
-            /* TODO
-            var validateMessage = await this.ValidateDataAsync(value);
+            var validateMessage = await this.ValidateAsync(value);
             var validateResult = this.GetValue(validateMessage);
             if (!validateResult) { return validateMessage.Result; }
-            */
 
             // NEW MODEL
             var user = this.GetService<Helpers.User>();
