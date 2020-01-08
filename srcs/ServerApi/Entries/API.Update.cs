@@ -1,9 +1,9 @@
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace FriendlyCashFlow.API.Entries
 {
@@ -72,8 +72,7 @@ namespace FriendlyCashFlow.API.Entries
       [Authorize(Roles = "Editor")]
       public async Task<ActionResult<EntryVM>> UpdateAsync(long id, [FromBody]EntryVM value)
       {
-         using (var service = new EntriesService(this.serviceProvider))
-         { return await service.UpdateAsync(id, value); }
+         return await this.GetService<EntriesService>().UpdateAsync(id, value);
       }
    }
 
