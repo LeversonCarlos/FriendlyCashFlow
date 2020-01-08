@@ -148,8 +148,8 @@ export class EntryDetailsComponent implements OnInit {
 
    public async OnRemoveClick() {
       if (!await this.msg.Confirm('ENTRIES_REMOVE_CONFIRMATION_TEXT', 'BASE_REMOVE_COMMAND')) { return; }
-      // if (!await this.service.removeAccount(this.Data)) { return; }
-      // this.service.showList();
+      if (!await this.service.removeEntry(this.Data)) { return; }
+      this.service.showFlow();
    }
 
 }

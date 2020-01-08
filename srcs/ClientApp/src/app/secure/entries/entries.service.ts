@@ -82,4 +82,15 @@ export class EntriesService {
       finally { this.busy.hide(); }
    }
 
+   // REMOVE
+   public async removeEntry(value: Entry): Promise<boolean> {
+      try {
+         this.busy.show();
+         const result = await this.http.delete<boolean>(`api/entries/${value.EntryID}`).toPromise();
+         return result;
+      }
+      catch (ex) { return null; }
+      finally { this.busy.hide(); }
+   }
+
 }
