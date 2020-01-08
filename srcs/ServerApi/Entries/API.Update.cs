@@ -29,8 +29,8 @@ namespace FriendlyCashFlow.API.Entries
             await this.GetService<Balances.BalancesService>().RemoveBalanceAsync(data);
 
             // REMOVE PATTERN
-            viewModel.PatternID = await this.GetService<Patterns.PatternsService>().GetPatternAsync(viewModel);
-            if (data.PatternID != viewModel.PatternID)
+            var newPatternID = await this.GetService<Patterns.PatternsService>().GetPatternAsync(viewModel);
+            if (data.PatternID != newPatternID)
             { await this.GetService<Patterns.PatternsService>().RemovePatternAsync(viewModel); }
 
             // APPLY CHANGES
@@ -48,11 +48,8 @@ namespace FriendlyCashFlow.API.Entries
             this.ApplySorting(data);
 
             // ADD PATTERN
-            if (data.PatternID != viewModel.PatternID)
+            if (data.PatternID != newPatternID)
             { data.PatternID = await this.GetService<Patterns.PatternsService>().AddPatternAsync(viewModel); }
-
-            // AUXILIARY
-            // data.RecurrencyID = await this.GetService<Recurrencies.RecurrenciesService>().AddRecurrencyAsync(viewModel.Recurrency);
 
             // SAVE IT
             await this.dbContext.SaveChangesAsync();

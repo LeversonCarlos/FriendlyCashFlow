@@ -56,10 +56,10 @@ export class EntriesService {
    public async getEntry(entryID: number): Promise<Entry> {
       try {
          this.busy.show();
-         const dataList = await this.http.get<Entry>(`api/entries/entry/${entryID}`)
+         const data = await this.http.get<Entry>(`api/entries/entry/${entryID}`)
             .pipe(map(item => Object.assign(new Entry, item)))
             .toPromise();
-         return dataList;
+         return data;
       }
       catch (ex) { console.error(ex); return null; }
       finally { this.busy.hide(); }
