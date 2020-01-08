@@ -38,3 +38,28 @@ export class EntryFlow {
    BalanceTotalValue: number
    BalancePaidValue: number
 }
+
+export enum enCurrentListType { Flow = 0, Search = 1 }
+export class CurrentData {
+
+   public ListType: enCurrentListType
+
+   public CurrentMonth: Date
+   public CurrentAccount: number
+   public CurrentSearchText: string
+
+   public setFlow(currentMonth: Date, currentAccount?: number) {
+      this.CurrentMonth = currentMonth
+      this.CurrentAccount = currentAccount
+      this.CurrentSearchText = null
+      this.ListType = enCurrentListType.Flow
+   }
+
+   public setSearch(currentSearchText: string, currentAccount?: number) {
+      this.CurrentMonth = null
+      this.CurrentAccount = currentAccount
+      this.CurrentSearchText = currentSearchText
+      this.ListType = enCurrentListType.Search
+   }
+
+}

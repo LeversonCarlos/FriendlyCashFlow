@@ -19,7 +19,8 @@ import { EntryDetailsComponent } from './entries/entry-details/entry-details.com
 @NgModule({
    declarations: [
       AccountsComponent, AccountDetailsComponent,
-      CategoriesComponent, CategoryDetailsComponent, EntriesFlowComponent, MonthPickerComponent, AddButtonComponent, EntryDetailsComponent],
+      CategoriesComponent, CategoryDetailsComponent,
+      EntriesFlowComponent, EntryDetailsComponent, MonthPickerComponent, AddButtonComponent],
    imports: [
       CommonModule, SharedModule
    ],

@@ -12,7 +12,7 @@ export const secureRoutes: Routes = [
    { path: 'account/:id', canActivate: [AuthGuard], component: AccountDetailsComponent },
    { path: 'categories', canActivate: [AuthGuard], component: CategoriesComponent },
    { path: 'category/:id', canActivate: [AuthGuard], component: CategoryDetailsComponent },
-   { path: 'entries/flow/:year/:month', canActivate: [AuthGuard], component: EntriesFlowComponent },
+   { path: 'entries/flow/:year/:month/:account', canActivate: [AuthGuard], component: EntriesFlowComponent },
    { path: 'entries/flow', canActivate: [AuthGuard], component: EntriesFlowComponent },
    { path: 'entries', canActivate: [AuthGuard], component: EntriesFlowComponent },
    { path: 'entries/entry/new/:type', canActivate: [AuthGuard], component: EntryDetailsComponent },

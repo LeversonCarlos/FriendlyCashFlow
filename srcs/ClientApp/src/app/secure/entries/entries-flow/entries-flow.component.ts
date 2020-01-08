@@ -25,8 +25,4 @@ export class EntriesFlowComponent implements OnInit {
       }
    }
 
-   public OnNewClick() {
-      // this.service.showNew();
-   }
-
 }

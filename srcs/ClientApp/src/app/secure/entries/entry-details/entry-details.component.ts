@@ -39,14 +39,14 @@ export class EntryDetailsComponent implements OnInit {
          const entryID: number = Number(paramID);
          if (!entryID || entryID == 0) {
             this.msg.ShowWarning('ENTRIES_RECORD_NOT_FOUND_WARNING');
-            this.service.showFlow();
+            this.service.showCurrentList();
             return false;
          }
 
          this.Data = await this.service.getEntry(entryID);
          if (!this.Data || this.Data.EntryID != entryID) {
             this.msg.ShowWarning('ENTRIES_RECORD_NOT_FOUND_WARNING');
-            this.service.showFlow();
+            this.service.showCurrentList();
             return false;
          }
 
@@ -138,18 +138,18 @@ export class EntryDetailsComponent implements OnInit {
       if (!this.inputForm.pristine) {
          if (!await this.msg.Confirm('BASE_CANCEL_CHANGES_CONFIRMATION_TEXT', 'BASE_CANCEL_CHANGES_CONFIRM', 'BASE_CANCEL_CHANGES_ABORT')) { return; }
       }
-      this.service.showFlow();
+      this.service.showCurrentList();
    }
 
    public async OnSaveClick() {
       if (!await this.service.saveEntry(this.Data)) { return; }
-      this.service.showFlow();
+      this.service.showCurrentList();
    }
 
    public async OnRemoveClick() {
       if (!await this.msg.Confirm('ENTRIES_REMOVE_CONFIRMATION_TEXT', 'BASE_REMOVE_COMMAND')) { return; }
       if (!await this.service.removeEntry(this.Data)) { return; }
-      this.service.showFlow();
+      this.service.showCurrentList();
    }
 
 }
