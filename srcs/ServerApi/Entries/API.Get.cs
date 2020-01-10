@@ -25,12 +25,13 @@ namespace FriendlyCashFlow.API.Entries
          var entryList = this.GetValue(entryListMessage);
          if (entryList == null) { return entryListMessage.Result; }
          var flowList = entryList
-            .GroupBy(x => x.DueDate.Day)
+            .GroupBy(x => x.SearchDate.Day)
             .Select(x => new
             {
                Day = x.Key,
-               EntryList = entryList.Where(e => e.DueDate.Day == x.Key).ToList()
+               EntryList = entryList.Where(e => e.SearchDate.Day == x.Key).ToList()
             })
+            .OrderBy(x => x.Day)
             .Select(x => new EntryFlowVM
             {
                Day = x.Day.ToString().PadLeft(2, "0".ToCharArray()[0]),

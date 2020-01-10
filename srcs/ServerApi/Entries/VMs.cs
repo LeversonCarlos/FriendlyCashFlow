@@ -16,6 +16,7 @@ namespace FriendlyCashFlow.API.Entries
       public Categories.CategoryVM CategoryRow { get; set; }
       public string CategoryText { get; set; }
 
+      public DateTime SearchDate { get; set; }
       public DateTime DueDate { get; set; }
       public decimal EntryValue { get; set; }
 

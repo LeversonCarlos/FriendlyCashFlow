@@ -36,8 +36,8 @@ set @command = @command + char(10) + ' and AccountID in (select AccountID from #
 if (@searchYear <> 0 and @searchMonth <> 0) begin
    declare @initialDate datetime = cast(ltrim(str(@searchYear))+'-'+ltrim(str(@searchMonth))+'-01' as datetime);
    declare @finalDate datetime = dateadd(day, -1, dateadd(month,1,@initialDate));
-   set @command = @command + char(10) + ' and SearchDate >= '''+ convert(varchar(10),@initialDate,121) +'''';
-   set @command = @command + char(10) + ' and SearchDate <= '''+ convert(varchar(10),@finalDate,121) +'''';
+   set @command = @command + char(10) + ' and SearchDate >= '''+ convert(varchar(10),@initialDate,121) +' 00:00:00''';
+   set @command = @command + char(10) + ' and SearchDate <= '''+ convert(varchar(10),@finalDate,121) +' 23:59:59''';
 end
 
 /* SEARCH TEXT CONDITION */
@@ -68,6 +68,7 @@ select
    dataEntries.EntryID,
    dataEntries.Type,
    dataEntries.Text,
+   dataEntries.SearchDate,
    dataEntries.DueDate,
    dataEntries.EntryValue * (case when dataEntries.Type=@typeExpense then -1 else 1 end) As EntryValue,
    dataEntries.AccountID,
@@ -146,11 +147,11 @@ if (@searchYear <> 0 and @searchMonth <> 0) begin
       and Date <dateFromParts(@searchYear, @searchMonth, 1);
 
    /* INITIAL BALANCE */
-   insert into #dataEntries(EntryID, Type, Text, DueDate, EntryValue, Paid, PayDate, CategoryID, CategoryText, PatternID, Sorting)
+   insert into #dataEntries(EntryID, Type, Text, SearchDate, DueDate, EntryValue, Paid, PayDate, CategoryID, CategoryText, PatternID, Sorting)
    select
       0 as EntryID,
       (case when EntryValue<0 then @typeIncome else @typeExpense end) as Type,
-      Text, DueDate, EntryValue,
+      Text, DueDate as SearchDate, DueDate, EntryValue,
       Paid, (case when Paid=1 then DueDate else null end) as PayDate,
       0 as CategoryID, '' as CategoryText, 0 as PatternID,
       Sorting
