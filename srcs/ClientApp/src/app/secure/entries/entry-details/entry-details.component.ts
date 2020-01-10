@@ -33,7 +33,7 @@ export class EntryDetailsComponent implements OnInit {
          const paramType: string = this.route.snapshot.params.type;
 
          if (paramID == undefined && paramType != undefined) {
-            this.Data = Object.assign(new Entry, { Type: paramType, Active: true }); return true;
+            this.Data = Object.assign(new Entry, { Type: paramType, DueDate: this.service.CurrentData.CurrentMonth, Active: true }); return true;
          }
 
          const entryID: number = Number(paramID);
@@ -83,6 +83,9 @@ export class EntryDetailsComponent implements OnInit {
          this.Data.AccountID = null;
          if (value && value.id) {
             this.Data.AccountID = value.id;
+            const dueDateControl = this.inputForm.get("DueDate");
+            dueDateControl.setValue(value.value.DueDate)
+            dueDateControl.updateValueAndValidity();
          }
       });
       this.inputForm.get("CategoryRow").valueChanges.subscribe(value => {

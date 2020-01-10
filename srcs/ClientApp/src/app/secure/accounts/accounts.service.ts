@@ -13,6 +13,7 @@ export class Account {
    Type: enAccountType;
    ClosingDay?: number;
    DueDay?: number;
+   DueDate?: Date;
    Active: boolean;
    get Icon(): string {
       switch (this.Type) {
