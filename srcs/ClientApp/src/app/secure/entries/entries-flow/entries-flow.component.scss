@@ -50,6 +50,12 @@
 .item-row {
   width: 100%;
   display: flex;
+  .mat-icon {
+    font-size: 20px;
+    height: 20px;
+    width: 22px;
+    vertical-align: middle;
+  }
 }
 .item-details {
   flex-grow: 1;
@@ -61,12 +67,6 @@
 }
 .item-value {
   align-self: center;
-  .mat-icon {
-     font-size: 20px;
-     height: 20px;
-     width: 22px;
-     vertical-align: middle;
-  }
 }
 .item-balance {
   height: 32px;

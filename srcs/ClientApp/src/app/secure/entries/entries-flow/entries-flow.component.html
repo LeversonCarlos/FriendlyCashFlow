@@ -23,7 +23,11 @@
                            (click)="OnItemClick(item)">
                            <div class="item-row mat-body">
                               <div class="item-details">
-                                 <div>{{ item.Text }}</div>
+                                 <div>
+                                    <mat-icon *ngIf="item.Paid">check_box</mat-icon>
+                                    <mat-icon *ngIf="!item.Paid">check_box_outline_blank</mat-icon>
+                                    <span>{{ item.Text }}</span>
+                                 </div>
                                  <div>
                                     <small>{{ item.CategoryText }}</small>
                                     <small *ngIf="item.CategoryText && item.AccountText"> - </small>
