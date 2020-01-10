@@ -44,7 +44,7 @@ namespace FriendlyCashFlow.API.Accounts
             if (!string.IsNullOrEmpty(searchText))
             { query = query.Where(x => x.AccountID != 0 && x.Text.Contains(searchText, StringComparison.CurrentCultureIgnoreCase)); }
 
-            var data = await query.ToListAsync();
+            var data = await query.OrderBy(x => x.Type).ThenBy(x => x.Text).ToListAsync();
             var result = data.Select(x => AccountVM.Convert(x)).ToList();
             return this.OkResponse(result);
 

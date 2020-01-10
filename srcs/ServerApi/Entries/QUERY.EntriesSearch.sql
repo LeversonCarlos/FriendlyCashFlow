@@ -177,10 +177,10 @@ if (@searchYear <> 0 and @searchMonth <> 0) begin
    set
       BalanceTotalValue =
          coalesce((select top 1 TotalValue from #dataBalance),0) +
-         (select sum(EntryValue) from #dataEntries as dataEntriesI where dataEntriesI.Sorting <= dataEntries.Sorting),
+         coalesce((select sum(EntryValue) from #dataEntries as dataEntriesI where dataEntriesI.Sorting <= dataEntries.Sorting and dataEntriesI.EntryID <> 0),0),
       BalancePaidValue =
          coalesce((select top 1 PaidValue from #dataBalance),0) +
-         (select sum(EntryValue) from #dataEntries as dataEntriesI where dataEntriesI.Sorting <= dataEntries.Sorting and dataEntriesI.Paid=1)
+         coalesce((select sum(EntryValue) from #dataEntries as dataEntriesI where dataEntriesI.Sorting <= dataEntries.Sorting and dataEntriesI.EntryID <> 0 and dataEntriesI.Paid=1),0)
    from #dataEntries as dataEntries;
 
    drop table #dataBalance;
