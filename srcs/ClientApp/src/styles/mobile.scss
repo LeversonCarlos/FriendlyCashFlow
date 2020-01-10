@@ -4,6 +4,7 @@
 @media (max-width: $max-width-xs) {
   .full-screen {
     padding: 3px 0;
+    height: calc(#{$details-height} + #{$screen-padding}) !important;
   }
 
   .mat-card {

@@ -1,3 +1,13 @@
+@import "../../../../styles/screenSizes.scss";
+
+.full-card {
+  overflow-y: scroll;
+  height: calc(#{$details-height} - #{$screen-padding});
+  @media (max-width: $max-width-xs) {
+   height: calc(#{$details-height} + #{$screen-padding});
+  }
+}
+
 .mat-card {
   margin-bottom: 6px;
   padding: 0;
@@ -30,7 +40,8 @@
   align-self: center;
   padding-right: 16px;
   text-align: right;
-  span,small {
+  span,
+  small {
     opacity: 0.5;
     font-size: smaller;
   }
