@@ -4,7 +4,7 @@
   overflow-y: scroll;
   height: calc(#{$details-height} - #{$screen-padding});
   @media (max-width: $max-width-xs) {
-   height: calc(#{$details-height} + #{$screen-padding});
+    height: calc(#{$details-height} + #{$screen-padding});
   }
 }
 
@@ -61,6 +61,12 @@
 }
 .item-value {
   align-self: center;
+  .mat-icon {
+     font-size: 20px;
+     height: 20px;
+     width: 22px;
+     vertical-align: middle;
+  }
 }
 .item-balance {
   height: 32px;

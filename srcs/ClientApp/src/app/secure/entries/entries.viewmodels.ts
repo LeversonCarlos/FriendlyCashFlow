@@ -17,6 +17,7 @@ export class Entry {
 
    Paid: boolean;
    PayDate?: Date;
+   Delayed: boolean
 
    AccountID?: number;
    AccountRow?: Account;

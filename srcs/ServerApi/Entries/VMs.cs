@@ -21,6 +21,8 @@ namespace FriendlyCashFlow.API.Entries
 
       public bool Paid { get; set; }
       public DateTime? PayDate { get; set; }
+      public bool Delayed { get { return !this.Paid && this.DueDate < DateTime.Now; } }
+
       public long? AccountID { get; set; }
       public Accounts.AccountVM AccountRow { get; set; }
       public string AccountText { get; set; }

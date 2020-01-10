@@ -32,7 +32,8 @@
                               </div>
                               <div class="item-value" [class.forecolor-red]="item.EntryValue < 0"
                                  [class.forecolor-green]="item.EntryValue > 0">
-                                 {{ item.EntryValue | number : '1.2-2' }}
+                                 <mat-icon *ngIf="item.Delayed">warning</mat-icon>
+                                 <span>{{ item.EntryValue | number : '1.2-2' }}</span>
                               </div>
                            </div>
                         </button>
