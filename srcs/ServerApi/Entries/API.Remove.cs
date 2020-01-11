@@ -31,6 +31,10 @@ namespace FriendlyCashFlow.API.Entries
             this.dbContext.Remove(data);
             await this.dbContext.SaveChangesAsync();
 
+            // REMOVE PATTERN
+            if (data.RecurrencyID.HasValue && data.RecurrencyID.Value > 0)
+            { await this.GetService<Recurrencies.RecurrenciesService>().RemoveAsync(data.RecurrencyID.Value); }
+
             // RESULT
             return this.OkResponse(true);
          }
