@@ -11,6 +11,7 @@ namespace FriendlyCashFlow.API.Entries
       public string Text { get; set; }
 
       public long PatternID { get; set; }
+      public Patterns.PatternVM PatternRow { get; set; }
 
       public long CategoryID { get; set; }
       public Categories.CategoryVM CategoryRow { get; set; }

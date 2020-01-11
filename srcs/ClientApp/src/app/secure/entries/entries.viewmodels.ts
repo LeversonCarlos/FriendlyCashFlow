@@ -1,5 +1,6 @@
 import { Account } from '../accounts/accounts.service';
 import { Category, enCategoryType } from '../categories/categories.service';
+import { Pattern } from '../patterns/patterns.viewmodels';
 
 export class Entry {
    EntryID: number;
@@ -7,6 +8,7 @@ export class Entry {
    Text: string;
 
    PatternID: number;
+   PatternRow: Pattern;
 
    CategoryID: number;
    CategoryRow?: Category;

@@ -15,6 +15,7 @@ import { EntriesFlowComponent } from './entries/entries-flow/entries-flow.compon
 import { MonthPickerComponent } from './entries/entries-flow/month-picker/month-picker.component';
 import { AddButtonComponent } from './entries/add-button/add-button.component';
 import { EntryDetailsComponent } from './entries/entry-details/entry-details.component';
+import { PatternsService } from './patterns/patterns.service';
 
 @NgModule({
    declarations: [
@@ -24,6 +25,6 @@ import { EntryDetailsComponent } from './entries/entry-details/entry-details.com
    imports: [
       CommonModule, SharedModule
    ],
-   providers: [AccountsService, CategoriesService, EntriesService]
+   providers: [AccountsService, CategoriesService, EntriesService, PatternsService]
 })
 export class SecureModule { }

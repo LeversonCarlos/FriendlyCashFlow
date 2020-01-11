@@ -56,6 +56,9 @@ namespace FriendlyCashFlow.API.Entries
                .FirstOrDefaultAsync();
             var viewModel = EntryVM.Convert(data);
 
+            var patternMessage = await this.GetService<Patterns.PatternsService>().GetPatternAsync(data.PatternID);
+            viewModel.PatternRow = this.GetValue(patternMessage);
+
             if (data.AccountID.HasValue)
             {
                var accountMessage = await this.GetService<Accounts.AccountsService>().GetDataAsync(data.AccountID.Value);
