@@ -5,18 +5,12 @@
 }
 
 .mat-action-list {
-  min-height: 50vh;
-}
+  overflow-y: scroll;
 
-@media (max-width: $max-width-xs) {
-  $screenPadding: 3px;
-  $cardPadding: 16px;
   $tabsHeader: 49px;
-  $listbottom: 10px;
-  .mat-action-list {
-    overflow-y: scroll;
-    height: calc(
-      #{$details-height} - (#{$screenPadding} * 2) - (#{$cardPadding} * 2) - #{$tabsHeader} - #{$listbottom}
-    );
+  $cardPadding: 16px;
+  height: calc(#{$details-height} - #{$screen-padding} - #{$tabsHeader} - (2 * #{$cardPadding}));
+  @media (max-width: $max-width-xs) {
+    height: calc(#{$details-height} + #{$screen-padding} - #{$tabsHeader} - (2 * #{$cardPadding}));
   }
 }
