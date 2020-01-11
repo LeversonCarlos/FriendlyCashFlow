@@ -85,11 +85,13 @@ export class EntryDetailsComponent implements OnInit {
          this.Data.Paid = values.Paid || false;
          this.Data.PayDate = values.PayDate;
       });
-      this.inputForm.get("PatternRow").valueChanges.subscribe(value => {
+      this.inputForm.get("PatternRow").valueChanges.subscribe(opt => {
          this.Data.PatternID = null;
-         if (value && value.id) {
-            this.Data.PatternID = value.id;
-            this.inputForm.get("Text").setValue(value.value.Text);
+         if (opt && opt.id) {
+            this.Data.PatternID = opt.id;
+            this.CategoryOptions = [this.OnCategoryParse(opt.value.CategoryRow)];
+            this.inputForm.get("Text").setValue(opt.value.Text);
+            this.inputForm.get("CategoryRow").setValue(this.CategoryOptions[0]);
          }
       });
       this.inputForm.get("AccountRow").valueChanges.subscribe(value => {
@@ -101,10 +103,10 @@ export class EntryDetailsComponent implements OnInit {
             dueDateControl.updateValueAndValidity();
          }
       });
-      this.inputForm.get("CategoryRow").valueChanges.subscribe(value => {
+      this.inputForm.get("CategoryRow").valueChanges.subscribe(opt => {
          this.Data.CategoryID = null;
-         if (value && value.id) {
-            this.Data.CategoryID = value.id;
+         if (opt && opt.id) {
+            this.Data.CategoryID = opt.id;
          }
       });
       this.inputForm.controls['Paid'].valueChanges.subscribe((paid) => this.OnPaidChanged(paid));
@@ -120,7 +122,7 @@ export class EntryDetailsComponent implements OnInit {
          .map(item => this.OnPatternParse(item));
    }
    private OnPatternParse(item: Pattern): RelatedData<Pattern> {
-      return Object.assign(new RelatedData, { id: item.PatternID, description: item.Text, value: item });
+      return Object.assign(new RelatedData, { id: item.PatternID, description: `${item.Text} (${item.Count})`, value: item });
    }
 
    public AccountOptions: RelatedData<Account>[] = [];

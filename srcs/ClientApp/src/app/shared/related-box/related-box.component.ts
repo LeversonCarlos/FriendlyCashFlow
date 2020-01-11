@@ -66,6 +66,7 @@ export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAcces
 
    /* VALUE ACCESSOR  */
    public writeValue(val: RelatedData<any>): void {
+      if (val) { this.inputValue = val.description; }
       this.value = val
       this.onChange(val);
    }

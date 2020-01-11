@@ -44,7 +44,11 @@ namespace FriendlyCashFlow.API.Patterns
             if (!string.IsNullOrEmpty(searchText))
             { query = query.Where(x => x.PatternID != 0 && x.Text.Contains(searchText, StringComparison.CurrentCultureIgnoreCase)); }
 
-            var data = await query.OrderBy(x => x.Type).ThenBy(x => x.Text).ToListAsync();
+            var data = await query
+               .Include(x=> x.CategoryDetails)
+               .OrderByDescending(x => x.Count)
+               .ThenBy(x => x.Text)
+               .ToListAsync();
             var result = data.Select(x => PatternVM.Convert(x)).ToList();
             return this.OkResponse(result);
 
