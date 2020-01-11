@@ -9,7 +9,8 @@ import { Category, CategoriesService } from '../../categories/categories.service
 import { Account, AccountsService } from '../../accounts/accounts.service';
 import { Pattern } from '../../patterns/patterns.viewmodels';
 import { PatternsService } from '../../patterns/patterns.service';
-import { Recurrency } from '../../recurrency/recurrency.viewmodels';
+import { Recurrency, enRecurrencyType } from '../../recurrency/recurrency.viewmodels';
+import { EnumVM } from 'src/app/shared/common/common.models';
 
 @Component({
    selector: 'fs-entry-details',
@@ -23,6 +24,7 @@ export class EntryDetailsComponent implements OnInit {
       private route: ActivatedRoute, private fb: FormBuilder) { }
 
    public Data: Entry;
+   public RecurrencyTypes: EnumVM<enRecurrencyType>[];
    public inputForm: FormGroup;
 
    public async ngOnInit() {
@@ -83,7 +85,9 @@ export class EntryDetailsComponent implements OnInit {
          CategoryRow: [this.CategoryOptions && this.CategoryOptions.length ? this.CategoryOptions[0] : null],
          Paid: [this.Data.Paid],
          PayDate: [this.Data.PayDate],
-         RecurrencyActivate: [false]
+         RecurrencyActivate: [false],
+         RecurrencyType: [null],
+         RecurrencyCount: [null]
       });
       this.inputForm.valueChanges.subscribe(values => {
          this.Data.Text = values.Text || '';
@@ -91,7 +95,10 @@ export class EntryDetailsComponent implements OnInit {
          this.Data.DueDate = values.DueDate;
          this.Data.Paid = values.Paid || false;
          this.Data.PayDate = values.PayDate;
-         // if (this.Data.Recurrency) {         }
+         if (this.Data.Recurrency) {
+            this.Data.Recurrency.Type = values.RecurrencyType
+            this.Data.Recurrency.Count = values.RecurrencyCount
+         }
       });
       this.inputForm.get("PatternRow").valueChanges.subscribe(opt => {
          this.Data.PatternID = null;
@@ -117,8 +124,12 @@ export class EntryDetailsComponent implements OnInit {
             this.Data.CategoryID = opt.id;
          }
       });
+
       this.inputForm.controls['Paid'].valueChanges.subscribe((paid) => this.OnPaidChanged(paid));
       this.OnPaidChanged(this.Data.Paid)
+
+      this.inputForm.controls['RecurrencyActivate'].valueChanges.subscribe((activate) => this.OnRecurrencyActivateChanged(activate));
+
    }
 
    public PatternOptions: RelatedData<Pattern>[] = [];
@@ -170,6 +181,21 @@ export class EntryDetailsComponent implements OnInit {
          payDateControl.disable();
       }
       payDateControl.updateValueAndValidity();
+   }
+
+   private OnRecurrencyActivateChanged(activate: boolean) {
+      const recurrencyTypeControl = this.inputForm.controls['RecurrencyType'];
+      if (activate == true) {
+         recurrencyTypeControl.enable();
+         recurrencyTypeControl.setValidators([Validators.required]);
+         recurrencyTypeControl.markAsTouched();
+      }
+      else {
+         recurrencyTypeControl.clearValidators();
+         recurrencyTypeControl.markAsUntouched();
+         recurrencyTypeControl.disable();
+      }
+      recurrencyTypeControl.updateValueAndValidity();
    }
 
    public async OnCancelClick() {
