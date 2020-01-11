@@ -7,6 +7,8 @@ import { Entry } from '../entries.viewmodels';
 import { RelatedData } from 'src/app/shared/related-box/related-box.models';
 import { Category, CategoriesService } from '../../categories/categories.service';
 import { Account, AccountsService } from '../../accounts/accounts.service';
+import { Pattern } from '../../patterns/patterns.viewmodels';
+import { PatternsService } from '../../patterns/patterns.service';
 
 @Component({
    selector: 'fs-entry-details',
@@ -16,7 +18,7 @@ import { Account, AccountsService } from '../../accounts/accounts.service';
 export class EntryDetailsComponent implements OnInit {
 
    constructor(private service: EntriesService, private msg: MessageService,
-      private categoryService: CategoriesService, private accountService: AccountsService,
+      private categoryService: CategoriesService, private accountService: AccountsService, private patternService: PatternsService,
       private route: ActivatedRoute, private fb: FormBuilder) { }
 
    public Data: Entry;
@@ -50,6 +52,9 @@ export class EntryDetailsComponent implements OnInit {
             return false;
          }
 
+         if (this.Data.PatternRow) {
+            this.PatternOptions = [this.OnPatternParse(this.Data.PatternRow)];
+         }
          if (this.Data.AccountRow) {
             this.AccountOptions = [this.OnAccountParse(this.Data.AccountRow)];
          }
@@ -65,6 +70,7 @@ export class EntryDetailsComponent implements OnInit {
    private OnFormCreate() {
       this.inputForm = this.fb.group({
          Text: [this.Data.Text, Validators.required],
+         PatternRow: [this.PatternOptions && this.PatternOptions.length ? this.PatternOptions[0] : null],
          AccountRow: [this.AccountOptions && this.AccountOptions.length ? this.AccountOptions[0] : null],
          EntryValue: [this.Data.EntryValue, [Validators.required, Validators.min(0.01)]],
          DueDate: [this.Data.DueDate, Validators.required],
@@ -78,6 +84,13 @@ export class EntryDetailsComponent implements OnInit {
          this.Data.DueDate = values.DueDate;
          this.Data.Paid = values.Paid || false;
          this.Data.PayDate = values.PayDate;
+      });
+      this.inputForm.get("PatternRow").valueChanges.subscribe(value => {
+         this.Data.PatternID = null;
+         if (value && value.id) {
+            this.Data.PatternID = value.id;
+            this.inputForm.get("Text").setValue(value.value.Text);
+         }
       });
       this.inputForm.get("AccountRow").valueChanges.subscribe(value => {
          this.Data.AccountID = null;
@@ -96,6 +109,18 @@ export class EntryDetailsComponent implements OnInit {
       });
       this.inputForm.controls['Paid'].valueChanges.subscribe((paid) => this.OnPaidChanged(paid));
       this.OnPaidChanged(this.Data.Paid)
+   }
+
+   public PatternOptions: RelatedData<Pattern>[] = [];
+   public async OnPatternChanging(val: string) {
+      this.inputForm.get("Text").setValue(val);
+      const patternList = await this.patternService.getPatterns(val);
+      if (patternList == null) { return; }
+      this.PatternOptions = patternList
+         .map(item => this.OnPatternParse(item));
+   }
+   private OnPatternParse(item: Pattern): RelatedData<Pattern> {
+      return Object.assign(new RelatedData, { id: item.PatternID, description: item.Text, value: item });
    }
 
    public AccountOptions: RelatedData<Account>[] = [];

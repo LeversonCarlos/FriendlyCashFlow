@@ -20,6 +20,12 @@ namespace FriendlyCashFlow.API.Entries
             var data = await this.GetDataQuery().Where(x => x.EntryID == entryID).FirstOrDefaultAsync();
             if (data == null) { return this.NotFoundResponse(); }
 
+            // REMOVE BALANCE
+            await this.GetService<Balances.BalancesService>().RemoveBalanceAsync(data);
+
+            // REMOVE PATTERN
+            await this.GetService<Patterns.PatternsService>().RemovePatternAsync(data.PatternID);
+
             // APPLY
             data.RowStatus = -1;
             this.dbContext.Remove(data);

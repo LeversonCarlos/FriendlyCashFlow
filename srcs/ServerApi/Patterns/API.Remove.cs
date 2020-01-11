@@ -9,15 +9,15 @@ namespace FriendlyCashFlow.API.Patterns
    partial class PatternsService
    {
 
-      internal async Task RemovePatternAsync(Entries.EntryVM value)
+      internal async Task RemovePatternAsync(long patternID)
       {
          try
          {
 
             // TRY TO LOCATE PATTERN
-            if (value.PatternID <= 0) { return; }
+            if (patternID <= 0) { return; }
             var data = await this.GetDataQuery()
-               .Where(x => x.PatternID == value.PatternID)
+               .Where(x => x.PatternID == patternID)
                .FirstOrDefaultAsync();
             if (data == null) { return; }
 
