@@ -39,12 +39,12 @@ namespace FriendlyCashFlow.API.Entries
             data.SearchDate = data.DueDate;
             if (data.Paid && data.PayDate.HasValue) { data.SearchDate = data.PayDate.Value; }
 
-            // AUXILIARY
+            // PATTERN
             data.PatternID = await this.GetService<Patterns.PatternsService>().AddPatternAsync(value);
-            data.RecurrencyID = await this.GetService<Recurrencies.RecurrenciesService>().AddRecurrencyAsync(value.Recurrency);
 
             // RECURRENCY
-            if (value.Recurrency != null && value.Recurrency.Type != Recurrencies.enRecurrencyType.Fixed)
+            data.RecurrencyID = value.RecurrencyID;
+            if (value.Recurrency != null)
             {
                var recurrency = new Recurrencies.RecurrencyVM
                {
@@ -68,6 +68,12 @@ namespace FriendlyCashFlow.API.Entries
 
             // BALANCE
             await this.GetService<Balances.BalancesService>().AddBalanceAsync(data);
+
+            // RECURRENCY
+            if (value.Recurrency != null && data.RecurrencyID.HasValue && data.RecurrencyID > 0)
+            {
+               await this.GetService<Recurrencies.RecurrenciesService>().GenerateRecurrencyAsync(data.RecurrencyID.Value);
+            }
 
             // RESULT
             var result = EntryVM.Convert(data);
