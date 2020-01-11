@@ -116,7 +116,7 @@ export class EntryDetailsComponent implements OnInit {
    public PatternOptions: RelatedData<Pattern>[] = [];
    public async OnPatternChanging(val: string) {
       this.inputForm.get("Text").setValue(val);
-      const patternList = await this.patternService.getPatterns(val);
+      const patternList = await this.patternService.getPatterns(this.Data.Type, val);
       if (patternList == null) { return; }
       this.PatternOptions = patternList
          .map(item => this.OnPatternParse(item));

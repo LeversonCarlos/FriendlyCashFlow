@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { BusyService } from 'src/app/shared/busy/busy.service';
 import { Pattern } from './patterns.viewmodels';
+import { enCategoryType } from '../categories/categories.service';
 
 @Injectable({
    providedIn: 'root'
@@ -13,10 +14,10 @@ export class PatternsService {
       private http: HttpClient) { }
 
    // PATTERNS
-   public async getPatterns(searchText: string = ''): Promise<Pattern[]> {
+   public async getPatterns(type: enCategoryType, searchText: string = ''): Promise<Pattern[]> {
       try {
          this.busy.show();
-         let url = `api/patterns/search`;
+         let url = `api/patterns/search/${type}`;
          if (searchText) { url = `${url}/${encodeURIComponent(searchText)}`; }
          const dataList = await this.http.get<Pattern[]>(url)
             .pipe(map(items => items.map(item => Object.assign(new Pattern, item))))

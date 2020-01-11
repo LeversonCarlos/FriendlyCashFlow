@@ -19,33 +19,34 @@ namespace FriendlyCashFlow.API.Patterns
             .AsQueryable();
       }
 
-      public async Task<ActionResult<List<PatternVM>>> GetPatternsAsync()
-      { return await this.GetPatternsAsync(patternID: 0, searchText: ""); }
+      public async Task<ActionResult<List<PatternVM>>> GetPatternsAsync(Categories.enCategoryType categoryType)
+      { return await this.GetPatternsAsync(patternID: 0, categoryType, searchText: ""); }
 
-      public async Task<ActionResult<List<PatternVM>>> GetPatternsAsync(string searchText)
-      { return await this.GetPatternsAsync(patternID: 0, searchText: searchText); }
+      public async Task<ActionResult<List<PatternVM>>> GetPatternsAsync(Categories.enCategoryType categoryType, string searchText)
+      { return await this.GetPatternsAsync(patternID: 0, categoryType, searchText: searchText); }
 
       public async Task<ActionResult<PatternVM>> GetPatternAsync(long patternID)
       {
-         var dataMessage = await this.GetPatternsAsync(patternID: patternID, searchText: "");
+         var dataMessage = await this.GetPatternsAsync(patternID: patternID, categoryType: Categories.enCategoryType.None, searchText: "");
          var dataValue = this.GetValue(dataMessage);
          if (dataValue == null) { return dataMessage.Result; }
          if (dataValue.Count == 0) { return this.NotFoundResponse(); }
          return this.OkResponse(dataValue[0]);
       }
 
-      private async Task<ActionResult<List<PatternVM>>> GetPatternsAsync(long patternID, string searchText)
+      private async Task<ActionResult<List<PatternVM>>> GetPatternsAsync(long patternID, Categories.enCategoryType categoryType, string searchText)
       {
          try
          {
 
             var query = this.GetDataQuery();
             if (patternID != 0) { query = query.Where(x => x.PatternID == patternID); }
+            if (categoryType != Categories.enCategoryType.None) { query = query.Where(x => x.Type == (short)categoryType); }
             if (!string.IsNullOrEmpty(searchText))
             { query = query.Where(x => x.PatternID != 0 && x.Text.Contains(searchText, StringComparison.CurrentCultureIgnoreCase)); }
 
             var data = await query
-               .Include(x=> x.CategoryDetails)
+               .Include(x => x.CategoryDetails)
                .OrderByDescending(x => x.Count)
                .ThenBy(x => x.Text)
                .ToListAsync();
@@ -69,16 +70,16 @@ namespace FriendlyCashFlow.API.Patterns
    partial class PatternsController
    {
 
-      [HttpGet("search")]
-      public async Task<ActionResult<List<PatternVM>>> GetPatternsAsync()
+      [HttpGet("search/{categoryType}")]
+      public async Task<ActionResult<List<PatternVM>>> GetPatternsAsync(Categories.enCategoryType categoryType)
       {
-         return await this.GetService<PatternsService>().GetPatternsAsync();
+         return await this.GetService<PatternsService>().GetPatternsAsync(categoryType);
       }
 
-      [HttpGet("search/{searchText}")]
-      public async Task<ActionResult<List<PatternVM>>> GetPatternsAsync(string searchText)
+      [HttpGet("search/{categoryType}/{searchText}")]
+      public async Task<ActionResult<List<PatternVM>>> GetPatternsAsync(Categories.enCategoryType categoryType, string searchText)
       {
-         return await this.GetService<PatternsService>().GetPatternsAsync(searchText);
+         return await this.GetService<PatternsService>().GetPatternsAsync(categoryType, searchText);
       }
 
       [HttpGet("{id:long}")]
