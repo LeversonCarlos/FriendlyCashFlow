@@ -10,8 +10,8 @@
          <mat-card-content>
 
             <form [formGroup]="inputForm">
-               <related-box [style.fontSize.px]="20" placeholder="ENTRIES_PATTERN_LABEL" minSize="0" [options]="PatternOptions"
-                  formControlName="PatternRow" (optionsChanging)="OnPatternChanging($event)">
+               <related-box [style.fontSize.px]="20" placeholder="ENTRIES_PATTERN_LABEL" minSize="0"
+                  [options]="PatternOptions" formControlName="PatternRow" (optionsChanging)="OnPatternChanging($event)">
                </related-box>
                <related-box placeholder="ENTRIES_ACCOUNT_LABEL" minSize="0" [options]="AccountOptions"
                   formControlName="AccountRow" (optionsChanging)="OnAccountChanging($event)">
@@ -30,7 +30,8 @@
                </div>
                <div class="mat-form-field-row">
                   <div class="mat-form-field mat-form-field-paid">
-                     <mat-slide-toggle formControlName="Paid">{{ 'ENTRIES_PAID_LABEL' | translation | async }}</mat-slide-toggle>
+                     <mat-slide-toggle formControlName="Paid">{{ 'ENTRIES_PAID_LABEL' | translation | async }}
+                     </mat-slide-toggle>
                   </div>
                   <mat-form-field>
                      <mat-label>{{ 'ENTRIES_PAYDATE_LABEL' | translation | async }}</mat-label>
@@ -42,9 +43,22 @@
                <related-box placeholder="ENTRIES_CATEGORY_LABEL" minSize="0" [options]="CategoryOptions"
                   formControlName="CategoryRow" (optionsChanging)="OnCategoryChanging($event)">
                </related-box>
+
                <div *ngIf="Data?.Recurrency">
-                  Recurrency
+                  <mat-card class="recurrency-card"
+                     [class.mat-elevation-z0]="!inputForm.get('RecurrencyActivate').value">
+                     <mat-card-content class="recurrency-activate">
+                        <mat-slide-toggle formControlName="RecurrencyActivate">
+                           {{ 'ENTRIES_RECURRENCYACTIVATE_LABEL' | translation | async }}</mat-slide-toggle>
+                     </mat-card-content>
+                     <mat-card-content class="recurrency-options">
+                        <div class="mat-form-field-row">
+                           Recurrency
+                        </div>
+                     </mat-card-content>
+                  </mat-card>
                </div>
+
             </form>
 
          </mat-card-content>
@@ -59,6 +73,5 @@
          </mat-card-actions>
 
       </mat-card>
-      <pre style="height: 150px; overflow-y: scroll;">{{ Data | json }}</pre>
    </div>
 </fs-full-layout>

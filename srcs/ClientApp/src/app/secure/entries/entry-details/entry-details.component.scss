@@ -8,3 +8,14 @@
     align-self: center;
   }
 }
+
+.recurrency-card {
+  &.mat-elevation-z0 {
+     .recurrency-activate {
+        margin-left: -16px;
+     }
+     .recurrency-options {
+        display: none;
+     }
+  }
+}

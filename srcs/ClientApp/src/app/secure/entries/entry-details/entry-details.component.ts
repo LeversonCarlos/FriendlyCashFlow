@@ -82,7 +82,8 @@ export class EntryDetailsComponent implements OnInit {
          DueDate: [this.Data.DueDate, Validators.required],
          CategoryRow: [this.CategoryOptions && this.CategoryOptions.length ? this.CategoryOptions[0] : null],
          Paid: [this.Data.Paid],
-         PayDate: [this.Data.PayDate]
+         PayDate: [this.Data.PayDate],
+         RecurrencyActivate: [false]
       });
       this.inputForm.valueChanges.subscribe(values => {
          this.Data.Text = values.Text || '';
@@ -90,6 +91,7 @@ export class EntryDetailsComponent implements OnInit {
          this.Data.DueDate = values.DueDate;
          this.Data.Paid = values.Paid || false;
          this.Data.PayDate = values.PayDate;
+         // if (this.Data.Recurrency) {         }
       });
       this.inputForm.get("PatternRow").valueChanges.subscribe(opt => {
          this.Data.PatternID = null;
