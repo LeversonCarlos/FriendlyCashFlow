@@ -22,6 +22,7 @@ namespace FriendlyCashFlow.API.Recurrencies
             {
                ResourceID = user.ResourceID,
                PatternID = value.PatternID,
+               AccountID = value.AccountID,
                InitialDate = value.EntryDate,
                EntryDate = value.EntryDate,
                EntryValue = value.EntryValue,

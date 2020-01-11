@@ -43,6 +43,21 @@ namespace FriendlyCashFlow.API.Entries
             data.PatternID = await this.GetService<Patterns.PatternsService>().AddPatternAsync(value);
             data.RecurrencyID = await this.GetService<Recurrencies.RecurrenciesService>().AddRecurrencyAsync(value.Recurrency);
 
+            // RECURRENCY
+            if (value.Recurrency != null && value.Recurrency.Type != Recurrencies.enRecurrencyType.Fixed)
+            {
+               var recurrency = new Recurrencies.RecurrencyVM
+               {
+                  PatternID = data.PatternID,
+                  AccountID = data.AccountID.Value,
+                  EntryDate = data.DueDate,
+                  EntryValue = data.EntryValue,
+                  Type = value.Recurrency.Type,
+                  Count = value.Recurrency.Count
+               };
+               data.RecurrencyID = await this.GetService<Recurrencies.RecurrenciesService>().AddRecurrencyAsync(recurrency);
+            }
+
             // APPLY
             await this.dbContext.Entries.AddAsync(data);
             await this.dbContext.SaveChangesAsync();
