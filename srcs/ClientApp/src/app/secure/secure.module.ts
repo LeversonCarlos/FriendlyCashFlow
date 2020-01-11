@@ -16,6 +16,7 @@ import { MonthPickerComponent } from './entries/entries-flow/month-picker/month-
 import { AddButtonComponent } from './entries/add-button/add-button.component';
 import { EntryDetailsComponent } from './entries/entry-details/entry-details.component';
 import { PatternsService } from './patterns/patterns.service';
+import { RecurrencyService } from './recurrency/recurrency.service';
 
 @NgModule({
    declarations: [
@@ -25,6 +26,6 @@ import { PatternsService } from './patterns/patterns.service';
    imports: [
       CommonModule, SharedModule
    ],
-   providers: [AccountsService, CategoriesService, EntriesService, PatternsService]
+   providers: [AccountsService, CategoriesService, EntriesService, PatternsService, RecurrencyService]
 })
 export class SecureModule { }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EntriesService } from '../entries.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { MessageService } from 'src/app/shared/message/message.service';
 import { ActivatedRoute } from '@angular/router';
 import { Entry } from '../entries.viewmodels';
@@ -11,6 +11,7 @@ import { Pattern } from '../../patterns/patterns.viewmodels';
 import { PatternsService } from '../../patterns/patterns.service';
 import { Recurrency, enRecurrencyType } from '../../recurrency/recurrency.viewmodels';
 import { EnumVM } from 'src/app/shared/common/common.models';
+import { RecurrencyService } from '../../recurrency/recurrency.service';
 
 @Component({
    selector: 'fs-entry-details',
@@ -20,7 +21,7 @@ import { EnumVM } from 'src/app/shared/common/common.models';
 export class EntryDetailsComponent implements OnInit {
 
    constructor(private service: EntriesService, private msg: MessageService,
-      private categoryService: CategoriesService, private accountService: AccountsService, private patternService: PatternsService,
+      private categoryService: CategoriesService, private accountService: AccountsService, private patternService: PatternsService, private recurrencyService: RecurrencyService,
       private route: ActivatedRoute, private fb: FormBuilder) { }
 
    public Data: Entry;
@@ -34,6 +35,9 @@ export class EntryDetailsComponent implements OnInit {
 
    private async OnDataLoad(): Promise<boolean> {
       try {
+
+         this.RecurrencyTypes = await this.recurrencyService.getRecurrencyTypes();
+
          const paramID: string = this.route.snapshot.params.id;
          const paramType: string = this.route.snapshot.params.type;
 
@@ -86,8 +90,8 @@ export class EntryDetailsComponent implements OnInit {
          Paid: [this.Data.Paid],
          PayDate: [this.Data.PayDate],
          RecurrencyActivate: [false],
-         RecurrencyType: [null],
-         RecurrencyCount: [null]
+         RecurrencyType: [this.Data.Recurrency && this.Data.Recurrency.Type],
+         RecurrencyCount: [this.Data.Recurrency && this.Data.Recurrency.Count]
       });
       this.inputForm.valueChanges.subscribe(values => {
          this.Data.Text = values.Text || '';
@@ -184,18 +188,23 @@ export class EntryDetailsComponent implements OnInit {
    }
 
    private OnRecurrencyActivateChanged(activate: boolean) {
-      const recurrencyTypeControl = this.inputForm.controls['RecurrencyType'];
+      this.OnRecurrencyActivateControlChanged(activate, this.inputForm.controls['RecurrencyType']);
+      this.OnRecurrencyActivateControlChanged(activate, this.inputForm.controls['RecurrencyCount']);
+   }
+
+   private OnRecurrencyActivateControlChanged(activate: boolean, control: AbstractControl) {
+      const recurrencyCountControl = this.inputForm.controls['RecurrencyCount'];
       if (activate == true) {
-         recurrencyTypeControl.enable();
-         recurrencyTypeControl.setValidators([Validators.required]);
-         recurrencyTypeControl.markAsTouched();
+         control.enable();
+         control.setValidators([Validators.required]);
+         control.markAsTouched();
       }
       else {
-         recurrencyTypeControl.clearValidators();
-         recurrencyTypeControl.markAsUntouched();
-         recurrencyTypeControl.disable();
+         control.clearValidators();
+         control.markAsUntouched();
+         control.disable();
       }
-      recurrencyTypeControl.updateValueAndValidity();
+      control.updateValueAndValidity();
    }
 
    public async OnCancelClick() {
