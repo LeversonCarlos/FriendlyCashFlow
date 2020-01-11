@@ -9,6 +9,7 @@ import { Category, CategoriesService } from '../../categories/categories.service
 import { Account, AccountsService } from '../../accounts/accounts.service';
 import { Pattern } from '../../patterns/patterns.viewmodels';
 import { PatternsService } from '../../patterns/patterns.service';
+import { Recurrency } from '../../recurrency/recurrency.viewmodels';
 
 @Component({
    selector: 'fs-entry-details',
@@ -35,7 +36,12 @@ export class EntryDetailsComponent implements OnInit {
          const paramType: string = this.route.snapshot.params.type;
 
          if (paramID == undefined && paramType != undefined) {
-            this.Data = Object.assign(new Entry, { Type: paramType, DueDate: this.service.CurrentData.CurrentMonth, Active: true }); return true;
+            this.Data = Object.assign(new Entry, {
+               Type: paramType,
+               Recurrency: new Recurrency(),
+               DueDate: this.service.CurrentData.CurrentMonth,
+               Active: true
+            }); return true;
          }
 
          const entryID: number = Number(paramID);

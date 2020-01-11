@@ -1,6 +1,7 @@
 import { Account } from '../accounts/accounts.service';
 import { Category, enCategoryType } from '../categories/categories.service';
 import { Pattern } from '../patterns/patterns.viewmodels';
+import { Recurrency } from '../recurrency/recurrency.viewmodels';
 
 export class Entry {
    EntryID: number;
@@ -26,7 +27,7 @@ export class Entry {
    AccountText: string;
 
    RecurrencyID?: number;
-   Recurrency?: any;
+   Recurrency?: Recurrency;
 
    TransferID: string;
 

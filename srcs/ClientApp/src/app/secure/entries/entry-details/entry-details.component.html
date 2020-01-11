@@ -42,6 +42,9 @@
                <related-box placeholder="ENTRIES_CATEGORY_LABEL" minSize="0" [options]="CategoryOptions"
                   formControlName="CategoryRow" (optionsChanging)="OnCategoryChanging($event)">
                </related-box>
+               <div *ngIf="Data?.Recurrency">
+                  Recurrency
+               </div>
             </form>
 
          </mat-card-content>
