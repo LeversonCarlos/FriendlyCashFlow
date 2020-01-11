@@ -10,6 +10,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
+import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu'
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -45,7 +46,7 @@ import { LocaleService, LocaleServiceProvider } from './locale/locale.service';
    imports: [
       CommonModule, RouterModule, FormsModule, ReactiveFormsModule,
       MatToolbarModule, MatSidenavModule, MatCardModule, MatTabsModule, MatListModule,
-      MatIconModule, MatButtonModule, MatMenuModule, MatProgressBarModule,
+      MatIconModule, MatBadgeModule, MatButtonModule, MatMenuModule, MatProgressBarModule,
       MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatSelectModule, MatSlideToggleModule,
       MatDatepickerModule, MatMomentDateModule,
       MatSnackBarModule, MatDialogModule, MatTooltipModule
@@ -53,7 +54,7 @@ import { LocaleService, LocaleServiceProvider } from './locale/locale.service';
    exports: [
       RouterModule, FormsModule, ReactiveFormsModule,
       MatToolbarModule, MatSidenavModule, MatCardModule, MatTabsModule, MatListModule,
-      MatIconModule, MatButtonModule, MatMenuModule, MatProgressBarModule,
+      MatIconModule, MatBadgeModule, MatButtonModule, MatMenuModule, MatProgressBarModule,
       MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatSelectModule, MatSlideToggleModule,
       MatDatepickerModule, MatMomentDateModule,
       MatTooltipModule,

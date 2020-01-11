@@ -122,7 +122,7 @@ export class EntryDetailsComponent implements OnInit {
          .map(item => this.OnPatternParse(item));
    }
    private OnPatternParse(item: Pattern): RelatedData<Pattern> {
-      return Object.assign(new RelatedData, { id: item.PatternID, description: `${item.Text} (${item.Count})`, value: item });
+      return Object.assign(new RelatedData, { id: item.PatternID, description: item.Text, badgeText: item.Count, value: item });
    }
 
    public AccountOptions: RelatedData<Account>[] = [];
