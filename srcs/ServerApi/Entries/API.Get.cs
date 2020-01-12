@@ -56,8 +56,11 @@ namespace FriendlyCashFlow.API.Entries
                .FirstOrDefaultAsync();
             var viewModel = EntryVM.Convert(data);
 
-            var patternMessage = await this.GetService<Patterns.PatternsService>().GetPatternAsync(data.PatternID);
-            viewModel.PatternRow = this.GetValue(patternMessage);
+            if (data.PatternID.HasValue)
+            {
+               var patternMessage = await this.GetService<Patterns.PatternsService>().GetPatternAsync(data.PatternID.Value);
+               viewModel.PatternRow = this.GetValue(patternMessage);
+            }
 
             if (data.AccountID.HasValue)
             {
@@ -65,8 +68,11 @@ namespace FriendlyCashFlow.API.Entries
                viewModel.AccountRow = this.GetValue(accountMessage);
             }
 
-            var categoryMessage = await this.GetService<Categories.CategoriesService>().GetDataAsync(data.CategoryID);
-            viewModel.CategoryRow = this.GetValue(categoryMessage);
+            if (data.CategoryID.HasValue)
+            {
+               var categoryMessage = await this.GetService<Categories.CategoriesService>().GetDataAsync(data.CategoryID.Value);
+               viewModel.CategoryRow = this.GetValue(categoryMessage);
+            }
 
             return this.OkResponse(viewModel);
          }

@@ -60,7 +60,7 @@ namespace FriendlyCashFlow.API.Patterns
       internal async Task<long> GetPatternIDAsync(Entries.EntryVM value)
       {
          return await this.GetDataQuery()
-            .Where(x => x.Type == (short)value.Type && x.CategoryID == value.CategoryID && x.Text == value.Text)
+            .Where(x => x.Type == (short)value.Type && x.CategoryID == value.CategoryID.Value && x.Text == value.Text)
             .Select(x => x.PatternID)
             .FirstOrDefaultAsync();
       }

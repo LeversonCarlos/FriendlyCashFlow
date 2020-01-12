@@ -13,7 +13,7 @@ namespace FriendlyCashFlow.API.Entries
       public long? PatternID { get; set; }
       public Patterns.PatternVM PatternRow { get; set; }
 
-      public long CategoryID { get; set; }
+      public long? CategoryID { get; set; }
       public Categories.CategoryVM CategoryRow { get; set; }
       public string CategoryText { get; set; }
 
@@ -33,12 +33,6 @@ namespace FriendlyCashFlow.API.Entries
       public Recurrencies.RecurrencyVM Recurrency { get; set; }
 
       public string TransferID { get; set; }
-      // public long TransferIncomeEntryID { get; set; }
-      // public long TransferExpenseEntryID { get; set; }
-      // public long TransferIncomeAccountID { get; set; }
-      // public string TransferIncomeAccountText { get; set; }
-      // public long TransferExpenseAccountID { get; set; }
-      // public string TransferExpenseAccountText { get; set; }
 
       public decimal BalanceTotalValue { get; set; }
       public decimal BalancePaidValue { get; set; }
@@ -75,6 +69,21 @@ namespace FriendlyCashFlow.API.Entries
       public EntryVM[] EntryList { get; set; }
       public decimal BalanceTotalValue { get; set; }
       public decimal BalancePaidValue { get; set; }
+   }
+
+   public class TransferVM
+   {
+      public string TransferID { get; set; }
+      public DateTime TransferDate { get; set; }
+      public decimal TransferValue { get; set; }
+
+      public long TransferIncomeEntryID { get; set; }
+      public long TransferIncomeAccountID { get; set; }
+      public string TransferIncomeAccountText { get; set; }
+
+      public long TransferExpenseEntryID { get; set; }
+      public long TransferExpenseAccountID { get; set; }
+      public string TransferExpenseAccountText { get; set; }
    }
 
 }

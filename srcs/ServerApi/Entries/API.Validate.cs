@@ -21,12 +21,15 @@ namespace FriendlyCashFlow.API.Entries
             { return this.WarningResponse(this.GetTranslation("ENTRIES_PAYDATE_INVALID_WARNING")); }
 
             // VALIDATE VALUE
-            if ( Math.Round( value.EntryValue,2) == 0)
+            if (Math.Round(value.EntryValue, 2) == 0)
             { return this.WarningResponse(this.GetTranslation("ENTRIES_ENTRYVALUE_INVALID_WARNING")); }
 
             // VALIDATE CONTEXT
-            var categoryFound = await this.GetService<Categories.CategoriesService>().GetDataQuery().Where(x => x.CategoryID == value.CategoryID).AnyAsync();
-            if (!categoryFound) { return this.WarningResponse(this.GetTranslation("ENTRIES_CATEGORY_NOT_FOUND_WARNING")); }
+            if (value.CategoryID.HasValue)
+            {
+               var categoryFound = await this.GetService<Categories.CategoriesService>().GetDataQuery().Where(x => x.CategoryID == value.CategoryID.Value).AnyAsync();
+               if (!categoryFound) { return this.WarningResponse(this.GetTranslation("ENTRIES_CATEGORY_NOT_FOUND_WARNING")); }
+            }
 
             // VALIDATE ACCOUNT
             var accountFound = await this.GetService<Accounts.AccountsService>().GetDataQuery().Where(x => x.AccountID == value.AccountID).AnyAsync();

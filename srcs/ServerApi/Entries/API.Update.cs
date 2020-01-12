@@ -30,8 +30,8 @@ namespace FriendlyCashFlow.API.Entries
 
             // REMOVE PATTERN
             var newPatternID = await this.GetService<Patterns.PatternsService>().GetPatternIDAsync(viewModel);
-            if (data.PatternID != newPatternID)
-            { await this.GetService<Patterns.PatternsService>().RemovePatternAsync(data.PatternID); }
+            if (data.PatternID.HasValue && data.PatternID.Value != newPatternID)
+            { await this.GetService<Patterns.PatternsService>().RemovePatternAsync(data.PatternID.Value); }
 
             // APPLY CHANGES
             data.Text = viewModel.Text;
@@ -48,7 +48,7 @@ namespace FriendlyCashFlow.API.Entries
             this.ApplySorting(data);
 
             // ADD PATTERN
-            if (data.PatternID != newPatternID)
+            if (!data.PatternID.HasValue || data.PatternID.Value != newPatternID)
             { data.PatternID = await this.GetService<Patterns.PatternsService>().AddPatternAsync(viewModel); }
 
             // SAVE IT

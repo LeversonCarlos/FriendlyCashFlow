@@ -34,10 +34,10 @@ namespace FriendlyCashFlow.API.Entries
       public string Text { get; set; }
 
       [Required]
-      public long CategoryID { get; set; }
+      public long? CategoryID { get; set; }
 
       [Required]
-      public long PatternID { get; set; }
+      public long? PatternID { get; set; }
 
       public long? RecurrencyID { get; set; }
 
