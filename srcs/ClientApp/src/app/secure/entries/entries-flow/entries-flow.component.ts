@@ -47,7 +47,7 @@ export class EntriesFlowComponent implements OnInit {
       return this.service.CurrentData.CurrentAccount || 0;
    }
    public set CurrentAccount(val: number) {
-      this.service.CurrentData.CurrentAccount = val;
+      this.setData(this.CurrentMonth, val)
    }
 
 
@@ -56,13 +56,23 @@ export class EntriesFlowComponent implements OnInit {
       return this.service.CurrentData.CurrentMonth;
    }
    public set CurrentMonth(val: Date) {
-      console.log('currentMonth', val)
-      this.service.CurrentData.setFlow(val, this.CurrentAccount);
-      const currentYear = this.service.CurrentData.CurrentMonth.getFullYear()
-      const currentMonth = this.service.CurrentData.CurrentMonth.getMonth() + 1
-      this.service
-         .loadFlowList(currentYear, currentMonth, this.CurrentAccount)
-         .then(() => this.service.showCurrentList());
+      this.setData(val, this.CurrentAccount)
+   }
+
+
+   /* SET DATA */
+   private async setData(currentMonth: Date, currentAccount: number) {
+      try {
+         this.service.CurrentData.setFlow(currentMonth, currentAccount);
+
+         const year = this.CurrentMonth.getFullYear()
+         const month = this.CurrentMonth.getMonth() + 1
+         const account = this.CurrentAccount
+
+         this.service.loadFlowList(year, month, account)
+         this.service.showCurrentList()
+      }
+      catch (ex) { console.error(ex); }
    }
 
 

@@ -19,12 +19,13 @@ import { PatternsService } from './patterns/patterns.service';
 import { RecurrencyService } from './recurrency/recurrency.service';
 import { TransferDetailsComponent } from './entries/transfer-details/transfer-details.component';
 import { TransfersService } from './transfers/transfers.service';
+import { AccountPickerComponent } from './pickers/account-picker/account-picker.component';
 
 @NgModule({
    declarations: [
       AccountsComponent, AccountDetailsComponent,
       CategoriesComponent, CategoryDetailsComponent,
-      EntriesFlowComponent, EntryDetailsComponent, MonthPickerComponent, AddButtonComponent, TransferDetailsComponent],
+      EntriesFlowComponent, EntryDetailsComponent, MonthPickerComponent, AddButtonComponent, TransferDetailsComponent, AccountPickerComponent],
    imports: [
       CommonModule, SharedModule
    ],

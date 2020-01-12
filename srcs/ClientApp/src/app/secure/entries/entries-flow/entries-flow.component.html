@@ -3,6 +3,7 @@
       {{ 'ENTRIES_MAIN_TITLE' | translation | async }}
    </span>
    <div toolbar>
+      <fs-account-picker [CurrentAccount]="CurrentAccount" (CurrentAccountChanged)="CurrentAccount=$event" ></fs-account-picker>
       <fs-month-picker [CurrentMonth]="CurrentMonth" (CurrentMonthChanged)="CurrentMonth=$event" ></fs-month-picker>
    </div>
    <div content class="full-screen">
