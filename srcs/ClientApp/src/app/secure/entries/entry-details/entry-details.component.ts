@@ -103,15 +103,7 @@ export class EntryDetailsComponent implements OnInit {
             this.Data.Recurrency.Count = values.RecurrencyCount
          }
       });
-      this.inputForm.get("PatternRow").valueChanges.subscribe(opt => {
-         this.Data.PatternID = null;
-         if (opt && opt.id) {
-            this.Data.PatternID = opt.id;
-            this.CategoryOptions = [this.OnCategoryParse(opt.value.CategoryRow)];
-            this.inputForm.get("Text").setValue(opt.value.Text);
-            this.inputForm.get("CategoryRow").setValue(this.CategoryOptions[0]);
-         }
-      });
+      this.inputForm.get("PatternRow").valueChanges.subscribe(item => this.OnPatternChanged(item));
       this.inputForm.get("AccountRow").valueChanges.subscribe(item => this.OnAccountChanged(item));
       this.inputForm.get("CategoryRow").valueChanges.subscribe(item => this.OnCategoryChanged(item));
 
@@ -122,6 +114,7 @@ export class EntryDetailsComponent implements OnInit {
 
    }
 
+   /* PATTERN */
    public PatternOptions: RelatedData<Pattern>[] = [];
    public async OnPatternChanging(val: string) {
       this.inputForm.get("Text").setValue(val);
@@ -129,6 +122,15 @@ export class EntryDetailsComponent implements OnInit {
       if (patternList == null) { return; }
       this.PatternOptions = patternList
          .map(item => this.OnPatternParse(item));
+   }
+   private OnPatternChanged(item: RelatedData<Pattern>) {
+      this.Data.PatternID = null;
+      if (item && item.id) {
+         this.Data.PatternID = item.id;
+         this.CategoryOptions = [this.OnCategoryParse(item.value.CategoryRow)];
+         this.inputForm.get("Text").setValue(item.value.Text);
+         this.inputForm.get("CategoryRow").setValue(this.CategoryOptions[0]);
+      }
    }
    private OnPatternParse(item: Pattern): RelatedData<Pattern> {
       return Object.assign(new RelatedData, { id: item.PatternID, description: item.Text, badgeText: item.Count, value: item });
