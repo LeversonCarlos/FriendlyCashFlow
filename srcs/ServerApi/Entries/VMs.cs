@@ -77,13 +77,13 @@ namespace FriendlyCashFlow.API.Entries
       public DateTime TransferDate { get; set; }
       public decimal TransferValue { get; set; }
 
-      public long TransferIncomeEntryID { get; set; }
-      public long TransferIncomeAccountID { get; set; }
-      public string TransferIncomeAccountText { get; set; }
+      public long IncomeEntryID { get; set; }
+      public long IncomeAccountID { get; set; }
+      // public string IncomeAccountText { get; set; }
 
-      public long TransferExpenseEntryID { get; set; }
-      public long TransferExpenseAccountID { get; set; }
-      public string TransferExpenseAccountText { get; set; }
+      public long ExpenseEntryID { get; set; }
+      public long ExpenseAccountID { get; set; }
+      // public string ExpenseAccountText { get; set; }
    }
 
 }

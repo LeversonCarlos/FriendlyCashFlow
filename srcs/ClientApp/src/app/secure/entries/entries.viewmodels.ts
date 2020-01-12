@@ -41,9 +41,10 @@ export class Transfer {
    TransferDate: Date
    TransferValue: number
 
-   TransferIncomeEntryID: number
-   TransferIncomeAccountID: number
-   TransferIncomeAccountText: string
+   IncomeEntryID: number
+   IncomeAccountID: number
+   IncomeAccountRow: Account
+   // IncomeAccountText: string
 
    ExpenseEntryID: number
    ExpenseAccountID: number

@@ -93,11 +93,11 @@ namespace FriendlyCashFlow.API.Entries
             var entriesService = this.GetService<Entries.EntriesService>();
 
             // ACCOUNTS
-            var accountIDs = new long[] { value.TransferExpenseAccountID, value.TransferIncomeAccountID };
+            var accountIDs = new long[] { value.ExpenseAccountID, value.IncomeAccountID };
             var accounts = await this.dbContext.Accounts.Where(x => accountIDs.Contains(x.AccountID)).ToListAsync();
 
             // EXPENSE
-            var expenseAccount = accounts.Where(x => x.AccountID == value.TransferExpenseAccountID).Select(x => x.Text).FirstOrDefault();
+            var expenseAccount = accounts.Where(x => x.AccountID == value.ExpenseAccountID).Select(x => x.Text).FirstOrDefault();
             var expenseText = this.GetTranslation("ENTRIES_TRANSFER_TO_TEXT").Replace("{accountText}", expenseAccount);
             var expenseEntry = new EntryVM
             {
@@ -107,13 +107,13 @@ namespace FriendlyCashFlow.API.Entries
                EntryValue = value.TransferValue,
                Paid = true,
                PayDate = value.TransferDate,
-               AccountID = value.TransferExpenseAccountID,
+               AccountID = value.ExpenseAccountID,
                Type = Categories.enCategoryType.Expense
             };
             await entriesService.CreateAsync(expenseEntry);
 
             // INCOME
-            var incomeAccount = accounts.Where(x => x.AccountID == value.TransferIncomeAccountID).Select(x => x.Text).FirstOrDefault();
+            var incomeAccount = accounts.Where(x => x.AccountID == value.IncomeAccountID).Select(x => x.Text).FirstOrDefault();
             var incomeText = this.GetTranslation("ENTRIES_TRANSFER_FROM_TEXT").Replace("{accountText}", incomeAccount);
             var incomeEntry = new EntryVM
             {
@@ -123,7 +123,7 @@ namespace FriendlyCashFlow.API.Entries
                EntryValue = value.TransferValue,
                Paid = true,
                PayDate = value.TransferDate,
-               AccountID = value.TransferIncomeAccountID,
+               AccountID = value.IncomeAccountID,
                Type = Categories.enCategoryType.Income
             };
             await entriesService.CreateAsync(incomeEntry);

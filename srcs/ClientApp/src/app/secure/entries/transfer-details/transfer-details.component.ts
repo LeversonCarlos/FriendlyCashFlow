@@ -58,6 +58,9 @@ export class TransferDetailsComponent implements OnInit {
          if (this.Data.ExpenseAccountRow) {
             this.ExpenseAccountOptions = [this.OnExpenseAccountParse(this.Data.ExpenseAccountRow)];
          }
+         if (this.Data.IncomeAccountRow) {
+            this.IncomeAccountOptions = [this.OnIncomeAccountParse(this.Data.IncomeAccountRow)];
+         }
 
       }
       catch (ex) { console.error(ex) }
@@ -69,12 +72,14 @@ export class TransferDetailsComponent implements OnInit {
    private OnFormCreate() {
       this.inputForm = this.fb.group({
          ExpenseAccountRow: [this.ExpenseAccountOptions && this.ExpenseAccountOptions.length ? this.ExpenseAccountOptions[0] : null],
+         IncomeAccountRow: [this.IncomeAccountOptions && this.IncomeAccountOptions.length ? this.IncomeAccountOptions[0] : null],
          TransferValue: [this.Data.TransferValue, [Validators.required, Validators.min(0.01)]],
          TransferDate: [this.Data.TransferDate, Validators.required],
       });
 
       this.inputForm.valueChanges.subscribe(values => this.OnFormChanged(values));
       this.inputForm.get("ExpenseAccountRow").valueChanges.subscribe(item => this.OnExpenseAccountChanged(item));
+      this.inputForm.get("IncomeAccountRow").valueChanges.subscribe(item => this.OnIncomeAccountChanged(item));
    }
 
    /* FORM: CHANGED */
@@ -99,6 +104,25 @@ export class TransferDetailsComponent implements OnInit {
       }
    }
    private OnExpenseAccountParse(item: Account): RelatedData<Account> {
+      return Object.assign(new RelatedData, { id: item.AccountID, description: item.Text, value: item });
+   }
+
+
+   /* INCOME ACCOUNT */
+   public IncomeAccountOptions: RelatedData<Account>[] = [];
+   public async OnIncomeAccountChanging(val: string) {
+      const dataList = await this.accountService.getAccounts(val);
+      if (dataList == null) { return; }
+      this.IncomeAccountOptions = dataList
+         .map(item => this.OnIncomeAccountParse(item));
+   }
+   private OnIncomeAccountChanged(item: RelatedData<Account>) {
+      this.Data.IncomeAccountID = null;
+      if (item && item.id) {
+         this.Data.IncomeAccountID = item.id;
+      }
+   }
+   private OnIncomeAccountParse(item: Account): RelatedData<Account> {
       return Object.assign(new RelatedData, { id: item.AccountID, description: item.Text, value: item });
    }
 
