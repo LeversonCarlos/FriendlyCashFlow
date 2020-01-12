@@ -25,6 +25,7 @@ namespace FriendlyCashFlow
          services.AddScoped<API.Balances.BalancesService>();
          services.AddScoped<API.Recurrencies.RecurrenciesService>();
          services.AddScoped<API.Entries.EntriesService>();
+         services.AddScoped<API.Transfers.TransfersService>();
 
       }
 

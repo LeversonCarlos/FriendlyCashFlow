@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace FriendlyCashFlow.API.Entries
@@ -84,57 +82,6 @@ namespace FriendlyCashFlow.API.Entries
          catch (Exception ex) { return this.ExceptionResponse(ex); }
       }
 
-      internal async Task<ActionResult<bool>> CreateTransferAsync(TransferVM value)
-      {
-         try
-         {
-
-            var transferID = Guid.NewGuid().ToString();
-            var entriesService = this.GetService<Entries.EntriesService>();
-
-            // ACCOUNTS
-            var accountIDs = new long[] { value.ExpenseAccountID, value.IncomeAccountID };
-            var accounts = await this.dbContext.Accounts.Where(x => accountIDs.Contains(x.AccountID)).ToListAsync();
-
-            // EXPENSE
-            var expenseAccount = accounts.Where(x => x.AccountID == value.ExpenseAccountID).Select(x => x.Text).FirstOrDefault();
-            var expenseText = this.GetTranslation("ENTRIES_TRANSFER_TO_TEXT").Replace("{accountText}", expenseAccount);
-            var expenseEntry = new EntryVM
-            {
-               TransferID = transferID,
-               Text = expenseText,
-               DueDate = value.TransferDate,
-               EntryValue = value.TransferValue,
-               Paid = true,
-               PayDate = value.TransferDate,
-               AccountID = value.ExpenseAccountID,
-               Type = Categories.enCategoryType.Expense
-            };
-            await entriesService.CreateAsync(expenseEntry);
-
-            // INCOME
-            var incomeAccount = accounts.Where(x => x.AccountID == value.IncomeAccountID).Select(x => x.Text).FirstOrDefault();
-            var incomeText = this.GetTranslation("ENTRIES_TRANSFER_FROM_TEXT").Replace("{accountText}", incomeAccount);
-            var incomeEntry = new EntryVM
-            {
-               TransferID = transferID,
-               Text = incomeText,
-               DueDate = value.TransferDate,
-               EntryValue = value.TransferValue,
-               Paid = true,
-               PayDate = value.TransferDate,
-               AccountID = value.IncomeAccountID,
-               Type = Categories.enCategoryType.Income
-            };
-            await entriesService.CreateAsync(incomeEntry);
-
-            // RESULT
-            return this.OkResponse(true);
-
-         }
-         catch (Exception ex) { return this.ExceptionResponse(ex); }
-      }
-
    }
 
    partial class EntriesController
@@ -145,13 +92,6 @@ namespace FriendlyCashFlow.API.Entries
       public async Task<ActionResult<EntryVM>> CreateAsync([FromBody]EntryVM value)
       {
          return await this.GetService<EntriesService>().CreateAsync(value);
-      }
-
-      [HttpPost("transfer")]
-      [Authorize(Roles = "Editor")]
-      public async Task<ActionResult<bool>> CreateTransferAsync([FromBody]TransferVM value)
-      {
-         return await this.GetService<EntriesService>().CreateTransferAsync(value);
       }
 
    }
