@@ -83,7 +83,7 @@ select
    dataEntries.Sorting
 into #dataEntries
 from v6_dataEntries As dataEntries
-   inner join v6_dataCategories As dataCategories on (dataCategories.CategoryID = dataEntries.CategoryID)
+   left join v6_dataCategories As dataCategories on (dataCategories.CategoryID = dataEntries.CategoryID)
    left join v6_dataAccounts As dataAccounts on (dataAccounts.AccountID = dataEntries.AccountID)
 where
    dataEntries.EntryID in (select EntryID from #IDs)
@@ -91,6 +91,7 @@ order by
    dataEntries.Sorting;
 
 /* GROUP TRANSFER DATA */
+/*
 select TransferID,
    max(TransferIncomeEntryID) as TransferIncomeEntryID, max(TransferExpenseEntryID) as TransferExpenseEntryID,
    max(TransferIncomeAccountID) as TransferIncomeAccountID, max(TransferExpenseAccountID) as TransferExpenseAccountID,
@@ -115,8 +116,10 @@ from
    ) SUB1
 ) SUB2
 group by TransferID;
+*/
 
 /* APPLY TRANSFER DATA */
+/*
 alter table #dataEntries add
    TransferIncomeEntryID bigint, TransferExpenseEntryID bigint,
    TransferIncomeAccountID bigint, TransferExpenseAccountID bigint,
@@ -133,6 +136,7 @@ from #dataEntries as dataEntries
    inner join #dataTransfer as dataTransfer on (dataTransfer.TransferID=dataEntries.TransferID)
 where
    coalesce(dataEntries.TransferID,'') <> '';
+*/
 
 /* BALANCE */
 alter table #dataEntries add BalanceTotalValue decimal(15,2), BalancePaidValue decimal(15,2);
@@ -190,7 +194,7 @@ end
 select * from #dataEntries order by Sorting;
 
 /* CLEAR */
-drop table #dataTransfer;
+-- drop table #dataTransfer;
 drop table #dataEntries;
 drop table #IDs;
 drop table #accountIDs;
