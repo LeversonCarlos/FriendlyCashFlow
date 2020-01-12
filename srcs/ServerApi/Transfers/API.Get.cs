@@ -10,6 +10,14 @@ namespace FriendlyCashFlow.API.Transfers
    partial class TransfersService
    {
 
+      private IQueryable<Entries.EntryData> GetDataQuery()
+      {
+         var user = this.GetService<Helpers.User>();
+         return this.dbContext.Entries
+            .Where(x => x.RowStatus == (short)Base.enRowStatus.Active && x.ResourceID == user.ResourceID)
+            .AsQueryable();
+      }
+
       internal async Task<ActionResult<TransferVM>> GetDataAsync(string transferID)
       {
          try
@@ -17,8 +25,8 @@ namespace FriendlyCashFlow.API.Transfers
 
             // LOAD ENTRIES
             var user = this.GetService<Helpers.User>();
-            var entries = await this.dbContext.Entries
-               .Where(x => x.RowStatus == (short)Base.enRowStatus.Active && x.ResourceID == user.ResourceID && x.TransferID == transferID)
+            var entries = await this.GetDataQuery()
+               .Where(x => x.TransferID == transferID)
                .ToListAsync();
             if (entries == null || entries.Count != 2) { return this.WarningResponse("ENTRIES_RECORD_NOT_FOUND_WARNING"); }
 
