@@ -1,1 +1,46 @@
-<p>transfer-details works!</p>
+<fs-full-layout>
+   <span title>
+      {{ 'TRANSFERS_DETAILS_TITLE' | translation | async }}
+   </span>
+   <div toolbar>
+   </div>
+   <div content class="full-screen">
+      <mat-card *ngIf="inputForm" class="full-card">
+
+         <mat-card-content>
+
+            <form [formGroup]="inputForm">
+               <related-box placeholder="TRANSFERS_EXPENSE_ACCOUNT_LABEL" minSize="0" [options]="ExpenseAccountOptions"
+                  formControlName="ExpenseAccountRow" (optionsChanging)="OnExpenseAccountChanging($event)">
+               </related-box>
+               <related-box placeholder="TRANSFERS_INCOME_ACCOUNT_LABEL" minSize="0" [options]="IncomeAccountOptions"
+                  formControlName="IncomeAccountRow" (optionsChanging)="OnIncomeAccountChanging($event)">
+               </related-box>
+               <div class="mat-form-field-row">
+                  <mat-form-field>
+                     <mat-label>{{ 'TRANSFERS_VALUE_LABEL' | translation | async }}</mat-label>
+                     <input type="number" step="0.01" matInput formControlName="TransferValue">
+                  </mat-form-field>
+                  <mat-form-field>
+                     <mat-label>{{ 'TRANSFERS_DATE_LABEL' | translation | async }}</mat-label>
+                     <input matInput [matDatepicker]="transferDatePicker" formControlName="TransferDate">
+                     <mat-datepicker-toggle matSuffix [for]="transferDatePicker"></mat-datepicker-toggle>
+                     <mat-datepicker #transferDatePicker></mat-datepicker>
+                  </mat-form-field>
+               </div>
+            </form>
+
+         </mat-card-content>
+         <mat-card-actions class="between">
+            <button mat-button (click)="OnRemoveClick()" color="warn"
+               [disabled]="!Data?.AccountID || inputForm?.dirty">{{ 'BASE_REMOVE_COMMAND' | translation | async }}</button>
+            <div>
+               <button mat-button (click)="OnCancelClick()">{{ 'BASE_CANCEL_COMMAND' | translation | async }}</button>
+               <button mat-button (click)="OnSaveClick()" color="primary"
+                  [disabled]="!inputForm?.valid">{{ 'BASE_SAVE_COMMAND' | translation | async }}</button>
+            </div>
+         </mat-card-actions>
+
+      </mat-card>
+   </div>
+</fs-full-layout>

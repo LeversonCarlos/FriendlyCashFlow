@@ -34,6 +34,7 @@ namespace FriendlyCashFlow.API.Entries
             };
             if (value.Paid && value.PayDate.HasValue) { data.PayDate = value.PayDate; }
             if (value.AccountID.HasValue) { data.AccountID = value.AccountID; }
+            if (!string.IsNullOrEmpty(value.TransferID)) { data.TransferID = value.TransferID; }
 
             // SEARCH DATE
             data.SearchDate = data.DueDate;
