@@ -3,7 +3,7 @@
       {{ 'ENTRIES_MAIN_TITLE' | translation | async }}
    </span>
    <div toolbar>
-      <fs-month-picker></fs-month-picker>
+      <fs-month-picker [CurrentMonth]="CurrentMonth" (CurrentMonthChanged)="CurrentMonth=$event" ></fs-month-picker>
    </div>
    <div content class="full-screen">
 
