@@ -11,7 +11,7 @@ namespace FriendlyCashFlow.API.Entries
    partial class EntriesService
    {
 
-      public async Task<ActionResult<bool>> RemoveAsync(long entryID)
+      internal async Task<ActionResult<bool>> RemoveAsync(long entryID)
       {
          try
          {

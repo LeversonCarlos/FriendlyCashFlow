@@ -11,7 +11,7 @@ namespace FriendlyCashFlow.API.Entries
    partial class EntriesService
    {
 
-      public async Task<ActionResult<EntryVM>> UpdateAsync(long entryID, EntryVM viewModel)
+      internal async Task<ActionResult<EntryVM>> UpdateAsync(long entryID, EntryVM viewModel)
       {
          try
          {

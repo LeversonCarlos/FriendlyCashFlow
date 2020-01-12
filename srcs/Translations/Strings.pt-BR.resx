@@ -234,8 +234,62 @@
   <data name="DASHBOARD_MENU" xml:space="preserve">
     <value>Home</value>
   </data>
+  <data name="ENTRIES_ACCOUNT_LABEL" xml:space="preserve">
+    <value>Conta</value>
+  </data>
+  <data name="ENTRIES_ACCOUNT_NOT_FOUND_WARNING" xml:space="preserve">
+    <value>Conta inválida</value>
+  </data>
+  <data name="ENTRIES_CATEGORY_LABEL" xml:space="preserve">
+    <value>Categoria</value>
+  </data>
+  <data name="ENTRIES_CATEGORY_NOT_FOUND_WARNING" xml:space="preserve">
+    <value>Categoria inválida!</value>
+  </data>
+  <data name="ENTRIES_DETAILS_TITLE" xml:space="preserve">
+    <value>Lançamento</value>
+  </data>
+  <data name="ENTRIES_DUEDATE_INVALID_WARNING" xml:space="preserve">
+    <value>Data de Vencimento inválida!</value>
+  </data>
+  <data name="ENTRIES_DUEDATE_LABEL" xml:space="preserve">
+    <value>Data de Vencimento</value>
+  </data>
+  <data name="ENTRIES_ENTRYVALUE_INVALID_WARNING" xml:space="preserve">
+    <value>Valor inválido!</value>
+  </data>
+  <data name="ENTRIES_ENTRYVALUE_LABEL" xml:space="preserve">
+    <value>Valor</value>
+  </data>
   <data name="ENTRIES_MENU" xml:space="preserve">
     <value>Lançamentos</value>
+  </data>
+  <data name="ENTRIES_PAID_LABEL" xml:space="preserve">
+    <value>Pago</value>
+  </data>
+  <data name="ENTRIES_PATTERN_LABEL" xml:space="preserve">
+    <value>Descrição</value>
+  </data>
+  <data name="ENTRIES_PAYDATE_INVALID_WARNING" xml:space="preserve">
+    <value>Data de Pagamento inválida!</value>
+  </data>
+  <data name="ENTRIES_PAYDATE_LABEL" xml:space="preserve">
+    <value>Data de Pagamento</value>
+  </data>
+  <data name="ENTRIES_RECORD_NOT_FOUND_WARNING" xml:space="preserve">
+    <value>Lançamento não foi encontrado para exibir!</value>
+  </data>
+  <data name="ENTRIES_RECURRENCYACTIVATE_LABEL" xml:space="preserve">
+    <value>Repetição de parecelas para o lançamento</value>
+  </data>
+  <data name="ENTRIES_RECURRENCYCOUNT_LABEL" xml:space="preserve">
+    <value>Número de parcelas</value>
+  </data>
+  <data name="ENTRIES_RECURRENCYTYPE_LABEL" xml:space="preserve">
+    <value>Frequência</value>
+  </data>
+  <data name="ENTRIES_REMOVE_CONFIRMATION_TEXT" xml:space="preserve">
+    <value>Você deseja remover esse lançamento?</value>
   </data>
   <data name="LOGOUT_MENU" xml:space="preserve">
     <value>Logout</value>

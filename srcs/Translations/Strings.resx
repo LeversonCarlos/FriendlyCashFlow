@@ -234,8 +234,62 @@
   <data name="DASHBOARD_MENU" xml:space="preserve">
     <value>Dashboard</value>
   </data>
+  <data name="ENTRIES_ACCOUNT_LABEL" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="ENTRIES_ACCOUNT_NOT_FOUND_WARNING" xml:space="preserve">
+    <value>Invalid Account!</value>
+  </data>
+  <data name="ENTRIES_CATEGORY_LABEL" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="ENTRIES_CATEGORY_NOT_FOUND_WARNING" xml:space="preserve">
+    <value>Invalid Category!</value>
+  </data>
+  <data name="ENTRIES_DETAILS_TITLE" xml:space="preserve">
+    <value>Entry</value>
+  </data>
+  <data name="ENTRIES_DUEDATE_INVALID_WARNING" xml:space="preserve">
+    <value>Invalid Due Date!</value>
+  </data>
+  <data name="ENTRIES_DUEDATE_LABEL" xml:space="preserve">
+    <value>Due Date</value>
+  </data>
+  <data name="ENTRIES_ENTRYVALUE_INVALID_WARNING" xml:space="preserve">
+    <value>Invalid Value!</value>
+  </data>
+  <data name="ENTRIES_ENTRYVALUE_LABEL" xml:space="preserve">
+    <value>Value</value>
+  </data>
   <data name="ENTRIES_MENU" xml:space="preserve">
     <value>Entries</value>
+  </data>
+  <data name="ENTRIES_PAID_LABEL" xml:space="preserve">
+    <value>Paid</value>
+  </data>
+  <data name="ENTRIES_PATTERN_LABEL" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="ENTRIES_PAYDATE_INVALID_WARNING" xml:space="preserve">
+    <value>Invalid Pay Date!</value>
+  </data>
+  <data name="ENTRIES_PAYDATE_LABEL" xml:space="preserve">
+    <value>Pay Date</value>
+  </data>
+  <data name="ENTRIES_RECORD_NOT_FOUND_WARNING" xml:space="preserve">
+    <value>Entry record not found to be displayed!</value>
+  </data>
+  <data name="ENTRIES_RECURRENCYACTIVATE_LABEL" xml:space="preserve">
+    <value>Recurring portion of the entry</value>
+  </data>
+  <data name="ENTRIES_RECURRENCYCOUNT_LABEL" xml:space="preserve">
+    <value>Number of portions</value>
+  </data>
+  <data name="ENTRIES_RECURRENCYTYPE_LABEL" xml:space="preserve">
+    <value>Frequency</value>
+  </data>
+  <data name="ENTRIES_REMOVE_CONFIRMATION_TEXT" xml:space="preserve">
+    <value>Do you want to remove this entry?</value>
   </data>
   <data name="LOGOUT_MENU" xml:space="preserve">
     <value>Logout</value>
