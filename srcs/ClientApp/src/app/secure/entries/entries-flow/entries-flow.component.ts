@@ -65,9 +65,9 @@ export class EntriesFlowComponent implements OnInit {
       try {
          this.service.CurrentData.setFlow(currentMonth, currentAccount);
 
-         const year = this.CurrentMonth.getFullYear()
-         const month = this.CurrentMonth.getMonth() + 1
-         const account = this.CurrentAccount
+         const year = (this.CurrentMonth && this.CurrentMonth.getFullYear()) || 0
+         const month = (this.CurrentMonth && this.CurrentMonth.getMonth() + 1) | 0
+         const account = this.CurrentAccount || 0
 
          this.service.loadFlowList(year, month, account)
          this.service.showCurrentList()

@@ -240,6 +240,9 @@
   <data name="LOGOUT_MENU" xml:space="preserve">
     <value>Logout</value>
   </data>
+  <data name="PICKERS_DEFAULT_ACCOUNT_TEXT" xml:space="preserve">
+    <value>All Accounts</value>
+  </data>
   <data name="SETTINGS_MENU" xml:space="preserve">
     <value>Settings</value>
   </data>
