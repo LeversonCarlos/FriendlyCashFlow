@@ -114,7 +114,7 @@ namespace FriendlyCashFlow.API.Entries
 
             // INCOME
             var incomeAccount = accounts.Where(x => x.AccountID == value.TransferIncomeAccountID).Select(x => x.Text).FirstOrDefault();
-            var incomeText = this.GetTranslation("ENTRIES_TRANSFER_TO_TEXT").Replace("{accountText}", incomeAccount);
+            var incomeText = this.GetTranslation("ENTRIES_TRANSFER_FROM_TEXT").Replace("{accountText}", incomeAccount);
             var incomeEntry = new EntryVM
             {
                TransferID = transferID,
