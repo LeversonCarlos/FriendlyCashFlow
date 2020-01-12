@@ -24,38 +24,38 @@ export class EntryDetailsComponent implements OnInit {
       private categoryService: CategoriesService, private accountService: AccountsService, private patternService: PatternsService, private recurrencyService: RecurrencyService,
       private route: ActivatedRoute, private fb: FormBuilder) { }
 
-   public Data: Entry;
-   public inputForm: FormGroup;
-
+   /* INIT */
    public async ngOnInit() {
-      if (!await this.OnDataLoad()) { return; }
-      this.OnFormCreate();
+      try {
+         this.RecurrencyTypes = await this.recurrencyService.getRecurrencyTypes();
+         if (!await this.OnDataLoad()) { return; }
+         this.OnFormCreate();
+      }
+      catch (ex) { console.error(ex) }
    }
 
+
+
+   /* DATA: LOAD */
+   public Data: Entry;
    private async OnDataLoad(): Promise<boolean> {
       try {
-
-         this.RecurrencyTypes = await this.recurrencyService.getRecurrencyTypes();
-
          const paramID: string = this.route.snapshot.params.id;
          const paramType: string = this.route.snapshot.params.type;
 
+         // NEW MODEL
          if (paramID == undefined && paramType != undefined) {
             this.Data = Object.assign(new Entry, {
                Type: paramType,
                Recurrency: new Recurrency(),
                DueDate: this.service.CurrentData.CurrentMonth,
                Active: true
-            }); return true;
+            });
+            return true;
          }
 
+         // LOAD DATA
          const entryID: number = Number(paramID);
-         if (!entryID || entryID == 0) {
-            this.msg.ShowWarning('ENTRIES_RECORD_NOT_FOUND_WARNING');
-            this.service.showCurrentList();
-            return false;
-         }
-
          this.Data = await this.service.getEntry(entryID);
          if (!this.Data || this.Data.EntryID != entryID) {
             this.msg.ShowWarning('ENTRIES_RECORD_NOT_FOUND_WARNING');
@@ -63,6 +63,7 @@ export class EntryDetailsComponent implements OnInit {
             return false;
          }
 
+         // RELATED DATA INIT
          if (this.Data.PatternRow) {
             this.PatternOptions = [this.OnPatternParse(this.Data.PatternRow)];
          }
@@ -73,6 +74,7 @@ export class EntryDetailsComponent implements OnInit {
             this.CategoryOptions = [this.OnCategoryParse(this.Data.CategoryRow)];
          }
 
+         // RESULT
          return true;
       }
       catch (ex) { console.error(ex) }
@@ -81,6 +83,7 @@ export class EntryDetailsComponent implements OnInit {
 
 
    /* FORM: CREATE */
+   public inputForm: FormGroup;
    private OnFormCreate() {
       this.inputForm = this.fb.group({
          Text: [this.Data.Text, Validators.required],
