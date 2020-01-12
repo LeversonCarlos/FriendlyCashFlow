@@ -12,7 +12,7 @@ import { CategoryDetailsComponent } from './categories/category-details/category
 
 import { EntriesService } from './entries/entries.service';
 import { EntriesFlowComponent } from './entries/entries-flow/entries-flow.component';
-import { MonthPickerComponent } from './entries/entries-flow/month-picker/month-picker.component';
+import { MonthPickerComponent } from './pickers/month-picker/month-picker.component';
 import { AddButtonComponent } from './entries/add-button/add-button.component';
 import { EntryDetailsComponent } from './entries/entry-details/entry-details.component';
 import { PatternsService } from './patterns/patterns.service';
@@ -25,7 +25,8 @@ import { AccountPickerComponent } from './pickers/account-picker/account-picker.
    declarations: [
       AccountsComponent, AccountDetailsComponent,
       CategoriesComponent, CategoryDetailsComponent,
-      EntriesFlowComponent, EntryDetailsComponent, MonthPickerComponent, AddButtonComponent, TransferDetailsComponent, AccountPickerComponent],
+      MonthPickerComponent, AccountPickerComponent,
+      EntriesFlowComponent, EntryDetailsComponent, TransferDetailsComponent, AddButtonComponent],
    imports: [
       CommonModule, SharedModule
    ],
