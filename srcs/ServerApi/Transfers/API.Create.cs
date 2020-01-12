@@ -15,9 +15,13 @@ namespace FriendlyCashFlow.API.Transfers
       {
          try
          {
-
-            var transferID = Guid.NewGuid().ToString();
             var entriesService = this.GetService<Entries.EntriesService>();
+            var transferID = Guid.NewGuid().ToString();
+
+            // VALIDATE
+            // var validateMessage = await this.ValidateAsync(viewModel);
+            // var validateResult = this.GetValue(validateMessage);
+            // if (!validateResult) { return validateMessage.Result; }
 
             // ACCOUNTS
             var accountIDs = new long[] { value.ExpenseAccountID, value.IncomeAccountID };
