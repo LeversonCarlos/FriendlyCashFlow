@@ -25,7 +25,6 @@ export class EntryDetailsComponent implements OnInit {
       private route: ActivatedRoute, private fb: FormBuilder) { }
 
    public Data: Entry;
-   public RecurrencyTypes: EnumVM<enRecurrencyType>[];
    public inputForm: FormGroup;
 
    public async ngOnInit() {
@@ -187,11 +186,16 @@ export class EntryDetailsComponent implements OnInit {
       payDateControl.updateValueAndValidity();
    }
 
+
+
+   /* RECURRENCY: TYPES */
+   public RecurrencyTypes: EnumVM<enRecurrencyType>[];
+
+   /* RECURRENCY: ActivateChanged */
    private OnRecurrencyActivateChanged(activate: boolean) {
       this.OnRecurrencyActivateControlChanged(activate, this.inputForm.controls['RecurrencyType']);
       this.OnRecurrencyActivateControlChanged(activate, this.inputForm.controls['RecurrencyCount']);
    }
-
    private OnRecurrencyActivateControlChanged(activate: boolean, control: AbstractControl) {
       const recurrencyCountControl = this.inputForm.controls['RecurrencyCount'];
       if (activate == true) {
@@ -207,6 +211,9 @@ export class EntryDetailsComponent implements OnInit {
       control.updateValueAndValidity();
    }
 
+
+
+   /* COMMANDS: CANCEL */
    public async OnCancelClick() {
       if (!this.inputForm.pristine) {
          if (!await this.msg.Confirm('BASE_CANCEL_CHANGES_CONFIRMATION_TEXT', 'BASE_CANCEL_CHANGES_CONFIRM', 'BASE_CANCEL_CHANGES_ABORT')) { return; }
@@ -214,11 +221,13 @@ export class EntryDetailsComponent implements OnInit {
       this.service.showCurrentList();
    }
 
+   /* COMMANDS: SAVE */
    public async OnSaveClick() {
       if (!await this.service.saveEntry(this.Data)) { return; }
       this.service.showCurrentList();
    }
 
+   /* COMMANDS: REMOVE */
    public async OnRemoveClick() {
       if (!await this.msg.Confirm('ENTRIES_REMOVE_CONFIRMATION_TEXT', 'BASE_REMOVE_COMMAND')) { return; }
       if (!await this.service.removeEntry(this.Data)) { return; }
