@@ -80,6 +80,9 @@ namespace FriendlyCashFlow.API.Base
          modelBuilder.Entity<Entries.EntryData>()
             .HasIndex(x => new { x.RowStatus, x.ResourceID, x.AccountID, x.Text })
             .HasName("v6_dataEntries_index_SearchText");
+         modelBuilder.Entity<Entries.EntryData>()
+            .HasIndex(x => new { x.RecurrencyID })
+            .HasName("v6_dataEntries_index_SearchRecurrency");
       }
    }
 }

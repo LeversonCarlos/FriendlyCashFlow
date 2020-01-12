@@ -13,7 +13,6 @@ namespace FriendlyCashFlow.API.Balances
       {
          try
          {
-            var user = this.GetService<Helpers.User>();
             if (!value.AccountID.HasValue || value.AccountID == 0) { return; }
             var date = new DateTime(value.SearchDate.Year, value.SearchDate.Month, 1);
 
@@ -27,7 +26,7 @@ namespace FriendlyCashFlow.API.Balances
             {
                data = new BalanceData
                {
-                  ResourceID = user.ResourceID,
+                  ResourceID = this.GetService<Helpers.User>().ResourceID,
                   Date = date,
                   AccountID = value.AccountID.Value,
                   RowStatus = 1

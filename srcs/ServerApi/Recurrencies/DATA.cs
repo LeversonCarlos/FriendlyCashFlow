@@ -55,5 +55,11 @@ namespace FriendlyCashFlow.API.Base
    partial class dbContext
    {
       internal DbSet<Recurrencies.RecurrencyData> Recurrencies { get; set; }
+      private void OnModelCreating_Recurrencies(ModelBuilder modelBuilder)
+      {
+         modelBuilder.Entity<Recurrencies.RecurrencyData>()
+            .HasIndex(x => new { x.RowStatus, x.ResourceID, x.RecurrencyID })
+            .HasName("v6_dataRecurrencies_index_Search");
+      }
    }
 }

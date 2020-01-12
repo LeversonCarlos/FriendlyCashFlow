@@ -11,7 +11,6 @@ namespace FriendlyCashFlow.API.Recurrencies
       {
          try
          {
-            var user = this.GetService<Helpers.User>();
 
             // VALIDATION
             if (value == null) { return null; }
@@ -20,7 +19,7 @@ namespace FriendlyCashFlow.API.Recurrencies
             // ADD NEW
             var data = new RecurrencyData
             {
-               ResourceID = user.ResourceID,
+               ResourceID = this.GetService<Helpers.User>().ResourceID,
                PatternID = value.PatternID,
                AccountID = value.AccountID,
                InitialDate = value.EntryDate,
