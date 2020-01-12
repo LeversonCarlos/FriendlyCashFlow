@@ -13,6 +13,7 @@ namespace FriendlyCashFlow.API.Recurrencies
       {
          try
          {
+            var entriesService = this.GetService<Entries.EntriesService>();
 
             // RECURRENCY
             var recurrency = await this.GetDataQuery()
@@ -25,17 +26,16 @@ namespace FriendlyCashFlow.API.Recurrencies
             var pattern = this.GetValue(patternMessage);
             if (pattern == null) { return false; }
 
-            // INITIALIZE
+            // DEFINE QUANTITY TO GENERATE
             var totalQuantity = recurrency.Count;
-            var generatedQuantity = 1;
-            var entryDate = recurrency.EntryDate;
-            var entriesService = this.GetService<Entries.EntriesService>();
+            if (totalQuantity == 0) { totalQuantity = 3; }
 
             // LOOP
+            var generatedQuantity = 1;
             while (generatedQuantity < totalQuantity)
             {
                // FREQUENCY
-               entryDate = this.GenerateRecurrencyAsync_NextDate((enRecurrencyType)recurrency.Type, entryDate);
+               recurrency.EntryDate = this.GenerateRecurrencyAsync_NextDate((enRecurrencyType)recurrency.Type, recurrency.EntryDate);
 
                // MODEL
                var entryVM = new Entries.EntryVM
@@ -43,7 +43,7 @@ namespace FriendlyCashFlow.API.Recurrencies
                   Text = pattern.Text,
                   Type = pattern.Type,
                   CategoryID = pattern.CategoryID,
-                  DueDate = entryDate,
+                  DueDate = recurrency.EntryDate,
                   EntryValue = Math.Abs(recurrency.EntryValue),
                   AccountID = recurrency.AccountID,
                   PatternID = recurrency.PatternID,
@@ -55,6 +55,13 @@ namespace FriendlyCashFlow.API.Recurrencies
 
                // NEXT
                generatedQuantity++;
+            }
+
+            // REMOVE COMPLETED RECURRENCY
+            if (recurrency.Count != 0)
+            {
+               recurrency.RowStatus = -1;
+               await this.dbContext.SaveChangesAsync();
             }
 
             // RESULT
