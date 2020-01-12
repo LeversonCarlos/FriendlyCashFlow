@@ -17,12 +17,13 @@ import { AddButtonComponent } from './entries/add-button/add-button.component';
 import { EntryDetailsComponent } from './entries/entry-details/entry-details.component';
 import { PatternsService } from './patterns/patterns.service';
 import { RecurrencyService } from './recurrency/recurrency.service';
+import { TransferDetailsComponent } from './entries/transfer-details/transfer-details.component';
 
 @NgModule({
    declarations: [
       AccountsComponent, AccountDetailsComponent,
       CategoriesComponent, CategoryDetailsComponent,
-      EntriesFlowComponent, EntryDetailsComponent, MonthPickerComponent, AddButtonComponent],
+      EntriesFlowComponent, EntryDetailsComponent, MonthPickerComponent, AddButtonComponent, TransferDetailsComponent],
    imports: [
       CommonModule, SharedModule
    ],
