@@ -227,6 +227,8 @@ namespace FriendlyCashFlow.Migrations
 
                     b.HasKey("PatternID");
 
+                    b.HasIndex("CategoryID");
+
                     b.HasIndex("RowStatus", "ResourceID", "Type", "CategoryID", "Text")
                         .HasName("v6_dataPatterns_index_Search");
 
@@ -268,6 +270,9 @@ namespace FriendlyCashFlow.Migrations
                     b.Property<short>("Type");
 
                     b.HasKey("RecurrencyID");
+
+                    b.HasIndex("RowStatus", "ResourceID", "RecurrencyID")
+                        .HasName("v6_dataRecurrencies_index_Search");
 
                     b.ToTable("v6_dataRecurrencies");
                 });
@@ -388,6 +393,14 @@ namespace FriendlyCashFlow.Migrations
                         .HasName("v6_identityUserTokens_index_Search");
 
                     b.ToTable("v6_identityUserTokens");
+                });
+
+            modelBuilder.Entity("FriendlyCashFlow.API.Patterns.PatternData", b =>
+                {
+                    b.HasOne("FriendlyCashFlow.API.Categories.CategoryData", "CategoryDetails")
+                        .WithMany()
+                        .HasForeignKey("CategoryID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

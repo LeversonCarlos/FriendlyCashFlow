@@ -70,6 +70,12 @@ namespace FriendlyCashFlow.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_v6_dataPatterns", x => x.PatternID);
+                    table.ForeignKey(
+                        name: "FK_v6_dataPatterns_v6_dataCategories_CategoryID",
+                        column: x => x.CategoryID,
+                        principalTable: "v6_dataCategories",
+                        principalColumn: "CategoryID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -101,9 +107,19 @@ namespace FriendlyCashFlow.Migrations
                 columns: new[] { "RowStatus", "ResourceID", "Date", "AccountID" });
 
             migrationBuilder.CreateIndex(
+                name: "IX_v6_dataPatterns_CategoryID",
+                table: "v6_dataPatterns",
+                column: "CategoryID");
+
+            migrationBuilder.CreateIndex(
                 name: "v6_dataPatterns_index_Search",
                 table: "v6_dataPatterns",
                 columns: new[] { "RowStatus", "ResourceID", "Type", "CategoryID", "Text" });
+
+            migrationBuilder.CreateIndex(
+                name: "v6_dataRecurrencies_index_Search",
+                table: "v6_dataRecurrencies",
+                columns: new[] { "RowStatus", "ResourceID", "RecurrencyID" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
