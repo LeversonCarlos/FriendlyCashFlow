@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FriendlyCashFlow.Migrations
 {
     [DbContext(typeof(dbContext))]
-    [Migration("20200112123407_Entries")]
+    [Migration("20190830133623_Entries")]
     partial class Entries
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -152,7 +152,7 @@ namespace FriendlyCashFlow.Migrations
 
                     b.Property<long?>("AccountID");
 
-                    b.Property<long>("CategoryID");
+                    b.Property<long?>("CategoryID");
 
                     b.Property<DateTime>("DueDate");
 
@@ -161,7 +161,7 @@ namespace FriendlyCashFlow.Migrations
 
                     b.Property<bool>("Paid");
 
-                    b.Property<long>("PatternID");
+                    b.Property<long?>("PatternID");
 
                     b.Property<DateTime?>("PayDate");
 
