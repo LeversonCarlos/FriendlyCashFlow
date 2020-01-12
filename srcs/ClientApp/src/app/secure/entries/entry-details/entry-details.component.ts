@@ -112,15 +112,7 @@ export class EntryDetailsComponent implements OnInit {
             this.inputForm.get("CategoryRow").setValue(this.CategoryOptions[0]);
          }
       });
-      this.inputForm.get("AccountRow").valueChanges.subscribe(value => {
-         this.Data.AccountID = null;
-         if (value && value.id) {
-            this.Data.AccountID = value.id;
-            const dueDateControl = this.inputForm.get("DueDate");
-            dueDateControl.setValue(value.value.DueDate)
-            dueDateControl.updateValueAndValidity();
-         }
-      });
+      this.inputForm.get("AccountRow").valueChanges.subscribe(item => this.OnAccountChanged(item));
       this.inputForm.get("CategoryRow").valueChanges.subscribe(item => this.OnCategoryChanged(item));
 
       this.inputForm.get('Paid').valueChanges.subscribe((paid) => this.OnPaidChanged(paid));
@@ -142,12 +134,24 @@ export class EntryDetailsComponent implements OnInit {
       return Object.assign(new RelatedData, { id: item.PatternID, description: item.Text, badgeText: item.Count, value: item });
    }
 
+
+
+   /* ACCOUNT */
    public AccountOptions: RelatedData<Account>[] = [];
    public async OnAccountChanging(val: string) {
       const accountList = await this.accountService.getAccounts(val);
       if (accountList == null) { return; }
       this.AccountOptions = accountList
          .map(item => this.OnAccountParse(item));
+   }
+   private OnAccountChanged(item: RelatedData<Account>) {
+      this.Data.AccountID = null;
+      if (item && item.id) {
+         this.Data.AccountID = item.id;
+         const dueDateControl = this.inputForm.get("DueDate");
+         dueDateControl.setValue(item.value.DueDate)
+         dueDateControl.updateValueAndValidity();
+      }
    }
    private OnAccountParse(item: Account): RelatedData<Account> {
       return Object.assign(new RelatedData, { id: item.AccountID, description: item.Text, value: item });
@@ -163,10 +167,10 @@ export class EntryDetailsComponent implements OnInit {
       this.CategoryOptions = categoryList
          .map(item => this.OnCategoryParse(item));
    }
-   private OnCategoryChanged(opt: RelatedData<Category>) {
+   private OnCategoryChanged(item: RelatedData<Category>) {
       this.Data.CategoryID = null;
-      if (opt && opt.id) {
-         this.Data.CategoryID = opt.id;
+      if (item && item.id) {
+         this.Data.CategoryID = item.id;
       }
    }
    private OnCategoryParse(item: Category): RelatedData<Category> {
