@@ -20,7 +20,7 @@ namespace FriendlyCashFlow.API.Transfers
             var entries = await this.dbContext.Entries
                .Where(x => x.RowStatus == (short)Base.enRowStatus.Active && x.ResourceID == user.ResourceID && x.TransferID == transferID)
                .ToListAsync();
-            if (entries == null || entries.Count != 0) { return this.WarningResponse("ENTRIES_RECORD_NOT_FOUND_WARNING"); }
+            if (entries == null || entries.Count != 2) { return this.WarningResponse("ENTRIES_RECORD_NOT_FOUND_WARNING"); }
 
             // INIT VIEW MODEL
             var viewModel = new TransferVM

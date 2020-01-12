@@ -37,7 +37,6 @@ export class TransferDetailsComponent implements OnInit {
       try {
          const paramID: string = this.route.snapshot.params.id;
 
-
          // NEW MODEL
          if (paramID == 'new') {
             this.Data = Object.assign(new Transfer, {
@@ -50,7 +49,7 @@ export class TransferDetailsComponent implements OnInit {
          const transferID: string = paramID;
          this.Data = await this.service.getData(transferID);
          if (!this.Data || this.Data.TransferID != transferID) {
-            this.msg.ShowWarning('ENTRIES_RECORD_NOT_FOUND_WARNING');
+            this.msg.ShowWarning('TRANSFERS_RECORD_NOT_FOUND_WARNING');
             this.entriesService.showCurrentList();
             return false;
          }
@@ -63,6 +62,7 @@ export class TransferDetailsComponent implements OnInit {
             this.IncomeAccountOptions = [this.OnIncomeAccountParse(this.Data.IncomeAccountRow)];
          }
 
+         return true;
       }
       catch (ex) { console.error(ex) }
    }
