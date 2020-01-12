@@ -261,8 +261,20 @@
   <data name="ENTRIES_ENTRYVALUE_LABEL" xml:space="preserve">
     <value>Value</value>
   </data>
+  <data name="ENTRIES_MAIN_TITLE" xml:space="preserve">
+    <value>Entries</value>
+  </data>
   <data name="ENTRIES_MENU" xml:space="preserve">
     <value>Entries</value>
+  </data>
+  <data name="ENTRIES_NEW_EXPENSE_COMMAND" xml:space="preserve">
+    <value>Add New Expense</value>
+  </data>
+  <data name="ENTRIES_NEW_INCOME_COMMAND" xml:space="preserve">
+    <value>Add New Income</value>
+  </data>
+  <data name="ENTRIES_NEW_TRANSFER_COMMAND" xml:space="preserve">
+    <value>Add New Transfer</value>
   </data>
   <data name="ENTRIES_PAID_LABEL" xml:space="preserve">
     <value>Paid</value>

@@ -261,8 +261,20 @@
   <data name="ENTRIES_ENTRYVALUE_LABEL" xml:space="preserve">
     <value>Valor</value>
   </data>
+  <data name="ENTRIES_MAIN_TITLE" xml:space="preserve">
+    <value>Lançamentos</value>
+  </data>
   <data name="ENTRIES_MENU" xml:space="preserve">
     <value>Lançamentos</value>
+  </data>
+  <data name="ENTRIES_NEW_EXPENSE_COMMAND" xml:space="preserve">
+    <value>Adicionar Nova Saída</value>
+  </data>
+  <data name="ENTRIES_NEW_INCOME_COMMAND" xml:space="preserve">
+    <value>Adicionar Nova Entrada</value>
+  </data>
+  <data name="ENTRIES_NEW_TRANSFER_COMMAND" xml:space="preserve">
+    <value>Adicionar Nova Transferência</value>
   </data>
   <data name="ENTRIES_PAID_LABEL" xml:space="preserve">
     <value>Pago</value>
