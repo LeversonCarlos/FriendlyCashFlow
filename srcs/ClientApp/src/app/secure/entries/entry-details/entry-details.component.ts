@@ -121,17 +121,12 @@ export class EntryDetailsComponent implements OnInit {
             dueDateControl.updateValueAndValidity();
          }
       });
-      this.inputForm.get("CategoryRow").valueChanges.subscribe(opt => {
-         this.Data.CategoryID = null;
-         if (opt && opt.id) {
-            this.Data.CategoryID = opt.id;
-         }
-      });
+      this.inputForm.get("CategoryRow").valueChanges.subscribe(item => this.OnCategoryChanged(item));
 
-      this.inputForm.controls['Paid'].valueChanges.subscribe((paid) => this.OnPaidChanged(paid));
+      this.inputForm.get('Paid').valueChanges.subscribe((paid) => this.OnPaidChanged(paid));
       this.OnPaidChanged(this.Data.Paid)
 
-      this.inputForm.controls['RecurrencyActivate'].valueChanges.subscribe((activate) => this.OnRecurrencyActivateChanged(activate));
+      this.inputForm.get('RecurrencyActivate').valueChanges.subscribe((activate) => this.OnRecurrencyActivateChanged(activate));
 
    }
 
@@ -158,6 +153,9 @@ export class EntryDetailsComponent implements OnInit {
       return Object.assign(new RelatedData, { id: item.AccountID, description: item.Text, value: item });
    }
 
+
+
+   /* CATEGORY */
    public CategoryOptions: RelatedData<Category>[] = [];
    public async OnCategoryChanging(val: string) {
       const categoryList = await this.categoryService.getCategories(this.Data.Type, val);
@@ -165,10 +163,19 @@ export class EntryDetailsComponent implements OnInit {
       this.CategoryOptions = categoryList
          .map(item => this.OnCategoryParse(item));
    }
+   private OnCategoryChanged(opt: RelatedData<Category>) {
+      this.Data.CategoryID = null;
+      if (opt && opt.id) {
+         this.Data.CategoryID = opt.id;
+      }
+   }
    private OnCategoryParse(item: Category): RelatedData<Category> {
       return Object.assign(new RelatedData, { id: item.CategoryID, description: item.HierarchyText, value: item });
    }
 
+
+
+   /* PAID */
    private OnPaidChanged(paid: boolean) {
       const payDateControl = this.inputForm.controls['PayDate'];
       if (paid == true) {
