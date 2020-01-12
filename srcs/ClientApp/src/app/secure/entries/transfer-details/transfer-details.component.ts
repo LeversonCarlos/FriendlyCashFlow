@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { EntriesService } from '../entries.service';
-import { Transfer } from '../entries.viewmodels';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RelatedData } from 'src/app/shared/related-box/related-box.models';
 import { Account, AccountsService } from '../../accounts/accounts.service';
+import { Transfer } from '../../transfers/transfers.viewmodels';
 
 @Component({
    selector: 'fs-transfer-details',
