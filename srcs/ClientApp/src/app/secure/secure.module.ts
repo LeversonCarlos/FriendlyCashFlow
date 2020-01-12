@@ -18,6 +18,7 @@ import { EntryDetailsComponent } from './entries/entry-details/entry-details.com
 import { PatternsService } from './patterns/patterns.service';
 import { RecurrencyService } from './recurrency/recurrency.service';
 import { TransferDetailsComponent } from './entries/transfer-details/transfer-details.component';
+import { TransfersService } from './transfers/transfers.service';
 
 @NgModule({
    declarations: [
@@ -27,6 +28,6 @@ import { TransferDetailsComponent } from './entries/transfer-details/transfer-de
    imports: [
       CommonModule, SharedModule
    ],
-   providers: [AccountsService, CategoriesService, EntriesService, PatternsService, RecurrencyService]
+   providers: [AccountsService, CategoriesService, EntriesService, PatternsService, RecurrencyService, TransfersService]
 })
 export class SecureModule { }

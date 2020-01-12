@@ -5,6 +5,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RelatedData } from 'src/app/shared/related-box/related-box.models';
 import { Account, AccountsService } from '../../accounts/accounts.service';
 import { Transfer } from '../../transfers/transfers.viewmodels';
+import { TransfersService } from '../../transfers/transfers.service';
+import { MessageService } from 'src/app/shared/message/message.service';
 
 @Component({
    selector: 'fs-transfer-details',
@@ -13,8 +15,9 @@ import { Transfer } from '../../transfers/transfers.viewmodels';
 })
 export class TransferDetailsComponent implements OnInit {
 
-   constructor(private service: EntriesService,
-      private accountService: AccountsService,
+   constructor(private service: TransfersService,
+      private entriesService: EntriesService, private accountService: AccountsService,
+      private msg: MessageService,
       private route: ActivatedRoute, private fb: FormBuilder) { }
 
 
@@ -38,21 +41,19 @@ export class TransferDetailsComponent implements OnInit {
          // NEW MODEL
          if (paramID == 'new') {
             this.Data = Object.assign(new Transfer, {
-               TransferDate: this.service.CurrentData.CurrentMonth
+               TransferDate: this.entriesService.CurrentData.CurrentMonth
             });
             return true;
          }
 
          // LOAD DATA
-         /*
          const transferID: string = paramID;
-         this.Data = await this.service.getEntry(entryID);
-         if (!this.Data || this.Data.EntryID != entryID) {
+         this.Data = await this.service.getData(transferID);
+         if (!this.Data || this.Data.TransferID != transferID) {
             this.msg.ShowWarning('ENTRIES_RECORD_NOT_FOUND_WARNING');
-            this.service.showCurrentList();
+            this.entriesService.showCurrentList();
             return false;
          }
-         */
 
          // RELATED DATA INIT
          if (this.Data.ExpenseAccountRow) {
@@ -124,6 +125,28 @@ export class TransferDetailsComponent implements OnInit {
    }
    private OnIncomeAccountParse(item: Account): RelatedData<Account> {
       return Object.assign(new RelatedData, { id: item.AccountID, description: item.Text, value: item });
+   }
+
+
+   /* COMMANDS: CANCEL */
+   public async OnCancelClick() {
+      if (!this.inputForm.pristine) {
+         if (!await this.msg.Confirm('BASE_CANCEL_CHANGES_CONFIRMATION_TEXT', 'BASE_CANCEL_CHANGES_CONFIRM', 'BASE_CANCEL_CHANGES_ABORT')) { return; }
+      }
+      this.entriesService.showCurrentList();
+   }
+
+   /* COMMANDS: SAVE */
+   public async OnSaveClick() {
+      if (!await this.service.saveData(this.Data)) { return; }
+      this.entriesService.showCurrentList();
+   }
+
+   /* COMMANDS: REMOVE */
+   public async OnRemoveClick() {
+      if (!await this.msg.Confirm('ENTRIES_REMOVE_CONFIRMATION_TEXT', 'BASE_REMOVE_COMMAND')) { return; }
+      if (!await this.service.removeData(this.Data)) { return; }
+      this.entriesService.showCurrentList();
    }
 
 
