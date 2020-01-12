@@ -11,7 +11,7 @@ namespace FriendlyCashFlow.API.Transfers
    partial class TransfersService
    {
 
-      public async Task<ActionResult<bool>> RemoveAsync(string transferID)
+      internal async Task<ActionResult<bool>> RemoveAsync(string transferID)
       {
          try
          {
@@ -20,7 +20,7 @@ namespace FriendlyCashFlow.API.Transfers
             var entries = await this.GetDataQuery()
                .Where(x => x.TransferID == transferID)
                .ToListAsync();
-            if (entries == null || entries.Count != 2) { return this.WarningResponse("ENTRIES_RECORD_NOT_FOUND_WARNING"); }
+            if (entries == null || entries.Count != 2) { return this.WarningResponse("TRANSFERS_RECORD_NOT_FOUND_WARNING"); }
 
             // APPLY
             await this.GetService<Entries.EntriesService>().RemoveAsync(entries[0].EntryID);

@@ -246,11 +246,32 @@
   <data name="SETTINGS_MENU" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="TRANSFERS_DATE_LABEL" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="TRANSFERS_DETAILS_TITLE" xml:space="preserve">
+    <value>Transfer</value>
+  </data>
+  <data name="TRANSFERS_EXPENSE_ACCOUNT_LABEL" xml:space="preserve">
+    <value>Output Account</value>
+  </data>
   <data name="TRANSFERS_FROM_ACCOUNT_DESCRIPTION" xml:space="preserve">
     <value>Transfer from {accountText}</value>
   </data>
+  <data name="TRANSFERS_INCOME_ACCOUNT_LABEL" xml:space="preserve">
+    <value>Income Account</value>
+  </data>
+  <data name="TRANSFERS_RECORD_NOT_FOUND_WARNING" xml:space="preserve">
+    <value>Transfer record not found to be displayed!</value>
+  </data>
+  <data name="TRANSFERS_REMOVE_CONFIRMATION_TEXT" xml:space="preserve">
+    <value>Do you want to remove this transfer?</value>
+  </data>
   <data name="TRANSFERS_TO_ACCOUNT_DESCRIPTION" xml:space="preserve">
     <value>Transfer to {accountText}</value>
+  </data>
+  <data name="TRANSFERS_VALUE_LABEL" xml:space="preserve">
+    <value>Value</value>
   </data>
   <data name="USERS_ACCOUNT_HAS_BEEN_ACTIVATED_MESSAGE" xml:space="preserve">
     <value>Your account has been activated, you can sign in now.</value>

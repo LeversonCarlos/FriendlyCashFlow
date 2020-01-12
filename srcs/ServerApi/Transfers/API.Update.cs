@@ -9,7 +9,7 @@ namespace FriendlyCashFlow.API.Transfers
    partial class TransfersService
    {
 
-      public async Task<ActionResult<TransferVM>> UpdateAsync(string transferID, TransferVM viewModel)
+      internal async Task<ActionResult<TransferVM>> UpdateAsync(string transferID, TransferVM viewModel)
       {
          try
          {
@@ -23,7 +23,7 @@ namespace FriendlyCashFlow.API.Transfers
             // EXPENSE DATA
             var expenseMessage = await entriesService.GetDataAsync(viewModel.ExpenseEntryID);
             var expenseEntry = this.GetValue(expenseMessage);
-            if (expenseEntry == null) { return expenseMessage.Result; }
+            if (expenseEntry == null) { return this.WarningResponse("TRANSFERS_RECORD_NOT_FOUND_WARNING"); }
             expenseEntry.AccountID = viewModel.ExpenseAccountID;
             expenseEntry.DueDate = viewModel.TransferDate;
             expenseEntry.PayDate = viewModel.TransferDate;
@@ -32,7 +32,7 @@ namespace FriendlyCashFlow.API.Transfers
             // INCOME DATA
             var incomeMessage = await entriesService.GetDataAsync(viewModel.IncomeEntryID);
             var incomeEntry = this.GetValue(incomeMessage);
-            if (incomeEntry == null) { return incomeMessage.Result; }
+            if (incomeEntry == null) { return this.WarningResponse("TRANSFERS_RECORD_NOT_FOUND_WARNING"); }
             incomeEntry.AccountID = viewModel.IncomeAccountID;
             incomeEntry.DueDate = viewModel.TransferDate;
             incomeEntry.PayDate = viewModel.TransferDate;

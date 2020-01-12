@@ -11,7 +11,7 @@ namespace FriendlyCashFlow.API.Recurrencies
    partial class RecurrenciesService
    {
 
-      public async Task<ActionResult<bool>> RemoveAsync(long recurrencyID)
+      internal async Task<ActionResult<bool>> RemoveAsync(long recurrencyID)
       {
          try
          {

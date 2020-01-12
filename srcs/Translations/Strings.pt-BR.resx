@@ -246,11 +246,32 @@
   <data name="SETTINGS_MENU" xml:space="preserve">
     <value>Configurações</value>
   </data>
+  <data name="TRANSFERS_DATE_LABEL" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="TRANSFERS_DETAILS_TITLE" xml:space="preserve">
+    <value>Transferência</value>
+  </data>
+  <data name="TRANSFERS_EXPENSE_ACCOUNT_LABEL" xml:space="preserve">
+    <value>Conta de Saída</value>
+  </data>
   <data name="TRANSFERS_FROM_ACCOUNT_DESCRIPTION" xml:space="preserve">
     <value>Transferência de {accountText}</value>
   </data>
+  <data name="TRANSFERS_INCOME_ACCOUNT_LABEL" xml:space="preserve">
+    <value>Conta de Entrada</value>
+  </data>
+  <data name="TRANSFERS_RECORD_NOT_FOUND_WARNING" xml:space="preserve">
+    <value>Transferência não foi encontrada para exibir!</value>
+  </data>
+  <data name="TRANSFERS_REMOVE_CONFIRMATION_TEXT" xml:space="preserve">
+    <value>Você deseja remover essa transferência?</value>
+  </data>
   <data name="TRANSFERS_TO_ACCOUNT_DESCRIPTION" xml:space="preserve">
     <value>Transferência para {accountText}</value>
+  </data>
+  <data name="TRANSFERS_VALUE_LABEL" xml:space="preserve">
+    <value>Valor</value>
   </data>
   <data name="USERS_ACCOUNT_HAS_BEEN_ACTIVATED_MESSAGE" xml:space="preserve">
     <value>Seu usuário foi ativado, você pode acessá-lo agora</value>

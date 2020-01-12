@@ -10,7 +10,7 @@ namespace FriendlyCashFlow.API.Recurrencies
    partial class RecurrenciesService
    {
 
-      public async Task<ActionResult<List<RecurrencyTypeVM>>> GetRecurrencyTypesAsync()
+      internal async Task<ActionResult<List<RecurrencyTypeVM>>> GetRecurrencyTypesAsync()
       {
          try
          {

@@ -19,13 +19,14 @@ namespace FriendlyCashFlow.API.Patterns
             .AsQueryable();
       }
 
-      public async Task<ActionResult<List<PatternVM>>> GetPatternsAsync(Categories.enCategoryType categoryType)
+
+      internal async Task<ActionResult<List<PatternVM>>> GetPatternsAsync(Categories.enCategoryType categoryType)
       { return await this.GetPatternsAsync(patternID: 0, categoryType, searchText: ""); }
 
-      public async Task<ActionResult<List<PatternVM>>> GetPatternsAsync(Categories.enCategoryType categoryType, string searchText)
+      internal async Task<ActionResult<List<PatternVM>>> GetPatternsAsync(Categories.enCategoryType categoryType, string searchText)
       { return await this.GetPatternsAsync(patternID: 0, categoryType, searchText: searchText); }
 
-      public async Task<ActionResult<PatternVM>> GetPatternAsync(long patternID)
+      internal async Task<ActionResult<PatternVM>> GetPatternAsync(long patternID)
       {
          var dataMessage = await this.GetPatternsAsync(patternID: patternID, categoryType: Categories.enCategoryType.None, searchText: "");
          var dataValue = this.GetValue(dataMessage);

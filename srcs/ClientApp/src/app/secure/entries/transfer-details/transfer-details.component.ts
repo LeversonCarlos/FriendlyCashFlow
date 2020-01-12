@@ -144,7 +144,7 @@ export class TransferDetailsComponent implements OnInit {
 
    /* COMMANDS: REMOVE */
    public async OnRemoveClick() {
-      if (!await this.msg.Confirm('ENTRIES_REMOVE_CONFIRMATION_TEXT', 'BASE_REMOVE_COMMAND')) { return; }
+      if (!await this.msg.Confirm('TRANSFERS_REMOVE_CONFIRMATION_TEXT', 'BASE_REMOVE_COMMAND')) { return; }
       if (!await this.service.removeData(this.Data)) { return; }
       this.entriesService.showCurrentList();
    }

@@ -28,7 +28,7 @@ namespace FriendlyCashFlow.API.Transfers
             var entries = await this.GetDataQuery()
                .Where(x => x.TransferID == transferID)
                .ToListAsync();
-            if (entries == null || entries.Count != 2) { return this.WarningResponse("ENTRIES_RECORD_NOT_FOUND_WARNING"); }
+            if (entries == null || entries.Count != 2) { return this.WarningResponse("TRANSFERS_RECORD_NOT_FOUND_WARNING"); }
 
             // INIT VIEW MODEL
             var viewModel = new TransferVM
@@ -40,7 +40,7 @@ namespace FriendlyCashFlow.API.Transfers
 
             // EXPENSE
             var expenseEntry = entries.Where(x => x.Type == (short)Categories.enCategoryType.Expense).FirstOrDefault();
-            if (expenseEntry == null) { return this.WarningResponse("ENTRIES_RECORD_NOT_FOUND_WARNING"); }
+            if (expenseEntry == null) { return this.WarningResponse("TRANSFERS_RECORD_NOT_FOUND_WARNING"); }
             viewModel.ExpenseEntryID = expenseEntry.EntryID;
             if (expenseEntry.AccountID.HasValue)
             {
@@ -51,7 +51,7 @@ namespace FriendlyCashFlow.API.Transfers
 
             // INCOME
             var incomeEntry = entries.Where(x => x.Type == (short)Categories.enCategoryType.Income).FirstOrDefault();
-            if (incomeEntry == null) { return this.WarningResponse("ENTRIES_RECORD_NOT_FOUND_WARNING"); }
+            if (incomeEntry == null) { return this.WarningResponse("TRANSFERS_RECORD_NOT_FOUND_WARNING"); }
             viewModel.IncomeEntryID = incomeEntry.EntryID;
             viewModel.IncomeAccountID = incomeEntry.AccountID.Value;
             if (expenseEntry.AccountID.HasValue)
