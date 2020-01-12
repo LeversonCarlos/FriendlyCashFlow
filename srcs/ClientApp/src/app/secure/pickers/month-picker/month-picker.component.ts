@@ -19,6 +19,7 @@ export class MonthPickerComponent implements OnInit {
       return this.currentMonth;
    }
    @Input() public set CurrentMonth(val: Date) {
+      if (!val) { return }
       this.PreviousMonth = new Date(new Date(val).setMonth(val.getMonth() - 1));
       this.currentMonth = val;
       this.NextMonth = new Date(new Date(val).setMonth(val.getMonth() + 1));
