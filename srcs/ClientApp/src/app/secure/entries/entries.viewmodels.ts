@@ -36,6 +36,21 @@ export class Entry {
    Sorting: number
 }
 
+export class Transfer {
+   TransferID: string
+   TransferDate: Date
+   TransferValue: number
+
+   TransferIncomeEntryID: number
+   TransferIncomeAccountID: number
+   TransferIncomeAccountText: string
+
+   ExpenseEntryID: number
+   ExpenseAccountID: number
+   ExpenseAccountRow: Account
+   // ExpenseAccountText: string
+}
+
 export class EntryFlow {
    Day: string
    EntryList: Entry[]

@@ -24,6 +24,8 @@ export class EntryDetailsComponent implements OnInit {
       private categoryService: CategoriesService, private accountService: AccountsService, private patternService: PatternsService, private recurrencyService: RecurrencyService,
       private route: ActivatedRoute, private fb: FormBuilder) { }
 
+
+
    /* INIT */
    public async ngOnInit() {
       try {
