@@ -243,6 +243,12 @@
   <data name="SETTINGS_MENU" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="TRANSFERS_FROM_ACCOUNT_DESCRIPTION" xml:space="preserve">
+    <value>Transfer from {accountText}</value>
+  </data>
+  <data name="TRANSFERS_TO_ACCOUNT_DESCRIPTION" xml:space="preserve">
+    <value>Transfer to {accountText}</value>
+  </data>
   <data name="USERS_ACCOUNT_HAS_BEEN_ACTIVATED_MESSAGE" xml:space="preserve">
     <value>Your account has been activated, you can sign in now.</value>
   </data>

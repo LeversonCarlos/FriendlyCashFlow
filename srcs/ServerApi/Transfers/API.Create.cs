@@ -16,7 +16,7 @@ namespace FriendlyCashFlow.API.Transfers
          try
          {
             var entriesService = this.GetService<Entries.EntriesService>();
-            var transferID = Guid.NewGuid().ToString();
+            var transferID = Guid.NewGuid().ToString("N");
 
             // VALIDATE
             // var validateMessage = await this.ValidateAsync(viewModel);
@@ -29,11 +29,9 @@ namespace FriendlyCashFlow.API.Transfers
 
             // EXPENSE
             var expenseAccount = accounts.Where(x => x.AccountID == value.ExpenseAccountID).Select(x => x.Text).FirstOrDefault();
-            var expenseText = this.GetTranslation("ENTRIES_TRANSFER_TO_TEXT").Replace("{accountText}", expenseAccount);
             var expenseEntry = new Entries.EntryVM
             {
                TransferID = transferID,
-               Text = expenseText,
                DueDate = value.TransferDate,
                EntryValue = value.TransferValue,
                Paid = true,
@@ -41,15 +39,12 @@ namespace FriendlyCashFlow.API.Transfers
                AccountID = value.ExpenseAccountID,
                Type = Categories.enCategoryType.Expense
             };
-            await entriesService.CreateAsync(expenseEntry);
 
             // INCOME
             var incomeAccount = accounts.Where(x => x.AccountID == value.IncomeAccountID).Select(x => x.Text).FirstOrDefault();
-            var incomeText = this.GetTranslation("ENTRIES_TRANSFER_FROM_TEXT").Replace("{accountText}", incomeAccount);
             var incomeEntry = new Entries.EntryVM
             {
                TransferID = transferID,
-               Text = incomeText,
                DueDate = value.TransferDate,
                EntryValue = value.TransferValue,
                Paid = true,
@@ -57,6 +52,13 @@ namespace FriendlyCashFlow.API.Transfers
                AccountID = value.IncomeAccountID,
                Type = Categories.enCategoryType.Income
             };
+
+            // DESCRIPTION
+            expenseEntry.Text = this.GetTranslation("TRANSFERS_TO_ACCOUNT_DESCRIPTION").Replace("{accountText}", incomeAccount);
+            incomeEntry.Text = this.GetTranslation("TRANSFERS_FROM_ACCOUNT_DESCRIPTION").Replace("{accountText}", expenseAccount);
+
+            // APPLY
+            await entriesService.CreateAsync(expenseEntry);
             await entriesService.CreateAsync(incomeEntry);
 
             // RESULT
