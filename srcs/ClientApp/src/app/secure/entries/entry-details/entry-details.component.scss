@@ -10,12 +10,21 @@
 }
 
 .recurrency-card {
+  padding-bottom: 0;
+  .mat-card-content {
+    margin-bottom: 0;
+  }
+  .recurrency-options {
+    .mat-form-field {
+      flex-basis: 50%;
+    }
+  }
   &.mat-elevation-z0 {
-     .recurrency-activate {
-        margin-left: -16px;
-     }
-     .recurrency-options {
-        display: none;
-     }
+    .recurrency-activate {
+      margin-left: -16px;
+    }
+    .recurrency-options {
+      display: none;
+    }
   }
 }

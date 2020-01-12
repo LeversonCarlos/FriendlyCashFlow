@@ -309,6 +309,24 @@
   <data name="PICKERS_DEFAULT_ACCOUNT_TEXT" xml:space="preserve">
     <value>All Accounts</value>
   </data>
+  <data name="RECURRENCY_ENRECURRENCYTYPE_BIMONTHLY" xml:space="preserve">
+    <value>Bi Monthly</value>
+  </data>
+  <data name="RECURRENCY_ENRECURRENCYTYPE_MONTHLY" xml:space="preserve">
+    <value>Monthly</value>
+  </data>
+  <data name="RECURRENCY_ENRECURRENCYTYPE_QUARTERLY" xml:space="preserve">
+    <value>Quarterly</value>
+  </data>
+  <data name="RECURRENCY_ENRECURRENCYTYPE_SEMIYEARLY" xml:space="preserve">
+    <value>Semi Yearly</value>
+  </data>
+  <data name="RECURRENCY_ENRECURRENCYTYPE_WEEKLY" xml:space="preserve">
+    <value>Weekly</value>
+  </data>
+  <data name="RECURRENCY_ENRECURRENCYTYPE_YEARLY" xml:space="preserve">
+    <value>Yearly</value>
+  </data>
   <data name="SETTINGS_MENU" xml:space="preserve">
     <value>Settings</value>
   </data>

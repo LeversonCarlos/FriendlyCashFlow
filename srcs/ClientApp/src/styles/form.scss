@@ -12,15 +12,20 @@ form {
 .mat-form-field-row {
   display: flex;
   .mat-form-field {
+    .mat-form-field-infix {
+      width: unset;
+    }
     flex-grow: 1;
     &:not(:last-child) {
       margin-right: 16px;
     }
   }
   @media (max-width: $max-width-xs) {
-    flex-direction: column;
-    .mat-form-field {
-      margin-right: 0 !important;
+    &:not(.keep) {
+      flex-direction: column;
+      .mat-form-field {
+        margin-right: 0 !important;
+      }
     }
   }
 }
