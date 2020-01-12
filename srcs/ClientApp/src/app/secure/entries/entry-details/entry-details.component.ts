@@ -78,6 +78,9 @@ export class EntryDetailsComponent implements OnInit {
       catch (ex) { console.error(ex) }
    }
 
+
+
+   /* FORM: CREATE */
    private OnFormCreate() {
       this.inputForm = this.fb.group({
          Text: [this.Data.Text, Validators.required],
@@ -92,27 +95,32 @@ export class EntryDetailsComponent implements OnInit {
          RecurrencyType: [this.Data.Recurrency && this.Data.Recurrency.Type],
          RecurrencyCount: [this.Data.Recurrency && this.Data.Recurrency.Count]
       });
-      this.inputForm.valueChanges.subscribe(values => {
-         this.Data.Text = values.Text || '';
-         this.Data.EntryValue = values.EntryValue;
-         this.Data.DueDate = values.DueDate;
-         this.Data.Paid = values.Paid || false;
-         this.Data.PayDate = values.PayDate;
-         if (this.Data.Recurrency) {
-            this.Data.Recurrency.Type = values.RecurrencyType
-            this.Data.Recurrency.Count = values.RecurrencyCount
-         }
-      });
+
+      this.inputForm.valueChanges.subscribe(values => this.OnFormChanged(values));
       this.inputForm.get("PatternRow").valueChanges.subscribe(item => this.OnPatternChanged(item));
       this.inputForm.get("AccountRow").valueChanges.subscribe(item => this.OnAccountChanged(item));
       this.inputForm.get("CategoryRow").valueChanges.subscribe(item => this.OnCategoryChanged(item));
-
+      this.inputForm.get('RecurrencyActivate').valueChanges.subscribe((activate) => this.OnRecurrencyActivateChanged(activate));
       this.inputForm.get('Paid').valueChanges.subscribe((paid) => this.OnPaidChanged(paid));
+
       this.OnPaidChanged(this.Data.Paid)
 
-      this.inputForm.get('RecurrencyActivate').valueChanges.subscribe((activate) => this.OnRecurrencyActivateChanged(activate));
-
    }
+
+   /* FORM: CHANGED */
+   private OnFormChanged(values: any) {
+      this.Data.Text = values.Text || '';
+      this.Data.EntryValue = values.EntryValue;
+      this.Data.DueDate = values.DueDate;
+      this.Data.Paid = values.Paid || false;
+      this.Data.PayDate = values.PayDate;
+      if (this.Data.Recurrency) {
+         this.Data.Recurrency.Type = values.RecurrencyType
+         this.Data.Recurrency.Count = values.RecurrencyCount
+      }
+   }
+
+
 
    /* PATTERN */
    public PatternOptions: RelatedData<Pattern>[] = [];
