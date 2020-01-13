@@ -303,6 +303,12 @@
   <data name="ENTRIES_REMOVE_CONFIRMATION_TEXT" xml:space="preserve">
     <value>Do you want to remove this entry?</value>
   </data>
+  <data name="ENTRIES_SAVE_ALL_FUTURE_ENTRIES_COMMAND" xml:space="preserve">
+    <value>This and future portions</value>
+  </data>
+  <data name="ENTRIES_SAVE_ONLY_THIS_ENTRY_COMMAND" xml:space="preserve">
+    <value>Only current portion</value>
+  </data>
   <data name="LOGOUT_MENU" xml:space="preserve">
     <value>Logout</value>
   </data>

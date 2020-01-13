@@ -303,6 +303,12 @@
   <data name="ENTRIES_REMOVE_CONFIRMATION_TEXT" xml:space="preserve">
     <value>Você deseja remover esse lançamento?</value>
   </data>
+  <data name="ENTRIES_SAVE_ALL_FUTURE_ENTRIES_COMMAND" xml:space="preserve">
+    <value>Esta e futuras parcelas</value>
+  </data>
+  <data name="ENTRIES_SAVE_ONLY_THIS_ENTRY_COMMAND" xml:space="preserve">
+    <value>Apenas parcela corrente</value>
+  </data>
   <data name="LOGOUT_MENU" xml:space="preserve">
     <value>Logout</value>
   </data>
