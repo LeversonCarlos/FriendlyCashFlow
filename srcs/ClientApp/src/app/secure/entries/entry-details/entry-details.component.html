@@ -78,8 +78,13 @@
                [disabled]="!Data?.EntryID || inputForm?.dirty">{{ 'BASE_REMOVE_COMMAND' | translation | async }}</button>
             <div>
                <button mat-button (click)="OnCancelClick()">{{ 'BASE_CANCEL_COMMAND' | translation | async }}</button>
-               <button mat-button (click)="OnSaveClick()" color="primary"
+               <button *ngIf="!Data?.RecurrencyID" mat-button (click)="OnSaveClick()" color="primary"
                   [disabled]="!inputForm?.valid">{{ 'BASE_SAVE_COMMAND' | translation | async }}</button>
+               <button *ngIf="Data?.RecurrencyID" mat-button (click)="OnSaveClick()" color="primary"
+                  [disabled]="!inputForm?.valid">
+                  <span>{{ 'BASE_SAVE_COMMAND' | translation | async }}</span>
+                  <mat-icon>expand_more</mat-icon>
+               </button>
             </div>
          </mat-card-actions>
 
