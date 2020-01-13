@@ -41,6 +41,8 @@ namespace FriendlyCashFlow.Migrations
                     CategoryID = table.Column<long>(nullable: true),
                     PatternID = table.Column<long>(nullable: true),
                     RecurrencyID = table.Column<long>(nullable: true),
+                    RecurrencyItem = table.Column<short>(nullable: true),
+                    RecurrencyTotal = table.Column<short>(nullable: true),
                     TransferID = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: true),
                     DueDate = table.Column<DateTime>(nullable: false),
                     EntryValue = table.Column<decimal>(type: "decimal(15,2)", nullable: false),

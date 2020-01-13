@@ -9,7 +9,7 @@ namespace FriendlyCashFlow.API.Entries
    [Table("v6_dataEntries")]
    internal class EntryData : Base.BaseData
    {
-
+      
       public EntryData() : base() { }
 
       [Key]
@@ -38,6 +38,8 @@ namespace FriendlyCashFlow.API.Entries
       public long? PatternID { get; set; }
 
       public long? RecurrencyID { get; set; }
+      public short? RecurrencyItem { get; set; }
+      public short? RecurrencyTotal { get; set; }
 
       [Column(TypeName = "varchar(128)")]
       [StringLength(128)]

@@ -165,6 +165,10 @@ namespace FriendlyCashFlow.Migrations
 
                     b.Property<long?>("RecurrencyID");
 
+                    b.Property<short?>("RecurrencyItem");
+
+                    b.Property<short?>("RecurrencyTotal");
+
                     b.Property<string>("ResourceID")
                         .IsRequired()
                         .HasColumnType("varchar(128)")
