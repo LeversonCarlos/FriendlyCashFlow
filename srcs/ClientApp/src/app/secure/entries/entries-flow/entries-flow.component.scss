@@ -1,7 +1,7 @@
 @import "../../../../styles/screenSizes.scss";
 
 div[toolbar] {
-   display: flex;
+  display: flex;
 }
 
 .full-card {
@@ -52,7 +52,7 @@ div[toolbar] {
 }
 
 .item-faded {
-   opacity: 0.5;
+  opacity: 0.5;
 }
 .item-row {
   width: 100%;
@@ -64,12 +64,23 @@ div[toolbar] {
     vertical-align: middle;
   }
 }
-.item-details {
+.item-description {
   flex-grow: 1;
   line-height: 1.2;
-  small {
-    font-style: italic;
-    opacity: 0.8;
+  .item-description-title {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    > small {
+      margin-left: 5px;
+      opacity: 0.9;
+    }
+  }
+  .item-description-details {
+    small {
+      font-style: italic;
+      opacity: 0.8;
+    }
   }
 }
 .item-value {

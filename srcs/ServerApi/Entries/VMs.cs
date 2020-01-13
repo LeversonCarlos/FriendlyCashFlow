@@ -30,6 +30,8 @@ namespace FriendlyCashFlow.API.Entries
       public string AccountText { get; set; }
 
       public long? RecurrencyID { get; set; }
+      public short? RecurrencyItem { get; set; }
+      public short? RecurrencyTotal { get; set; }
       public Recurrencies.RecurrencyVM Recurrency { get; set; }
 
       public string TransferID { get; set; }
@@ -54,6 +56,8 @@ namespace FriendlyCashFlow.API.Entries
             AccountID = value.AccountID,
             PatternID = value.PatternID,
             RecurrencyID = value.RecurrencyID,
+            RecurrencyItem = value.RecurrencyItem,
+            RecurrencyTotal = value.RecurrencyTotal,
             TransferID = value.TransferID
          };
 

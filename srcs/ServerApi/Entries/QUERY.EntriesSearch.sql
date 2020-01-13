@@ -79,6 +79,8 @@ select
    dataEntries.PayDate,
    dataEntries.PatternID,
    dataEntries.RecurrencyID,
+   dataEntries.RecurrencyItem,
+   dataEntries.RecurrencyTotal,
    dataEntries.TransferID,
    dataEntries.Sorting
 into #dataEntries

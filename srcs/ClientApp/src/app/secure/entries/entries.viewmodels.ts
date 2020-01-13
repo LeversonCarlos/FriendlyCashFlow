@@ -27,6 +27,8 @@ export class Entry {
    AccountText: string;
 
    RecurrencyID?: number;
+   RecurrencyItem?: number;
+   RecurrencyTotal?: number;
    Recurrency?: Recurrency;
 
    TransferID: string;

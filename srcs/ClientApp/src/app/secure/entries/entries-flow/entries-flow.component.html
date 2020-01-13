@@ -24,13 +24,20 @@
                            [class.item-faded]="!item.Paid && !item.Delayed"
                            [disabled]="item.EntryID==0" (click)="OnItemClick(item)">
                            <div class="item-row mat-body">
-                              <div class="item-details">
-                                 <div>
+                              <div class="item-description">
+                                 <div class="item-description-title">
                                     <mat-icon *ngIf="item.Paid">check_box</mat-icon>
                                     <mat-icon *ngIf="!item.Paid">check_box_outline_blank</mat-icon>
                                     <span>{{ item.Text }}</span>
+                                    <small *ngIf="item.RecurrencyID">
+                                       <small>(</small>
+                                       <small>{{item.RecurrencyItem}}</small>
+                                       <small>/</small>
+                                       <small>{{item.RecurrencyTotal}}</small>
+                                       <small>)</small>
+                                    </small>
                                  </div>
-                                 <div>
+                                 <div class="item-description-details">
                                     <small>{{ item.CategoryText }}</small>
                                     <small *ngIf="item.CategoryText && item.AccountText"> - </small>
                                     <small>{{ item.AccountText }}</small>
