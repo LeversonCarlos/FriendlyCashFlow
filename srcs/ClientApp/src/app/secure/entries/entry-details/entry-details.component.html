@@ -74,21 +74,33 @@
 
          </mat-card-content>
          <mat-card-actions class="between">
-            <button mat-button (click)="OnRemoveClick()" color="warn"
-               [disabled]="!Data?.EntryID || inputForm?.dirty">{{ 'BASE_REMOVE_COMMAND' | translation | async }}</button>
+            <button *ngIf="!Data?.RecurrencyID" mat-button color="warn" [disabled]="!Data?.EntryID || inputForm?.dirty"
+               (click)="OnRemoveClick()">{{ 'BASE_REMOVE_COMMAND' | translation | async }}</button>
+            <button *ngIf="Data?.RecurrencyID" mat-button color="warn" [disabled]="!Data?.EntryID || inputForm?.dirty"
+               [matMenuTriggerFor]="removeMenu">
+               <span>{{ 'BASE_REMOVE_COMMAND' | translation | async }}</span>
+               <mat-icon>expand_more</mat-icon>
+            </button>
             <div>
                <button mat-button (click)="OnCancelClick()">{{ 'BASE_CANCEL_COMMAND' | translation | async }}</button>
+               <button *ngIf="!Data?.RecurrencyID" mat-button color="primary" [disabled]="!inputForm?.valid"
+                  (click)="OnSaveClick()">{{ 'BASE_SAVE_COMMAND' | translation | async }}</button>
                <button *ngIf="Data?.RecurrencyID" mat-button color="primary" [disabled]="!inputForm?.valid"
                   [matMenuTriggerFor]="saveMenu">
                   <span>{{ 'BASE_SAVE_COMMAND' | translation | async }}</span>
                   <mat-icon>expand_more</mat-icon>
                </button>
-               <button *ngIf="!Data?.RecurrencyID" mat-button color="primary" [disabled]="!inputForm?.valid"
-                  (click)="OnSaveClick()">{{ 'BASE_SAVE_COMMAND' | translation | async }}</button>
             </div>
          </mat-card-actions>
 
       </mat-card>
+
+      <mat-menu #removeMenu="matMenu">
+         <button mat-button (click)="OnRemoveClick()"
+            color="primary">{{ 'ENTRIES_REMOVE_ONLY_THIS_ENTRY_COMMAND' | translation | async }}</button>
+         <button mat-button (click)="OnRemoveClick(true)"
+            color="primary">{{ 'ENTRIES_REMOVE_ALL_FUTURE_ENTRIES_COMMAND' | translation | async }}</button>
+      </mat-menu>
 
       <mat-menu #saveMenu="matMenu">
          <button mat-button (click)="OnSaveClick()"

@@ -23,8 +23,8 @@ namespace FriendlyCashFlow.API.Transfers
             if (entries == null || entries.Count != 2) { return this.WarningResponse("TRANSFERS_RECORD_NOT_FOUND_WARNING"); }
 
             // APPLY
-            await this.GetService<Entries.EntriesService>().RemoveAsync(entries[0].EntryID);
-            await this.GetService<Entries.EntriesService>().RemoveAsync(entries[1].EntryID);
+            await this.GetService<Entries.EntriesService>().RemoveAsync(entries[0].EntryID, false);
+            await this.GetService<Entries.EntriesService>().RemoveAsync(entries[1].EntryID, false);
 
             // RESULT
             return this.OkResponse(true);

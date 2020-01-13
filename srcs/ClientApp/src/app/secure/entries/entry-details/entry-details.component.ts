@@ -254,9 +254,9 @@ export class EntryDetailsComponent implements OnInit {
    }
 
    /* COMMANDS: REMOVE */
-   public async OnRemoveClick() {
+   public async OnRemoveClick(editFutureRecurrencies: boolean = false) {
       if (!await this.msg.Confirm('ENTRIES_REMOVE_CONFIRMATION_TEXT', 'BASE_REMOVE_COMMAND')) { return; }
-      if (!await this.service.removeEntry(this.Data)) { return; }
+      if (!await this.service.removeEntry(this.Data, editFutureRecurrencies)) { return; }
       this.service.showCurrentList();
    }
 

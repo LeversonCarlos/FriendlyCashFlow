@@ -11,7 +11,7 @@ namespace FriendlyCashFlow.API.Entries
    partial class EntriesService
    {
 
-      internal async Task<ActionResult<bool>> RemoveAsync(long entryID)
+      internal async Task<ActionResult<bool>> RemoveAsync(long entryID, bool removeFutureRecurrencies)
       {
          try
          {
@@ -32,9 +32,13 @@ namespace FriendlyCashFlow.API.Entries
             this.dbContext.Remove(data);
             await this.dbContext.SaveChangesAsync();
 
-            // REMOVE PATTERN
+            // REMOVE RECURRENCY
             if (data.RecurrencyID.HasValue && data.RecurrencyID.Value > 0)
-            { await this.GetService<Recurrencies.RecurrenciesService>().RemoveAsync(data.RecurrencyID.Value); }
+            {
+               if (removeFutureRecurrencies)
+               { await this.GetService<Recurrencies.RecurrenciesService>().RemoveFutureAsync(data.RecurrencyID.Value, data.EntryID); }
+               await this.GetService<Recurrencies.RecurrenciesService>().RemoveAsync(data.RecurrencyID.Value);
+            }
 
             // RESULT
             return this.OkResponse(true);
@@ -46,11 +50,12 @@ namespace FriendlyCashFlow.API.Entries
 
    partial class EntriesController
    {
+      [HttpPut("{id:long}/{removeFutureRecurrencies:bool}")]
       [HttpDelete("{id:long}")]
       [Authorize(Roles = "Editor")]
-      public async Task<ActionResult<bool>> RemoveAsync(long id)
+      public async Task<ActionResult<bool>> RemoveAsync(long id, bool removeFutureRecurrencies = false)
       {
-         return await this.GetService<EntriesService>().RemoveAsync(id);
+         return await this.GetService<EntriesService>().RemoveAsync(id, removeFutureRecurrencies);
       }
    }
 

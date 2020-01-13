@@ -93,10 +93,10 @@ export class EntriesService {
    }
 
    // REMOVE
-   public async removeEntry(value: Entry): Promise<boolean> {
+   public async removeEntry(value: Entry, removeFutureRecurrencies: boolean): Promise<boolean> {
       try {
          this.busy.show();
-         const result = await this.http.delete<boolean>(`api/entries/${value.EntryID}`).toPromise();
+         const result = await this.http.delete<boolean>(`api/entries/${value.EntryID}/${removeFutureRecurrencies}`).toPromise();
          return result;
       }
       catch (ex) { return null; }

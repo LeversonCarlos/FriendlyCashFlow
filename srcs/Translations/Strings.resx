@@ -300,8 +300,14 @@
   <data name="ENTRIES_RECURRENCYTYPE_LABEL" xml:space="preserve">
     <value>Frequency</value>
   </data>
+  <data name="ENTRIES_REMOVE_ALL_FUTURE_ENTRIES_COMMAND" xml:space="preserve">
+    <value>This and future portions</value>
+  </data>
   <data name="ENTRIES_REMOVE_CONFIRMATION_TEXT" xml:space="preserve">
     <value>Do you want to remove this entry?</value>
+  </data>
+  <data name="ENTRIES_REMOVE_ONLY_THIS_ENTRY_COMMAND" xml:space="preserve">
+    <value>Only current portion</value>
   </data>
   <data name="ENTRIES_SAVE_ALL_FUTURE_ENTRIES_COMMAND" xml:space="preserve">
     <value>This and future portions</value>
