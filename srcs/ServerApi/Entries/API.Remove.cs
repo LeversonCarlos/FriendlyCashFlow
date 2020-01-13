@@ -50,7 +50,7 @@ namespace FriendlyCashFlow.API.Entries
 
    partial class EntriesController
    {
-      [HttpPut("{id:long}/{removeFutureRecurrencies:bool}")]
+      [HttpDelete("{id:long}/{removeFutureRecurrencies:bool}")]
       [HttpDelete("{id:long}")]
       [Authorize(Roles = "Editor")]
       public async Task<ActionResult<bool>> RemoveAsync(long id, bool removeFutureRecurrencies = false)

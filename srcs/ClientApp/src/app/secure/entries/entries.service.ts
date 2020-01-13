@@ -47,6 +47,7 @@ export class EntriesService {
    public FlowList: EntryFlow[];
    public async loadFlowList(year: number, month: number, accountID: number = 0): Promise<boolean> {
       try {
+         if (year == 0 || month == 0) { return false; }
          this.busy.show();
          let url = `api/entries/flow/${year}/${month}`;
          if (accountID && accountID > 0) { url = `${url}/${accountID}`; }
