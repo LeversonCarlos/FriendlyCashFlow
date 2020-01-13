@@ -33,7 +33,7 @@ namespace FriendlyCashFlow.API.Recurrencies
             data.InitialDate = editedEntry.DueDate;
             data.EntryDate = editedEntry.DueDate;
             data.EntryValue = editedEntry.EntryValue;
-            data.Count = removedEntries;
+            data.Count = removedEntries + 1;
             await this.dbContext.SaveChangesAsync();
 
             // GENERATE
