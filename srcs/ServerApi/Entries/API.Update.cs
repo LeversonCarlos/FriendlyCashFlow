@@ -58,8 +58,12 @@ namespace FriendlyCashFlow.API.Entries
             await this.GetService<Balances.BalancesService>().AddBalanceAsync(data);
 
             // EDIT FUTURE RECURRENCIES
-            if (editFutureRecurrencies && data.RecurrencyID.HasValue && data.RecurrencyID.Value > 0)
-            { await this.GetService<Recurrencies.RecurrenciesService>().UpdateAsync(data.RecurrencyID.Value, data.EntryID); }
+            if (data.RecurrencyID.HasValue && data.RecurrencyID.Value > 0)
+            {
+               if (editFutureRecurrencies)
+               { await this.GetService<Recurrencies.RecurrenciesService>().UpdateAsync(data.RecurrencyID.Value, data.EntryID); }
+               await this.GetService<Recurrencies.RecurrenciesService>().UpdatePortionsAsync(data.RecurrencyID.Value);
+            }
 
             // RESULT
             var result = EntryVM.Convert(data);

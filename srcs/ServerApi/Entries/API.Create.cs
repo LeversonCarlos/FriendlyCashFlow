@@ -74,6 +74,7 @@ namespace FriendlyCashFlow.API.Entries
             if (value.Recurrency != null && data.RecurrencyID.HasValue && data.RecurrencyID > 0)
             {
                await this.GetService<Recurrencies.RecurrenciesService>().GenerateRecurrencyAsync(data.RecurrencyID.Value);
+               await this.GetService<Recurrencies.RecurrenciesService>().UpdatePortionsAsync(data.RecurrencyID.Value);
             }
 
             // RESULT
