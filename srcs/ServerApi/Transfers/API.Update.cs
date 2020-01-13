@@ -39,8 +39,8 @@ namespace FriendlyCashFlow.API.Transfers
             incomeEntry.EntryValue = Math.Abs(viewModel.TransferValue);
 
             // APPLY CHANGES
-            await entriesService.UpdateAsync(expenseEntry.EntryID, expenseEntry);
-            await entriesService.UpdateAsync(incomeEntry.EntryID, incomeEntry);
+            await entriesService.UpdateAsync(expenseEntry.EntryID, false, expenseEntry);
+            await entriesService.UpdateAsync(incomeEntry.EntryID, false, incomeEntry);
 
             // RESULT
             return this.OkResponse(viewModel);

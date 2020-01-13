@@ -76,7 +76,7 @@ export class EntriesService {
    }
 
    // SAVE
-   public async saveEntry(value: Entry): Promise<boolean> {
+   public async saveEntry(value: Entry, editFutureRecurrencies: boolean): Promise<boolean> {
       try {
          this.busy.show();
          let result: Entry = null;
@@ -84,7 +84,7 @@ export class EntriesService {
             result = await this.http.post<Entry>(`api/entries`, value).toPromise();
          }
          else {
-            result = await this.http.put<Entry>(`api/entries/${value.EntryID}`, value).toPromise();
+            result = await this.http.put<Entry>(`api/entries/${value.EntryID}/${editFutureRecurrencies}`, value).toPromise();
          }
          return result != null;
       }

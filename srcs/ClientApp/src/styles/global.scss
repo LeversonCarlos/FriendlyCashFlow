@@ -29,8 +29,12 @@ fs-full-layout {
   button,
   a {
     text-transform: uppercase;
+    @media (max-width: $max-width-xs) {
+      font-size: small;
+    }
     .mat-icon {
       height: 20px;
+      width: 20px;
       font-size: 20px;
     }
   }

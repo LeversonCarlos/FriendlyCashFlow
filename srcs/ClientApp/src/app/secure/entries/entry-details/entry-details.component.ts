@@ -248,8 +248,8 @@ export class EntryDetailsComponent implements OnInit {
    }
 
    /* COMMANDS: SAVE */
-   public async OnSaveClick() {
-      if (!await this.service.saveEntry(this.Data)) { return; }
+   public async OnSaveClick(editFutureRecurrencies: boolean = false) {
+      if (!await this.service.saveEntry(this.Data, editFutureRecurrencies)) { return; }
       this.service.showCurrentList();
    }
 

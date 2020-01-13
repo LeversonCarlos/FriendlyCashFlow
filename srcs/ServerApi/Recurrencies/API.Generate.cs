@@ -57,13 +57,6 @@ namespace FriendlyCashFlow.API.Recurrencies
                generatedQuantity++;
             }
 
-            // REMOVE COMPLETED RECURRENCY
-            if (recurrency.Count != 0)
-            {
-               recurrency.RowStatus = -1;
-               await this.dbContext.SaveChangesAsync();
-            }
-
             // RESULT
             return true;
          }

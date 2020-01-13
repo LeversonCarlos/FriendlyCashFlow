@@ -11,7 +11,7 @@ namespace FriendlyCashFlow.API.Entries
    partial class EntriesService
    {
 
-      internal async Task<ActionResult<EntryVM>> UpdateAsync(long entryID, EntryVM viewModel)
+      internal async Task<ActionResult<EntryVM>> UpdateAsync(long entryID, bool editFutureRecurrencies, EntryVM viewModel)
       {
          try
          {
@@ -57,6 +57,10 @@ namespace FriendlyCashFlow.API.Entries
             // ADD BALANCE
             await this.GetService<Balances.BalancesService>().AddBalanceAsync(data);
 
+            // EDIT FUTURE RECURRENCIES
+            if (editFutureRecurrencies && data.RecurrencyID.HasValue && data.RecurrencyID.Value > 0)
+            { await this.GetService<Recurrencies.RecurrenciesService>().UpdateAsync(data.RecurrencyID.Value, data.EntryID); }
+
             // RESULT
             var result = EntryVM.Convert(data);
             return this.OkResponse(result);
@@ -68,11 +72,12 @@ namespace FriendlyCashFlow.API.Entries
 
    partial class EntriesController
    {
+      [HttpPut("{id:long}/{editFutureRecurrencies:bool}")]
       [HttpPut("{id:long}")]
       [Authorize(Roles = "Editor")]
-      public async Task<ActionResult<EntryVM>> UpdateAsync(long id, [FromBody]EntryVM value)
+      public async Task<ActionResult<EntryVM>> UpdateAsync(long id, [FromBody]EntryVM value, bool editFutureRecurrencies = false)
       {
-         return await this.GetService<EntriesService>().UpdateAsync(id, value);
+         return await this.GetService<EntriesService>().UpdateAsync(id, editFutureRecurrencies, value);
       }
    }
 
