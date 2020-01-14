@@ -49,7 +49,7 @@ namespace FriendlyCashFlow.API.Entries
 
             // ADD PATTERN
             if (!data.PatternID.HasValue || data.PatternID.Value != newPatternID)
-            { data.PatternID = await this.GetService<Patterns.PatternsService>().AddPatternAsync(viewModel); }
+            { data.PatternID = await this.GetService<Patterns.PatternsService>().AddAsync(viewModel); }
 
             // SAVE IT
             await this.dbContext.SaveChangesAsync();

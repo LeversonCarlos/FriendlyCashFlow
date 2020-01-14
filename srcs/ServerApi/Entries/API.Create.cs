@@ -41,7 +41,7 @@ namespace FriendlyCashFlow.API.Entries
             if (data.Paid && data.PayDate.HasValue) { data.SearchDate = data.PayDate.Value; }
 
             // PATTERN
-            data.PatternID = await this.GetService<Patterns.PatternsService>().AddPatternAsync(value);
+            data.PatternID = await this.GetService<Patterns.PatternsService>().AddAsync(value);
 
             // RECURRENCY
             data.RecurrencyID = value.RecurrencyID;
