@@ -7,7 +7,7 @@ namespace FriendlyCashFlow.API.Recurrencies
    partial class RecurrenciesService
    {
 
-      internal async Task<long?> AddRecurrencyAsync(Recurrencies.RecurrencyVM value)
+      internal async Task<long?> CreateAsync(Recurrencies.RecurrencyVM value)
       {
          try
          {

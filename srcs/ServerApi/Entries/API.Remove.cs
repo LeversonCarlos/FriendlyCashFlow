@@ -36,7 +36,7 @@ namespace FriendlyCashFlow.API.Entries
             if (data.RecurrencyID.HasValue && data.RecurrencyID.Value > 0)
             {
                if (removeFutureRecurrencies)
-               { await this.GetService<Recurrencies.RecurrenciesService>().RemoveFutureAsync(data.RecurrencyID.Value, data.EntryID); }
+               { await this.GetService<Recurrencies.RecurrenciesService>().RemoveEntriesAsync(data.RecurrencyID.Value, data.EntryID); }
                await this.GetService<Recurrencies.RecurrenciesService>().RemoveAsync(data.RecurrencyID.Value);
             }
 

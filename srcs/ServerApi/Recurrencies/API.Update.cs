@@ -19,7 +19,7 @@ namespace FriendlyCashFlow.API.Recurrencies
             if (data == null) { return false; }
 
             // REMOVE FUTURE ENTRIES
-            var removedEntries = await this.RemoveFutureAsync(recurrencyID, editedEntryID);
+            var removedEntries = await this.RemoveEntriesAsync(recurrencyID, editedEntryID);
             if (removedEntries == 0) { return true; }
 
             // LAST ENTRY TO KEEP DATE
@@ -37,7 +37,7 @@ namespace FriendlyCashFlow.API.Recurrencies
             await this.dbContext.SaveChangesAsync();
 
             // GENERATE
-            await this.GenerateRecurrencyAsync(recurrencyID);
+            await this.AddEntriesAsync(recurrencyID);
 
             // RESULT
             return true;

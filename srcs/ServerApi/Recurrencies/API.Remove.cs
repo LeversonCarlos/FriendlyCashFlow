@@ -33,7 +33,7 @@ namespace FriendlyCashFlow.API.Recurrencies
          catch (Exception) { throw; }
       }
 
-      internal async Task<int> RemoveFutureAsync(long recurrencyID, long lastEntryToKeepID)
+      internal async Task<int> RemoveEntriesAsync(long recurrencyID, long lastEntryToKeepID)
       {
          try
          {

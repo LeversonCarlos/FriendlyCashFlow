@@ -56,7 +56,7 @@ namespace FriendlyCashFlow.API.Entries
                   Type = value.Recurrency.Type,
                   Count = value.Recurrency.Count
                };
-               data.RecurrencyID = await this.GetService<Recurrencies.RecurrenciesService>().AddRecurrencyAsync(recurrency);
+               data.RecurrencyID = await this.GetService<Recurrencies.RecurrenciesService>().CreateAsync(recurrency);
             }
 
             // APPLY
@@ -73,7 +73,7 @@ namespace FriendlyCashFlow.API.Entries
             // RECURRENCY
             if (value.Recurrency != null && data.RecurrencyID.HasValue && data.RecurrencyID > 0)
             {
-               await this.GetService<Recurrencies.RecurrenciesService>().GenerateRecurrencyAsync(data.RecurrencyID.Value);
+               await this.GetService<Recurrencies.RecurrenciesService>().AddEntriesAsync(data.RecurrencyID.Value);
                await this.GetService<Recurrencies.RecurrenciesService>().UpdatePortionsAsync(data.RecurrencyID.Value);
             }
 

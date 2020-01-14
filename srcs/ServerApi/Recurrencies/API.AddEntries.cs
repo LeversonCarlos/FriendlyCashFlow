@@ -9,7 +9,7 @@ namespace FriendlyCashFlow.API.Recurrencies
    partial class RecurrenciesService
    {
 
-      internal async Task<bool> GenerateRecurrencyAsync(long recurrencyID)
+      internal async Task<bool> AddEntriesAsync(long recurrencyID)
       {
          try
          {
@@ -35,7 +35,7 @@ namespace FriendlyCashFlow.API.Recurrencies
             while (generatedQuantity < totalQuantity)
             {
                // FREQUENCY
-               recurrency.EntryDate = this.GenerateRecurrencyAsync_NextDate((enRecurrencyType)recurrency.Type, recurrency.EntryDate);
+               recurrency.EntryDate = this.AddEntriesAsync_NextDate((enRecurrencyType)recurrency.Type, recurrency.EntryDate);
 
                // MODEL
                var entryVM = new Entries.EntryVM
@@ -63,7 +63,7 @@ namespace FriendlyCashFlow.API.Recurrencies
          catch (Exception) { throw; }
       }
 
-      private DateTime GenerateRecurrencyAsync_NextDate(enRecurrencyType type, DateTime entryDate)
+      private DateTime AddEntriesAsync_NextDate(enRecurrencyType type, DateTime entryDate)
       {
          if (type == enRecurrencyType.Weekly) { return entryDate.AddDays(7); }
          else if (type == enRecurrencyType.Monthly) { return entryDate.AddMonths(1); }
