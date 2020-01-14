@@ -300,6 +300,9 @@
   <data name="ENTRIES_RECURRENCYTYPE_LABEL" xml:space="preserve">
     <value>Frequency</value>
   </data>
+  <data name="ENTRIES_RECURRENCY_LABEL" xml:space="preserve">
+    <value>Portion</value>
+  </data>
   <data name="ENTRIES_REMOVE_ALL_FUTURE_ENTRIES_COMMAND" xml:space="preserve">
     <value>This and future portions</value>
   </data>

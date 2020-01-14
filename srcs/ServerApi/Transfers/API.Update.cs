@@ -56,6 +56,7 @@ namespace FriendlyCashFlow.API.Transfers
       [Authorize(Roles = "Editor")]
       public async Task<ActionResult<TransferVM>> UpdateAsync(string id, [FromBody]TransferVM value)
       {
+         if (value == null) { return this.BadRequest(this.ModelState); }
          return await this.GetService<TransfersService>().UpdateAsync(id, value);
       }
    }

@@ -81,6 +81,7 @@ namespace FriendlyCashFlow.API.Entries
       [Authorize(Roles = "Editor")]
       public async Task<ActionResult<EntryVM>> UpdateAsync(long id, [FromBody]EntryVM value, bool editFutureRecurrencies = false)
       {
+         if (value == null) { return this.BadRequest(this.ModelState); }
          return await this.GetService<EntriesService>().UpdateAsync(id, editFutureRecurrencies, value);
       }
    }

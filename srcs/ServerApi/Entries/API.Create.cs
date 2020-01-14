@@ -93,6 +93,7 @@ namespace FriendlyCashFlow.API.Entries
       [Authorize(Roles = "Editor")]
       public async Task<ActionResult<EntryVM>> CreateAsync([FromBody]EntryVM value)
       {
+         if (value == null) { return this.BadRequest(this.ModelState); }
          return await this.GetService<EntriesService>().CreateAsync(value);
       }
 

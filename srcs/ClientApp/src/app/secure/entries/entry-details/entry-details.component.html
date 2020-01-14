@@ -10,9 +10,16 @@
          <mat-card-content>
 
             <form [formGroup]="inputForm">
-               <related-box [style.fontSize.px]="20" placeholder="ENTRIES_PATTERN_LABEL" minSize="0"
-                  [options]="PatternOptions" formControlName="PatternRow" (optionsChanging)="OnPatternChanging($event)">
-               </related-box>
+               <div class="mat-form-field-row keep">
+                  <related-box [style.fontSize.px]="20" [style.width.%]="100" placeholder="ENTRIES_PATTERN_LABEL" minSize="0"
+                     [options]="PatternOptions" formControlName="PatternRow"
+                     (optionsChanging)="OnPatternChanging($event)">
+                  </related-box>
+                  <mat-form-field [style.fontSize.px]="20" *ngIf="Data?.RecurrencyID">
+                     <mat-label>{{ 'ENTRIES_RECURRENCY_LABEL' | translation | async }}</mat-label>
+                     <input type="text" matInput [value]="Data?.RecurrencyItem +'/'+ Data?.RecurrencyTotal">
+                  </mat-form-field>
+               </div>
                <related-box placeholder="ENTRIES_ACCOUNT_LABEL" minSize="0" [options]="AccountOptions"
                   formControlName="AccountRow" (optionsChanging)="OnAccountChanging($event)">
                </related-box>

@@ -49,7 +49,7 @@ export class EntryDetailsComponent implements OnInit {
          if (paramID == undefined && paramType != undefined) {
             this.Data = Object.assign(new Entry, {
                Type: paramType,
-               Recurrency: new Recurrency(),
+               Recurrency: new Recurrency,
                DueDate: this.service.CurrentData.CurrentMonth,
                Active: true
             });
@@ -164,7 +164,7 @@ export class EntryDetailsComponent implements OnInit {
       if (item && item.id) {
          this.Data.AccountID = item.id;
          const dueDateControl = this.inputForm.get("DueDate");
-         dueDateControl.setValue(item.value.DueDate)
+         dueDateControl.setValue(item.value.DueDate || this.service.CurrentData.CurrentMonth)
          dueDateControl.updateValueAndValidity();
       }
    }
@@ -249,6 +249,7 @@ export class EntryDetailsComponent implements OnInit {
 
    /* COMMANDS: SAVE */
    public async OnSaveClick(editFutureRecurrencies: boolean = false) {
+      if (!this.inputForm.get("RecurrencyActivate").value) { this.Data.Recurrency = null; }
       if (!await this.service.saveEntry(this.Data, editFutureRecurrencies)) { return; }
       this.service.showCurrentList();
    }
