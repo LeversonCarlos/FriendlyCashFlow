@@ -1,4 +1,3 @@
-
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -10,14 +9,14 @@ namespace FriendlyCashFlow.API.Accounts
    partial class AccountsService
    {
 
-      public async Task<ActionResult<AccountVM>> CreateDataAsync(AccountVM value)
+      public async Task<ActionResult<AccountVM>> CreateAsync(AccountVM value)
       {
          try
          {
             var user = this.GetService<Helpers.User>();
 
             // VALIDATE
-            var validateMessage = await this.ValidateDataAsync(value);
+            var validateMessage = await this.ValidateAsync(value);
             var validateResult = this.GetValue(validateMessage);
             if (!validateResult) { return validateMessage.Result; }
 
@@ -50,10 +49,10 @@ namespace FriendlyCashFlow.API.Accounts
    {
       [HttpPost("")]
       [Authorize(Roles = "Editor")]
-      public async Task<ActionResult<AccountVM>> CreateDataAsync([FromBody]AccountVM value)
+      public async Task<ActionResult<AccountVM>> CreateAsync([FromBody]AccountVM value)
       {
-         var service = this.GetService<AccountsService>();
-         return await service.CreateDataAsync(value);
+         if (value == null) { return this.BadRequest(this.ModelState); }
+         return await this.GetService<AccountsService>().CreateAsync(value);
       }
    }
 

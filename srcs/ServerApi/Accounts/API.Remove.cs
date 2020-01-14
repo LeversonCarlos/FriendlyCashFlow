@@ -11,7 +11,7 @@ namespace FriendlyCashFlow.API.Accounts
    partial class AccountsService
    {
 
-      public async Task<ActionResult<bool>> RemoveDataAsync(long accountID)
+      public async Task<ActionResult<bool>> RemoveAsync(long accountID)
       {
          try
          {
@@ -36,10 +36,9 @@ namespace FriendlyCashFlow.API.Accounts
    {
       [HttpDelete("{id:long}")]
       [Authorize(Roles = "Editor")]
-      public async Task<ActionResult<bool>> RemoveDataAsync(long id)
+      public async Task<ActionResult<bool>> RemoveAsync(long id)
       {
-         var service = this.GetService<AccountsService>();
-         return await service.RemoveDataAsync(id);
+         return await this.GetService<AccountsService>().RemoveAsync(id);
       }
    }
 
