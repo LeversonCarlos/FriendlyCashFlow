@@ -21,7 +21,7 @@ namespace FriendlyCashFlow.API.Entries
             if (data == null) { return this.NotFoundResponse(); }
 
             // REMOVE BALANCE
-            await this.GetService<Balances.BalancesService>().RemoveBalanceAsync(data);
+            await this.GetService<Balances.BalancesService>().RemoveAsync(data);
 
             // REMOVE PATTERN
             if (data.PatternID.HasValue)

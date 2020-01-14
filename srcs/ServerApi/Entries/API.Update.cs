@@ -26,7 +26,7 @@ namespace FriendlyCashFlow.API.Entries
             if (data == null) { return this.NotFoundResponse(); }
 
             // REMOVE BALANCE
-            await this.GetService<Balances.BalancesService>().RemoveBalanceAsync(data);
+            await this.GetService<Balances.BalancesService>().RemoveAsync(data);
 
             // REMOVE PATTERN
             var newPatternID = await this.GetService<Patterns.PatternsService>().GetPatternIDAsync(viewModel);
@@ -55,7 +55,7 @@ namespace FriendlyCashFlow.API.Entries
             await this.dbContext.SaveChangesAsync();
 
             // ADD BALANCE
-            await this.GetService<Balances.BalancesService>().AddBalanceAsync(data);
+            await this.GetService<Balances.BalancesService>().AddAsync(data);
 
             // EDIT FUTURE RECURRENCIES
             if (data.RecurrencyID.HasValue && data.RecurrencyID.Value > 0)

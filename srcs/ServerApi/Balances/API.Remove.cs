@@ -9,7 +9,7 @@ namespace FriendlyCashFlow.API.Balances
    partial class BalancesService
    {
 
-      internal async Task RemoveBalanceAsync(Entries.EntryData value)
+      internal async Task RemoveAsync(Entries.EntryData value)
       {
          try
          {

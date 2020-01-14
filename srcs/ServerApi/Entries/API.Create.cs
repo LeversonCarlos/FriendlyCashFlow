@@ -68,7 +68,7 @@ namespace FriendlyCashFlow.API.Entries
             await this.dbContext.SaveChangesAsync();
 
             // BALANCE
-            await this.GetService<Balances.BalancesService>().AddBalanceAsync(data);
+            await this.GetService<Balances.BalancesService>().AddAsync(data);
 
             // RECURRENCY
             if (value.Recurrency != null && data.RecurrencyID.HasValue && data.RecurrencyID > 0)
