@@ -11,7 +11,7 @@ namespace FriendlyCashFlow.API.Categories
    partial class CategoriesService
    {
 
-      public async Task<ActionResult<bool>> RemoveDataAsync(long categoryID)
+      internal async Task<ActionResult<bool>> RemoveAsync(long categoryID)
       {
          try
          {
@@ -36,10 +36,9 @@ namespace FriendlyCashFlow.API.Categories
    {
       [HttpDelete("{id:long}")]
       [Authorize(Roles = "Editor")]
-      public async Task<ActionResult<bool>> RemoveDataAsync(long id)
+      public async Task<ActionResult<bool>> RemoveAsync(long id)
       {
-         using (var service = new CategoriesService(this.serviceProvider))
-         { return await service.RemoveDataAsync(id); }
+         return await this.GetService<CategoriesService>().RemoveAsync(id);
       }
    }
 

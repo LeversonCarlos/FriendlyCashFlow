@@ -11,13 +11,13 @@ namespace FriendlyCashFlow.API.Categories
    partial class CategoriesService
    {
 
-      public async Task<ActionResult<CategoryVM>> UpdateDataAsync(long categoryID, CategoryVM value)
+      public async Task<ActionResult<CategoryVM>> UpdateAsync(long categoryID, CategoryVM value)
       {
          try
          {
 
             // VALIDATE
-            var validateMessage = await this.ValidateDataAsync(value);
+            var validateMessage = await this.ValidateAsync(value);
             var validateResult = this.GetValue(validateMessage);
             if (!validateResult) { return validateMessage.Result; }
 
@@ -33,7 +33,7 @@ namespace FriendlyCashFlow.API.Categories
             data.HierarchyText += value.Text;
 
             // UPDATE CHILDREN
-            await this.UpdateDataAsync_Children(data.CategoryID, data.HierarchyText);
+            await this.UpdateAsync_Children(data.CategoryID, data.HierarchyText);
 
             // APPLY
             data.Text = value.Text;
@@ -47,13 +47,13 @@ namespace FriendlyCashFlow.API.Categories
          catch (Exception ex) { return this.ExceptionResponse(ex); }
       }
 
-      private async Task UpdateDataAsync_Children(long parentID, string parentText)
+      private async Task UpdateAsync_Children(long parentID, string parentText)
       {
          var children = await this.GetDataQuery().Where(x => x.ParentID == parentID).ToListAsync();
          foreach (var child in children)
          {
             child.HierarchyText = $"{parentText} / {child.Text}";
-            await this.UpdateDataAsync_Children(child.CategoryID, child.HierarchyText);
+            await this.UpdateAsync_Children(child.CategoryID, child.HierarchyText);
          }
       }
 
@@ -63,10 +63,10 @@ namespace FriendlyCashFlow.API.Categories
    {
       [HttpPut("{id:long}")]
       [Authorize(Roles = "Editor")]
-      public async Task<ActionResult<CategoryVM>> UpdateDataAsync(long id, [FromBody]CategoryVM value)
+      public async Task<ActionResult<CategoryVM>> UpdateAsync(long id, [FromBody]CategoryVM value)
       {
-         using (var service = new CategoriesService(this.serviceProvider))
-         { return await service.UpdateDataAsync(id, value); }
+         if (value == null) { return this.BadRequest(this.ModelState); }
+         return await this.GetService<CategoriesService>().UpdateAsync(id, value);
       }
    }
 

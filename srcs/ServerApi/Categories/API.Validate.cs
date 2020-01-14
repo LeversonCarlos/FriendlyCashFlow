@@ -1,4 +1,3 @@
-
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,7 +9,7 @@ namespace FriendlyCashFlow.API.Categories
    partial class CategoriesService
    {
 
-      private async Task<ActionResult<bool>> ValidateDataAsync(CategoryVM value)
+      private async Task<ActionResult<bool>> ValidateAsync(CategoryVM value)
       {
          try
          {
