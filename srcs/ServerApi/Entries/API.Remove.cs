@@ -25,7 +25,7 @@ namespace FriendlyCashFlow.API.Entries
 
             // REMOVE PATTERN
             if (data.PatternID.HasValue)
-            { await this.GetService<Patterns.PatternsService>().RemovePatternAsync(data.PatternID.Value); }
+            { await this.GetService<Patterns.PatternsService>().RemoveAsync(data.PatternID.Value); }
 
             // APPLY
             data.RowStatus = -1;

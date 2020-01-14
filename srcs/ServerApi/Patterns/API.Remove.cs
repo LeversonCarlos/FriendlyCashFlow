@@ -9,7 +9,7 @@ namespace FriendlyCashFlow.API.Patterns
    partial class PatternsService
    {
 
-      internal async Task RemovePatternAsync(long patternID)
+      internal async Task RemoveAsync(long patternID)
       {
          try
          {

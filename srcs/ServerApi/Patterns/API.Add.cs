@@ -1,7 +1,7 @@
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace FriendlyCashFlow.API.Patterns
 {
@@ -9,7 +9,7 @@ namespace FriendlyCashFlow.API.Patterns
    partial class PatternsService
    {
 
-      internal async Task<long?> AddPatternAsync(Entries.EntryVM value)
+      internal async Task<long?> AddAsync(Entries.EntryVM value)
       {
          try
          {
