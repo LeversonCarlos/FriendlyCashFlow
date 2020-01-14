@@ -36,6 +36,7 @@ export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAcces
    @Input() public delay: number = 500;
    @Input() public value: RelatedData<any>;
    @Input() public minSize: number = 0;
+   @Input() public textSuffix: string = '';
 
    /* INPUT VALUE */
    public inputValue: string;
