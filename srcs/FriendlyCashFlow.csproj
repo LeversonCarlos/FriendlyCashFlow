@@ -10,9 +10,7 @@
 
     <!-- Set this to true if you enable server-side prerendering -->
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
-    <AssemblyVersion>6.00.0000</AssemblyVersion>
-    <FileVersion>6.00.0000</FileVersion>
-    <Version>6.00.0000</Version>
+    <Version>1.0.0</Version>
     <Authors>Leverson Carlos</Authors>
     <Product>Friendly Cash Flow</Product>
     <Company>Friendship</Company>

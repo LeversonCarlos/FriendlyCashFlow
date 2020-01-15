@@ -1,6 +1,6 @@
 {
    "name": "friendly-cash-flow",
-   "version": "6.00.0000",
+   "version": "1.0.0",
    "scripts": {
       "ng": "ng",
       "start": "ng serve",
