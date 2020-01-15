@@ -59,7 +59,7 @@ dotnet build --configuration $configuration --no-restore
 ## PUBLISHING ##
 Write-Output ""
 Write-Output "> PUBLISHING >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-dotnet publish --configuration $configuration --output $output/build --no-build
+dotnet publish --configuration $configuration --output $output/build --no-restore --no-build
 
 ## MIGRATIONS ##
 Write-Output ""
