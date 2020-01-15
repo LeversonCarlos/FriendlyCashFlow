@@ -49,6 +49,7 @@ dotnet restore
 Write-Output ""
 Write-Output "> FRONTEND PACKAGES >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 cd ClientApp
+npx npm-force-resolutions
 npm install --no-save
 cd..
 
