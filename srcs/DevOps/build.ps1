@@ -36,6 +36,7 @@ $angularProjectFile = 'ClientApp/package.json'
 ## BACKEND PACKAGES ##
 Write-Output ""
 Write-Output "> BACKEND PACKAGES"
+dotnet --version
 dotnet restore
 
 ## FRONTEND PACKAGES ##
@@ -58,7 +59,8 @@ dotnet publish --configuration $configuration --output $output/build --no-build
 ## MIGRATIONS ##
 Write-Output ""
 Write-Output "> MIGRATIONS"
-dotnet ef migrations script -o $output/scripts/migrations.sql -i
+dotnet-ef --version
+dotnet-ef migrations script -o $output/scripts/migrations.sql -i
 
 ## CLEANING ##
 Write-Output ""
