@@ -14,6 +14,7 @@ Write-Output ""
 Write-Output "> TOOLS VERSION >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
    dotnet --version
    dotnet ef --version
+   npm --version
 
 ## OUTPUT PATH ##
 Write-Output ""
