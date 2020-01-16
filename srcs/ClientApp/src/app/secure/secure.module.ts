@@ -20,13 +20,15 @@ import { RecurrencyService } from './recurrency/recurrency.service';
 import { TransferDetailsComponent } from './entries/transfer-details/transfer-details.component';
 import { TransfersService } from './transfers/transfers.service';
 import { AccountPickerComponent } from './pickers/account-picker/account-picker.component';
+import { SearchPanelComponent } from './entries/search-panel/search-panel.component';
 
 @NgModule({
    declarations: [
       AccountsComponent, AccountDetailsComponent,
       CategoriesComponent, CategoryDetailsComponent,
       MonthPickerComponent, AccountPickerComponent,
-      EntriesFlowComponent, EntryDetailsComponent, TransferDetailsComponent, AddButtonComponent],
+      EntriesFlowComponent, EntryDetailsComponent, TransferDetailsComponent,
+      AddButtonComponent, SearchPanelComponent],
    imports: [
       CommonModule, SharedModule
    ],

@@ -1,9 +1,5 @@
 @import "../../../../styles/screenSizes.scss";
 
-div[toolbar] {
-  display: flex;
-}
-
 .full-card {
   overflow-y: scroll;
   height: calc(#{$details-height} - #{$screen-padding});

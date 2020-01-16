@@ -15,6 +15,19 @@ export class EntriesService {
 
    // CURRENT DATA
    public CurrentData: CurrentData = new CurrentData()
+   public async setCurrentData(currentMonth: Date, currentAccount: number) {
+      try {
+         this.CurrentData.setFlow(currentMonth, currentAccount);
+
+         const year = (currentMonth && currentMonth.getFullYear()) || 0
+         const month = (currentMonth && currentMonth.getMonth() + 1) | 0
+         const account = currentAccount || 0
+
+         this.loadFlowList(year, month, account)
+         this.showCurrentList()
+      }
+      catch (ex) { console.error(ex); }
+   }
    public showCurrentList() {
       if (this.CurrentData.ListType == enCurrentListType.Search) {
          const currentSearchText = this.CurrentData.CurrentSearchText || ''
