@@ -15,12 +15,14 @@ export class CategoriesComponent implements OnInit {
    public async ngOnInit() {
       this.Data = await this.service.getCategoryTypes();
       let tabIndex = 0;
-      for (const item of this.Data) {
-         if (item.Value == this.service.SelectedCategoryType) {
-            this.SelectedTabIndex = tabIndex;
+      if (this.Data) {
+         for (const item of this.Data) {
+            if (item.Value == this.service.SelectedCategoryType) {
+               this.SelectedTabIndex = tabIndex;
+            }
+            item.Categories = await this.service.getCategories(item.Value);
+            tabIndex++;
          }
-         item.Categories = await this.service.getCategories(item.Value);
-         tabIndex++;
       }
    }
 
