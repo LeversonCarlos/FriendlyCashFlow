@@ -46,12 +46,12 @@ Write-Output "> BACKEND PACKAGES >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 dotnet restore
 
 ## FRONTEND PACKAGES ##
-Write-Output ""
-Write-Output "> FRONTEND PACKAGES >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-cd ClientApp
-npx npm-force-resolutions
-npm install --no-save
-cd..
+# Write-Output ""
+# Write-Output "> FRONTEND PACKAGES >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+# cd ClientApp
+# npx npm-force-resolutions
+# npm install --no-save -verbose
+# cd..
 
 ## BUILDING ##
 Write-Output ""
