@@ -234,14 +234,143 @@
   <data name="DASHBOARD_MENU" xml:space="preserve">
     <value>Home</value>
   </data>
+  <data name="ENTRIES_ACCOUNT_LABEL" xml:space="preserve">
+    <value>Conta</value>
+  </data>
+  <data name="ENTRIES_ACCOUNT_NOT_FOUND_WARNING" xml:space="preserve">
+    <value>Conta inválida</value>
+  </data>
+  <data name="ENTRIES_CATEGORY_LABEL" xml:space="preserve">
+    <value>Categoria</value>
+  </data>
+  <data name="ENTRIES_CATEGORY_NOT_FOUND_WARNING" xml:space="preserve">
+    <value>Categoria inválida!</value>
+  </data>
+  <data name="ENTRIES_DETAILS_TITLE" xml:space="preserve">
+    <value>Lançamento</value>
+  </data>
+  <data name="ENTRIES_DUEDATE_INVALID_WARNING" xml:space="preserve">
+    <value>Data de Vencimento inválida!</value>
+  </data>
+  <data name="ENTRIES_DUEDATE_LABEL" xml:space="preserve">
+    <value>Data de Vencimento</value>
+  </data>
+  <data name="ENTRIES_ENTRYVALUE_INVALID_WARNING" xml:space="preserve">
+    <value>Valor inválido!</value>
+  </data>
+  <data name="ENTRIES_ENTRYVALUE_LABEL" xml:space="preserve">
+    <value>Valor</value>
+  </data>
+  <data name="ENTRIES_MAIN_TITLE" xml:space="preserve">
+    <value>Lançamentos</value>
+  </data>
   <data name="ENTRIES_MENU" xml:space="preserve">
     <value>Lançamentos</value>
+  </data>
+  <data name="ENTRIES_NEW_EXPENSE_COMMAND" xml:space="preserve">
+    <value>Adicionar Nova Saída</value>
+  </data>
+  <data name="ENTRIES_NEW_INCOME_COMMAND" xml:space="preserve">
+    <value>Adicionar Nova Entrada</value>
+  </data>
+  <data name="ENTRIES_NEW_TRANSFER_COMMAND" xml:space="preserve">
+    <value>Adicionar Nova Transferência</value>
+  </data>
+  <data name="ENTRIES_PAID_LABEL" xml:space="preserve">
+    <value>Pago</value>
+  </data>
+  <data name="ENTRIES_PATTERN_LABEL" xml:space="preserve">
+    <value>Descrição</value>
+  </data>
+  <data name="ENTRIES_PAYDATE_INVALID_WARNING" xml:space="preserve">
+    <value>Data de Pagamento inválida!</value>
+  </data>
+  <data name="ENTRIES_PAYDATE_LABEL" xml:space="preserve">
+    <value>Data de Pagamento</value>
+  </data>
+  <data name="ENTRIES_RECORD_NOT_FOUND_WARNING" xml:space="preserve">
+    <value>Lançamento não foi encontrado para exibir!</value>
+  </data>
+  <data name="ENTRIES_RECURRENCYACTIVATE_LABEL" xml:space="preserve">
+    <value>Repetição de parecelas para o lançamento</value>
+  </data>
+  <data name="ENTRIES_RECURRENCYCOUNT_LABEL" xml:space="preserve">
+    <value>Número de parcelas</value>
+  </data>
+  <data name="ENTRIES_RECURRENCYTYPE_LABEL" xml:space="preserve">
+    <value>Frequência</value>
+  </data>
+  <data name="ENTRIES_RECURRENCY_LABEL" xml:space="preserve">
+    <value>Parcela</value>
+  </data>
+  <data name="ENTRIES_REMOVE_ALL_FUTURE_ENTRIES_COMMAND" xml:space="preserve">
+    <value>Esta e futuras parcelas</value>
+  </data>
+  <data name="ENTRIES_REMOVE_CONFIRMATION_TEXT" xml:space="preserve">
+    <value>Você deseja remover esse lançamento?</value>
+  </data>
+  <data name="ENTRIES_REMOVE_ONLY_THIS_ENTRY_COMMAND" xml:space="preserve">
+    <value>Apenas parcela corrente</value>
+  </data>
+  <data name="ENTRIES_SAVE_ALL_FUTURE_ENTRIES_COMMAND" xml:space="preserve">
+    <value>Esta e futuras parcelas</value>
+  </data>
+  <data name="ENTRIES_SAVE_ONLY_THIS_ENTRY_COMMAND" xml:space="preserve">
+    <value>Apenas parcela corrente</value>
   </data>
   <data name="LOGOUT_MENU" xml:space="preserve">
     <value>Logout</value>
   </data>
+  <data name="PICKERS_DEFAULT_ACCOUNT_TEXT" xml:space="preserve">
+    <value>Todas as Contas</value>
+  </data>
+  <data name="RECURRENCY_ENRECURRENCYTYPE_BIMONTHLY" xml:space="preserve">
+    <value>Bimestral</value>
+  </data>
+  <data name="RECURRENCY_ENRECURRENCYTYPE_MONTHLY" xml:space="preserve">
+    <value>Mensal</value>
+  </data>
+  <data name="RECURRENCY_ENRECURRENCYTYPE_QUARTERLY" xml:space="preserve">
+    <value>Trimestral</value>
+  </data>
+  <data name="RECURRENCY_ENRECURRENCYTYPE_SEMIYEARLY" xml:space="preserve">
+    <value>Semestral</value>
+  </data>
+  <data name="RECURRENCY_ENRECURRENCYTYPE_WEEKLY" xml:space="preserve">
+    <value>Semanal</value>
+  </data>
+  <data name="RECURRENCY_ENRECURRENCYTYPE_YEARLY" xml:space="preserve">
+    <value>Anual</value>
+  </data>
   <data name="SETTINGS_MENU" xml:space="preserve">
     <value>Configurações</value>
+  </data>
+  <data name="TRANSFERS_DATE_LABEL" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="TRANSFERS_DETAILS_TITLE" xml:space="preserve">
+    <value>Transferência</value>
+  </data>
+  <data name="TRANSFERS_EXPENSE_ACCOUNT_LABEL" xml:space="preserve">
+    <value>Conta de Saída</value>
+  </data>
+  <data name="TRANSFERS_FROM_ACCOUNT_DESCRIPTION" xml:space="preserve">
+    <value>Transferência de {accountText}</value>
+  </data>
+  <data name="TRANSFERS_INCOME_ACCOUNT_LABEL" xml:space="preserve">
+    <value>Conta de Entrada</value>
+  </data>
+  <data name="TRANSFERS_RECORD_NOT_FOUND_WARNING" xml:space="preserve">
+    <value>Transferência não foi encontrada para exibir!</value>
+  </data>
+  <data name="TRANSFERS_REMOVE_CONFIRMATION_TEXT" xml:space="preserve">
+    <value>Você deseja remover essa transferência?</value>
+  </data>
+  <data name="TRANSFERS_TO_ACCOUNT_DESCRIPTION" xml:space="preserve">
+    <value>Transferência para {accountText}</value>
+  </data>
+  <data name="TRANSFERS_VALUE_LABEL" xml:space="preserve">
+    <value>Valor</value>
   </data>
   <data name="USERS_ACCOUNT_HAS_BEEN_ACTIVATED_MESSAGE" xml:space="preserve">
     <value>Seu usuário foi ativado, você pode acessá-lo agora</value>

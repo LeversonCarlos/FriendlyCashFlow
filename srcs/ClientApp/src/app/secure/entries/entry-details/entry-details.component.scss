@@ -1,0 +1,30 @@
+.mat-form-field-paid {
+  height: 50px;
+  flex-grow: unset;
+  align-self: center;
+  place-self: flex-start;
+  display: flex;
+  .mat-slide-toggle {
+    align-self: center;
+  }
+}
+
+.recurrency-card {
+  padding-bottom: 0;
+  .mat-card-content {
+    margin-bottom: 0;
+  }
+  .recurrency-options {
+    .mat-form-field {
+      flex-basis: 50%;
+    }
+  }
+  &.mat-elevation-z0 {
+    .recurrency-activate {
+      margin-left: -16px;
+    }
+    .recurrency-options {
+      display: none;
+    }
+  }
+}

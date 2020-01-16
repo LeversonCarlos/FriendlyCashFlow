@@ -8,7 +8,7 @@ namespace FriendlyCashFlow.API.Accounts
    partial class AccountsService
    {
 
-      private async Task<ActionResult<bool>> ValidateDataAsync(AccountVM value)
+      private async Task<ActionResult<bool>> ValidateAsync(AccountVM value)
       {
          try
          {

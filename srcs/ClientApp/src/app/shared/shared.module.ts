@@ -10,11 +10,15 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
+import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu'
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -33,6 +37,7 @@ import { MessageService } from './message/message.service';
 import { ConfirmComponent } from './message/confirm.component';
 import { FabButtonComponent } from './fab-button/fab-button.component';
 import { RelatedBoxComponent } from './related-box/related-box.component';
+import { LocaleService, LocaleServiceProvider } from './locale/locale.service';
 
 @NgModule({
    entryComponents: [MessageComponent, ConfirmComponent],
@@ -41,20 +46,22 @@ import { RelatedBoxComponent } from './related-box/related-box.component';
    imports: [
       CommonModule, RouterModule, FormsModule, ReactiveFormsModule,
       MatToolbarModule, MatSidenavModule, MatCardModule, MatTabsModule, MatListModule,
-      MatIconModule, MatButtonModule, MatProgressBarModule,
+      MatIconModule, MatBadgeModule, MatButtonModule, MatMenuModule, MatProgressBarModule,
       MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatSelectModule, MatSlideToggleModule,
+      MatDatepickerModule, MatMomentDateModule,
       MatSnackBarModule, MatDialogModule, MatTooltipModule
    ],
    exports: [
       RouterModule, FormsModule, ReactiveFormsModule,
       MatToolbarModule, MatSidenavModule, MatCardModule, MatTabsModule, MatListModule,
-      MatIconModule, MatButtonModule, MatProgressBarModule,
+      MatIconModule, MatBadgeModule, MatButtonModule, MatMenuModule, MatProgressBarModule,
       MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatSelectModule, MatSlideToggleModule,
+      MatDatepickerModule, MatMomentDateModule,
       MatTooltipModule,
       BaseLayoutComponent, FullLayoutComponent,
       FabButtonComponent, RelatedBoxComponent,
       TranslationPipe
    ],
-   providers: [BusyService, TranslationService, MessageService]
+   providers: [BusyService, TranslationService, MessageService, LocaleService, LocaleServiceProvider]
 })
 export class SharedModule { }

@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   align-content: center;
-  padding: $screen-padding 0;
+  padding: $screen-padding 0 0 0;
 }
 
 fs-base-layout {
@@ -29,6 +29,14 @@ fs-full-layout {
   button,
   a {
     text-transform: uppercase;
+    @media (max-width: $max-width-xs) {
+      font-size: small;
+    }
+    .mat-icon {
+      height: 20px;
+      width: 20px;
+      font-size: 20px;
+    }
   }
 }
 

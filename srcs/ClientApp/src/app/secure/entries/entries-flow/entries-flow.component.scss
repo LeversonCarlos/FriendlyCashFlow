@@ -1,0 +1,96 @@
+@import "../../../../styles/screenSizes.scss";
+
+div[toolbar] {
+  display: flex;
+}
+
+.full-card {
+  overflow-y: scroll;
+  height: calc(#{$details-height} - #{$screen-padding});
+  @media (max-width: $max-width-xs) {
+    height: calc(#{$details-height} + #{$screen-padding});
+  }
+}
+
+.mat-card {
+  margin-bottom: 6px;
+  padding: 0;
+
+  .mat-card-content {
+    margin: 0;
+  }
+
+  .mat-card-footer {
+    text-align: right;
+    margin-right: 16px;
+  }
+}
+
+.flow-row {
+  width: 100%;
+  display: flex;
+}
+.flow-day {
+  align-self: center;
+  padding: 0 10px;
+}
+.flow-details {
+  flex-grow: 1;
+  .mat-action-list {
+    padding-top: 0;
+  }
+}
+.flow-balance {
+  align-self: center;
+  padding-right: 16px;
+  text-align: right;
+  span,
+  small {
+    opacity: 0.5;
+    font-size: smaller;
+  }
+}
+
+.item-faded {
+  opacity: 0.5;
+}
+.item-row {
+  width: 100%;
+  display: flex;
+  .mat-icon {
+    font-size: 20px;
+    height: 20px;
+    width: 22px;
+    vertical-align: middle;
+  }
+}
+.item-description {
+  flex-grow: 1;
+  line-height: 1.2;
+  .item-description-title {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    > small {
+      margin-left: 5px;
+      opacity: 0.9;
+    }
+  }
+  .item-description-details {
+    small {
+      font-style: italic;
+      opacity: 0.8;
+    }
+  }
+}
+.item-value {
+  align-self: center;
+}
+.item-balance {
+  height: 32px;
+  align-self: center;
+  margin-right: 10px;
+  border-top: 1px solid;
+  padding: 0 6px;
+  opacity: 0.5;
+}

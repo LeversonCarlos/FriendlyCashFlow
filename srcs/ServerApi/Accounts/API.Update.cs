@@ -11,13 +11,13 @@ namespace FriendlyCashFlow.API.Accounts
    partial class AccountsService
    {
 
-      public async Task<ActionResult<AccountVM>> UpdateDataAsync(long accountID, AccountVM value)
+      public async Task<ActionResult<AccountVM>> UpdateAsync(long accountID, AccountVM value)
       {
          try
          {
 
             // VALIDATE
-            var validateMessage = await this.ValidateDataAsync(value);
+            var validateMessage = await this.ValidateAsync(value);
             var validateResult = this.GetValue(validateMessage);
             if (!validateResult) { return validateMessage.Result; }
 
@@ -46,10 +46,10 @@ namespace FriendlyCashFlow.API.Accounts
    {
       [HttpPut("{id:long}")]
       [Authorize(Roles = "Editor")]
-      public async Task<ActionResult<AccountVM>> UpdateDataAsync(long id, [FromBody]AccountVM value)
+      public async Task<ActionResult<AccountVM>> UpdateAsync(long id, [FromBody]AccountVM value)
       {
-         var service = this.GetService<AccountsService>();
-         return await service.UpdateDataAsync(id, value);
+         if (value == null) { return this.BadRequest(this.ModelState); }
+         return await this.GetService<AccountsService>().UpdateAsync(id, value);
       }
    }
 

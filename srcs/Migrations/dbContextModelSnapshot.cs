@@ -64,6 +64,36 @@ namespace FriendlyCashFlow.Migrations
                     b.ToTable("v6_dataAccounts");
                 });
 
+            modelBuilder.Entity("FriendlyCashFlow.API.Balances.BalanceData", b =>
+                {
+                    b.Property<string>("ResourceID")
+                        .HasColumnType("varchar(128)")
+                        .HasMaxLength(128);
+
+                    b.Property<long>("AccountID");
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<decimal>("PaidValue")
+                        .HasColumnType("decimal(15,2)");
+
+                    b.Property<DateTime>("RowDate")
+                        .HasColumnName("RowDate");
+
+                    b.Property<short>("RowStatus")
+                        .HasColumnName("RowStatus");
+
+                    b.Property<decimal>("TotalValue")
+                        .HasColumnType("decimal(15,2)");
+
+                    b.HasKey("ResourceID", "AccountID", "Date");
+
+                    b.HasIndex("RowStatus", "ResourceID", "Date", "AccountID")
+                        .HasName("v6_dataBalance_index_Search");
+
+                    b.ToTable("v6_dataBalance");
+                });
+
             modelBuilder.Entity("FriendlyCashFlow.API.Categories.CategoryData", b =>
                 {
                     b.Property<long>("CategoryID")
@@ -110,6 +140,145 @@ namespace FriendlyCashFlow.Migrations
                         .HasName("v6_dataCategories_index_Parent");
 
                     b.ToTable("v6_dataCategories");
+                });
+
+            modelBuilder.Entity("FriendlyCashFlow.API.Entries.EntryData", b =>
+                {
+                    b.Property<long>("EntryID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long?>("AccountID");
+
+                    b.Property<long?>("CategoryID");
+
+                    b.Property<DateTime>("DueDate");
+
+                    b.Property<decimal>("EntryValue")
+                        .HasColumnType("decimal(15,2)");
+
+                    b.Property<bool>("Paid");
+
+                    b.Property<long?>("PatternID");
+
+                    b.Property<DateTime?>("PayDate");
+
+                    b.Property<long?>("RecurrencyID");
+
+                    b.Property<short?>("RecurrencyItem");
+
+                    b.Property<short?>("RecurrencyTotal");
+
+                    b.Property<string>("ResourceID")
+                        .IsRequired()
+                        .HasColumnType("varchar(128)")
+                        .HasMaxLength(128);
+
+                    b.Property<DateTime>("RowDate")
+                        .HasColumnName("RowDate");
+
+                    b.Property<short>("RowStatus")
+                        .HasColumnName("RowStatus");
+
+                    b.Property<DateTime>("SearchDate");
+
+                    b.Property<decimal>("Sorting")
+                        .HasColumnType("decimal(20,10)");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("varchar(500)")
+                        .HasMaxLength(500);
+
+                    b.Property<string>("TransferID")
+                        .HasColumnType("varchar(128)")
+                        .HasMaxLength(128);
+
+                    b.Property<short>("Type");
+
+                    b.HasKey("EntryID");
+
+                    b.ToTable("v6_dataEntries");
+                });
+
+            modelBuilder.Entity("FriendlyCashFlow.API.Patterns.PatternData", b =>
+                {
+                    b.Property<long>("PatternID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("CategoryID");
+
+                    b.Property<short>("Count");
+
+                    b.Property<string>("ResourceID")
+                        .IsRequired()
+                        .HasColumnType("varchar(128)")
+                        .HasMaxLength(128);
+
+                    b.Property<DateTime>("RowDate")
+                        .HasColumnName("RowDate");
+
+                    b.Property<short>("RowStatus")
+                        .HasColumnName("RowStatus");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("varchar(500)")
+                        .HasMaxLength(500);
+
+                    b.Property<short>("Type");
+
+                    b.HasKey("PatternID");
+
+                    b.HasIndex("CategoryID");
+
+                    b.HasIndex("RowStatus", "ResourceID", "Type", "CategoryID", "Text")
+                        .HasName("v6_dataPatterns_index_Search");
+
+                    b.ToTable("v6_dataPatterns");
+                });
+
+            modelBuilder.Entity("FriendlyCashFlow.API.Recurrencies.RecurrencyData", b =>
+                {
+                    b.Property<long>("RecurrencyID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("AccountID");
+
+                    b.Property<int>("Count");
+
+                    b.Property<DateTime>("EntryDate");
+
+                    b.Property<decimal>("EntryValue")
+                        .HasColumnType("decimal(15,2)");
+
+                    b.Property<DateTime>("InitialDate");
+
+                    b.Property<DateTime?>("LastDate");
+
+                    b.Property<long>("PatternID");
+
+                    b.Property<string>("ResourceID")
+                        .IsRequired()
+                        .HasColumnType("varchar(128)")
+                        .HasMaxLength(128);
+
+                    b.Property<DateTime>("RowDate")
+                        .HasColumnName("RowDate");
+
+                    b.Property<short>("RowStatus")
+                        .HasColumnName("RowStatus");
+
+                    b.Property<short>("Type");
+
+                    b.HasKey("RecurrencyID");
+
+                    b.HasIndex("RowStatus", "ResourceID", "RecurrencyID")
+                        .HasName("v6_dataRecurrencies_index_Search");
+
+                    b.ToTable("v6_dataRecurrencies");
                 });
 
             modelBuilder.Entity("FriendlyCashFlow.API.Users.UserData", b =>
@@ -228,6 +397,14 @@ namespace FriendlyCashFlow.Migrations
                         .HasName("v6_identityUserTokens_index_Search");
 
                     b.ToTable("v6_identityUserTokens");
+                });
+
+            modelBuilder.Entity("FriendlyCashFlow.API.Patterns.PatternData", b =>
+                {
+                    b.HasOne("FriendlyCashFlow.API.Categories.CategoryData", "CategoryDetails")
+                        .WithMany()
+                        .HasForeignKey("CategoryID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

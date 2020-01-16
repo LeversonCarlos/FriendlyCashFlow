@@ -8,7 +8,7 @@
 }
 
 .layout-details {
-  height: $details-height;
+  height: calc(#{$details-height} + #{$screen-padding});
   overflow-y: hidden;
   padding: 0 3px;
   display: flex;

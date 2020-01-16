@@ -18,12 +18,16 @@ namespace FriendlyCashFlow.API.Base
          this.OnModelCreating_UserToken(modelBuilder);
          this.OnModelCreating_Accounts(modelBuilder);
          this.OnModelCreating_Categories(modelBuilder);
+         this.OnModelCreating_Balances(modelBuilder);
+         this.OnModelCreating_Patterns(modelBuilder);
+         this.OnModelCreating_Recurrencies(modelBuilder);
          base.OnModelCreating(modelBuilder);
       }
 
       /*
          dotnet ef migrations add Initial
          dotnet ef database update
+         git remote prune origin
        */
 
    }

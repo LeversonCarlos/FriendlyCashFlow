@@ -11,13 +11,13 @@ namespace FriendlyCashFlow.API.Categories
    partial class CategoriesService
    {
 
-      public async Task<ActionResult<CategoryVM>> CreateDataAsync(CategoryVM value)
+      internal async Task<ActionResult<CategoryVM>> CreateAsync(CategoryVM value)
       {
          try
          {
 
             // VALIDATE
-            var validateMessage = await this.ValidateDataAsync(value);
+            var validateMessage = await this.ValidateAsync(value);
             var validateResult = this.GetValue(validateMessage);
             if (!validateResult) { return validateMessage.Result; }
 
@@ -56,10 +56,10 @@ namespace FriendlyCashFlow.API.Categories
    {
       [HttpPost("")]
       [Authorize(Roles = "Editor")]
-      public async Task<ActionResult<CategoryVM>> CreateDataAsync([FromBody]CategoryVM value)
+      public async Task<ActionResult<CategoryVM>> CreateAsync([FromBody]CategoryVM value)
       {
-         using (var service = new CategoriesService(this.serviceProvider))
-         { return await service.CreateDataAsync(value); }
+         if (value == null) { return this.BadRequest(this.ModelState); }
+         return await this.GetService<CategoriesService>().CreateAsync(value);
       }
    }
 

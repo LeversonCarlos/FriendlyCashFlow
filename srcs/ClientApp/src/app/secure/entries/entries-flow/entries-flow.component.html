@@ -1,0 +1,76 @@
+<fs-full-layout>
+   <span title>
+      {{ 'ENTRIES_MAIN_TITLE' | translation | async }}
+   </span>
+   <div toolbar>
+      <fs-account-picker [CurrentAccount]="CurrentAccount" (CurrentAccountChanged)="CurrentAccount=$event" ></fs-account-picker>
+      <fs-month-picker [CurrentMonth]="CurrentMonth" (CurrentMonthChanged)="CurrentMonth=$event" ></fs-month-picker>
+   </div>
+   <div content class="full-screen">
+
+      <div class="full-card">
+         <mat-card *ngFor="let flow of FlowList; last as islast">
+
+            <mat-card-content>
+               <div class="flow-row">
+
+                  <div class="flow-day">
+                     <span>{{ flow.Day }}</span>
+                  </div>
+
+                  <div class="flow-details">
+                     <mat-action-list>
+                        <button mat-list-item *ngFor="let item of flow.EntryList"
+                           [class.item-faded]="!item.Paid && !item.Delayed"
+                           [disabled]="item.EntryID==0" (click)="OnItemClick(item)">
+                           <div class="item-row mat-body">
+                              <div class="item-description">
+                                 <div class="item-description-title">
+                                    <mat-icon *ngIf="item.Paid">check_box</mat-icon>
+                                    <mat-icon *ngIf="!item.Paid">check_box_outline_blank</mat-icon>
+                                    <span>{{ item.Text }}</span>
+                                    <small *ngIf="item.RecurrencyID">
+                                       <small>(</small>
+                                       <small>{{item.RecurrencyItem}}</small>
+                                       <small>/</small>
+                                       <small>{{item.RecurrencyTotal}}</small>
+                                       <small>)</small>
+                                    </small>
+                                 </div>
+                                 <div class="item-description-details">
+                                    <small>{{ item.CategoryText }}</small>
+                                    <small *ngIf="item.CategoryText && item.AccountText"> - </small>
+                                    <small>{{ item.AccountText }}</small>
+                                 </div>
+                              </div>
+                              <div class="item-value" [class.forecolor-red]="item.EntryValue < 0"
+                                 [class.forecolor-green]="item.EntryValue > 0">
+                                 <mat-icon *ngIf="item.Delayed">warning</mat-icon>
+                                 <span>{{ item.EntryValue | number : '1.2-2' }}</span>
+                              </div>
+                           </div>
+                        </button>
+                     </mat-action-list>
+                  </div>
+
+               </div>
+               <div class="flow-row">
+                  <div class="flow-details"></div>
+                  <div class="flow-balance mat-body">
+                     <span [class.forecolor-red]="flow.BalancePaidValue < 0"
+                        [class.forecolor-green]="flow.BalancePaidValue > 0">
+                        {{ flow.BalancePaidValue | number : '1.2-2' }}</span>
+                     <small *ngIf="flow.BalanceTotalValue != flow.BalancePaidValue"
+                        [class.forecolor-red]="flow.BalanceTotalValue < 0"
+                        [class.forecolor-green]="flow.BalanceTotalValue > 0">
+                        ({{ flow.BalanceTotalValue  | number : '1.2-2' }})</small>
+                  </div>
+               </div>
+            </mat-card-content>
+
+         </mat-card>
+      </div>
+
+   </div>
+</fs-full-layout>
+<fs-add-button></fs-add-button>

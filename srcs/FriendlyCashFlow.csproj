@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -10,9 +10,7 @@
 
     <!-- Set this to true if you enable server-side prerendering -->
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
-    <AssemblyVersion>6.00.0000</AssemblyVersion>
-    <FileVersion>6.00.0000</FileVersion>
-    <Version>6.00.0000</Version>
+    <Version>1.0.0</Version>
     <Authors>Leverson Carlos</Authors>
     <Product>Friendly Cash Flow</Product>
     <Company>Friendship</Company>
@@ -29,6 +27,16 @@
     <Content Remove="$(SpaRoot)**" />
     <None Remove="$(SpaRoot)**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ServerApi\Entries\QUERY.EntriesSearch.sql" />
+    <None Remove="ServerApi\Recurrencies\QUERY.UpdatePortions.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="ServerApi\Entries\QUERY.EntriesSearch.sql" />
+    <EmbeddedResource Include="ServerApi\Recurrencies\QUERY.UpdatePortions.sql" />
   </ItemGroup>
 
   <ItemGroup>

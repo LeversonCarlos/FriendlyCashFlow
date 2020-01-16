@@ -11,7 +11,7 @@ namespace FriendlyCashFlow.API.Accounts
    partial class AccountsService
    {
 
-      private IQueryable<AccountData> GetDataQuery()
+      internal IQueryable<AccountData> GetDataQuery()
       {
          var user = this.GetService<Helpers.User>();
          return this.dbContext.Accounts
@@ -44,7 +44,7 @@ namespace FriendlyCashFlow.API.Accounts
             if (!string.IsNullOrEmpty(searchText))
             { query = query.Where(x => x.AccountID != 0 && x.Text.Contains(searchText, StringComparison.CurrentCultureIgnoreCase)); }
 
-            var data = await query.ToListAsync();
+            var data = await query.OrderBy(x => x.Type).ThenBy(x => x.Text).ToListAsync();
             var result = data.Select(x => AccountVM.Convert(x)).ToList();
             return this.OkResponse(result);
 
@@ -60,22 +60,19 @@ namespace FriendlyCashFlow.API.Accounts
       [HttpGet("search")]
       public async Task<ActionResult<List<AccountVM>>> GetDataAsync()
       {
-         var service = this.GetService<AccountsService>();
-         return await service.GetDataAsync();
+         return await this.GetService<AccountsService>().GetDataAsync();
       }
 
       [HttpGet("search/{searchText}")]
       public async Task<ActionResult<List<AccountVM>>> GetDataAsync(string searchText)
       {
-         var service = this.GetService<AccountsService>();
-         return await service.GetDataAsync(searchText);
+         return await this.GetService<AccountsService>().GetDataAsync(searchText);
       }
 
       [HttpGet("{id:long}")]
       public async Task<ActionResult<AccountVM>> GetDataAsync(long id)
       {
-         var service = this.GetService<AccountsService>();
-         return await service.GetDataAsync(id);
+         return await this.GetService<AccountsService>().GetDataAsync(id);
       }
 
    }
