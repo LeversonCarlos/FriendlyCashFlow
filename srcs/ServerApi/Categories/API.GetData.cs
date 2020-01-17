@@ -45,7 +45,7 @@ namespace FriendlyCashFlow.API.Categories
             if (!string.IsNullOrEmpty(searchText))
             {
                searchText = System.Web.HttpUtility.UrlDecode(searchText);
-               query = query.Where(x => x.CategoryID != 0 && x.HierarchyText.Contains(searchText, StringComparison.CurrentCultureIgnoreCase));
+               query = query.Where(x => x.CategoryID != 0 && x.HierarchyText.Contains(searchText));
             }
 
             var categoryList = await query.ToListAsync();

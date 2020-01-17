@@ -12,7 +12,7 @@ namespace FriendlyCashFlow
 
       private void AddControllers(IServiceCollection services)
       {
-         services.AddCors();
+         // services.AddCors();
          services.AddControllersWithViews()
             .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
             .AddJsonOptions(options =>
@@ -31,10 +31,12 @@ namespace FriendlyCashFlow
       {
          app.UseRouting();
 
+         /*
          app.UseCors(x => x
             .AllowAnyOrigin()
             .AllowAnyMethod()
             .AllowAnyHeader());
+         */
          app.UseAuthentication();
          app.UseAuthorization();
 
