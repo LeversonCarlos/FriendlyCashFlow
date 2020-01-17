@@ -19,9 +19,9 @@ namespace FriendlyCashFlow
       {
          this.AddLocalization(services);
          this.AddSettings(services);
+         this.AddServices(services);
          this.AddAuthentication(services);
          this.AddMvcServices(services);
-         this.AddDataServices(services);
          this.AddSpaServices(services);
       }
 

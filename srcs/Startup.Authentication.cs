@@ -59,10 +59,6 @@ namespace FriendlyCashFlow
                };
             });
 
-         // CONFIGURE INJECTION FOR USER HELPER
-         services.AddScoped<Helpers.User>();
-         services.AddScoped<API.Users.UsersService>();
-
          services.AddAuthorization(auth =>
             {
                auth

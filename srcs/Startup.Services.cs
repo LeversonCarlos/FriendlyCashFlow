@@ -6,7 +6,7 @@ namespace FriendlyCashFlow
    partial class Startup
    {
 
-      private void AddDataServices(IServiceCollection services)
+      private void AddServices(IServiceCollection services)
       {
 
          // DATA CONTEXT
@@ -16,8 +16,12 @@ namespace FriendlyCashFlow
                opt.MigrationsHistoryTable("v6_MigrationsHistory");
             }));
 
-         // CONFIGURE INJECTION FOR DATA SERVICES
+         // CONFIGURE INJECTION FOR HELPERS
+         services.AddScoped<Helpers.User>();
          services.AddScoped<Helpers.DataReaderService>();
+
+         // CONFIGURE INJECTION FOR DATA SERVICES
+         services.AddScoped<API.Users.UsersService>();
          services.AddScoped<API.Accounts.AccountsService>();
          services.AddScoped<API.Categories.CategoriesService>();
          services.AddScoped<API.Patterns.PatternsService>();
