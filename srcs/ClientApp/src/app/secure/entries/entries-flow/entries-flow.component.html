@@ -7,7 +7,7 @@
    </div>
    <div content class="full-screen">
 
-      <div class="full-card">
+      <div class="full-card" *ngIf="FlowList">
 
          <mat-card *ngIf="mobileQuery.matches">
             <fs-search-panel></fs-search-panel>
@@ -75,7 +75,6 @@
          </mat-card>
 
       </div>
-
 
    </div>
 </fs-full-layout>

@@ -9,12 +9,57 @@
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <meta name="Description" content="friendly Cash Flow">
    <link rel="icon" type="image/x-icon" href="favicon.ico">
-   <link href="assets/font-roboto/css/all.css" rel="stylesheet">
+   <link rel="apple-touch-icon" href="assets/icons/icon-128x128.png">
+   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,900&display=swap" rel="stylesheet">
    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   <link rel="manifest" href="manifest.json">
+   <meta name="theme-color" content="#009688">
 </head>
 
 <body>
-   <fs-root></fs-root>
+   <noscript>This application requires JavaScript to run, please enabled on your browser.</noscript>
+   <fs-root>
+
+      <!-- LOADING SPINNER -->
+      <style>
+         body {
+            height: 100vh;
+            display: flex;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            background-color: #fafafa;
+            color: #009688;
+            overflow: hidden;
+         }
+
+         #loadingSpinner {
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            border: 3px solid rgba(0, 150, 136, .3);
+            border-radius: 50%;
+            border-top-color: #009688;
+            animation: spin 1s ease-in-out infinite;
+            -webkit-animation: spin 1s ease-in-out infinite;
+         }
+
+         @keyframes spin {
+            to {
+               -webkit-transform: rotate(360deg);
+            }
+         }
+
+         @-webkit-keyframes spin {
+            to {
+               -webkit-transform: rotate(360deg);
+            }
+         }
+      </style>
+      <div id="loadingSpinner"></div>
+      <!-- LOADING SPINNER -->
+
+   </fs-root>
 </body>
 
 </html>

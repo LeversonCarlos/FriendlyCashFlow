@@ -44,7 +44,8 @@
                   "aot": false,
                   "assets": [
                      "src/favicon.ico",
-                     "src/assets"
+                     "src/assets",
+                     "src/manifest.json"
                   ],
                   "styles": [
                      "src/styles/colors.scss",
@@ -79,7 +80,9 @@
                            "maximumWarning": "2mb",
                            "maximumError": "5mb"
                         }
-                     ]
+                     ],
+                     "serviceWorker": true,
+                     "ngswConfigPath": "ngsw-config.json"
                   }
                }
             },

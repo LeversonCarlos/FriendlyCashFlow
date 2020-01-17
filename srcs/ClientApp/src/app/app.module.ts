@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 import { AppRouting } from './app.routing';
 import { AppComponent } from './app.component';
@@ -13,7 +15,8 @@ import { SecureModule } from './secure/secure.module';
    ],
    imports: [
       BrowserModule, BrowserAnimationsModule,
-      AppRouting, CoreModule, SecureModule
+      AppRouting, CoreModule, SecureModule,
+      ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
    ],
    bootstrap: [AppComponent]
 })

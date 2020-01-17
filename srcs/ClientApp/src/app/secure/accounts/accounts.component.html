@@ -6,12 +6,12 @@
    </div>
    <div content class="full-screen">
 
-      <mat-card class="full-card">
+      <mat-card class="full-card" *ngIf="Data">
          <mat-card-content>
             <mat-tab-group dynamicHeight="false">
                <mat-tab label="{{ 'ACCOUNTS_ACTIVE_ACCOUNTS_LABEL' | translation | async }}">
                   <mat-action-list>
-                     <button mat-list-item *ngFor="let item of ActiveData" (click)="OnItemClick(item)" >
+                     <button mat-list-item *ngFor="let item of ActiveData" (click)="OnItemClick(item)">
                         <span>{{ item.Text }}</span>
                         <mat-icon matListIcon>{{ item.Icon }}</mat-icon>
                      </button>
@@ -19,7 +19,7 @@
                </mat-tab>
                <mat-tab label="{{ 'ACCOUNTS_ARQUIVED_ACCOUNTS_LABEL' | translation | async }}" [disabled]="!ArquivedData?.length">
                   <mat-action-list>
-                     <button mat-list-item *ngFor="let item of ArquivedData" (click)="OnItemClick(item)" >
+                     <button mat-list-item *ngFor="let item of ArquivedData" (click)="OnItemClick(item)">
                         <span>{{ item.Text }}</span>
                         <mat-icon matListIcon>{{ item.Icon }}</mat-icon>
                      </button>
@@ -31,4 +31,4 @@
 
    </div>
 </fs-full-layout>
-<fab-button (click)="OnNewClick()" ></fab-button>
+<fab-button (click)="OnNewClick()"></fab-button>
