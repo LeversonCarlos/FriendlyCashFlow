@@ -8,7 +8,7 @@ namespace FriendlyCashFlow
    partial class Startup
    {
 
-      private void AddMvcServices(IServiceCollection services)
+      private void AddControllers(IServiceCollection services)
       {
          services.AddCors();
          services.AddControllersWithViews()
@@ -21,7 +21,7 @@ namespace FriendlyCashFlow
             });
       }
 
-      private void UseMvcServices(IApplicationBuilder app, IWebHostEnvironment env)
+      private void UseControllers(IApplicationBuilder app, IWebHostEnvironment env)
       {
          app.UseRouting();
 

@@ -21,7 +21,7 @@ namespace FriendlyCashFlow
          this.AddSettings(services);
          this.AddServices(services);
          this.AddAuthentication(services);
-         this.AddMvcServices(services);
+         this.AddControllers(services);
          this.AddSpaServices(services);
       }
 
@@ -43,7 +43,7 @@ namespace FriendlyCashFlow
          if (!env.IsDevelopment())
          { app.UseSpaStaticFiles(); }
          this.UseLocalization(app, env);
-         this.UseMvcServices(app, env);
+         this.UseControllers(app, env);
          this.UseSpaServices(app, env);
       }
    }
