@@ -11,12 +11,11 @@ namespace FriendlyCashFlow
    partial class Startup
    {
 
-      private void AddAuthServices(IServiceCollection services)
+      private void AddAuthentication(IServiceCollection services)
       {
 
          // CREATE INSTANCE FOR THE TOKEN CONFIG
-         var appSettings = this.GetAppSettings(services);
-         var tokenConfig = new Helpers.Token(appSettings);
+         var tokenConfig = new Helpers.Token(this.AppSettings);
          services.AddSingleton(tokenConfig);
 
          // CONFIGURE JWT AUTHENTICATION
@@ -59,10 +58,6 @@ namespace FriendlyCashFlow
                   }
                };
             });
-
-         // CONFIGURE INJECTION FOR USER HELPER
-         services.AddScoped<Helpers.User>();
-         services.AddScoped<API.Users.UsersService>();
 
          services.AddAuthorization(auth =>
             {

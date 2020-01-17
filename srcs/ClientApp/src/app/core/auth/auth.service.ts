@@ -99,6 +99,7 @@ export class AuthService {
    public async signOut() {
       try {
          this.Token = null;
+         localStorage.clear();
          this.router.navigate(['/home']);
       }
       catch (ex) { console.error(ex); }

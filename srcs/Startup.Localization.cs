@@ -10,7 +10,7 @@ namespace FriendlyCashFlow
    partial class Startup
    {
 
-      private void AddLocalizationServices(IServiceCollection services)
+      private void AddLocalization(IServiceCollection services)
       {
          services.AddLocalization(o => 
          {           
@@ -18,7 +18,7 @@ namespace FriendlyCashFlow
          });
       }
 
-      private void UseLocalizationServices(IApplicationBuilder app, IHostingEnvironment env)
+      private void UseLocalization(IApplicationBuilder app, IWebHostEnvironment env)
       {
          var supportedCultures = new List<CultureInfo>
          {

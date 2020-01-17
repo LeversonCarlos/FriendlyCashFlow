@@ -16,34 +16,18 @@ namespace FriendlyCashFlow
 
       public void ConfigureServices(IServiceCollection services)
       {
-         this.AddLocalizationServices(services);
-         this.AddSettingsServices(services);
-         this.AddAuthServices(services);
-         this.AddMvcServices(services);
-         this.AddDataServices(services);
-         this.AddSpaServices(services);
+         this.AddSettings(services);
+         this.AddLocalization(services);
+         this.AddServices(services);
+         this.AddAuthentication(services);
+         this.AddControllers(services);
       }
 
-      public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+      public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
       {
-         if (env.IsDevelopment())
-         { app.UseDeveloperExceptionPage(); }
-         else
-         {
-            app.UseExceptionHandler("/Error");
-            // The default HSTS value is 30 days.
-            // You may want to change this for production scenarios,
-            // see https://aka.ms/aspnetcore-hsts.
-            app.UseHsts();
-         }
-
-         app.UseHttpsRedirection();
-         app.UseStaticFiles();
-         app.UseSpaStaticFiles();
-         app.UseAuthentication();
-         this.UseLocalizationServices(app, env);
-         this.UseMvcServices(app, env);
-         this.UseSpaServices(app, env);
+         this.UseSettings(app, env);
+         this.UseLocalization(app, env);
+         this.UseControllers(app, env);
       }
    }
 }

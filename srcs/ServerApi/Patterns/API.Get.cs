@@ -44,7 +44,7 @@ namespace FriendlyCashFlow.API.Patterns
             if (patternID != 0) { query = query.Where(x => x.PatternID == patternID); }
             if (categoryType != Categories.enCategoryType.None) { query = query.Where(x => x.Type == (short)categoryType); }
             if (!string.IsNullOrEmpty(searchText))
-            { query = query.Where(x => x.PatternID != 0 && x.Text.Contains(searchText, StringComparison.CurrentCultureIgnoreCase)); }
+            { query = query.Where(x => x.PatternID != 0 && x.Text.Contains(searchText)); }
 
             var data = await query
                .Include(x => x.CategoryDetails)
