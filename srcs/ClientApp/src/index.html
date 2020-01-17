@@ -14,7 +14,49 @@
 </head>
 
 <body>
-   <fs-root></fs-root>
+   <noscript>This application requires JavaScript to run, please enabled on your browser.</noscript>
+   <fs-root>
+
+      <!-- LOADING SPINNER -->
+      <style>
+         body {
+            height: 100vh;
+            display: flex;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            background-color: #fafafa;
+            color: #009688;
+            overflow: hidden;
+         }
+
+         #loadingSpinner {
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            border: 3px solid rgba(0, 150, 136, .3);
+            border-radius: 50%;
+            border-top-color: #009688;
+            animation: spin 1s ease-in-out infinite;
+            -webkit-animation: spin 1s ease-in-out infinite;
+         }
+
+         @keyframes spin {
+            to {
+               -webkit-transform: rotate(360deg);
+            }
+         }
+
+         @-webkit-keyframes spin {
+            to {
+               -webkit-transform: rotate(360deg);
+            }
+         }
+      </style>
+      <div id="loadingSpinner"></div>
+      <!-- LOADING SPINNER -->
+
+   </fs-root>
 </body>
 
 </html>
