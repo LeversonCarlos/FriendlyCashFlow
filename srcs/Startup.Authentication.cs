@@ -11,7 +11,7 @@ namespace FriendlyCashFlow
    partial class Startup
    {
 
-      private void AddAuthServices(IServiceCollection services)
+      private void AddAuthentication(IServiceCollection services)
       {
 
          // CREATE INSTANCE FOR THE TOKEN CONFIG

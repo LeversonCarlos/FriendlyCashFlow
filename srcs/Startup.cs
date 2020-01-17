@@ -17,9 +17,9 @@ namespace FriendlyCashFlow
 
       public void ConfigureServices(IServiceCollection services)
       {
-         this.AddLocalizationServices(services);
-         this.AddSettingsServices(services);
-         this.AddAuthServices(services);
+         this.AddLocalization(services);
+         this.AddSettings(services);
+         this.AddAuthentication(services);
          this.AddMvcServices(services);
          this.AddDataServices(services);
          this.AddSpaServices(services);
@@ -42,7 +42,7 @@ namespace FriendlyCashFlow
          app.UseStaticFiles();
          if (!env.IsDevelopment())
          { app.UseSpaStaticFiles(); }
-         this.UseLocalizationServices(app, env);
+         this.UseLocalization(app, env);
          this.UseMvcServices(app, env);
          this.UseSpaServices(app, env);
       }

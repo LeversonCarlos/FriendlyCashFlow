@@ -7,7 +7,7 @@ namespace FriendlyCashFlow
    {
 
       private AppSettings AppSettings { get; set; }
-      private void AddSettingsServices(IServiceCollection services)
+      private void AddSettings(IServiceCollection services)
       {
 
          var appSettingsSection = this.Configuration.GetSection("AppSettings");
