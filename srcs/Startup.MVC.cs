@@ -10,21 +10,36 @@ namespace FriendlyCashFlow
 
       private void AddMvcServices(IServiceCollection services)
       {
-         services.AddMvc()
-            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+         services.AddCors();
+         services.AddControllersWithViews()
+            .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
             .AddJsonOptions(options =>
             {
-               options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver();
+               options.JsonSerializerOptions.IgnoreNullValues = true;
+               options.JsonSerializerOptions.PropertyNamingPolicy = null; // use PascalCase
+               options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
             });
       }
 
-      private void UseMvcServices(IApplicationBuilder app, IHostingEnvironment env)
+      private void UseMvcServices(IApplicationBuilder app, IWebHostEnvironment env)
       {
-         app.UseMvc(routes =>
+         app.UseRouting();
+
+         app.UseCors(x => x
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+         app.UseAuthentication();
+         app.UseAuthorization();
+
+         app.UseEndpoints(endpoints =>
          {
-            routes.MapRoute(
-               name: "default",
-               template: "{controller}/{action=Index}/{id?}");
+            endpoints.MapControllers();
+            /*
+            endpoints.MapControllerRoute(
+                name: "default",
+                pattern: "{controller}/{action=Index}/{id?}");
+            */
          });
       }
 

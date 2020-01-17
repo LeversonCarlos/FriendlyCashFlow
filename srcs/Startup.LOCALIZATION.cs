@@ -18,7 +18,7 @@ namespace FriendlyCashFlow
          });
       }
 
-      private void UseLocalizationServices(IApplicationBuilder app, IHostingEnvironment env)
+      private void UseLocalizationServices(IApplicationBuilder app, IWebHostEnvironment env)
       {
          var supportedCultures = new List<CultureInfo>
          {

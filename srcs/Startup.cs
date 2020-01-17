@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace FriendlyCashFlow
 {
@@ -24,7 +25,7 @@ namespace FriendlyCashFlow
          this.AddSpaServices(services);
       }
 
-      public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+      public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
       {
          if (env.IsDevelopment())
          { app.UseDeveloperExceptionPage(); }
@@ -39,8 +40,8 @@ namespace FriendlyCashFlow
 
          app.UseHttpsRedirection();
          app.UseStaticFiles();
-         app.UseSpaStaticFiles();
-         app.UseAuthentication();
+         if (!env.IsDevelopment())
+         { app.UseSpaStaticFiles(); }
          this.UseLocalizationServices(app, env);
          this.UseMvcServices(app, env);
          this.UseSpaServices(app, env);

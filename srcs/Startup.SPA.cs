@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace FriendlyCashFlow
 {
@@ -16,7 +17,7 @@ namespace FriendlyCashFlow
          });
       }
 
-      private void UseSpaServices(IApplicationBuilder app, IHostingEnvironment env)
+      private void UseSpaServices(IApplicationBuilder app, IWebHostEnvironment env)
       {
          app.UseSpa(spa =>
          {

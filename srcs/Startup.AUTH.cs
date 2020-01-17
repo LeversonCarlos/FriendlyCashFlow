@@ -15,8 +15,7 @@ namespace FriendlyCashFlow
       {
 
          // CREATE INSTANCE FOR THE TOKEN CONFIG
-         var appSettings = this.GetAppSettings(services);
-         var tokenConfig = new Helpers.Token(appSettings);
+         var tokenConfig = new Helpers.Token(this.AppSettings);
          services.AddSingleton(tokenConfig);
 
          // CONFIGURE JWT AUTHENTICATION

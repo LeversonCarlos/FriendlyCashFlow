@@ -6,21 +6,17 @@ namespace FriendlyCashFlow
    partial class Startup
    {
 
+      private AppSettings AppSettings { get; set; }
       private void AddSettingsServices(IServiceCollection services)
       {
-         var appSettings = this.GetAppSettings(services);
+
+         var appSettingsSection = this.Configuration.GetSection("AppSettings");
+         services.Configure<AppSettings>(appSettingsSection);
+         this.AppSettings = appSettingsSection.Get<AppSettings>();
+
          services.AddSingleton<Helpers.Mail>();
          services.AddSingleton<Helpers.Crypt>();
          services.AddSingleton<Helpers.PasswordStrengthService>();
-      }
-
-
-      private AppSettings GetAppSettings(IServiceCollection services)
-      {
-         var appSettingsSection = this.Configuration.GetSection("AppSettings");
-         services.Configure<AppSettings>(appSettingsSection);
-         var appSettings = appSettingsSection.Get<AppSettings>();
-         return appSettings;
       }
 
    }

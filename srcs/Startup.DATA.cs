@@ -10,9 +10,8 @@ namespace FriendlyCashFlow
       {
 
          // DATA CONTEXT
-         var appSettings = this.GetAppSettings(services);
          services.AddDbContext<API.Base.dbContext>(x =>
-            x.UseSqlServer(appSettings.ConnStr, opt =>
+            x.UseSqlServer(this.AppSettings.ConnStr, opt =>
             {
                opt.MigrationsHistoryTable("v6_MigrationsHistory");
             }));

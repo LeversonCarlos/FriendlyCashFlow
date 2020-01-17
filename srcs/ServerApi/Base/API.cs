@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FriendlyCashFlow.API.Base
 {
-   public partial class BaseController : Controller
+   public partial class BaseController : ControllerBase
    {
 
       protected readonly IServiceProvider serviceProvider;
