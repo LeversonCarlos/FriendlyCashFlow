@@ -1,5 +1,8 @@
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace FriendlyCashFlow
 {
@@ -17,6 +20,26 @@ namespace FriendlyCashFlow
          services.AddSingleton<Helpers.Mail>();
          services.AddSingleton<Helpers.Crypt>();
          services.AddSingleton<Helpers.PasswordStrengthService>();
+      }
+
+      private void UseSettings(IApplicationBuilder app, IWebHostEnvironment env)
+      {
+         if (env.IsDevelopment())
+         { app.UseDeveloperExceptionPage(); }
+         else
+         {
+            app.UseExceptionHandler("/Error");
+            // The default HSTS value is 30 days.
+            // You may want to change this for production scenarios,
+            // see https://aka.ms/aspnetcore-hsts.
+            app.UseHsts();
+         }
+
+         app.UseHttpsRedirection();
+
+         app.UseStaticFiles();
+         if (!env.IsDevelopment())
+         { app.UseSpaStaticFiles(); }
       }
 
    }
