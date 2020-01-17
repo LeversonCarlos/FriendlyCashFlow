@@ -5,7 +5,7 @@ import { MessageService } from 'src/app/shared/message/message.service';
 import { ActivatedRoute } from '@angular/router';
 import { Entry } from '../entries.viewmodels';
 import { RelatedData } from 'src/app/shared/related-box/related-box.models';
-import { Category, CategoriesService } from '../../categories/categories.service';
+import { Category, CategoriesService, enCategoryType } from '../../categories/categories.service';
 import { Account, AccountsService } from '../../accounts/accounts.service';
 import { Pattern } from '../../patterns/patterns.viewmodels';
 import { PatternsService } from '../../patterns/patterns.service';
@@ -48,7 +48,7 @@ export class EntryDetailsComponent implements OnInit {
          // NEW MODEL
          if (paramID == undefined && paramType != undefined) {
             this.Data = Object.assign(new Entry, {
-               Type: paramType,
+               Type: (paramType == 'Income' ? enCategoryType.Income : enCategoryType.Expense),
                Recurrency: new Recurrency,
                DueDate: this.service.CurrentData.CurrentMonth,
                Active: true

@@ -6,7 +6,7 @@
    </div>
    <div content class="full-screen">
 
-      <mat-card class="full-card">
+      <mat-card class="full-card" *ngIf="Data">
          <mat-card-content>
             <mat-tab-group dynamicHeight="false" [selectedIndex]="SelectedTabIndex" (selectedIndexChange)="OnTypeSelected($event)">
                <mat-tab *ngFor="let categoryType of Data" label="{{ categoryType.Text }}">
