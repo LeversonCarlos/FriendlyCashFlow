@@ -111,19 +111,20 @@ namespace FriendlyCashFlow.API.Users
             var token = await this.dbContext.UserTokens
                .Where(x => x.RefreshToken == refreshToken)
                .FirstOrDefaultAsync();
-            if (token == null) { return null; }
+            if (token == null) { this.TrackEvent("Refresh Token not Found", $"refreshToken:{refreshToken}"); return null; }
 
             // REMOVE TOKEN
             this.dbContext.UserTokens.Remove(token);
             await this.dbContext.SaveChangesAsync();
 
             // CHECK EXPIRATION
-            if (token.ExpirationDate < DateTime.UtcNow) { return null; }
+            if (token.ExpirationDate < DateTime.UtcNow) { this.TrackEvent("Refresh Token Expired", $"refreshToken:{refreshToken}", $"expirationDate:{token.ExpirationDate}", $"currentDate:{DateTime.UtcNow}"); return null; }
 
             // LOCATE USER
             var user = await this.GetDataQuery()
                .Where(x => x.UserID == token.UserID)
                .FirstOrDefaultAsync();
+            this.TrackEvent("Refresh Token Used", $"refreshToken:{refreshToken}", $"userName:{user.UserName}");
             return user;
 
          }
