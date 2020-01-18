@@ -1,3 +1,4 @@
+using FriendlyCashFlow.Helpers.AppInsights;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -29,6 +30,12 @@ namespace FriendlyCashFlow
          services.AddScoped<API.Recurrencies.RecurrenciesService>();
          services.AddScoped<API.Entries.EntriesService>();
          services.AddScoped<API.Transfers.TransfersService>();
+
+         // APPLICATION INSIGHTS
+         if (this.AppSettings.AppInsights.Activated && !string.IsNullOrEmpty(this.AppSettings.AppInsights.InstrumentationKey))
+         {
+            services.AddApplicationInsights(this.AppSettings.AppInsights);
+         }
 
       }
 

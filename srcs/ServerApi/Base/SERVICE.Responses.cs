@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace FriendlyCashFlow.API.Base
 {
@@ -53,8 +55,16 @@ namespace FriendlyCashFlow.API.Base
       }
 
       [DebuggerStepThrough]
-      protected ActionResult ExceptionResponse(Exception ex)
+      protected ActionResult ExceptionResponse(Exception ex, [CallerMemberName]string callerMemberName = "", [CallerFilePath] string callerFilePath = "", [CallerLineNumber]int callerLineNumber = 0)
       {
+         try
+         {
+            var telemetryProp = new Dictionary<string, string> { { "Exception", ex.Message }, { "CallerMemberName", callerMemberName }, { "CallerFilePath", callerFilePath }, { "CallerLineNumber", callerLineNumber.ToString() } };
+            if (ex.InnerException != null) { telemetryProp.Add("InnerException", ex.InnerException.Message); }
+            this.TrackException(ex, telemetryProp);
+         }
+         catch { }
+
          var modelState = new Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary();
          modelState.AddModelError("EXCEPTION_", ex.Message);
          if (ex.InnerException != null)

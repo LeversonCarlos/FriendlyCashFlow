@@ -38,6 +38,7 @@ namespace FriendlyCashFlow.API.Users
             // CHECK ACTIVATION
             if (user.RowStatus == (short)Base.enRowStatus.Temporary)
             {
+               this.TrackEvent("User not yet Activated", $"userName:{user.UserName}");
                await this.SendActivationMailAsync(user.UserID);
                return this.InformationResponse("USERS_USER_NOT_ACTIVATED_WARNING", "USERS_ACTIVATION_INSTRUCTIONS_WAS_SENT_MESSAGE");
             }
@@ -111,23 +112,24 @@ namespace FriendlyCashFlow.API.Users
             var token = await this.dbContext.UserTokens
                .Where(x => x.RefreshToken == refreshToken)
                .FirstOrDefaultAsync();
-            if (token == null) { return null; }
+            if (token == null) { this.TrackEvent("Refresh Token not Found", $"refreshToken:{refreshToken}"); return null; }
 
             // REMOVE TOKEN
             this.dbContext.UserTokens.Remove(token);
             await this.dbContext.SaveChangesAsync();
 
             // CHECK EXPIRATION
-            if (token.ExpirationDate < DateTime.UtcNow) { return null; }
+            if (token.ExpirationDate < DateTime.UtcNow) { this.TrackEvent("Refresh Token Expired", $"refreshToken:{refreshToken}", $"expirationDate:{token.ExpirationDate}", $"currentDate:{DateTime.UtcNow}"); return null; }
 
             // LOCATE USER
             var user = await this.GetDataQuery()
                .Where(x => x.UserID == token.UserID)
                .FirstOrDefaultAsync();
+            this.TrackEvent("Refresh Token Used", $"refreshToken:{refreshToken}", $"userName:{user.UserName}");
             return user;
 
          }
-         catch (Exception) { throw; }
+         catch (Exception ex) { this.TrackException(ex, $"refreshToken:{refreshToken}"); throw; }
       }
 
       private async Task<string[]> AuthenticateAsync_GetRoles(string userID, string resourceID)
@@ -182,7 +184,7 @@ namespace FriendlyCashFlow.API.Users
             // RESULT
             return token.RefreshToken;
          }
-         catch (Exception) { throw; }
+         catch (Exception ex) { this.TrackException(ex, $"userID:{userID}"); throw; }
       }
 
    }
