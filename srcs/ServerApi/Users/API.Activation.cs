@@ -59,7 +59,10 @@ namespace FriendlyCashFlow.API.Users
             var userActivationCode = cryptService.Encrypt($"{data.UserID}-{data.UserName}-{data.JoinDate.ToString("yyyyMMdd-HHmmss")}");
             userActivationCode = userActivationCode.Replace("+", "").Replace("/", "").Replace("\\", "").Replace("&", "");
             if (userActivationCode != activationCode)
-            { return this.WarningResponse(this.GetTranslation("USERS_INVALID_ACTIVATION_CODE_WARNING")); }
+            {
+               this.TrackEvent("Invalid Activation Code", $"userID:{userID}", $"activationCode:{activationCode}", $"userActivationCode:{userActivationCode}");
+               return this.WarningResponse(this.GetTranslation("USERS_INVALID_ACTIVATION_CODE_WARNING"));
+            }
 
             // GENERATE RESOURCE
             var resource = new UserResourceData
