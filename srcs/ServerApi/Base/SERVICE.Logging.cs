@@ -40,6 +40,24 @@ namespace FriendlyCashFlow.API.Base
       }
 
       [DebuggerStepThrough]
+      protected void TrackException(Exception ex, params string[] propertyList)
+      {
+         try
+         {
+            var properties = propertyList
+               .Select(prop => prop.Split(new string[] { ":" }, StringSplitOptions.RemoveEmptyEntries))
+               .Select(prop => new
+               {
+                  Key = (prop.Length == 2 ? prop[0] : "Property"),
+                  Value = (prop.Length == 2 ? prop[1] : prop[0])
+               })
+               .ToDictionary(k => k.Key, v => v.Value);
+            this.TrackException(ex, properties);
+         }
+         catch { }
+      }
+
+      [DebuggerStepThrough]
       protected void TrackException(Exception ex, Dictionary<string, string> properties = null)
       {
          try
