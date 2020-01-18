@@ -29,9 +29,17 @@
 .flow-day {
   align-self: center;
   padding: 0 10px;
+  @media (max-width: $max-width-xs) {
+    padding: 0 5px;
+  }
 }
 .flow-details {
   flex-grow: 1;
+  font-size: 14px;
+  @media (max-width: $max-width-xs) {
+    font-size: 10px;
+    margin: 0 -11px;
+  }
   .mat-action-list {
     padding-top: 0;
   }
@@ -40,10 +48,16 @@
   align-self: center;
   padding-right: 16px;
   text-align: right;
+  @media (max-width: $max-width-xs) {
+    margin: 0 -11px;
+  }
   span,
   small {
     opacity: 0.5;
-    font-size: smaller;
+    font-size: 12px;
+    @media (max-width: $max-width-xs) {
+      font-size: 8px;
+    }
   }
 }
 
@@ -54,15 +68,24 @@
   width: 100%;
   display: flex;
   .mat-icon {
+    vertical-align: middle;
     font-size: 20px;
     height: 20px;
     width: 22px;
-    vertical-align: middle;
+    @media (max-width: $max-width-xs) {
+      font-size: 14px;
+      height: 14px;
+      width: 16px;
+    }
   }
 }
 .item-description {
   flex-grow: 1;
   line-height: 1.2;
+  font-size: 14px;
+  @media (max-width: $max-width-xs) {
+    font-size: 10px;
+  }
   .item-description-title {
     display: flex;
     align-items: center;
@@ -81,12 +104,9 @@
 }
 .item-value {
   align-self: center;
-}
-.item-balance {
-  height: 32px;
-  align-self: center;
-  margin-right: 10px;
-  border-top: 1px solid;
-  padding: 0 6px;
-  opacity: 0.5;
+  line-height: 1.2;
+  font-size: 14px;
+  @media (max-width: $max-width-xs) {
+    font-size: 10px;
+  }
 }

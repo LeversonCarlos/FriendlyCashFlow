@@ -47,10 +47,15 @@ export class EntryDetailsComponent implements OnInit {
 
          // NEW MODEL
          if (paramID == undefined && paramType != undefined) {
+
+            const today = new Date();
+            let dueDate = this.service.CurrentData.CurrentMonth;
+            if (dueDate.getFullYear() == today.getFullYear() && dueDate.getMonth() == today.getMonth()) { dueDate = today; }
+
             this.Data = Object.assign(new Entry, {
                Type: (paramType == 'Income' ? enCategoryType.Income : enCategoryType.Expense),
                Recurrency: new Recurrency,
-               DueDate: this.service.CurrentData.CurrentMonth,
+               DueDate: dueDate,
                Active: true
             });
             return true;
@@ -198,9 +203,12 @@ export class EntryDetailsComponent implements OnInit {
    private OnPaidChanged(paid: boolean) {
       const payDateControl = this.inputForm.controls['PayDate'];
       if (paid == true) {
+         const today = new Date();
+         let payDate = this.Data.DueDate;
+         if (today < payDate) { payDate = today; }
          payDateControl.enable();
          payDateControl.setValidators([Validators.required]);
-         payDateControl.setValue(this.Data.DueDate);
+         payDateControl.setValue(payDate);
          payDateControl.markAsTouched();
       }
       else {
