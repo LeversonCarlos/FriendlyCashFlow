@@ -53,6 +53,7 @@ namespace FriendlyCashFlow
       public AppSettingsPasswords Passwords { get; set; }
       public AppSettingsToken Token { get; set; }
       public AppSettingsMail Mail { get; set; }
+      public AppSettingsAppInsights AppInsights { get; set; }
    }
 
    public class AppSettingsPasswords
@@ -81,6 +82,11 @@ namespace FriendlyCashFlow
       public string Audience { get; set; }
       public int AccessExpirationInSeconds { get; set; }
       public int RefreshExpirationInSeconds { get; set; }
+   }
+
+   public class AppSettingsAppInsights : Helpers.AppInsights.Settings
+   {
+      public bool Activated { get; set; }
    }
 
 }
