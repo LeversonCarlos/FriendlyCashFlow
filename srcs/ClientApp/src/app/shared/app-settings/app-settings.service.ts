@@ -14,9 +14,14 @@ export class AppSettingsService {
 
    constructor(private http: HttpClient) { }
 
+   private appSettings: Observable<any> = null;
    getSettings(): Observable<any> {
-      return this.http.get<AppSettingsJson>('./assets/appsettings.json')
-         .pipe(map(data => data.AppSettings));
+      if (!this.appSettings) { return this.appSettings }
+      else {
+         this.appSettings = this.http.get<AppSettingsJson>('./assets/appsettings.json')
+            .pipe(map(data => data.AppSettings));
+         return this.appSettings;
+      }
    }
 
 }
