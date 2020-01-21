@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
    selector: 'fs-home',
@@ -8,7 +9,9 @@ import { AuthService } from '../auth/auth.service';
 })
 export class HomeComponent implements OnInit {
 
-   constructor(public auth: AuthService ) { }
+   constructor(public auth: AuthService) { }
+
+   public appVersion: string = environment.appVersion
 
    public async ngOnInit() {
 

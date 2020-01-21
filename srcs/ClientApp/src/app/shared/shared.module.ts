@@ -38,6 +38,8 @@ import { ConfirmComponent } from './message/confirm.component';
 import { FabButtonComponent } from './fab-button/fab-button.component';
 import { RelatedBoxComponent } from './related-box/related-box.component';
 import { LocaleService, LocaleServiceProvider } from './locale/locale.service';
+import { AppSettingsService } from './app-settings/app-settings.service';
+import { AppInsightsService } from './app-insights/app-insights.service';
 
 @NgModule({
    entryComponents: [MessageComponent, ConfirmComponent],
@@ -62,6 +64,7 @@ import { LocaleService, LocaleServiceProvider } from './locale/locale.service';
       FabButtonComponent, RelatedBoxComponent,
       TranslationPipe
    ],
-   providers: [BusyService, TranslationService, MessageService, LocaleService, LocaleServiceProvider]
+   providers: [BusyService, TranslationService, MessageService, LocaleService, LocaleServiceProvider,
+      AppSettingsService, AppInsightsService]
 })
 export class SharedModule { }

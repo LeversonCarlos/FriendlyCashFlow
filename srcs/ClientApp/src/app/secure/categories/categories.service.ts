@@ -30,7 +30,7 @@ export class CategoriesService {
    // NAVIGATES
    public showList() { this.router.navigate(['/categories']); }
    public showDetails(id: number) { this.router.navigate(['/category', id], { skipLocationChange: true }); }
-   public showNew(categoryType: enCategoryType) { this.router.navigate(['/category', `new-${categoryType}`]); }
+   public showNew(categoryType: enCategoryType) { this.router.navigate(['/category', `new-${categoryType}`], { skipLocationChange: true }); }
 
    // CATEGORY TYPES
    public SelectedCategoryType: enCategoryType = enCategoryType.None;

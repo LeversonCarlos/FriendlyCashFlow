@@ -3,6 +3,7 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HTTP_INTERCEPTORS
 import { Observable, throwError, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
+import { AppInsightsService, SeverityLevel } from 'src/app/shared/app-insights/app-insights.service';
 
 @Injectable()
 export class RequestAuthInterceptor implements HttpInterceptor {
@@ -21,7 +22,7 @@ export class RequestAuthInterceptor implements HttpInterceptor {
 
 @Injectable()
 export class ResponseAuthInterceptor implements HttpInterceptor {
-   constructor(private auth: AuthService) { }
+   constructor(private auth: AuthService, private appInsights: AppInsightsService) { }
    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
       return next.handle(req).pipe(
          catchError((error: HttpErrorResponse) => {
@@ -29,9 +30,20 @@ export class ResponseAuthInterceptor implements HttpInterceptor {
             // UNAUTHORIZED
             if (error.status == 401) {
                if (this.auth.Token && this.auth.Token.RefreshToken) {
+                  this.appInsights.trackTrace('Token Expired: Will Try to Refresh', SeverityLevel.Information, {
+                     refreshToken: this.auth.Token.RefreshToken,
+                     requestedUrl: req.url,
+                     locationUrl: location.href
+                  })
                   return this.auth.signRefresh()
                      .pipe(
-                        catchError(() => {
+                        catchError((refreshError) => {
+                           this.appInsights.trackTrace('Token Expired: Could not Refresh', SeverityLevel.Warning, {
+                              refreshToken: this.auth.Token.RefreshToken,
+                              requestedUrl: req.url,
+                              locationUrl: location.href,
+                              refreshError: refreshError
+                           })
                            this.auth.Token = null;
                            location.reload(true);
                            return throwError(error);
