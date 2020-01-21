@@ -14,6 +14,7 @@ namespace FriendlyCashFlow.Helpers.AppInsights
             foreach (var globalProperty in this.GlobalProperties)
             { telemetry.Context.GlobalProperties.Add(globalProperty); }
          }
+         // telemetry.Context.Component.Version = "something"
       }
    }
 }

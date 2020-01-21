@@ -37,6 +37,7 @@ export class AppInsightsService {
                this.AppInsights = new ApplicationInsights({
                   config: {
                      instrumentationKey: cfg.AppInsights.Key,
+                     samplingPercentage: 100,
                      enableAutoRouteTracking: true
                   }
                });
