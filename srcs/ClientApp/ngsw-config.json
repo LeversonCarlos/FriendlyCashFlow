@@ -16,6 +16,17 @@
          }
       },
       {
+         "name": "dashboardData",
+         "urls": [
+            "/api/dashboard/**"
+         ],
+         "cacheConfig": {
+            "strategy": "performance",
+            "maxSize": 1,
+            "maxAge": "1d"
+         }
+      },
+      {
          "name": "transactionData",
          "urls": [
             "/api/entries/**",
@@ -24,7 +35,7 @@
          ],
          "cacheConfig": {
             "strategy": "freshness",
-            "maxSize": 10,
+            "maxSize": 1,
             "maxAge": "1d",
             "timeout": "10s"
          }
