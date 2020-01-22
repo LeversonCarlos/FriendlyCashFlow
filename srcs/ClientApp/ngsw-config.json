@@ -1,6 +1,35 @@
 {
    "$schema": "./node_modules/@angular/service-worker/config/schema.json",
    "index": "/index.html",
+   "dataGroups": [
+      {
+         "name": "domainData",
+         "urls": [
+            "/api/accounts/**",
+            "/api/categories/**",
+            "/api/recurrencies/types"
+         ],
+         "cacheConfig": {
+            "strategy": "performance",
+            "maxSize": 100,
+            "maxAge": "7d"
+         }
+      },
+      {
+         "name": "transactionData",
+         "urls": [
+            "/api/entries/**",
+            "/api/transfers/**",
+            "/api/patterns/**"
+         ],
+         "cacheConfig": {
+            "strategy": "freshness",
+            "maxSize": 10,
+            "maxAge": "1d",
+            "timeout": "10s"
+         }
+      }
+   ],
    "assetGroups": [
       {
          "name": "app",
