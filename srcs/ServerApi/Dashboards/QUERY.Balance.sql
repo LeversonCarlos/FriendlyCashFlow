@@ -1,9 +1,9 @@
 use FriendlyCashFlow
 set nocount on;
 
-declare @resourceID varchar(128) = 'a0e03962-54a3-47be-a733-652311ef196a';
-declare @searchYear smallint = 2020;
-declare @searchMonth smallint = 1;
+declare @resourceID varchar(128) = @paramResourceID;
+declare @searchYear smallint = @paramSearchYear;
+declare @searchMonth smallint = @paramSearchMonth;
 declare @typeExpense smallint = 1;
 declare @typeIncome smallint = 2;
 
@@ -12,24 +12,24 @@ declare @initialDate datetime = cast(ltrim(str(@searchYear))+'-'+ltrim(str(@sear
 declare @finalDate datetime = dateadd(day, -1, dateadd(month,1,@initialDate));
 
 /* ACCOUNTS */
-select AccountID, Text as AccountText, Type 
+select AccountID, Text as AccountText, Type
 into #accounts
-from v6_dataAccounts 
+from v6_dataAccounts
 where ResourceID=@resourceID and RowStatus=1 and Active=1;
 
 /* ENTRIES */
-select 
-   AccountID, Type, Paid, sum(EntryValue) as EntryValue 
+select
+   AccountID, Type, Paid, sum(EntryValue) as EntryValue
 into #entries
-from 
+from
 (
-   select 
+   select
       AccountID, Type, Paid,
       EntryValue * (case when Type=@typeExpense then -1 else 1 end) As EntryValue
    from v6_dataEntries
    where
       RowStatus = 1
-      and ResourceID=@resourceID 
+      and ResourceID=@resourceID
       and AccountID in (select AccountID from #accounts)
       and SearchDate >= cast(convert(varchar(10),@initialDate,121)+' 00:00:00' as datetime)
       and SearchDate <= cast(convert(varchar(10),@finalDate,121)+' 23:59:59' as datetime)
@@ -49,11 +49,11 @@ group by AccountID;
 /* CURRENT BALANCE */
 alter table #accounts add CurrentBalance decimal(15,2);
    update #accounts
-   set CurrentBalance = 
+   set CurrentBalance =
    (
       select coalesce(sum(PaidValue),0)
       from #balance as balance
-      where 
+      where
          balance.AccountID = accounts.AccountID
     )
    from #accounts as accounts;
@@ -61,12 +61,12 @@ alter table #accounts add CurrentBalance decimal(15,2);
 /* INITIALIZE FORECASTS */
 alter table #accounts add Forecast decimal(15,2);
    update #accounts
-   set 
-      Forecast = 
+   set
+      Forecast =
       (
          select coalesce(sum(TotalValue),0) - coalesce(sum(PaidValue),0)
          from #balance as balance
-         where 
+         where
             balance.AccountID = accounts.AccountID
        )
    from #accounts as accounts;
@@ -74,33 +74,32 @@ alter table #accounts add Forecast decimal(15,2);
 /* REVIEW FORECASTS */
 alter table #accounts add IncomeForecast decimal(15,2), ExpenseForecast decimal(15,2);
    update #accounts
-   set 
-      IncomeForecast = (case when Forecast>0 then Forecast else 0 end), 
+   set
+      IncomeForecast = (case when Forecast>0 then Forecast else 0 end),
       ExpenseForecast = (case when Forecast<0 then Forecast else 0 end);
 alter table #accounts drop column Forecast;
 
 /* PAID INCOMES */
 update #accounts
-set 
+set
    CurrentBalance += coalesce((select coalesce(sum(EntryValue),0) from #entries as entries where entries.AccountID= accounts.AccountID and entries.Type=@typeIncome and entries.Paid=1),0)
 from #accounts as accounts;
 
 /* PAID EXPENSES */
 update #accounts
-set 
+set
    CurrentBalance += coalesce((select sum(EntryValue) from #entries as entries where entries.AccountID= accounts.AccountID and entries.Type=@typeExpense and entries.Paid=1),0)
 from #accounts as accounts;
 
 /* UNPAID ENTRIES */
 update #accounts
-set 
-   IncomeForecast += coalesce((select coalesce(sum(EntryValue),0) from #entries as entries where entries.AccountID= accounts.AccountID and entries.Type=@typeIncome and entries.Paid=0),0), 
+set
+   IncomeForecast += coalesce((select coalesce(sum(EntryValue),0) from #entries as entries where entries.AccountID= accounts.AccountID and entries.Type=@typeIncome and entries.Paid=0),0),
    ExpenseForecast += coalesce((select coalesce(sum(EntryValue),0) from #entries as entries where entries.AccountID= accounts.AccountID and entries.Type=@typeExpense and entries.Paid=0),0)
 from #accounts as accounts;
 
 /* RESULT */
 select * from #accounts;
-select * from #entries
 
 /* CLEAR */
 drop table #accounts
