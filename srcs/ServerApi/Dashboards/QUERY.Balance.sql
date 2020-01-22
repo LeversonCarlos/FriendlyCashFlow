@@ -79,6 +79,25 @@ alter table #accounts add IncomeForecast decimal(15,2), ExpenseForecast decimal(
       ExpenseForecast = (case when Forecast<0 then Forecast else 0 end);
 alter table #accounts drop column Forecast;
 
+/* PAID INCOMES */
+update #accounts
+set 
+   CurrentBalance += coalesce((select coalesce(sum(EntryValue),0) from #entries as entries where entries.AccountID= accounts.AccountID and entries.Type=@typeIncome and entries.Paid=1),0)
+from #accounts as accounts;
+
+/* PAID EXPENSES */
+update #accounts
+set 
+   CurrentBalance += coalesce((select sum(EntryValue) from #entries as entries where entries.AccountID= accounts.AccountID and entries.Type=@typeExpense and entries.Paid=1),0)
+from #accounts as accounts;
+
+/* UNPAID ENTRIES */
+update #accounts
+set 
+   IncomeForecast += coalesce((select coalesce(sum(EntryValue),0) from #entries as entries where entries.AccountID= accounts.AccountID and entries.Type=@typeIncome and entries.Paid=0),0), 
+   ExpenseForecast += coalesce((select coalesce(sum(EntryValue),0) from #entries as entries where entries.AccountID= accounts.AccountID and entries.Type=@typeExpense and entries.Paid=0),0)
+from #accounts as accounts;
+
 /* RESULT */
 select * from #accounts;
 select * from #entries
