@@ -9,6 +9,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
@@ -47,7 +48,7 @@ import { AppInsightsService } from './app-insights/app-insights.service';
       BusyComponent, TranslationPipe, MessageComponent, ConfirmComponent, FabButtonComponent, RelatedBoxComponent],
    imports: [
       CommonModule, RouterModule, FormsModule, ReactiveFormsModule,
-      MatToolbarModule, MatSidenavModule, MatCardModule, MatTabsModule, MatListModule,
+      MatToolbarModule, MatSidenavModule, MatCardModule, MatTabsModule, MatListModule, MatExpansionModule,
       MatIconModule, MatBadgeModule, MatButtonModule, MatMenuModule, MatProgressBarModule,
       MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatSelectModule, MatSlideToggleModule,
       MatDatepickerModule, MatMomentDateModule,
@@ -55,7 +56,7 @@ import { AppInsightsService } from './app-insights/app-insights.service';
    ],
    exports: [
       RouterModule, FormsModule, ReactiveFormsModule,
-      MatToolbarModule, MatSidenavModule, MatCardModule, MatTabsModule, MatListModule,
+      MatToolbarModule, MatSidenavModule, MatCardModule, MatTabsModule, MatListModule, MatExpansionModule,
       MatIconModule, MatBadgeModule, MatButtonModule, MatMenuModule, MatProgressBarModule,
       MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatSelectModule, MatSlideToggleModule,
       MatDatepickerModule, MatMomentDateModule,

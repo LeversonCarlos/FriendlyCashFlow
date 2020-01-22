@@ -33,6 +33,7 @@ export class BalanceComponent implements OnInit {
             return balanceType
          })
          .filter(balanceType => balanceType.Accounts && balanceType.Accounts.length > 0)
+         .sort((a, b) => a.Type < b.Type ? -1 : 1)
    }
 
 }
