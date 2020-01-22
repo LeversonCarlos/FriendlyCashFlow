@@ -1,6 +1,6 @@
 using System;
 
-namespace FriendlyCashFlow.API.Dashboards
+namespace FriendlyCashFlow.API.Dashboard
 {
 
    public class BalanceVM

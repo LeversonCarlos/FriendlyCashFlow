@@ -5,10 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FriendlyCashFlow.API.Dashboards
+namespace FriendlyCashFlow.API.Dashboard
 {
 
-   partial class DashboardsService
+   partial class DashboardService
    {
 
       internal async Task<ActionResult<List<BalanceVM>>> GetBalanceAsync(short searchYear, short searchMonth)
@@ -16,7 +16,7 @@ namespace FriendlyCashFlow.API.Dashboards
          try
          {
             var user = this.GetService<Helpers.User>();
-            var queryPath = "FriendlyCashFlow.ServerApi.Dashboards.QUERY.Balance.sql";
+            var queryPath = "FriendlyCashFlow.ServerApi.Dashboard.QUERY.Balance.sql";
             var queryContent = await Helpers.EmbededResource.GetResourceContent(queryPath);
             using (var queryReader = this.GetService<Helpers.DataReaderService>().GetDataReader(queryContent))
             {
@@ -34,13 +34,13 @@ namespace FriendlyCashFlow.API.Dashboards
 
    }
 
-   partial class DashboardsController
+   partial class DashboardController
    {
 
       [HttpGet("balance/{searchYear}/{searchMonth}/")]
       public async Task<ActionResult<List<BalanceVM>>> GetBalanceAsync(short searchYear, short searchMonth)
       {
-         return await this.GetService<DashboardsService>().GetBalanceAsync(searchYear, searchMonth);
+         return await this.GetService<DashboardService>().GetBalanceAsync(searchYear, searchMonth);
       }
 
    }

@@ -2,19 +2,19 @@ using System;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FriendlyCashFlow.API.Dashboards
+namespace FriendlyCashFlow.API.Dashboard
 {
 
    [Authorize]
-   [Route("api/dashboards")]
-   public partial class DashboardsController : Base.BaseController
+   [Route("api/dashboard")]
+   public partial class DashboardController : Base.BaseController
    {
-      public DashboardsController(IServiceProvider _serviceProvider) : base(_serviceProvider) { }
+      public DashboardController(IServiceProvider _serviceProvider) : base(_serviceProvider) { }
    }
 
-   internal partial class DashboardsService : Base.BaseService
+   internal partial class DashboardService : Base.BaseService
    {
-      public DashboardsService(IServiceProvider serviceProvider) : base(serviceProvider) { }
+      public DashboardService(IServiceProvider serviceProvider) : base(serviceProvider) { }
    }
 
 }

@@ -35,13 +35,13 @@
    </ItemGroup>
 
    <ItemGroup>
-      <None Remove="ServerApi\Dashboards\QUERY.Balance.sql" />
+      <None Remove="ServerApi\Dashboard\QUERY.Balance.sql" />
       <None Remove="ServerApi\Entries\QUERY.EntriesSearch.sql" />
       <None Remove="ServerApi\Recurrencies\QUERY.UpdatePortions.sql" />
    </ItemGroup>
 
    <ItemGroup>
-      <EmbeddedResource Include="ServerApi\Dashboards\QUERY.Balance.sql" />
+      <EmbeddedResource Include="ServerApi\Dashboard\QUERY.Balance.sql" />
       <EmbeddedResource Include="ServerApi\Entries\QUERY.EntriesSearch.sql" />
       <EmbeddedResource Include="ServerApi\Recurrencies\QUERY.UpdatePortions.sql" />
    </ItemGroup>

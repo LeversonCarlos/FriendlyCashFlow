@@ -30,7 +30,7 @@ namespace FriendlyCashFlow
          services.AddScoped<API.Recurrencies.RecurrenciesService>();
          services.AddScoped<API.Entries.EntriesService>();
          services.AddScoped<API.Transfers.TransfersService>();
-         services.AddScoped<API.Dashboards.DashboardsService>();
+         services.AddScoped<API.Dashboard.DashboardService>();
 
          // APPLICATION INSIGHTS
          if (this.AppSettings.AppInsights.Activated && !string.IsNullOrEmpty(this.AppSettings.AppInsights.InstrumentationKey))
