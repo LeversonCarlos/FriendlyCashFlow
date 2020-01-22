@@ -6,11 +6,14 @@
 
       <mat-expansion-panel-header>
          <mat-panel-title>
-            <mat-icon>account_circle</mat-icon>
-            {{ balanceType.Text }}
+            <mat-icon>{{ balanceType.Icon }}</mat-icon>
+            <span class="mat-panel-title-text">{{ balanceType.Text }}</span>
          </mat-panel-title>
          <mat-panel-description>
-
+            <div class="mat-panel-description-values">
+               <span class="mat-panel-description-values-paid" [class.forecolor-red]="balanceType.PaidValue < 0"
+                  [class.forecolor-green]="balanceType.PaidValue > 0">{{ balanceType.PaidValue | number : '1.2-2' }}</span>
+            </div>
          </mat-panel-description>
       </mat-expansion-panel-header>
 

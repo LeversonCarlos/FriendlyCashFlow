@@ -3,8 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AccountsService } from '../accounts.service';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { MessageService } from 'src/app/shared/message/message.service';
-import { EnumVM } from 'src/app/shared/common/common.models';
-import { enAccountType, Account } from '../accounts.viewmodels';
+import { enAccountType, Account, AccountType } from '../accounts.viewmodels';
 
 @Component({
    selector: 'fs-account-details',
@@ -17,7 +16,7 @@ export class AccountDetailsComponent implements OnInit {
       private route: ActivatedRoute, private fb: FormBuilder) { }
 
    public Data: Account;
-   public AccountTypes: EnumVM<enAccountType>[];
+   public AccountTypes: AccountType[];
    public inputForm: FormGroup;
 
    public async ngOnInit() {

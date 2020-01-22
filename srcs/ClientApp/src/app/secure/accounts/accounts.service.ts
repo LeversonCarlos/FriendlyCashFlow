@@ -3,8 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { BusyService } from 'src/app/shared/busy/busy.service';
 import { Router } from '@angular/router';
-import { EnumVM } from 'src/app/shared/common/common.models';
-import { enAccountType, Account } from './accounts.viewmodels';
+import { Account, AccountType } from './accounts.viewmodels';
 
 @Injectable({
    providedIn: 'root'
@@ -20,11 +19,11 @@ export class AccountsService {
    public showNew() { this.router.navigate(['/account', 'new'], { skipLocationChange: true }); }
 
    // ACCOUNT TYPES
-   public async getAccountTypes(): Promise<EnumVM<enAccountType>[]> {
+   public async getAccountTypes(): Promise<AccountType[]> {
       try {
          this.busy.show();
-         const dataList = await this.http.get<EnumVM<enAccountType>[]>("api/accounts/types")
-            .pipe(map(items => items.map(item => Object.assign(new EnumVM<enAccountType>(), item))))
+         const dataList = await this.http.get<AccountType[]>("api/accounts/types")
+            .pipe(map(items => items.map(item => Object.assign(new AccountType(), item))))
             .toPromise();
          return dataList;
       }
