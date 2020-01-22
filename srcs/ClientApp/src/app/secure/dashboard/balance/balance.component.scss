@@ -1,9 +1,14 @@
-.mat-panel-title-text {
+.type-text {
   align-self: center;
   margin-left: 12px;
 }
 
-.mat-panel-description-values {
+.type-values {
   width: 100%;
   text-align: end;
+}
+
+.account-row {
+  display: flex !important;
+  justify-content: space-between;
 }

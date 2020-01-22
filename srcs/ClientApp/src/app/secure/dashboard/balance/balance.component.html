@@ -7,19 +7,26 @@
       <mat-expansion-panel-header>
          <mat-panel-title>
             <mat-icon>{{ balanceType.Icon }}</mat-icon>
-            <span class="mat-panel-title-text">{{ balanceType.Text }}</span>
+            <span class="type-text">{{ balanceType.Text }}</span>
          </mat-panel-title>
          <mat-panel-description>
-            <div class="mat-panel-description-values">
-               <span class="mat-panel-description-values-paid" [class.forecolor-red]="balanceType.PaidValue < 0"
+            <div class="type-values">
+               <span [class.forecolor-red]="balanceType.PaidValue < 0"
                   [class.forecolor-green]="balanceType.PaidValue > 0">{{ balanceType.PaidValue | number : '1.2-2' }}</span>
             </div>
          </mat-panel-description>
       </mat-expansion-panel-header>
 
-      <pre>
-         {{ balanceType.Accounts | json }}
-      </pre>
+      <mat-list dense>
+         <mat-list-item *ngFor="let account of balanceType.Accounts; let last = last">
+            <div matLine class="account-row">
+               <span>{{ account.Text }}</span>
+               <span [class.forecolor-red]="account.CurrentBalance < 0"
+                  [class.forecolor-green]="account.CurrentBalance > 0">{{ account.CurrentBalance | number : '1.2-2' }}</span>
+            </div>
+            <mat-divider *ngIf="!last"></mat-divider>
+         </mat-list-item>
+      </mat-list>
 
    </mat-expansion-panel>
 </mat-accordion>
