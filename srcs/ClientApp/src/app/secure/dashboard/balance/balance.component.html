@@ -21,8 +21,12 @@
          <mat-list-item *ngFor="let account of balanceType.Accounts; let last = last">
             <div matLine class="account-row">
                <span>{{ account.Text }}</span>
-               <span [class.forecolor-red]="account.CurrentBalance < 0"
-                  [class.forecolor-green]="account.CurrentBalance > 0">{{ account.CurrentBalance | number : '1.2-2' }}</span>
+               <span class="account-values">
+                  <span [class.forecolor-red]="account.CurrentBalance < 0"
+                     [class.forecolor-green]="account.CurrentBalance > 0">{{ account.CurrentBalance | number : '1.2-2' }}</span>
+                  <small [class.forecolor-red]="(account.IncomeForecast+account.ExpenseForecast) < 0"
+                     [class.forecolor-green]="(account.IncomeForecast+account.ExpenseForecast) > 0">{{ (account.IncomeForecast+account.ExpenseForecast) | number : '1.2-2' }}</small>
+               </span>
             </div>
             <mat-divider *ngIf="!last"></mat-divider>
          </mat-list-item>

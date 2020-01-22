@@ -10,5 +10,13 @@
 
 .account-row {
   display: flex !important;
+  align-items: center;
   justify-content: space-between;
+  .account-values {
+    line-height: 1.2;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+  }
 }
