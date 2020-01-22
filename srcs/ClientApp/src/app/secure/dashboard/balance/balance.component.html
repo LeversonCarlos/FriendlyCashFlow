@@ -24,7 +24,7 @@
                <span class="account-values">
                   <span [class.forecolor-red]="account.CurrentBalance < 0"
                      [class.forecolor-green]="account.CurrentBalance > 0">{{ account.CurrentBalance | number : '1.2-2' }}</span>
-                  <small [class.forecolor-red]="(account.IncomeForecast+account.ExpenseForecast) < 0"
+                  <small *ngIf="(account.IncomeForecast+account.ExpenseForecast) != 0" [class.forecolor-red]="(account.IncomeForecast+account.ExpenseForecast) < 0"
                      [class.forecolor-green]="(account.IncomeForecast+account.ExpenseForecast) > 0">{{ (account.IncomeForecast+account.ExpenseForecast) | number : '1.2-2' }}</small>
                </span>
             </div>
