@@ -18,11 +18,11 @@ namespace FriendlyCashFlow
             }));
 
          // CONFIGURE INJECTION FOR HELPERS
+         services.AddSingleton<Helpers.DataReaderService>();
+         services.AddSingleton<API.Users.UsersService>();
          services.AddScoped<Helpers.User>();
-         services.AddScoped<Helpers.DataReaderService>();
 
          // CONFIGURE INJECTION FOR DATA SERVICES
-         services.AddScoped<API.Users.UsersService>();
          services.AddScoped<API.Accounts.AccountsService>();
          services.AddScoped<API.Categories.CategoriesService>();
          services.AddScoped<API.Patterns.PatternsService>();
@@ -30,6 +30,7 @@ namespace FriendlyCashFlow
          services.AddScoped<API.Recurrencies.RecurrenciesService>();
          services.AddScoped<API.Entries.EntriesService>();
          services.AddScoped<API.Transfers.TransfersService>();
+         services.AddScoped<API.Dashboards.DashboardsService>();
 
          // APPLICATION INSIGHTS
          if (this.AppSettings.AppInsights.Activated && !string.IsNullOrEmpty(this.AppSettings.AppInsights.InstrumentationKey))
