@@ -21,6 +21,7 @@ import { TransferDetailsComponent } from './entries/transfer-details/transfer-de
 import { TransfersService } from './transfers/transfers.service';
 import { AccountPickerComponent } from './pickers/account-picker/account-picker.component';
 import { SearchPanelComponent } from './entries/search-panel/search-panel.component';
+import { DashboardsService } from './dashboards/dashboards.service';
 
 @NgModule({
    declarations: [
@@ -32,6 +33,7 @@ import { SearchPanelComponent } from './entries/search-panel/search-panel.compon
    imports: [
       CommonModule, SharedModule
    ],
-   providers: [AccountsService, CategoriesService, EntriesService, PatternsService, RecurrencyService, TransfersService]
+   providers: [AccountsService, CategoriesService, EntriesService, TransfersService,
+      PatternsService, RecurrencyService, DashboardsService]
 })
 export class SecureModule { }

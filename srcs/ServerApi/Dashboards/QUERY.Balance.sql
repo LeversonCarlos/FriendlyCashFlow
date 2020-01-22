@@ -12,7 +12,7 @@ declare @initialDate datetime = cast(ltrim(str(@searchYear))+'-'+ltrim(str(@sear
 declare @finalDate datetime = dateadd(day, -1, dateadd(month,1,@initialDate));
 
 /* ACCOUNTS */
-select AccountID, Text as AccountText, Type
+select AccountID, Text, Type
 into #accounts
 from v6_dataAccounts
 where ResourceID=@resourceID and RowStatus=1 and Active=1;

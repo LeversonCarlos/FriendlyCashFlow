@@ -18,9 +18,9 @@ namespace FriendlyCashFlow
             }));
 
          // CONFIGURE INJECTION FOR HELPERS
-         services.AddSingleton<Helpers.DataReaderService>();
-         services.AddSingleton<API.Users.UsersService>();
+         services.AddScoped<API.Users.UsersService>();
          services.AddScoped<Helpers.User>();
+         services.AddScoped<Helpers.DataReaderService>();
 
          // CONFIGURE INJECTION FOR DATA SERVICES
          services.AddScoped<API.Accounts.AccountsService>();
