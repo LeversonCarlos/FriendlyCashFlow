@@ -38,7 +38,7 @@ export class CategoryDetailsComponent implements OnInit {
       const paramID: string = this.route.snapshot.params.id;
       if (paramID.startsWith('new-')) {
          const categoryType = (paramID.replace('new-', '') as any);
-         this.Data = Object.assign(new Category, { Type: categoryType });
+         this.Data = Object.assign(new Category, { Type: (categoryType == "2" ? enCategoryType.Income : enCategoryType.Expense) });
          return true;
       }
 
