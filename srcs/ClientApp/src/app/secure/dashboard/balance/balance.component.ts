@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Balance } from '../dashboard.viewmodels';
 import { DashboardService } from '../dashboard.service';
 import { AccountsService } from '../../accounts/accounts.service';
-import { enAccountType } from '../../accounts/accounts.viewmodels';
+import { enAccountType, Account } from '../../accounts/accounts.viewmodels';
+import { EntriesService } from '../../entries/entries.service';
 
 class BalanceTypeVM {
    Type: enAccountType
@@ -20,7 +21,7 @@ class BalanceTypeVM {
 })
 export class BalanceComponent implements OnInit {
 
-   constructor(private accountsService: AccountsService, private dashboardService: DashboardService) { }
+   constructor(private accountsService: AccountsService, private dashboardService: DashboardService, private entriesService: EntriesService) { }
 
    public balanceTypes: BalanceTypeVM[];
 
@@ -56,6 +57,13 @@ export class BalanceComponent implements OnInit {
          })
          .filter(balanceType => balanceType.Accounts && balanceType.Accounts.length > 0)
          .sort((a, b) => a.Type < b.Type ? -1 : 1)
+   }
+
+   public OnClick(account: Balance) {
+      const now = new Date()
+      const year = now.getFullYear()
+      const month = now.getMonth() + 1
+      this.entriesService.showFlow(year, month, account.AccountID)
    }
 
 }
