@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
    selector: 'fs-dashboard',
@@ -8,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
 export class DashboardComponent implements OnInit {
 
    constructor() { }
+
+   public appVersion: string = environment.appVersion
 
    ngOnInit() {
    }
