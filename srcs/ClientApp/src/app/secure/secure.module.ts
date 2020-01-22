@@ -22,6 +22,7 @@ import { TransfersService } from './transfers/transfers.service';
 import { AccountPickerComponent } from './pickers/account-picker/account-picker.component';
 import { SearchPanelComponent } from './entries/search-panel/search-panel.component';
 import { DashboardsService } from './dashboards/dashboards.service';
+import { BalanceComponent } from './dashboards/balance/balance.component';
 
 @NgModule({
    declarations: [
@@ -29,7 +30,7 @@ import { DashboardsService } from './dashboards/dashboards.service';
       CategoriesComponent, CategoryDetailsComponent,
       MonthPickerComponent, AccountPickerComponent,
       EntriesFlowComponent, EntryDetailsComponent, TransferDetailsComponent,
-      AddButtonComponent, SearchPanelComponent],
+      AddButtonComponent, SearchPanelComponent, BalanceComponent],
    imports: [
       CommonModule, SharedModule
    ],
