@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { baseUrlProvider, UrlInterceptorProvider } from './interceptors/url.interceptor';
 import { ErrorInterceptorProvider } from './interceptors/error.interceptor';
@@ -12,7 +11,7 @@ import { ActivateComponent } from './auth/activate/activate.component';
 import { RequestAuthInterceptorProvider, ResponseAuthInterceptorProvider } from './interceptors/auth.interceptor';
 
 @NgModule({
-   declarations: [HomeComponent, SignUpComponent, SignInComponent, ActivateComponent],
+   declarations: [SignUpComponent, SignInComponent, ActivateComponent],
    imports: [
       CommonModule, HttpClientModule, SharedModule
    ],
