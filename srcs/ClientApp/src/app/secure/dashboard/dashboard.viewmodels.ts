@@ -1,4 +1,4 @@
-import { enAccountType } from '../accounts/accounts.service';
+import { enAccountType } from '../accounts/accounts.viewmodels';
 
 export class Balance {
    AccountID: number;

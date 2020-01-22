@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Account, AccountsService } from '../../accounts/accounts.service';
+import { AccountsService } from '../../accounts/accounts.service';
+import { Account } from '../../accounts/accounts.viewmodels';
 import { TranslationService } from 'src/app/shared/translation/translation.service';
 
 @Component({

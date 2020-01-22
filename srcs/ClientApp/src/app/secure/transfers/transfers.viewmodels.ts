@@ -1,4 +1,4 @@
-import { Account } from '../accounts/accounts.service';
+import { Account } from '../accounts/accounts.viewmodels';
 
 export class Transfer {
    TransferID: string

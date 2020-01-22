@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Balance } from '../dashboard.viewmodels';
 import { DashboardService } from '../dashboard.service';
-import { enAccountType, AccountsService } from '../../accounts/accounts.service';
+import { AccountsService } from '../../accounts/accounts.service';
+import { enAccountType } from '../../accounts/accounts.viewmodels';
 
 class BalanceTypeVM {
    Type: enAccountType

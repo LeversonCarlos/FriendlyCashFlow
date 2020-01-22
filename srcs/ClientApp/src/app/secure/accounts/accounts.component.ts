@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountsService, Account } from './accounts.service';
+import { AccountsService } from './accounts.service';
+import { Account } from './accounts.viewmodels'
 
 @Component({
    selector: 'fs-accounts',

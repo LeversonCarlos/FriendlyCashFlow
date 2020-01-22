@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AccountsService, Account, enAccountType } from '../accounts.service';
+import { AccountsService } from '../accounts.service';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { MessageService } from 'src/app/shared/message/message.service';
 import { EnumVM } from 'src/app/shared/common/common.models';
+import { enAccountType, Account } from '../accounts.viewmodels';
 
 @Component({
    selector: 'fs-account-details',
