@@ -1,3 +1,4 @@
+use FriendlyCashFlow
 set nocount on;
 
 declare @resourceID varchar(128) = 'a0e03962-54a3-47be-a733-652311ef196a';
@@ -11,7 +12,7 @@ declare @initialDate datetime = cast(ltrim(str(@searchYear))+'-'+ltrim(str(@sear
 declare @finalDate datetime = dateadd(day, -1, dateadd(month,1,@initialDate));
 
 /* ACCOUNTS */
-select AccountID, Text, Type, ClosingDay, DueDay 
+select AccountID, Text, Type 
 into #accounts
 from v6_dataAccounts 
 where ResourceID=@resourceID and RowStatus=1 and Active=1;
@@ -45,9 +46,41 @@ where
    and Date < dateFromParts(@searchYear, @searchMonth, 1)
 group by AccountID;
 
+/* CURRENT BALANCE */
+alter table #accounts add CurrentBalance decimal(15,2);
+   update #accounts
+   set CurrentBalance = 
+   (
+      select coalesce(sum(PaidValue),0)
+      from #balance as balance
+      where 
+         balance.AccountID = accounts.AccountID
+    )
+   from #accounts as accounts;
+
+/* INITIALIZE FORECASTS */
+alter table #accounts add Forecast decimal(15,2);
+   update #accounts
+   set 
+      Forecast = 
+      (
+         select coalesce(sum(TotalValue),0) - coalesce(sum(PaidValue),0)
+         from #balance as balance
+         where 
+            balance.AccountID = accounts.AccountID
+       )
+   from #accounts as accounts;
+
+/* REVIEW FORECASTS */
+alter table #accounts add IncomeForecast decimal(15,2), ExpenseForecast decimal(15,2);
+   update #accounts
+   set 
+      IncomeForecast = (case when Forecast>0 then Forecast else 0 end), 
+      ExpenseForecast = (case when Forecast<0 then Forecast else 0 end);
+alter table #accounts drop column Forecast;
+
 /* RESULT */
 select * from #accounts;
-select * from #balance;
 select * from #entries
 
 /* CLEAR */
