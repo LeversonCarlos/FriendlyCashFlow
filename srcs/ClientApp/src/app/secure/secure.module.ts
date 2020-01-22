@@ -21,8 +21,9 @@ import { TransferDetailsComponent } from './entries/transfer-details/transfer-de
 import { TransfersService } from './transfers/transfers.service';
 import { AccountPickerComponent } from './pickers/account-picker/account-picker.component';
 import { SearchPanelComponent } from './entries/search-panel/search-panel.component';
-import { DashboardsService } from './dashboards/dashboards.service';
-import { BalanceComponent } from './dashboards/balance/balance.component';
+import { DashboardService } from './dashboard/dashboard.service';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { BalanceComponent } from './dashboard/balance/balance.component';
 
 @NgModule({
    declarations: [
@@ -30,11 +31,12 @@ import { BalanceComponent } from './dashboards/balance/balance.component';
       CategoriesComponent, CategoryDetailsComponent,
       MonthPickerComponent, AccountPickerComponent,
       EntriesFlowComponent, EntryDetailsComponent, TransferDetailsComponent,
-      AddButtonComponent, SearchPanelComponent, BalanceComponent],
+      AddButtonComponent, SearchPanelComponent,
+      DashboardComponent, BalanceComponent],
    imports: [
       CommonModule, SharedModule
    ],
    providers: [AccountsService, CategoriesService, EntriesService, TransfersService,
-      PatternsService, RecurrencyService, DashboardsService]
+      PatternsService, RecurrencyService, DashboardService]
 })
 export class SecureModule { }

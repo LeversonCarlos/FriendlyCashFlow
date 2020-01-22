@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { BusyService } from 'src/app/shared/busy/busy.service';
-import { Balance } from './dashboards.viewmodels';
+import { Balance } from './dashboard.viewmodels';
 
 @Injectable({
    providedIn: 'root'
 })
-export class DashboardsService {
+export class DashboardService {
 
    constructor(private busy: BusyService,
       private http: HttpClient) { }
