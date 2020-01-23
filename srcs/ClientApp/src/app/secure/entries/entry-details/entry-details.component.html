@@ -5,7 +5,7 @@
    <div toolbar>
    </div>
    <div content class="full-screen">
-      <mat-card *ngIf="inputForm" class="full-card">
+      <mat-card *ngIf="inputForm" class="full-card" [class.positive]="Data.Type==2" [class.negative]="Data.Type==1">
 
          <mat-card-content>
 
