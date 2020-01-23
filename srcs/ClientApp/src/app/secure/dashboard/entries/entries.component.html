@@ -1,8 +1,8 @@
 <mat-card *ngFor="let entryType of EntryTypes" [class.overdue]="entryType.Overdue">
    <mat-card-content>
       <span class="mat-title">{{ entryType.Text | translation | async }}</span>
-      <mat-action-list dense>
-         <button mat-list-item *ngFor="let entry of entryType.Entries; let last = last" [routerLink]="'/entries/entry/'+entry.EntryID">
+      <mat-nav-list dense>
+         <a mat-list-item *ngFor="let entry of entryType.Entries; let last = last" [routerLink]="GetUrl(entry)">
             <div matLine class="entry-row">
                <div class="entry-details">
                   <span>{{ entry.Text }}</span>
@@ -13,8 +13,8 @@
                </div>
             </div>
             <mat-divider *ngIf="!last"></mat-divider>
-         </button>
-      </mat-action-list>
+         </a>
+      </mat-nav-list>
    </mat-card-content>
 </mat-card>
 

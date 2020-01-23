@@ -14,8 +14,8 @@
          </mat-panel-description>
       </mat-expansion-panel-header>
 
-      <mat-action-list dense>
-         <button mat-list-item *ngFor="let account of balanceType.Accounts; let last = last" (click)="OnClick(account)">
+      <mat-nav-list dense>
+         <a mat-list-item *ngFor="let account of balanceType.Accounts; let last = last" [routerLink]="GetUrl(account)">
             <div matLine class="account-row">
                <span>{{ account.Text }}</span>
                <span class="account-values">
@@ -26,8 +26,8 @@
                </span>
             </div>
             <mat-divider *ngIf="!last"></mat-divider>
-         </button>
-      </mat-action-list>
+         </a>
+      </mat-nav-list>
 
    </mat-expansion-panel>
 </mat-accordion>

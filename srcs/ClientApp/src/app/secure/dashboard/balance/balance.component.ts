@@ -69,11 +69,11 @@ export class BalanceComponent implements OnInit {
          .sort((a, b) => a.Type < b.Type ? -1 : 1)
    }
 
-   public OnClick(account: Balance) {
+   public GetUrl(account: Balance): string {
       const now = new Date()
       const year = now.getFullYear()
       const month = now.getMonth() + 1
-      this.entriesService.showFlow(year, month, account.AccountID)
+      return `/entries/flow/${year}/${month}/${account.AccountID}`
    }
 
 }

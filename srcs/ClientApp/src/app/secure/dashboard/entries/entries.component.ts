@@ -43,4 +43,8 @@ export class EntriesComponent implements OnInit {
       catch (ex) { this.appInsights.trackException(ex) }
    }
 
+   public GetUrl(entry: Entry): string {
+      return `/entries/entry/${entry.EntryID}`
+   }
+
 }
