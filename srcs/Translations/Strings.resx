@@ -234,6 +234,15 @@
   <data name="DASHBOARD_MENU" xml:space="preserve">
     <value>Dashboard</value>
   </data>
+  <data name="DASHBOARD_RESUME_BALANCE_TEXT" xml:space="preserve">
+    <value>Month's Balance</value>
+  </data>
+  <data name="DASHBOARD_RESUME_EXPENSE_TEXT" xml:space="preserve">
+    <value>Month's Expense</value>
+  </data>
+  <data name="DASHBOARD_RESUME_INCOME_TEXT" xml:space="preserve">
+    <value>Month's Income</value>
+  </data>
   <data name="ENTRIES_ACCOUNT_LABEL" xml:space="preserve">
     <value>Account</value>
   </data>

@@ -25,9 +25,9 @@ export class ResumeComponent implements OnInit {
       try {
          const accountBalances = await this.dashboardService.getBalances();
 
-         let income = Object.assign(new ResumeVM, { Text: 'Income', Value: 10, Type: enCategoryType.Income, Icon: 'add_circle' });
-         let expense = Object.assign(new ResumeVM, { Text: 'Expense', Value: 3, Type: enCategoryType.Expense, Icon: 'remove_circle' });
-         let balance = Object.assign(new ResumeVM, { Text: 'Balance', Value: 7, Type: enCategoryType.None, Icon: 'monetization_on' });
+         let income = Object.assign(new ResumeVM, { Text: 'DASHBOARD_RESUME_INCOME_TEXT', Value: 10, Type: enCategoryType.Income, Icon: 'add_circle' });
+         let expense = Object.assign(new ResumeVM, { Text: 'DASHBOARD_RESUME_EXPENSE_TEXT', Value: 3, Type: enCategoryType.Expense, Icon: 'remove_circle' });
+         let balance = Object.assign(new ResumeVM, { Text: 'DASHBOARD_RESUME_BALANCE_TEXT', Value: 7, Type: enCategoryType.None, Icon: 'monetization_on' });
 
          this.ResumeList = [income, expense, balance]
       }

@@ -7,7 +7,7 @@
             <mat-icon>{{ resume.Icon }}</mat-icon>
             <div>
                <strong>{{ resume.Value | number : '1.2-2' }}</strong>
-               <span>{{ resume.Text }}</span>
+               <span>{{ resume.Text | translation | async }}</span>
             </div>
          </mat-card-content>
       </mat-card>
