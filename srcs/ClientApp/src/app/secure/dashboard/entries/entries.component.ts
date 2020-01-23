@@ -24,12 +24,10 @@ export class EntriesComponent implements OnInit {
       try {
          this.EntryTypes = []
          const entries = await this.dashboardService.getEntries();
-         const today = new Date()
-         console.log({ entries, today: today })
+         const today: any = (new Date()).toISOString()
 
          let overdueEntries = Object.assign(new EntriesVM, { Text: 'DASHBOARD_ENTRIES_OVERDUE_ENTRIES_TEXT' })
          overdueEntries.Entries = entries.filter(x => x.DueDate < today)
-         console.log(overdueEntries)
          if (overdueEntries.Entries && overdueEntries.Entries.length) {
             this.EntryTypes.push(overdueEntries)
          }
@@ -41,7 +39,7 @@ export class EntriesComponent implements OnInit {
          }
 
       }
-      catch (ex) { console.error(ex); this.appInsights.trackException(ex) }
+      catch (ex) { this.appInsights.trackException(ex) }
    }
 
 }

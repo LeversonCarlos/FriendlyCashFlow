@@ -1,28 +1,19 @@
-<div class="row">
+<mat-card *ngFor="let entryType of EntryTypes">
+   <mat-card-content>
+      <span class="mat-title">{{ entryType.Text | translation | async }}</span>
+      <mat-action-list dense>
+         <button mat-list-item *ngFor="let entry of entryType.Entries; let last = last" (click)="OnClick(account)">
+            <div matLine>
+               <span>{{ entry.Text }}</span>
+            </div>
+            <mat-divider *ngIf="!last"></mat-divider>
+         </button>
+      </mat-action-list>
+   </mat-card-content>
+</mat-card>
 
-   <div class="col" *ngFor="let entryType of EntryTypes">
-      <mat-card>
-         <mat-card-content>
-            <span class="mat-title">{{ entryType.Text | translation | async }}</span>
-            <mat-action-list dense>
-               <button mat-list-item *ngFor="let entry of entryType.Entries; let last = last"
-                  (click)="OnClick(account)">
-                  <div matLine>
-                     <span>{{ entry.Text }}</span>
-                  </div>
-                  <mat-divider *ngIf="!last"></mat-divider>
-               </button>
-            </mat-action-list>
-         </mat-card-content>
-      </mat-card>
-   </div>
-
-   <div class="col" *ngIf="!EntryTypes?.length">
-      <mat-card>
-         <mat-card-content>
-            <span class="mat-title">{{ 'DASHBOARD_ENTRIES_NO_OVERDUE_ENTRIES_TEXT' | translation | async }}</span>
-         </mat-card-content>
-      </mat-card>
-   </div>
-
-</div>
+<mat-card *ngIf="!EntryTypes?.length">
+   <mat-card-content>
+      <span class="mat-title">{{ 'DASHBOARD_ENTRIES_NO_OVERDUE_ENTRIES_TEXT' | translation | async }}</span>
+   </mat-card-content>
+</mat-card>

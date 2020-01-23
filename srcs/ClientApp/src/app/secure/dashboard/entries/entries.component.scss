@@ -1,0 +1,9 @@
+@import "../../../../styles/screenSizes.scss";
+
+.mat-card {
+  margin-bottom: 2vh;
+
+  @media (max-width: $max-width-xs) {
+    margin-bottom: 0.75vh;
+  }
+}
