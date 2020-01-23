@@ -33,10 +33,12 @@ export class ResumeComponent implements OnInit {
          if (accountBalances) {
             for (let index = 0; index < accountBalances.length; index++) {
                const account = accountBalances[index];
-               income.Value += account.IncomeForecast
-               expense.Value += account.ExpenseForecast
-               balance.Value += account.IncomeForecast
-               balance.Value += account.ExpenseForecast
+               const incomeValue = (account.PaidIncome + account.IncomeForecast);
+               const expenseValue = (account.PaidExpense + account.ExpenseForecast);
+               income.Value += incomeValue
+               expense.Value += expenseValue
+               balance.Value += incomeValue
+               balance.Value += expenseValue
             }
          }
 

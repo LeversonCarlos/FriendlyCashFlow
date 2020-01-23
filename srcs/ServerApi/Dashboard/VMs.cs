@@ -11,6 +11,8 @@ namespace FriendlyCashFlow.API.Dashboard
       public decimal CurrentBalance { get; set; }
       public decimal IncomeForecast { get; set; }
       public decimal ExpenseForecast { get; set; }
+      public decimal PaidIncome { get; set; }
+      public decimal PaidExpense { get; set; }
    }
 
 }

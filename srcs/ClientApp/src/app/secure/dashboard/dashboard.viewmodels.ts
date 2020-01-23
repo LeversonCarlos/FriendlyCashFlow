@@ -1,10 +1,12 @@
 import { enAccountType } from '../accounts/accounts.viewmodels';
 
 export class Balance {
-   AccountID: number;
-   Text: string;
-   Type: enAccountType;
-   CurrentBalance: number;
-   IncomeForecast: number;
+   AccountID: number
+   Text: string
+   Type: enAccountType
+   CurrentBalance: number
+   IncomeForecast: number
    ExpenseForecast: number
+   PaidIncome: number
+   PaidExpense: number
 }
