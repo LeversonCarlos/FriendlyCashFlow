@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { BusyService } from 'src/app/shared/busy/busy.service';
 import { Balance } from './dashboard.viewmodels';
+import { Entry } from '../entries/entries.viewmodels';
 
 @Injectable({
    providedIn: 'root'
@@ -21,6 +22,20 @@ export class DashboardService {
          const url = `api/dashboard/balance/${year}/${month}`;
          const dataList = await this.http.get<Balance[]>(url)
             .pipe(map(items => items.map(item => Object.assign(new Balance, item))))
+            .toPromise();
+         return dataList;
+      }
+      catch (ex) { return null; }
+      finally { this.busy.hide(); }
+   }
+
+   // BALANCES
+   public async getEntries(): Promise<Entry[]> {
+      try {
+         this.busy.show();
+         const url = `api/dashboard/entries`;
+         const dataList = await this.http.get<Entry[]>(url)
+            .pipe(map(items => items.map(item => Object.assign(new Entry, item))))
             .toPromise();
          return dataList;
       }
