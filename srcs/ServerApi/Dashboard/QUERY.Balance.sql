@@ -1,4 +1,3 @@
-use FriendlyCashFlow
 set nocount on;
 
 declare @resourceID varchar(128) = @paramResourceID;
