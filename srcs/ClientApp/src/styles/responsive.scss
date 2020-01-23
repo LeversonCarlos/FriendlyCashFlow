@@ -1,0 +1,36 @@
+@import "./screenSizes.scss";
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2vh;
+
+  @media (max-width: $max-width-xs) {
+    flex-wrap: wrap;
+  }
+
+  &.stretch {
+    align-items: stretch;
+  }
+}
+
+.col {
+  margin: 0 0.5vw;
+  &:first-child {
+    margin-left: 0;
+  }
+  &:last-child {
+    margin-right: 0;
+  }
+
+  @media (max-width: $max-width-xs) {
+    flex-grow: 1;
+  }
+}
+
+@for $i from 1 through 12 {
+  .col-#{$i} {
+    width: percentage($i / 12);
+  }
+}
