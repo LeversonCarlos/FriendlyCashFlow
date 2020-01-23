@@ -1,8 +1,8 @@
 <div class="row">
 
    <div class="col col-4" *ngFor="let resume of ResumeList">
-      <mat-card [class.mat-card-balance]="resume.Type==0" [class.mat-card-expense]="resume.Type==1"
-         [class.mat-card-income]="resume.Type==2">
+      <mat-card [class.mat-card-expense]="resume.Type==1" [class.mat-card-income]="resume.Type==2"
+         [class.mat-card-balance]="resume.Type==0" [class.positive]="resume.Value>0" [class.negative]="resume.Value<0">
          <mat-card-content>
             <mat-icon>{{ resume.Icon }}</mat-icon>
             <div>

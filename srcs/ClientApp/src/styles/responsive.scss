@@ -4,7 +4,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2vh;
 
   @media (max-width: $max-width-xs) {
     flex-wrap: wrap;
@@ -16,7 +15,7 @@
 }
 
 .col {
-  margin: 0 0.5vw;
+  margin: 0 0.5vw 2vh 0.5vw;
   &:first-child {
     margin-left: 0;
   }
@@ -26,6 +25,7 @@
 
   @media (max-width: $max-width-xs) {
     flex-grow: 1;
+    margin-bottom: 0.75vh;
   }
 }
 

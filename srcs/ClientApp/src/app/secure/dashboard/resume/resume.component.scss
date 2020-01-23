@@ -1,4 +1,11 @@
 @import "../../../../styles/colors.scss";
+@import "../../../../styles/screenSizes.scss";
+
+@media (max-width: $max-width-xs) {
+  .mat-card {
+    padding: 10px 5px;
+  }
+}
 
 .mat-card-income {
   @extend .forecolor-white;
@@ -12,13 +19,24 @@
 
 .mat-card-balance {
   @extend .forecolor-white;
-  @extend .backcolor-primary;
+  @extend .backcolor-silver;
+  &.positive {
+    strong {
+      text-shadow: 1px 1px $color-green;
+    }
+  }
+  &.negative {
+    strong {
+      text-shadow: 1px 1px $color-red;
+    }
+  }
 }
 
 .mat-card-content {
   display: flex;
   align-items: center;
   justify-content: center;
+
   .mat-icon {
     font-size: 32px;
     height: 32px;
@@ -27,6 +45,21 @@
   strong {
     font-size: 32px;
   }
+
+  @media (max-width: $max-width-xs) {
+    .mat-icon {
+      font-size: 16px;
+      height: 16px;
+      width: 20px;
+    }
+    strong {
+      font-size: 16px;
+    }
+    span {
+      display: none;
+    }
+  }
+
   div {
     display: flex;
     flex-direction: column;
