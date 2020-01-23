@@ -1,21 +1,22 @@
 set nocount on;
-declare @resourceID varchar(128) = 'a0e03962-54a3-47be-a733-652311ef196a';
+
+declare @resourceID varchar(128) = @paramResourceID;
 declare @typeExpense smallint = 1;
 declare @typeIncome smallint = 2;
 declare @finalDate datetime = dateadd(day, 7, getdate())
 
 /* ACCOUNTS */
-select AccountID 
-into #accountIDs 
-from v6_dataAccounts 
-where 
+select AccountID
+into #accountIDs
+from v6_dataAccounts
+where
    ResourceID=@resourceID and RowStatus=1 and Active=1;
 
 /* ENTRIES */
-select EntryID 
-into #entryIDs 
-from v6_dataEntries 
-where 
+select EntryID
+into #entryIDs
+from v6_dataEntries
+where
    RowStatus = 1
    and ResourceID=@resourceID
    and AccountID in (select AccountID from #accountIDs)
