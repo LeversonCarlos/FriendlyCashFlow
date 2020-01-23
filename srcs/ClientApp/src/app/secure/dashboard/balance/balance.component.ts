@@ -41,6 +41,15 @@ export class BalanceComponent implements OnInit {
                .filter(accountBalance => accountBalance.Type == balanceType.Type)
                .sort((a, b) => a.Text < b.Text ? -1 : 1)
 
+            if (balanceType.Type == enAccountType.CreditCard && balanceType.Accounts) {
+               balanceType.Accounts.forEach(account => {
+                  account.CurrentBalance += account.IncomeForecast
+                  account.CurrentBalance += account.ExpenseForecast
+                  account.IncomeForecast = 0
+                  account.ExpenseForecast = 0
+               })
+            }
+
             balanceType.TotalValue = 0
             balanceType.PaidValue = 0
             if (balanceType.Accounts && balanceType.Accounts.length > 0) {
@@ -51,6 +60,7 @@ export class BalanceComponent implements OnInit {
                   balanceType.Accounts
                      .map(x => x.IncomeForecast + x.ExpenseForecast)
                      .reduce((p, n) => p + n, 0)
+
             }
 
             return balanceType
