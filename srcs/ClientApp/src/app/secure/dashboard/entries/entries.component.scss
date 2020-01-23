@@ -6,4 +6,10 @@
   @media (max-width: $max-width-xs) {
     margin-bottom: 0.75vh;
   }
+
+  &.no-overdue {
+    .mat-card-content {
+      text-align: center;
+    }
+  }
 }

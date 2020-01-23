@@ -231,6 +231,15 @@
   <data name="CATEGORIES_REMOVE_CONFIRMATION_TEXT" xml:space="preserve">
     <value>Do you want to remove this category?</value>
   </data>
+  <data name="DASHBOARD_ENTRIES_NEXT_ENTRIES_TEXT" xml:space="preserve">
+    <value>Next Entries</value>
+  </data>
+  <data name="DASHBOARD_ENTRIES_NO_OVERDUE_ENTRIES_TEXT" xml:space="preserve">
+    <value>No entries expiring on the next days</value>
+  </data>
+  <data name="DASHBOARD_ENTRIES_OVERDUE_ENTRIES_TEXT" xml:space="preserve">
+    <value>Overdue Entries</value>
+  </data>
   <data name="DASHBOARD_MENU" xml:space="preserve">
     <value>Dashboard</value>
   </data>
