@@ -2,7 +2,7 @@
    <mat-card-content>
       <span class="mat-title">{{ entryType.Text | translation | async }}</span>
       <mat-action-list dense>
-         <button mat-list-item *ngFor="let entry of entryType.Entries; let last = last" (click)="OnClick(account)">
+         <button mat-list-item *ngFor="let entry of entryType.Entries; let last = last" [routerLink]="'/entries/entry/'+entry.EntryID">
             <div matLine class="entry-row">
                <div class="entry-details">
                   <span>{{ entry.Text }}</span>
