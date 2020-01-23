@@ -11,18 +11,15 @@
 }
 
 .mat-card-income {
-  @extend .forecolor-white;
-  @extend .backcolor-green;
+  @extend .forecolor-green;
 }
 
 .mat-card-expense {
-  @extend .forecolor-white;
-  @extend .backcolor-red;
+  @extend .forecolor-red;
 }
 
 .mat-card-balance {
-  @extend .forecolor-white;
-  @extend .backcolor-silver;
+  @extend .forecolor-silver;
   &.positive {
     text-shadow: 1px 1px $color-green;
   }
