@@ -24,6 +24,7 @@ import { SearchPanelComponent } from './entries/search-panel/search-panel.compon
 import { DashboardService } from './dashboard/dashboard.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BalanceComponent } from './dashboard/balance/balance.component';
+import { ResumeComponent } from './dashboard/resume/resume.component';
 
 @NgModule({
    declarations: [
@@ -32,7 +33,7 @@ import { BalanceComponent } from './dashboard/balance/balance.component';
       MonthPickerComponent, AccountPickerComponent,
       EntriesFlowComponent, EntryDetailsComponent, TransferDetailsComponent,
       AddButtonComponent, SearchPanelComponent,
-      DashboardComponent, BalanceComponent],
+      DashboardComponent, BalanceComponent, ResumeComponent],
    imports: [
       CommonModule, SharedModule
    ],

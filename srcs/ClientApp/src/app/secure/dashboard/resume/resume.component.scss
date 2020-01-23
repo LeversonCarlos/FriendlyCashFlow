@@ -1,0 +1,16 @@
+@import "../../../../styles/colors.scss";
+
+.mat-card-income {
+  @extend .forecolor-white;
+  @extend .backcolor-green;
+}
+
+.mat-card-expense {
+  @extend .forecolor-white;
+  @extend .backcolor-red;
+}
+
+.mat-card-balance {
+  @extend .forecolor-white;
+  @extend .backcolor-silver;
+}
