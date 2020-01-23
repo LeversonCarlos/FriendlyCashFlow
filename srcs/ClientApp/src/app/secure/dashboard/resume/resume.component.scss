@@ -19,12 +19,11 @@
 }
 
 .mat-card-balance {
-  @extend .forecolor-silver;
   &.positive {
-    text-shadow: 1px 1px $color-green;
+    background-color: lighten($color: $color-green, $amount: 50);
   }
   &.negative {
-    text-shadow: 1px 1px $color-red;
+    background-color: lighten($color: $color-red, $amount: 50);
   }
 }
 
