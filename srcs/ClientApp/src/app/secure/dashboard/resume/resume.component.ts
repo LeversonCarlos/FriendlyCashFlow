@@ -6,6 +6,7 @@ import { enCategoryType } from '../../categories/categories.service';
 class ResumeVM {
    Text: string
    Type: enCategoryType
+   Icon: string
    Value: number
 }
 
@@ -24,9 +25,9 @@ export class ResumeComponent implements OnInit {
       try {
          const accountBalances = await this.dashboardService.getBalances();
 
-         let income = Object.assign(new ResumeVM, { Text: 'Income', Value: 10, Type: enCategoryType.Income });
-         let expense = Object.assign(new ResumeVM, { Text: 'Expense', Value: 3, Type: enCategoryType.Expense });
-         let balance = Object.assign(new ResumeVM, { Text: 'Balance', Value: 7, Type: enCategoryType.None });
+         let income = Object.assign(new ResumeVM, { Text: 'Income', Value: 10, Type: enCategoryType.Income, Icon: 'add_circle' });
+         let expense = Object.assign(new ResumeVM, { Text: 'Expense', Value: 3, Type: enCategoryType.Expense, Icon: 'remove_circle' });
+         let balance = Object.assign(new ResumeVM, { Text: 'Balance', Value: 7, Type: enCategoryType.None, Icon: 'monetization_on' });
 
          this.ResumeList = [income, expense, balance]
       }

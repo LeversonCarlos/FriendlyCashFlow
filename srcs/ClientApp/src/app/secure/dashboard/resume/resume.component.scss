@@ -12,5 +12,26 @@
 
 .mat-card-balance {
   @extend .forecolor-white;
-  @extend .backcolor-silver;
+  @extend .backcolor-primary;
+}
+
+.mat-card-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .mat-icon {
+    font-size: 32px;
+    height: 32px;
+    width: 48px;
+  }
+  strong {
+    font-size: 32px;
+  }
+  div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    line-height: 1.2;
+  }
 }
