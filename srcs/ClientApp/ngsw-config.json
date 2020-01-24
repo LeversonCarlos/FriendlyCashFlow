@@ -22,7 +22,7 @@
          ],
          "cacheConfig": {
             "strategy": "performance",
-            "maxSize": 1,
+            "maxSize": 2,
             "maxAge": "1d"
          }
       },
