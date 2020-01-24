@@ -41,10 +41,11 @@ import { RelatedBoxComponent } from './related-box/related-box.component';
 import { LocaleService, LocaleServiceProvider } from './locale/locale.service';
 import { AppSettingsService } from './app-settings/app-settings.service';
 import { AppInsightsService } from './app-insights/app-insights.service';
+import { AppVersionComponent } from './app-version/app-version.component';
 
 @NgModule({
    entryComponents: [MessageComponent, ConfirmComponent],
-   declarations: [BaseLayoutComponent, FullLayoutComponent, SideNavComponent,
+   declarations: [BaseLayoutComponent, FullLayoutComponent, SideNavComponent, AppVersionComponent,
       BusyComponent, TranslationPipe, MessageComponent, ConfirmComponent, FabButtonComponent, RelatedBoxComponent],
    imports: [
       CommonModule, RouterModule, FormsModule, ReactiveFormsModule,
@@ -61,7 +62,7 @@ import { AppInsightsService } from './app-insights/app-insights.service';
       MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatSelectModule, MatSlideToggleModule,
       MatDatepickerModule, MatMomentDateModule,
       MatTooltipModule,
-      BaseLayoutComponent, FullLayoutComponent,
+      BaseLayoutComponent, FullLayoutComponent, AppVersionComponent,
       FabButtonComponent, RelatedBoxComponent,
       TranslationPipe
    ],
