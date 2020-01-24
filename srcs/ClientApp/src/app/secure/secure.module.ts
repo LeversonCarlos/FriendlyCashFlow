@@ -26,6 +26,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { BalanceComponent } from './dashboard/balance/balance.component';
 import { ResumeComponent } from './dashboard/resume/resume.component';
 import { EntriesComponent } from './dashboard/entries/entries.component';
+import { AppVersionComponent } from './dashboard/app-version/app-version.component';
 
 @NgModule({
    declarations: [
@@ -34,7 +35,7 @@ import { EntriesComponent } from './dashboard/entries/entries.component';
       MonthPickerComponent, AccountPickerComponent,
       EntriesFlowComponent, EntryDetailsComponent, TransferDetailsComponent,
       AddButtonComponent, SearchPanelComponent,
-      DashboardComponent, BalanceComponent, ResumeComponent, EntriesComponent],
+      DashboardComponent, BalanceComponent, ResumeComponent, EntriesComponent, AppVersionComponent],
    imports: [
       CommonModule, SharedModule
    ],
