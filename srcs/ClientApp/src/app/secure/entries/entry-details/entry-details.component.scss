@@ -1,3 +1,14 @@
+@import "../../../../styles/colors.scss";
+
+.mat-card {
+  &.positive {
+    border: solid 1px lighten($color: $color-green, $amount: 30);
+  }
+  &.negative {
+    border: solid 1px lighten($color: $color-red, $amount: 30);
+  }
+}
+
 .mat-form-field-paid {
   height: 50px;
   flex-grow: unset;

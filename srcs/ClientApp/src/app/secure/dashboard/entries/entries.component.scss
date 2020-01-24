@@ -1,0 +1,33 @@
+@import "../../../../styles/colors.scss";
+@import "../../../../styles/screenSizes.scss";
+
+.mat-card {
+  margin-bottom: 2vh;
+
+  @media (max-width: $max-width-xs) {
+    margin-bottom: 0.75vh;
+  }
+
+  &.no-overdue {
+    .mat-card-content {
+      text-align: center;
+    }
+  }
+
+  &.overdue {
+    background-color: lighten($color: $color-red, $amount: 40);
+  }
+}
+
+.entry-row {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  .entry-details {
+    line-height: 1.2;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+}

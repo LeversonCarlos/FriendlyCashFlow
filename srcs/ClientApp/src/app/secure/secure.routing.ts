@@ -7,8 +7,10 @@ import { CategoryDetailsComponent } from './categories/category-details/category
 import { EntriesFlowComponent } from './entries/entries-flow/entries-flow.component';
 import { EntryDetailsComponent } from './entries/entry-details/entry-details.component';
 import { TransferDetailsComponent } from './entries/transfer-details/transfer-details.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 export const secureRoutes: Routes = [
+   { path: 'home', canActivate: [AuthGuard], component: DashboardComponent },
    { path: 'accounts', canActivate: [AuthGuard], component: AccountsComponent },
    { path: 'account/:id', canActivate: [AuthGuard], component: AccountDetailsComponent },
    { path: 'categories', canActivate: [AuthGuard], component: CategoriesComponent },

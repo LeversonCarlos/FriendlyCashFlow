@@ -43,10 +43,10 @@ namespace FriendlyCashFlow.API.Base
       private void OnModelCreating_Categories(ModelBuilder modelBuilder)
       {
          modelBuilder.Entity<Categories.CategoryData>()
-            .HasIndex(x => new { x.RowStatus, x.ResourceID, x.CategoryID, x.HierarchyText })
+            .HasIndex(x => new { x.RowStatus, x.ResourceID, x.Type, x.CategoryID, x.HierarchyText })
             .HasName("v6_dataCategories_index_Search");
          modelBuilder.Entity<Categories.CategoryData>()
-            .HasIndex(x => new { x.RowStatus, x.ResourceID, x.ParentID, x.CategoryID, x.Text })
+            .HasIndex(x => new { x.RowStatus, x.ResourceID, x.Type, x.ParentID, x.CategoryID, x.Text })
             .HasName("v6_dataCategories_index_Parent");
       }
    }

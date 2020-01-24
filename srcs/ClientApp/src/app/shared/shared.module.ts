@@ -9,6 +9,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
@@ -40,14 +41,15 @@ import { RelatedBoxComponent } from './related-box/related-box.component';
 import { LocaleService, LocaleServiceProvider } from './locale/locale.service';
 import { AppSettingsService } from './app-settings/app-settings.service';
 import { AppInsightsService } from './app-insights/app-insights.service';
+import { AppVersionComponent } from './app-version/app-version.component';
 
 @NgModule({
    entryComponents: [MessageComponent, ConfirmComponent],
-   declarations: [BaseLayoutComponent, FullLayoutComponent, SideNavComponent,
+   declarations: [BaseLayoutComponent, FullLayoutComponent, SideNavComponent, AppVersionComponent,
       BusyComponent, TranslationPipe, MessageComponent, ConfirmComponent, FabButtonComponent, RelatedBoxComponent],
    imports: [
       CommonModule, RouterModule, FormsModule, ReactiveFormsModule,
-      MatToolbarModule, MatSidenavModule, MatCardModule, MatTabsModule, MatListModule,
+      MatToolbarModule, MatSidenavModule, MatCardModule, MatTabsModule, MatListModule, MatExpansionModule,
       MatIconModule, MatBadgeModule, MatButtonModule, MatMenuModule, MatProgressBarModule,
       MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatSelectModule, MatSlideToggleModule,
       MatDatepickerModule, MatMomentDateModule,
@@ -55,12 +57,12 @@ import { AppInsightsService } from './app-insights/app-insights.service';
    ],
    exports: [
       RouterModule, FormsModule, ReactiveFormsModule,
-      MatToolbarModule, MatSidenavModule, MatCardModule, MatTabsModule, MatListModule,
+      MatToolbarModule, MatSidenavModule, MatCardModule, MatTabsModule, MatListModule, MatExpansionModule,
       MatIconModule, MatBadgeModule, MatButtonModule, MatMenuModule, MatProgressBarModule,
       MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatSelectModule, MatSlideToggleModule,
       MatDatepickerModule, MatMomentDateModule,
       MatTooltipModule,
-      BaseLayoutComponent, FullLayoutComponent,
+      BaseLayoutComponent, FullLayoutComponent, AppVersionComponent,
       FabButtonComponent, RelatedBoxComponent,
       TranslationPipe
    ],

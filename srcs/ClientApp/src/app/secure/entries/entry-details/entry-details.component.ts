@@ -6,12 +6,14 @@ import { ActivatedRoute } from '@angular/router';
 import { Entry } from '../entries.viewmodels';
 import { RelatedData } from 'src/app/shared/related-box/related-box.models';
 import { Category, CategoriesService, enCategoryType } from '../../categories/categories.service';
-import { Account, AccountsService } from '../../accounts/accounts.service';
+import { AccountsService } from '../../accounts/accounts.service';
+import { Account } from '../../accounts/accounts.viewmodels';
 import { Pattern } from '../../patterns/patterns.viewmodels';
 import { PatternsService } from '../../patterns/patterns.service';
 import { Recurrency, enRecurrencyType } from '../../recurrency/recurrency.viewmodels';
 import { EnumVM } from 'src/app/shared/common/common.models';
 import { RecurrencyService } from '../../recurrency/recurrency.service';
+import { AppInsightsService } from 'src/app/shared/app-insights/app-insights.service';
 
 @Component({
    selector: 'fs-entry-details',
@@ -22,6 +24,7 @@ export class EntryDetailsComponent implements OnInit {
 
    constructor(private service: EntriesService, private msg: MessageService,
       private categoryService: CategoriesService, private accountService: AccountsService, private patternService: PatternsService, private recurrencyService: RecurrencyService,
+      private appInsights: AppInsightsService,
       private route: ActivatedRoute, private fb: FormBuilder) { }
 
 
@@ -33,7 +36,7 @@ export class EntryDetailsComponent implements OnInit {
          if (!await this.OnDataLoad()) { return; }
          this.OnFormCreate();
       }
-      catch (ex) { console.error(ex) }
+      catch (ex) { this.appInsights.trackException(ex); console.error(ex) }
    }
 
 
@@ -49,7 +52,7 @@ export class EntryDetailsComponent implements OnInit {
          if (paramID == undefined && paramType != undefined) {
 
             const today = new Date();
-            let dueDate = this.service.CurrentData.CurrentMonth;
+            let dueDate = (this.service.CurrentData && this.service.CurrentData.CurrentMonth) || today;
             if (dueDate.getFullYear() == today.getFullYear() && dueDate.getMonth() == today.getMonth()) { dueDate = today; }
 
             this.Data = Object.assign(new Entry, {
@@ -58,6 +61,16 @@ export class EntryDetailsComponent implements OnInit {
                DueDate: dueDate,
                Active: true
             });
+
+            if (this.service.CurrentData.CurrentAccount > 0) {
+               this.Data.AccountID = this.service.CurrentData.CurrentAccount;
+               this.Data.AccountRow = await this.accountService.getAccount(this.Data.AccountID);
+               if (this.Data.AccountRow) {
+                  this.Data.AccountText = this.Data.AccountRow.Text
+                  this.AccountOptions = [this.OnAccountParse(this.Data.AccountRow)];
+               }
+            }
+
             return true;
          }
 
@@ -84,7 +97,7 @@ export class EntryDetailsComponent implements OnInit {
          // RESULT
          return true;
       }
-      catch (ex) { console.error(ex) }
+      catch (ex) { this.appInsights.trackException(ex); console.error(ex) }
    }
 
 
@@ -92,29 +105,32 @@ export class EntryDetailsComponent implements OnInit {
    /* FORM: CREATE */
    public inputForm: FormGroup;
    private OnFormCreate() {
-      this.inputForm = this.fb.group({
-         Text: [this.Data.Text, Validators.required],
-         PatternRow: [this.PatternOptions && this.PatternOptions.length ? this.PatternOptions[0] : null],
-         AccountRow: [this.AccountOptions && this.AccountOptions.length ? this.AccountOptions[0] : null],
-         EntryValue: [this.Data.EntryValue, [Validators.required, Validators.min(0.01)]],
-         DueDate: [this.Data.DueDate, Validators.required],
-         CategoryRow: [this.CategoryOptions && this.CategoryOptions.length ? this.CategoryOptions[0] : null],
-         Paid: [this.Data.Paid],
-         PayDate: [this.Data.PayDate],
-         RecurrencyActivate: [false],
-         RecurrencyType: [this.Data.Recurrency && this.Data.Recurrency.Type],
-         RecurrencyCount: [this.Data.Recurrency && this.Data.Recurrency.Count]
-      });
+      try {
+         this.inputForm = this.fb.group({
+            Text: [this.Data.Text, Validators.required],
+            PatternRow: [this.PatternOptions && this.PatternOptions.length ? this.PatternOptions[0] : null],
+            AccountRow: [this.AccountOptions && this.AccountOptions.length ? this.AccountOptions[0] : null],
+            EntryValue: [this.Data.EntryValue, [Validators.required, Validators.min(0.01)]],
+            DueDate: [this.Data.DueDate, Validators.required],
+            CategoryRow: [this.CategoryOptions && this.CategoryOptions.length ? this.CategoryOptions[0] : null],
+            Paid: [this.Data.Paid],
+            PayDate: [this.Data.PayDate],
+            RecurrencyActivate: [false],
+            RecurrencyType: [this.Data.Recurrency && this.Data.Recurrency.Type],
+            RecurrencyCount: [this.Data.Recurrency && this.Data.Recurrency.Count]
+         });
 
-      this.inputForm.valueChanges.subscribe(values => this.OnFormChanged(values));
-      this.inputForm.get("PatternRow").valueChanges.subscribe(item => this.OnPatternChanged(item));
-      this.inputForm.get("AccountRow").valueChanges.subscribe(item => this.OnAccountChanged(item));
-      this.inputForm.get("CategoryRow").valueChanges.subscribe(item => this.OnCategoryChanged(item));
-      this.inputForm.get('RecurrencyActivate').valueChanges.subscribe((activate) => this.OnRecurrencyActivateChanged(activate));
-      this.inputForm.get('Paid').valueChanges.subscribe((paid) => this.OnPaidChanged(paid));
+         this.inputForm.valueChanges.subscribe(values => this.OnFormChanged(values));
+         this.inputForm.get("PatternRow").valueChanges.subscribe(item => this.OnPatternChanged(item));
+         this.inputForm.get("AccountRow").valueChanges.subscribe(item => this.OnAccountChanged(item));
+         this.inputForm.get("CategoryRow").valueChanges.subscribe(item => this.OnCategoryChanged(item));
+         this.inputForm.get('RecurrencyActivate').valueChanges.subscribe((activate) => this.OnRecurrencyActivateChanged(activate));
+         this.inputForm.get('Paid').valueChanges.subscribe((paid) => this.OnPaidChanged(paid));
 
-      this.OnPaidChanged(this.Data.Paid)
+         this.OnPaidChanged(this.Data.Paid)
 
+      }
+      catch (ex) { this.appInsights.trackException(ex); console.error(ex); }
    }
 
    /* FORM: CHANGED */
@@ -135,11 +151,14 @@ export class EntryDetailsComponent implements OnInit {
    /* PATTERN */
    public PatternOptions: RelatedData<Pattern>[] = [];
    public async OnPatternChanging(val: string) {
-      this.inputForm.get("Text").setValue(val);
-      const patternList = await this.patternService.getPatterns(this.Data.Type, val);
-      if (patternList == null) { return; }
-      this.PatternOptions = patternList
-         .map(item => this.OnPatternParse(item));
+      try {
+         this.inputForm.get("Text").setValue(val);
+         const patternList = await this.patternService.getPatterns(this.Data.Type, val);
+         if (patternList == null) { return; }
+         this.PatternOptions = patternList
+            .map(item => this.OnPatternParse(item));
+      }
+      catch (ex) { this.appInsights.trackException(ex); console.error(ex); }
    }
    private OnPatternChanged(item: RelatedData<Pattern>) {
       this.Data.PatternID = null;
@@ -159,10 +178,13 @@ export class EntryDetailsComponent implements OnInit {
    /* ACCOUNT */
    public AccountOptions: RelatedData<Account>[] = [];
    public async OnAccountChanging(val: string) {
-      const accountList = await this.accountService.getAccounts(val);
-      if (accountList == null) { return; }
-      this.AccountOptions = accountList
-         .map(item => this.OnAccountParse(item));
+      try {
+         const accountList = await this.accountService.getAccounts(val);
+         if (accountList == null) { return; }
+         this.AccountOptions = accountList
+            .map(item => this.OnAccountParse(item));
+      }
+      catch (ex) { this.appInsights.trackException(ex); console.error(ex); }
    }
    private OnAccountChanged(item: RelatedData<Account>) {
       this.Data.AccountID = null;
@@ -182,10 +204,13 @@ export class EntryDetailsComponent implements OnInit {
    /* CATEGORY */
    public CategoryOptions: RelatedData<Category>[] = [];
    public async OnCategoryChanging(val: string) {
-      const categoryList = await this.categoryService.getCategories(this.Data.Type, val);
-      if (categoryList == null) { return; }
-      this.CategoryOptions = categoryList
-         .map(item => this.OnCategoryParse(item));
+      try {
+         const categoryList = await this.categoryService.getCategories(this.Data.Type, val);
+         if (categoryList == null) { return; }
+         this.CategoryOptions = categoryList
+            .map(item => this.OnCategoryParse(item));
+      }
+      catch (ex) { this.appInsights.trackException(ex); console.error(ex); }
    }
    private OnCategoryChanged(item: RelatedData<Category>) {
       this.Data.CategoryID = null;
@@ -231,7 +256,6 @@ export class EntryDetailsComponent implements OnInit {
       this.OnRecurrencyActivateControlChanged(activate, this.inputForm.controls['RecurrencyCount']);
    }
    private OnRecurrencyActivateControlChanged(activate: boolean, control: AbstractControl) {
-      const recurrencyCountControl = this.inputForm.controls['RecurrencyCount'];
       if (activate == true) {
          control.enable();
          control.setValidators([Validators.required]);
@@ -257,16 +281,22 @@ export class EntryDetailsComponent implements OnInit {
 
    /* COMMANDS: SAVE */
    public async OnSaveClick(editFutureRecurrencies: boolean = false) {
-      if (!this.inputForm.get("RecurrencyActivate").value) { this.Data.Recurrency = null; }
-      if (!await this.service.saveEntry(this.Data, editFutureRecurrencies)) { return; }
-      this.service.showCurrentList();
+      try {
+         if (!this.inputForm.get("RecurrencyActivate").value) { this.Data.Recurrency = null; }
+         if (!await this.service.saveEntry(this.Data, editFutureRecurrencies)) { return; }
+         this.service.showCurrentList();
+      }
+      catch (ex) { this.appInsights.trackException(ex); console.error(ex); }
    }
 
    /* COMMANDS: REMOVE */
    public async OnRemoveClick(editFutureRecurrencies: boolean = false) {
-      if (!await this.msg.Confirm('ENTRIES_REMOVE_CONFIRMATION_TEXT', 'BASE_REMOVE_COMMAND')) { return; }
-      if (!await this.service.removeEntry(this.Data, editFutureRecurrencies)) { return; }
-      this.service.showCurrentList();
+      try {
+         if (!await this.msg.Confirm('ENTRIES_REMOVE_CONFIRMATION_TEXT', 'BASE_REMOVE_COMMAND')) { return; }
+         if (!await this.service.removeEntry(this.Data, editFutureRecurrencies)) { return; }
+         this.service.showCurrentList();
+      }
+      catch (ex) { this.appInsights.trackException(ex); console.error(ex); }
    }
 
 }

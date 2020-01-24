@@ -231,8 +231,26 @@
   <data name="CATEGORIES_REMOVE_CONFIRMATION_TEXT" xml:space="preserve">
     <value>Você deseja remover essa categoria?</value>
   </data>
+  <data name="DASHBOARD_ENTRIES_NEXT_ENTRIES_TEXT" xml:space="preserve">
+    <value>Próximos Lançamentos</value>
+  </data>
+  <data name="DASHBOARD_ENTRIES_NO_OVERDUE_ENTRIES_TEXT" xml:space="preserve">
+    <value>Nenhum lançamento vencendo nos próximos dias</value>
+  </data>
+  <data name="DASHBOARD_ENTRIES_OVERDUE_ENTRIES_TEXT" xml:space="preserve">
+    <value>Lançamentos Vencidos</value>
+  </data>
   <data name="DASHBOARD_MENU" xml:space="preserve">
     <value>Home</value>
+  </data>
+  <data name="DASHBOARD_RESUME_BALANCE_TEXT" xml:space="preserve">
+    <value>Saldo do Mês</value>
+  </data>
+  <data name="DASHBOARD_RESUME_EXPENSE_TEXT" xml:space="preserve">
+    <value>Saídas no Mês</value>
+  </data>
+  <data name="DASHBOARD_RESUME_INCOME_TEXT" xml:space="preserve">
+    <value>Entradas no Mês</value>
   </data>
   <data name="ENTRIES_ACCOUNT_LABEL" xml:space="preserve">
     <value>Conta</value>

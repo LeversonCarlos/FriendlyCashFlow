@@ -2,28 +2,28 @@
 
    <img class="sidenav-header" src="assets/sidenavHeader.png" />
 
-   <mat-action-list class="sidenav-programs">
-      <button mat-list-item routerLink="/home">
+   <mat-nav-list class="sidenav-programs">
+      <a mat-list-item routerLink="/home">
          <span>{{ 'DASHBOARD_MENU' | translation | async }}</span>
          <mat-icon matListIcon>dashboard</mat-icon>
-      </button>
-      <button mat-list-item routerLink="/entries">
+      </a>
+      <a mat-list-item routerLink="/entries">
          <span>{{ 'ENTRIES_MENU' | translation | async }}</span>
          <mat-icon matListIcon>receipt</mat-icon>
-      </button>
-      <button mat-list-item routerLink="/accounts">
+      </a>
+      <a mat-list-item routerLink="/accounts">
          <span>{{ 'ACCOUNTS_MENU' | translation | async }}</span>
          <mat-icon matListIcon>account_balance</mat-icon>
-      </button>
-      <button mat-list-item routerLink="/categories">
+      </a>
+      <a mat-list-item routerLink="/categories">
          <span>{{ 'CATEGORIES_MENU' | translation | async }}</span>
          <mat-icon matListIcon>label</mat-icon>
-      </button>
-      <button mat-list-item routerLink="/analysis" *ngIf="false">
+      </a>
+      <a mat-list-item routerLink="/analysis" *ngIf="false">
          <span>{{ 'ANALYSIS_MENU' | translation | async }}</span>
          <mat-icon matListIcon>equalizer</mat-icon>
-      </button>
-   </mat-action-list>
+      </a>
+   </mat-nav-list>
 
    <div class="sidenav-spacer"></div>
 

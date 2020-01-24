@@ -2,6 +2,7 @@
 
 .full-card {
   overflow-y: scroll;
+  overflow-x: hidden;
   height: calc(#{$details-height} - #{$screen-padding});
   @media (max-width: $max-width-xs) {
     height: calc(#{$details-height} + #{$screen-padding});
