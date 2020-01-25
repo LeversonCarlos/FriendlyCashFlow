@@ -96,6 +96,7 @@ export class TransferDetailsComponent implements OnInit {
    public async OnExpenseAccountChanging(val: string) {
       const dataList = await this.accountService.getAccounts(val);
       if (dataList == null) { return; }
+      if (dataList.length == 0 && val == '') { this.msg.ShowInfo('ACCOUNTS_YOU_HAVE_NO_ACTIVE_ACCOUNTS_INFO'); }
       this.ExpenseAccountOptions = dataList
          .map(item => this.OnExpenseAccountParse(item));
    }
@@ -115,6 +116,7 @@ export class TransferDetailsComponent implements OnInit {
    public async OnIncomeAccountChanging(val: string) {
       const dataList = await this.accountService.getAccounts(val);
       if (dataList == null) { return; }
+      if (dataList.length == 0 && val == '') { this.msg.ShowInfo('ACCOUNTS_YOU_HAVE_NO_ACTIVE_ACCOUNTS_INFO'); }
       this.IncomeAccountOptions = dataList
          .map(item => this.OnIncomeAccountParse(item));
    }

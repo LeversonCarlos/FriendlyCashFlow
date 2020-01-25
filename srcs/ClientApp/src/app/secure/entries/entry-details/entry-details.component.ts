@@ -181,6 +181,7 @@ export class EntryDetailsComponent implements OnInit {
       try {
          const accountList = await this.accountService.getAccounts(val);
          if (accountList == null) { return; }
+         if (accountList.length == 0 && val == '') { this.msg.ShowInfo('ACCOUNTS_YOU_HAVE_NO_ACTIVE_ACCOUNTS_INFO'); }
          this.AccountOptions = accountList
             .map(item => this.OnAccountParse(item));
       }
