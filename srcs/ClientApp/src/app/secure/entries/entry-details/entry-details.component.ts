@@ -208,6 +208,7 @@ export class EntryDetailsComponent implements OnInit {
       try {
          const categoryList = await this.categoryService.getCategories(this.Data.Type, val);
          if (categoryList == null) { return; }
+         if (categoryList.length == 0 && val == '') { this.msg.ShowInfo('CATEGORIES_YOU_HAVE_NO_CATEGORIES_FOR_THIS_TYPE_INFO'); }
          this.CategoryOptions = categoryList
             .map(item => this.OnCategoryParse(item));
       }

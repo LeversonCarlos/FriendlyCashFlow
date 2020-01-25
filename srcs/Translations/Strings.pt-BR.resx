@@ -234,6 +234,9 @@
   <data name="CATEGORIES_REMOVE_CONFIRMATION_TEXT" xml:space="preserve">
     <value>Você deseja remover essa categoria?</value>
   </data>
+  <data name="CATEGORIES_YOU_HAVE_NO_CATEGORIES_FOR_THIS_TYPE_INFO" xml:space="preserve">
+    <value>Você não possui categorias para esse tipo de lançamento, use o menu à esquerda para registrar algumas</value>
+  </data>
   <data name="DASHBOARD_BALANCE_NO_ACCOUNTS_TEXT" xml:space="preserve">
     <value>Você não tem nenhuma conta ativa, utilize o menu à esquerda para cadastrar algumas</value>
   </data>
