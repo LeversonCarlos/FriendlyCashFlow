@@ -1,29 +1,34 @@
-# FriendlyCashFlow
+# Friendly Cash Flow
 
-<img src="./srcs/ClientApp/src/assets/icons/icon-192x192.png" title="Application Icon" alt="Application Icon" align="right" />
+<img src="./resources/icon/icon.png" title="Application Icon" alt="Application Icon" align="right" />
 
-> Subtitle or Short Description Goes Here
+A straightforward cash flow web application. Set your accounts and categories and then register your incomes and expenses. You will be able follow the flow of your cash through the months, see where it goes and where you could save.
 
-> ideally one sentence
+## History goes like this
 
-> include terms/tags that can be searched
+<a href="./resources/demo/10-mobile.gif"><img src="./resources/demo/10-mobile.gif" title="Mobile Demo" alt="Mobile Demo" align="left" style="width:175px; height:292px;margin-right:5px" /></a>
 
-**Badges will go here**
+This is my **particular** cash flow system. I'm always trying some of the market's application for cash flow. And, as a developer, i always come back to my own implementation.
 
-- build status
-- issues (waffle.io maybe)
-- devDependencies
-- npm package
-- coverage
-- slack
-- downloads
-- gitter chat
-- license
-- etc.
+This is the one app that give me exactly what i want from this kind of application. And if there something missing or broken, i can fix it. Besides that, i'm always using this project as my personal case for **study, learning and practicing** new technologies. 
 
-[![Build Status](http://img.shields.io/travis/badges/badgerbadgerbadger.svg?style=flat-square)](https://travis-ci.org/badges/badgerbadgerbadger) [![Dependency Status](http://img.shields.io/gemnasium/badges/badgerbadgerbadger.svg?style=flat-square)](https://gemnasium.com/badges/badgerbadgerbadger) [![Coverage Status](http://img.shields.io/coveralls/badges/badgerbadgerbadger.svg?style=flat-square)](https://coveralls.io/r/badges/badgerbadgerbadger) [![Code Climate](http://img.shields.io/codeclimate/github/badges/badgerbadgerbadger.svg?style=flat-square)](https://codeclimate.com/github/badges/badgerbadgerbadger) [![Github Issues](http://githubbadges.herokuapp.com/badges/badgerbadgerbadger/issues.svg?style=flat-square)](https://github.com/badges/badgerbadgerbadger/issues) [![Pending Pull-Requests](http://githubbadges.herokuapp.com/badges/badgerbadgerbadger/pulls.svg?style=flat-square)](https://github.com/badges/badgerbadgerbadger/pulls) [![Gem Version](http://img.shields.io/gem/v/badgerbadgerbadger.svg?style=flat-square)](https://rubygems.org/gems/badgerbadgerbadger) [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org) [![Badges](http://img.shields.io/:badges-9/9-ff6799.svg?style=flat-square)](https://github.com/badges/badgerbadgerbadger)
+My endeavour started back on early 2000 with `vb6`, passed through `vb.net` and then `c#`. Started as a desktop app, turned into web site (with `aspnet`) and now a progressive web application (with `aspnet core` and `angular`).
 
-- For more on these wonderful ~~badgers~~ badges, refer to <a href="http://badges.github.io/badgerbadgerbadger/" target="_blank">`badgerbadgerbadger`</a>.
+Ever since, my sources were on cloud drivers and **private repositories**. This time i thought will be cool to **open the sources** on a public repository and, who knows, maybe somebody like-it, maybe somebody fix that anoying bug, or even somebody enhance something.
+
+So, feel free to clone-it and make-it better.
+
+
+[![Backend](https://img.shields.io/:Backend-AspNet%20Core-yellow.svg?style=flat)](https://docs.microsoft.com/aspnet)
+[![Frontend](https://img.shields.io/:Frontend-Angular-yellow.svg?style=flat)](https://angular.io)
+[![UI](https://img.shields.io/:UI-Material%20Design-yellow.svg?style=flat)](https://material.angular.io/) 
+[![License](https://img.shields.io/:License-MIT-blue.svg?style=flat)](http://badges.mit-license.org)
+<!-- shields.io -->
+
+[![Build Status](https://dev.azure.com/lcjohnny/Playground/_apis/build/status/Cash%20Flow?branchName=v6)](https://dev.azure.com/lcjohnny/Playground/_build/latest?definitionId=11)
+
+## Usage and how to
+
 
 ***INSERT ANOTHER GRAPHIC HERE***
 
