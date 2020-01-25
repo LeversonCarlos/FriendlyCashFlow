@@ -11,7 +11,7 @@ namespace FriendlyCashFlow.API.Dashboard
    partial class DashboardService
    {
 
-      internal async Task<ActionResult<List<BalanceVM>>> GetBalanceAsync(short searchYear, short searchMonth)
+      internal async Task<ActionResult<List<BalanceVM>>> GetBalanceAsync(short searchYear, short searchMonth, bool excludeTransfers)
       {
          try
          {
@@ -23,6 +23,7 @@ namespace FriendlyCashFlow.API.Dashboard
                queryReader.AddParameter("@paramResourceID", user.ResourceID);
                queryReader.AddParameter("@paramSearchYear", searchYear);
                queryReader.AddParameter("@paramSearchMonth", searchMonth);
+               queryReader.AddParameter("@paramExcludeTransfers", (excludeTransfers ? 1 : 0));
                if (!await queryReader.ExecuteReaderAsync()) { return this.WarningResponse("data query error"); }
 
                var queryResult = await queryReader.GetDataResultAsync<BalanceVM>();
@@ -37,10 +38,10 @@ namespace FriendlyCashFlow.API.Dashboard
    partial class DashboardController
    {
 
-      [HttpGet("balance/{searchYear}/{searchMonth}/")]
-      public async Task<ActionResult<List<BalanceVM>>> GetBalanceAsync(short searchYear, short searchMonth)
+      [HttpGet("balance/{searchYear}/{searchMonth}/{excludeTransfers}")]
+      public async Task<ActionResult<List<BalanceVM>>> GetBalanceAsync(short searchYear, short searchMonth, bool excludeTransfers)
       {
-         return await this.GetService<DashboardService>().GetBalanceAsync(searchYear, searchMonth);
+         return await this.GetService<DashboardService>().GetBalanceAsync(searchYear, searchMonth, excludeTransfers);
       }
 
    }

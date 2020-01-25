@@ -29,7 +29,7 @@ export class ResumeComponent implements OnInit {
          let expense = Object.assign(new ResumeVM, { Text: 'DASHBOARD_RESUME_EXPENSE_TEXT', Value: 0, Type: enCategoryType.Expense, Icon: 'remove_circle' });
          let balance = Object.assign(new ResumeVM, { Text: 'DASHBOARD_RESUME_BALANCE_TEXT', Value: 0, Type: enCategoryType.None, Icon: 'monetization_on' });
 
-         let accountBalances = await this.dashboardService.getBalances();
+         let accountBalances = await this.dashboardService.getBalances(true);
          if (accountBalances) {
             for (let index = 0; index < accountBalances.length; index++) {
                const account = accountBalances[index];
