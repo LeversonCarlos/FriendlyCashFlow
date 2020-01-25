@@ -27,7 +27,12 @@ So, feel free to clone-it and make-it better.
 
 [![Build Status](https://dev.azure.com/lcjohnny/Playground/_apis/build/status/Cash%20Flow?branchName=v6)](https://dev.azure.com/lcjohnny/Playground/_build/latest?definitionId=11)
 
-## Usage and how to
+## Usage: Register and access the application
+
+<a href="./resources/demo/01-register.gif"><img src="./resources/demo/01-register.gif" title="Register" style="width:250px; height:170px;margin:5px" /></a>
+<a href="./resources/demo/02-activate.gif"><img src="./resources/demo/02-activate.gif" title="Activate" style="width:250px; height:170px;margin:5px" /></a>
+<a href="./resources/demo/03-login.gif"><img src="./resources/demo/03-login.gif" title="Login" style="width:250px; height:170px;margin:5px" /></a>
+
 
 
 ***INSERT ANOTHER GRAPHIC HERE***
