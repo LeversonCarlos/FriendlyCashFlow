@@ -30,14 +30,14 @@ So, feel free to clone-it and make-it better.
 ## Usage
 
 ### Register and access the application
-
 <a href="./resources/demo/01-register.gif"><img src="./resources/demo/01-register.gif" title="Register" style="width:250px; height:170px;margin:5px" /></a>
 <a href="./resources/demo/02-activate.gif"><img src="./resources/demo/02-activate.gif" title="Activate" style="width:250px; height:170px;margin:5px" /></a>
 <a href="./resources/demo/03-login.gif"><img src="./resources/demo/03-login.gif" title="Login" style="width:250px; height:170px;margin:5px" /></a>
 
-### Before registering some entries, you must define your accounts and categories
+### You cant register entries without domain data
+<a href="./resources/demo/04-empty-domains.gif"><img src="./resources/demo/04-empty-domains.gif" title="No domain data" style="width:250px; height:170px;margin:5px" /></a>
 
-<a href="./resources/demo/04-empty-domains.gif"><img src="./resources/demo/04-empty-domains.gif" title="You cant register entries without domain data" style="width:250px; height:170px;margin:5px" /></a>
+### Defining your domain data
 <a href="./resources/demo/05-accounts.gif"><img src="./resources/demo/05-accounts.gif" title="Defining some accounts" style="width:250px; height:170px;margin:5px" /></a>
 <a href="./resources/demo/06-categories.gif"><img src="./resources/demo/06-categories.gif" title="Defining some categories" style="width:250px; height:170px;margin:5px" /></a>
 
