@@ -41,51 +41,16 @@ So, feel free to clone-it and make-it better.
 <a href="./resources/demo/05-accounts.gif"><img src="./resources/demo/05-accounts.gif" title="Defining some accounts" style="width:250px; height:170px;margin:5px" /></a>
 <a href="./resources/demo/06-categories.gif"><img src="./resources/demo/06-categories.gif" title="Defining some categories" style="width:250px; height:170px;margin:5px" /></a>
 
+### Registering some income entries
+<a href="./resources/demo/07-income.gif"><img src="./resources/demo/07-income.gif" title="Income" style="width:350px; height:240px;margin:5px" /></a>
+
+### Registering some transfers
+<a href="./resources/demo/08-transfer.gif"><img src="./resources/demo/08-transfer.gif" title="Transfers" style="width:350px; height:240px;margin:5px" /></a>
+
+### Registering some expense entries
+<a href="./resources/demo/09-expenses.gif"><img src="./resources/demo/09-expenses.gif" title="Expenses" style="width:350px; height:240px;margin:5px" /></a>
 
 
-
-***INSERT ANOTHER GRAPHIC HERE***
-
-[![INSERT YOUR GRAPHIC HERE](https://camo.githubusercontent.com/16e252325a5447856550dadcbe8ed025c94a6655/687474703a2f2f692e696d6775722e636f6d2f647438415562362e706e67)]()
-
-- Most people will glance at your `README`, *maybe* star it, and leave
-- Ergo, people should understand instantly what your project is about based on your repo
-
-> Tips
-
-- HAVE WHITE SPACE
-- MAKE IT PRETTY
-- GIFS ARE REALLY COOL
-
-> GIF Tools
-
-- Use <a href="http://recordit.co/" target="_blank">**Recordit**</a> to create quicks screencasts of your desktop and export them as `GIF`s.
-- For terminal sessions, there's <a href="https://github.com/chjj/ttystudio" target="_blank">**ttystudio**</a> which also supports exporting `GIF`s.
-
-**Recordit**
-
-![Recordit GIF](http://g.recordit.co/iLN6A0vSD8.gif)
-
-**ttystudio**
-
-![ttystudio GIF](https://raw.githubusercontent.com/chjj/ttystudio/master/img/example.gif)
-
----
-
-## Table of Contents (Optional)
-
-> If your `README` has a lot of info, section headers might be nice.
-
-- [Installation](#installation)
-- [Features](#features)
-- [Contributing](#contributing)
-- [Team](#team)
-- [FAQ](#faq)
-- [Support](#support)
-- [License](#license)
-
-
----
 
 ## Example (Optional)
 
