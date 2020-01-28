@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HTTP_INTERCEPTORS, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError, of } from 'rxjs';
+import { Observable, throwError, of, BehaviorSubject } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
 import { AppInsightsService, SeverityLevel } from 'src/app/shared/app-insights/app-insights.service';
@@ -22,51 +22,61 @@ export class RequestAuthInterceptor implements HttpInterceptor {
 
 @Injectable()
 export class ResponseAuthInterceptor implements HttpInterceptor {
+
    constructor(private auth: AuthService, private appInsights: AppInsightsService) { }
+
    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
       return next.handle(req).pipe(
          catchError((error: HttpErrorResponse) => {
-
-            // UNAUTHORIZED
             if (error.status == 401) {
-               if (this.auth.Token && this.auth.Token.RefreshToken) {
-                  this.appInsights.trackTrace('Token Expired: Will Try to Refresh', SeverityLevel.Information, {
-                     refreshToken: this.auth.Token.RefreshToken,
-                     requestedUrl: req.url,
-                     locationUrl: location.href
-                  })
-                  return this.auth.signRefresh()
-                     .pipe(
-                        catchError((refreshError) => {
-                           this.appInsights.trackTrace('Token Expired: Could not Refresh', SeverityLevel.Warning, {
-                              refreshToken: this.auth.Token.RefreshToken,
-                              requestedUrl: req.url,
-                              locationUrl: location.href,
-                              refreshError: refreshError
-                           })
-                           this.auth.Token = null;
-                           location.reload(true);
-                           return throwError(error);
-                        }),
-                        switchMap(() => {
-                           req = req.clone({
-                              setHeaders: {
-                                 Authorization: `Bearer ${this.auth.Token.AccessToken}`
-                              }
-                           });
-                           return next.handle(req);
-                        })
-                     );
-               }
-               this.auth.Token = null;
-               location.reload(true);
-               return of(null);
+               return this.intercept401(req, next);
             }
-
             return throwError(error);
          })
       );
    }
+
+   private isRefreshingToken: boolean = false;
+   private tokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+   private intercept401(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
+      try {
+         if (this.auth.Token && this.auth.Token.RefreshToken) {
+            this.appInsights.trackTrace('Token Expired: Will Try to Refresh', SeverityLevel.Information, {
+               refreshToken: this.auth.Token.RefreshToken,
+               requestedUrl: req.url,
+               locationUrl: location.href
+            });
+            return this.auth.signRefresh()
+               .pipe(
+                  catchError((refreshError) => {
+                     this.appInsights.trackTrace('Token Expired: Could not Refresh', SeverityLevel.Warning, {
+                        refreshToken: this.auth.Token.RefreshToken,
+                        requestedUrl: req.url,
+                        locationUrl: location.href,
+                        refreshError: refreshError
+                     })
+                     this.auth.Token = null;
+                     location.reload(true);
+                     return of(null);
+                  }),
+                  switchMap(() => {
+                     req = req.clone({
+                        setHeaders: {
+                           Authorization: `Bearer ${this.auth.Token.AccessToken}`
+                        }
+                     });
+                     return next.handle(req);
+                  })
+               );
+         }
+         this.auth.Token = null;
+         location.reload(true);
+         return of(null);
+
+      }
+      catch (ex) { this.appInsights.trackException(ex); return of(null); }
+   }
+
 }
 
 export const RequestAuthInterceptorProvider = {
