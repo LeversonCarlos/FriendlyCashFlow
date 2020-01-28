@@ -94,10 +94,12 @@ export class ResponseAuthInterceptor implements HttpInterceptor {
                   })
                   this.auth.Token = null;
                   location.reload(true);
+                  this.isRefreshingToken = false
                   return of(null);
                }),
                switchMap(() => {
                   this.tokenSubject.next(this.auth.Token.AccessToken);
+                  this.isRefreshingToken = false
                   return this.handleRequest(req, next);
                })
             );

@@ -25,6 +25,11 @@ export class ErrorInterceptor implements HttpInterceptor {
                      return;
                   }
 
+                  // UNAUTHORIZED
+                  if (error.status == 401) {
+                     return;
+                  }
+
                   if (!error.error) { console.error('ErrorInterceptor', error); return; }
                   const message = this.GetMessage(error.error);
                   this.msg.ShowMessage(message);
