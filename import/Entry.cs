@@ -21,8 +21,8 @@ namespace Import
 
       public string Account { get; set; }
 
-      public long? RecurrencyID { get; set; }
-      public enRecurrencyType? RecurrencyType { get; set; }
+      public long RecurrencyID { get; set; }
+      public enRecurrencyType RecurrencyType { get; set; }
    }
 
    public class Entry : EntryCsv
