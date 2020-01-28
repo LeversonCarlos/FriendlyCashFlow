@@ -6,7 +6,9 @@ A straightforward cash flow web application. Set your accounts and categories an
 
 ## History goes like this
 
-<a href="./resources/demo/10-mobile.gif"><img src="./resources/demo/10-mobile.gif" title="Mobile Demo" alt="Mobile Demo" align="left" style="width:175px; height:292px;margin-right:5px" /></a>
+<a href="./resources/demo/10-mobile.gif">
+   <img src="./resources/demo/10-mobile.gif" title="Mobile Demo" alt="Mobile Demo" align="left" width="175" height="292" style="margin-right:5px" />
+</a>
 
 This is my **particular** cash flow system. I'm always trying some of the market's application for cash flow. And, as a developer, i always come back to my own implementation.
 
@@ -30,62 +32,62 @@ So, feel free to clone-it and make-it better.
 ## Usage
 
 ### Register and access the application
-<a href="./resources/demo/01-register.gif"><img src="./resources/demo/01-register.gif" title="Register" style="width:250px; height:170px;margin:5px" /></a>
-<a href="./resources/demo/02-activate.gif"><img src="./resources/demo/02-activate.gif" title="Activate" style="width:250px; height:170px;margin:5px" /></a>
-<a href="./resources/demo/03-login.gif"><img src="./resources/demo/03-login.gif" title="Login" style="width:250px; height:170px;margin:5px" /></a>
+<a href="./resources/demo/01-register.gif"><img src="./resources/demo/01-register.gif" title="Register" width="250" height="170" style="margin:5px" /></a>
+<a href="./resources/demo/02-activate.gif"><img src="./resources/demo/02-activate.gif" title="Activate" width="250" height="170" style="margin:5px" /></a>
+<a href="./resources/demo/03-login.gif"><img src="./resources/demo/03-login.gif" title="Login" width="250" height="170" style="margin:5px" /></a>
 
 ### You cant register entries without domain data
-<a href="./resources/demo/04-empty-domains.gif"><img src="./resources/demo/04-empty-domains.gif" title="No domain data" style="width:250px; height:170px;margin:5px" /></a>
+<a href="./resources/demo/04-empty-domains.gif"><img src="./resources/demo/04-empty-domains.gif" title="No domain data" width="250" height="170" style="margin:5px" /></a>
 
 ### Defining your domain data
-<a href="./resources/demo/05-accounts.gif"><img src="./resources/demo/05-accounts.gif" title="Defining some accounts" style="width:250px; height:170px;margin:5px" /></a>
-<a href="./resources/demo/06-categories.gif"><img src="./resources/demo/06-categories.gif" title="Defining some categories" style="width:250px; height:170px;margin:5px" /></a>
+<a href="./resources/demo/05-accounts.gif"><img src="./resources/demo/05-accounts.gif" title="Defining some accounts" width="250" height="170" style="margin:5px" /></a>
+<a href="./resources/demo/06-categories.gif"><img src="./resources/demo/06-categories.gif" title="Defining some categories" width="250" height="170" style="margin:5px" /></a>
 
 ### Registering some income entries
-<a href="./resources/demo/07-income.gif"><img src="./resources/demo/07-income.gif" title="Income" style="width:350px; height:240px;margin:5px" /></a>
+<a href="./resources/demo/07-income.gif"><img src="./resources/demo/07-income.gif" title="Income" width="350" height="240" style="margin:5px" /></a>
 
 ### Registering some transfers
-<a href="./resources/demo/08-transfer.gif"><img src="./resources/demo/08-transfer.gif" title="Transfers" style="width:350px; height:240px;margin:5px" /></a>
+<a href="./resources/demo/08-transfer.gif"><img src="./resources/demo/08-transfer.gif" title="Transfers" width="350" height="240" style="margin:5px" /></a>
 
 ### Registering some expense entries
-<a href="./resources/demo/09-expenses.gif"><img src="./resources/demo/09-expenses.gif" title="Expenses" style="width:350px; height:240px;margin:5px" /></a>
+<a href="./resources/demo/09-expenses.gif"><img src="./resources/demo/09-expenses.gif" title="Expenses" width="350" height="240" style="margin:5px" /></a>
 
-
-
-## Example (Optional)
-
-```javascript
-// code away!
-
-let generateProject = project => {
-  let code = [];
-  for (let js = 0; js < project.length; js++) {
-    code.push(js);
-  }
-};
-```
-
----
 
 ## Installation
 
-- All the `code` required to get started
-- Images of what it should look like
+### Get started
+- **Clone this repo** to your local machine using 
+   ``` shell 
+   git clone https://github.com/LeversonCarlos/FriendlyCashFlow.git
+   ```
+- Install **client packages** with 
+   ``` shell 
+   npm install ./srcs/ClientApp
+   ```
+- **Build** the backend project with 
+   ``` shell 
+   dotnet build ./srcs
+   ```
+- Prepare the **database structure** with 
+   ``` shell 
+   dotnet ef database update --project ./srcs
+   ```
+- **Run the application** locally with 
+   ``` shell
+   dotnet run --project ./srcs
+   ```
 
-### Clone
+### Customize application settings
+There is a file on the **srcs folder** called **appsettings.json**. On this file some behaviours of the application is defined.
+- **BaseHost**: Path used to compose urls when the application is hosted somewhere
+- **ConnStr**: The connection string used to connect to the database used by the application
+- **Passwords**: Section defining the requirements for the passwords set by the users
+- **Token**: Section defining the tokens that will be used to authenticate users on his calls to the backend apis
+- **Mail**: Section defining the SMTP server used to send mails to the users
+- **AppInsights**: Section where an azure's application insights could be set to monitor app usage
 
-- Clone this repo to your local machine using `https://github.com/fvcproductions/SOMEREPO`
 
-### Setup
 
-- If you want more syntax highlighting, format your code like this:
-
-> update and install this package first
-
-```shell
-$ brew update
-$ brew install fvcproductions
-```
 
 > now install npm and bower packages
 
