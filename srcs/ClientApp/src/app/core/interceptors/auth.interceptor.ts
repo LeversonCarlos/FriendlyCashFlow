@@ -40,38 +40,41 @@ export class ResponseAuthInterceptor implements HttpInterceptor {
    private tokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
    private intercept401(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
       try {
-         if (this.auth.Token && this.auth.Token.RefreshToken) {
-            this.appInsights.trackTrace('Token Expired: Will Try to Refresh', SeverityLevel.Information, {
-               refreshToken: this.auth.Token.RefreshToken,
-               requestedUrl: req.url,
-               locationUrl: location.href
-            });
-            return this.auth.signRefresh()
-               .pipe(
-                  catchError((refreshError) => {
-                     this.appInsights.trackTrace('Token Expired: Could not Refresh', SeverityLevel.Warning, {
-                        refreshToken: this.auth.Token.RefreshToken,
-                        requestedUrl: req.url,
-                        locationUrl: location.href,
-                        refreshError: refreshError
-                     })
-                     this.auth.Token = null;
-                     location.reload(true);
-                     return of(null);
-                  }),
-                  switchMap(() => {
-                     req = req.clone({
-                        setHeaders: {
-                           Authorization: `Bearer ${this.auth.Token.AccessToken}`
-                        }
-                     });
-                     return next.handle(req);
-                  })
-               );
+
+         // IF HAS NO TOKEN, FORCE A LOCATION RELOAD AND THIS WILL SEND USER TO THE LOGIN PAGE
+         if (!this.auth.Token || !this.auth.Token.RefreshToken || this.auth.Token.RefreshToken == '') {
+            this.auth.Token = null;
+            location.reload(true);
+            return of(null);
          }
-         this.auth.Token = null;
-         location.reload(true);
-         return of(null);
+
+         this.appInsights.trackTrace('Token Expired: Will Try to Refresh', SeverityLevel.Information, {
+            refreshToken: this.auth.Token.RefreshToken,
+            requestedUrl: req.url,
+            locationUrl: location.href
+         });
+         return this.auth.signRefresh()
+            .pipe(
+               catchError((refreshError) => {
+                  this.appInsights.trackTrace('Token Expired: Could not Refresh', SeverityLevel.Warning, {
+                     refreshToken: this.auth.Token.RefreshToken,
+                     requestedUrl: req.url,
+                     locationUrl: location.href,
+                     refreshError: refreshError
+                  })
+                  this.auth.Token = null;
+                  location.reload(true);
+                  return of(null);
+               }),
+               switchMap(() => {
+                  req = req.clone({
+                     setHeaders: {
+                        Authorization: `Bearer ${this.auth.Token.AccessToken}`
+                     }
+                  });
+                  return next.handle(req);
+               })
+            );
 
       }
       catch (ex) { this.appInsights.trackException(ex); return of(null); }
