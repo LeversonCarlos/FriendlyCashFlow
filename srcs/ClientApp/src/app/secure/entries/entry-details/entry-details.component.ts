@@ -129,7 +129,7 @@ export class EntryDetailsComponent implements OnInit {
          this.inputForm.get('RecurrencyActivate').valueChanges.subscribe((activate) => this.OnRecurrencyActivateChanged(activate));
          this.inputForm.get('Paid').valueChanges.subscribe((paid) => this.OnPaidChanged(paid));
 
-         this.OnPaidChanged(this.Data.Paid)
+         this.OnPaidChanged(this.Data.Paid, false)
 
       }
       catch (ex) { this.appInsights.trackException(ex); console.error(ex); }
@@ -229,7 +229,7 @@ export class EntryDetailsComponent implements OnInit {
 
 
    /* PAID */
-   private OnPaidChanged(paid: boolean) {
+   private OnPaidChanged(paid: boolean, setValue: boolean = true) {
       const payDateControl = this.inputForm.controls['PayDate'];
       if (paid == true) {
          const today = new Date();
@@ -237,13 +237,13 @@ export class EntryDetailsComponent implements OnInit {
          if (today < payDate) { payDate = today; }
          payDateControl.enable();
          payDateControl.setValidators([Validators.required]);
-         payDateControl.setValue(payDate);
+         if (setValue) { payDateControl.setValue(payDate); }
          payDateControl.markAsTouched();
       }
       else {
          payDateControl.clearValidators();
          payDateControl.markAsUntouched();
-         payDateControl.setValue('');
+         if (setValue) { payDateControl.setValue(''); }
          payDateControl.disable();
       }
       payDateControl.updateValueAndValidity();
