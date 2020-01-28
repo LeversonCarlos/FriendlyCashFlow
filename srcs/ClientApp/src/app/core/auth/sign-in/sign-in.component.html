@@ -1,0 +1,35 @@
+<fs-base-layout class="background">
+   <div details class="full-screen">
+
+      <form *ngIf="inputForm" [formGroup]="inputForm" (ngSubmit)="OnClick()">
+         <mat-card>
+            <mat-card-header>
+               <img src="../../../../assets/logo.png">
+            </mat-card-header>
+            <mat-card-content>
+
+               <mat-form-field>
+                  <mat-label>{{ 'USERS_USERNAME_INSTRUCTIONS' | translation | async }}</mat-label>
+                  <input type="email" matInput formControlName="UserName" autocomplete="username">
+               </mat-form-field>
+
+               <mat-form-field>
+                  <mat-label>{{ 'USERS_PASSWORD_INSTRUCTIONS' | translation | async }}</mat-label>
+                  <input type="password" matInput formControlName="Password" autocomplete="current-password">
+               </mat-form-field>
+
+            </mat-card-content>
+            <mat-card-actions class="between">
+               <button type="button" mat-button color="accent" routerLink="/signup"
+                  matTooltip='{{ "USERS_DONT_HAVE_ACCOUNT_MESSAGE" | translation | async }}'>{{ 'USERS_SIGNUP_COMMAND' | translation | async }}</button>
+               <button type="submit" mat-flat-button color="primary" [disabled]="!inputForm?.valid"
+                  matTooltip='{{ "USERS_SIGNUP_INSTRUCTIONS" | translation | async }}'>{{ 'USERS_SIGNIN_COMMAND' | translation | async }}</button>
+            </mat-card-actions>
+         </mat-card>
+      </form>
+      <button class="activation-link-button" *ngIf="signupUser" mat-button color="accent" (click)="OnActivationClick()">
+         {{ "USERS_SEND_ACTIVATION_LINK_AGAIN_MESSAGE" | translation | async }}
+      </button>
+
+   </div>
+</fs-base-layout>

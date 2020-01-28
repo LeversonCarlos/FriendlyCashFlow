@@ -1,0 +1,25 @@
+<mat-card *ngFor="let entryType of EntryTypes" [class.overdue]="entryType.Overdue">
+   <mat-card-content>
+      <span class="mat-title">{{ entryType.Text | translation | async }}</span>
+      <mat-nav-list dense>
+         <a mat-list-item *ngFor="let entry of entryType.Entries; let last = last" [routerLink]="GetUrl(entry)">
+            <div matLine class="entry-row">
+               <div class="entry-details">
+                  <span>{{ entry.Text }}</span>
+                  <small>{{ entry.DueDate | date: 'shortDate' }} <i>({{entry.AccountText}})</i></small>
+               </div>
+               <div [class.forecolor-red]="entry.EntryValue < 0" [class.forecolor-green]="entry.EntryValue > 0">
+                  <span>{{ entry.EntryValue | number : '1.2-2' }}</span>
+               </div>
+            </div>
+            <mat-divider *ngIf="!last"></mat-divider>
+         </a>
+      </mat-nav-list>
+   </mat-card-content>
+</mat-card>
+
+<mat-card *ngIf="!EntryTypes?.length" class="no-overdue">
+   <mat-card-content>
+      <span class="mat-title">{{ 'DASHBOARD_ENTRIES_NO_OVERDUE_ENTRIES_TEXT' | translation | async }}</span>
+   </mat-card-content>
+</mat-card>

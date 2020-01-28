@@ -1,0 +1,5 @@
+<p *ngFor="let message of Data?.Messages">{{ message }}</p>
+<pre *ngIf="Data?.Details">{{ Data?.Details }}</pre>
+<button class="close" mat-icon-button (click)="OnCloseClick()">
+   <mat-icon fontIcon="fa-times"></mat-icon>
+</button>

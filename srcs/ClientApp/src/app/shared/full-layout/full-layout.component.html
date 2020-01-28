@@ -1,0 +1,36 @@
+<mat-sidenav-container autosize (backdropClick)="snav.close()">
+
+   <mat-sidenav #snav fixedInViewport="true" [mode]="mobileQuery.matches ? 'over' : 'side'"
+      [opened]="!mobileQuery.matches" (keydown.escape)="snav.close()">
+      <fs-side-nav></fs-side-nav>
+   </mat-sidenav>
+
+   <mat-sidenav-content>
+      <fs-base-layout>
+         <div header class="layout-header">
+            <mat-toolbar color="primary">
+               <div>
+                  <button mat-icon-button (click)="snav.toggle()" *ngIf="mobileQuery.matches">
+                     <mat-icon>menu</mat-icon>
+                  </button>
+                  <ng-content select="[title]"></ng-content>
+               </div>
+               <div>
+                  <ng-content select="[toolbar]"></ng-content>
+               </div>
+            </mat-toolbar>
+         </div>
+
+         <div details class="layout-details">
+            <div class="layout-full-content">
+               <ng-content select="[full-content]"></ng-content>
+            </div>
+            <div class="layout-content">
+               <ng-content select="[content]"></ng-content>
+            </div>
+         </div>
+      </fs-base-layout>
+
+   </mat-sidenav-content>
+
+</mat-sidenav-container>

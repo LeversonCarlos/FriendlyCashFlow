@@ -1,0 +1,486 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ACCOUNTS_ACCOUNT_TEXT_ALREADY_EXISTS_WARNING" xml:space="preserve">
+    <value>An account with this text already exists!</value>
+  </data>
+  <data name="ACCOUNTS_ACTIVATED_LABEL" xml:space="preserve">
+    <value>Activated</value>
+  </data>
+  <data name="ACCOUNTS_ACTIVE_ACCOUNTS_LABEL" xml:space="preserve">
+    <value>Active Accounts</value>
+  </data>
+  <data name="ACCOUNTS_ARQUIVED_ACCOUNTS_LABEL" xml:space="preserve">
+    <value>Arquived</value>
+  </data>
+  <data name="ACCOUNTS_CLOSING_DAY_LABEL" xml:space="preserve">
+    <value>Closing Day</value>
+  </data>
+  <data name="ACCOUNTS_DESCRIPTION_LABEL" xml:space="preserve">
+    <value>Account Description</value>
+  </data>
+  <data name="ACCOUNTS_DETAILS_TITLE" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="ACCOUNTS_DUE_DAY_LABEL" xml:space="preserve">
+    <value>Due Day</value>
+  </data>
+  <data name="ACCOUNTS_ENACCOUNTTYPE_BANK" xml:space="preserve">
+    <value>Bank</value>
+  </data>
+  <data name="ACCOUNTS_ENACCOUNTTYPE_CREDITCARD" xml:space="preserve">
+    <value>Credit Card</value>
+  </data>
+  <data name="ACCOUNTS_ENACCOUNTTYPE_GENERAL" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="ACCOUNTS_ENACCOUNTTYPE_INVESTMENT" xml:space="preserve">
+    <value>Investment</value>
+  </data>
+  <data name="ACCOUNTS_ENACCOUNTTYPE_SERVICE" xml:space="preserve">
+    <value>Service</value>
+  </data>
+  <data name="ACCOUNTS_INVALID_DUE_DAY_WARNING" xml:space="preserve">
+    <value>A valid due day must be informed!</value>
+  </data>
+  <data name="ACCOUNTS_MAIN_TITLE" xml:space="preserve">
+    <value>Accounts</value>
+  </data>
+  <data name="ACCOUNTS_MENU" xml:space="preserve">
+    <value>Accounts</value>
+  </data>
+  <data name="ACCOUNTS_RECORD_NOT_FOUND_WARNING" xml:space="preserve">
+    <value>Account record not found to be displayed!</value>
+  </data>
+  <data name="ACCOUNTS_REMOVE_CONFIRMATION_TEXT" xml:space="preserve">
+    <value>Do you want to remove this account?</value>
+  </data>
+  <data name="ACCOUNTS_TYPE_LABEL" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="ACCOUNTS_YOU_HAVE_NO_ACTIVE_ACCOUNTS_INFO" xml:space="preserve">
+    <value>You have no active Accounts, use the menu on the left to register some</value>
+  </data>
+  <data name="ANALYSIS_MENU" xml:space="preserve">
+    <value>Analysis</value>
+  </data>
+  <data name="BASE_CANCEL_CHANGES_ABORT" xml:space="preserve">
+    <value>Go Back</value>
+  </data>
+  <data name="BASE_CANCEL_CHANGES_CONFIRM" xml:space="preserve">
+    <value>Cancel Anyway</value>
+  </data>
+  <data name="BASE_CANCEL_CHANGES_CONFIRMATION_TEXT" xml:space="preserve">
+    <value>Do you want to cancel and lose changes?</value>
+  </data>
+  <data name="BASE_CANCEL_COMMAND" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="BASE_FORBIDDEN_MESSAGE" xml:space="preserve">
+    <value>Forbidden access. Check your permissions on this resource and the status of your signature.</value>
+  </data>
+  <data name="BASE_REMOVE_COMMAND" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="BASE_SAVE_COMMAND" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="CATEGORIES_CATEGORY_TEXT_ALREADY_EXISTS_WARNING" xml:space="preserve">
+    <value>A category with this text already exists!</value>
+  </data>
+  <data name="CATEGORIES_CHILDREN_CANT_BE_DEFINED_AS_PARENT_CATEGORY_WARNING" xml:space="preserve">
+    <value>Category child can not be defined as it´s parent category</value>
+  </data>
+  <data name="CATEGORIES_DESCRIPTION_LABEL" xml:space="preserve">
+    <value>Category Description</value>
+  </data>
+  <data name="CATEGORIES_DETAILS_TITLE" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="CATEGORIES_ENCATEGORYTYPE_EXPENSE" xml:space="preserve">
+    <value>Expense</value>
+  </data>
+  <data name="CATEGORIES_ENCATEGORYTYPE_INCOME" xml:space="preserve">
+    <value>Income</value>
+  </data>
+  <data name="CATEGORIES_MAIN_TITLE" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+  <data name="CATEGORIES_MENU" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+  <data name="CATEGORIES_PARENT_LABEL" xml:space="preserve">
+    <value>Parent Category</value>
+  </data>
+  <data name="CATEGORIES_RECORD_NOT_FOUND_WARNING" xml:space="preserve">
+    <value>Category record not found to be displayed!</value>
+  </data>
+  <data name="CATEGORIES_REMOVE_CONFIRMATION_TEXT" xml:space="preserve">
+    <value>Do you want to remove this category?</value>
+  </data>
+  <data name="CATEGORIES_YOU_HAVE_NO_CATEGORIES_FOR_THIS_TYPE_INFO" xml:space="preserve">
+    <value>You have no Categories for this entry type, use the menu on the left to register some</value>
+  </data>
+  <data name="DASHBOARD_BALANCE_NO_ACCOUNTS_TEXT" xml:space="preserve">
+    <value>You have no active account, use the menu on the left to register some</value>
+  </data>
+  <data name="DASHBOARD_ENTRIES_NEXT_ENTRIES_TEXT" xml:space="preserve">
+    <value>Next Entries</value>
+  </data>
+  <data name="DASHBOARD_ENTRIES_NO_OVERDUE_ENTRIES_TEXT" xml:space="preserve">
+    <value>No entries expiring on the next days</value>
+  </data>
+  <data name="DASHBOARD_ENTRIES_OVERDUE_ENTRIES_TEXT" xml:space="preserve">
+    <value>Overdue Entries</value>
+  </data>
+  <data name="DASHBOARD_MENU" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="DASHBOARD_RESUME_BALANCE_TEXT" xml:space="preserve">
+    <value>Month's Balance</value>
+  </data>
+  <data name="DASHBOARD_RESUME_EXPENSE_TEXT" xml:space="preserve">
+    <value>Month's Expense</value>
+  </data>
+  <data name="DASHBOARD_RESUME_INCOME_TEXT" xml:space="preserve">
+    <value>Month's Income</value>
+  </data>
+  <data name="ENTRIES_ACCOUNT_LABEL" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="ENTRIES_ACCOUNT_NOT_FOUND_WARNING" xml:space="preserve">
+    <value>Invalid Account!</value>
+  </data>
+  <data name="ENTRIES_CATEGORY_LABEL" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="ENTRIES_CATEGORY_NOT_FOUND_WARNING" xml:space="preserve">
+    <value>Invalid Category!</value>
+  </data>
+  <data name="ENTRIES_DETAILS_TITLE" xml:space="preserve">
+    <value>Entry</value>
+  </data>
+  <data name="ENTRIES_DUEDATE_INVALID_WARNING" xml:space="preserve">
+    <value>Invalid Due Date!</value>
+  </data>
+  <data name="ENTRIES_DUEDATE_LABEL" xml:space="preserve">
+    <value>Due Date</value>
+  </data>
+  <data name="ENTRIES_ENTRYVALUE_INVALID_WARNING" xml:space="preserve">
+    <value>Invalid Value!</value>
+  </data>
+  <data name="ENTRIES_ENTRYVALUE_LABEL" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="ENTRIES_MAIN_TITLE" xml:space="preserve">
+    <value>Entries</value>
+  </data>
+  <data name="ENTRIES_MENU" xml:space="preserve">
+    <value>Entries</value>
+  </data>
+  <data name="ENTRIES_NEW_EXPENSE_COMMAND" xml:space="preserve">
+    <value>Add New Expense</value>
+  </data>
+  <data name="ENTRIES_NEW_INCOME_COMMAND" xml:space="preserve">
+    <value>Add New Income</value>
+  </data>
+  <data name="ENTRIES_NEW_TRANSFER_COMMAND" xml:space="preserve">
+    <value>Add New Transfer</value>
+  </data>
+  <data name="ENTRIES_PAID_LABEL" xml:space="preserve">
+    <value>Paid</value>
+  </data>
+  <data name="ENTRIES_PATTERN_LABEL" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="ENTRIES_PAYDATE_INVALID_WARNING" xml:space="preserve">
+    <value>Invalid Pay Date!</value>
+  </data>
+  <data name="ENTRIES_PAYDATE_LABEL" xml:space="preserve">
+    <value>Pay Date</value>
+  </data>
+  <data name="ENTRIES_RECORD_NOT_FOUND_WARNING" xml:space="preserve">
+    <value>Entry record not found to be displayed!</value>
+  </data>
+  <data name="ENTRIES_RECURRENCYACTIVATE_LABEL" xml:space="preserve">
+    <value>Recurring portion of the entry</value>
+  </data>
+  <data name="ENTRIES_RECURRENCYCOUNT_LABEL" xml:space="preserve">
+    <value>Number of portions</value>
+  </data>
+  <data name="ENTRIES_RECURRENCYTYPE_LABEL" xml:space="preserve">
+    <value>Frequency</value>
+  </data>
+  <data name="ENTRIES_RECURRENCY_LABEL" xml:space="preserve">
+    <value>Portion</value>
+  </data>
+  <data name="ENTRIES_REMOVE_ALL_FUTURE_ENTRIES_COMMAND" xml:space="preserve">
+    <value>This and future portions</value>
+  </data>
+  <data name="ENTRIES_REMOVE_CONFIRMATION_TEXT" xml:space="preserve">
+    <value>Do you want to remove this entry?</value>
+  </data>
+  <data name="ENTRIES_REMOVE_ONLY_THIS_ENTRY_COMMAND" xml:space="preserve">
+    <value>Only current portion</value>
+  </data>
+  <data name="ENTRIES_SAVE_ALL_FUTURE_ENTRIES_COMMAND" xml:space="preserve">
+    <value>This and future portions</value>
+  </data>
+  <data name="ENTRIES_SAVE_ONLY_THIS_ENTRY_COMMAND" xml:space="preserve">
+    <value>Only current portion</value>
+  </data>
+  <data name="LOGOUT_MENU" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="PICKERS_DEFAULT_ACCOUNT_TEXT" xml:space="preserve">
+    <value>All Accounts</value>
+  </data>
+  <data name="RECURRENCY_ENRECURRENCYTYPE_BIMONTHLY" xml:space="preserve">
+    <value>Bi Monthly</value>
+  </data>
+  <data name="RECURRENCY_ENRECURRENCYTYPE_MONTHLY" xml:space="preserve">
+    <value>Monthly</value>
+  </data>
+  <data name="RECURRENCY_ENRECURRENCYTYPE_QUARTERLY" xml:space="preserve">
+    <value>Quarterly</value>
+  </data>
+  <data name="RECURRENCY_ENRECURRENCYTYPE_SEMIYEARLY" xml:space="preserve">
+    <value>Semi Yearly</value>
+  </data>
+  <data name="RECURRENCY_ENRECURRENCYTYPE_WEEKLY" xml:space="preserve">
+    <value>Weekly</value>
+  </data>
+  <data name="RECURRENCY_ENRECURRENCYTYPE_YEARLY" xml:space="preserve">
+    <value>Yearly</value>
+  </data>
+  <data name="SETTINGS_MENU" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="TRANSFERS_DATE_LABEL" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="TRANSFERS_DETAILS_TITLE" xml:space="preserve">
+    <value>Transfer</value>
+  </data>
+  <data name="TRANSFERS_EXPENSE_ACCOUNT_LABEL" xml:space="preserve">
+    <value>Output Account</value>
+  </data>
+  <data name="TRANSFERS_FROM_ACCOUNT_DESCRIPTION" xml:space="preserve">
+    <value>Transfer from {accountText}</value>
+  </data>
+  <data name="TRANSFERS_INCOME_ACCOUNT_LABEL" xml:space="preserve">
+    <value>Income Account</value>
+  </data>
+  <data name="TRANSFERS_RECORD_NOT_FOUND_WARNING" xml:space="preserve">
+    <value>Transfer record not found to be displayed!</value>
+  </data>
+  <data name="TRANSFERS_REMOVE_CONFIRMATION_TEXT" xml:space="preserve">
+    <value>Do you want to remove this transfer?</value>
+  </data>
+  <data name="TRANSFERS_TO_ACCOUNT_DESCRIPTION" xml:space="preserve">
+    <value>Transfer to {accountText}</value>
+  </data>
+  <data name="TRANSFERS_VALUE_LABEL" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="USERS_ACCOUNT_HAS_BEEN_ACTIVATED_MESSAGE" xml:space="preserve">
+    <value>Your account has been activated, you can sign in now.</value>
+  </data>
+  <data name="USERS_ACTIVATION_INSTRUCTIONS_WAS_SENT_MESSAGE" xml:space="preserve">
+    <value>An email was sent to you with instructions on how to activate your account.</value>
+  </data>
+  <data name="USERS_ACTIVATION_MAIL_BODY_COMMAND" xml:space="preserve">
+    <value>Activate Account</value>
+  </data>
+  <data name="USERS_ACTIVATION_MAIL_BODY_MESSAGE" xml:space="preserve">
+    <value>Click the button below to activate your account and start using the system.</value>
+  </data>
+  <data name="USERS_ACTIVATION_MAIL_BODY_TITLE" xml:space="preserve">
+    <value>Hi {0}, welcome to {1}!</value>
+  </data>
+  <data name="USERS_ACTIVATION_MAIL_SUBJECT" xml:space="preserve">
+    <value>{0} Activation Instruction</value>
+  </data>
+  <data name="USERS_ALREADY_HAVE_ACCOUNT_MESSAGE" xml:space="preserve">
+    <value>Click here if you already have an account</value>
+  </data>
+  <data name="USERS_DESCRIPTION_INSTRUCTIONS" xml:space="preserve">
+    <value>Type in your name</value>
+  </data>
+  <data name="USERS_DONT_HAVE_ACCOUNT_MESSAGE" xml:space="preserve">
+    <value>Click here if you dont have an account yet</value>
+  </data>
+  <data name="USERS_INVALID_ACTIVATION_CODE_WARNING" xml:space="preserve">
+    <value>Invalid activation code.</value>
+  </data>
+  <data name="USERS_PASSWORD_INSTRUCTIONS" xml:space="preserve">
+    <value>Type in your password</value>
+  </data>
+  <data name="USERS_PASSWORD_MINIMUM_SIZE_WARNING" xml:space="preserve">
+    <value>Password must have at least {0} characters.</value>
+  </data>
+  <data name="USERS_PASSWORD_REQUIRE_LOWER_CASES_WARNING" xml:space="preserve">
+    <value>Password must have lower case characters.</value>
+  </data>
+  <data name="USERS_PASSWORD_REQUIRE_NUMBERS_WARNING" xml:space="preserve">
+    <value>Password must have number characters.</value>
+  </data>
+  <data name="USERS_PASSWORD_REQUIRE_SYMBOLS_WARNING" xml:space="preserve">
+    <value>Password must have symbol characters.</value>
+  </data>
+  <data name="USERS_PASSWORD_REQUIRE_UPPER_CASES_WARNING" xml:space="preserve">
+    <value>Password must have upper case characters.</value>
+  </data>
+  <data name="USERS_SEND_ACTIVATION_LINK_AGAIN_MESSAGE" xml:space="preserve">
+    <value>Send me the activation link again</value>
+  </data>
+  <data name="USERS_SIGNIN_COMMAND" xml:space="preserve">
+    <value>Sign In</value>
+  </data>
+  <data name="USERS_SIGNIN_INSTRUCTIONS" xml:space="preserve">
+    <value>Click to sign the system</value>
+  </data>
+  <data name="USERS_SIGNIN_TITLE" xml:space="preserve">
+    <value>Sign In</value>
+  </data>
+  <data name="USERS_SIGNUP_COMMAND" xml:space="preserve">
+    <value>Sign Up</value>
+  </data>
+  <data name="USERS_SIGNUP_INSTRUCTIONS" xml:space="preserve">
+    <value>Click to sign up a new account</value>
+  </data>
+  <data name="USERS_SIGNUP_TITLE" xml:space="preserve">
+    <value>Sign Up</value>
+  </data>
+  <data name="USERS_USERNAME_INSTRUCTIONS" xml:space="preserve">
+    <value>Type in your email</value>
+  </data>
+  <data name="USERS_USER_ALREADY_ACTIVATED_WARNING" xml:space="preserve">
+    <value>User already activated</value>
+  </data>
+  <data name="USERS_USER_NAME_ALREADY_EXISTS_WARNING" xml:space="preserve">
+    <value>User mail already been used.</value>
+  </data>
+  <data name="USERS_USER_NOT_ACTIVATED_WARNING" xml:space="preserve">
+    <value>User not activated yet.</value>
+  </data>
+  <data name="USERS_USER_NOT_FOUND_WARNING" xml:space="preserve">
+    <value>User not found.</value>
+  </data>
+</root>

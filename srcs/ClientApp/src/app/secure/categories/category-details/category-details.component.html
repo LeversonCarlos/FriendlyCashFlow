@@ -1,0 +1,35 @@
+<fs-full-layout>
+   <span title>
+      {{ 'CATEGORIES_DETAILS_TITLE' | translation | async }}
+      <span> - </span>
+      {{ CategoryType?.Text}}
+   </span>
+   <div toolbar>
+   </div>
+   <div content class="full-screen">
+
+      <mat-card class="full-card">
+         <mat-card-content>
+            <form *ngIf="inputForm" [formGroup]="inputForm">
+               <mat-form-field [style.fontSize.px]="20">
+                  <mat-label>{{ 'CATEGORIES_DESCRIPTION_LABEL' | translation | async }}</mat-label>
+                  <input type="text" matInput formControlName="Text" autofocus>
+               </mat-form-field>
+               <related-box placeholder="CATEGORIES_PARENT_LABEL" minSize="0" [options]="ParentOptions"
+                  formControlName="ParentRow" (optionsChanging)="OnParentChanging($event)">
+               </related-box>
+            </form>
+         </mat-card-content>
+         <mat-card-actions class="between">
+            <button mat-button (click)="OnRemoveClick()" color="warn"
+               [disabled]="!Data?.CategoryID || inputForm?.dirty">{{ 'BASE_REMOVE_COMMAND' | translation | async }}</button>
+            <div>
+               <button mat-button (click)="OnCancelClick()">{{ 'BASE_CANCEL_COMMAND' | translation | async }}</button>
+               <button mat-button (click)="OnSaveClick()" color="primary"
+                  [disabled]="!inputForm?.valid">{{ 'BASE_SAVE_COMMAND' | translation | async }}</button>
+            </div>
+         </mat-card-actions>
+      </mat-card>
+
+   </div>
+</fs-full-layout>

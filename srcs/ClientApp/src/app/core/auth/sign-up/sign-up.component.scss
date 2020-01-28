@@ -1,0 +1,19 @@
+@import "../../../../styles/screenSizes.scss";
+
+.full-screen {
+  align-items: center;
+  justify-content: center;
+}
+
+.mat-card {
+  width: 25vw;
+  @media (max-width: $max-width-xs) {
+    width: 80vw;
+  }
+}
+
+.mat-card-header {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

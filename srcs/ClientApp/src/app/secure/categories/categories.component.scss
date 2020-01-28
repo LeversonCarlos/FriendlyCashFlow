@@ -1,0 +1,28 @@
+@import "../../../styles/screenSizes.scss";
+
+.mat-card-content {
+  margin: 0;
+}
+
+.mat-action-list {
+  overflow-y: scroll;
+
+  $tabsHeader: 49px;
+  $cardPadding: 16px;
+  height: calc(#{$details-height} - #{$screen-padding} - #{$tabsHeader} - (2 * #{$cardPadding}));
+  @media (max-width: $max-width-xs) {
+    height: calc(#{$details-height} + #{$screen-padding} - #{$tabsHeader} - (2 * #{$cardPadding}));
+  }
+}
+
+.splited-text {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  .mat-icon {
+    opacity: 0;
+    &.visible-icon {
+      opacity: 1;
+    }
+  }
+}

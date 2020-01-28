@@ -1,0 +1,29 @@
+@import "../../../../styles/colors.scss";
+
+button[mat-fab] {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 2;
+}
+
+.income {
+  color: $color-green !important;
+  .mat-icon {
+    color: $color-green !important;
+  }
+}
+
+.expense {
+  color: $color-red !important;
+  .mat-icon {
+    color: $color-red !important;
+  }
+}
+
+.transfer {
+  color: $color-grey !important;
+  .mat-icon {
+    color: $color-grey !important;
+  }
+}

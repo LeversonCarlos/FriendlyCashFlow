@@ -1,0 +1,31 @@
+.mat-expansion-panel-header-description {
+  margin: 0;
+}
+.type-text {
+  align-self: center;
+  margin-left: 12px;
+}
+
+.type-values {
+  width: 100%;
+  text-align: end;
+}
+
+.account-row {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  .account-values {
+    line-height: 1.2;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+  }
+}
+
+.no-accounts {
+  .mat-card-content {
+    text-align: center;
+  }
+}

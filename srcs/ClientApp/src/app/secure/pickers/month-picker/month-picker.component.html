@@ -1,0 +1,9 @@
+<div class="mat-body">
+   <button mat-button (click)="OnPreviousMonthClick()">
+      <mat-icon>chevron_left</mat-icon>
+   </button>
+   <span>{{ CurrentMonth | date : 'MMM yyyy' }}</span>
+   <button mat-button (click)="OnNextMonthClick()">
+      <mat-icon>chevron_right</mat-icon>
+   </button>
+</div>
