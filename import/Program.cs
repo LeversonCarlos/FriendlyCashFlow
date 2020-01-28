@@ -1,12 +1,13 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace Import
 {
    class Program
    {
-      static void Main(string[] args)
+      async static Task Main(string[] args)
       {
          try
          {
@@ -16,6 +17,10 @@ namespace Import
             // APP SETTINGS
             var appSettings = AppSettings.Create();
             if (appSettings == null) { return; }
+
+            // API CLIENT
+            var apiClient = new ApiClient(appSettings.Api);
+            if (!await apiClient.AuthAsync()) { return; }
 
 
          }
