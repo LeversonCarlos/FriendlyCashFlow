@@ -20,13 +20,10 @@ Ever since, my sources were on cloud drivers and **private repositories**. This 
 
 So, feel free to clone-it and make-it better.
 
-
+<!-- shields.io -->
+[![License](https://img.shields.io/:License-MIT-blue.svg?style=flat)](http://badges.mit-license.org)
 [![Backend](https://img.shields.io/:Backend-AspNet%20Core-yellow.svg?style=flat)](https://docs.microsoft.com/aspnet)
 [![Frontend](https://img.shields.io/:Frontend-Angular-yellow.svg?style=flat)](https://angular.io)
-[![UI](https://img.shields.io/:UI-Material%20Design-yellow.svg?style=flat)](https://material.angular.io) 
-[![License](https://img.shields.io/:License-MIT-blue.svg?style=flat)](http://badges.mit-license.org)
-<!-- shields.io -->
-
 [![Build Status](https://dev.azure.com/lcjohnny/Playground/_apis/build/status/Cash%20Flow?branchName=v6)](https://dev.azure.com/lcjohnny/Playground/_build/latest?definitionId=11)
 
 ## Installation
