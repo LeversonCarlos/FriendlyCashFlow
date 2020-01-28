@@ -97,6 +97,7 @@ export class ResponseAuthInterceptor implements HttpInterceptor {
                   return of(null);
                }),
                switchMap(() => {
+                  this.tokenSubject.next(this.auth.Token.AccessToken);
                   return this.handleRequest(req, next);
                })
             );
