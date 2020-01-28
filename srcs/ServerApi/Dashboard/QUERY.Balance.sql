@@ -3,6 +3,7 @@ set nocount on;
 declare @resourceID varchar(128) = @paramResourceID;
 declare @searchYear smallint = @paramSearchYear;
 declare @searchMonth smallint = @paramSearchMonth;
+declare @searchExcludeTransfers smallint = @paramExcludeTransfers;
 declare @typeExpense smallint = 1;
 declare @typeIncome smallint = 2;
 
@@ -32,6 +33,7 @@ from
       and AccountID in (select AccountID from #accounts)
       and SearchDate >= cast(convert(varchar(10),@initialDate,121)+' 00:00:00' as datetime)
       and SearchDate <= cast(convert(varchar(10),@finalDate,121)+' 23:59:59' as datetime)
+      and ( @searchExcludeTransfers=0 or coalesce(TransferID,'')='' )
 ) SUB
 group by AccountID, Type, Paid;
 

@@ -31,3 +31,9 @@
 
    </mat-expansion-panel>
 </mat-accordion>
+
+<mat-card *ngIf="!balanceTypes?.length" class="no-accounts">
+   <mat-card-content>
+      <span class="mat-title">{{ 'DASHBOARD_BALANCE_NO_ACCOUNTS_TEXT' | translation | async }}</span>
+   </mat-card-content>
+</mat-card>

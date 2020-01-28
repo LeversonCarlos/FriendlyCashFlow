@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -21,13 +22,20 @@ namespace FriendlyCashFlow.API.Users
             var data = await this.dbContext.Users.Where(x => x.UserID == userID).FirstOrDefaultAsync();
             if (data == null) { return this.NotFoundResponse(); }
             if (data.RowStatus != (short)Base.enRowStatus.Temporary) { return this.WarningResponse(this.GetTranslation("USERS_USER_ALREADY_ACTIVATED_WARNING")); }
+            var trackProperties = new List<string>();
+            trackProperties.Add($"userID:{data.UserID}");
+            trackProperties.Add($"userName:{data.UserName}");
 
             // ACTIVATION LINK
             var appSettings = this.GetService<IOptions<AppSettings>>().Value;
             var cryptService = this.GetService<Helpers.Crypt>();
             var activationCode = $"{data.UserID}-{data.UserName}-{data.JoinDate.ToString("yyyyMMdd-HHmmss")}";
             activationCode = cryptService.Encrypt(activationCode);
+            trackProperties.Add($"activationCodeA:{activationCode}");
             activationCode = activationCode.Replace("+", "").Replace("/", "").Replace("\\", "").Replace("&", "");
+            trackProperties.Add($"activationCodeB:{activationCode}");
+            activationCode = System.Web.HttpUtility.UrlEncode(activationCode);
+            trackProperties.Add($"activationCodeC:{activationCode}");
             var mailBodyCommandLink = $"{appSettings.BaseHost}/activate/{data.UserID}/{activationCode}";
 
             // SEND ACTIVATION MAIL
@@ -38,6 +46,7 @@ namespace FriendlyCashFlow.API.Users
             var mailBodyCommandText = this.GetTranslation("USERS_ACTIVATION_MAIL_BODY_COMMAND");
             var mailBody = string.Format(this.CreateDataAsync_GetMailBody(), mailBodyTitle, mailBodyMessage, mailBodyCommandLink, mailBodyCommandText);
             await mailService.SendAsync(mailSubject, mailBody, data.UserName);
+            this.TrackEvent("Activation Code Mail Sent", trackProperties.ToArray());
 
             return true;
          }

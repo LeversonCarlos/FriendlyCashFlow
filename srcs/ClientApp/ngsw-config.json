@@ -10,9 +10,10 @@
             "/api/recurrencies/types"
          ],
          "cacheConfig": {
-            "strategy": "performance",
+            "strategy": "freshness",
             "maxSize": 10,
-            "maxAge": "15d"
+            "maxAge": "15d",
+            "timeout": "5s"
          }
       },
       {
@@ -21,9 +22,10 @@
             "/api/dashboard/**"
          ],
          "cacheConfig": {
-            "strategy": "performance",
-            "maxSize": 2,
-            "maxAge": "1d"
+            "strategy": "freshness",
+            "maxSize": 10,
+            "maxAge": "1d",
+            "timeout": "5s"
          }
       },
       {
@@ -35,7 +37,7 @@
          ],
          "cacheConfig": {
             "strategy": "freshness",
-            "maxSize": 1,
+            "maxSize": 10,
             "maxAge": "1d",
             "timeout": "10s"
          }

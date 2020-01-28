@@ -40,25 +40,26 @@ export class EntryDetailsComponent implements OnInit {
    }
 
 
-
    /* DATA: LOAD */
    public Data: Entry;
+   private defaultDueDate: Date
    private async OnDataLoad(): Promise<boolean> {
       try {
          const paramID: string = this.route.snapshot.params.id;
          const paramType: string = this.route.snapshot.params.type;
 
+         // DEFAULT DUE DATE
+         const today = new Date();
+         this.defaultDueDate = (this.service.CurrentData && this.service.CurrentData.CurrentMonth) || today;
+         if (this.defaultDueDate.getFullYear() == today.getFullYear() && this.defaultDueDate.getMonth() == today.getMonth()) { this.defaultDueDate = today; }
+
          // NEW MODEL
          if (paramID == undefined && paramType != undefined) {
-
-            const today = new Date();
-            let dueDate = (this.service.CurrentData && this.service.CurrentData.CurrentMonth) || today;
-            if (dueDate.getFullYear() == today.getFullYear() && dueDate.getMonth() == today.getMonth()) { dueDate = today; }
 
             this.Data = Object.assign(new Entry, {
                Type: (paramType == 'Income' ? enCategoryType.Income : enCategoryType.Expense),
                Recurrency: new Recurrency,
-               DueDate: dueDate,
+               DueDate: this.defaultDueDate,
                Active: true
             });
 
@@ -67,6 +68,7 @@ export class EntryDetailsComponent implements OnInit {
                this.Data.AccountRow = await this.accountService.getAccount(this.Data.AccountID);
                if (this.Data.AccountRow) {
                   this.Data.AccountText = this.Data.AccountRow.Text
+                  if (this.Data.AccountRow.DueDate) { this.Data.DueDate = this.Data.AccountRow.DueDate }
                   this.AccountOptions = [this.OnAccountParse(this.Data.AccountRow)];
                }
             }
@@ -127,7 +129,7 @@ export class EntryDetailsComponent implements OnInit {
          this.inputForm.get('RecurrencyActivate').valueChanges.subscribe((activate) => this.OnRecurrencyActivateChanged(activate));
          this.inputForm.get('Paid').valueChanges.subscribe((paid) => this.OnPaidChanged(paid));
 
-         this.OnPaidChanged(this.Data.Paid)
+         this.OnPaidChanged(this.Data.Paid, false)
 
       }
       catch (ex) { this.appInsights.trackException(ex); console.error(ex); }
@@ -181,6 +183,7 @@ export class EntryDetailsComponent implements OnInit {
       try {
          const accountList = await this.accountService.getAccounts(val);
          if (accountList == null) { return; }
+         if (accountList.length == 0 && val == '') { this.msg.ShowInfo('ACCOUNTS_YOU_HAVE_NO_ACTIVE_ACCOUNTS_INFO'); }
          this.AccountOptions = accountList
             .map(item => this.OnAccountParse(item));
       }
@@ -191,7 +194,7 @@ export class EntryDetailsComponent implements OnInit {
       if (item && item.id) {
          this.Data.AccountID = item.id;
          const dueDateControl = this.inputForm.get("DueDate");
-         dueDateControl.setValue(item.value.DueDate || this.service.CurrentData.CurrentMonth)
+         dueDateControl.setValue(item.value.DueDate || this.defaultDueDate)
          dueDateControl.updateValueAndValidity();
       }
    }
@@ -207,6 +210,7 @@ export class EntryDetailsComponent implements OnInit {
       try {
          const categoryList = await this.categoryService.getCategories(this.Data.Type, val);
          if (categoryList == null) { return; }
+         if (categoryList.length == 0 && val == '') { this.msg.ShowInfo('CATEGORIES_YOU_HAVE_NO_CATEGORIES_FOR_THIS_TYPE_INFO'); }
          this.CategoryOptions = categoryList
             .map(item => this.OnCategoryParse(item));
       }
@@ -225,7 +229,7 @@ export class EntryDetailsComponent implements OnInit {
 
 
    /* PAID */
-   private OnPaidChanged(paid: boolean) {
+   private OnPaidChanged(paid: boolean, setValue: boolean = true) {
       const payDateControl = this.inputForm.controls['PayDate'];
       if (paid == true) {
          const today = new Date();
@@ -233,13 +237,13 @@ export class EntryDetailsComponent implements OnInit {
          if (today < payDate) { payDate = today; }
          payDateControl.enable();
          payDateControl.setValidators([Validators.required]);
-         payDateControl.setValue(payDate);
+         if (setValue) { payDateControl.setValue(payDate); }
          payDateControl.markAsTouched();
       }
       else {
          payDateControl.clearValidators();
          payDateControl.markAsUntouched();
-         payDateControl.setValue('');
+         if (setValue) { payDateControl.setValue(''); }
          payDateControl.disable();
       }
       payDateControl.updateValueAndValidity();
