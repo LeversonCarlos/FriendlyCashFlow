@@ -29,30 +29,6 @@ So, feel free to clone-it and make-it better.
 
 [![Build Status](https://dev.azure.com/lcjohnny/Playground/_apis/build/status/Cash%20Flow?branchName=v6)](https://dev.azure.com/lcjohnny/Playground/_build/latest?definitionId=11)
 
-## Usage
-
-### Register and access the application
-<a href="./resources/demo/01-register.gif"><img src="./resources/demo/01-register.gif" title="Register" width="250" height="170" style="margin:5px" /></a>
-<a href="./resources/demo/02-activate.gif"><img src="./resources/demo/02-activate.gif" title="Activate" width="250" height="170" style="margin:5px" /></a>
-<a href="./resources/demo/03-login.gif"><img src="./resources/demo/03-login.gif" title="Login" width="250" height="170" style="margin:5px" /></a>
-
-### You cant register entries without domain data
-<a href="./resources/demo/04-empty-domains.gif"><img src="./resources/demo/04-empty-domains.gif" title="No domain data" width="250" height="170" style="margin:5px" /></a>
-
-### Defining your domain data
-<a href="./resources/demo/05-accounts.gif"><img src="./resources/demo/05-accounts.gif" title="Defining some accounts" width="250" height="170" style="margin:5px" /></a>
-<a href="./resources/demo/06-categories.gif"><img src="./resources/demo/06-categories.gif" title="Defining some categories" width="250" height="170" style="margin:5px" /></a>
-
-### Registering some income entries
-<a href="./resources/demo/07-income.gif"><img src="./resources/demo/07-income.gif" title="Income" width="350" height="240" style="margin:5px" /></a>
-
-### Registering some transfers
-<a href="./resources/demo/08-transfer.gif"><img src="./resources/demo/08-transfer.gif" title="Transfers" width="350" height="240" style="margin:5px" /></a>
-
-### Registering some expense entries
-<a href="./resources/demo/09-expenses.gif"><img src="./resources/demo/09-expenses.gif" title="Expenses" width="350" height="240" style="margin:5px" /></a>
-
-
 ## Installation
 
 ### Get started
@@ -88,6 +64,30 @@ There is a file on the **srcs folder** called **appsettings.json**. On this file
 
 ## Try it out
 I put a test version online that can be accessed [here](https://friendlycashflow-dev.azurewebsites.net/). You can report bugs [here](https://github.com/LeversonCarlos/FriendlyCashFlow/issues).
+
+## Usage
+
+### Register and access the application
+<a href="./resources/demo/01-register.gif"><img src="./resources/demo/01-register.gif" title="Register" width="250" height="170" style="margin:5px" /></a>
+<a href="./resources/demo/02-activate.gif"><img src="./resources/demo/02-activate.gif" title="Activate" width="250" height="170" style="margin:5px" /></a>
+<a href="./resources/demo/03-login.gif"><img src="./resources/demo/03-login.gif" title="Login" width="250" height="170" style="margin:5px" /></a>
+
+### You cant register entries without domain data
+<a href="./resources/demo/04-empty-domains.gif"><img src="./resources/demo/04-empty-domains.gif" title="No domain data" width="250" height="170" style="margin:5px" /></a>
+
+### Defining your domain data
+<a href="./resources/demo/05-accounts.gif"><img src="./resources/demo/05-accounts.gif" title="Defining some accounts" width="250" height="170" style="margin:5px" /></a>
+<a href="./resources/demo/06-categories.gif"><img src="./resources/demo/06-categories.gif" title="Defining some categories" width="250" height="170" style="margin:5px" /></a>
+
+### Registering some income entries
+<a href="./resources/demo/07-income.gif"><img src="./resources/demo/07-income.gif" title="Income" width="350" height="240" style="margin:5px" /></a>
+
+### Registering some transfers
+<a href="./resources/demo/08-transfer.gif"><img src="./resources/demo/08-transfer.gif" title="Transfers" width="350" height="240" style="margin:5px" /></a>
+
+### Registering some expense entries
+<a href="./resources/demo/09-expenses.gif"><img src="./resources/demo/09-expenses.gif" title="Expenses" width="350" height="240" style="margin:5px" /></a>
+
 
 ## Built With
 
