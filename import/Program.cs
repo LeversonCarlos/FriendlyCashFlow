@@ -22,6 +22,9 @@ namespace Import
             var apiClient = new ApiClient(appSettings.Api);
             if (!await apiClient.AuthAsync()) { return; }
 
+            var entries = Data.ToList<Entry>("entries.csv");
+            if (entries == null) { return; }
+
 
          }
          catch (Exception ex) { Console.WriteLine($" Exception: {ex.Message}"); }
