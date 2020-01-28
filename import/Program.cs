@@ -24,6 +24,7 @@ namespace Import
 
             var entries = Data.ToList<Entry>("entries.csv");
             if (entries == null) { return; }
+            Console.WriteLine($" Entries: {entries.Count}");
 
 
          }
