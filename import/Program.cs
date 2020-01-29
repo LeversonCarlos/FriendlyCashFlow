@@ -22,11 +22,11 @@ namespace Import
             var apiClient = new ApiClient(appSettings.Api);
             if (!await apiClient.AuthAsync()) { return; }
 
-            var entries = Data.ToList<EntryCsv>("entries.csv");
+            var entries = Data.ToList<Entry>("entries.csv");
             if (entries == null) { return; }
             Console.WriteLine($" Entries: {entries.Count}");
 
-            Console.WriteLine($" EntryValue: {entries[1].EntryValue}");
+            
 
 
          }
