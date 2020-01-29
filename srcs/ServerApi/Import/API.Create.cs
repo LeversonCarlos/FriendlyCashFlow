@@ -34,7 +34,9 @@ namespace FriendlyCashFlow.API.Import
             if (!categoriesResult) { return categoriesMessage.Result; }
 
             // ENTRIES
-            // TODO
+            var entriesMessage = await this.CreateEntriesAsync(value);
+            var entriesResult = this.GetValue(entriesMessage);
+            if (!entriesResult) { return entriesMessage.Result; }
 
             // TRANSFERS
             // TODO
