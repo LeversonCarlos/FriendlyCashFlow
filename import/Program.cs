@@ -13,6 +13,7 @@ namespace Import
       {
          try
          {
+            Console.ForegroundColor = System.ConsoleColor.Blue;
             Console.WriteLine("");
             Console.WriteLine("Friendly Cash Flow: Data Import");
 
@@ -34,7 +35,7 @@ namespace Import
 
          }
          catch (Exception ex) { Console.WriteLine($" Exception: {ex.Message}"); }
-         finally { Console.WriteLine(""); }
+         finally { Console.WriteLine(""); Console.ForegroundColor = System.ConsoleColor.White;}
       }
    }
 }

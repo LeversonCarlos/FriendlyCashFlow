@@ -59,7 +59,8 @@ namespace Import
       {
          try
          {
-            Console.WriteLine(" Info: Importing data on api");
+            Console.WriteLine(" Info: Sent data to api");
+            Console.WriteLine(" Waiting...");
 
             var importParam = new
             {
