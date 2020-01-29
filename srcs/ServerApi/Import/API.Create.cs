@@ -20,28 +20,38 @@ namespace FriendlyCashFlow.API.Import
             if (!validateResult) { return validateMessage.Result; }
 
             // INITIALIZE
-            value.ResourceID = this.GetService<Helpers.User>().ResourceID;
+            var user = this.GetService<Helpers.User>();
+            value.ResourceID = user.ResourceID;
             if (value.ClearDataBefore) { await this.ClearAsync(value); }
+            this.TrackEvent("Import Data - Start",
+               $"UserID:{user.UserID}",
+               $"ClearDataBefore:{value.ClearDataBefore}",
+               $"Entries:{value.Entries?.Count ?? 0}",
+               $"Transfers:{value.Transfers?.Count ?? 0}");
 
             // ACCOUNTS
             var accountsMessage = await this.CreateAccountsAsync(value);
             var accountsResult = this.GetValue(accountsMessage);
             if (!accountsResult) { return accountsMessage.Result; }
+            this.TrackEvent("Import Data - Accounts", $"UserID:{user.UserID}");
 
             // CATEGORIES
             var categoriesMessage = await this.CreateCategoriesAsync(value);
             var categoriesResult = this.GetValue(categoriesMessage);
             if (!categoriesResult) { return categoriesMessage.Result; }
+            this.TrackEvent("Import Data - Categories", $"UserID:{user.UserID}");
 
             // ENTRIES
             var entriesMessage = await this.CreateEntriesAsync(value);
             var entriesResult = this.GetValue(entriesMessage);
             if (!entriesResult) { return entriesMessage.Result; }
+            this.TrackEvent("Import Data - Entries", $"UserID:{user.UserID}");
 
             // TRANSFERS
             // TODO
 
             // RESULT
+            this.TrackEvent("Import Data - Finish", $"UserID:{user.UserID}");
             return this.OkResponse(true);
          }
          catch (Exception ex) { return this.ExceptionResponse(ex); }
