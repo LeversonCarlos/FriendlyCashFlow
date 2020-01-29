@@ -70,9 +70,10 @@ namespace FriendlyCashFlow.API.Entries
             await this.GetService<Balances.BalancesService>().AddAsync(data);
 
             // RECURRENCY
-            if (value.Recurrency != null && data.RecurrencyID.HasValue && data.RecurrencyID > 0)
+            if (data.RecurrencyID.HasValue && data.RecurrencyID > 0)
             {
-               await this.GetService<Recurrencies.RecurrenciesService>().AddEntriesAsync(data.RecurrencyID.Value);
+               if (value.Recurrency != null)
+               { await this.GetService<Recurrencies.RecurrenciesService>().AddEntriesAsync(data.RecurrencyID.Value); }
                await this.GetService<Recurrencies.RecurrenciesService>().UpdatePortionsAsync(data.RecurrencyID.Value);
             }
 
