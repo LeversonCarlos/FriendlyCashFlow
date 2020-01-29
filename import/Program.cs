@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
+using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Import
@@ -22,11 +24,15 @@ namespace Import
             var apiClient = new ApiClient(appSettings.Api);
             if (!await apiClient.AuthAsync()) { return; }
 
+            // ENTRIES
             var entries = Data.ToList<Entry>("entries.csv");
-            if (entries == null) { return; }
-            Console.WriteLine($" Entries: {entries.Count}");
+            Console.WriteLine($" Entries: {entries?.Count ?? 0}");
 
-            
+            // TRANSFERS
+            // TODO
+
+            // IMPORT
+            var importResult = await apiClient.ImportAsync(entries);
 
 
          }

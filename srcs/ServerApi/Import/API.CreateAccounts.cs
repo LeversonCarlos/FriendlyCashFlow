@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -23,13 +24,15 @@ namespace FriendlyCashFlow.API.Import
             value.Accounts = loadResult;
 
             // GROUP ALL ACCOUNT TEXTS
-            var accountTexts =
-               value.Entries?.Select(x => x.Account).ToList()
-               .Union(value.Transfers?.Select(x => x.ExpenseAccount).ToList())
-                  .Union(value.Transfers?.Select(x => x.IncomeAccount).ToList())
-               .GroupBy(x => x)
-               .Select(x => x.Key)
-               .ToList();
+            var accountTexts = new List<string>();
+            if (value.Entries != null)
+            { accountTexts.AddRange(value.Entries?.Select(x => x.Account).ToArray()); }
+            if (value.Transfers != null)
+            {
+               accountTexts.AddRange(value.Transfers?.Select(x => x.IncomeAccount).ToArray());
+               accountTexts.AddRange(value.Transfers?.Select(x => x.ExpenseAccount).ToArray());
+            }
+            accountTexts = accountTexts.GroupBy(x => x).Select(x => x.Key).ToList();
 
             // CHECK FOR NEW ACCOUNTS
             accountTexts.RemoveAll(x => value.Accounts.Select(a => a.Text).Contains(x));

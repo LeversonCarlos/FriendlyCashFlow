@@ -23,7 +23,7 @@ namespace Import
       {
          if (this.Token != null)
          {
-            request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Berear", this.Token.AccessToken);
+            request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", this.Token.AccessToken);
          }
          return base.SendAsync(request, cancellationToken);
       }
@@ -51,6 +51,29 @@ namespace Import
                Console.WriteLine($" UserID: {this.Token.UserID}");
                return true;
             }
+         }
+         catch (Exception ex) { Console.WriteLine($" Exception: {ex.Message}"); return false; }
+      }
+
+      public async Task<bool> ImportAsync(List<Entry> entries)
+      {
+         try
+         {
+            Console.WriteLine(" Importing data on api");
+
+            var importParam = new
+            {
+               ClearDataBefore = true,
+               Entries = entries
+               //,Transfers = null
+            };
+            var importParamJson = System.Text.Json.JsonSerializer.Serialize(importParam);
+            var importParamContent = new StringContent(importParamJson, Encoding.UTF8, "application/json");
+
+            var importMessage = await this.PostAsync("api/import", importParamContent);
+            var importContent = await importMessage.Content.ReadAsStringAsync();
+            Console.WriteLine($" ImportResult: {importContent}");
+            return importMessage.IsSuccessStatusCode;
          }
          catch (Exception ex) { Console.WriteLine($" Exception: {ex.Message}"); return false; }
       }
