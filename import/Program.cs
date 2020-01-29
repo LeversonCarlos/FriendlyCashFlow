@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,12 +31,11 @@ namespace Import
             var transfers = Data.ToList<Transfer>("transfers.csv");
 
             // IMPORT
-            var importResult = await apiClient.ImportAsync(entries, transfers);
-
+            await apiClient.ImportAsync(entries, transfers);
 
          }
          catch (Exception ex) { Console.WriteLine($" Exception: {ex.Message}"); }
-         finally { Console.WriteLine(""); Console.ForegroundColor = System.ConsoleColor.White;}
+         finally { Console.WriteLine(""); Console.ForegroundColor = System.ConsoleColor.White; }
       }
    }
 }

@@ -25,7 +25,7 @@ namespace Import
                return result;
             }
          }
-         catch (Exception ex) { Console.WriteLine($" Exception: {ex.Message}"); return null; }
+         catch (Exception ex) { Console.WriteLine($" Exception: {ex.ToString()}"); return null; }
       }
 
    }

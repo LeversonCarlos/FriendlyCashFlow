@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
@@ -59,12 +60,44 @@ namespace Import
       {
          try
          {
-            Console.WriteLine(" Info: Sent data to api");
-            Console.WriteLine(" Waiting...");
+            Console.WriteLine(" Info: Sending data to API");
+            if (entries == null) { entries = new List<Entry>(); }
+            if (transfers == null) { transfers = new List<Transfer>(); }
+
+            // YEAR INTERVAL
+            var yearList = entries
+               .Select(x => x.DueDate.Year).ToList()
+               .Union(transfers.Select(x => x.Date.Year).ToList())
+               .GroupBy(x => x)
+               .Select(x => x.Key)
+               .OrderBy(x => x)
+               .ToList();
+
+
+            foreach (var year in yearList)
+            {
+               Console.Write($" Year: {year}");
+               var importResult = await this.ImportAsync(
+                  entries.Where(x => x.DueDate.Year == year).ToList(),
+                  transfers.Where(x => x.Date.Year == year).ToList(), 
+                  (year == yearList[0]));
+               if (!importResult) { return false; }
+            }
+
+            return true;
+         }
+         catch (Exception ex) { Console.WriteLine($" Exception: {ex.ToString()}"); return false; }
+      }
+
+      public async Task<bool> ImportAsync(List<Entry> entries, List<Transfer> transfers, bool clearDataBefore)
+      {
+         try
+         {
+            Console.Write(" - waiting");
 
             var importParam = new
             {
-               ClearDataBefore = true,
+               ClearDataBefore = clearDataBefore,
                Entries = entries,
                Transfers = transfers
             };
@@ -73,10 +106,10 @@ namespace Import
 
             var importMessage = await this.PostAsync("api/import", importParamContent);
             var importContent = await importMessage.Content.ReadAsStringAsync();
-            Console.WriteLine($" ImportResult: {importContent}");
+            Console.Write($" - result: {importContent}");
             return importMessage.IsSuccessStatusCode;
          }
-         catch (Exception ex) { Console.WriteLine($" Exception: {ex.Message}"); return false; }
+         catch (Exception) { Console.WriteLine(""); return false; }
       }
 
    }

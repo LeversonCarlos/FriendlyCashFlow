@@ -1,4 +1,5 @@
 ﻿using System;
+using CsvHelper.Configuration.Attributes;
 
 namespace Import
 {
@@ -15,10 +16,15 @@ namespace Import
       public decimal Value { get; set; }
 
       public bool Paid { get; set; }
+
+      [Optional]
+      [NullValuesAttribute("NULL")]
       public DateTime? PayDate { get; set; }
 
       public string Account { get; set; }
 
+      [Optional]
+      [NullValuesAttribute("NULL")]
       public string Recurrency { get; set; }
    }
 
