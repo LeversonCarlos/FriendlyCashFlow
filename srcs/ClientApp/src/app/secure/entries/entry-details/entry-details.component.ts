@@ -172,7 +172,14 @@ export class EntryDetailsComponent implements OnInit {
       }
    }
    private OnPatternParse(item: Pattern): RelatedData<Pattern> {
-      return Object.assign(new RelatedData, { id: item.PatternID, description: item.Text, badgeText: item.Count, value: item });
+      let badgeText: string = `${item.Count}`
+      if (item.Count >= 1000000) {
+         badgeText = `${Math.round(item.Count / 1000000)}m`
+      }
+      else if (item.Count >= 1000) {
+         badgeText = `${Math.round(item.Count / 1000)}k`
+      }
+      return Object.assign(new RelatedData, { id: item.PatternID, description: item.Text, badgeText: badgeText, value: item });
    }
 
 

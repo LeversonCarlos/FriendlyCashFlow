@@ -18,6 +18,7 @@ namespace Import
       {
          this.apiSettings = apiSettings;
          this.BaseAddress = new Uri(this.apiSettings.Url);
+         this.Timeout = TimeSpan.FromMinutes(5);
       }
 
       public override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
@@ -114,9 +115,9 @@ namespace Import
 
       public async Task<bool> ImportAsync(List<Entry> entries, List<Transfer> transfers, int year, bool clearDataBefore)
       {
+         var startTime = DateTime.Now;
          try
          {
-            var startTime = DateTime.Now;
             Console.Write($" Year: {year}");
             Console.Write(" - waiting");
 
@@ -131,8 +132,7 @@ namespace Import
 
             var importMessage = await this.PostAsync("api/import", importParamContent);
             var importContent = await importMessage.Content.ReadAsStringAsync();
-            var finishTime = DateTime.Now;
-            Console.Write($" - {Math.Round(finishTime.Subtract(startTime).TotalSeconds, 0)} sec");
+            Console.Write($" - {Math.Round(DateTime.Now.Subtract(startTime).TotalSeconds, 0)} sec");
 
             if (!importMessage.IsSuccessStatusCode)
             {
@@ -156,7 +156,7 @@ namespace Import
             Console.WriteLine($" - OK");
             return true;
          }
-         catch (Exception) { Console.WriteLine(""); throw; }
+         catch (Exception) { Console.Write($" - {Math.Round(DateTime.Now.Subtract(startTime).TotalSeconds, 0)} sec"); Console.WriteLine(""); throw; }
       }
 
    }
