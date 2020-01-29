@@ -20,10 +20,9 @@ namespace FriendlyCashFlow.API.Entries
             if (!validateResult) { return validateMessage.Result; }
 
             // NEW MODEL
-            var user = this.GetService<Helpers.User>();
             var data = new EntryData()
             {
-               ResourceID = user.ResourceID,
+               ResourceID = this.GetService<Helpers.User>().ResourceID,
                Type = (short)value.Type,
                Text = value.Text,
                CategoryID = value.CategoryID,
