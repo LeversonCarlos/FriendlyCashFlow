@@ -2,6 +2,7 @@
 
 namespace Import
 {
+
    public enum enEntryType { None = 0, Expense = 1, Income = 2 };
    public class Entry
    {
@@ -20,4 +21,13 @@ namespace Import
 
       public string Recurrency { get; set; }
    }
+
+   public class Transfer
+   {
+      public DateTime Date { get; set; }
+      public decimal Value { get; set; }
+      public string IncomeAccount { get; set; }
+      public string ExpenseAccount { get; set; }
+   }
+
 }

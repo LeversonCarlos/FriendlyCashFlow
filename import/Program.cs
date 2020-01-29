@@ -24,14 +24,12 @@ namespace Import
             var apiClient = new ApiClient(appSettings.Api);
             if (!await apiClient.AuthAsync()) { return; }
 
-            // ENTRIES
-            var entries = Data.ToList<Entry>("entries.csv");            
-
-            // TRANSFERS
-            // TODO
+            // DATA
+            var entries = Data.ToList<Entry>("entries.csv");
+            var transfers = Data.ToList<Transfer>("transfers.csv");
 
             // IMPORT
-            var importResult = await apiClient.ImportAsync(entries);
+            var importResult = await apiClient.ImportAsync(entries, transfers);
 
 
          }

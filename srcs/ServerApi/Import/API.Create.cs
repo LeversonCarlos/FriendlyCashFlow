@@ -48,7 +48,10 @@ namespace FriendlyCashFlow.API.Import
             this.TrackEvent("Import Data - Entries", $"UserID:{user.UserID}");
 
             // TRANSFERS
-            // TODO
+            var transfersMessage = await this.CreateTransfersAsync(value);
+            var transfersResult = this.GetValue(transfersMessage);
+            if (!transfersResult) { return transfersMessage.Result; }
+            this.TrackEvent("Import Data - Transfers", $"UserID:{user.UserID}");
 
             // RESULT
             this.TrackEvent("Import Data - Finish", $"UserID:{user.UserID}");

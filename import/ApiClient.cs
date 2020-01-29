@@ -55,7 +55,7 @@ namespace Import
          catch (Exception ex) { Console.WriteLine($" Exception: {ex.Message}"); return false; }
       }
 
-      public async Task<bool> ImportAsync(List<Entry> entries)
+      public async Task<bool> ImportAsync(List<Entry> entries, List<Transfer> transfers)
       {
          try
          {
@@ -64,8 +64,8 @@ namespace Import
             var importParam = new
             {
                ClearDataBefore = true,
-               Entries = entries
-               //,Transfers = null
+               Entries = entries,
+               Transfers = transfers
             };
             var importParamJson = System.Text.Json.JsonSerializer.Serialize(importParam);
             var importParamContent = new StringContent(importParamJson, Encoding.UTF8, "application/json");
