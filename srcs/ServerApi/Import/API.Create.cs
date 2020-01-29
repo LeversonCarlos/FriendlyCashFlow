@@ -29,7 +29,7 @@ namespace FriendlyCashFlow.API.Import
             if (!accountsResult) { return accountsMessage.Result; }
 
             // CATEGORIES
-            var categoriesMessage = await this.CreateAccountsAsync(value);
+            var categoriesMessage = await this.CreateCategoriesAsync(value);
             var categoriesResult = this.GetValue(categoriesMessage);
             if (!categoriesResult) { return categoriesMessage.Result; }
 

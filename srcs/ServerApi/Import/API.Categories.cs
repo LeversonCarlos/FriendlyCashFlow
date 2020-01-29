@@ -29,6 +29,7 @@ namespace FriendlyCashFlow.API.Import
             }
 
             // GROUP ALL CATEGORY TEXTS
+            value.Entries.ForEach(x => x.Category = x.Category.Replace("\\", "/"));
             var incomeCategoryTexts = value.Entries
                .Where(x => x.Type == Categories.enCategoryType.Income).Select(x => x.Category)
                .GroupBy(x => x).Select(x => x.Key).OrderBy(x => x)

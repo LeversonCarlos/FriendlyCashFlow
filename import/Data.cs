@@ -19,7 +19,7 @@ namespace Import
                var csv = new CsvReader(fileReader, System.Globalization.CultureInfo.CurrentCulture);
                csv.Configuration.HasHeaderRecord = false;
                csv.Configuration.Delimiter = ";";
-               csv.Read();
+               // csv.Read();
                return csv.GetRecords<T>().ToList();
             }
          }
