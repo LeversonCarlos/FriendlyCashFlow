@@ -26,6 +26,8 @@ namespace Import
             if (entries == null) { return; }
             Console.WriteLine($" Entries: {entries.Count}");
 
+            Console.WriteLine($" EntryValue: {entries[1].EntryValue}");
+
 
          }
          catch (Exception ex) { Console.WriteLine($" Exception: {ex.Message}"); }

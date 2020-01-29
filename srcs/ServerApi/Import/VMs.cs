@@ -9,6 +9,7 @@ namespace FriendlyCashFlow.API.Import
       public bool ClearDataBefore { get; set; }
       public List<EntryVM> Entries { get; set; }
       public List<TransferVM> Transfers { get; set; }
+      internal string ResourceID { get; set; }
    }
 
    public class EntryVM
