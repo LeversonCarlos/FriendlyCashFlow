@@ -19,11 +19,9 @@ namespace FriendlyCashFlow.API.Import
             var validateResult = this.GetValue(validateMessage);
             if (!validateResult) { return validateMessage.Result; }
 
-            // USER
+            // INITIALIZE
             value.ResourceID = this.GetService<Helpers.User>().ResourceID;
-
-            // CLEAR
-            await this.ClearAsync(value);
+            if (value.ClearDataBefore) { await this.ClearAsync(value); }
 
             // ACCOUNTS
             var accountsMessage = await this.CreateAccountsAsync(value);
@@ -31,7 +29,9 @@ namespace FriendlyCashFlow.API.Import
             if (!accountsResult) { return accountsMessage.Result; }
 
             // CATEGORIES
-            // TODO
+            var categoriesMessage = await this.CreateAccountsAsync(value);
+            var categoriesResult = this.GetValue(categoriesMessage);
+            if (!categoriesResult) { return categoriesMessage.Result; }
 
             // ENTRIES
             // TODO

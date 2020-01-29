@@ -10,8 +10,7 @@ namespace FriendlyCashFlow.API.Import
       private async Task<ActionResult<bool>> ClearAsync(ImportVM value)
       {
          try
-         {
-            if (!value.ClearDataBefore) { return this.OkResponse(true); }
+         {            
 
             var queryPath = "FriendlyCashFlow.ServerApi.Import.QUERY.Clear.sql";
             var queryContent = await Helpers.EmbededResource.GetResourceContent(queryPath);
