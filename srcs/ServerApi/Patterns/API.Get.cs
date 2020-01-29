@@ -50,7 +50,7 @@ namespace FriendlyCashFlow.API.Patterns
                .Include(x => x.CategoryDetails)
                .OrderByDescending(x => x.Count)
                .ThenBy(x => x.Text)
-               .Take(500)
+               .Take(250)
                .ToListAsync();
             var result = data.Select(x => PatternVM.Convert(x)).ToList();
             return this.OkResponse(result);
