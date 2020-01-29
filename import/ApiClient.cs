@@ -16,6 +16,7 @@ namespace Import
       public ApiClient(AppSettings_Api apiSettings)
       {
          this.apiSettings = apiSettings;
+         this.BaseAddress = new Uri(this.apiSettings.Url);
       }
 
       public override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
