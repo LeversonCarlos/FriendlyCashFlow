@@ -19,7 +19,7 @@ namespace Import
          var configuration = builder.Build();
          var appSettingsSection = configuration.GetSection("AppSettings");
          var appSettings = appSettingsSection.Get<AppSettings>();
-         if (appSettings == null) { Console.WriteLine("Missing application settings file"); return null; }
+         if (appSettings == null) { Console.WriteLine(" Warning: Missing application settings file"); return null; }
 
          // VALIDATE API SETTINGS
          if (appSettings.Api == null ||
@@ -27,7 +27,7 @@ namespace Import
             string.IsNullOrEmpty(appSettings.Api.Username) ||
             string.IsNullOrEmpty(appSettings.Api.Password))
          {
-            Console.WriteLine("Invalid api settings"); return null;
+            Console.WriteLine(" Warning: Invalid api settings"); return null;
          }
 
          // LOG

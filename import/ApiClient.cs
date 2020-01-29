@@ -32,7 +32,7 @@ namespace Import
       {
          try
          {
-            Console.WriteLine(" Authenticating on api with the provided credentials");
+            Console.WriteLine(" Info: Authenticating on api with the provided credentials");
             using (var httpClient = new HttpClient())
             {
                var authData = new
@@ -47,7 +47,7 @@ namespace Import
                var authResultContent = await authMessage.Content.ReadAsStringAsync();
                if (!authMessage.IsSuccessStatusCode) { Console.WriteLine($" AuthResult: {authResultContent}"); }
                this.Token = System.Text.Json.JsonSerializer.Deserialize<ApiToken>(authResultContent);
-               if (this.Token == null) { Console.WriteLine(" Could not authenticate on api"); return false; }
+               if (this.Token == null) { Console.WriteLine(" Warning: Could not authenticate on api"); return false; }
                Console.WriteLine($" UserID: {this.Token.UserID}");
                return true;
             }
@@ -59,7 +59,7 @@ namespace Import
       {
          try
          {
-            Console.WriteLine(" Importing data on api");
+            Console.WriteLine(" Info: Importing data on api");
 
             var importParam = new
             {

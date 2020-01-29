@@ -25,8 +25,7 @@ namespace Import
             if (!await apiClient.AuthAsync()) { return; }
 
             // ENTRIES
-            var entries = Data.ToList<Entry>("entries.csv");
-            Console.WriteLine($" Entries: {entries?.Count ?? 0}");
+            var entries = Data.ToList<Entry>("entries.csv");            
 
             // TRANSFERS
             // TODO
