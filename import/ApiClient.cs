@@ -136,12 +136,13 @@ namespace Import
 
             if (!importMessage.IsSuccessStatusCode)
             {
-               Console.Write($" - Status:{importMessage.StatusCode}");
+               Console.Write($" - {importMessage.StatusCode}");
                if (!string.IsNullOrEmpty(importContent)) { Console.Write($" - Content:{importContent}"); }
 
                if (importMessage.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                {
                   Console.WriteLine("");
+                  Console.Write(" ");
                   if (await this.AuthAsync(this.Token.RefreshToken))
                   {
                      return await this.ImportAsync(entries, transfers, year, clearDataBefore);
