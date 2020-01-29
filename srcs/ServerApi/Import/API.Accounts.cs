@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -46,8 +45,7 @@ namespace FriendlyCashFlow.API.Import
                };
                var createMessage = await accountsService.CreateAsync(createParam);
                var createResult = this.GetValue(createMessage);
-               if (createResult == null) { return createMessage.Result; }
-               value.Accounts.Add(createResult);
+               if (createResult != null) { value.Accounts.Add(createResult); }
             }
 
             // GET ACCOUNT FUNCTION
@@ -59,6 +57,8 @@ namespace FriendlyCashFlow.API.Import
             // MARK ACCOUNTS ON ENTRIES
             if (value.Entries != null)
             { value.Entries.ForEach(x => x.AccountID = getAccountID(x.Account)); }
+            if (value.Entries.Any(x => !x.AccountID.HasValue || x.AccountID.Value == 0))
+            { return this.WarningResponse("IMPORT_SOME_ACCOUNTS_COULD_NOT_BE_DEFINED"); }
 
             // MARK ACCOUNTS ON TRANSFERS
             if (value.Transfers != null)
@@ -68,6 +68,10 @@ namespace FriendlyCashFlow.API.Import
                   x.IncomeAccountID = getAccountID(x.IncomeAccount);
                   x.ExpenseAccountID = getAccountID(x.ExpenseAccount);
                });
+               if (value.Transfers.Any(x =>
+                  !x.IncomeAccountID.HasValue || x.IncomeAccountID.Value == 0 ||
+                   !x.ExpenseAccountID.HasValue || x.ExpenseAccountID.Value == 0))
+               { return this.WarningResponse("IMPORT_SOME_ACCOUNTS_COULD_NOT_BE_DEFINED"); }
             }
 
             // RESULT

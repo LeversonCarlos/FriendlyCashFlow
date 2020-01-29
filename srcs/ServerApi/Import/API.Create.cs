@@ -22,6 +22,9 @@ namespace FriendlyCashFlow.API.Import
             // USER
             value.ResourceID = this.GetService<Helpers.User>().ResourceID;
 
+            // CLEAR
+            await this.ClearAsync(value);
+
             // ACCOUNTS
             var accountsMessage = await this.CreateAccountsAsync(value);
             var accountsResult = this.GetValue(accountsMessage);
