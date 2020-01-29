@@ -56,6 +56,31 @@ namespace Import
          catch (Exception ex) { Console.WriteLine($" Exception: {ex.Message}"); return false; }
       }
 
+      public async Task<bool> AuthAsync(string refreshToken)
+      {
+         try
+         {
+            Console.WriteLine(" Info: Refreshing Token");
+            using (var httpClient = new HttpClient())
+            {
+               var authData = new
+               {
+                  RefreshToken = refreshToken,
+                  GrantType = "refresh_token"
+               };
+               var authDataJson = System.Text.Json.JsonSerializer.Serialize(authData);
+               var authDataContent = new StringContent(authDataJson, Encoding.UTF8, "application/json");
+               var authMessage = await httpClient.PostAsync($"{this.apiSettings.Url}/api/users/auth", authDataContent);
+               var authResultContent = await authMessage.Content.ReadAsStringAsync();
+               if (!authMessage.IsSuccessStatusCode) { Console.WriteLine($" AuthResult: {authResultContent}"); }
+               this.Token = System.Text.Json.JsonSerializer.Deserialize<ApiToken>(authResultContent);
+               if (this.Token == null) { Console.WriteLine(" Warning: Could not authenticate on api"); return false; }
+               return true;
+            }
+         }
+         catch (Exception ex) { Console.WriteLine($" Exception: {ex.Message}"); return false; }
+      }
+
       public async Task<bool> ImportAsync(List<Entry> entries, List<Transfer> transfers)
       {
          try
@@ -73,14 +98,12 @@ namespace Import
                .OrderBy(x => x)
                .ToList();
 
-
             foreach (var year in yearList)
             {
-               Console.Write($" Year: {year}");
                var importResult = await this.ImportAsync(
                   entries.Where(x => x.DueDate.Year == year).ToList(),
-                  transfers.Where(x => x.Date.Year == year).ToList(), 
-                  (year == yearList[0]));
+                  transfers.Where(x => x.Date.Year == year).ToList(),
+                  year, (year == yearList[0]));
                if (!importResult) { return false; }
             }
 
@@ -89,10 +112,12 @@ namespace Import
          catch (Exception ex) { Console.WriteLine($" Exception: {ex.ToString()}"); return false; }
       }
 
-      public async Task<bool> ImportAsync(List<Entry> entries, List<Transfer> transfers, bool clearDataBefore)
+      public async Task<bool> ImportAsync(List<Entry> entries, List<Transfer> transfers, int year, bool clearDataBefore)
       {
          try
          {
+            var startTime = DateTime.Now;
+            Console.Write($" Year: {year}");
             Console.Write(" - waiting");
 
             var importParam = new
@@ -106,10 +131,31 @@ namespace Import
 
             var importMessage = await this.PostAsync("api/import", importParamContent);
             var importContent = await importMessage.Content.ReadAsStringAsync();
-            Console.Write($" - result: {importContent}");
-            return importMessage.IsSuccessStatusCode;
+            var finishTime = DateTime.Now;
+            Console.Write($" - {Math.Round(finishTime.Subtract(startTime).TotalSeconds, 0)} sec");
+
+            if (!importMessage.IsSuccessStatusCode)
+            {
+               Console.Write($" - Status:{importMessage.StatusCode}");
+               if (!string.IsNullOrEmpty(importContent)) { Console.Write($" - Content:{importContent}"); }
+
+               if (importMessage.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+               {
+                  Console.WriteLine("");
+                  if (await this.AuthAsync(this.Token.RefreshToken))
+                  {
+                     return await this.ImportAsync(entries, transfers, year, clearDataBefore);
+                  }
+               }
+
+               Console.WriteLine("");
+               return false;
+            }
+
+            Console.WriteLine($" - OK");
+            return true;
          }
-         catch (Exception) { Console.WriteLine(""); return false; }
+         catch (Exception) { Console.WriteLine(""); throw; }
       }
 
    }
