@@ -10,6 +10,7 @@ namespace FriendlyCashFlow.API.Import
       public List<EntryVM> Entries { get; set; }
       public List<TransferVM> Transfers { get; set; }
       internal string ResourceID { get; set; }
+      internal List<Accounts.AccountVM> Accounts { get; set; }
    }
 
    public class EntryVM
