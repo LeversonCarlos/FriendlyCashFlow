@@ -13,6 +13,7 @@ namespace FriendlyCashFlow.API.Entries
       {
          try
          {
+            DateTime startTime;
 
             // VALIDATE
             var validateMessage = await this.ValidateAsync(value);
@@ -59,12 +60,16 @@ namespace FriendlyCashFlow.API.Entries
             }
 
             // APPLY
+            startTime = DateTime.Now;
             await this.dbContext.Entries.AddAsync(data);
             await this.dbContext.SaveChangesAsync();
+            this.TrackMetric("Add new Entry", Math.Round(DateTime.Now.Subtract(startTime).TotalMilliseconds, 0));
 
             // SORTING
+            startTime = DateTime.Now;
             this.ApplySorting(data);
             await this.dbContext.SaveChangesAsync();
+            this.TrackMetric("Apply Sorting to new Entry", Math.Round(DateTime.Now.Subtract(startTime).TotalMilliseconds, 0));
 
             // BALANCE
             await this.GetService<Balances.BalancesService>().AddAsync(data);

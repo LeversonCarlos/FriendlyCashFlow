@@ -26,7 +26,9 @@ namespace FriendlyCashFlow.API.Import
                var entry = value.Entries[i];
 
                if ((i % eachNthRows) == 0)
-               { this.TrackEvent("Import Data - Importing Entries", $"UserID:{value.UserID}", $"Percent:{i / eachNthRows * 10}%"); }
+               {
+                  this.TrackEvent("Import Data - Importing Entries", $"UserID:{value.UserID}", $"Percent:{i / eachNthRows * 10}%");
+               }
 
                var createParam = new Entries.EntryVM
                {

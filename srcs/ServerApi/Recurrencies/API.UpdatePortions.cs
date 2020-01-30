@@ -9,6 +9,7 @@ namespace FriendlyCashFlow.API.Recurrencies
 
       internal async Task<bool> UpdatePortionsAsync(long recurrencyID)
       {
+         var startTime = DateTime.Now;
          try
          {
             var user = this.GetService<Helpers.User>();
@@ -25,6 +26,7 @@ namespace FriendlyCashFlow.API.Recurrencies
             }
          }
          catch (Exception) { throw; }
+         finally { this.TrackMetric("Update Portions of Recurrency", Math.Round(DateTime.Now.Subtract(startTime).TotalMilliseconds, 0)); }
       }
 
    }
