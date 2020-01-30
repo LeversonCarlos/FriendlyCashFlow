@@ -106,7 +106,7 @@ namespace Import
                   transfers.Where(x => x.Date.Year == year).ToList(),
                   year, (year == yearList[0]));
                if (!importResult) { return false; }
-               Console.WriteLine($" Info: Sleep until {DateTime.Now.AddMinutes(5).ToString("HH:mm")}");
+               Console.WriteLine($"  Info: Sleep until {DateTime.Now.AddMinutes(5).ToString("HH:mm")}");
                System.Threading.Thread.Sleep(TimeSpan.FromMinutes(5));
             }
 
