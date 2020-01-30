@@ -17,9 +17,19 @@ namespace FriendlyCashFlow.API.Import
             if (value.Entries == null || value.Entries.Count == 0) { return this.OkResponse(true); }
             value.Entries = value.Entries.OrderBy(x => x.Account).ThenBy(x => x.DueDate).ToList();
 
+            // INITIALIZE LOGGING
+            var logEachNthRows = Math.Floor((double)(value.Entries.Count / 10));
+            var currentRow = 0;
+
             // LOOP THROUGH ENTRIES
             foreach (var entry in value.Entries)
             {
+
+               currentRow++;
+               if ((currentRow % logEachNthRows) == 0)
+               {
+                  this.TrackEvent("Import Data - Importing Entries", $"UserID:{value.UserID}", $"Percent:{currentRow / logEachNthRows * 10}%");
+               }
 
                var createParam = new Entries.EntryVM
                {
@@ -32,14 +42,6 @@ namespace FriendlyCashFlow.API.Import
                   Paid = entry.Paid,
                   PayDate = entry.PayDate,
                   RecurrencyID = entry.RecurrencyID,
-                  /*
-                  AccountRow = null,
-                  AccountText = null,
-                  BalancePaidValue = null,
-                  BalanceTotalValue = null,
-                  CategoryRow = null,
-                  CategoryText = null,
-                  */
                   EntryID = 0
                };
                if (!string.IsNullOrEmpty(entry.Recurrency) && !createParam.RecurrencyID.HasValue)
