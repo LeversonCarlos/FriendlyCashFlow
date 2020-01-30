@@ -17,19 +17,16 @@ namespace FriendlyCashFlow.API.Import
             if (value.Entries == null || value.Entries.Count == 0) { return this.OkResponse(true); }
             value.Entries = value.Entries.OrderBy(x => x.Account).ThenBy(x => x.DueDate).ToList();
 
-            // INITIALIZE LOGGING
-            var logEachNthRows = Math.Floor((double)(value.Entries.Count / 10));
-            var currentRow = 0;
+            // NUMBER OF ROWS TO LOG AT EACH 10 PERCENTE
+            var eachNthRows = Math.Floor((double)(value.Entries.Count / 10));
 
             // LOOP THROUGH ENTRIES
-            foreach (var entry in value.Entries)
+            for (int i = 0; i < value.Entries.Count - 1; i++)
             {
+               var entry = value.Entries[i];
 
-               currentRow++;
-               if ((currentRow % logEachNthRows) == 0)
-               {
-                  this.TrackEvent("Import Data - Importing Entries", $"UserID:{value.UserID}", $"Percent:{currentRow / logEachNthRows * 10}%");
-               }
+               if ((i % eachNthRows) == 0)
+               { this.TrackEvent("Import Data - Importing Entries", $"UserID:{value.UserID}", $"Percent:{i / eachNthRows * 10}%"); }
 
                var createParam = new Entries.EntryVM
                {
