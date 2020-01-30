@@ -18,7 +18,7 @@ namespace Import
       {
          this.apiSettings = apiSettings;
          this.BaseAddress = new Uri(this.apiSettings.Url);
-         this.Timeout = TimeSpan.FromMinutes(10);
+         this.Timeout = TimeSpan.FromMinutes(6);
       }
 
       public override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
@@ -82,7 +82,7 @@ namespace Import
          catch (Exception ex) { Console.WriteLine($" Exception: {ex.Message}"); return false; }
       }
 
-      public async Task<bool> ImportAsync(List<Entry> entries, List<Transfer> transfers)
+      public async Task<bool> ImportAsync(List<Entry> entries, List<Transfer> transfers, bool clearDataBefore)
       {
          try
          {
@@ -104,7 +104,7 @@ namespace Import
                var importResult = await this.ImportAsync(
                   entries.Where(x => x.DueDate.Year == year).ToList(),
                   transfers.Where(x => x.Date.Year == year).ToList(),
-                  year, (year == yearList[0]));
+                  year, (clearDataBefore && year == yearList[0]));
                if (!importResult) { return false; }
             }
 
@@ -118,6 +118,7 @@ namespace Import
          var startTime = DateTime.Now;
          try
          {
+            if (clearDataBefore) { Console.WriteLine($" Clear Data"); }
             Console.Write($" Year: {year}");
             Console.Write(" - waiting");
 

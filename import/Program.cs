@@ -17,6 +17,7 @@ namespace Import
             Console.ForegroundColor = System.ConsoleColor.Blue;
             Console.WriteLine("");
             Console.WriteLine("Friendly Cash Flow: Data Import");
+            var clearDataBefore = args?.Contains("--clear");
 
             // APP SETTINGS
             var appSettings = AppSettings.Create();
@@ -31,7 +32,7 @@ namespace Import
             var transfers = Data.ToList<Transfer>("transfers.csv");
 
             // IMPORT
-            await apiClient.ImportAsync(entries, transfers);
+            await apiClient.ImportAsync(entries, transfers, clearDataBefore);
 
          }
          catch (Exception ex) { Console.WriteLine($" Exception: {ex.Message}"); }
