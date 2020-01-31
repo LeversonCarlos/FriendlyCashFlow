@@ -10,6 +10,8 @@ import { CategoriesService } from './categories/categories.service';
 import { CategoriesComponent } from './categories/categories.component';
 import { CategoryDetailsComponent } from './categories/category-details/category-details.component';
 
+import { CommonResumeComponent } from './common/resume/resume.component';
+
 import { EntriesService } from './entries/entries.service';
 import { EntriesFlowComponent } from './entries/entries-flow/entries-flow.component';
 import { MonthPickerComponent } from './pickers/month-picker/month-picker.component';
@@ -31,7 +33,7 @@ import { EntriesComponent } from './dashboard/entries/entries.component';
    declarations: [
       AccountsComponent, AccountDetailsComponent,
       CategoriesComponent, CategoryDetailsComponent,
-      MonthPickerComponent, AccountPickerComponent,
+      CommonResumeComponent, MonthPickerComponent, AccountPickerComponent,
       EntriesFlowComponent, EntryDetailsComponent, TransferDetailsComponent,
       AddButtonComponent, SearchPanelComponent,
       DashboardComponent, BalanceComponent, ResumeComponent, EntriesComponent],

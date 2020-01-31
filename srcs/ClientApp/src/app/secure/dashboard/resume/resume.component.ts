@@ -1,15 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from '../dashboard.service';
 import { AppInsightsService } from 'src/app/shared/app-insights/app-insights.service';
-import { enCategoryType } from '../../categories/categories.service';
-import { enAccountType } from '../../accounts/accounts.viewmodels';
-
-class ResumeVM {
-   Text: string
-   Type: enCategoryType
-   Icon: string
-   Value: number
-}
 
 @Component({
    selector: 'fs-resume',
@@ -18,16 +9,14 @@ class ResumeVM {
 })
 export class ResumeComponent implements OnInit {
 
-   constructor(private dashboardService: DashboardService,
-      private appInsights: AppInsightsService) { }
-   public ResumeList: ResumeVM[]
+   constructor(private dashboardService: DashboardService, private appInsights: AppInsightsService) { }
+
+   public IncomeValue: number = 0;
+   public ExpenseValue: number = 0;
+   public BalanceValue: number = 0;
 
    public async ngOnInit() {
       try {
-
-         let income = Object.assign(new ResumeVM, { Text: 'DASHBOARD_RESUME_INCOME_TEXT', Value: 0, Type: enCategoryType.Income, Icon: 'add_circle' });
-         let expense = Object.assign(new ResumeVM, { Text: 'DASHBOARD_RESUME_EXPENSE_TEXT', Value: 0, Type: enCategoryType.Expense, Icon: 'remove_circle' });
-         let balance = Object.assign(new ResumeVM, { Text: 'DASHBOARD_RESUME_BALANCE_TEXT', Value: 0, Type: enCategoryType.None, Icon: 'monetization_on' });
 
          let accountBalances = await this.dashboardService.getBalances(true);
          if (accountBalances) {
@@ -35,14 +24,13 @@ export class ResumeComponent implements OnInit {
                const account = accountBalances[index];
                const incomeValue = (account.PaidIncome + account.IncomeForecast);
                const expenseValue = (account.PaidExpense + account.ExpenseForecast);
-               income.Value += incomeValue
-               expense.Value += expenseValue
-               balance.Value += incomeValue
-               balance.Value += expenseValue
+               this.IncomeValue += incomeValue
+               this.ExpenseValue += expenseValue
+               this.BalanceValue += incomeValue
+               this.BalanceValue += expenseValue
             }
          }
 
-         this.ResumeList = [income, expense, balance]
       }
       catch (ex) { this.appInsights.trackException(ex) }
    }

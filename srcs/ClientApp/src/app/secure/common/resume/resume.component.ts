@@ -1,50 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { DashboardService } from '../dashboard.service';
-import { AppInsightsService } from 'src/app/shared/app-insights/app-insights.service';
+import { Component, OnInit, Input } from '@angular/core';
+import { ResumeVM } from './resume.viewmodels';
 import { enCategoryType } from '../../categories/categories.service';
-import { enAccountType } from '../../accounts/accounts.viewmodels';
 
-class ResumeVM {
-   Text: string
-   Type: enCategoryType
-   Icon: string
-   Value: number
-}
 
 @Component({
-   selector: 'fs-resume',
+   selector: 'fs-common-resume',
    templateUrl: './resume.component.html',
    styleUrls: ['./resume.component.scss']
 })
-export class ResumeComponent implements OnInit {
+export class CommonResumeComponent implements OnInit {
 
-   constructor(private dashboardService: DashboardService,
-      private appInsights: AppInsightsService) { }
-   public ResumeList: ResumeVM[]
+   constructor() { }
 
-   public async ngOnInit() {
-      try {
+   private IncomeResume: ResumeVM = Object.assign(new ResumeVM, { Text: 'DASHBOARD_RESUME_INCOME_TEXT', Value: 0, Type: enCategoryType.Income, Icon: 'add_circle' });
+   @Input() public set IncomeValue(val: number) { this.IncomeResume.Value = val };
 
-         let income = Object.assign(new ResumeVM, { Text: 'DASHBOARD_RESUME_INCOME_TEXT', Value: 0, Type: enCategoryType.Income, Icon: 'add_circle' });
-         let expense = Object.assign(new ResumeVM, { Text: 'DASHBOARD_RESUME_EXPENSE_TEXT', Value: 0, Type: enCategoryType.Expense, Icon: 'remove_circle' });
-         let balance = Object.assign(new ResumeVM, { Text: 'DASHBOARD_RESUME_BALANCE_TEXT', Value: 0, Type: enCategoryType.None, Icon: 'monetization_on' });
+   private ExpenseResume: ResumeVM = Object.assign(new ResumeVM, { Text: 'DASHBOARD_RESUME_EXPENSE_TEXT', Value: 0, Type: enCategoryType.Expense, Icon: 'remove_circle' });
+   @Input()public set ExpenseValue(val: number) { this.ExpenseResume.Value = val };
 
-         let accountBalances = await this.dashboardService.getBalances(true);
-         if (accountBalances) {
-            for (let index = 0; index < accountBalances.length; index++) {
-               const account = accountBalances[index];
-               const incomeValue = (account.PaidIncome + account.IncomeForecast);
-               const expenseValue = (account.PaidExpense + account.ExpenseForecast);
-               income.Value += incomeValue
-               expense.Value += expenseValue
-               balance.Value += incomeValue
-               balance.Value += expenseValue
-            }
-         }
+   private BalanceResume: ResumeVM = Object.assign(new ResumeVM, { Text: 'DASHBOARD_RESUME_BALANCE_TEXT', Value: 0, Type: enCategoryType.None, Icon: 'monetization_on' });
+   @Input()public set BalanceValue(val: number) { this.BalanceResume.Value = val };
 
-         this.ResumeList = [income, expense, balance]
-      }
-      catch (ex) { this.appInsights.trackException(ex) }
+   public ResumeList: ResumeVM[] = [this.IncomeResume, this.ExpenseResume, this.BalanceResume];
+
+   public ngOnInit() {
    }
 
 }
