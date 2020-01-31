@@ -21,7 +21,7 @@ namespace FriendlyCashFlow.API.Import
             var eachNthRows = Math.Floor((double)(value.Entries.Count / 10));
 
             // LOOP THROUGH ENTRIES
-            for (int i = 0; i < value.Entries.Count - 1; i++)
+            for (int i = 0; i < value.Entries.Count; i++)
             {
                var entry = value.Entries[i];
 

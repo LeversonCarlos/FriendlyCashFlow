@@ -19,6 +19,7 @@ namespace Import
          this.apiSettings = apiSettings;
          this.BaseAddress = new Uri(this.apiSettings.Url);
          this.Timeout = TimeSpan.FromMinutes(6);
+         this.DefaultRequestHeaders.AcceptLanguage.Add(new System.Net.Http.Headers.StringWithQualityHeaderValue("pt-br"));
       }
 
       public override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
