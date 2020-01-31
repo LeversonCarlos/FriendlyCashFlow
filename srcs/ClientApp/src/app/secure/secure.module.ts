@@ -11,33 +11,35 @@ import { CategoriesComponent } from './categories/categories.component';
 import { CategoryDetailsComponent } from './categories/category-details/category-details.component';
 
 import { CommonResumeComponent } from './common/resume/resume.component';
+import { MonthPickerComponent } from './pickers/month-picker/month-picker.component';
+import { AccountPickerComponent } from './pickers/account-picker/account-picker.component';
 
 import { EntriesService } from './entries/entries.service';
-import { EntriesFlowComponent } from './entries/entries-flow/entries-flow.component';
-import { MonthPickerComponent } from './pickers/month-picker/month-picker.component';
-import { AddButtonComponent } from './entries/add-button/add-button.component';
-import { EntryDetailsComponent } from './entries/entry-details/entry-details.component';
 import { PatternsService } from './patterns/patterns.service';
 import { RecurrencyService } from './recurrency/recurrency.service';
-import { TransferDetailsComponent } from './entries/transfer-details/transfer-details.component';
 import { TransfersService } from './transfers/transfers.service';
-import { AccountPickerComponent } from './pickers/account-picker/account-picker.component';
+import { EntriesFlowComponent } from './entries/entries-flow/entries-flow.component';
+import { EntryDetailsComponent } from './entries/entry-details/entry-details.component';
+import { TransferDetailsComponent } from './entries/transfer-details/transfer-details.component';
+import { EntriesResumeComponent } from './entries/entries-resume/entries-resume.component';
+import { AddButtonComponent } from './entries/add-button/add-button.component';
 import { SearchPanelComponent } from './entries/search-panel/search-panel.component';
+
 import { DashboardService } from './dashboard/dashboard.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BalanceComponent } from './dashboard/balance/balance.component';
 import { ResumeComponent } from './dashboard/resume/resume.component';
 import { EntriesComponent } from './dashboard/entries/entries.component';
-import { EntriesResumeComponent } from './entries/entries-resume/entries-resume.component';
+
 
 @NgModule({
    declarations: [
       AccountsComponent, AccountDetailsComponent,
       CategoriesComponent, CategoryDetailsComponent,
       CommonResumeComponent, MonthPickerComponent, AccountPickerComponent,
-      EntriesFlowComponent, EntryDetailsComponent, TransferDetailsComponent,
+      EntriesFlowComponent, EntryDetailsComponent, TransferDetailsComponent, EntriesResumeComponent,
       AddButtonComponent, SearchPanelComponent,
-      DashboardComponent, BalanceComponent, ResumeComponent, EntriesComponent, EntriesResumeComponent],
+      DashboardComponent, BalanceComponent, ResumeComponent, EntriesComponent],
    imports: [
       CommonModule, SharedModule
    ],
