@@ -38,6 +38,7 @@ namespace FriendlyCashFlow.API.Import
 
                var createMessage = await transfersService.CreateAsync(createParam);
                var createResult = this.GetValue(createMessage);
+               if (!createResult) { return createMessage.Result; }
 
             }
 

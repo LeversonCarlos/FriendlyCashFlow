@@ -17,7 +17,7 @@ namespace Import
             Console.ForegroundColor = System.ConsoleColor.Blue;
             Console.WriteLine("");
             Console.WriteLine("Friendly Cash Flow: Data Import");
-            var clearDataBefore = args?.Contains("--clear");
+            var clearDataBefore = args.Contains("--clear");
 
             // APP SETTINGS
             var appSettings = AppSettings.Create();

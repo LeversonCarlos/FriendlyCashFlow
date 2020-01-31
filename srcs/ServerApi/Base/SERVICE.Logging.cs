@@ -92,6 +92,20 @@ namespace FriendlyCashFlow.API.Base
       {
          try
          {
+            var consoleColor = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("***");
+            Console.WriteLine($"Exception: {ex.Message}");
+            if (ex.InnerException != null)
+            { Console.WriteLine($"InnerException: {ex.InnerException.Message}"); }
+            if (properties != null)
+            { Console.WriteLine($" {System.Text.Json.JsonSerializer.Serialize(properties)}"); }
+            Console.WriteLine("***");
+            Console.ForegroundColor = consoleColor;
+         }
+         catch { }
+         try
+         {
             var telemetry = this.GetService<TelemetryClient>();
             if (telemetry != null)
             { telemetry.TrackException(ex, properties); }

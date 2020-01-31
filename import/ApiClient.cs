@@ -120,7 +120,7 @@ namespace Import
          {
             if (clearDataBefore) { Console.WriteLine($" Clear Data"); }
             Console.Write($" Year: {year}");
-            Console.Write(" - waiting");
+            Console.Write(" - Importing");
 
             var importParam = new
             {
