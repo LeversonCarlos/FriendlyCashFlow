@@ -59,9 +59,6 @@ There is a file on the **srcs folder** called **appsettings.json**. On this file
 - **Mail**: Section defining the SMTP server used to send mails to the users
 - **AppInsights**: Section where an azure's application insights could be set to monitor app usage
 
-## Try it out
-I put a test version online that can be accessed [here](https://friendlycashflow-dev.azurewebsites.net/). You can report bugs [here](https://github.com/LeversonCarlos/FriendlyCashFlow/issues).
-
 ## Usage
 
 ### Register and access the application

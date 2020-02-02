@@ -11,6 +11,7 @@ namespace FriendlyCashFlow.API.Balances
 
       internal async Task AddAsync(Entries.EntryData value)
       {
+         var startTime = DateTime.Now;
          try
          {
             if (!value.AccountID.HasValue || value.AccountID == 0) { return; }
@@ -42,6 +43,7 @@ namespace FriendlyCashFlow.API.Balances
 
          }
          catch (Exception) { throw; }
+         finally { this.TrackMetric("Add Balance", Math.Round(DateTime.Now.Subtract(startTime).TotalMilliseconds, 0)); }
       }
 
    }

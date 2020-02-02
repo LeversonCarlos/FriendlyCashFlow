@@ -148,7 +148,7 @@
     <value>Credit Card</value>
   </data>
   <data name="ACCOUNTS_ENACCOUNTTYPE_GENERAL" xml:space="preserve">
-    <value>General</value>
+    <value>Wallet</value>
   </data>
   <data name="ACCOUNTS_ENACCOUNTTYPE_INVESTMENT" xml:space="preserve">
     <value>Investment</value>

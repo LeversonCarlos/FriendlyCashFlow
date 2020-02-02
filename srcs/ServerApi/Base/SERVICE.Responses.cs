@@ -82,6 +82,11 @@ namespace FriendlyCashFlow.API.Base
                var objectResult = (actionResult.Result as OkObjectResult);
                if (objectResult.Value != null) { return (T)objectResult.Value; }
             }
+            if (actionResult.Result is CreatedResult)
+            {
+               var objectResult = (actionResult.Result as CreatedResult);
+               if (objectResult.Value != null) { return (T)objectResult.Value; }
+            }
             if (actionResult.Value != null) { return actionResult.Value; }
             return default(T);
          }

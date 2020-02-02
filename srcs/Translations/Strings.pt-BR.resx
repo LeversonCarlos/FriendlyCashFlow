@@ -148,7 +148,7 @@
     <value>Cartão de Crédito</value>
   </data>
   <data name="ACCOUNTS_ENACCOUNTTYPE_GENERAL" xml:space="preserve">
-    <value>Geral</value>
+    <value>Carteira</value>
   </data>
   <data name="ACCOUNTS_ENACCOUNTTYPE_INVESTMENT" xml:space="preserve">
     <value>Investimento</value>

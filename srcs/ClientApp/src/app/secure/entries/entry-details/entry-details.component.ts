@@ -172,7 +172,14 @@ export class EntryDetailsComponent implements OnInit {
       }
    }
    private OnPatternParse(item: Pattern): RelatedData<Pattern> {
-      return Object.assign(new RelatedData, { id: item.PatternID, description: item.Text, badgeText: item.Count, value: item });
+      let badgeText: string = `${item.Count}`
+      if (item.Count >= 1000000) {
+         badgeText = `${Math.round(item.Count / 1000000)}m`
+      }
+      else if (item.Count >= 1000) {
+         badgeText = `${Math.round(item.Count / 1000)}k`
+      }
+      return Object.assign(new RelatedData, { id: item.PatternID, description: item.Text, badgeText: badgeText, value: item });
    }
 
 
@@ -181,8 +188,11 @@ export class EntryDetailsComponent implements OnInit {
    public AccountOptions: RelatedData<Account>[] = [];
    public async OnAccountChanging(val: string) {
       try {
-         const accountList = await this.accountService.getAccounts(val);
+         let accountList = await this.accountService.getAccounts(val);
          if (accountList == null) { return; }
+         accountList = accountList
+            .filter(x => x.Active)
+            .sort((a, b) => a.Text < b.Text ? -1 : 1);
          if (accountList.length == 0 && val == '') { this.msg.ShowInfo('ACCOUNTS_YOU_HAVE_NO_ACTIVE_ACCOUNTS_INFO'); }
          this.AccountOptions = accountList
             .map(item => this.OnAccountParse(item));

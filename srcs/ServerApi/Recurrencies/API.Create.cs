@@ -9,6 +9,7 @@ namespace FriendlyCashFlow.API.Recurrencies
 
       internal async Task<long?> CreateAsync(Recurrencies.RecurrencyVM value)
       {
+         var startTime = DateTime.Now;
          try
          {
 
@@ -36,6 +37,7 @@ namespace FriendlyCashFlow.API.Recurrencies
             return data.RecurrencyID;
          }
          catch (Exception) { throw; }
+         finally { this.TrackMetric("Create Recurrency", Math.Round(DateTime.Now.Subtract(startTime).TotalMilliseconds, 0)); }
       }
 
    }

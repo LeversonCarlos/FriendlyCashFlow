@@ -11,6 +11,7 @@ namespace FriendlyCashFlow.API.Patterns
 
       internal async Task<long?> AddAsync(Entries.EntryVM value)
       {
+         var startTime = DateTime.Now;
          try
          {
             if (!value.CategoryID.HasValue) { return null; }
@@ -43,6 +44,7 @@ namespace FriendlyCashFlow.API.Patterns
             return data.PatternID;
          }
          catch (Exception) { throw; }
+         finally { this.TrackMetric("Add Pattern", Math.Round(DateTime.Now.Subtract(startTime).TotalMilliseconds, 0)); }
       }
 
    }

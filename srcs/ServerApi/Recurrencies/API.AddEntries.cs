@@ -11,6 +11,7 @@ namespace FriendlyCashFlow.API.Recurrencies
 
       internal async Task<bool> AddEntriesAsync(long recurrencyID)
       {
+         var startTime = DateTime.Now;
          try
          {
             var entriesService = this.GetService<Entries.EntriesService>();
@@ -61,6 +62,7 @@ namespace FriendlyCashFlow.API.Recurrencies
             return true;
          }
          catch (Exception) { throw; }
+         finally { this.TrackMetric("Add Entries to Recurrency", Math.Round(DateTime.Now.Subtract(startTime).TotalMilliseconds, 0)); }
       }
 
       private DateTime AddEntriesAsync_NextDate(enRecurrencyType type, DateTime entryDate)

@@ -13,6 +13,7 @@ namespace FriendlyCashFlow.API.Entries
       {
          try
          {
+            DateTime startTime;
 
             // VALIDATE
             var validateMessage = await this.ValidateAsync(value);
@@ -20,10 +21,9 @@ namespace FriendlyCashFlow.API.Entries
             if (!validateResult) { return validateMessage.Result; }
 
             // NEW MODEL
-            var user = this.GetService<Helpers.User>();
             var data = new EntryData()
             {
-               ResourceID = user.ResourceID,
+               ResourceID = this.GetService<Helpers.User>().ResourceID,
                Type = (short)value.Type,
                Text = value.Text,
                CategoryID = value.CategoryID,
@@ -60,20 +60,25 @@ namespace FriendlyCashFlow.API.Entries
             }
 
             // APPLY
+            startTime = DateTime.Now;
             await this.dbContext.Entries.AddAsync(data);
             await this.dbContext.SaveChangesAsync();
+            this.TrackMetric("Add new Entry", Math.Round(DateTime.Now.Subtract(startTime).TotalMilliseconds, 0));
 
             // SORTING
+            startTime = DateTime.Now;
             this.ApplySorting(data);
             await this.dbContext.SaveChangesAsync();
+            this.TrackMetric("Apply Sorting to new Entry", Math.Round(DateTime.Now.Subtract(startTime).TotalMilliseconds, 0));
 
             // BALANCE
             await this.GetService<Balances.BalancesService>().AddAsync(data);
 
             // RECURRENCY
-            if (value.Recurrency != null && data.RecurrencyID.HasValue && data.RecurrencyID > 0)
+            if (data.RecurrencyID.HasValue && data.RecurrencyID > 0)
             {
-               await this.GetService<Recurrencies.RecurrenciesService>().AddEntriesAsync(data.RecurrencyID.Value);
+               if (value.Recurrency != null)
+               { await this.GetService<Recurrencies.RecurrenciesService>().AddEntriesAsync(data.RecurrencyID.Value); }
                await this.GetService<Recurrencies.RecurrenciesService>().UpdatePortionsAsync(data.RecurrencyID.Value);
             }
 

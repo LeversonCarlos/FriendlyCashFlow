@@ -16,6 +16,9 @@ export class AccountPickerComponent implements OnInit {
    public async ngOnInit() {
       this.Accounts = await this.accountsService.getAccounts();
       if (!this.Accounts) { this.Accounts = [] }
+      this.Accounts = this.Accounts
+         .filter(x => x.Active)
+         .sort((a, b) => a.Text < b.Text ? -1 : 1);
       this.Accounts.splice(0, 0, Object.assign(new Account, { AccountID: 0, Text: '' }));
       this.translationService.getValue('PICKERS_DEFAULT_ACCOUNT_TEXT').then(x => this.Accounts[0].Text = x)
    }
