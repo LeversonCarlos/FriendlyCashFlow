@@ -21,6 +21,7 @@ namespace FriendlyCashFlow.API.Base
          this.OnModelCreating_Balances(modelBuilder);
          this.OnModelCreating_Patterns(modelBuilder);
          this.OnModelCreating_Recurrencies(modelBuilder);
+         this.OnModelCreating_Entries(modelBuilder);
          base.OnModelCreating(modelBuilder);
       }
 
