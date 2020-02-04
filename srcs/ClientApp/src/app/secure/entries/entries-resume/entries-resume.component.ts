@@ -20,7 +20,7 @@ export class EntriesResumeComponent implements OnInit {
          this.service.FlowList
             .map(x => x.EntryList)
             .reduce((a, b) => a.concat(b), [])
-            .filter(x => x.EntryID > 0)
+            .filter(x => x.EntryID > 0 && (x.TransferID == null || x.TransferID == ''))
             .map(x => Object.assign({}, {
                Income: (x.EntryValue > 0 ? x.EntryValue : 0),
                Expense: (x.EntryValue < 0 ? x.EntryValue : 0)
