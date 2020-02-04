@@ -37,16 +37,6 @@ export class EntriesResumeComponent implements OnInit {
 
 
    ngOnInit() {
-      /*
-      const tst = this.service.FlowList
-         .map(x => x.EntryList)
-         .reduce((a, b) => a.concat(b))
-         .filter(x => x.EntryID > 0)
-         .map(x => Object.assign({}, { Income: (x.EntryValue > 0 ? x.EntryValue : 0), Expense: (x.EntryValue < 0 ? x.EntryValue : 0) }))
-         .reduce((a, b) => Object.assign({}, { Income: Math.round((a.Income + b.Income) * 100) / 100, Expense: Math.round((a.Expense + b.Expense) * 100) / 100 }));
-
-         */
-      console.log(this.EntriesResume)
    }
 
 }
