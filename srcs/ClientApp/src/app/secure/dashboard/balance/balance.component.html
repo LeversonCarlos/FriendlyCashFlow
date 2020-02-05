@@ -1,5 +1,5 @@
-<mat-accordion hideToggle *ngIf="balanceTypes?.length">
-   <mat-expansion-panel class="mat-elevation-z1" *ngFor="let balanceType of balanceTypes">
+<mat-accordion hideToggle *ngIf="(Data | async)?.length">
+   <mat-expansion-panel class="mat-elevation-z1" *ngFor="let balanceType of (Data | async)">
 
       <mat-expansion-panel-header>
          <mat-panel-title>
@@ -21,7 +21,8 @@
                <span class="account-values">
                   <span [class.forecolor-red]="account.CurrentBalance < 0"
                      [class.forecolor-green]="account.CurrentBalance > 0">{{ account.CurrentBalance | number : '1.2-2' }}</span>
-                  <small *ngIf="(account.IncomeForecast+account.ExpenseForecast) != 0" [class.forecolor-red]="(account.IncomeForecast+account.ExpenseForecast) < 0"
+                  <small *ngIf="(account.IncomeForecast+account.ExpenseForecast) != 0"
+                     [class.forecolor-red]="(account.IncomeForecast+account.ExpenseForecast) < 0"
                      [class.forecolor-green]="(account.IncomeForecast+account.ExpenseForecast) > 0">{{ (account.IncomeForecast+account.ExpenseForecast) | number : '1.2-2' }}</small>
                </span>
             </div>
@@ -32,7 +33,7 @@
    </mat-expansion-panel>
 </mat-accordion>
 
-<mat-card *ngIf="!balanceTypes?.length" class="no-accounts">
+<mat-card *ngIf="!(Data | async)?.length" class="no-accounts">
    <mat-card-content>
       <span class="mat-title">{{ 'DASHBOARD_BALANCE_NO_ACCOUNTS_TEXT' | translation | async }}</span>
    </mat-card-content>

@@ -1,2 +1,5 @@
-<fs-common-resume [IncomeValue]="IncomeValue" [ExpenseValue]="ExpenseValue" [BalanceValue]="BalanceValue">
+<fs-common-resume
+   [IncomeValue]="(Data | async)?.IncomeValue"
+   [ExpenseValue]="(Data | async)?.ExpenseValue"
+   [BalanceValue]="(Data | async)?.BalanceValue">
 </fs-common-resume>
