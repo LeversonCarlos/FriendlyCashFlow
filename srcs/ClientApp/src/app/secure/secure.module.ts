@@ -30,6 +30,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { BalanceComponent } from './dashboard/balance/balance.component';
 import { ResumeComponent } from './dashboard/resume/resume.component';
 import { EntriesComponent } from './dashboard/entries/entries.component';
+import { SettingsComponent } from './settings/settings.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { EntriesComponent } from './dashboard/entries/entries.component';
       CommonResumeComponent, MonthPickerComponent, AccountPickerComponent,
       EntriesFlowComponent, EntryDetailsComponent, TransferDetailsComponent, EntriesResumeComponent,
       AddButtonComponent, SearchPanelComponent,
-      DashboardComponent, BalanceComponent, ResumeComponent, EntriesComponent],
+      DashboardComponent, BalanceComponent, ResumeComponent, EntriesComponent,
+      SettingsComponent],
    imports: [
       CommonModule, SharedModule
    ],

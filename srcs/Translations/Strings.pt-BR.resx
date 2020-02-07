@@ -369,6 +369,9 @@
   <data name="RECURRENCY_ENRECURRENCYTYPE_YEARLY" xml:space="preserve">
     <value>Anual</value>
   </data>
+  <data name="SETTINGS_MAIN_TITLE" xml:space="preserve">
+    <value>Configurações</value>
+  </data>
   <data name="SETTINGS_MENU" xml:space="preserve">
     <value>Configurações</value>
   </data>
