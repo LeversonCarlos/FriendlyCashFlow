@@ -40,9 +40,14 @@ export class TransferDetailsComponent implements OnInit {
 
          // NEW MODEL
          if (paramID == 'new') {
-            this.Data = Object.assign(new Transfer, {
-               TransferDate: this.entriesService.CurrentData.CurrentMonth
-            });
+
+            this.Data = Object.assign(new Transfer, {});
+
+            // DEFAULT DATE
+            const today = new Date();
+            this.Data.TransferDate = (this.entriesService.CurrentData && this.entriesService.CurrentData.CurrentMonth) || today;
+            if (this.Data.TransferDate.getFullYear() == today.getFullYear() && this.Data.TransferDate.getMonth() == today.getMonth()) { this.Data.TransferDate = today; }
+
             return true;
          }
 
