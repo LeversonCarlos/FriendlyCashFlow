@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl } from
 import { BusyService } from 'src/app/shared/busy/busy.service';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'src/app/core/auth/auth.service';
+import { MessageService } from 'src/app/shared/message/message.service';
 
 class PasswordChangeVM {
    OldPassword: string;
@@ -18,8 +19,8 @@ class PasswordChangeVM {
 })
 export class PasswordChangeComponent implements OnInit {
 
-   constructor(private auth: AuthService, private busy: BusyService, private appInsights: AppInsightsService,
-      private http: HttpClient, private fb: FormBuilder) { }
+   constructor(private msg: MessageService, private auth: AuthService, public busy: BusyService,
+      private appInsights: AppInsightsService, private http: HttpClient, private fb: FormBuilder) { }
    private Data: PasswordChangeVM = new PasswordChangeVM()
 
    public ngOnInit() {
@@ -59,6 +60,7 @@ export class PasswordChangeComponent implements OnInit {
          const result = await this.http.post<boolean>(`api/users/passwordChange`, this.Data).toPromise();
          if (!result) { return; }
          this.auth.signOut();
+         this.msg.ShowInfo("SETTINGS_PASSWORD_CHANGE_SUCCESS")
       }
       catch (ex) { this.appInsights.trackException(ex); console.error(ex) }
       finally { this.busy.hide(); }

@@ -387,6 +387,9 @@
   <data name="SETTINGS_PASSWORD_CHANGE_NEW_PASSWORD_LABEL" xml:space="preserve">
     <value>Nova Senha</value>
   </data>
+  <data name="SETTINGS_PASSWORD_CHANGE_SUCCESS" xml:space="preserve">
+    <value>Senha Modificada</value>
+  </data>
   <data name="SETTINGS_PASSWORD_CHANGE_TITLE" xml:space="preserve">
     <value>Mudança de Senha</value>
   </data>
