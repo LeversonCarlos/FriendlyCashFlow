@@ -268,6 +268,10 @@ export class EntryDetailsComponent implements OnInit {
    private OnRecurrencyActivateChanged(activate: boolean) {
       this.OnRecurrencyActivateControlChanged(activate, this.inputForm.controls['RecurrencyType']);
       this.OnRecurrencyActivateControlChanged(activate, this.inputForm.controls['RecurrencyCount']);
+      if (activate) {
+         this.inputForm.controls['RecurrencyType'].setValue(enRecurrencyType.Monthly);
+         this.inputForm.controls['RecurrencyCount'].setValue(2);
+      }
    }
    private OnRecurrencyActivateControlChanged(activate: boolean, control: AbstractControl) {
       if (activate == true) {
