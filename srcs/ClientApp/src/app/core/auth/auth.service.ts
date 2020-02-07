@@ -101,6 +101,7 @@ export class AuthService {
          this.Token = null;
          localStorage.clear();
          this.router.navigate(['/home']);
+         window.location = window.location
       }
       catch (ex) { console.error(ex); }
    }

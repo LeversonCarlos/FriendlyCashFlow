@@ -26,12 +26,12 @@ namespace FriendlyCashFlow.API.Users
                   x.UserID == userHelper.UserID &&
                   x.PasswordHash == oldPasswordHash)
                .FirstOrDefaultAsync();
-            if (user==null) { return this.WarningResponse(this.GetTranslation("USERS_USER_NOT_FOUND_WARNING")); }
-         
+            if (user == null) { return this.WarningResponse(this.GetTranslation("USERS_USER_NOT_FOUND_WARNING")); }
+
             // VALIDATE PASSWORD COMPLEXITY
             var passwordMessages = this.ValidatePassword(value.NewPassword);
             if (passwordMessages.Length != 0) { return this.WarningResponse(passwordMessages); }
-            
+
             // HASH THE PASSWORD
             user.PasswordHash = cryptService.Encrypt(value.NewPassword);
 
@@ -50,7 +50,7 @@ namespace FriendlyCashFlow.API.Users
    {
 
       [HttpPost("passwordChange")]
-      [AllowAnonymous]
+      [Authorize]
       public async Task<ActionResult<bool>> PasswordChangeAsync([FromBody]PasswordChangeVM value)
       {
          return await this.GetService<UsersService>().PasswordChangeAsync(value);

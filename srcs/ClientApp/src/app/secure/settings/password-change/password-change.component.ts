@@ -3,6 +3,7 @@ import { AppInsightsService } from 'src/app/shared/app-insights/app-insights.ser
 import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { BusyService } from 'src/app/shared/busy/busy.service';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from 'src/app/core/auth/auth.service';
 
 class PasswordChangeVM {
    OldPassword: string;
@@ -17,7 +18,7 @@ class PasswordChangeVM {
 })
 export class PasswordChangeComponent implements OnInit {
 
-   constructor(private busy: BusyService, private appInsights: AppInsightsService,
+   constructor(private auth: AuthService, private busy: BusyService, private appInsights: AppInsightsService,
       private http: HttpClient, private fb: FormBuilder) { }
    private Data: PasswordChangeVM = new PasswordChangeVM()
 
@@ -57,7 +58,7 @@ export class PasswordChangeComponent implements OnInit {
          this.busy.show();
          const result = await this.http.post<boolean>(`api/users/passwordChange`, this.Data).toPromise();
          if (!result) { return; }
-         console.log('we must logout here')
+         this.auth.signOut();
       }
       catch (ex) { this.appInsights.trackException(ex); console.error(ex) }
       finally { this.busy.hide(); }
