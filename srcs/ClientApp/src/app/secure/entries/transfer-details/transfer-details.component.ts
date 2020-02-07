@@ -94,10 +94,13 @@ export class TransferDetailsComponent implements OnInit {
    /* EXPENSE ACCOUNT */
    public ExpenseAccountOptions: RelatedData<Account>[] = [];
    public async OnExpenseAccountChanging(val: string) {
-      const dataList = await this.accountService.getAccounts(val);
-      if (dataList == null) { return; }
-      if (dataList.length == 0 && val == '') { this.msg.ShowInfo('ACCOUNTS_YOU_HAVE_NO_ACTIVE_ACCOUNTS_INFO'); }
-      this.ExpenseAccountOptions = dataList
+      let accountList = await this.accountService.getAccounts(val);
+      if (accountList == null) { return; }
+      accountList = accountList
+         .filter(x => x.Active)
+         .sort((a, b) => a.Text < b.Text ? -1 : 1);
+      if (accountList.length == 0 && val == '') { this.msg.ShowInfo('ACCOUNTS_YOU_HAVE_NO_ACTIVE_ACCOUNTS_INFO'); }
+      this.ExpenseAccountOptions = accountList
          .map(item => this.OnExpenseAccountParse(item));
    }
    private OnExpenseAccountChanged(item: RelatedData<Account>) {
@@ -114,10 +117,13 @@ export class TransferDetailsComponent implements OnInit {
    /* INCOME ACCOUNT */
    public IncomeAccountOptions: RelatedData<Account>[] = [];
    public async OnIncomeAccountChanging(val: string) {
-      const dataList = await this.accountService.getAccounts(val);
-      if (dataList == null) { return; }
-      if (dataList.length == 0 && val == '') { this.msg.ShowInfo('ACCOUNTS_YOU_HAVE_NO_ACTIVE_ACCOUNTS_INFO'); }
-      this.IncomeAccountOptions = dataList
+      let accountList = await this.accountService.getAccounts(val);
+      if (accountList == null) { return; }
+      accountList = accountList
+         .filter(x => x.Active)
+         .sort((a, b) => a.Text < b.Text ? -1 : 1);
+      if (accountList.length == 0 && val == '') { this.msg.ShowInfo('ACCOUNTS_YOU_HAVE_NO_ACTIVE_ACCOUNTS_INFO'); }
+      this.IncomeAccountOptions = accountList
          .map(item => this.OnIncomeAccountParse(item));
    }
    private OnIncomeAccountChanged(item: RelatedData<Account>) {
