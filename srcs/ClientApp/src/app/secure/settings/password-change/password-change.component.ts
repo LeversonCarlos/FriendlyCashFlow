@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppInsightsService } from 'src/app/shared/app-insights/app-insights.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { BusyService } from 'src/app/shared/busy/busy.service';
 import { HttpClient } from '@angular/common/http';
 
@@ -34,12 +34,21 @@ export class PasswordChangeComponent implements OnInit {
          OldPassword: ['', Validators.required],
          NewPassword: ['', Validators.required],
          ConfirmPassword: ['', Validators.required]
-      });
+      }, { validator: this.confirmPasswordValidator });
       this.inputForm.valueChanges.subscribe(values => {
          this.Data.OldPassword = values.OldPassword || '';
          this.Data.NewPassword = values.NewPassword || '';
          this.Data.ConfirmPassword = values.ConfirmPassword || '';
       });
+   }
+
+   public confirmPasswordValidator(inputForm: FormGroup) {
+      const newPassword = inputForm.get('NewPassword');
+      const confirmPassword = inputForm.get('ConfirmPassword');
+      const valid = newPassword.value == confirmPassword.value
+      confirmPassword.setErrors(valid ? null : { passwordsNotEqual: true })
+      if (!valid) { confirmPassword.markAsTouched() }
+      return valid ? null : { passwordsNotEqual: true }
    }
 
    public async OnClick() {
