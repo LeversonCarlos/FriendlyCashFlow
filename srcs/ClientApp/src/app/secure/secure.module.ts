@@ -31,6 +31,7 @@ import { BalanceComponent } from './dashboard/balance/balance.component';
 import { ResumeComponent } from './dashboard/resume/resume.component';
 import { EntriesComponent } from './dashboard/entries/entries.component';
 import { SettingsComponent } from './settings/settings.component';
+import { PasswordChangeComponent } from './settings/password-change/password-change.component';
 
 
 @NgModule({
@@ -41,7 +42,7 @@ import { SettingsComponent } from './settings/settings.component';
       EntriesFlowComponent, EntryDetailsComponent, TransferDetailsComponent, EntriesResumeComponent,
       AddButtonComponent, SearchPanelComponent,
       DashboardComponent, BalanceComponent, ResumeComponent, EntriesComponent,
-      SettingsComponent],
+      SettingsComponent, PasswordChangeComponent],
    imports: [
       CommonModule, SharedModule
    ],
