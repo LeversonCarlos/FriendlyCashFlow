@@ -80,7 +80,19 @@ set AverageValue =
    from #AverageData as AverageData
    where AverageData.CategoryID = MonthData.CategoryID
 )
-from #MonthData as MonthData
+from #MonthData as MonthData;
+
+/* PARENT DATA */
+alter table #MonthData add ParentID bigint, Text varchar(4000);
+while exists(select * from #MonthData where ParentID is null) begin
+   declare @categoryID bigint;
+   select top 1 @categoryID=CategoryID from #MonthData where ParentID is null order by CategoryID;
+
+   declare @parentID bigint, @text varchar(4000);
+   select top 1 @parentID=coalesce(ParentID,0), @text=Text from v6_dataCategories where CategoryID=@categoryID;
+
+   update #MonthData set ParentID=@parentID, Text=@text where CategoryID=@categoryID
+end
 
 /* RESULT */
 select * from #MonthData;
