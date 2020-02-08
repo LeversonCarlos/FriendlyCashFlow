@@ -369,8 +369,29 @@
   <data name="RECURRENCY_ENRECURRENCYTYPE_YEARLY" xml:space="preserve">
     <value>Yearly</value>
   </data>
+  <data name="SETTINGS_MAIN_TITLE" xml:space="preserve">
+    <value>Settings</value>
+  </data>
   <data name="SETTINGS_MENU" xml:space="preserve">
     <value>Settings</value>
+  </data>
+  <data name="SETTINGS_PASSWORD_CHANGE_COMMAND" xml:space="preserve">
+    <value>Change the Password</value>
+  </data>
+  <data name="SETTINGS_PASSWORD_CHANGE_CONFIRM_PASSWORD_LABEL" xml:space="preserve">
+    <value>Confirm Password</value>
+  </data>
+  <data name="SETTINGS_PASSWORD_CHANGE_CURRENT_PASSWORD_LABEL" xml:space="preserve">
+    <value>Current Password</value>
+  </data>
+  <data name="SETTINGS_PASSWORD_CHANGE_NEW_PASSWORD_LABEL" xml:space="preserve">
+    <value>New Password</value>
+  </data>
+  <data name="SETTINGS_PASSWORD_CHANGE_SUCCESS" xml:space="preserve">
+    <value>Password Changed</value>
+  </data>
+  <data name="SETTINGS_PASSWORD_CHANGE_TITLE" xml:space="preserve">
+    <value>Password Change</value>
   </data>
   <data name="TRANSFERS_DATE_LABEL" xml:space="preserve">
     <value>Date</value>

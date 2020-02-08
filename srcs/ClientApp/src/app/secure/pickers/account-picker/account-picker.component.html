@@ -1,6 +1,7 @@
 <div class="mat-body">
    <button mat-button [matMenuTriggerFor]="accountMenu">
       <span>{{ CurrentText }}</span>
+      <mat-icon>arrow_drop_down</mat-icon>
    </button>
    <mat-menu #accountMenu="matMenu">
       <button mat-menu-item *ngFor="let account of Accounts" (click)="OnItemClick(account)">{{ account.Text }}</button>
