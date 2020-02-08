@@ -14,8 +14,8 @@ print 'month interval: ' + convert(varchar, @initialDate, 121) + ' - ' + convert
 /* MONTH DATA */
 select CategoryID, sum(EntryValue) As Value
 into #MonthData
-from v6_dataEntries 
-where 
+from v6_dataEntries
+where
    RowStatus = 1
    and ResourceID = @resourceID
    and AccountID in (select AccountID from v6_dataAccounts where ResourceID=@resourceID and RowStatus=1 and Active=1)
@@ -33,40 +33,40 @@ print 'average interval: ' + convert(varchar, @initialDate, 121) + ' - ' + conve
 /* YEAR DATA */
 select CategoryID, EntryValue As Value
 into #YearData
-from v6_dataEntries 
-where 
+from v6_dataEntries
+where
    RowStatus = 1
    and ResourceID = @resourceID
    and AccountID in (select AccountID from v6_dataAccounts where ResourceID=@resourceID and RowStatus=1 and Active=1)
    and SearchDate >= @initialDate
    and SearchDate <= @finalDate
    and Type = @typeExpense
-   and TransferID is null 
+   and TransferID is null
    and CategoryID in (select CategoryID from #MonthData);
 
 /* STANDARD DEVIATION */
-select 
-   CategoryID, 
-   coalesce(STDEVP(Value),0) as StdDevValue, 
-   coalesce(AVG(Value),0) as AverageValue 
+select
+   CategoryID,
+   coalesce(STDEVP(Value),0) as StdDevValue,
+   coalesce(AVG(Value),0) as AverageValue
 into #YearStdDev
 from #YearData
 group by CategoryID;
 
 /* AVERAGE DATA */
 /*
-select 
+select
    YearData.CategoryID, 0 as AverageValue, avg(Value) as PureAverageValue
-from #YearData as YearData 
+from #YearData as YearData
 group by YearData.CategoryID
 union
 */
-select 
+select
    YearData.CategoryID, avg(Value) as AverageValue
 into #AverageData
-from #YearData as YearData 
-   inner join #YearStdDev as YearStdDev on (YearStdDev.CategoryID = YearData.CategoryID) 
-where 
+from #YearData as YearData
+   inner join #YearStdDev as YearStdDev on (YearStdDev.CategoryID = YearData.CategoryID)
+where
    Value >= AverageValue - StdDevValue AND
    Value <= AverageValue + StdDevValue
 group by YearData.CategoryID;
@@ -93,14 +93,13 @@ while exists(select * from #MonthData where ParentID is null) begin
 
    if @parentID<>0 and not exists(select * from #MonthData where CategoryID=@parentID) begin
       insert into #MonthData(CategoryID,Value) values(@parentID, null)
-   end   
+   end
 
    update #MonthData set ParentID=@parentID, Text=@text where CategoryID=@categoryID
 end
 
 /* RESULT */
 select * from #MonthData;
--- select * from #YearStdDev
 
 /* CLEAR */
 drop table #MonthData;
