@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { TranslationService } from 'src/app/shared/translation/translation.service';
 
 import * as Highcharts from 'highcharts';
+import { CategoryGoalsVM } from '../analytics.viewmodels';
+import { strictEqual } from 'assert';
 declare var require: any;
 let Boost = require('highcharts/modules/boost');
 let noData = require('highcharts/modules/no-data-to-display');
@@ -18,12 +20,26 @@ export class CategoryGoalsChart {
 
    constructor(private translation: TranslationService) { }
 
-   public async options() {
+   public async show(data: CategoryGoalsVM[]) {
+      try {
+
+         const categoryList = data
+            .map(x => x.Text)
+            .sort((a, b) => a > b ? 1 : -1);
+
+         const options = await this.options(categoryList);
+         console.log(options);
+
+      }
+      catch (ex) { console.error(ex); }
+   }
+
+   private async options(categoryList: string[]) {
       return {
          chart: this.options_chart(),
          title: await this.options_title(),
          plotOptions: this.options_plotOptions(),
-         xAxis: this.options_xAxis(),
+         xAxis: this.options_xAxis(categoryList),
          yAxis: await this.options_yAxis(),
          series: this.options_series(),
          tooltip: this.options_tooltip(),
@@ -55,9 +71,9 @@ export class CategoryGoalsChart {
       };
    }
 
-   private options_xAxis(): any {
+   private options_xAxis(categoryList: string[]): any {
       return {
-         categories: [],
+         categories: categoryList,
          title: { enabled: false },
          labels: {
             rotation: -90,

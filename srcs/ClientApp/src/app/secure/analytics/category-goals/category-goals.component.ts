@@ -1,21 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AnalyticsService } from '../analytics.service';
 import { CategoryGoalsVM } from '../analytics.viewmodels';
 import { CategoryGoalsChart } from './category-goals.chart';
+import { Subscription } from 'rxjs';
 
 @Component({
    selector: 'fs-category-goals',
    templateUrl: './category-goals.component.html',
    styleUrls: ['./category-goals.component.scss']
 })
-export class CategoryGoalsComponent implements OnInit {
+export class CategoryGoalsComponent implements OnInit, OnDestroy {
 
    constructor(private service: AnalyticsService, private chart: CategoryGoalsChart) { }
 
-   public get CategoryGoals(): CategoryGoalsVM[] { return this.service.CategoryGoals }
+   public ngOnInit() {
+      this.OnDataRefreshedSubscription =
+         this.service.OnDataRefreshed.subscribe(x => this.OnDataRefreshed(x));
+   }
 
-   public async ngOnInit() {
-      console.log(await this.chart.options())
+   private OnDataRefreshedSubscription: Subscription
+   private OnDataRefreshed(val: boolean) {
+      this.chart.show(this.service.CategoryGoals)
+   }
+
+   public ngOnDestroy() {
+      if (this.OnDataRefreshedSubscription) {
+         this.OnDataRefreshedSubscription.unsubscribe()
+         this.OnDataRefreshedSubscription = null;
+      }
    }
 
 }

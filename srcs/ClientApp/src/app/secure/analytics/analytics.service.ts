@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { BusyService } from 'src/app/shared/busy/busy.service';
 import { HttpClient } from '@angular/common/http';
 import { FilterData, CategoryGoalsVM } from './analytics.viewmodels';
@@ -36,10 +36,12 @@ export class AnalyticsService {
          if (year == 0 || month == 0) { return false; }
          this.busy.show();
          await this.LoadCategoryGoals(year, month);
+         this.OnDataRefreshed.emit(true);
       }
       catch (ex) { this.appInsights.trackException(ex); console.error(ex) }
       finally { this.busy.hide(); }
    }
+   public OnDataRefreshed: EventEmitter<boolean> = new EventEmitter<boolean>();
 
    /* CATEGORY GOALS */
    public CategoryGoals: CategoryGoalsVM[] = null
