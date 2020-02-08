@@ -23,6 +23,7 @@ export const secureRoutes: Routes = [
    { path: 'entries/entry/new/:type', canActivate: [AuthGuard], component: EntryDetailsComponent },
    { path: 'entries/entry/:id', canActivate: [AuthGuard], component: EntryDetailsComponent },
    { path: 'transfer/:id', canActivate: [AuthGuard], component: TransferDetailsComponent },
+   { path: 'analytics/:year/:month', canActivate: [AuthGuard], component: AnalyticsComponent },
    { path: 'analytics', canActivate: [AuthGuard], component: AnalyticsComponent },
    { path: 'settings', canActivate: [AuthGuard], component: SettingsComponent },
 ];
