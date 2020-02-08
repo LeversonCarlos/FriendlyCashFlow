@@ -1,7 +1,7 @@
 set nocount on;
-declare @resourceID varchar(128) = '2f9c80d7-162a-46b9-96e7-af609c07a998';
-declare @searchYear smallint = 2020;
-declare @searchMonth smallint = 2;
+declare @resourceID varchar(128) = @paramResourceID;
+declare @searchYear smallint = @paramSearchYear;
+declare @searchMonth smallint = @paramSearchMonth;
 declare @typeExpense smallint = 1;
 declare @typeIncome smallint = 2;
 
@@ -47,7 +47,7 @@ where
 /* STANDARD DEVIATION */
 select 
    CategoryID, 
-   coalesce(STDEVP(Value),0) as StdDevValue , 
+   coalesce(STDEVP(Value),0) as StdDevValue, 
    coalesce(AVG(Value),0) as AverageValue 
 into #YearStdDev
 from #YearData
@@ -67,12 +67,12 @@ into #AverageData
 from #YearData as YearData 
    inner join #YearStdDev as YearStdDev on (YearStdDev.CategoryID = YearData.CategoryID) 
 where 
-   Value > AverageValue - StdDevValue AND
-   Value < AverageValue + StdDevValue
+   Value >= AverageValue - StdDevValue AND
+   Value <= AverageValue + StdDevValue
 group by YearData.CategoryID;
 
 /* APPLY AVERAGE */
-alter table #MonthData add AverageValue decimal;
+alter table #MonthData add AverageValue decimal(15,2);
 update #MonthData
 set AverageValue =
 (
@@ -90,6 +90,10 @@ while exists(select * from #MonthData where ParentID is null) begin
 
    declare @parentID bigint, @text varchar(4000);
    select top 1 @parentID=coalesce(ParentID,0), @text=Text from v6_dataCategories where CategoryID=@categoryID;
+
+   if @parentID<>0 and not exists(select * from #MonthData where CategoryID=@parentID) begin
+      insert into #MonthData(CategoryID,Value) values(@parentID, null)
+   end   
 
    update #MonthData set ParentID=@parentID, Text=@text where CategoryID=@categoryID
 end
