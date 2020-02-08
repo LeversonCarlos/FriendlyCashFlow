@@ -19,6 +19,7 @@ print 'year interval: ' + convert(varchar, @yearInitial, 121) + ' - ' + convert(
 /* ENTRIES DATA INTERVAL */
 declare @entriesInitial datetime = @yearInitial;
 declare @entriesFinal datetime = dateadd(second, -1, @monthFinal);
+print 'entries interval: ' + convert(varchar, @entriesInitial, 121) + ' - ' + convert(varchar, @entriesFinal, 121);
 
 /* ENTRIES DATA */
 select SearchDate, CategoryID, sum(EntryValue) As Value
@@ -33,13 +34,6 @@ where
    and Type = @typeExpense
    and TransferID is null
 group by SearchDate, CategoryID;
-
-/* MONTH DATA */
-select CategoryID, sum(Value) As Value
-into #MonthData
-from #EntriesData
-where SearchDate >= @monthInitial and SearchDate <= @monthFinal
-group by CategoryID;
 
 /* STANDARD DEVIATION */
 select
@@ -61,15 +55,28 @@ where
    Value <= AverageValue + StdDevValue
 group by EntriesData.CategoryID;
 
-/* APPLY AVERAGE */
-alter table #MonthData add AverageValue decimal(15,2);
+/* MONTH DATA */
+select CategoryID
+into #MonthData
+from #EntriesData
+group by CategoryID
+
+/* APPLY MONTH VALUES */
+alter table #MonthData add [Value] decimal(15,2), AverageValue decimal(15,2);
 update #MonthData
-set AverageValue =
-(
-   select top 1 AverageValue
-   from #AverageData as AverageData
-   where AverageData.CategoryID = MonthData.CategoryID
-)
+set
+   Value =
+   (
+      select sum(Value)
+      from #EntriesData
+      where SearchDate >= @monthInitial and SearchDate <= @monthFinal and CategoryID = MonthData.CategoryID
+    ),
+   AverageValue =
+   (
+      select top 1 AverageValue
+      from #AverageData
+      where CategoryID = MonthData.CategoryID
+    )
 from #MonthData as MonthData;
 
 /* PARENT DATA */
