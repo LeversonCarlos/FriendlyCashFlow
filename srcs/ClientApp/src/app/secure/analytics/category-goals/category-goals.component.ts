@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AnalyticsService } from '../analytics.service';
+import { CategoryGoalsVM } from '../analytics.viewmodels';
 
 @Component({
    selector: 'fs-category-goals',
@@ -7,23 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CategoryGoalsComponent implements OnInit {
 
-   constructor() { }
+   constructor(private service: AnalyticsService) { }
+
+   public get CategoryGoals(): CategoryGoalsVM[] { return this.service.CategoryGoals }
 
    ngOnInit() {
    }
-
-   /*
-   private async OnDataLoad() {
-      try {
-         this.busy.show();
-         const result = await this.http.post<boolean>(`api/users/passwordChange`, this.Data).toPromise();
-         if (!result) { return; }
-         this.auth.signOut();
-         this.msg.ShowInfo("SETTINGS_PASSWORD_CHANGE_SUCCESS")
-      }
-      catch (ex) { this.appInsights.trackException(ex); console.error(ex) }
-      finally { this.busy.hide(); }
-   }
-   */
 
 }
