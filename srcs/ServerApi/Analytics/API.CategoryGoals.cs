@@ -60,6 +60,8 @@ namespace FriendlyCashFlow.API.Analytics
                      item.Value = item.Childs.Select(x => x.Value).Sum();
                      item.AverageValue = item.Childs.Select(x => x.AverageValue).Sum();
                   }
+                  if (item.Value.HasValue && item.AverageValue.HasValue && item.AverageValue.Value > 0)
+                  { item.Percent = Math.Round(item.Value.Value / item.AverageValue.Value * 100, 1); }
                }
 
                return result;
