@@ -18,35 +18,35 @@ export class CategoryGoalsChart {
 
    constructor(private translation: TranslationService) { }
 
-   public get options(): any {
+   public async options() {
       return {
-         chart: this.options_chart,
-         title: this.options_title,
-         plotOptions: this.options_plotOptions,
-         xAxis: this.options_xAxis,
-         yAxis: this.options_yAxis,
-         series: this.options_series,
-         tooltip: this.options_tooltip,
+         chart: this.options_chart(),
+         title: await this.options_title(),
+         plotOptions: this.options_plotOptions(),
+         xAxis: this.options_xAxis(),
+         yAxis: await this.options_yAxis(),
+         series: this.options_series(),
+         tooltip: this.options_tooltip(),
          credits: { enabled: false },
          legend: { enabled: false },
       };
    }
 
-   private get options_chart(): any {
+   private options_chart() {
       return {
          type: 'column',
          backgroundColor: 'transparent'
       };
    }
 
-   private get options_title(): any {
+   private async options_title() {
       return {
-         text: (async () => await this.translation.getValue("ANALYTICS_CATEGORY_GOALS_TITLE"))(),
+         text: await this.translation.getValue("ANALYTICS_CATEGORY_GOALS_TITLE"),
          align: 'left'
       };
    }
 
-   private get options_plotOptions(): any {
+   private options_plotOptions(): any {
       return {
          series: {
             stacking: 'normal',
@@ -55,7 +55,7 @@ export class CategoryGoalsChart {
       };
    }
 
-   private get options_xAxis(): any {
+   private options_xAxis(): any {
       return {
          categories: [],
          title: { enabled: false },
@@ -74,14 +74,14 @@ export class CategoryGoalsChart {
       };
    }
 
-   private get options_yAxis(): any {
+   private async options_yAxis() {
       return {
          title: { enabled: false },
          plotLines: [{
             value: 100,
             color: 'green',
             label: {
-               text: (async () => await this.translation.getValue("ANALYTICS_CATEGORY_GOALS_GOAL_LABEL")),
+               text: await this.translation.getValue("ANALYTICS_CATEGORY_GOALS_GOAL_LABEL"),
                x: 0,
                style: { fontSize: '1.3vh' }
             },
@@ -92,13 +92,13 @@ export class CategoryGoalsChart {
       };
    }
 
-   private get options_tooltip(): any {
+   private options_tooltip(): any {
       return {
          shared: true
       };
    }
 
-   private get options_series(): any {
+   private options_series(): any {
       return [{
          name: ' ',
          color: '#fff'

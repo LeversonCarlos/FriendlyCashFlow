@@ -14,8 +14,8 @@ export class CategoryGoalsComponent implements OnInit {
 
    public get CategoryGoals(): CategoryGoalsVM[] { return this.service.CategoryGoals }
 
-   ngOnInit() {
-      console.log(this.chart.options)
+   public async ngOnInit() {
+      console.log(await this.chart.options())
    }
 
 }

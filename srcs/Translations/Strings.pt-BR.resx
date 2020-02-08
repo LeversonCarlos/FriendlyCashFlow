@@ -177,6 +177,12 @@
   <data name="ACCOUNTS_YOU_HAVE_NO_ACTIVE_ACCOUNTS_INFO" xml:space="preserve">
     <value>Você não possui contas ativas, use o menu à esquerda para registrar algumas</value>
   </data>
+  <data name="ANALYTICS_CATEGORY_GOALS_GOAL_LABEL" xml:space="preserve">
+    <value>Goal</value>
+  </data>
+  <data name="ANALYTICS_CATEGORY_GOALS_TITLE" xml:space="preserve">
+    <value>Meta das Categorias</value>
+  </data>
   <data name="ANALYTICS_MAIN_TITLE" xml:space="preserve">
     <value>Análise de Dados</value>
   </data>
