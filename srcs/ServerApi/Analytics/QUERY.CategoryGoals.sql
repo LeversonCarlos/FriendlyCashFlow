@@ -47,21 +47,40 @@ where
 /* STANDARD DEVIATION */
 select 
    CategoryID, 
-   STDEVP(Value) as StdDevValue , 
-   AVG(Value) as AverageValue 
+   coalesce(STDEVP(Value),0) as StdDevValue , 
+   coalesce(AVG(Value),0) as AverageValue 
 into #YearStdDev
 from #YearData
 group by CategoryID;
 
 /* AVERAGE DATA */
+/*
+select 
+   YearData.CategoryID, 0 as AverageValue, avg(Value) as PureAverageValue
+from #YearData as YearData 
+group by YearData.CategoryID
+union
+*/
 select 
    YearData.CategoryID, avg(Value) as AverageValue
+into #AverageData
 from #YearData as YearData 
    inner join #YearStdDev as YearStdDev on (YearStdDev.CategoryID = YearData.CategoryID) 
 where 
    Value > AverageValue - StdDevValue AND
-   Value < AverageValue + StdDevValue   
+   Value < AverageValue + StdDevValue
 group by YearData.CategoryID;
+
+/* APPLY AVERAGE */
+alter table #MonthData add AverageValue decimal;
+update #MonthData
+set AverageValue =
+(
+   select top 1 AverageValue
+   from #AverageData as AverageData
+   where AverageData.CategoryID = MonthData.CategoryID
+)
+from #MonthData as MonthData
 
 /* RESULT */
 select * from #MonthData;
@@ -71,4 +90,5 @@ select * from #MonthData;
 drop table #MonthData;
 drop table #YearData
 drop table #YearStdDev
+drop table #AverageData
 set nocount off;
