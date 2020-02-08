@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AnalyticsService } from '../analytics.service';
 import { CategoryGoalsVM } from '../analytics.viewmodels';
+import { CategoryGoalsChart } from './category-goals.chart';
 
 @Component({
    selector: 'fs-category-goals',
@@ -9,11 +10,12 @@ import { CategoryGoalsVM } from '../analytics.viewmodels';
 })
 export class CategoryGoalsComponent implements OnInit {
 
-   constructor(private service: AnalyticsService) { }
+   constructor(private service: AnalyticsService, private chart: CategoryGoalsChart) { }
 
    public get CategoryGoals(): CategoryGoalsVM[] { return this.service.CategoryGoals }
 
    ngOnInit() {
+      console.log(this.chart.options)
    }
 
 }
