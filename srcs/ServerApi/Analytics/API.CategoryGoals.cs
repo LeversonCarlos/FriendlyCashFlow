@@ -62,6 +62,7 @@ namespace FriendlyCashFlow.API.Analytics
                   }
                   if (item.Value.HasValue && item.AverageValue.HasValue && item.AverageValue.Value > 0)
                   { item.Percent = Math.Round(item.Value.Value / item.AverageValue.Value * 100, 1); }
+                  else { item.Percent = 0; }
                }
 
                return result;
