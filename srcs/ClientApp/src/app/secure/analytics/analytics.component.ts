@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AnalyticsService } from './analytics.service';
+import { MediaMatcher } from '@angular/cdk/layout';
 
 @Component({
    selector: 'fs-analytics',
@@ -9,7 +10,11 @@ import { AnalyticsService } from './analytics.service';
 })
 export class AnalyticsComponent implements OnInit {
 
-   constructor(private service: AnalyticsService, private route: ActivatedRoute) { }
+   constructor(private service: AnalyticsService,
+      private route: ActivatedRoute, private media: MediaMatcher) {
+      this.mobileQuery = this.media.matchMedia('(max-width: 960px)');
+   }
+   public mobileQuery: MediaQueryList
 
    public ngOnInit() {
       try {

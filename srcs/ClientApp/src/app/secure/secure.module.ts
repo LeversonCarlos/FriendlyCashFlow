@@ -34,6 +34,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { PasswordChangeComponent } from './settings/password-change/password-change.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
 import { CategoryGoalsComponent } from './analytics/category-goals/category-goals.component';
+import { AnalyticsFiltersComponent } from './analytics/analytics-filters/analytics-filters.component';
 
 
 @NgModule({
@@ -45,7 +46,7 @@ import { CategoryGoalsComponent } from './analytics/category-goals/category-goal
       AddButtonComponent, SearchPanelComponent,
       DashboardComponent, BalanceComponent, ResumeComponent, EntriesComponent,
       SettingsComponent, PasswordChangeComponent,
-      AnalyticsComponent, CategoryGoalsComponent],
+      AnalyticsComponent, AnalyticsFiltersComponent, CategoryGoalsComponent],
    imports: [
       CommonModule, SharedModule
    ],
