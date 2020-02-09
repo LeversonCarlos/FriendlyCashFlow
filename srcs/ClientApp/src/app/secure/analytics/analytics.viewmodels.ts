@@ -8,8 +8,11 @@ export class FilterData {
 }
 
 export class CategoryGoalsVM {
+   CategoryID: number
    Text: string
+   ParentID: number
    Value: number
+   AverageValue: number
    Percent: number
    Childs: CategoryGoalsVM[]
 }

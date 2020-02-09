@@ -3,15 +3,16 @@ import { TranslationService } from 'src/app/shared/translation/translation.servi
 
 import * as Highcharts from 'highcharts';
 import { CategoryGoalsVM } from '../analytics.viewmodels';
-import { strictEqual } from 'assert';
 declare var require: any;
 let Boost = require('highcharts/modules/boost');
 let noData = require('highcharts/modules/no-data-to-display');
 let More = require('highcharts/highcharts-more');
+let drilldown = require('highcharts/modules/drilldown');
 Boost(Highcharts);
 noData(Highcharts);
 More(Highcharts);
 noData(Highcharts);
+drilldown(Highcharts);
 
 @Injectable({
    providedIn: 'root'
@@ -22,47 +23,42 @@ export class CategoryGoalsChart {
 
    public async show(data: CategoryGoalsVM[]) {
       try {
-
-         const categoryList = data
-            .map(x => x.Text)
-            .sort((a, b) => a > b ? 1 : -1);
-
-         const options = await this.options(categoryList);
-         console.log(options);
-
+         const options = await this.options(data);
+         Highcharts.chart('container', options);
       }
       catch (ex) { console.error(ex); }
    }
 
-   private async options(categoryList: string[]) {
+   private async options(data: CategoryGoalsVM[]): Promise<Highcharts.Options> {
       return {
-         chart: this.options_chart(),
-         title: await this.options_title(),
-         plotOptions: this.options_plotOptions(),
-         xAxis: this.options_xAxis(categoryList),
-         yAxis: await this.options_yAxis(),
-         series: this.options_series(),
-         tooltip: this.options_tooltip(),
+         chart: this.chartOptions(),
+         title: await this.titleOptions(),
+         plotOptions: this.plotOptions(),
+         xAxis: this.xAxisOptions(data),
+         yAxis: await this.yAxisOptions(data),
+         series: this.seriesOptions(data),
+         drilldown: this.drilldownOptions(data),
+         tooltip: this.tooltipOptions(),
          credits: { enabled: false },
          legend: { enabled: false },
       };
    }
 
-   private options_chart() {
+   private chartOptions(): Highcharts.ChartOptions {
       return {
          type: 'column',
          backgroundColor: 'transparent'
       };
    }
 
-   private async options_title() {
+   private async titleOptions(): Promise<Highcharts.TitleOptions> {
       return {
          text: await this.translation.getValue("ANALYTICS_CATEGORY_GOALS_TITLE"),
          align: 'left'
       };
    }
 
-   private options_plotOptions(): any {
+   private plotOptions(): Highcharts.PlotOptions {
       return {
          series: {
             stacking: 'normal',
@@ -71,10 +67,14 @@ export class CategoryGoalsChart {
       };
    }
 
-   private options_xAxis(categoryList: string[]): any {
+   private xAxisOptions(data: CategoryGoalsVM[]): Highcharts.XAxisOptions {
+      const categoryList = data
+         .map(x => x.Text)
+         .sort((a, b) => a > b ? 1 : -1);
       return {
-         categories: categoryList,
-         title: { enabled: false },
+         type: 'category',
+         /* categories: categoryList, */
+         title: { text: null },
          labels: {
             rotation: -90,
             enabled: true,
@@ -90,9 +90,17 @@ export class CategoryGoalsChart {
       };
    }
 
-   private async options_yAxis() {
+   private async yAxisOptions(data: CategoryGoalsVM[]): Promise<Highcharts.YAxisOptions> {
+      let maxValue = data
+         .map(x => x.Percent)
+         .sort((a, b) => a < b ? 1 : -1)
+         .reduce((a, b) => a || b, 0) || 0;
+      maxValue = maxValue < 105 ? 105 : maxValue;
       return {
-         title: { enabled: false },
+         title: { text: null },
+         gridLineColor: 'transparent',
+         tickPositions: [0, 100, maxValue],
+         max: maxValue,
          plotLines: [{
             value: 100,
             color: 'green',
@@ -108,20 +116,48 @@ export class CategoryGoalsChart {
       };
    }
 
-   private options_tooltip(): any {
+   private tooltipOptions(): Highcharts.TooltipOptions {
       return {
          shared: true
       };
    }
 
-   private options_series(): any {
-      return [{
-         name: ' ',
-         color: '#fff'
-      }, {
-         name: ' ',
-         color: '#fff'
-      }];
+   private seriesOptions(data: CategoryGoalsVM[]): Highcharts.SeriesOptionsType[] {
+      const seriesList = {
+         name: 'Categories',
+         type: null,
+         data: data
+            .sort((a, b) => a.Text > b.Text ? 1 : -1)
+            .map(x => ({
+               name: x.Text,
+               y: x.Percent,
+               goalValue: x.AverageValue,
+               realValue: x.Value,
+               drilldown: x.CategoryID.toString()
+            }))
+      };
+      return [seriesList];
+   }
+
+   private drilldownOptions(data: CategoryGoalsVM[]): Highcharts.DrilldownOptions {
+      const drilldown = data
+         .map(x => ({
+            name: x.Text,
+            type: null,
+            id: x.CategoryID.toString(),
+            data: x.Childs
+               .filter(child => child.Percent > 0)
+               .map(child => ([
+                  child.Text,
+                  child.Percent,
+               ]))
+         }))
+      return {
+         drillUpButton: {
+            relativeTo: 'spacingBox'
+         },
+         series: drilldown
+      };
    }
 
 }
