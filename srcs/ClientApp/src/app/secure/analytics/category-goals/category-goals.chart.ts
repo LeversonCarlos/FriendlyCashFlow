@@ -24,6 +24,11 @@ export class CategoryGoalsChart {
    public async show(data: CategoryGoalsVM[]) {
       try {
          const options = await this.options(data);
+         Highcharts.setOptions({
+            lang: {
+               drillUpText: '<<'
+            }
+         });
          Highcharts.chart('container', options);
       }
       catch (ex) { console.error(ex); }
@@ -181,7 +186,11 @@ export class CategoryGoalsChart {
          }))
       return {
          drillUpButton: {
-            relativeTo: 'spacingBox'
+            relativeTo: 'spacingBox',
+            position: {
+               y: 0,
+               x: 0
+            }
          },
          series: drilldown
       };
