@@ -1,17 +1,4 @@
-@import "../../../styles/screenSizes.scss";
-
-/*
-.full-card {
-  overflow-x: hidden;
-  overflow-y: scroll;
-  height: calc(#{$details-height} - #{$screen-padding});
-  @media (max-width: $max-width-xs) {
-    height: calc(#{$details-height} + #{$screen-padding});
-  }
-  padding-right: 5px;
-}
-*/
-
-.row {
-  align-items: flex-start;
-}
+.filters-card {
+   margin-bottom: 6px;
+   padding: 0;
+ }
