@@ -183,6 +183,9 @@
   <data name="ANALYTICS_CATEGORY_GOALS_TITLE" xml:space="preserve">
     <value>Category Goals</value>
   </data>
+  <data name="ANALYTICS_CATEGORY_GOALS_VALUE_LABEL" xml:space="preserve">
+    <value>Accumulated</value>
+  </data>
   <data name="ANALYTICS_MAIN_TITLE" xml:space="preserve">
     <value>Data Analytics</value>
   </data>

@@ -38,7 +38,7 @@ export class CategoryGoalsChart {
          yAxis: await this.yAxisOptions(data),
          series: this.seriesOptions(data),
          drilldown: this.drilldownOptions(data),
-         tooltip: this.tooltipOptions(),
+         tooltip: await this.tooltipOptions(),
          credits: { enabled: false },
          legend: { enabled: false },
       };
@@ -116,9 +116,34 @@ export class CategoryGoalsChart {
       };
    }
 
-   private tooltipOptions(): Highcharts.TooltipOptions {
+   private async tooltipOptions(): Promise<Highcharts.TooltipOptions> {
+      const goalLabel = await this.translation.getValue("ANALYTICS_CATEGORY_GOALS_GOAL_LABEL");
+      const valueLabel = await this.translation.getValue("ANALYTICS_CATEGORY_GOALS_VALUE_LABEL");
       return {
-         shared: true
+         shared: true,
+         formatter: function () {
+            let tooltipResult = '';
+            let tootipPointName = '';
+            this.points.forEach(p => {
+               const point: any = p.point;
+               tootipPointName = point.name;
+               if (point.goalValue > 0) {
+                  tooltipResult =
+                     '<br/>' +
+                     '<span style="color:' + 'green' + '">\u25CF</span> ' +
+                     '<span>' + goalLabel + '</span>: ' +
+                     '<strong>' + point.goalValue.toFixed(2) + '</strong>' +
+                     tooltipResult;
+               }
+               tooltipResult +=
+                  '<br/>' +
+                  '<span>\u25CF</span> ' +
+                  '<span>' + valueLabel + '</span>: ' +
+                  '<strong>' + point.realValue.toFixed(2) + '</strong>';
+            });
+            tooltipResult = '<strong>' + tootipPointName + '</strong>' + tooltipResult;
+            return tooltipResult;
+         }
       };
    }
 
@@ -147,10 +172,12 @@ export class CategoryGoalsChart {
             id: x.CategoryID.toString(),
             data: x.Childs
                .filter(child => child.Percent > 0)
-               .map(child => ([
-                  child.Text,
-                  child.Percent,
-               ]))
+               .map(child => ({
+                  name: child.Text,
+                  y: child.Percent,
+                  goalValue: child.AverageValue,
+                  realValue: child.Value
+               }))
          }))
       return {
          drillUpButton: {
