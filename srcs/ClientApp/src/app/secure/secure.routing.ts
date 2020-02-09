@@ -9,6 +9,7 @@ import { EntryDetailsComponent } from './entries/entry-details/entry-details.com
 import { TransferDetailsComponent } from './entries/transfer-details/transfer-details.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SettingsComponent } from './settings/settings.component';
+import { AnalyticsComponent } from './analytics/analytics.component';
 
 export const secureRoutes: Routes = [
    { path: 'home', canActivate: [AuthGuard], component: DashboardComponent },
@@ -22,5 +23,7 @@ export const secureRoutes: Routes = [
    { path: 'entries/entry/new/:type', canActivate: [AuthGuard], component: EntryDetailsComponent },
    { path: 'entries/entry/:id', canActivate: [AuthGuard], component: EntryDetailsComponent },
    { path: 'transfer/:id', canActivate: [AuthGuard], component: TransferDetailsComponent },
+   { path: 'analytics/:year/:month', canActivate: [AuthGuard], component: AnalyticsComponent },
+   { path: 'analytics', canActivate: [AuthGuard], component: AnalyticsComponent },
    { path: 'settings', canActivate: [AuthGuard], component: SettingsComponent },
 ];

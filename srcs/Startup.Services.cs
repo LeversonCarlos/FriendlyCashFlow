@@ -31,6 +31,7 @@ namespace FriendlyCashFlow
          services.AddScoped<API.Entries.EntriesService>();
          services.AddScoped<API.Transfers.TransfersService>();
          services.AddScoped<API.Dashboard.DashboardService>();
+         services.AddScoped<API.Analytics.AnalyticsService>();
          services.AddScoped<API.Import.ImportService>();
 
          // APPLICATION INSIGHTS

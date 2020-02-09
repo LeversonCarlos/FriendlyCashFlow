@@ -1,0 +1,20 @@
+<fs-full-layout>
+   <span title>
+      {{ 'ANALYTICS_MAIN_TITLE' | translation | async }}
+   </span>
+   <div toolbar>
+      <fs-analytics-filters *ngIf="!mobileQuery.matches"></fs-analytics-filters>
+   </div>
+   <div content class="full-screen">
+
+      <div class="full-card">
+
+         <mat-card class="filters-card" *ngIf="mobileQuery.matches">
+            <fs-analytics-filters></fs-analytics-filters>
+         </mat-card>
+
+         <fs-category-goals></fs-category-goals>
+      </div>
+
+   </div>
+</fs-full-layout>

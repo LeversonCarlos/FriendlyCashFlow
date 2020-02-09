@@ -177,8 +177,20 @@
   <data name="ACCOUNTS_YOU_HAVE_NO_ACTIVE_ACCOUNTS_INFO" xml:space="preserve">
     <value>Você não possui contas ativas, use o menu à esquerda para registrar algumas</value>
   </data>
-  <data name="ANALYSIS_MENU" xml:space="preserve">
-    <value>Análise</value>
+  <data name="ANALYTICS_CATEGORY_GOALS_GOAL_LABEL" xml:space="preserve">
+    <value>Meta</value>
+  </data>
+  <data name="ANALYTICS_CATEGORY_GOALS_TITLE" xml:space="preserve">
+    <value>Meta das Categorias</value>
+  </data>
+  <data name="ANALYTICS_CATEGORY_GOALS_VALUE_LABEL" xml:space="preserve">
+    <value>Acumulado</value>
+  </data>
+  <data name="ANALYTICS_MAIN_TITLE" xml:space="preserve">
+    <value>Análise de Dados</value>
+  </data>
+  <data name="ANALYTICS_MENU" xml:space="preserve">
+    <value>Análise de Dados</value>
   </data>
   <data name="BASE_CANCEL_CHANGES_ABORT" xml:space="preserve">
     <value>Voltar</value>

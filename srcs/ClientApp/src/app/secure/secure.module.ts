@@ -32,6 +32,9 @@ import { ResumeComponent } from './dashboard/resume/resume.component';
 import { EntriesComponent } from './dashboard/entries/entries.component';
 import { SettingsComponent } from './settings/settings.component';
 import { PasswordChangeComponent } from './settings/password-change/password-change.component';
+import { AnalyticsComponent } from './analytics/analytics.component';
+import { CategoryGoalsComponent } from './analytics/category-goals/category-goals.component';
+import { AnalyticsFiltersComponent } from './analytics/analytics-filters/analytics-filters.component';
 
 
 @NgModule({
@@ -42,7 +45,8 @@ import { PasswordChangeComponent } from './settings/password-change/password-cha
       EntriesFlowComponent, EntryDetailsComponent, TransferDetailsComponent, EntriesResumeComponent,
       AddButtonComponent, SearchPanelComponent,
       DashboardComponent, BalanceComponent, ResumeComponent, EntriesComponent,
-      SettingsComponent, PasswordChangeComponent],
+      SettingsComponent, PasswordChangeComponent,
+      AnalyticsComponent, AnalyticsFiltersComponent, CategoryGoalsComponent],
    imports: [
       CommonModule, SharedModule
    ],
