@@ -65,17 +65,22 @@ export class CategoryGoalsChart {
 
    private plotOptions(): Highcharts.PlotOptions {
       return {
-         series: {
+         column: {
             stacking: 'normal',
+            groupPadding: 0.1,
+            pointPadding: 0,
+            //pointWidth: 20,
             borderWidth: 0
          }
       };
    }
 
    private xAxisOptions(data: CategoryGoalsVM[]): Highcharts.XAxisOptions {
+      /*
       const categoryList = data
          .map(x => x.Text)
          .sort((a, b) => a > b ? 1 : -1);
+      */
       return {
          type: 'category',
          /* categories: categoryList, */

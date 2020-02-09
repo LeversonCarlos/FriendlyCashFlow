@@ -22,7 +22,9 @@ declare @entriesFinal datetime = dateadd(second, -1, @monthFinal);
 print 'entries interval: ' + convert(varchar, @entriesInitial, 121) + ' - ' + convert(varchar, @entriesFinal, 121);
 
 /* ENTRIES DATA */
-select SearchDate, CategoryID, sum(EntryValue) As Value
+select
+   cast(ltrim(str(year(SearchDate)))+'-'+ltrim(str(month(SearchDate)))+'-01 00:00:00' as datetime) as SearchDate,
+   CategoryID, sum(EntryValue) As Value
 into #EntriesData
 from v6_dataEntries
 where
@@ -33,7 +35,7 @@ where
    and SearchDate <= @entriesFinal
    and Type = @typeExpense
    and TransferID is null
-group by SearchDate, CategoryID;
+group by year(SearchDate), month(SearchDate), CategoryID;
 
 /* STANDARD DEVIATION */
 select
@@ -59,6 +61,7 @@ group by EntriesData.CategoryID;
 select CategoryID
 into #MonthData
 from #EntriesData
+where SearchDate >= @monthInitial and SearchDate <= @monthFinal 
 group by CategoryID
 
 /* APPLY MONTH VALUES */
