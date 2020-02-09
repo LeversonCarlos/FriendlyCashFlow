@@ -67,6 +67,7 @@ export class CategoryGoalsChart {
       return {
          column: {
             stacking: 'normal',
+            /* colorByPoint: true, */
             groupPadding: 0.1,
             pointPadding: 0,
             //pointWidth: 20,
@@ -161,6 +162,7 @@ export class CategoryGoalsChart {
       const seriesList = {
          name: 'Categories',
          type: null,
+         colorByPoint: true,
          data: data
             .sort((a, b) => a.Text > b.Text ? 1 : -1)
             .map(x => ({
@@ -179,6 +181,7 @@ export class CategoryGoalsChart {
          .map(x => ({
             name: x.Text,
             type: null,
+            colorByPoint: false,
             id: x.CategoryID.toString(),
             data: x.Childs
                .filter(child => child.Percent > 0)
