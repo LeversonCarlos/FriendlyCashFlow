@@ -1,7 +1,7 @@
 set nocount on;
-declare @resourceID varchar(128) = 'd219724c-b985-4dd0-aa21-0a38dec9e833';
-declare @searchYear smallint = 2020;
-declare @searchMonth smallint = 2;
+declare @resourceID varchar(128) = @paramResourceID;
+declare @searchYear smallint = @paramSearchYear;
+declare @searchMonth smallint = @paramSearchMonth;
 declare @typeExpense smallint = 1;
 declare @typeIncome smallint = 2;
 
@@ -38,9 +38,19 @@ select @sumValue=sum(Value) from #EntriesData;
 alter table #EntriesData add perc decimal(15,4);
    update #EntriesData set perc=Value/@sumValue;
 
-/* ACCUMULATED PERCENTAGE */
+/* STANDARD DEVIATION */
+declare @StdDevValue decimal(15,4), @AverageValue decimal(15,4)
+select
+   @StdDevValue=coalesce(STDEVP(Value),0),
+   @AverageValue=coalesce(AVG(Value),0)
+from #EntriesData;
+print 'StdDevValue: ' + str(@StdDevValue);
+print 'AverageValue: ' + str(@AverageValue);
+delete from #EntriesData where Value < @AverageValue + @StdDevValue;
+
+/* PARETO */
 alter table #EntriesData add Pareto decimal(15,4);
-   update #EntriesData 
+   update #EntriesData
    set Pareto = (select sum(perc) from #EntriesData as i where i.Ordination <= o.Ordination )
    from #EntriesData as o;
 
@@ -53,8 +63,6 @@ from #EntriesData as entriesData
 
 /* RESULT */
 select Text, Value, Pareto
-from #EntriesData 
-where
-   Pareto <= 0.9;
+from #EntriesData;
 
 drop table #EntriesData

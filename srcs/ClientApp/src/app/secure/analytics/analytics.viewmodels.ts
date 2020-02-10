@@ -16,3 +16,9 @@ export class CategoryGoalsVM {
    Percent: number
    Childs: CategoryGoalsVM[]
 }
+
+export class EntriesParetoVM {
+   Text: string
+   Value: number
+   Pareto: number
+}

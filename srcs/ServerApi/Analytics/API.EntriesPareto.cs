@@ -15,7 +15,7 @@ namespace FriendlyCashFlow.API.Analytics
          try
          {
             var entriesList = await this.GetEntriesParetoAsync_Execute(searchYear, searchMonth);
-            if (EntriesList == null) { return this.WarningResponse("data query error"); }
+            if (entriesList == null) { return this.WarningResponse("data query error"); }
 
             return entriesList;
          }
