@@ -57,7 +57,6 @@ export class AnalyticsService {
    public async LoadEntriesPareto(year: number, month: number): Promise<boolean> {
       const url = `api/analytics/entriesPareto/${year}/${month}`;
       this.EntriesPareto = await this.http.get<EntriesParetoVM[]>(url).toPromise();
-      console.log(this.EntriesPareto)
       return (this.EntriesPareto != null);
    }
 

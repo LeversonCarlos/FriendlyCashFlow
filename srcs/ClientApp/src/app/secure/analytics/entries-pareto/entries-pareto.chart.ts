@@ -69,6 +69,7 @@ export class EntriesParetoChart {
 
    private xAxisOptions(data: EntriesParetoVM[]): Highcharts.XAxisOptions {
       return {
+         type: 'category',
          crosshair: true,
          title: { text: null },
          labels: {
