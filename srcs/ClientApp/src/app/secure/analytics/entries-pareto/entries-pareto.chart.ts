@@ -42,6 +42,7 @@ export class EntriesParetoChart {
          yAxis: await this.yAxisOptions(data),
          series: this.seriesOptions(data),
          tooltip: this.tooltipOptions(),
+         colors: this.colorOptions(),
          credits: { enabled: false },
          legend: { enabled: false },
       };
@@ -65,6 +66,26 @@ export class EntriesParetoChart {
       return {
          shared: true
       };
+   }
+
+   private colorOptions(): string[] {
+      return [
+         '#2196F3',
+         '#4CAF50',
+         '#f44336',
+         '#FFC107',
+         '#3F51B5',
+         '#795548',
+         '#009688',
+         '#FF5722',
+         '#FFEB3B',
+         '#3F51B5',
+         '#607D8B',
+         '#8BC34A',
+         '#9C27B0',
+         '#00BCD4',
+         '#FF9800'
+      ];
    }
 
    private xAxisOptions(data: EntriesParetoVM[]): Highcharts.XAxisOptions {
@@ -91,6 +112,9 @@ export class EntriesParetoChart {
       return [{
          title: {
             text: ''
+         },
+         labels: {
+            enabled: false
          }
       }, {
          title: {
@@ -102,7 +126,7 @@ export class EntriesParetoChart {
          min: 0,
          opposite: true,
          labels: {
-            format: "{value}%"
+            enabled: false
          }
       }]
    }
