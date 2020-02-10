@@ -39,14 +39,14 @@ alter table #EntriesData add perc decimal(15,4);
    update #EntriesData set perc=Value/@sumValue;
 
 /* STANDARD DEVIATION */
-declare @StdDevValue decimal(15,4), @AverageValue decimal(15,4)
+declare @StdDevValue decimal, @AverageValue decimal
 select
-   @StdDevValue=coalesce(STDEVP(Value),0),
-   @AverageValue=coalesce(AVG(Value),0)
+   @StdDevValue=STDEV(Value),
+   @AverageValue=AVG(Value)
 from #EntriesData;
 print 'StdDevValue: ' + str(@StdDevValue);
 print 'AverageValue: ' + str(@AverageValue);
-delete from #EntriesData where Value < @AverageValue + @StdDevValue;
+delete from #EntriesData where Value < @AverageValue - @StdDevValue;
 
 /* PARETO */
 alter table #EntriesData add Pareto decimal(15,4);
