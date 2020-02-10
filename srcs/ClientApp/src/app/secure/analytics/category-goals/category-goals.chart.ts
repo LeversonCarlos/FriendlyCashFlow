@@ -29,7 +29,7 @@ export class CategoryGoalsChart {
                drillUpText: '<<'
             }
          });
-         Highcharts.chart('container', options);
+         Highcharts.chart('categoryGoalsContainer', options);
       }
       catch (ex) { console.error(ex); }
    }
