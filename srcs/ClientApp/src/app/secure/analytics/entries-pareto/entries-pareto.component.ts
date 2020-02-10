@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AnalyticsService } from '../analytics.service';
 import { Subscription } from 'rxjs';
 import { EntriesParetoVM } from '../analytics.viewmodels';
+import { EntriesParetoChart } from './entries-pareto.chart';
 
 @Component({
    selector: 'fs-entries-pareto',
@@ -10,9 +11,7 @@ import { EntriesParetoVM } from '../analytics.viewmodels';
 })
 export class EntriesParetoComponent implements OnInit {
 
-   constructor(private service: AnalyticsService) { }
-
-   public get EntriesPareto(): EntriesParetoVM[] { return this.service.EntriesPareto; }
+   constructor(private service: AnalyticsService, private chart: EntriesParetoChart) { }
 
    public ngOnInit() {
       this.OnDataRefreshedSubscription =
@@ -21,7 +20,7 @@ export class EntriesParetoComponent implements OnInit {
 
    private OnDataRefreshedSubscription: Subscription
    private OnDataRefreshed(val: boolean) {
-      // this.chart.show(this.service.CategoryGoals)
+      this.chart.show(this.service.EntriesPareto)
    }
 
    public ngOnDestroy() {

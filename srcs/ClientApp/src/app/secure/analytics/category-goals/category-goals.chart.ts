@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { TranslationService } from 'src/app/shared/translation/translation.service';
+import { CategoryGoalsVM } from '../analytics.viewmodels';
 
 import * as Highcharts from 'highcharts';
-import { CategoryGoalsVM } from '../analytics.viewmodels';
 declare var require: any;
 let Boost = require('highcharts/modules/boost');
 let noData = require('highcharts/modules/no-data-to-display');
