@@ -186,6 +186,9 @@
   <data name="ANALYTICS_CATEGORY_GOALS_VALUE_LABEL" xml:space="preserve">
     <value>Accumulated</value>
   </data>
+  <data name="ANALYTICS_ENTRIES_PARETO_TITLE" xml:space="preserve">
+    <value>Main accrued expenses</value>
+  </data>
   <data name="ANALYTICS_MAIN_TITLE" xml:space="preserve">
     <value>Data Analytics</value>
   </data>

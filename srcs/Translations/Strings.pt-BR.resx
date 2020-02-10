@@ -181,10 +181,13 @@
     <value>Meta</value>
   </data>
   <data name="ANALYTICS_CATEGORY_GOALS_TITLE" xml:space="preserve">
-    <value>Meta das Categorias</value>
+    <value>Meta por Categorias</value>
   </data>
   <data name="ANALYTICS_CATEGORY_GOALS_VALUE_LABEL" xml:space="preserve">
     <value>Acumulado</value>
+  </data>
+  <data name="ANALYTICS_ENTRIES_PARETO_TITLE" xml:space="preserve">
+    <value>Principais despesas acumuladas</value>
   </data>
   <data name="ANALYTICS_MAIN_TITLE" xml:space="preserve">
     <value>Análise de Dados</value>
