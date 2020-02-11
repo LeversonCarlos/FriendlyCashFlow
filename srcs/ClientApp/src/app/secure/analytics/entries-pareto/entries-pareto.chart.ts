@@ -68,7 +68,7 @@ export class EntriesParetoChart {
          formatter: function () {
             return `<span>${this.points[1].key}</span>
                <strong>${this.points[1].y.toFixed(2)}</strong>
-               <small>(${(100-this.points[0].y).toFixed(0)}%)</small>`;
+               <small>(${(100 - this.points[0].y).toFixed(0)}%)</small>`;
          }
       };
    }
@@ -77,7 +77,6 @@ export class EntriesParetoChart {
       return {
          column: {
             stacking: 'normal',
-            /* colorByPoint: true, */
             groupPadding: 0.1,
             pointPadding: 0,
             pointWidth: 15,
@@ -131,6 +130,8 @@ export class EntriesParetoChart {
          title: {
             text: ''
          },
+         min: 0, max: 100,
+         gridLineWidth: 0,
          labels: {
             enabled: false
          }
@@ -138,11 +139,8 @@ export class EntriesParetoChart {
          title: {
             text: ''
          },
-         minPadding: 0,
-         maxPadding: 0,
-         max: 100,
-         min: 0,
-         opposite: true,
+         min: 0, max: data[0].Value,
+         gridLineWidth: 0,
          labels: {
             enabled: false
          }
