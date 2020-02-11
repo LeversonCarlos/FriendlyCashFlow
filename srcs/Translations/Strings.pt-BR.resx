@@ -504,6 +504,9 @@
   <data name="USERS_SIGNUP_TITLE" xml:space="preserve">
     <value>Registrar usuário</value>
   </data>
+  <data name="USERS_TOKEN_HAS_EXPIRED_WARNING" xml:space="preserve">
+    <value>Seu token de acesso expirou</value>
+  </data>
   <data name="USERS_USERNAME_INSTRUCTIONS" xml:space="preserve">
     <value>Informe seu email</value>
   </data>

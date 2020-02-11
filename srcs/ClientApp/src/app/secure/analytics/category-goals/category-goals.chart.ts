@@ -148,6 +148,7 @@ export class CategoryGoalsChart {
    }
 
    private async tooltipOptions(): Promise<Highcharts.TooltipOptions> {
+      const self = this;
       const goalLabel = await this.translation.getValue("ANALYTICS_CATEGORY_GOALS_GOAL_LABEL");
       const valueLabel = await this.translation.getValue("ANALYTICS_CATEGORY_GOALS_VALUE_LABEL");
       return {
@@ -163,14 +164,14 @@ export class CategoryGoalsChart {
                      '<br/>' +
                      '<span style="color:' + 'green' + '">\u25CF</span> ' +
                      '<span>' + goalLabel + '</span>: ' +
-                     '<strong>' + point.goalValue.toFixed(2) + '</strong>' +
+                     '<strong>' + self.translation.getNumberFormat(point.goalValue, 2) + '</strong>' +
                      tooltipResult;
                }
                tooltipResult +=
                   '<br/>' +
                   '<span>\u25CF</span> ' +
                   '<span>' + valueLabel + '</span>: ' +
-                  '<strong>' + point.realValue.toFixed(2) + '</strong>';
+                  '<strong>' + self.translation.getNumberFormat(point.realValue, 2) + '</strong>';
             });
             tooltipResult = '<strong>' + tootipPointName + '</strong>' + tooltipResult;
             return tooltipResult;
