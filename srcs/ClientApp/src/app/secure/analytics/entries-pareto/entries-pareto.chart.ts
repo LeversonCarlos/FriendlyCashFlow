@@ -160,6 +160,7 @@ export class EntriesParetoChart {
       const dataSeries: Highcharts.SeriesOptionsType = {
          name: "Entries",
          type: "column",
+         colorByPoint: true,
          zIndex: 2,
          data: data
             .map(x => ({
