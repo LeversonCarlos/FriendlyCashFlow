@@ -38,6 +38,7 @@ export class EntriesParetoChart {
       return {
          chart: this.chartOptions(),
          title: await this.titleOptions(),
+         plotOptions: this.plotOptions(),
          xAxis: this.xAxisOptions(data),
          yAxis: await this.yAxisOptions(data),
          series: this.seriesOptions(data),
@@ -65,6 +66,19 @@ export class EntriesParetoChart {
    private tooltipOptions(): Highcharts.TooltipOptions {
       return {
          shared: true
+      };
+   }
+
+   private plotOptions(): Highcharts.PlotOptions {
+      return {
+         column: {
+            stacking: 'normal',
+            /* colorByPoint: true, */
+            groupPadding: 0.1,
+            pointPadding: 0,
+            //pointWidth: 20,
+            borderWidth: 0
+         }
       };
    }
 
@@ -144,7 +158,6 @@ export class EntriesParetoChart {
          type: "column",
          zIndex: 2,
          data: data
-            .sort((a, b) => a.Text > b.Text ? 1 : -1)
             .map(x => ({
                name: x.Text,
                y: x.Value
