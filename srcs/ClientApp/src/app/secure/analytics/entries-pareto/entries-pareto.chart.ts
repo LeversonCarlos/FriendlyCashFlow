@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TranslationService } from 'src/app/shared/translation/translation.service';
+import { MediaMatcher } from '@angular/cdk/layout';
 import { EntriesParetoVM } from '../analytics.viewmodels';
 
 import * as Highcharts from 'highcharts';
@@ -19,7 +19,10 @@ pareto(Highcharts);
 })
 export class EntriesParetoChart {
 
-   constructor(private translation: TranslationService) { }
+   constructor(private media: MediaMatcher) {
+      this.mobileQuery = this.media.matchMedia('(max-width: 960px)');
+   }
+   public mobileQuery: MediaQueryList
 
    public async show(data: EntriesParetoVM[]) {
       try {
@@ -68,7 +71,7 @@ export class EntriesParetoChart {
          formatter: function () {
             return `<span>${this.points[1].key}</span>
                <strong>${this.points[1].y.toFixed(2)}</strong>
-               <small>(${(100 - this.points[0].y).toFixed(0)}%)</small>`;
+               <small>(${(this.points[0].y).toFixed(0)}%)</small>`;
          }
       };
    }
@@ -110,7 +113,7 @@ export class EntriesParetoChart {
          type: 'category',
          crosshair: true,
          title: { text: null },
-         max: 25,
+         max: (this.mobileQuery.matches ? 10 : 25),
          labels: {
             rotation: -90,
             enabled: true,
@@ -153,22 +156,28 @@ export class EntriesParetoChart {
    private seriesOptions(data: EntriesParetoVM[]): Highcharts.SeriesOptionsType[] {
       const paretoSeries: Highcharts.SeriesOptionsType = {
          name: "Pareto",
-         type: "pareto",
+         type: "spline",
          yAxis: 1,
-         zIndex: 10,
-         baseSeries: 1
+         lineWidth: 1,
+         marker: { enabled: true, radius: 2 },
+         data: data
+            .map(x => ({
+               name: x.Text,
+               y: x.Pareto*100
+            })),
+         zIndex: 10
       };
       const dataSeries: Highcharts.SeriesOptionsType = {
          name: "Entries",
          type: "column",
          colorByPoint: true,
-         zIndex: 2,
          data: data
             .map(x => ({
                name: x.Text,
                y: x.Value
             })
-            )
+            ),
+         zIndex: 2
       };
       return [paretoSeries, dataSeries];
    }
