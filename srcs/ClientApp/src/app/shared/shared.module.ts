@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import 'hammerjs';
@@ -67,6 +67,6 @@ import { AppVersionComponent } from './app-version/app-version.component';
       TranslationPipe
    ],
    providers: [BusyService, TranslationService, MessageService, LocaleService, LocaleServiceProvider,
-      AppSettingsService, AppInsightsService]
+      AppSettingsService, AppInsightsService, DecimalPipe]
 })
 export class SharedModule { }

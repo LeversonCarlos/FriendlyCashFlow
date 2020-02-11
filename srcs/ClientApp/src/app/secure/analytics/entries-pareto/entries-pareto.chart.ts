@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { EntriesParetoVM } from '../analytics.viewmodels';
+import { TranslationService } from 'src/app/shared/translation/translation.service';
 
 import * as Highcharts from 'highcharts';
 declare var require: any;
@@ -19,7 +20,7 @@ pareto(Highcharts);
 })
 export class EntriesParetoChart {
 
-   constructor(private media: MediaMatcher) {
+   constructor(private translation: TranslationService, private media: MediaMatcher) {
       this.mobileQuery = this.media.matchMedia('(max-width: 960px)');
    }
    public mobileQuery: MediaQueryList
@@ -66,12 +67,14 @@ export class EntriesParetoChart {
    }
 
    private tooltipOptions(): Highcharts.TooltipOptions {
+      const self = this;
       return {
          shared: true,
          formatter: function () {
-            return `<span>${this.points[1].key}</span>
-               <strong>${this.points[1].y.toFixed(2)}</strong>
-               <small>(${(this.points[0].y).toFixed(0)}%)</small>`;
+            return `<strong>${this.points[1].key}</strong>
+               <br/>
+               <strong>${self.translation.getNumberFormat(this.points[1].y, 2)}</strong>
+               <small>(${self.translation.getNumberFormat(this.points[0].y, 0)}%)</small>`;
          }
       };
    }
@@ -82,7 +85,6 @@ export class EntriesParetoChart {
             stacking: 'normal',
             groupPadding: 0.1,
             pointPadding: 0,
-            pointWidth: 15,
             borderWidth: 0
          }
       };
@@ -109,11 +111,13 @@ export class EntriesParetoChart {
    }
 
    private xAxisOptions(data: EntriesParetoVM[]): Highcharts.XAxisOptions {
+      let max = (this.mobileQuery.matches ? 10 : 25);
+      if (max > (data && (data.length - 1))) { max = data.length - 1 }
       return {
          type: 'category',
          crosshair: true,
          title: { text: null },
-         max: (this.mobileQuery.matches ? 10 : 25),
+         max: max,
          labels: {
             rotation: -90,
             enabled: true,
@@ -163,7 +167,7 @@ export class EntriesParetoChart {
          data: data
             .map(x => ({
                name: x.Text,
-               y: x.Pareto*100
+               y: x.Pareto * 100
             })),
          zIndex: 10
       };

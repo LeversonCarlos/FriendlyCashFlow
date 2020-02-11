@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { DecimalPipe } from '@angular/common';
 
 @Injectable({
    providedIn: 'root'
 })
 export class TranslationService {
 
-   constructor(private http: HttpClient) { }
+   constructor(private http: HttpClient, private decimalPipe: DecimalPipe) { }
 
    public async getValue(key: string): Promise<string> {
       try {
@@ -25,6 +26,11 @@ export class TranslationService {
          return result;
       }
       catch (ex) { console.error('translation', ex); return key; }
+   }
+
+   public getNumberFormat(value: number, decimalDigits: number = 0) {
+      const format = `1.${decimalDigits}-${decimalDigits}`
+      return this.decimalPipe.transform(value, format)
    }
 
 }
