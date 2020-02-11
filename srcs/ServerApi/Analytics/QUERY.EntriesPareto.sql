@@ -53,6 +53,7 @@ alter table #EntriesData add Pareto decimal(15,4);
    update #EntriesData
    set Pareto = (select sum(perc) from #EntriesData as i where i.Ordination <= o.Ordination )
    from #EntriesData as o;
+delete from #EntriesData where not Ordination in (select top 50 Ordination from #EntriesData)
 
 /* DESCRIPTION */
 alter table #EntriesData add Text varchar(500);
