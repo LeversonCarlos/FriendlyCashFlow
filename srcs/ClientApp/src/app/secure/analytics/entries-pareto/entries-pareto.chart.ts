@@ -58,8 +58,7 @@ export class EntriesParetoChart {
 
    private async titleOptions(): Promise<Highcharts.TitleOptions> {
       return {
-         text: await this.translation.getValue("ANALYTICS_ENTRIES_PARETO_TITLE"),
-         align: 'left'
+         text: null
       };
    }
 

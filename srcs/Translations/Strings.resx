@@ -178,10 +178,10 @@
     <value>You have no active Accounts, use the menu on the left to register some</value>
   </data>
   <data name="ANALYTICS_CATEGORY_GOALS_GOAL_LABEL" xml:space="preserve">
-    <value>Goal</value>
+    <value>Target</value>
   </data>
   <data name="ANALYTICS_CATEGORY_GOALS_TITLE" xml:space="preserve">
-    <value>Category Goals</value>
+    <value>Monthly target for categories</value>
   </data>
   <data name="ANALYTICS_CATEGORY_GOALS_VALUE_LABEL" xml:space="preserve">
     <value>Accumulated</value>

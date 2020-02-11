@@ -59,8 +59,7 @@ export class CategoryGoalsChart {
 
    private async titleOptions(): Promise<Highcharts.TitleOptions> {
       return {
-         text: await this.translation.getValue("ANALYTICS_CATEGORY_GOALS_TITLE"),
-         align: 'left'
+         text: null
       };
    }
 
