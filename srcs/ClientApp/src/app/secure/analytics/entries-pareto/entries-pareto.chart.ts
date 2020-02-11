@@ -64,7 +64,12 @@ export class EntriesParetoChart {
 
    private tooltipOptions(): Highcharts.TooltipOptions {
       return {
-         shared: true
+         shared: true,
+         formatter: function () {
+            return `<span>${this.points[1].key}</span>
+               <strong>${this.points[1].y.toFixed(2)}</strong>
+               <small>(${(100-this.points[0].y).toFixed(0)}%)</small>`;
+         }
       };
    }
 
@@ -75,7 +80,7 @@ export class EntriesParetoChart {
             /* colorByPoint: true, */
             groupPadding: 0.1,
             pointPadding: 0,
-            //pointWidth: 20,
+            pointWidth: 15,
             borderWidth: 0
          }
       };
