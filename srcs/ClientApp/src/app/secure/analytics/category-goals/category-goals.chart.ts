@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { TranslationService } from 'src/app/shared/translation/translation.service';
+import { CategoryGoalsVM } from '../analytics.viewmodels';
 
 import * as Highcharts from 'highcharts';
-import { CategoryGoalsVM } from '../analytics.viewmodels';
 declare var require: any;
 let Boost = require('highcharts/modules/boost');
 let noData = require('highcharts/modules/no-data-to-display');
@@ -29,7 +29,7 @@ export class CategoryGoalsChart {
                drillUpText: '<<'
             }
          });
-         Highcharts.chart('container', options);
+         Highcharts.chart('categoryGoalsContainer', options);
       }
       catch (ex) { console.error(ex); }
    }
@@ -44,6 +44,7 @@ export class CategoryGoalsChart {
          series: this.seriesOptions(data),
          drilldown: this.drilldownOptions(data),
          tooltip: await this.tooltipOptions(),
+         colors: this.colorOptions(),
          credits: { enabled: false },
          legend: { enabled: false },
       };
@@ -58,8 +59,7 @@ export class CategoryGoalsChart {
 
    private async titleOptions(): Promise<Highcharts.TitleOptions> {
       return {
-         text: await this.translation.getValue("ANALYTICS_CATEGORY_GOALS_TITLE"),
-         align: 'left'
+         text: null
       };
    }
 
@@ -74,6 +74,26 @@ export class CategoryGoalsChart {
             borderWidth: 0
          }
       };
+   }
+
+   private colorOptions(): string[] {
+      return [
+         '#2196F3',
+         '#4CAF50',
+         '#f44336',
+         '#FFC107',
+         '#3F51B5',
+         '#795548',
+         '#009688',
+         '#FF5722',
+         '#FFEB3B',
+         '#3F51B5',
+         '#607D8B',
+         '#8BC34A',
+         '#9C27B0',
+         '#00BCD4',
+         '#FF9800'
+      ];
    }
 
    private xAxisOptions(data: CategoryGoalsVM[]): Highcharts.XAxisOptions {

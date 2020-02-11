@@ -1,7 +1,7 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { BusyService } from 'src/app/shared/busy/busy.service';
 import { HttpClient } from '@angular/common/http';
-import { FilterData, CategoryGoalsVM } from './analytics.viewmodels';
+import { FilterData, CategoryGoalsVM, EntriesParetoVM } from './analytics.viewmodels';
 import { AppInsightsService } from 'src/app/shared/app-insights/app-insights.service';
 import { Router } from '@angular/router';
 
@@ -36,6 +36,7 @@ export class AnalyticsService {
          if (year == 0 || month == 0) { return false; }
          this.busy.show();
          await this.LoadCategoryGoals(year, month);
+         await this.LoadEntriesPareto(year, month);
          this.OnDataRefreshed.emit(true);
       }
       catch (ex) { this.appInsights.trackException(ex); console.error(ex) }
@@ -51,5 +52,12 @@ export class AnalyticsService {
       return (this.CategoryGoals != null);
    }
 
+   /* ENTRIES PARETO */
+   public EntriesPareto: EntriesParetoVM[] = null
+   public async LoadEntriesPareto(year: number, month: number): Promise<boolean> {
+      const url = `api/analytics/entriesPareto/${year}/${month}`;
+      this.EntriesPareto = await this.http.get<EntriesParetoVM[]>(url).toPromise();
+      return (this.EntriesPareto != null);
+   }
 
 }
