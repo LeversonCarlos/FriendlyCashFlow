@@ -110,6 +110,7 @@ export class EntriesParetoChart {
          type: 'category',
          crosshair: true,
          title: { text: null },
+         max: 25,
          labels: {
             rotation: -90,
             enabled: true,
@@ -117,6 +118,8 @@ export class EntriesParetoChart {
             align: 'left',
             y: -5,
             style: {
+               textOverflow: 'none',
+               whiteSpace: 'nowrap',
                color: "#000",
                textShadow: '0px 0px 5px white'
             }
@@ -130,7 +133,7 @@ export class EntriesParetoChart {
          title: {
             text: ''
          },
-         min: 0, max: 100,
+         min: 0, max: (data && data[0] && data[0].Value) | 100,
          gridLineWidth: 0,
          labels: {
             enabled: false
@@ -139,8 +142,8 @@ export class EntriesParetoChart {
          title: {
             text: ''
          },
-         min: 0, max: data[0].Value,
-         gridLineWidth: 0,
+         min: 0, max: 99,
+         gridLineWidth: 1,
          labels: {
             enabled: false
          }
@@ -164,8 +167,8 @@ export class EntriesParetoChart {
             .map(x => ({
                name: x.Text,
                y: x.Value
-            }
-            ))
+            })
+            )
       };
       return [paretoSeries, dataSeries];
    }
