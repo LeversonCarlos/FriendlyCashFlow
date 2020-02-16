@@ -25,7 +25,8 @@ export class EntriesParetoVM {
 
 export class MonthlyTargetVM {
    SearchDate: Date
-   Text: string
+   SmallText: string
+   FullText: string
    IncomeValue: number
    IncomeAverage: number
    IncomeTarget: number

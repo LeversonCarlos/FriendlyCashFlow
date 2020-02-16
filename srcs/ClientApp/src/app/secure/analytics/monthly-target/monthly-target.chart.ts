@@ -72,7 +72,7 @@ export class MonthlyTargetChart {
    private xAxisOptions(data: MonthlyTargetVM[]): Highcharts.XAxisOptions {
       const categoryList = data
          .sort((a, b) => a.SearchDate > b.SearchDate ? 1 : -1)
-         .map(x => x.Text);
+         .map(x => x.SmallText);
       return {
          title: { text: null },
          categories: categoryList,
@@ -152,7 +152,7 @@ export class MonthlyTargetChart {
          data: data
             .sort((a, b) => a.SearchDate > b.SearchDate ? 1 : -1)
             .map(x => ({
-               name: x.Text,
+               name: x.FullText,
                y: x.IncomeTarget,
                goalValue: x.IncomeAverage,
                realValue: x.IncomeValue
@@ -166,7 +166,7 @@ export class MonthlyTargetChart {
          data: data
             .sort((a, b) => a.SearchDate > b.SearchDate ? 1 : -1)
             .map(x => ({
-               name: x.Text,
+               name: x.FullText,
                y: x.ExpenseTarget,
                goalValue: x.ExpenseAverage,
                realValue: x.ExpenseValue
@@ -181,7 +181,7 @@ export class MonthlyTargetChart {
          marker: { enabled: true, radius: 2 },
          data: data
             .map(x => ({
-               name: x.Text,
+               name: x.FullText,
                y: x.Balance
             })),
          zIndex: 10
