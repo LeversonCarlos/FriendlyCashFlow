@@ -32,4 +32,5 @@ export class MonthlyTargetVM {
    ExpenseValue: number
    ExpenseAverage: number
    ExpenseTarget: number
+   Balance: number
 }

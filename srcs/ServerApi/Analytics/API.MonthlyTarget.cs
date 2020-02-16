@@ -63,6 +63,7 @@ namespace FriendlyCashFlow.API.Analytics
       public decimal ExpenseValue { get; set; }
       public decimal ExpenseAverage { get; set; }
       public decimal ExpenseTarget { get; set; }
+      public decimal Balance { get; set; }
    }
 
 }

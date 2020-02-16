@@ -13,6 +13,12 @@ declare @yearInitial datetime = dateadd(month, -11, @entriesInitial );
 set @entriesInitial = dateadd(month, (-12*@yearsToAnalyseTarget), @entriesInitial);
 print 'entries interval: ' + convert(varchar, @entriesInitial, 121) + ' - ' + convert(varchar, @entriesFinal, 121);
 
+/* ACCOUNTS */
+select AccountID
+into #AccountIDs
+from v6_dataAccounts
+where ResourceID=@resourceID and RowStatus=1 and Active=1
+
 /* ENTRIES DATA */
 select
    cast(ltrim(str(year(SearchDate)))+'-'+ltrim(str(month(SearchDate)))+'-01 00:00:00' as datetime) as SearchDate,
@@ -22,7 +28,7 @@ from v6_dataEntries
 where
    RowStatus = 1
    and ResourceID = @resourceID
-   and AccountID in (select AccountID from v6_dataAccounts where ResourceID=@resourceID and RowStatus=1 and Active=1)
+   and AccountID in (select AccountID from #AccountIDs)
    and SearchDate >= @entriesInitial
    and SearchDate <= @entriesFinal
    and TransferID is null
@@ -49,15 +55,15 @@ where
 group by EntriesData.Type;
 
 /* YEAR DATA */
-select 
-   SearchDate, 
-   sum(IncomeValue) as IncomeValue, 
+select
+   SearchDate,
+   sum(IncomeValue) as IncomeValue,
    sum(ExpenseValue) as ExpenseValue
 into #YearData
-from 
+from
 (
-   select 
-      SearchDate, 
+   select
+      SearchDate,
       (case when Type=@typeIncome then Value else 0 end) as IncomeValue,
       (case when Type=@typeExpense then Value else 0 end) as ExpenseValue
    from #EntriesData
@@ -79,12 +85,36 @@ alter table #YearData add IncomeTarget decimal(15,4), ExpenseTarget decimal(15,4
       ExpenseTarget = ExpenseValue/ExpenseAverage*100
    from #YearData;
 
+/* BALANCE DATA */
+select Date, TotalValue
+into #BalanceData
+from v6_dataBalance
+where
+   ResourceID=@resourceID
+   and AccountID in (select AccountID from #AccountIDs)
+   and Date <= @entriesFinal
+
+/* BALANCE */
+
+alter table #YearData add Balance decimal(15,2);
+   update #YearData
+   set
+      Balance =
+      (
+         select sum(TotalValue)
+         from #BalanceData
+         where Date <= YearData.SearchDate
+      )
+   from #YearData as YearData;
+
 /* RESULT */
 select * from #YearData;
 
 /* CLEAR */
+drop table #AccountIDs;
 drop table #EntriesData;
 drop table #YearData;
 drop table #StdDev
 drop table #AverageData
+drop table #BalanceData;
 set nocount off;
