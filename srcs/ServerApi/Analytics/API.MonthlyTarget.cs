@@ -56,7 +56,7 @@ namespace FriendlyCashFlow.API.Analytics
    public class MonthlyTargetVM
    {
       public DateTime SearchDate { get; set; }
-      public string Text { get { return this.SearchDate.ToString("MMM yyyy"); } }
+      public string Text { get { return this.SearchDate.ToString("MMM yyyy").ToUpper(); } }
       public decimal IncomeValue { get; set; }
       public decimal IncomeAverage { get; set; }
       public decimal IncomeTarget { get; set; }

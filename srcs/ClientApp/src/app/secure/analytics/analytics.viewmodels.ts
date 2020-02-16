@@ -22,3 +22,14 @@ export class EntriesParetoVM {
    Value: number
    Pareto: number
 }
+
+export class MonthlyTargetVM {
+   SearchDate: Date
+   Text: string
+   IncomeValue: number
+   IncomeAverage: number
+   IncomeTarget: number
+   ExpenseValue: number
+   ExpenseAverage: number
+   ExpenseTarget: number
+}
