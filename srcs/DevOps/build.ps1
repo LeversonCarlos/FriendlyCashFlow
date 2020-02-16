@@ -66,7 +66,7 @@ dotnet publish --configuration $configuration --output $output/build --no-restor
 ## MIGRATIONS ##
 Write-Output ""
 Write-Output "> MIGRATIONS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-dotnet ef migrations script -o $output/scripts/migrations.sql -i
+dotnet ef migrations script -o $output/scripts/migrations.sql -i -v
 
 ## CLEANING ##
 Write-Output ""
