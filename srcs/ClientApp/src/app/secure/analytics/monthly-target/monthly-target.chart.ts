@@ -135,7 +135,7 @@ export class MonthlyTargetChart {
             const balanceText = `<br/>
                   <span style="color:${self.BalanceColor}">\u25CF</span>
                   <span>${balancePoint.series.name}</span>
-                  <strong>${self.translation.getNumberFormat(expensePoint.y, 2)}</strong>
+                  <strong>${self.translation.getNumberFormat(balancePoint.y, 2)}</strong>
                   `
             const tooltip = `<strong>${incomePoint.name}</strong>${incomeText}${expenseText}${balanceText}`;
             return tooltip;

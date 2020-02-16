@@ -96,7 +96,6 @@ where
 group by Date
 
 /* BALANCE */
-
 alter table #YearData add Balance decimal(15,2);
    update #YearData
    set
