@@ -195,6 +195,9 @@
   <data name="ANALYTICS_MENU" xml:space="preserve">
     <value>Data Analytics</value>
   </data>
+  <data name="ANALYTICS_MONTHLY_TARGET_BALANCE_LABEL" xml:space="preserve">
+    <value>Balance</value>
+  </data>
   <data name="ANALYTICS_MONTHLY_TARGET_EXPENSE_LABEL" xml:space="preserve">
     <value>Expenses</value>
   </data>

@@ -19,6 +19,7 @@ export class MonthlyTargetChart {
 
    constructor(private translation: TranslationService) { }
 
+   private BalanceColor = '#333';
    private IncomeColor = '#4CAF50';
    private ExpenseColor = '#f44336';
 
@@ -130,7 +131,13 @@ export class MonthlyTargetChart {
                <strong>${self.translation.getNumberFormat(expensePoint.realValue, 2)}</strong>
                <small> (${goalLabel}: ${self.translation.getNumberFormat(expensePoint.goalValue, 2)})</small>
                `
-            const tooltip = `<strong>${incomePoint.name}</strong>${incomeText}${expenseText}`;
+            const balancePoint: any = this.points[2].point;
+            const balanceText = `<br/>
+                  <span style="color:${self.BalanceColor}">\u25CF</span>
+                  <span>${balancePoint.series.name}</span>
+                  <strong>${self.translation.getNumberFormat(expensePoint.y, 2)}</strong>
+                  `
+            const tooltip = `<strong>${incomePoint.name}</strong>${incomeText}${expenseText}${balanceText}`;
             return tooltip;
          }
       };
@@ -165,7 +172,21 @@ export class MonthlyTargetChart {
                realValue: x.ExpenseValue
             }))
       };
-      return [incomeSeries, expenseSeries];
+      const balanceSeries: Highcharts.SeriesOptionsType = {
+         name: await this.translation.getValue('ANALYTICS_MONTHLY_TARGET_BALANCE_LABEL'),
+         type: 'line',
+         yAxis: 1,
+         color: this.BalanceColor,
+         lineWidth: 1,
+         marker: { enabled: true, radius: 2 },
+         data: data
+            .map(x => ({
+               name: x.Text,
+               y: x.Balance
+            })),
+         zIndex: 10
+      };
+      return [incomeSeries, expenseSeries, balanceSeries];
    }
 
 }

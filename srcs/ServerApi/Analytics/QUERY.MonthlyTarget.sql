@@ -86,13 +86,14 @@ alter table #YearData add IncomeTarget decimal(15,4), ExpenseTarget decimal(15,4
    from #YearData;
 
 /* BALANCE DATA */
-select Date, TotalValue
+select Date, sum(PaidValue) as Value
 into #BalanceData
 from v6_dataBalance
 where
    ResourceID=@resourceID
    and AccountID in (select AccountID from #AccountIDs)
    and Date <= @entriesFinal
+group by Date
 
 /* BALANCE */
 
@@ -101,7 +102,7 @@ alter table #YearData add Balance decimal(15,2);
    set
       Balance =
       (
-         select sum(TotalValue)
+         select sum(Value)
          from #BalanceData
          where Date <= YearData.SearchDate
       )
