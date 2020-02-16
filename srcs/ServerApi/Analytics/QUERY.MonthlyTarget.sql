@@ -4,7 +4,7 @@ declare @searchYear smallint = @paramSearchYear;
 declare @searchMonth smallint = @paramSearchMonth;
 declare @typeExpense smallint = 1;
 declare @typeIncome smallint = 2;
-declare @yearsToAnalyseTarget smallint = 3;
+declare @yearsToAnalyseTarget smallint = 2;
 
 /* INTERVAL */
 declare @entriesInitial datetime = cast(ltrim(str(@searchYear))+'-'+ltrim(str(@searchMonth))+'-01 00:00:00' as datetime);
