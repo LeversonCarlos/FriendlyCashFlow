@@ -83,6 +83,10 @@ export class MonthlyTargetChart {
    }
 
    private async yAxisOptions(data: MonthlyTargetVM[]): Promise<Highcharts.YAxisOptions[]> {
+      const maxBalance = data
+         .map(x => x.Balance)
+         .sort((a, b) => a < b ? 1 : -1)
+         .reduce((a, b) => a || b, 0) || 0;
       let maxValue = data
          .map(x => x.IncomeTarget > x.ExpenseTarget ? x.IncomeTarget : x.ExpenseTarget)
          .sort((a, b) => a < b ? 1 : -1)
@@ -107,6 +111,9 @@ export class MonthlyTargetChart {
          labels: { enabled: false }
       }, {
          title: { text: null },
+         gridLineColor: 'transparent',
+         tickPositions: [0, maxBalance],
+         max: maxBalance,
          labels: { enabled: false }
       }];
    }
