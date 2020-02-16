@@ -24,7 +24,7 @@ So, feel free to clone-it and make-it better.
 [![License](https://img.shields.io/:License-MIT-blue.svg?style=flat)](http://badges.mit-license.org)
 [![Backend](https://img.shields.io/:Backend-AspNet%20Core-yellow.svg?style=flat)](https://docs.microsoft.com/aspnet)
 [![Frontend](https://img.shields.io/:Frontend-Angular-yellow.svg?style=flat)](https://angular.io)
-[![Build Status](https://dev.azure.com/lcjohnny/Playground/_apis/build/status/Cash%20Flow?branchName=v6)](https://dev.azure.com/lcjohnny/Playground/_build/latest?definitionId=11)
+[![Build Status](https://dev.azure.com/lcjohnny/Playground/_apis/build/status/Cash%20Flow?branchName=master)](https://dev.azure.com/lcjohnny/Playground/_build/latest?definitionId=11)
 
 ## Installation
 

@@ -181,19 +181,34 @@
     <value>Meta</value>
   </data>
   <data name="ANALYTICS_CATEGORY_GOALS_TITLE" xml:space="preserve">
-    <value>Meta mensal para as categorias</value>
+    <value>Meta Mensal por Categoria</value>
   </data>
   <data name="ANALYTICS_CATEGORY_GOALS_VALUE_LABEL" xml:space="preserve">
     <value>Acumulado</value>
   </data>
   <data name="ANALYTICS_ENTRIES_PARETO_TITLE" xml:space="preserve">
-    <value>Principais despesas acumuladas</value>
+    <value>Principais Despesas Acumuladas</value>
   </data>
   <data name="ANALYTICS_MAIN_TITLE" xml:space="preserve">
     <value>Análise de Dados</value>
   </data>
   <data name="ANALYTICS_MENU" xml:space="preserve">
     <value>Análise de Dados</value>
+  </data>
+  <data name="ANALYTICS_MONTHLY_TARGET_BALANCE_LABEL" xml:space="preserve">
+    <value>Saldo Acumulado</value>
+  </data>
+  <data name="ANALYTICS_MONTHLY_TARGET_EXPENSE_LABEL" xml:space="preserve">
+    <value>Saídas</value>
+  </data>
+  <data name="ANALYTICS_MONTHLY_TARGET_GOAL_LABEL" xml:space="preserve">
+    <value>Meta</value>
+  </data>
+  <data name="ANALYTICS_MONTHLY_TARGET_INCOME_LABEL" xml:space="preserve">
+    <value>Entradas</value>
+  </data>
+  <data name="ANALYTICS_MONTHLY_TARGET_TITLE" xml:space="preserve">
+    <value>Meta Mensal</value>
   </data>
   <data name="BASE_CANCEL_CHANGES_ABORT" xml:space="preserve">
     <value>Voltar</value>

@@ -71,10 +71,12 @@ export class EntriesParetoChart {
       return {
          shared: true,
          formatter: function () {
-            return `<strong>${this.points[1].key}</strong>
+            return `
+               <strong>${this.points[1].key}</strong>
                <br/>
                <strong>${self.translation.getNumberFormat(this.points[1].y, 2)}</strong>
-               <small>(${self.translation.getNumberFormat(this.points[0].y, 0)}%)</small>`;
+               <small> (${self.translation.getNumberFormat(this.points[0].y, 0)}%)</small>
+               `;
          }
       };
    }
@@ -162,6 +164,7 @@ export class EntriesParetoChart {
          name: "Pareto",
          type: "spline",
          yAxis: 1,
+         color: '#333',
          lineWidth: 1,
          marker: { enabled: true, radius: 2 },
          data: data
