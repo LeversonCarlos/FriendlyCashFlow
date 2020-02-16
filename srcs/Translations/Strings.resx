@@ -181,13 +181,13 @@
     <value>Target</value>
   </data>
   <data name="ANALYTICS_CATEGORY_GOALS_TITLE" xml:space="preserve">
-    <value>Monthly target for categories</value>
+    <value>Monthly Target by Category</value>
   </data>
   <data name="ANALYTICS_CATEGORY_GOALS_VALUE_LABEL" xml:space="preserve">
     <value>Accumulated</value>
   </data>
   <data name="ANALYTICS_ENTRIES_PARETO_TITLE" xml:space="preserve">
-    <value>Main accrued expenses</value>
+    <value>Main Accrued Expenses</value>
   </data>
   <data name="ANALYTICS_MAIN_TITLE" xml:space="preserve">
     <value>Data Analytics</value>
@@ -196,7 +196,7 @@
     <value>Data Analytics</value>
   </data>
   <data name="ANALYTICS_MONTHLY_TARGET_BALANCE_LABEL" xml:space="preserve">
-    <value>Balance</value>
+    <value>Accumulated Balance</value>
   </data>
   <data name="ANALYTICS_MONTHLY_TARGET_EXPENSE_LABEL" xml:space="preserve">
     <value>Expenses</value>
