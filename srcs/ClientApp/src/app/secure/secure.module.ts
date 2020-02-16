@@ -36,6 +36,7 @@ import { AnalyticsComponent } from './analytics/analytics.component';
 import { CategoryGoalsComponent } from './analytics/category-goals/category-goals.component';
 import { AnalyticsFiltersComponent } from './analytics/analytics-filters/analytics-filters.component';
 import { EntriesParetoComponent } from './analytics/entries-pareto/entries-pareto.component';
+import { MonthlyTargetComponent } from './analytics/monthly-target/monthly-target.component';
 
 
 @NgModule({
@@ -47,7 +48,7 @@ import { EntriesParetoComponent } from './analytics/entries-pareto/entries-paret
       AddButtonComponent, SearchPanelComponent,
       DashboardComponent, BalanceComponent, ResumeComponent, EntriesComponent,
       SettingsComponent, PasswordChangeComponent,
-      AnalyticsComponent, AnalyticsFiltersComponent, CategoryGoalsComponent, EntriesParetoComponent],
+      AnalyticsComponent, AnalyticsFiltersComponent, CategoryGoalsComponent, EntriesParetoComponent, MonthlyTargetComponent],
    imports: [
       CommonModule, SharedModule
    ],
