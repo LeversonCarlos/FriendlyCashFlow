@@ -195,6 +195,18 @@
   <data name="ANALYTICS_MENU" xml:space="preserve">
     <value>Data Analytics</value>
   </data>
+  <data name="ANALYTICS_MONTHLY_TARGET_EXPENSE_LABEL" xml:space="preserve">
+    <value>Expenses</value>
+  </data>
+  <data name="ANALYTICS_MONTHLY_TARGET_GOAL_LABEL" xml:space="preserve">
+    <value>Target</value>
+  </data>
+  <data name="ANALYTICS_MONTHLY_TARGET_INCOME_LABEL" xml:space="preserve">
+    <value>Incomes</value>
+  </data>
+  <data name="ANALYTICS_MONTHLY_TARGET_TITLE" xml:space="preserve">
+    <value>Monthly Target</value>
+  </data>
   <data name="BASE_CANCEL_CHANGES_ABORT" xml:space="preserve">
     <value>Go Back</value>
   </data>

@@ -19,6 +19,9 @@ export class MonthlyTargetChart {
 
    constructor(private translation: TranslationService) { }
 
+   private IncomeColor = '#4CAF50';
+   private ExpenseColor = '#f44336';
+
    public async show(data: MonthlyTargetVM[]) {
       try {
          const options = await this.options(data);
@@ -34,9 +37,8 @@ export class MonthlyTargetChart {
          plotOptions: this.plotOptions(),
          xAxis: this.xAxisOptions(data),
          yAxis: await this.yAxisOptions(data),
-         series: this.seriesOptions(data),
+         series: await this.seriesOptions(data),
          tooltip: await this.tooltipOptions(),
-         colors: this.colorOptions(),
          credits: { enabled: false },
          legend: { enabled: false },
       };
@@ -57,7 +59,6 @@ export class MonthlyTargetChart {
    private plotOptions(): Highcharts.PlotOptions {
       return {
          column: {
-            stacking: 'normal',
             /* colorByPoint: true, */
             groupPadding: 0.1,
             pointPadding: 0,
@@ -67,46 +68,16 @@ export class MonthlyTargetChart {
       };
    }
 
-   private colorOptions(): string[] {
-      return [
-         '#2196F3',
-         '#4CAF50',
-         '#f44336',
-         '#FFC107',
-         '#3F51B5',
-         '#795548',
-         '#009688',
-         '#FF5722',
-         '#FFEB3B',
-         '#3F51B5',
-         '#607D8B',
-         '#8BC34A',
-         '#9C27B0',
-         '#00BCD4',
-         '#FF9800'
-      ];
-   }
-
    private xAxisOptions(data: MonthlyTargetVM[]): Highcharts.XAxisOptions {
-      /*
       const categoryList = data
-         .map(x => x.Text)
-         .sort((a, b) => a > b ? 1 : -1);
-      */
+         .sort((a, b) => a.SearchDate > b.SearchDate ? 1 : -1)
+         .map(x => x.Text);
       return {
          title: { text: null },
-         labels: {
-            rotation: -90,
-            enabled: true,
-            reserveSpace: false,
-            align: 'left',
-            y: -5,
-            style: {
-               color: "#000",
-               textShadow: '0px 0px 5px white'
-            }
-         },
-         tickWidth: 0
+         categories: categoryList,
+         tickmarkPlacement: 'on',
+         labels: { enabled: true },
+         tickLength: 1
       };
    }
 
@@ -125,7 +96,7 @@ export class MonthlyTargetChart {
             value: 100,
             color: 'green',
             label: {
-               text: await this.translation.getValue("ANALYTICS_CATEGORY_GOALS_GOAL_LABEL"),
+               text: await this.translation.getValue("ANALYTICS_MONTHLY_TARGET_GOAL_LABEL"),
                x: 0,
                style: { fontSize: '1.3vh' }
             },
@@ -141,60 +112,56 @@ export class MonthlyTargetChart {
 
    private async tooltipOptions(): Promise<Highcharts.TooltipOptions> {
       const self = this;
-      const goalLabel = await this.translation.getValue("ANALYTICS_CATEGORY_GOALS_GOAL_LABEL");
-      const valueLabel = await this.translation.getValue("ANALYTICS_CATEGORY_GOALS_VALUE_LABEL");
+      const goalLabel = await this.translation.getValue("ANALYTICS_MONTHLY_TARGET_GOAL_LABEL");
       return {
          shared: true,
          formatter: function () {
-            let tooltipResult = '';
-            let tootipPointName = '';
-            this.points.forEach(p => {
-               const point: any = p.point;
-               tootipPointName = point.name;
-               if (point.goalValue > 0) {
-                  tooltipResult =
-                     '<br/>' +
-                     '<span style="color:' + 'green' + '">\u25CF</span> ' +
-                     '<span>' + goalLabel + '</span>: ' +
-                     '<strong>' + self.translation.getNumberFormat(point.goalValue, 2) + '</strong>' +
-                     tooltipResult;
-               }
-               tooltipResult +=
-                  '<br/>' +
-                  '<span>\u25CF</span> ' +
-                  '<span>' + valueLabel + '</span>: ' +
-                  '<strong>' + self.translation.getNumberFormat(point.realValue, 2) + '</strong>';
-            });
-            tooltipResult = '<strong>' + tootipPointName + '</strong>' + tooltipResult;
-            return tooltipResult;
+            const incomePoint: any = this.points[0].point;
+            const incomeText = `<br/>
+               <span style="color:${self.IncomeColor}">\u25CF</span>
+               <span>${incomePoint.series.name}</span>
+               <strong>${self.translation.getNumberFormat(incomePoint.realValue, 2)}</strong>
+               <small> (${goalLabel}: ${self.translation.getNumberFormat(incomePoint.goalValue, 2)})</small>
+               `
+            const expensePoint: any = this.points[1].point;
+            const expenseText = `<br/>
+               <span style="color:${self.ExpenseColor}">\u25CF</span>
+               <span>${expensePoint.series.name}</span>
+               <strong>${self.translation.getNumberFormat(expensePoint.realValue, 2)}</strong>
+               <small> (${goalLabel}: ${self.translation.getNumberFormat(expensePoint.goalValue, 2)})</small>
+               `
+            const tooltip = `<strong>${incomePoint.name}</strong>${incomeText}${expenseText}`;
+            return tooltip;
          }
       };
    }
 
-   private seriesOptions(data: MonthlyTargetVM[]): Highcharts.SeriesOptionsType[] {
+   private async seriesOptions(data: MonthlyTargetVM[]): Promise<Highcharts.SeriesOptionsType[]> {
       const incomeSeries: Highcharts.SeriesOptionsType = {
-         name: 'Income',
+         name: await this.translation.getValue('ANALYTICS_MONTHLY_TARGET_INCOME_LABEL'),
          type: 'column',
          yAxis: 0,
+         color: this.IncomeColor,
          data: data
             .sort((a, b) => a.SearchDate > b.SearchDate ? 1 : -1)
             .map(x => ({
                name: x.Text,
-               y: Math.round((x.IncomeValue / x.IncomeAverage * 100) * 100) / 100,
-               goalValue: x.IncomeTarget,
+               y: x.IncomeTarget,
+               goalValue: x.IncomeAverage,
                realValue: x.IncomeValue
             }))
       };
       const expenseSeries: Highcharts.SeriesOptionsType = {
-         name: 'Expense',
+         name: await this.translation.getValue('ANALYTICS_MONTHLY_TARGET_EXPENSE_LABEL'),
          type: 'column',
          yAxis: 0,
+         color: this.ExpenseColor,
          data: data
             .sort((a, b) => a.SearchDate > b.SearchDate ? 1 : -1)
             .map(x => ({
                name: x.Text,
-               y: Math.round((x.ExpenseValue / x.ExpenseAverage * 100) * 100) / 100,
-               goalValue: x.ExpenseTarget,
+               y: x.ExpenseTarget,
+               goalValue: x.ExpenseAverage,
                realValue: x.ExpenseValue
             }))
       };
