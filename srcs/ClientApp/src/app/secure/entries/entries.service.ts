@@ -52,7 +52,7 @@ export class EntriesService {
    public showFlow(year: number, month: number, accountID: number = 0) { this.router.navigate(['/entries', 'flow', year, month, accountID]); }
    public showSearch(searchText: string, accountID: number = 0) { this.router.navigate(['/entries', 'search', searchText, accountID]); }
    public showEntryDetails(id: number) { this.router.navigate(['/entries', 'entry', id], { skipLocationChange: true }); }
-   public showTransferDetails(id: string) { this.router.navigate(['/transfer', id], { skipLocationChange: true }); }
+   public showTransferDetails(id: string) { this.router.navigate(['/entries', 'transfer', id], { skipLocationChange: true }); }
 
    // FLOW LIST
    public FlowList: EntryFlow[];
