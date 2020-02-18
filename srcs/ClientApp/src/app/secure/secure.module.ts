@@ -12,23 +12,14 @@ import { EntriesFlowComponent } from './entries/entries-flow/entries-flow.compon
 import { EntryDetailsComponent } from './entries/entry-details/entry-details.component';
 import { TransferDetailsComponent } from './entries/transfer-details/transfer-details.component';
 import { EntriesResumeComponent } from './entries/entries-resume/entries-resume.component';
-import { AddButtonComponent } from './entries/add-button/add-button.component';
 import { SearchPanelComponent } from './entries/search-panel/search-panel.component';
-
-import { DashboardService } from './dashboard/dashboard.service';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { BalanceComponent } from './dashboard/balance/balance.component';
-import { ResumeComponent } from './dashboard/resume/resume.component';
-import { EntriesComponent } from './dashboard/entries/entries.component';
 
 @NgModule({
    declarations: [
-      EntriesFlowComponent, EntryDetailsComponent, TransferDetailsComponent, EntriesResumeComponent,
-      AddButtonComponent, SearchPanelComponent,
-      DashboardComponent, BalanceComponent, ResumeComponent, EntriesComponent],
+      EntriesFlowComponent, EntryDetailsComponent, TransferDetailsComponent, EntriesResumeComponent, SearchPanelComponent],
    imports: [
       CommonModule, SharedModule, CommonSecureModule
    ],
-   providers: [EntriesService, TransfersService, PatternsService, RecurrencyService, DashboardService]
+   providers: [EntriesService, TransfersService, PatternsService, RecurrencyService]
 })
 export class SecureModule { }

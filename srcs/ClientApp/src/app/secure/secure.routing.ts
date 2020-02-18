@@ -3,10 +3,9 @@ import { AuthGuard } from '../core/auth/auth.guard';
 import { EntriesFlowComponent } from './entries/entries-flow/entries-flow.component';
 import { EntryDetailsComponent } from './entries/entry-details/entry-details.component';
 import { TransferDetailsComponent } from './entries/transfer-details/transfer-details.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 
 export const secureRoutes: Routes = [
-   { path: 'home', canActivate: [AuthGuard], component: DashboardComponent },
+   { path: 'home', canActivate: [AuthGuard], loadChildren: './secure/dashboard/dashboard.module#DashboardModule' },
    { path: 'accounts', canActivate: [AuthGuard], loadChildren: './secure/accounts/accounts.module#AccountsModule' },
    { path: 'categories', canActivate: [AuthGuard], loadChildren: './secure/categories/categories.module#CategoriesModule' },
    { path: 'entries/flow/:year/:month/:account', canActivate: [AuthGuard], component: EntriesFlowComponent },
