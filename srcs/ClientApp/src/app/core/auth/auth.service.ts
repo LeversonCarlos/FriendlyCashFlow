@@ -24,7 +24,7 @@ export class AuthService {
          this.signupUser = await this.http.post<User>(`api/users`, value).toPromise();
          if (this.signupUser && this.signupUser.UserID != null) {
             await this.msg.ShowInfo('USERS_ACTIVATION_INSTRUCTIONS_WAS_SENT_MESSAGE')
-            this.router.navigate(['/signin']);
+            this.router.navigate(['/auth/signin']);
          }
       }
       catch (ex) { console.error(ex); }
@@ -49,7 +49,7 @@ export class AuthService {
          if (result) { await this.msg.ShowInfo('USERS_ACCOUNT_HAS_BEEN_ACTIVATED_MESSAGE'); }
       }
       catch (ex) { console.error(ex); }
-      finally { this.busy.hide(); this.router.navigate(['/signin']); }
+      finally { this.busy.hide(); this.router.navigate(['/auth/signin']); }
    }
 
 
