@@ -5,7 +5,8 @@ import { MessageService } from 'src/app/shared/message/message.service';
 import { ActivatedRoute } from '@angular/router';
 import { Entry } from '../entries.viewmodels';
 import { RelatedData } from 'src/app/shared/related-box/related-box.models';
-import { Category, CategoriesService, enCategoryType } from '../../categories/categories.service';
+import { Category, enCategoryType } from '../../categories/categories.viewmodels';
+import { CategoriesService } from '../../categories/categories.service';
 import { AccountsService } from '../../accounts/accounts.service';
 import { Account } from '../../accounts/accounts.viewmodels';
 import { Pattern } from '../../patterns/patterns.viewmodels';
@@ -26,7 +27,6 @@ export class EntryDetailsComponent implements OnInit {
       private categoryService: CategoriesService, private accountService: AccountsService, private patternService: PatternsService, private recurrencyService: RecurrencyService,
       private appInsights: AppInsightsService,
       private route: ActivatedRoute, private fb: FormBuilder) { }
-
 
 
    /* INIT */

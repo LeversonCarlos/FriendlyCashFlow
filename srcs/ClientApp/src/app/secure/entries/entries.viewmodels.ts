@@ -1,5 +1,5 @@
 import { Account } from '../accounts/accounts.viewmodels';
-import { Category, enCategoryType } from '../categories/categories.service';
+import { Category, enCategoryType } from '../categories/categories.viewmodels';
 import { Pattern } from '../patterns/patterns.viewmodels';
 import { Recurrency } from '../recurrency/recurrency.viewmodels';
 

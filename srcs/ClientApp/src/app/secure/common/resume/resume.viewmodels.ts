@@ -1,4 +1,4 @@
-import { enCategoryType } from '../../categories/categories.service';
+import { enCategoryType } from '../../categories/categories.viewmodels';
 
 export class ResumeVM {
    Text: string

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoryType, CategoriesService, enCategoryType, Category } from '../categories.service';
+import { CategoryType, enCategoryType, Category } from '../categories.viewmodels';
+import { CategoriesService } from '../categories.service';
 
 @Component({
    selector: 'fs-categories-list',

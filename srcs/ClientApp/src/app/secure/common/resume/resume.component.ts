@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ResumeVM } from './resume.viewmodels';
-import { enCategoryType } from '../../categories/categories.service';
+import { enCategoryType } from '../../categories/categories.viewmodels';
 
 
 @Component({
@@ -16,10 +16,10 @@ export class CommonResumeComponent implements OnInit {
    @Input() public set IncomeValue(val: number) { this.IncomeResume.Value = val };
 
    private ExpenseResume: ResumeVM = Object.assign(new ResumeVM, { Text: 'DASHBOARD_RESUME_EXPENSE_TEXT', Value: 0, Type: enCategoryType.Expense, Icon: 'remove_circle' });
-   @Input()public set ExpenseValue(val: number) { this.ExpenseResume.Value = val };
+   @Input() public set ExpenseValue(val: number) { this.ExpenseResume.Value = val };
 
    private BalanceResume: ResumeVM = Object.assign(new ResumeVM, { Text: 'DASHBOARD_RESUME_BALANCE_TEXT', Value: 0, Type: enCategoryType.None, Icon: 'monetization_on' });
-   @Input()public set BalanceValue(val: number) { this.BalanceResume.Value = val };
+   @Input() public set BalanceValue(val: number) { this.BalanceResume.Value = val };
 
    public ResumeList: ResumeVM[] = [this.IncomeResume, this.ExpenseResume, this.BalanceResume];
 

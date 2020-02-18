@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { BusyService } from 'src/app/shared/busy/busy.service';
 import { Pattern } from './patterns.viewmodels';
-import { enCategoryType } from '../categories/categories.service';
+import { enCategoryType } from '../categories/categories.viewmodels';
 
 @Injectable({
    providedIn: 'root'
