@@ -20,15 +20,12 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { BalanceComponent } from './dashboard/balance/balance.component';
 import { ResumeComponent } from './dashboard/resume/resume.component';
 import { EntriesComponent } from './dashboard/entries/entries.component';
-import { SettingsComponent } from './settings/settings.component';
-import { PasswordChangeComponent } from './settings/password-change/password-change.component';
 
 @NgModule({
    declarations: [
       EntriesFlowComponent, EntryDetailsComponent, TransferDetailsComponent, EntriesResumeComponent,
       AddButtonComponent, SearchPanelComponent,
-      DashboardComponent, BalanceComponent, ResumeComponent, EntriesComponent,
-      SettingsComponent, PasswordChangeComponent],
+      DashboardComponent, BalanceComponent, ResumeComponent, EntriesComponent],
    imports: [
       CommonModule, SharedModule, CommonSecureModule
    ],
