@@ -36,7 +36,7 @@ namespace FriendlyCashFlow.API.Users
             trackProperties.Add($"activationCodeB:{activationCode}");
             activationCode = System.Web.HttpUtility.UrlEncode(activationCode);
             trackProperties.Add($"activationCodeC:{activationCode}");
-            var mailBodyCommandLink = $"{appSettings.BaseHost}/activate/{data.UserID}/{activationCode}";
+            var mailBodyCommandLink = $"{appSettings.BaseHost}/auth/activate/{data.UserID}/{activationCode}";
 
             // SEND ACTIVATION MAIL
             var mailService = this.GetService<Helpers.Mail>();

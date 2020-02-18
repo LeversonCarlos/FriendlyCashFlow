@@ -24,7 +24,6 @@ export class AccountPickerComponent implements OnInit {
    }
 
 
-   /* CURRENT ACCOUNT */
    private currentAccount: number
    public get CurrentAccount() {
       return this.currentAccount;
@@ -33,6 +32,7 @@ export class AccountPickerComponent implements OnInit {
       this.currentAccount = val;
    }
    @Output() public CurrentAccountChanged: EventEmitter<number> = new EventEmitter<number>()
+
 
    public get CurrentText(): string {
       return this.Accounts && this.Accounts

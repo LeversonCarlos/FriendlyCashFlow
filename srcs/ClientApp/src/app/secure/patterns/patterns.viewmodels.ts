@@ -1,4 +1,4 @@
-import { enCategoryType, Category } from '../categories/categories.service';
+import { enCategoryType, Category } from '../categories/categories.viewmodels';
 
 export class Pattern {
    PatternID: number;

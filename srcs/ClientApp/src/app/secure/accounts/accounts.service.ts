@@ -15,8 +15,8 @@ export class AccountsService {
 
    // NAVIGATES
    public showList() { this.router.navigate(['/accounts']); }
-   public showDetails(id: number) { this.router.navigate(['/account', id], { skipLocationChange: true }); }
-   public showNew() { this.router.navigate(['/account', 'new'], { skipLocationChange: true }); }
+   public showDetails(id: number) { this.router.navigate(['/accounts', id], { skipLocationChange: true }); }
+   public showNew() { this.router.navigate(['/accounts', 'new'], { skipLocationChange: true }); }
 
    // ACCOUNT TYPES
    public async getAccountTypes(): Promise<AccountType[]> {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { enCategoryType, CategoriesService, Category, CategoryType } from '../categories.service';
+import { enCategoryType, Category, CategoryType } from '../categories.viewmodels';
+import { CategoriesService } from '../categories.service';
 import { MessageService } from 'src/app/shared/message/message.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RelatedData } from 'src/app/shared/related-box/related-box.models';

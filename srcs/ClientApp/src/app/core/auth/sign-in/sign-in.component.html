@@ -20,7 +20,7 @@
 
             </mat-card-content>
             <mat-card-actions class="between">
-               <button type="button" mat-button color="accent" routerLink="/signup" [disabled]="busy.IsBusy"
+               <button type="button" mat-button color="accent" routerLink="/auth/signup" [disabled]="busy.IsBusy"
                   matTooltip='{{ "USERS_DONT_HAVE_ACCOUNT_MESSAGE" | translation | async }}'>{{ 'USERS_SIGNUP_COMMAND' | translation | async }}</button>
                <button type="submit" mat-flat-button color="primary" [disabled]="!inputForm?.valid || busy.IsBusy"
                   matTooltip='{{ "USERS_SIGNUP_INSTRUCTIONS" | translation | async }}'>{{ 'USERS_SIGNIN_COMMAND' | translation | async }}</button>

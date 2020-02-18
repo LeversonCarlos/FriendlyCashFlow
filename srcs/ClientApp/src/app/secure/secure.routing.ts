@@ -1,29 +1,12 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from '../core/auth/auth.guard';
-import { AccountsComponent } from './accounts/accounts.component';
-import { AccountDetailsComponent } from './accounts/account-details/account-details.component';
-import { CategoriesComponent } from './categories/categories.component';
-import { CategoryDetailsComponent } from './categories/category-details/category-details.component';
-import { EntriesFlowComponent } from './entries/entries-flow/entries-flow.component';
-import { EntryDetailsComponent } from './entries/entry-details/entry-details.component';
-import { TransferDetailsComponent } from './entries/transfer-details/transfer-details.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { SettingsComponent } from './settings/settings.component';
-import { AnalyticsComponent } from './analytics/analytics.component';
 
 export const secureRoutes: Routes = [
-   { path: 'home', canActivate: [AuthGuard], component: DashboardComponent },
-   { path: 'accounts', canActivate: [AuthGuard], component: AccountsComponent },
-   { path: 'account/:id', canActivate: [AuthGuard], component: AccountDetailsComponent },
-   { path: 'categories', canActivate: [AuthGuard], component: CategoriesComponent },
-   { path: 'category/:id', canActivate: [AuthGuard], component: CategoryDetailsComponent },
-   { path: 'entries/flow/:year/:month/:account', canActivate: [AuthGuard], component: EntriesFlowComponent },
-   { path: 'entries/flow', canActivate: [AuthGuard], component: EntriesFlowComponent },
-   { path: 'entries', canActivate: [AuthGuard], component: EntriesFlowComponent },
-   { path: 'entries/entry/new/:type', canActivate: [AuthGuard], component: EntryDetailsComponent },
-   { path: 'entries/entry/:id', canActivate: [AuthGuard], component: EntryDetailsComponent },
-   { path: 'transfer/:id', canActivate: [AuthGuard], component: TransferDetailsComponent },
-   { path: 'analytics/:year/:month', canActivate: [AuthGuard], component: AnalyticsComponent },
-   { path: 'analytics', canActivate: [AuthGuard], component: AnalyticsComponent },
-   { path: 'settings', canActivate: [AuthGuard], component: SettingsComponent },
+   { path: '', redirectTo: 'home', pathMatch: 'full' },
+   { path: 'home', canActivate: [AuthGuard], loadChildren: './secure/dashboard/dashboard.module#DashboardModule' },
+   { path: 'accounts', canActivate: [AuthGuard], loadChildren: './secure/accounts/accounts.module#AccountsModule' },
+   { path: 'categories', canActivate: [AuthGuard], loadChildren: './secure/categories/categories.module#CategoriesModule' },
+   { path: 'entries', canActivate: [AuthGuard], loadChildren: './secure/entries/entries.module#EntriesModule' },
+   { path: 'analytics', canActivate: [AuthGuard], loadChildren: './secure/analytics/analytics.module#AnalyticsModule' },
+   { path: 'settings', canActivate: [AuthGuard], loadChildren: './secure/settings/settings.module#SettingsModule' },
 ];

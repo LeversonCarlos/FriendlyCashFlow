@@ -1,23 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { EnumVM } from 'src/app/shared/common/common.models';
 import { BusyService } from 'src/app/shared/busy/busy.service';
 import { map } from 'rxjs/operators';
-
-export enum enCategoryType { None = 0, Expense = 1, Income = 2 };
-export class Category {
-   CategoryID: number;
-   Text: string;
-   Type: enCategoryType;
-   ParentID: number;
-   ParentRow?: Category;
-   HierarchyText: string;
-   SplitedText: string[];
-}
-export class CategoryType extends EnumVM<enCategoryType> {
-   Categories: Category[] = [];
-}
+import { enCategoryType, CategoryType, Category } from './categories.viewmodels';
 
 @Injectable({
    providedIn: 'root'
@@ -29,8 +15,8 @@ export class CategoriesService {
 
    // NAVIGATES
    public showList() { this.router.navigate(['/categories']); }
-   public showDetails(id: number) { this.router.navigate(['/category', id], { skipLocationChange: true }); }
-   public showNew(categoryType: enCategoryType) { this.router.navigate(['/category', `new-${categoryType}`], { skipLocationChange: true }); }
+   public showDetails(id: number) { this.router.navigate(['/categories', id], { skipLocationChange: true }); }
+   public showNew(categoryType: enCategoryType) { this.router.navigate(['/categories', `new-${categoryType}`], { skipLocationChange: true }); }
 
    // CATEGORY TYPES
    public SelectedCategoryType: enCategoryType = enCategoryType.None;
