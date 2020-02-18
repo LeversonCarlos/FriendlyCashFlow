@@ -2,10 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 
-import { AccountsService } from './accounts/accounts.service';
-import { AccountsComponent } from './accounts/accounts.component';
-import { AccountDetailsComponent } from './accounts/account-details/account-details.component';
-
 import { CategoriesService } from './categories/categories.service';
 import { CategoriesComponent } from './categories/categories.component';
 import { CategoryDetailsComponent } from './categories/category-details/category-details.component';
@@ -41,7 +37,6 @@ import { MonthlyTargetComponent } from './analytics/monthly-target/monthly-targe
 
 @NgModule({
    declarations: [
-      AccountsComponent, AccountDetailsComponent,
       CategoriesComponent, CategoryDetailsComponent,
       CommonResumeComponent, MonthPickerComponent, AccountPickerComponent,
       EntriesFlowComponent, EntryDetailsComponent, TransferDetailsComponent, EntriesResumeComponent,
@@ -52,7 +47,7 @@ import { MonthlyTargetComponent } from './analytics/monthly-target/monthly-targe
    imports: [
       CommonModule, SharedModule
    ],
-   providers: [AccountsService, CategoriesService, EntriesService, TransfersService,
+   providers: [CategoriesService, EntriesService, TransfersService,
       PatternsService, RecurrencyService, DashboardService]
 })
 export class SecureModule { }
