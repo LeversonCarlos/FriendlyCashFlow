@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EntriesService } from '../entries.service';
+import { Router } from '@angular/router';
 
 @Component({
    selector: 'fs-add-button',
@@ -8,13 +8,16 @@ import { EntriesService } from '../entries.service';
 })
 export class AddButtonComponent implements OnInit {
 
-   constructor(private service: EntriesService) { }
+   constructor(private router: Router) { }
 
    public ngOnInit() {
    }
 
-   public OnIncomeClick() { this.service.showEntryNew('Income') }
-   public OnExpenseClick() { this.service.showEntryNew('Expense') }
-   public OnTransferClick() { this.service.showTransferNew() }
+   public OnIncomeClick() { this.showEntryNew('Income') }
+   public OnExpenseClick() { this.showEntryNew('Expense') }
+   public OnTransferClick() { this.showTransferNew() }
+
+   private showEntryNew(type: string) { this.router.navigate(['/entries', 'entry', 'new', type], { skipLocationChange: true }); }
+   private showTransferNew() { this.router.navigate(['/transfer', 'new'], { skipLocationChange: true }); }
 
 }
