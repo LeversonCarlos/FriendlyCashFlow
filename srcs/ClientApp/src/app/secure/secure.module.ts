@@ -2,9 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 
-import { CommonResumeComponent } from './common/resume/resume.component';
-import { MonthPickerComponent } from './common/month-picker/month-picker.component';
-import { AccountPickerComponent } from './common/account-picker/account-picker.component';
+import { CommonSecureModule } from './common/common.module';
 
 import { EntriesService } from './entries/entries.service';
 import { PatternsService } from './patterns/patterns.service';
@@ -24,23 +22,15 @@ import { ResumeComponent } from './dashboard/resume/resume.component';
 import { EntriesComponent } from './dashboard/entries/entries.component';
 import { SettingsComponent } from './settings/settings.component';
 import { PasswordChangeComponent } from './settings/password-change/password-change.component';
-import { AnalyticsComponent } from './analytics/analytics.component';
-import { CategoryGoalsComponent } from './analytics/category-goals/category-goals.component';
-import { AnalyticsFiltersComponent } from './analytics/analytics-filters/analytics-filters.component';
-import { EntriesParetoComponent } from './analytics/entries-pareto/entries-pareto.component';
-import { MonthlyTargetComponent } from './analytics/monthly-target/monthly-target.component';
-
 
 @NgModule({
    declarations: [
-      CommonResumeComponent, MonthPickerComponent, AccountPickerComponent,
       EntriesFlowComponent, EntryDetailsComponent, TransferDetailsComponent, EntriesResumeComponent,
       AddButtonComponent, SearchPanelComponent,
       DashboardComponent, BalanceComponent, ResumeComponent, EntriesComponent,
-      SettingsComponent, PasswordChangeComponent,
-      AnalyticsComponent, AnalyticsFiltersComponent, CategoryGoalsComponent, EntriesParetoComponent, MonthlyTargetComponent],
+      SettingsComponent, PasswordChangeComponent],
    imports: [
-      CommonModule, SharedModule
+      CommonModule, SharedModule, CommonSecureModule
    ],
    providers: [EntriesService, TransfersService, PatternsService, RecurrencyService, DashboardService]
 })
