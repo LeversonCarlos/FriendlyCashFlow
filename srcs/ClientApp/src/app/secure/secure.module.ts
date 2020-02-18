@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 
 import { CommonResumeComponent } from './common/resume/resume.component';
-import { MonthPickerComponent } from './pickers/month-picker/month-picker.component';
-import { AccountPickerComponent } from './pickers/account-picker/account-picker.component';
+import { MonthPickerComponent } from './common/month-picker/month-picker.component';
+import { AccountPickerComponent } from './common/account-picker/account-picker.component';
 
 import { EntriesService } from './entries/entries.service';
 import { PatternsService } from './patterns/patterns.service';
