@@ -18,6 +18,6 @@ export class AddButtonComponent implements OnInit {
    public OnTransferClick() { this.showTransferNew() }
 
    private showEntryNew(type: string) { this.router.navigate(['/entries', 'entry', 'new', type], { skipLocationChange: true }); }
-   private showTransferNew() { this.router.navigate(['/transfer', 'new'], { skipLocationChange: true }); }
+   private showTransferNew() { this.router.navigate(['/entries', 'transfer', 'new'], { skipLocationChange: true }); }
 
 }
