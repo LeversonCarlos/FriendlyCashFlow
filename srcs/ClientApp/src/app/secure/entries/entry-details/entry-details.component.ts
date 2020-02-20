@@ -243,7 +243,7 @@ export class EntryDetailsComponent implements OnInit {
       const payDateControl = this.inputForm.controls['PayDate'];
       if (paid == true) {
          const today = new Date();
-         let payDate = this.Data.DueDate;
+         let payDate = new Date(this.Data.DueDate);
          if (today < payDate) { payDate = today; }
          payDateControl.enable();
          payDateControl.setValidators([Validators.required]);
