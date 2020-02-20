@@ -1,12 +1,13 @@
 @import "../../../../styles/colors.scss";
 @import "../../../../styles/screenSizes.scss";
 
+.mat-card {
+   padding: 10px 5px;
+ }
+
 @media (max-width: $max-width-xs) {
   .col {
     width: 32%;
-  }
-  .mat-card {
-    padding: 10px 5px;
   }
 }
 
@@ -35,10 +36,10 @@
   .mat-icon {
     font-size: 32px;
     height: 32px;
-    width: 48px;
+    width: 32px;
   }
   strong {
-    font-size: 30px;
+    font-size: 26px;
   }
 
   @media (max-width: $max-width-xs) {
