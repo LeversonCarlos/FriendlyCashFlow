@@ -39,9 +39,9 @@ namespace FriendlyCashFlow.API.Dashboard
    {
 
       [HttpGet("balance/{searchYear}/{searchMonth}/{excludeTransfers}")]
-      public async Task<ActionResult<List<BalanceVM>>> GetBalanceAsync(short searchYear, short searchMonth, bool excludeTransfers)
+      public async Task<ActionResult<List<BalanceVM>>> GetBalanceAsync(short searchYear, short searchMonth, short excludeTransfers)
       {
-         return await this.GetService<DashboardService>().GetBalanceAsync(searchYear, searchMonth, excludeTransfers);
+         return await this.GetService<DashboardService>().GetBalanceAsync(searchYear, searchMonth, excludeTransfers==1);
       }
 
    }
