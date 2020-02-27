@@ -3,7 +3,8 @@ export class AnalyticsColors {
    /* COLORS */
    /* https://vis4.net/palettes */
    private get Colors(): string[] {
-      return ['#1a237e', '#4b4c8f', '#71789d', '#96a5a8', '#c0d3ab', '#ffc988', '#f7937e', '#e0616d', '#bf3057', '#93003a'];
+      return ['#2196F3', '#4CAF50', '#f44336', '#FFC107', '#3F51B5', '#795548', '#009688', '#FF5722',
+         '#FFEB3B', '#3F51B5', '#607D8B', '#8BC34A', '#9C27B0', '#00BCD4', '#FF9800'];
    }
 
    /* CATEGORIES */
