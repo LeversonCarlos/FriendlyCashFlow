@@ -56,14 +56,40 @@ alter table #EntriesData add Pareto decimal(15,4);
 delete from #EntriesData where not Ordination in (select top 50 Ordination from #EntriesData)
 
 /* DESCRIPTION */
-alter table #EntriesData add Text varchar(500);
+alter table #EntriesData add Text varchar(500), CategoryID bigint;
 update #EntriesData
-set Text = (select top 1 Text from v6_dataPatterns where PatternID=entriesData.PatternID)
+set
+   CategoryID = dataPatterns.CategoryID,
+   Text = dataPatterns.Text
 from #EntriesData as entriesData
+   left join v6_dataPatterns as dataPatterns on (dataPatterns.PatternID=entriesData.PatternID);
+
+/* CATEGORIES */
+select CategoryID
+into #CategoriesData
+from #EntriesData
+group by CategoryID
+
+/* PARENT CATEGORY */
+alter table #CategoriesData add ParentID bigint;
+while exists(select * from #CategoriesData where ParentID is null) begin
+   declare @categoryID bigint;
+   select top 1 @categoryID=CategoryID from #CategoriesData where ParentID is null order by CategoryID;
+
+   declare @parentID bigint;
+   select top 1 @parentID=coalesce(ParentID,0) from v6_dataCategories where CategoryID=@categoryID;
+
+   if @parentID<>0 and not exists(select * from #CategoriesData where CategoryID=@parentID) begin
+      insert into #CategoriesData(CategoryID) values(@parentID)
+   end
+
+   update #CategoriesData set ParentID=@parentID where CategoryID=@categoryID
+end
 
 
 /* RESULT */
-select Text, Value, Pareto
-from #EntriesData;
+select Text, Value, CategoryID, Pareto from #EntriesData;
+select CategoryID, ParentID from #CategoriesData;
 
 drop table #EntriesData
+drop table #CategoriesData;
