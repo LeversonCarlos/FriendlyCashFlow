@@ -19,6 +19,7 @@ export class CategoryGoalsVM {
 
 export class EntriesParetoVM {
    Text: string
+   CategoryID: number
    Value: number
    Pareto: number
 }
