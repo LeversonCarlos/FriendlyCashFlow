@@ -42,6 +42,7 @@ export class AnalyticsService {
          await this.LoadCategoryGoals(year, month);
          await this.LoadEntriesPareto(year, month);
          await this.LoadMonthlyTarget(year, month);
+         this.Colors.Restart();
          this.OnDataRefreshed.emit(true);
       }
       catch (ex) { this.appInsights.trackException(ex); console.error(ex) }

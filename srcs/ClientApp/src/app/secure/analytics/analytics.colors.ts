@@ -1,10 +1,12 @@
 export class AnalyticsColors {
 
+   public Restart() { this.LastCategoryColorIndex = -1; }
+
    /* COLORS */
    /* https://vis4.net/palettes */
    private get Colors(): string[] {
-      return ['#2196F3', '#4CAF50', '#f44336', '#FFC107', '#3F51B5', '#795548', '#009688', '#FF5722',
-         '#FFEB3B', '#3F51B5', '#607D8B', '#8BC34A', '#9C27B0', '#00BCD4', '#FF9800'];
+      return ['#2196F3', '#795548', '#FF5722', '#FFC107', '#4CAF50', '#3F51B5', '#f44336', '#FFEB3B',
+         '#00BCD4', '#607D8B', '#8BC34A', '#9C27B0', '#3F51B5', '#FF9800', '#009688'];
    }
 
    /* CATEGORIES */
@@ -16,7 +18,7 @@ export class AnalyticsColors {
       let colorIndex = this.CategoriesColor[categoryID];
 
       // HAVENT FOUND
-      if (!colorIndex) {
+      if (colorIndex == undefined) {
 
          // ADD ONE TO THE  LAST COLOR INDEX GIVEN, AND KEEP IT INSIDE ARRAY BOUNDS
          this.LastCategoryColorIndex++;

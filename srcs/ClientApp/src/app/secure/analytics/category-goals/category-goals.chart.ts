@@ -160,9 +160,9 @@ export class CategoryGoalsChart {
 
    private seriesOptions(data: CategoryGoalsVM[]): Highcharts.SeriesOptionsType[] {
       const self = this;
-      const seriesList = {
+      const seriesList : Highcharts.SeriesOptionsType = {
          name: 'Categories',
-         type: null,
+         type: 'column',
          data: data
             .sort((a, b) => a.Text > b.Text ? 1 : -1)
             .map(x => ({
