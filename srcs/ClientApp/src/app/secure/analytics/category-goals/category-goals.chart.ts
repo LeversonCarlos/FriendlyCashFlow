@@ -3,6 +3,7 @@ import { TranslationService } from 'src/app/shared/translation/translation.servi
 import { CategoryGoalsVM } from '../analytics.viewmodels';
 
 import * as Highcharts from 'highcharts';
+import { AnalyticsService } from '../analytics.service';
 declare var require: any;
 let Boost = require('highcharts/modules/boost');
 let noData = require('highcharts/modules/no-data-to-display');
@@ -19,7 +20,7 @@ drilldown(Highcharts);
 })
 export class CategoryGoalsChart {
 
-   constructor(private translation: TranslationService) { }
+   constructor(private service: AnalyticsService, private translation: TranslationService) { }
 
    public async show(data: CategoryGoalsVM[]) {
       try {
@@ -44,7 +45,6 @@ export class CategoryGoalsChart {
          series: this.seriesOptions(data),
          drilldown: this.drilldownOptions(data),
          tooltip: await this.tooltipOptions(),
-         colors: this.colorOptions(),
          credits: { enabled: false },
          legend: { enabled: false },
       };
@@ -67,33 +67,12 @@ export class CategoryGoalsChart {
       return {
          column: {
             stacking: 'normal',
-            /* colorByPoint: true, */
             groupPadding: 0.1,
             pointPadding: 0,
             //pointWidth: 20,
             borderWidth: 0
          }
       };
-   }
-
-   private colorOptions(): string[] {
-      return [
-         '#2196F3',
-         '#4CAF50',
-         '#f44336',
-         '#FFC107',
-         '#3F51B5',
-         '#795548',
-         '#009688',
-         '#FF5722',
-         '#FFEB3B',
-         '#3F51B5',
-         '#607D8B',
-         '#8BC34A',
-         '#9C27B0',
-         '#00BCD4',
-         '#FF9800'
-      ];
    }
 
    private xAxisOptions(data: CategoryGoalsVM[]): Highcharts.XAxisOptions {
@@ -180,14 +159,15 @@ export class CategoryGoalsChart {
    }
 
    private seriesOptions(data: CategoryGoalsVM[]): Highcharts.SeriesOptionsType[] {
-      const seriesList = {
+      const self = this;
+      const seriesList : Highcharts.SeriesOptionsType = {
          name: 'Categories',
-         type: null,
-         colorByPoint: true,
+         type: 'column',
          data: data
             .sort((a, b) => a.Text > b.Text ? 1 : -1)
             .map(x => ({
                name: x.Text,
+               color: self.service.Colors.GetCategoryColor(x.CategoryID),
                y: x.Percent,
                goalValue: x.AverageValue,
                realValue: x.Value,

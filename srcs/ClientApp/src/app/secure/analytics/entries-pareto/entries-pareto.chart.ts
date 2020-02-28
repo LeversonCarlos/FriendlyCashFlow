@@ -4,6 +4,7 @@ import { EntriesParetoVM } from '../analytics.viewmodels';
 import { TranslationService } from 'src/app/shared/translation/translation.service';
 
 import * as Highcharts from 'highcharts';
+import { AnalyticsService } from '../analytics.service';
 declare var require: any;
 let Boost = require('highcharts/modules/boost');
 let noData = require('highcharts/modules/no-data-to-display');
@@ -20,7 +21,8 @@ pareto(Highcharts);
 })
 export class EntriesParetoChart {
 
-   constructor(private translation: TranslationService, private media: MediaMatcher) {
+   constructor(private translation: TranslationService, private service: AnalyticsService,
+      private media: MediaMatcher) {
       this.mobileQuery = this.media.matchMedia('(max-width: 960px)');
    }
    public mobileQuery: MediaQueryList
@@ -47,7 +49,6 @@ export class EntriesParetoChart {
          yAxis: await this.yAxisOptions(data),
          series: this.seriesOptions(data),
          tooltip: this.tooltipOptions(),
-         colors: this.colorOptions(),
          credits: { enabled: false },
          legend: { enabled: false },
       };
@@ -90,26 +91,6 @@ export class EntriesParetoChart {
             borderWidth: 0
          }
       };
-   }
-
-   private colorOptions(): string[] {
-      return [
-         '#2196F3',
-         '#4CAF50',
-         '#f44336',
-         '#FFC107',
-         '#3F51B5',
-         '#795548',
-         '#009688',
-         '#FF5722',
-         '#FFEB3B',
-         '#3F51B5',
-         '#607D8B',
-         '#8BC34A',
-         '#9C27B0',
-         '#00BCD4',
-         '#FF9800'
-      ];
    }
 
    private xAxisOptions(data: EntriesParetoVM[]): Highcharts.XAxisOptions {
@@ -160,6 +141,7 @@ export class EntriesParetoChart {
    }
 
    private seriesOptions(data: EntriesParetoVM[]): Highcharts.SeriesOptionsType[] {
+      const self = this;
       const paretoSeries: Highcharts.SeriesOptionsType = {
          name: "Pareto",
          type: "spline",
@@ -177,10 +159,10 @@ export class EntriesParetoChart {
       const dataSeries: Highcharts.SeriesOptionsType = {
          name: "Entries",
          type: "column",
-         colorByPoint: true,
          data: data
             .map(x => ({
                name: x.Text,
+               color: self.service.Colors.GetCategoryColor(x.CategoryID),
                y: x.Value
             })
             ),

@@ -60,7 +60,6 @@ export class MonthlyTargetChart {
    private plotOptions(): Highcharts.PlotOptions {
       return {
          column: {
-            /* colorByPoint: true, */
             groupPadding: 0.1,
             pointPadding: 0,
             //pointWidth: 20,

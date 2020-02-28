@@ -35,7 +35,24 @@ namespace FriendlyCashFlow.API.Analytics
                queryReader.AddParameter("@paramSearchMonth", searchMonth);
 
                if (!await queryReader.ExecuteReaderAsync()) { return null; }
-               return await queryReader.GetDataResultAsync<EntriesParetoVM>();
+               var entriesList = await queryReader.GetDataResultAsync<EntriesParetoVM>();
+               var categoriesList = await queryReader.GetDataResultAsync<EntriesCategoryVM>();
+
+               Func<long, long> getParentCategoryID = null;
+               getParentCategoryID = new Func<long, long>(categoryID =>
+               {
+                  var parentID = categoriesList
+                     .Where(x => x.CategoryID == categoryID)
+                     .Select(x => x.ParentID)
+                     .FirstOrDefault();
+                  if (parentID == 0) { return categoryID; }
+                  return getParentCategoryID(parentID);
+               });
+
+               foreach (var entry in entriesList)
+               { entry.CategoryID = getParentCategoryID(entry.CategoryID); }
+
+               return entriesList;
             }
          }
          catch (Exception) { throw; }
@@ -57,8 +74,15 @@ namespace FriendlyCashFlow.API.Analytics
    public class EntriesParetoVM
    {
       public string Text { get; set; }
+      public long CategoryID { get; set; }
       public decimal Value { get; set; }
       public decimal Pareto { get; set; }
+   }
+
+   public class EntriesCategoryVM
+   {
+      public long CategoryID { get; set; }
+      public long ParentID { get; set; }
    }
 
 }

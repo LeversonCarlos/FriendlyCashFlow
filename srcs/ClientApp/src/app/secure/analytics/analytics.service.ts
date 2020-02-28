@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { FilterData, CategoryGoalsVM, EntriesParetoVM, MonthlyTargetVM } from './analytics.viewmodels';
 import { AppInsightsService } from 'src/app/shared/app-insights/app-insights.service';
 import { Router } from '@angular/router';
+import { AnalyticsColors } from './analytics.colors';
 
 @Injectable({
    providedIn: 'root'
@@ -15,6 +16,9 @@ export class AnalyticsService {
 
    // NAVIGATES
    public showIndex(year: number, month: number) { this.router.navigate(['/analytics', year, month]); }
+
+   /* COLORS */
+   public Colors: AnalyticsColors = new AnalyticsColors();
 
    // FILTER DATA
    public FilterData: FilterData = new FilterData()
@@ -38,6 +42,7 @@ export class AnalyticsService {
          await this.LoadCategoryGoals(year, month);
          await this.LoadEntriesPareto(year, month);
          await this.LoadMonthlyTarget(year, month);
+         this.Colors.Restart();
          this.OnDataRefreshed.emit(true);
       }
       catch (ex) { this.appInsights.trackException(ex); console.error(ex) }
