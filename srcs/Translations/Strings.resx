@@ -399,6 +399,12 @@
   <data name="RECURRENCY_ENRECURRENCYTYPE_YEARLY" xml:space="preserve">
     <value>Yearly</value>
   </data>
+  <data name="SERVICE_WORKER_UPDATE_AVAILABLE_COMMAND" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="SERVICE_WORKER_UPDATE_AVAILABLE_INFO" xml:space="preserve">
+    <value>An update for the app is availabled</value>
+  </data>
   <data name="SETTINGS_MAIN_TITLE" xml:space="preserve">
     <value>Settings</value>
   </data>
