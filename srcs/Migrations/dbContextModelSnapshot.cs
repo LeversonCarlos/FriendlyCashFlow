@@ -15,7 +15,7 @@ namespace FriendlyCashFlow.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.0.0")
+                .HasAnnotation("ProductVersion", "3.1.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -235,7 +235,8 @@ namespace FriendlyCashFlow.Migrations
                         .HasName("v6_dataEntries_index_SearchTransfer");
 
                     b.HasIndex("RowStatus", "ResourceID", "AccountID", "SearchDate")
-                        .HasName("v6_dataEntries_index_SearchDate");
+                        .HasName("v6_dataEntries_index_SearchDate")
+                        .HasAnnotation("SqlServer:Include", new[] { "EntryID", "Type", "TransferID", "EntryValue", "Paid" });
 
                     b.HasIndex("RowStatus", "ResourceID", "AccountID", "Text")
                         .HasName("v6_dataEntries_index_SearchText");

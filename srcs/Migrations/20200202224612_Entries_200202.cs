@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FriendlyCashFlow.Migrations
 {
@@ -19,7 +20,8 @@ namespace FriendlyCashFlow.Migrations
             migrationBuilder.CreateIndex(
                 name: "v6_dataEntries_index_SearchDate",
                 table: "v6_dataEntries",
-                columns: new[] { "RowStatus", "ResourceID", "AccountID", "SearchDate" });
+                columns: new[] { "RowStatus", "ResourceID", "AccountID", "SearchDate" })
+                .Annotation("SqlServer:Include", new[] { "EntryID", "Type", "TransferID", "EntryValue", "Paid" });
 
             migrationBuilder.CreateIndex(
                 name: "v6_dataEntries_index_SearchText",
