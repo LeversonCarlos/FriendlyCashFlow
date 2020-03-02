@@ -6,16 +6,36 @@ declare @searchMonth smallint = @paramSearchMonth;
 declare @searchExcludeTransfers smallint = @paramExcludeTransfers;
 declare @typeExpense smallint = 1;
 declare @typeIncome smallint = 2;
+declare @accountTypeCreditCard smallint = 2;
 
 /* INTERVAL */
 declare @initialDate datetime = cast(ltrim(str(@searchYear))+'-'+ltrim(str(@searchMonth))+'-01' as datetime);
 declare @finalDate datetime = dateadd(day, -1, dateadd(month,1,@initialDate));
 
 /* ACCOUNTS */
-select AccountID, Text, Type
+select AccountID, Text, Type, DueDay, @initialDate as InitialDate, @finalDate as FinalDate
 into #accounts
 from v6_dataAccounts
 where ResourceID=@resourceID and RowStatus=1 and Active=1;
+
+/* ADJUST INTERVAL FOR DUE DATE ON CREDIT CARDS */
+if (@searchExcludeTransfers=0) begin
+   update #accounts
+   set FinalDate = dateadd(day, -1, dateadd(month,1,InitialDate))
+   from #accounts as accounts
+   where Type=@accountTypeCreditCard and DueDay > DATEPART(day, getdate());
+end
+
+/* ADD DUEDAY TO TEXT ON CREDIT CARDS */
+alter table #accounts add DueDate datetime;
+   update #accounts
+   set DueDate = cast(ltrim(str(year(FinalDate)))+'-'+ltrim(str(month(FinalDate)))+'-'+ltrim(str(DueDay)) as datetime)
+   from #accounts
+   where Type=@accountTypeCreditCard and DueDay>0
+update #accounts
+set Text = Text + ' - '+ convert(varchar(5),DueDate,3) +''
+from #accounts as accounts
+where Type=@accountTypeCreditCard
 
 /* ENTRIES */
 select
@@ -24,16 +44,18 @@ into #entries
 from
 (
    select
-      AccountID, Type, Paid,
-      EntryValue * (case when Type=@typeExpense then -1 else 1 end) As EntryValue
-   from v6_dataEntries
-   where
-      RowStatus = 1
-      and ResourceID=@resourceID
-      and AccountID in (select AccountID from #accounts)
-      and SearchDate >= cast(convert(varchar(10),@initialDate,121)+' 00:00:00' as datetime)
-      and SearchDate <= cast(convert(varchar(10),@finalDate,121)+' 23:59:59' as datetime)
-      and ( @searchExcludeTransfers=0 or coalesce(TransferID,'')='' )
+      entries.AccountID, entries.Type, entries.Paid,
+      entries.EntryValue * (case when entries.Type=@typeExpense then -1 else 1 end) As EntryValue
+   from #accounts as accounts
+      inner join v6_dataEntries as entries on
+      (
+         entries.RowStatus = 1
+         and entries.ResourceID=@resourceID
+         and entries.AccountID = accounts.AccountID
+         and entries.SearchDate >= cast(convert(varchar(10),accounts.InitialDate,121)+' 00:00:00' as datetime)
+         and entries.SearchDate <= cast(convert(varchar(10),accounts.FinalDate,121)+' 23:59:59' as datetime)
+         and ( @searchExcludeTransfers=0 or coalesce(entries.TransferID,'')='' )
+      )
 ) SUB
 group by AccountID, Type, Paid;
 
