@@ -6,6 +6,7 @@ import { ErrorInterceptorProvider } from './interceptors/error.interceptor';
 import { SharedModule } from '../shared/shared.module';
 import { AuthService } from './auth/auth.service';
 import { RequestAuthInterceptorProvider, ResponseAuthInterceptorProvider } from './interceptors/auth.interceptor';
+import { ServiceWorkerUpdateService } from './app-update/app.update';
 
 @NgModule({
    declarations: [],
@@ -15,4 +16,6 @@ import { RequestAuthInterceptorProvider, ResponseAuthInterceptorProvider } from 
    exports: [HttpClientModule],
    providers: [baseUrlProvider, UrlInterceptorProvider, RequestAuthInterceptorProvider, ErrorInterceptorProvider, ResponseAuthInterceptorProvider, AuthService]
 })
-export class CoreModule { }
+export class CoreModule {
+   constructor(private updateService: ServiceWorkerUpdateService) { }
+}
