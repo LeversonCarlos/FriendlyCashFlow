@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ApplicationInsights, IEventTelemetry, IExceptionTelemetry, ITraceTelemetry, IMetricTelemetry } from '@microsoft/applicationinsights-web';
+import { ApplicationInsights } from '@microsoft/applicationinsights-web';
 import { AppSettingsService } from '../app-settings/app-settings.service';
 
 class AppSettingsConfig {

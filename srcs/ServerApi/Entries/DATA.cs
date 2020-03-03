@@ -9,7 +9,7 @@ namespace FriendlyCashFlow.API.Entries
    [Table("v6_dataEntries")]
    internal class EntryData : Base.BaseData
    {
-      
+
       public EntryData() : base() { }
 
       [Key]
@@ -76,6 +76,7 @@ namespace FriendlyCashFlow.API.Base
       {
          modelBuilder.Entity<Entries.EntryData>()
             .HasIndex(x => new { x.RowStatus, x.ResourceID, x.AccountID, x.SearchDate })
+            .IncludeProperties(x => new { x.EntryID, x.Type, x.TransferID, x.EntryValue, x.Paid })
             .HasName("v6_dataEntries_index_SearchDate");
          modelBuilder.Entity<Entries.EntryData>()
             .HasIndex(x => new { x.RowStatus, x.ResourceID, x.AccountID, x.Text })
