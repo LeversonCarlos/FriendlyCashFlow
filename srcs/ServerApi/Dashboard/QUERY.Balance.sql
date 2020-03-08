@@ -21,9 +21,9 @@ where ResourceID=@resourceID and RowStatus=1 and Active=1;
 /* ADJUST INTERVAL FOR DUE DATE ON CREDIT CARDS */
 if (@searchExcludeTransfers=0) begin
    update #accounts
-   set FinalDate = dateadd(day, -1, dateadd(month,1,InitialDate))
+   set FinalDate = dateadd(day, -1, dateadd(month,2,InitialDate))
    from #accounts as accounts
-   where Type=@accountTypeCreditCard and DueDay > DATEPART(day, getdate());
+   where Type=@accountTypeCreditCard and DueDay < DATEPART(day, getdate());
 end
 
 /* ADD DUEDAY TO TEXT ON CREDIT CARDS */
