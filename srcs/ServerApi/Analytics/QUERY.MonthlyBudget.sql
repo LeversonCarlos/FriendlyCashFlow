@@ -41,6 +41,46 @@ group by
    year(SearchDate), month(SearchDate), 
    PatternID;
 
+/* AVERAGE ENTRIES */
+create table #EntriesTypeSummary (Type smallint, SearchDate datetime, Value float);
+   insert into #EntriesTypeSummary
+   select Type, SearchDate, sum(Value) as Value
+   from #EntriesData
+   where
+      SearchDate >= @yearInitial and 
+      SearchDate <= @yearFinal
+   group by Type, SearchDate;
+create table #EntriesTypeStdDev (Type smallint, StdDevValue float, AvgValue float);
+   insert into #EntriesTypeStdDev
+   select
+      Type,
+      coalesce(stdevp(Value),0) as StdDevValue,
+      coalesce(avg(Value),0) as AvgValue 
+   from #EntriesTypeSummary
+   group by Type
+create table #EntriesTypeAverage (Type smallint, Value float);
+   insert into #EntriesTypeAverage
+   select Type, avg(Value) as Value
+   from
+   (
+      select
+         Summary.Type, 
+         Summary.Value
+      from #EntriesTypeSummary as Summary
+         inner join #EntriesTypeStdDev as StdDev on
+         (
+            Summary.Type = StdDev.Type and
+            Summary.Value >= (StdDev.AvgValue - StdDev.StdDevValue) and 
+            Summary.Value <= (StdDev.AvgValue + StdDev.StdDevValue)
+          )
+   ) SUB
+   group by Type;
+
+
+select * from #EntriesTypeAverage
+
+
+
 /* AVERAGE INCOME */
 create table #MonthlyIncome (SearchDate datetime, Value float);
    insert into #MonthlyIncome
@@ -122,6 +162,9 @@ order by (EntriesData.Value / coalesce(Average.Value, EntriesData.Value)) desc
 
 /* CLEAR */
 drop table #EntriesData;
+drop table #EntriesTypeSummary;
+drop table #EntriesTypeStdDev;
+drop table #EntriesTypeAverage;
 drop table #MonthlyIncome;
 drop table #MonthlyExpense;
 drop table #MonthlyExpenseStdDev;
