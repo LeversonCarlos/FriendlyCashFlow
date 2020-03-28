@@ -66,10 +66,9 @@ export class MonthlyBudgetChart {
          shared: true,
          formatter: function () {
             return `
-               <strong>${this.points[1].key}</strong>
+               <strong>${this.points[0].key}</strong>
                <br/>
-               <strong>${self.translation.getNumberFormat(this.points[1].y, 2)}</strong>
-               <small> (${self.translation.getNumberFormat(this.points[0].y, 0)}%)</small>
+               <small>${self.translation.getNumberFormat(this.points[0].y, 2)}</small>
                `;
          }
       };
@@ -112,22 +111,16 @@ export class MonthlyBudgetChart {
    }
 
    private async yAxisOptions(data: MonthlyBudgetVM[]): Promise<Highcharts.YAxisOptions[]> {
+      const min = (data && data[data.length - 1] && data[data.length - 1].OverflowValue) | 0;
+      const max = (data && data[0] && data[0].OverflowValue) | 100;
       return [{
          title: {
             text: ''
          },
-         // min: 0,
-         // max: (data && data[0] && data[0].Value) | 100,
-         gridLineWidth: 0,
-         labels: {
-            enabled: false
-         }
-      }, {
-         title: {
-            text: ''
-         },
-         min: 0, max: 99,
+         min: min,
+         max: max,
          gridLineWidth: 1,
+         tickPositions: [min, 0, max],
          labels: {
             enabled: false
          }
