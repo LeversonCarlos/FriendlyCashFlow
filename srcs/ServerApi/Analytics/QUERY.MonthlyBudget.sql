@@ -135,24 +135,32 @@ create table #PatternData (PatternID bigint, Value float, PatternAverage float, 
    ) EntriesData
       left join #PatternAverage as Average on (Average.PatternID = EntriesData.PatternID);
 
+/* PATTERN PERCENTAGE */
+alter table #PatternData add OverflowPercent float;
+   update #PatternData
+   set OverflowPercent = (PaternOverflow / ExpenseAverage * 100);
+declare @OverflowPercentStdDevValue float; declare @OverflowPercentAvgValue float
+   select 
+      @OverflowPercentStdDevValue = stdevp(OverflowPercent), 
+      @OverflowPercentAvgValue = avg(OverflowPercent)
+   from #PatternData
+print 'Overflow StdDev Value: ' + ltrim(str(@OverflowPercentStdDevValue));
+print 'Overflow Avg Value: ' + ltrim(str(@OverflowPercentAvgValue));
+
 /* RESULT */
 select
    PatternData.PatternID,
    Patterns.Text,
-   Value, PatternAverage, PaternOverflow, 
-   ExpensePercent
-from
-(
-   select
-      PatternID,
-      Value,
-      PatternAverage,
-      PaternOverflow, 
-      PaternOverflow / ExpenseAverage As ExpensePercent
-   from #PatternData
-) PatternData
+   Patterns.CategoryID, 
+   --Value, PatternAverage,
+   round(PaternOverflow,2) As OverflowValue, 
+   OverflowPercent
+from #PatternData as PatternData
    left join v6_dataPatterns as Patterns on (Patterns.PatternID = PatternData.PatternID)
-order by ExpensePercent desc
+where
+   round(OverflowPercent,5) >= round((@OverflowPercentAvgValue + @OverflowPercentStdDevValue),5) or 
+   round(OverflowPercent,5) <= round((@OverflowPercentAvgValue - @OverflowPercentStdDevValue),5) 
+order by OverflowPercent desc
 
 /* CLEAR */
 drop table #EntriesData;
