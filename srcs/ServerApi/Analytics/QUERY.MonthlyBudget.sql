@@ -194,6 +194,7 @@ select
    OverflowPercent
 from #PatternData
 order by OverflowPercent desc
+select CategoryID, ParentID from #CategoriesData;
 
 /* CLEAR */
 drop table #EntriesData;
