@@ -25,7 +25,7 @@ print 'entries interval: ' + convert(varchar, @entriesInitial, 121) + ' - ' + co
 select
    Type,
    cast(ltrim(str(year(SearchDate)))+'-'+ltrim(str(month(SearchDate)))+'-01 00:00:00' as datetime) as SearchDate,
-   PatternID, 
+   PatternID,
    sum(EntryValue) As Value
 into #EntriesData
 from v6_dataEntries
@@ -36,9 +36,9 @@ where
    and SearchDate >= @entriesInitial
    and SearchDate <= @entriesFinal
    and TransferID is null
-group by 
-   Type, 
-   year(SearchDate), month(SearchDate), 
+group by
+   Type,
+   year(SearchDate), month(SearchDate),
    PatternID;
 
 /* TYPE AVERAGE */
@@ -47,7 +47,7 @@ create table #EntriesTypeSummary (Type smallint, SearchDate datetime, Value floa
    select Type, SearchDate, sum(Value) as Value
    from #EntriesData
    where
-      SearchDate >= @yearInitial and 
+      SearchDate >= @yearInitial and
       SearchDate <= @yearFinal
    group by Type, SearchDate;
 create table #EntriesTypeStdDev (Type smallint, StdDevValue float, AvgValue float);
@@ -55,7 +55,7 @@ create table #EntriesTypeStdDev (Type smallint, StdDevValue float, AvgValue floa
    select
       Type,
       coalesce(stdevp(Value),0) as StdDevValue,
-      coalesce(avg(Value),0) as AvgValue 
+      coalesce(avg(Value),0) as AvgValue
    from #EntriesTypeSummary
    group by Type
 create table #EntriesTypeAverage (Type smallint, Value float);
@@ -64,13 +64,13 @@ create table #EntriesTypeAverage (Type smallint, Value float);
    from
    (
       select
-         Summary.Type, 
+         Summary.Type,
          Summary.Value
       from #EntriesTypeSummary as Summary
          inner join #EntriesTypeStdDev as StdDev on
          (
             Summary.Type = StdDev.Type and
-            round(Summary.Value,5) >= round((StdDev.AvgValue - StdDev.StdDevValue),5) and 
+            round(Summary.Value,5) >= round((StdDev.AvgValue - StdDev.StdDevValue),5) and
             round(Summary.Value,5) <= round((StdDev.AvgValue + StdDev.StdDevValue),5)
           )
    ) SUB
@@ -100,13 +100,13 @@ create table #PatternAverage (PatternID bigint, Value float);
    from
    (
       select
-         Summary.PatternID, 
+         Summary.PatternID,
          Summary.Value
       from #PatternSummary as Summary
          inner join #PatternStdDev as StdDev on
          (
             Summary.PatternID = StdDev.PatternID and
-            round(Summary.Value,5) >= round((StdDev.AvgValue - StdDev.StdDevValue),5) and 
+            round(Summary.Value,5) >= round((StdDev.AvgValue - StdDev.StdDevValue),5) and
             round(Summary.Value,5) <= round((StdDev.AvgValue + StdDev.StdDevValue),5)
           )
    ) SUB
@@ -114,10 +114,10 @@ create table #PatternAverage (PatternID bigint, Value float);
 
 /* PATTERN DATA */
 create table #PatternData (PatternID bigint, Value float, PatternAverage float, PaternOverflow float, ExpenseAverage float)
-   insert into #PatternData 
+   insert into #PatternData
    select
       EntriesData.PatternID,
-      EntriesData.Value, 
+      EntriesData.Value,
       Average.Value as PatternAverage,
       coalesce(EntriesData.Value,0) - coalesce(Average.Value,0) as PaternOverflow,
       (select top 1 Value from #EntriesTypeAverage where Type=@typeExpense) as ExpenseAverage
@@ -126,7 +126,7 @@ create table #PatternData (PatternID bigint, Value float, PatternAverage float, 
       select
          PatternID,
          sum(Value) as Value
-      from #EntriesData 
+      from #EntriesData
       where
          Type = @typeExpense
          and SearchDate >= @monthInitial
@@ -140,26 +140,59 @@ alter table #PatternData add OverflowPercent float;
    update #PatternData
    set OverflowPercent = (PaternOverflow / ExpenseAverage * 100);
 declare @OverflowPercentStdDevValue float; declare @OverflowPercentAvgValue float
-   select 
-      @OverflowPercentStdDevValue = stdevp(OverflowPercent), 
+   select
+      @OverflowPercentStdDevValue = stdevp(OverflowPercent),
       @OverflowPercentAvgValue = avg(OverflowPercent)
    from #PatternData
 print 'Overflow StdDev Value: ' + ltrim(str(@OverflowPercentStdDevValue));
 print 'Overflow Avg Value: ' + ltrim(str(@OverflowPercentAvgValue));
 
+/* REMOVE ENTRIES INSIDE STANDARD DEV|IATION AREA */
+delete
+from #PatternData
+where
+   round(OverflowPercent,5) >= round((@OverflowPercentAvgValue - @OverflowPercentStdDevValue),5) and
+   round(OverflowPercent,5) <= round((@OverflowPercentAvgValue + @OverflowPercentStdDevValue),5)
+
+/* PATTERN DETAILS */
+alter table #PatternData add Text varchar(500), CategoryID bigint;
+   update #PatternData
+   set
+      Text = Patterns.Text,
+      CategoryID = Patterns.CategoryID
+   from #PatternData as PatternData
+      left join v6_dataPatterns as Patterns on (Patterns.PatternID = PatternData.PatternID);
+
+/* CATEGORIES */
+select CategoryID
+into #CategoriesData
+from #PatternData
+group by CategoryID
+
+/* PARENT CATEGORY */
+alter table #CategoriesData add ParentID bigint;
+while exists(select * from #CategoriesData where ParentID is null) begin
+   declare @categoryID bigint;
+   select top 1 @categoryID=CategoryID from #CategoriesData where ParentID is null order by CategoryID;
+
+   declare @parentID bigint;
+   select top 1 @parentID=coalesce(ParentID,0) from v6_dataCategories where CategoryID=@categoryID;
+
+   if @parentID<>0 and not exists(select * from #CategoriesData where CategoryID=@parentID) begin
+      insert into #CategoriesData(CategoryID) values(@parentID)
+   end
+
+   update #CategoriesData set ParentID=@parentID where CategoryID=@categoryID
+end
+
 /* RESULT */
 select
-   PatternData.PatternID,
-   Patterns.Text,
-   Patterns.CategoryID, 
+   PatternID, Text,
+   CategoryID,
    --Value, PatternAverage,
-   round(PaternOverflow,2) As OverflowValue, 
+   round(PaternOverflow,2) As OverflowValue,
    OverflowPercent
-from #PatternData as PatternData
-   left join v6_dataPatterns as Patterns on (Patterns.PatternID = PatternData.PatternID)
-where
-   round(OverflowPercent,5) >= round((@OverflowPercentAvgValue + @OverflowPercentStdDevValue),5) or 
-   round(OverflowPercent,5) <= round((@OverflowPercentAvgValue - @OverflowPercentStdDevValue),5) 
+from #PatternData
 order by OverflowPercent desc
 
 /* CLEAR */
@@ -171,4 +204,5 @@ drop table #PatternSummary;
 drop table #PatternStdDev;
 drop table #PatternAverage;
 drop table #PatternData;
+drop table #CategoriesData;
 set nocount off;
