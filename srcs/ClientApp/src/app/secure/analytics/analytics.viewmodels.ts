@@ -36,3 +36,11 @@ export class MonthlyTargetVM {
    ExpenseTarget: number
    Balance: number
 }
+
+export class MonthlyBudgetVM {
+   PatternID: number
+   Text: string
+   CategoryID: number
+   OverflowValue: number
+   OverflowPercent: number
+}

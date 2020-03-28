@@ -10,11 +10,12 @@ import { CategoryGoalsComponent } from './category-goals/category-goals.componen
 import { EntriesParetoComponent } from './entries-pareto/entries-pareto.component';
 import { MonthlyTargetComponent } from './monthly-target/monthly-target.component';
 import { AnalyticsComponent } from './analytics.component';
+import { MonthlyBudgetComponent } from './monthly-budget/monthly-budget.component';
 
 
 @NgModule({
    declarations: [AnalyticsComponent, AnalyticsFiltersComponent,
-      CategoryGoalsComponent, EntriesParetoComponent, MonthlyTargetComponent],
+      CategoryGoalsComponent, EntriesParetoComponent, MonthlyTargetComponent, MonthlyBudgetComponent],
    imports: [
       CommonModule, SharedModule, CommonSecureModule,
       AnalyticsRouting
