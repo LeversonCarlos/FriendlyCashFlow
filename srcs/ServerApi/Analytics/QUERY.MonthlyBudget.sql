@@ -70,8 +70,8 @@ create table #EntriesTypeAverage (Type smallint, Value float);
          inner join #EntriesTypeStdDev as StdDev on
          (
             Summary.Type = StdDev.Type and
-            Summary.Value >= (StdDev.AvgValue - StdDev.StdDevValue) and 
-            Summary.Value <= (StdDev.AvgValue + StdDev.StdDevValue)
+            round(Summary.Value,5) >= round((StdDev.AvgValue - StdDev.StdDevValue),5) and 
+            round(Summary.Value,5) <= round((StdDev.AvgValue + StdDev.StdDevValue),5)
           )
    ) SUB
    group by Type;
@@ -106,19 +106,20 @@ create table #PatternAverage (PatternID bigint, Value float);
          inner join #PatternStdDev as StdDev on
          (
             Summary.PatternID = StdDev.PatternID and
-            Summary.Value >= (StdDev.AvgValue - StdDev.StdDevValue) and 
-            Summary.Value <= (StdDev.AvgValue + StdDev.StdDevValue)
+            round(Summary.Value,5) >= round((StdDev.AvgValue - StdDev.StdDevValue),5) and 
+            round(Summary.Value,5) <= round((StdDev.AvgValue + StdDev.StdDevValue),5)
           )
    ) SUB
    group by PatternID;
 
 /* PATTERN DATA */
-create table #PatternData (PatternID bigint, Value float, PatternAverage float, ExpenseAverage float)
+create table #PatternData (PatternID bigint, Value float, PatternAverage float, PaternOverflow float, ExpenseAverage float)
    insert into #PatternData 
    select
       EntriesData.PatternID,
       EntriesData.Value, 
       Average.Value as PatternAverage,
+      coalesce(EntriesData.Value,0) - coalesce(Average.Value,0) as PaternOverflow,
       (select top 1 Value from #EntriesTypeAverage where Type=@typeExpense) as ExpenseAverage
    from
    (
@@ -138,21 +139,20 @@ create table #PatternData (PatternID bigint, Value float, PatternAverage float, 
 select
    PatternData.PatternID,
    Patterns.Text,
-   Value, PatternAverage,
-   ExpensePercent, PatternPercent
+   Value, PatternAverage, PaternOverflow, 
+   ExpensePercent
 from
 (
    select
       PatternID,
-
       Value,
       PatternAverage,
-      Value / ExpenseAverage As ExpensePercent,
-      Value / coalesce(PatternAverage, Value) As PatternPercent
+      PaternOverflow, 
+      PaternOverflow / ExpenseAverage As ExpensePercent
    from #PatternData
 ) PatternData
    left join v6_dataPatterns as Patterns on (Patterns.PatternID = PatternData.PatternID)
-order by ExpensePercent desc, PatternPercent desc
+order by ExpensePercent desc
 
 /* CLEAR */
 drop table #EntriesData;
