@@ -195,6 +195,9 @@
   <data name="ANALYTICS_MENU" xml:space="preserve">
     <value>Análise de Dados</value>
   </data>
+  <data name="ANALYTICS_MONTHLY_BUDGET_TITLE" xml:space="preserve">
+    <value>Orçamento Mensal</value>
+  </data>
   <data name="ANALYTICS_MONTHLY_TARGET_BALANCE_LABEL" xml:space="preserve">
     <value>Saldo Acumulado</value>
   </data>
