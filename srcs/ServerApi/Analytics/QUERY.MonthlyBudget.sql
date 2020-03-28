@@ -1,7 +1,7 @@
 set nocount on;
-declare @resourceID varchar(128) = '2f9c80d7-162a-46b9-96e7-af609c07a998';
-declare @searchYear smallint = 2020;
-declare @searchMonth smallint = 3;
+declare @resourceID varchar(128) = @paramResourceID;
+declare @searchYear smallint = @paramSearchYear;
+declare @searchMonth smallint = @paramSearchMonth;
 declare @typeExpense smallint = 1;
 declare @typeIncome smallint = 2;
 
