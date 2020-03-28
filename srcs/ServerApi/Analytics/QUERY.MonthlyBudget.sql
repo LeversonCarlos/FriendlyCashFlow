@@ -41,7 +41,7 @@ group by
    year(SearchDate), month(SearchDate), 
    PatternID;
 
-/* AVERAGE ENTRIES */
+/* TYPE AVERAGE */
 create table #EntriesTypeSummary (Type smallint, SearchDate datetime, Value float);
    insert into #EntriesTypeSummary
    select Type, SearchDate, sum(Value) as Value
@@ -76,37 +76,9 @@ create table #EntriesTypeAverage (Type smallint, Value float);
    ) SUB
    group by Type;
 
-
-select * from #EntriesTypeAverage
-
-
-
-/* AVERAGE INCOME */
-create table #MonthlyIncome (SearchDate datetime, Value float);
-   insert into #MonthlyIncome
-   select SearchDate, sum(Value) as Value
-   from #EntriesData
-   where
-      Type = @typeIncome
-      and SearchDate >= @yearInitial
-      and SearchDate <= @yearFinal
-   group by SearchDate;
-declare @IncomeStdDevValue float; declare @IncomeAvgValue float;
-   select 
-      @IncomeStdDevValue = coalesce(stdevp(Value),0),
-      @IncomeAvgValue = coalesce(avg(Value),0) 
-   from #MonthlyIncome
-declare @IncomeValue float;
-   select @IncomeValue=avg(Value)
-   from #MonthlyIncome
-   where 
-      Value >= (@IncomeAvgValue - @IncomeStdDevValue) AND
-      Value <= (@IncomeAvgValue + @IncomeStdDevValue);
-print 'income Value: ' + ltrim(str(@IncomeValue));
-
-/* MONTHLY EXPENSE */
-create table #MonthlyExpense (PatternID bigint, SearchDate datetime, Value float);
-   insert into #MonthlyExpense
+/* PATTERN AVERAGE */
+create table #PatternSummary (PatternID bigint, SearchDate datetime, Value float);
+   insert into #PatternSummary
    select PatternID, SearchDate, sum(Value) as Value
    from #EntriesData
    where
@@ -114,59 +86,81 @@ create table #MonthlyExpense (PatternID bigint, SearchDate datetime, Value float
       and SearchDate >= @yearInitial
       and SearchDate <= @yearFinal
    group by PatternID, SearchDate;
-create table #MonthlyExpenseStdDev (PatternID bigint, StdDevValue float, AvgValue float);
-   insert into #MonthlyExpenseStdDev
+create table #PatternStdDev (PatternID bigint, StdDevValue float, AvgValue float);
+   insert into #PatternStdDev
    select
       PatternID,
       coalesce(stdevp(Value),0) as StdDevValue,
       coalesce(avg(Value),0) as AvgValue
-   from #MonthlyExpense
+   from #PatternSummary
    group by PatternID;
-create table #MonthlyExpenseAverage (PatternID bigint, Value float);
-   insert into #MonthlyExpenseAverage
+create table #PatternAverage (PatternID bigint, Value float);
+   insert into #PatternAverage
+   select PatternID, avg(Value) as Value
+   from
+   (
+      select
+         Summary.PatternID, 
+         Summary.Value
+      from #PatternSummary as Summary
+         inner join #PatternStdDev as StdDev on
+         (
+            Summary.PatternID = StdDev.PatternID and
+            Summary.Value >= (StdDev.AvgValue - StdDev.StdDevValue) and 
+            Summary.Value <= (StdDev.AvgValue + StdDev.StdDevValue)
+          )
+   ) SUB
+   group by PatternID;
+
+/* PATTERN DATA */
+create table #PatternData (PatternID bigint, Value float, PatternAverage float, ExpenseAverage float)
+   insert into #PatternData 
    select
-      MonthlyExpense.PatternID,
-      sum(MonthlyExpense.Value) as Value
-   from #MonthlyExpense as MonthlyExpense
-      left join #MonthlyExpenseStdDev as MonthlyExpenseStdDev on (MonthlyExpenseStdDev.PatternID=MonthlyExpense.PatternID)
-   where 
-      MonthlyExpense.Value >= (MonthlyExpenseStdDev.AvgValue - MonthlyExpenseStdDev.StdDevValue) AND
-      MonthlyExpense.Value <= (MonthlyExpenseStdDev.AvgValue + MonthlyExpenseStdDev.StdDevValue)
-   group by MonthlyExpense.PatternID;
+      EntriesData.PatternID,
+      EntriesData.Value, 
+      Average.Value as PatternAverage,
+      (select top 1 Value from #EntriesTypeAverage where Type=@typeExpense) as ExpenseAverage
+   from
+   (
+      select
+         PatternID,
+         sum(Value) as Value
+      from #EntriesData 
+      where
+         Type = @typeExpense
+         and SearchDate >= @monthInitial
+         and SearchDate <= @monthFinal
+      group by PatternID
+   ) EntriesData
+      left join #PatternAverage as Average on (Average.PatternID = EntriesData.PatternID);
 
 /* RESULT */
 select
-   EntriesData.PatternID,
+   PatternData.PatternID,
    Patterns.Text,
-   EntriesData.Value, 
-   Average.Value as AverageValue,
-   EntriesData.Value / coalesce(Average.Value, EntriesData.Value) As ExpensePercent
+   Value, PatternAverage,
+   ExpensePercent, PatternPercent
 from
 (
    select
       PatternID,
-      sum(Value) as Value
-   from #EntriesData 
-   where
-      Type = @typeExpense
-      and SearchDate >= @monthInitial
-      and SearchDate <= @monthFinal
-   group by PatternID
-) as EntriesData
-   left join v6_dataPatterns as Patterns on (Patterns.PatternID = EntriesData.PatternID)
-   left join #MonthlyExpenseAverage as Average on (Average.PatternID = EntriesData.PatternID)
-order by (EntriesData.Value / coalesce(Average.Value, EntriesData.Value)) desc
 
-/* RESULT */
--- select * from #EntriesData;
+      Value,
+      PatternAverage,
+      Value / ExpenseAverage As ExpensePercent,
+      Value / coalesce(PatternAverage, Value) As PatternPercent
+   from #PatternData
+) PatternData
+   left join v6_dataPatterns as Patterns on (Patterns.PatternID = PatternData.PatternID)
+order by ExpensePercent desc, PatternPercent desc
 
 /* CLEAR */
 drop table #EntriesData;
 drop table #EntriesTypeSummary;
 drop table #EntriesTypeStdDev;
 drop table #EntriesTypeAverage;
-drop table #MonthlyIncome;
-drop table #MonthlyExpense;
-drop table #MonthlyExpenseStdDev;
-drop table #MonthlyExpenseAverage;
+drop table #PatternSummary;
+drop table #PatternStdDev;
+drop table #PatternAverage;
+drop table #PatternData;
 set nocount off;
