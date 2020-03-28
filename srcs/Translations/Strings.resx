@@ -196,7 +196,7 @@
     <value>Data Analytics</value>
   </data>
   <data name="ANALYTICS_MONTHLY_BUDGET_TITLE" xml:space="preserve">
-    <value>Monthly Budget</value>
+    <value>Monthly Expenses over / under Budget</value>
   </data>
   <data name="ANALYTICS_MONTHLY_TARGET_BALANCE_LABEL" xml:space="preserve">
     <value>Accumulated Balance</value>

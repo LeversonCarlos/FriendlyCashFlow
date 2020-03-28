@@ -58,8 +58,8 @@ namespace FriendlyCashFlow.API.Analytics
       public long PatternID { get; set; }
       public string Text { get; set; }
       public long CategoryID { get; set; }
-      public decimal OverflowValue { get; set; }
-      public decimal OverflowPercent { get; set; }
+      public double OverflowValue { get; set; }
+      public double OverflowPercent { get; set; }
    }
 
 }
