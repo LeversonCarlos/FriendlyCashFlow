@@ -1,7 +1,7 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { BusyService } from 'src/app/shared/busy/busy.service';
 import { HttpClient } from '@angular/common/http';
-import { FilterData, CategoryGoalsVM, EntriesParetoVM, MonthlyTargetVM } from './analytics.viewmodels';
+import { FilterData, CategoryGoalsVM, EntriesParetoVM, MonthlyTargetVM, MonthlyBudgetVM } from './analytics.viewmodels';
 import { AppInsightsService } from 'src/app/shared/app-insights/app-insights.service';
 import { Router } from '@angular/router';
 import { AnalyticsColors } from './analytics.colors';
@@ -42,6 +42,7 @@ export class AnalyticsService {
          await this.LoadCategoryGoals(year, month);
          await this.LoadEntriesPareto(year, month);
          await this.LoadMonthlyTarget(year, month);
+         await this.LoadMonthlyBudget(year, month);
          this.Colors.Restart();
          this.OnDataRefreshed.emit(true);
       }
@@ -66,12 +67,20 @@ export class AnalyticsService {
       return (this.EntriesPareto != null);
    }
 
-   /* ENTRIES PARETO */
+   /* MONTHLY TARGET */
    public MonthlyTarget: MonthlyTargetVM[] = null
    public async LoadMonthlyTarget(year: number, month: number): Promise<boolean> {
       const url = `api/analytics/monthlyTarget/${year}/${month}`;
       this.MonthlyTarget = await this.http.get<MonthlyTargetVM[]>(url).toPromise();
       return (this.MonthlyTarget != null);
+   }
+
+   /* MONTHLY BUDGET */
+   public MonthlyBudget: MonthlyBudgetVM[] = null
+   public async LoadMonthlyBudget(year: number, month: number): Promise<boolean> {
+      const url = `api/analytics/monthlyBudget/${year}/${month}`;
+      this.MonthlyBudget = await this.http.get<MonthlyBudgetVM[]>(url).toPromise();
+      return (this.MonthlyBudget != null);
    }
 
 }
