@@ -45,7 +45,7 @@ export class TransferDetailsComponent implements OnInit {
 
             // DEFAULT DATE
             const today = new Date();
-            this.Data.TransferDate = (this.entriesService.CurrentData && this.entriesService.CurrentData.CurrentMonth) || today;
+               this.Data.TransferDate = (this.entriesService.CurrentData && this.entriesService.CurrentData.CurrentMonth) || today;
             if (this.Data.TransferDate.getFullYear() == today.getFullYear() && this.Data.TransferDate.getMonth() == today.getMonth()) { this.Data.TransferDate = today; }
 
             return true;
@@ -93,6 +93,11 @@ export class TransferDetailsComponent implements OnInit {
    private OnFormChanged(values: any) {
       this.Data.TransferValue = values.TransferValue;
       this.Data.TransferDate = values.TransferDate;
+      if (this.Data.TransferDate) {
+         let transferDate = new Date(this.Data.TransferDate);
+         transferDate = new Date(transferDate.getFullYear(), transferDate.getMonth(), transferDate.getDate(), 12);
+         this.Data.TransferDate = transferDate
+      }
    }
 
 
