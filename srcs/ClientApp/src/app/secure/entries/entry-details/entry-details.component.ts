@@ -139,9 +139,22 @@ export class EntryDetailsComponent implements OnInit {
    private OnFormChanged(values: any) {
       this.Data.Text = values.Text || '';
       this.Data.EntryValue = values.EntryValue;
+
       this.Data.DueDate = values.DueDate;
+      if (this.Data.DueDate) {
+         let dueDate = new Date(this.Data.DueDate);
+         dueDate = new Date(dueDate.getFullYear(), dueDate.getMonth(), dueDate.getDate(), 12);
+         this.Data.DueDate = dueDate
+      }
+
       this.Data.Paid = values.Paid || false;
       this.Data.PayDate = values.PayDate;
+      if (this.Data.PayDate) {
+         let payDate = new Date(this.Data.PayDate);
+         payDate = new Date(payDate.getFullYear(), payDate.getMonth(), payDate.getDate(), 12);
+         this.Data.PayDate = payDate
+      }
+
       if (this.Data.Recurrency) {
          this.Data.Recurrency.Type = values.RecurrencyType
          this.Data.Recurrency.Count = values.RecurrencyCount
