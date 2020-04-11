@@ -95,7 +95,7 @@ export class TransferDetailsComponent implements OnInit {
       this.Data.TransferDate = values.TransferDate;
       if (this.Data.TransferDate) {
          let transferDate = new Date(this.Data.TransferDate);
-         transferDate = new Date(transferDate.getFullYear(), transferDate.getMonth(), payDate.getDate(), 12);
+         transferDate = new Date(transferDate.getFullYear(), transferDate.getMonth(), transferDate.getDate(), 12);
          this.Data.TransferDate = transferDate
       }
    }
