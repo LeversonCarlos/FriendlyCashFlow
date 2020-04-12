@@ -126,33 +126,23 @@ create table #PatternData (PatternID bigint, Value float, PatternAverage float, 
       select
          PatternID,
          sum(Value) as Value
-      from #EntriesData
-      where
-         Type = @typeExpense
-         and SearchDate >= @monthInitial
-         and SearchDate <= @monthFinal
+      from
+      (
+         select
+            PatternID,
+            (case
+             when SearchDate >= @monthInitial and SearchDate <= @monthFinal
+             then Value
+             else 0
+             end) as Value
+         from #EntriesData
+         where
+            Type = @typeExpense and
+            SearchDate >= dateadd(m, -3, @monthInitial)
+      ) SUB
       group by PatternID
    ) EntriesData
       left join #PatternAverage as Average on (Average.PatternID = EntriesData.PatternID);
-
-/* PATTERN PERCENTAGE */
-alter table #PatternData add OverflowPercent float;
-   update #PatternData
-   set OverflowPercent = (PaternOverflow / ExpenseAverage * 100);
-declare @OverflowPercentStdDevValue float; declare @OverflowPercentAvgValue float
-   select
-      @OverflowPercentStdDevValue = stdevp(OverflowPercent),
-      @OverflowPercentAvgValue = avg(OverflowPercent)
-   from #PatternData
-print 'Overflow StdDev Value: ' + ltrim(str(@OverflowPercentStdDevValue));
-print 'Overflow Avg Value: ' + ltrim(str(@OverflowPercentAvgValue));
-
-/* REMOVE ENTRIES INSIDE STANDARD DEV|IATION AREA */
-delete
-from #PatternData
-where
-   round(OverflowPercent,5) >= round((@OverflowPercentAvgValue - @OverflowPercentStdDevValue),5) and
-   round(OverflowPercent,5) <= round((@OverflowPercentAvgValue + @OverflowPercentStdDevValue),5)
 
 /* PATTERN DETAILS */
 alter table #PatternData add Text varchar(500), CategoryID bigint;
@@ -162,6 +152,44 @@ alter table #PatternData add Text varchar(500), CategoryID bigint;
       CategoryID = Patterns.CategoryID
    from #PatternData as PatternData
       left join v6_dataPatterns as Patterns on (Patterns.PatternID = PatternData.PatternID);
+
+/* PATTERN PERCENTAGE */
+alter table #PatternData add OverflowPercent float;
+   update #PatternData
+   set OverflowPercent = (PaternOverflow / ExpenseAverage * 100);
+
+/* REMOVE ENTRIES LOWER THAN STANDARD DEVIATION */
+declare @OverflowPercentStdDevValue float; declare @OverflowPercentAvgValue float
+/*
+   select
+      @OverflowPercentStdDevValue = stdevp(OverflowPercent),
+      @OverflowPercentAvgValue = avg(OverflowPercent)
+   from (
+      select CategoryID, sum(OverflowPercent) as OverflowPercent
+      from #PatternData
+      group by CategoryID
+   ) SUB
+   where OverflowPercent < 0;
+delete
+   from #PatternData
+   where
+      round(OverflowPercent,5) <= round((@OverflowPercentAvgValue - @OverflowPercentStdDevValue),5)
+*/
+
+/* REMOVE ENTRIES INSIDE STANDARD DEVIATION AREA */
+select
+   @OverflowPercentStdDevValue = stdevp(OverflowPercent),
+   @OverflowPercentAvgValue = avg(OverflowPercent)
+from #PatternData
+print 'Overflow StdDev Value: ' + ltrim(str(@OverflowPercentStdDevValue));
+print 'Overflow Avg Value: ' + ltrim(str(@OverflowPercentAvgValue));
+
+/* REMOVE ENTRIES INSIDE STANDARD DEVIATION AREA */
+delete
+from #PatternData
+where
+   round(OverflowPercent,5) >= round((@OverflowPercentAvgValue - @OverflowPercentStdDevValue),5) and
+   round(OverflowPercent,5) <= round((@OverflowPercentAvgValue + @OverflowPercentStdDevValue),5)
 
 /* CATEGORIES */
 select CategoryID
