@@ -138,7 +138,7 @@ create table #PatternData (PatternID bigint, Value float, PatternAverage float, 
          from #EntriesData
          where
             Type = @typeExpense and
-            SearchDate >= dateadd(m, -3, @monthInitial)
+            SearchDate >= dateadd(m, -1, @monthInitial)
       ) SUB
       group by PatternID
    ) EntriesData
