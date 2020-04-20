@@ -107,6 +107,20 @@ alter table #YearData add Balance decimal(15,2);
       )
    from #YearData as YearData;
 
+/* ADJUST CURRENT MONTH */
+declare @balanceCurrentMonth datetime = cast(ltrim(str(@searchYear))+'-'+ltrim(str(@searchMonth))+'-01 00:00:00' as datetime);
+declare @balanceCurrentMonthValue float;
+select top 1 @balanceCurrentMonthValue = Balance
+   from #YearData as YearData
+   where SearchDate = DATEADD(month,-1,@balanceCurrentMonth);
+select top 1 @balanceCurrentMonthValue=@balanceCurrentMonthValue+(IncomeValue-ExpenseValue)
+   from #YearData as YearData
+   where SearchDate=@balanceCurrentMonth;
+update #YearData
+   set Balance=@balanceCurrentMonthValue
+   from #YearData as YearData
+   where SearchDate=@balanceCurrentMonth;
+
 /* RESULT */
 select * from #YearData;
 

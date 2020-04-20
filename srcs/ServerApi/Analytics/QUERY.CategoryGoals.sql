@@ -61,14 +61,14 @@ group by EntriesData.CategoryID;
 select CategoryID
 into #MonthData
 from #EntriesData
-where SearchDate >= @monthInitial and SearchDate <= @monthFinal 
+where SearchDate >= @monthInitial and SearchDate <= @monthFinal
 group by CategoryID
 
 /* APPLY MONTH VALUES */
-alter table #MonthData add [Value] decimal(15,2), AverageValue decimal(15,2);
+alter table #MonthData add [CategoryValue] decimal(15,2), AverageValue decimal(15,2);
 update #MonthData
 set
-   Value =
+   CategoryValue =
    (
       select sum(Value)
       from #EntriesData
@@ -92,7 +92,7 @@ while exists(select * from #MonthData where ParentID is null) begin
    select top 1 @parentID=coalesce(ParentID,0), @text=Text from v6_dataCategories where CategoryID=@categoryID;
 
    if @parentID<>0 and not exists(select * from #MonthData where CategoryID=@parentID) begin
-      insert into #MonthData(CategoryID,Value) values(@parentID, null)
+      insert into #MonthData(CategoryID,CategoryValue) values(@parentID, null)
    end
 
    update #MonthData set ParentID=@parentID, Text=@text where CategoryID=@categoryID

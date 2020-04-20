@@ -11,9 +11,10 @@ export class CategoryGoalsVM {
    CategoryID: number
    Text: string
    ParentID: number
-   Value: number
+   CategoryValue: number
+   CategoryPercent: number
    AverageValue: number
-   Percent: number
+   AveragePercent: number
    Childs: CategoryGoalsVM[]
 }
 
