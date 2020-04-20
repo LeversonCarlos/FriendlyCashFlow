@@ -102,7 +102,7 @@ export class CategoryGoalsChart {
 
    private async yAxisOptions(data: CategoryGoalsVM[]): Promise<Highcharts.YAxisOptions> {
       let maxValue = data
-         .map(x => x.Percent)
+         .map(x => x.CategoryPercent)
          .sort((a, b) => a < b ? 1 : -1)
          .reduce((a, b) => a || b, 0) || 0;
       maxValue = maxValue < 105 ? 105 : maxValue;
@@ -160,7 +160,7 @@ export class CategoryGoalsChart {
 
    private seriesOptions(data: CategoryGoalsVM[]): Highcharts.SeriesOptionsType[] {
       const self = this;
-      const seriesList : Highcharts.SeriesOptionsType = {
+      const seriesList: Highcharts.SeriesOptionsType = {
          name: 'Categories',
          type: 'column',
          data: data
@@ -168,9 +168,9 @@ export class CategoryGoalsChart {
             .map(x => ({
                name: x.Text,
                color: self.service.Colors.GetCategoryColor(x.CategoryID),
-               y: x.Percent,
+               y: x.CategoryPercent,
                goalValue: x.AverageValue,
-               realValue: x.Value,
+               realValue: x.CategoryValue,
                drilldown: x.CategoryID.toString()
             }))
       };
@@ -185,12 +185,12 @@ export class CategoryGoalsChart {
             colorByPoint: false,
             id: x.CategoryID.toString(),
             data: x.Childs
-               .filter(child => child.Percent > 0)
+               .filter(child => child.CategoryPercent > 0)
                .map(child => ({
                   name: child.Text,
-                  y: child.Percent,
+                  y: child.CategoryPercent,
                   goalValue: child.AverageValue,
-                  realValue: child.Value
+                  realValue: child.CategoryValue
                }))
          }))
       return {
