@@ -36,23 +36,21 @@ group by year(SearchDate), month(SearchDate), Type;
 
 /* STANDARD DEVIATION */
 select
-   Type,
    coalesce(STDEVP(Value),0) as StdDevValue,
    coalesce(AVG(Value),0) as AverageValue
 into #StdDev
 from #EntriesData
-group by Type;
+where Type=@typeExpense;
 
 /* AVERAGE DATA */
 select
-   EntriesData.Type, avg(Value) as AverageValue
+   avg(Value) as AverageValue
 into #AverageData
 from #EntriesData as EntriesData
-   inner join #StdDev as StdDev on (StdDev.Type = EntriesData.Type)
+   cross join #StdDev as StdDev 
 where
    Value >= AverageValue - StdDevValue AND
-   Value <= AverageValue + StdDevValue
-group by EntriesData.Type;
+   Value <= AverageValue + StdDevValue;
 
 /* YEAR DATA */
 select
@@ -75,8 +73,8 @@ group by SearchDate
 alter table #YearData add IncomeAverage decimal(15,2), ExpenseAverage decimal(15,2);
    update #YearData
    set
-      IncomeAverage = (select sum(AverageValue) from #AverageData where Type = @typeIncome),
-      ExpenseAverage = (select sum(AverageValue) from #AverageData where Type = @typeExpense)
+      IncomeAverage = (select sum(AverageValue) from #AverageData ),
+      ExpenseAverage = (select sum(AverageValue) from #AverageData )
    from #YearData;
 alter table #YearData add IncomeTarget decimal(15,4), ExpenseTarget decimal(15,4);
    update #YearData
