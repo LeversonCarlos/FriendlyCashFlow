@@ -38,7 +38,7 @@
     "@angular/cli": "^8.3.28",
     "@angular/compiler-cli": "~8.2.14",
     "@angular/language-service": "~8.2.14",
-    "@babel/compat-data": "~7.8.0",
+    "@babel/compat-data": "~7.8.6",
     "@types/node": "~8.9.4",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
