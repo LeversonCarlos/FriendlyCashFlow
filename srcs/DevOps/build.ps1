@@ -57,7 +57,7 @@ cd..
 Write-Output ""
 Write-Output "> FRONTEND BUILD >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 cd ClientApp
-npm run build --prod
+npm run build --prod --verbose
 cd..
 
 ## BACKEND BUILDING ##
