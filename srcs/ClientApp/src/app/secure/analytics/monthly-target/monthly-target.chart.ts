@@ -22,6 +22,7 @@ export class MonthlyTargetChart {
    private BalanceColor = '#333';
    private IncomeColor = '#4CAF50';
    private ExpenseColor = '#f44336';
+   private GoalColor = 'green';
 
    public async show(data: MonthlyTargetVM[]) {
       try {
@@ -98,7 +99,7 @@ export class MonthlyTargetChart {
          max: maxValue,
          plotLines: [{
             value: 100,
-            color: 'green',
+            color: this.GoalColor,
             label: {
                text: await this.translation.getValue("ANALYTICS_MONTHLY_TARGET_GOAL_LABEL"),
                x: 0,
@@ -128,22 +129,27 @@ export class MonthlyTargetChart {
                <span style="color:${self.IncomeColor}">\u25CF</span>
                <span>${incomePoint.series.name}</span>
                <strong>${self.translation.getNumberFormat(incomePoint.realValue, 2)}</strong>
-               <small> (${goalLabel}: ${self.translation.getNumberFormat(incomePoint.goalValue, 2)})</small>
                `
             const expensePoint: any = this.points[1].point;
             const expenseText = `<br/>
                <span style="color:${self.ExpenseColor}">\u25CF</span>
                <span>${expensePoint.series.name}</span>
                <strong>${self.translation.getNumberFormat(expensePoint.realValue, 2)}</strong>
-               <small> (${goalLabel}: ${self.translation.getNumberFormat(expensePoint.goalValue, 2)})</small>
                `
+            const goalText = `<br/>
+               <span style="color:transparent">\u25CF</span>
+               <small>(</small>
+               <small>${goalLabel}</small>
+               <small>${self.translation.getNumberFormat(expensePoint.goalValue, 2)}</small>
+               <small>)</small>
+            `
             const balancePoint: any = this.points[2].point;
             const balanceText = `<br/>
                   <span style="color:${self.BalanceColor}">\u25CF</span>
                   <span>${balancePoint.series.name}</span>
                   <strong>${self.translation.getNumberFormat(balancePoint.y, 2)}</strong>
                   `
-            const tooltip = `<strong>${incomePoint.name}</strong>${incomeText}${expenseText}${balanceText}`;
+            const tooltip = `<strong>${incomePoint.name}</strong>${incomeText}${expenseText}${goalText}${balanceText}`;
             return tooltip;
          }
       };
