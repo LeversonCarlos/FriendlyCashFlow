@@ -30,15 +30,13 @@ Write-Output "> APPLY VERSION >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 $donetProjectFile = 'FriendlyCashFlow.csproj'
    Write-Output "  donetProjectFile: $donetProjectFile"
    (Get-Content $donetProjectFile) | % { $_ -replace '<Version>1.0.0</Version>', "<Version>$version</Version>" } | Set-Content $donetProjectFile
-   #echo (Get-Content $donetProjectFile)
 $angularProjectFile = 'ClientApp/package.json'
    Write-Output "  angularProjectFile: $angularProjectFile"
    (Get-Content $angularProjectFile) | %{ $_ -replace '"version": "1.0.0"', "@@version@@: @@$version@@" } | %{ $_ -replace '@@', '"' } | Set-Content $angularProjectFile
-   #echo (Get-Content $angularProjectFile)
-# $angularManifestFile = 'ClientApp/src/manifest.json'
-#    Write-Output "  angularManifestFile: $angularManifestFile"
-#    (Get-Content $angularManifestFile) | %{ $_ -replace '"version": "1.0.0"', "@@version@@: @@$version@@" } | %{ $_ -replace '@@', '"' } | Set-Content $angularManifestFile
-#    #echo (Get-Content $angularManifestFile)
+$angularManifestFile = 'ClientApp/src/manifest.json'
+   Write-Output "  angularManifestFile: $angularManifestFile"
+   (Get-Content $angularManifestFile) | %{ $_ -replace '"version": "1.0.0"', "@@version@@: @@$version@@" } | %{ $_ -replace '@@', '"' } | Set-Content $angularManifestFile
+   # echo (Get-Content $angularManifestFile)
 
 ## BACKEND PACKAGES ##
 Write-Output ""
@@ -57,7 +55,7 @@ cd..
 Write-Output ""
 Write-Output "> FRONTEND BUILD >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 cd ClientApp
-npm run build --prod --verbose
+npm run build
 cd..
 
 ## BACKEND BUILDING ##

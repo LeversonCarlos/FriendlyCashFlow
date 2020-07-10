@@ -1,6 +1,7 @@
 {
    "name": "Friendly Cash Flow",
    "short_name": "Cash Flow",
+   "version": "1.0.0",
    "theme_color": "#009688",
    "background_color": "#fafafa",
    "display": "standalone",
