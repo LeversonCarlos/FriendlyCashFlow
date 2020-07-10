@@ -36,7 +36,7 @@ $angularProjectFile = 'ClientApp/package.json'
 $angularManifestFile = 'ClientApp/src/manifest.json'
    Write-Output "  angularManifestFile: $angularManifestFile"
    (Get-Content $angularManifestFile) | %{ $_ -replace '"version": "1.0.0"', "@@version@@: @@$version@@" } | %{ $_ -replace '@@', '"' } | Set-Content $angularManifestFile
-   #echo (Get-Content $angularManifestFile)
+   # echo (Get-Content $angularManifestFile)
 
 ## BACKEND PACKAGES ##
 Write-Output ""
@@ -55,7 +55,7 @@ cd..
 Write-Output ""
 Write-Output "> FRONTEND BUILD >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 cd ClientApp
-npm run build --prod --verbose
+npm run build
 cd..
 
 ## BACKEND BUILDING ##

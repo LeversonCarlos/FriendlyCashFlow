@@ -4,8 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
-    "build:ssr": "ng run FriendlyCashFlow:server:dev",
+    "build": "ng build --prod --verbose",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
