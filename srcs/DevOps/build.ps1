@@ -46,16 +46,23 @@ Write-Output "> BACKEND PACKAGES >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 dotnet restore
 
 ## FRONTEND PACKAGES ##
-# Write-Output ""
-# Write-Output "> FRONTEND PACKAGES >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-# cd ClientApp
-## npx npm-force-resolutions
-# npm install --no-save -verbose
-# cd..
-
-## BUILDING ##
 Write-Output ""
-Write-Output "> BUILDING >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+Write-Output "> FRONTEND PACKAGES >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+cd ClientApp
+## npx npm-force-resolutions
+npm install --no-save -verbose
+cd..
+
+## FRONTEND BUILD ##
+Write-Output ""
+Write-Output "> FRONTEND BUILD >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+cd ClientApp
+npm run build --prod --verbose
+cd..
+
+## BACKEND BUILDING ##
+Write-Output ""
+Write-Output "> BACKEND UILDING >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 dotnet build --configuration $configuration --no-restore
 
 ## PUBLISHING ##
