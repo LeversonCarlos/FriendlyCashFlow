@@ -32,6 +32,9 @@ namespace FriendlyCashFlow.API.Entries
             this.dbContext.Remove(data);
             await this.dbContext.SaveChangesAsync();
 
+            // FIX BALANCE
+            await this.GetService<Balances.BalancesService>().FixAsync(data);
+
             // REMOVE RECURRENCY
             if (data.RecurrencyID.HasValue && data.RecurrencyID.Value > 0)
             {
