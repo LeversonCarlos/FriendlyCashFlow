@@ -20,20 +20,20 @@ namespace FriendlyCashFlow.Identity.Tests
 
       [Theory]
       [MemberData(nameof(Constructor_WithInvalidParameters_MustThrowException_Data))]
-      public void Constructor_WithInvalidParameters_MustThrowException(string exceptionText, string userID)
+      public void Constructor_WithInvalidParameters_MustThrowException(string exceptionText, string userID, string userName)
       {
-         var exception = Assert.Throws<ArgumentException>(() => new User(userID, "UserName"));
+         var exception = Assert.Throws<ArgumentException>(() => new User(userID, userName));
 
          Assert.NotNull(exception);
          Assert.Equal(exceptionText, exception.Message);
       }
       public static IEnumerable<object[]> Constructor_WithInvalidParameters_MustThrowException_Data() =>
          new[] {
-            new object[] { "WARNING_IDENTITY_INVALID_USERID_DATA", (string)null,  },
-            new object[] { "WARNING_IDENTITY_INVALID_USERID_DATA", "" },
-            new object[] { "WARNING_IDENTITY_INVALID_USERID_DATA", " " },
-            new object[] { "WARNING_IDENTITY_INVALID_USERID_DATA", "123456789 123456789 123456789 12345" },
-            new object[] { "WARNING_IDENTITY_INVALID_USERID_DATA", "123456789 123456789 123456789 1234567" }
+            new object[] { "WARNING_IDENTITY_INVALID_USERID_DATA", (string)null, "UserName" },
+            new object[] { "WARNING_IDENTITY_INVALID_USERID_DATA", "", "UserName" },
+            new object[] { "WARNING_IDENTITY_INVALID_USERID_DATA", " ", "UserName" },
+            new object[] { "WARNING_IDENTITY_INVALID_USERID_DATA", "123456789 123456789 123456789 12345", "UserName" },
+            new object[] { "WARNING_IDENTITY_INVALID_USERID_DATA", "123456789 123456789 123456789 1234567", "UserName" }
          };
 
    }
