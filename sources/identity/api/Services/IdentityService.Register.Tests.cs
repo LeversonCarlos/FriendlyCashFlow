@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Xunit;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,7 +10,7 @@ namespace FriendlyCashFlow.Identity.Tests
       [Fact]
       public async void Register_WithInvalidParameters_MustThrowException()
       {
-         var provider = ProviderMocker.Create().WithIdentityService().Build().BuildServiceProvider();
+         var provider = ProviderMocker.Create().WithIdentityService(new IdentityService()).Build().BuildServiceProvider();
          var service = (IIdentityService)provider.GetService<IIdentityService>();
 
          var expected = "WARNING_IDENTITY_INVALID_REGISTER_PARAMETER";
