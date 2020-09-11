@@ -1,11 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
-    </PropertyGroup>
+   <PropertyGroup>
+      <TargetFramework>netstandard2.0</TargetFramework>
+      <RootNamespace>FriendlyCashFlow.Identity</RootNamespace>
+   </PropertyGroup>
 
-    <ItemGroup>
-        <Compile Remove="**\*.Test.cs" />
-    </ItemGroup>
+   <ItemGroup>
+      <Compile Remove="**\*.Test.cs" />
+   </ItemGroup>
 
 </Project>
