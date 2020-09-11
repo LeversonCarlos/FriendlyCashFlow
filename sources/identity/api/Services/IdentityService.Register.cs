@@ -8,16 +8,21 @@ namespace FriendlyCashFlow.Identity
    {
 
       internal const string WARNING_IDENTITY_INVALID_REGISTER_PARAMETER = "WARNING_IDENTITY_INVALID_REGISTER_PARAMETER";
-      public Task<object> RegisterAsync(RegisterVM value)
+      public Task<object> RegisterAsync(RegisterVM registerVM)
       {
-         throw new ArgumentException(WARNING_IDENTITY_INVALID_REGISTER_PARAMETER);
+
+         if (registerVM == null)
+            throw new ArgumentException(WARNING_IDENTITY_INVALID_REGISTER_PARAMETER);
+
+         var user = new User(registerVM.UserName, registerVM.Password);
+
       }
 
    }
 
    partial interface IIdentityService
    {
-      Task<object> RegisterAsync(RegisterVM value);
+      Task<object> RegisterAsync(RegisterVM registerVM);
    }
 
    public class RegisterVM

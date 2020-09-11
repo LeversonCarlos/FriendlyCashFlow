@@ -6,7 +6,12 @@
    </PropertyGroup>
 
    <ItemGroup>
+     <PackageReference Include="MongoDB.Driver" Version="2.11.2" />
+   </ItemGroup>
+
+   <ItemGroup>
       <Compile Remove="**\*.Tests.cs" />
+      <Compile Remove="**\*.Mocker.cs" />
    </ItemGroup>
 
 </Project>
