@@ -2,8 +2,19 @@ using System;
 
 namespace FriendlyCashFlow.Identity
 {
-   internal class User
+
+   public interface IUser
    {
+      string UserID { get; }
+   }
+
+   internal class User : IUser
+   {
+
+      public User()
+      {
+         UserID = System.Guid.NewGuid().ToString();
+      }
 
       public User(string userID)
       {
@@ -23,4 +34,5 @@ namespace FriendlyCashFlow.Identity
       }
 
    }
+
 }
