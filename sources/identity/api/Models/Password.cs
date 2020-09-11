@@ -7,12 +7,9 @@ namespace FriendlyCashFlow.Identity
 
       public Password(string value)
       {
-
          if (string.IsNullOrEmpty(value) || value.Length < 5)
             throw new ArgumentException("WARNING_IDENTITY_INVALID_PASSWORD_DATA");
-
          _Value = value;
-         // var s = new SecureString();
       }
 
       readonly string _Value;
