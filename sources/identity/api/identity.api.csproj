@@ -6,7 +6,7 @@
    </PropertyGroup>
 
    <ItemGroup>
-      <Compile Remove="**\*.Test.cs" />
+      <Compile Remove="**\*.Tests.cs" />
    </ItemGroup>
 
 </Project>
