@@ -12,14 +12,15 @@ namespace FriendlyCashFlow.Identity
    internal class User : IUser
    {
 
-      public User(string userName)
-         : this(System.Guid.NewGuid().ToString(), userName)
+      public User(string userName, Password password)
+         : this(System.Guid.NewGuid().ToString(), userName, password)
       { }
 
-      public User(string userID, string userName)
+      public User(string userID, string userName, Password password)
       {
          UserID = userID;
          UserName = userName;
+         Password = password;
       }
 
       string _UserID;
@@ -43,6 +44,18 @@ namespace FriendlyCashFlow.Identity
             if (string.IsNullOrEmpty(value) || value.Length < 8 || value.Length > 50)
                throw new ArgumentException("WARNING_IDENTITY_INVALID_USERNAME_DATA");
             _UserName = value;
+         }
+      }
+
+      Password _Password;
+      public Password Password
+      {
+         get => _Password;
+         private set
+         {
+            if (value == null)
+               throw new ArgumentException("WARNING_IDENTITY_INVALID_PASSWORD_DATA");
+            _Password = value;
          }
       }
 
