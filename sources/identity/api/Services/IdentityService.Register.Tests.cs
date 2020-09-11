@@ -1,4 +1,6 @@
 ﻿using System;
+using Xunit;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace FriendlyCashFlow.Identity.Tests
 {
@@ -6,12 +8,16 @@ namespace FriendlyCashFlow.Identity.Tests
    {
 
       [Fact]
-      public void Register_WithInvalidParameters_MustThrowException()
+      public async void Register_WithInvalidParameters_MustThrowException()
       {
-         var exception = Assert.Throws<ArgumentException>(() => new User(userID, userName, password));
+         var provider = ProviderMocker.Create().WithIdentityService().Build().BuildServiceProvider();
+         var service = (IIdentityService)provider.GetService<IIdentityService>();
 
-         Assert.NotNull(exception);
-         Assert.Equal(exceptionText, exception.Message);
+         var expected = "WARNING_IDENTITY_INVALID_REGISTER_PARAMETER";
+         var result = await Assert.ThrowsAsync<ArgumentException>(() => service.RegisterAsync(null));
+
+         Assert.NotNull(result);
+         Assert.Equal(expected, result.Message);
       }
 
    }
