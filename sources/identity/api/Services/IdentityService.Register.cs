@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FriendlyCashFlow.Identity
 {
@@ -8,7 +9,7 @@ namespace FriendlyCashFlow.Identity
    {
 
       internal const string WARNING_IDENTITY_INVALID_REGISTER_PARAMETER = "WARNING_IDENTITY_INVALID_REGISTER_PARAMETER";
-      public Task<object> RegisterAsync(RegisterVM registerVM)
+      public async Task<ActionResult> RegisterAsync(RegisterVM registerVM)
       {
 
          if (registerVM == null)
@@ -16,13 +17,16 @@ namespace FriendlyCashFlow.Identity
 
          var user = new User(registerVM.UserName, registerVM.Password);
 
+         await _UserCollection.InsertOneAsync(user);
+
+         return new OkResult();
       }
 
    }
 
    partial interface IIdentityService
    {
-      Task<object> RegisterAsync(RegisterVM registerVM);
+      Task<ActionResult> RegisterAsync(RegisterVM registerVM);
    }
 
    public class RegisterVM

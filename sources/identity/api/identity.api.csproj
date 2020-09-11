@@ -1,12 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
    <PropertyGroup>
-      <TargetFramework>netstandard2.0</TargetFramework>
+      <TargetFramework>netcoreapp3.1</TargetFramework>
       <RootNamespace>FriendlyCashFlow.Identity</RootNamespace>
    </PropertyGroup>
 
    <ItemGroup>
-     <PackageReference Include="MongoDB.Driver" Version="2.11.2" />
+      <FrameworkReference Include="Microsoft.AspNetCore.App" />
+      <PackageReference Include="MongoDB.Driver" Version="2.11.2" />
    </ItemGroup>
 
    <ItemGroup>

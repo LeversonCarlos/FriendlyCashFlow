@@ -7,10 +7,11 @@ namespace FriendlyCashFlow.Identity
    internal partial class IdentityService : IIdentityService
    {
 
-      readonly IMongoClient _MongoClient;
+      readonly IMongoCollection<IUser> _UserCollection;
+
       public IdentityService(IMongoClient mongoClient)
       {
-         _MongoClient = mongoClient;
+         _UserCollection = mongoClient.GetDatabase("identity").GetCollection<IUser>("users");
       }
 
    }
