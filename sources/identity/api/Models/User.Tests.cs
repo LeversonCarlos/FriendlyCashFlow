@@ -10,7 +10,7 @@ namespace FriendlyCashFlow.Identity.Tests
       [Fact]
       public void Constructor_WithValidParameters_MustResultValidInstance()
       {
-         var user = new User();
+         var user = new User("UserName");
 
          Assert.NotNull(user);
          Assert.NotEmpty(user.UserID);
@@ -25,7 +25,7 @@ namespace FriendlyCashFlow.Identity.Tests
       [InlineData("123456789 123456789 123456789 1234567")]
       public void Constructor_WithInvalidParameters_MustThrowException(string userID)
       {
-         var exception = Assert.Throws<ArgumentException>(() => new User(userID));
+         var exception = Assert.Throws<ArgumentException>(() => new User(userID, "UserName"));
 
          Assert.NotNull(exception);
          Assert.Equal("WARNING_IDENTITY_INVALID_USERID_DATA", exception.Message);
