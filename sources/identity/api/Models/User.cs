@@ -30,10 +30,11 @@ namespace FriendlyCashFlow.Identity
          private set
          {
             if (string.IsNullOrEmpty(value) || value.Length != 36)
-               throw new ArgumentException("WARNING_IDENTITY_INVALID_USERID_DATA");
+               throw new ArgumentException(WARNING_IDENTITY_INVALID_USERID_PARAMETER);
             _UserID = value;
          }
       }
+      internal const string WARNING_IDENTITY_INVALID_USERID_PARAMETER = "WARNING_IDENTITY_INVALID_USERID_PARAMETER";
 
       string _UserName;
       public string UserName
@@ -42,10 +43,11 @@ namespace FriendlyCashFlow.Identity
          private set
          {
             if (string.IsNullOrEmpty(value) || value.Length < 8 || value.Length > 50)
-               throw new ArgumentException("WARNING_IDENTITY_INVALID_USERNAME_DATA");
+               throw new ArgumentException(WARNING_IDENTITY_INVALID_USERNAME_PARAMETER);
             _UserName = value;
          }
       }
+      internal const string WARNING_IDENTITY_INVALID_USERNAME_PARAMETER = "WARNING_IDENTITY_INVALID_USERNAME_PARAMETER";
 
       Password _Password;
       public Password Password
@@ -54,10 +56,11 @@ namespace FriendlyCashFlow.Identity
          private set
          {
             if (value == null)
-               throw new ArgumentException("WARNING_IDENTITY_INVALID_PASSWORD_DATA");
+               throw new ArgumentException(WARNING_IDENTITY_INVALID_PASSWORD_PARAMETER);
             _Password = value;
          }
       }
+      internal const string WARNING_IDENTITY_INVALID_PASSWORD_PARAMETER = "WARNING_IDENTITY_INVALID_PASSWORD_PARAMETER";
 
    }
 

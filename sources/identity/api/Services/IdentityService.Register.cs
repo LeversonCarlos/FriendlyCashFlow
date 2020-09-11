@@ -6,8 +6,9 @@ namespace FriendlyCashFlow.Identity
 
    partial class IdentityService
    {
-      public Task<object> RegisterAsync(object value) => 
-         throw new ArgumentException("WARNING_IDENTITY_INVALID_REGISTER_PARAMETER");
+      internal const string WARNING_IDENTITY_INVALID_REGISTER_PARAMETER = "WARNING_IDENTITY_INVALID_REGISTER_PARAMETER";
+      public Task<object> RegisterAsync(object value) =>
+         throw new ArgumentException(WARNING_IDENTITY_INVALID_REGISTER_PARAMETER);
    }
 
    partial interface IIdentityService
