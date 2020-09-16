@@ -21,5 +21,22 @@ namespace FriendlyCashFlow.Identity.Tests
          Assert.Equal(expected, result.Message);
       }
 
+      /*
+      [Fact]
+      public async void Register_WithValidParameters_MustThrowException()
+      {
+         var mongoClient = MongoMocker.Create().Build();
+         var provider = ProviderMocker.Create().WithIdentityService(new IdentityService(mongoClient)).Build().BuildServiceProvider();
+         var service = (IIdentityService)provider.GetService<IIdentityService>();
+
+         var param = new RegisterVM { UserName = "UserName", Password = "Password" };
+         // var expected = new RegisterVM();
+         var result = await service.RegisterAsync(param);
+
+         Assert.NotNull(result);
+         Assert.IsType<Microsoft.AspNetCore.Mvc.OkResult>(result);
+      }
+      */
+
    }
 }
