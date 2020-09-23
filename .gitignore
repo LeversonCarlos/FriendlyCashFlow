@@ -334,3 +334,4 @@ ASALocalRun/
 srcs/appsettings.Development.json
 coverage.json
 coverage.cobertura.xml
+coverage.info
