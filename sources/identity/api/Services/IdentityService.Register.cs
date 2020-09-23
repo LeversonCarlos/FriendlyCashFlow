@@ -1,6 +1,6 @@
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 
 namespace FriendlyCashFlow.Identity
 {
@@ -9,6 +9,8 @@ namespace FriendlyCashFlow.Identity
    {
 
       internal const string WARNING_IDENTITY_INVALID_REGISTER_PARAMETER = "WARNING_IDENTITY_INVALID_REGISTER_PARAMETER";
+      internal const string WARNING_IDENTITY_INVALID_DATABASE_COLLECTION = "WARNING_IDENTITY_INVALID_DATABASE_COLLECTION";
+
       public async Task<ActionResult> RegisterAsync(RegisterVM registerVM)
       {
 
@@ -17,7 +19,11 @@ namespace FriendlyCashFlow.Identity
 
          var user = new User(registerVM.UserName, registerVM.Password);
 
-         await _UserCollection.InsertOneAsync(user);
+         var collection = await GetCollectionAsync();
+         if (collection == null)
+            throw new NullReferenceException(WARNING_IDENTITY_INVALID_DATABASE_COLLECTION);
+
+         await collection.InsertOneAsync(user);
 
          return new OkResult();
       }
