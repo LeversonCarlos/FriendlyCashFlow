@@ -55,8 +55,6 @@ namespace FriendlyCashFlow.Identity
          get => _Password;
          private set
          {
-            if (value == null)
-               throw new ArgumentException(WARNING_IDENTITY_INVALID_PASSWORD_PARAMETER);
             _Password = value;
          }
       }
