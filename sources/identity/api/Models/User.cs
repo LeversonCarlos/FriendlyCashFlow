@@ -12,11 +12,11 @@ namespace FriendlyCashFlow.Identity
    internal class User : IUser
    {
 
-      public User(string userName, Password password)
+      public User(string userName, string password)
          : this(System.Guid.NewGuid().ToString(), userName, password)
       { }
 
-      public User(string userID, string userName, Password password)
+      public User(string userID, string userName, string password)
       {
          UserID = userID;
          UserName = userName;
@@ -24,6 +24,7 @@ namespace FriendlyCashFlow.Identity
       }
 
       string _UserID;
+      [MongoDB.Bson.Serialization.Attributes.BsonId]
       public string UserID
       {
          get => _UserID;
@@ -49,12 +50,14 @@ namespace FriendlyCashFlow.Identity
       }
       internal const string WARNING_IDENTITY_INVALID_USERNAME_PARAMETER = "WARNING_IDENTITY_INVALID_USERNAME_PARAMETER";
 
-      Password _Password;
-      public Password Password
+      string _Password;
+      public string Password
       {
          get => _Password;
          private set
          {
+            if (string.IsNullOrEmpty(value) || value.Length < 5)
+               throw new ArgumentException(WARNING_IDENTITY_INVALID_PASSWORD_PARAMETER);
             _Password = value;
          }
       }
