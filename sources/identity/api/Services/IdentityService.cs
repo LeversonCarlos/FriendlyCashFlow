@@ -1,5 +1,6 @@
-using System;
+using FriendlyCashFlow.Identity.Helpers;
 using MongoDB.Driver;
+using System.Threading.Tasks;
 
 namespace FriendlyCashFlow.Identity
 {
@@ -7,12 +8,14 @@ namespace FriendlyCashFlow.Identity
    internal partial class IdentityService : IIdentityService
    {
 
-      readonly IMongoCollection<IUser> _UserCollection;
-
-      public IdentityService(IMongoClient mongoClient)
+      readonly IMongoDatabase _MongoDatabase;
+      public IdentityService(IMongoDatabase mongoDatabase)
       {
-         _UserCollection = mongoClient.GetDatabase("identity").GetCollection<IUser>("users");
+         _MongoDatabase = mongoDatabase;
       }
+
+      internal Task<IMongoCollection<IUser>> GetCollectionAsync() =>
+         _MongoDatabase.GetCollectionAsync<IUser>("users");
 
    }
 
