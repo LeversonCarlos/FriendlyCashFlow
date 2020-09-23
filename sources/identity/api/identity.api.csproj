@@ -5,6 +5,11 @@
       <RootNamespace>FriendlyCashFlow.Identity</RootNamespace>
    </PropertyGroup>
 
+   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+      <CollectCoverage>true</CollectCoverage>
+      <IncludeTestAssembly>true</IncludeTestAssembly>
+   </PropertyGroup>
+
    <ItemGroup>
       <FrameworkReference Include="Microsoft.AspNetCore.App" />
       <PackageReference Include="MongoDB.Driver" Version="2.11.2" />
@@ -15,7 +20,7 @@
       <Compile Remove="Mockers\**" />
    </ItemGroup>
 
-   <ItemGroup Condition="'$(Configuration)' != 'Release'">
+   <ItemGroup Condition="'$(Configuration)' == 'Debug'">
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.8" />
       <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
       <PackageReference Include="xunit" Version="2.4.0" />
