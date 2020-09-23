@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace FriendlyCashFlow.Identity.Helpers
 {
-   internal static class MongoHelper
+   internal static class Extentions
    {
 
       internal static async Task<IMongoCollection<T>> GetCollectionAsync<T>(this IMongoDatabase mongoDatabase, string collectionName)
