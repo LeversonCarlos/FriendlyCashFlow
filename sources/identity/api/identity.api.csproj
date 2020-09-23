@@ -10,9 +10,19 @@
       <PackageReference Include="MongoDB.Driver" Version="2.11.2" />
    </ItemGroup>
 
-   <ItemGroup>
+   <ItemGroup Condition="'$(Configuration)' == 'Release'">
       <Compile Remove="**\*.Tests.cs" />
       <Compile Remove="**\*.Mocker.cs" />
+   </ItemGroup>
+
+   <ItemGroup Condition="'$(Configuration)' != 'Release'">
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.8" />
+      <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+      <PackageReference Include="xunit" Version="2.4.0" />
+      <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
+      <PackageReference Include="coverlet.collector" Version="1.2.0" />
+      <PackageReference Include="coverlet.msbuild" Version="2.9.0" />
+      <PackageReference Include="Moq" Version="4.14.1" />
    </ItemGroup>
 
 </Project>
