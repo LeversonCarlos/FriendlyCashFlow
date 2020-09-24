@@ -21,7 +21,7 @@ namespace FriendlyCashFlow.Identity
                IsUpper = Char.IsUpper(item),
                IsLower = Char.IsLower(item),
                IsNumber = Char.IsNumber(item),
-               IsSymbol = Char.IsSymbol(item)
+               IsSymbol = Char.IsSymbol(item) || !Char.IsLetterOrDigit(item)
             })
             .ToArray();
 
