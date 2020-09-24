@@ -1,9 +1,20 @@
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 using System.Threading.Tasks;
 
 namespace FriendlyCashFlow.Identity.Helpers
 {
-   internal static class Extentions
+
+   public static class StartupExtentions
+   {
+      public static IServiceCollection AddIdentityService(this IServiceCollection services, IConfiguration configs) =>
+         services
+            .AddSingleton(s => configs.GetSection("Passwords").Get<ValidatePasswordSettings>())
+            .AddScoped<IIdentityService, IdentityService>();
+   }
+
+   internal static class MongoExtentions
    {
 
       /*
