@@ -9,7 +9,7 @@
       <CollectCoverage>true</CollectCoverage>
       <CoverletOutputFormat>lcov</CoverletOutputFormat>
       <IncludeTestAssembly>true</IncludeTestAssembly>
-      <ExcludeByFile>**\*.Mockers.cs,**\*.Tests.cs</ExcludeByFile>
+      <ExcludeByFile>**\*.Mockers.cs,**\*.Tests.cs,**\microsoft.net.test.sdk\**</ExcludeByFile>
    </PropertyGroup>
 
    <ItemGroup>
