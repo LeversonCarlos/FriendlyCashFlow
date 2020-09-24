@@ -18,4 +18,10 @@ jobs:
         
       - name: Run Tests
         working-directory: 'sources/identity/api/'
-        run: dotnet test /p:CoverletOutputFormat=opencover
+        run: dotnet test /p:CoverletOutputFormat=lcov
+
+      - name: Write Report
+        uses: romeovs/lcov-reporter-action@v0.2.16
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          lcov-file: ./sources/identity/api/lcov.info        
