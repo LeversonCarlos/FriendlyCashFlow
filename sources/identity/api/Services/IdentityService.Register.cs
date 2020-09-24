@@ -20,9 +20,6 @@ namespace FriendlyCashFlow.Identity
          var user = new User(registerVM.UserName, registerVM.Password);
 
          var collection = await GetCollectionAsync();
-         if (collection == null)
-            throw new NullReferenceException(WARNING_IDENTITY_INVALID_DATABASE_COLLECTION);
-
          await collection.InsertOneAsync(user);
 
          return new OkResult();
