@@ -11,7 +11,7 @@ namespace FriendlyCashFlow.Identity.Tests
       public async void Register_WithInvalidParameters_MustThrowException()
       {
          var provider = ProviderMocker.Create().WithIdentityService(new IdentityService(null)).Build().BuildServiceProvider();
-         var service = (IIdentityService)provider.GetService<IIdentityService>();
+         var service = provider.GetService<IIdentityService>();
 
          var expected = IdentityService.WARNING_IDENTITY_INVALID_REGISTER_PARAMETER;
          var result = await Assert.ThrowsAsync<ArgumentException>(() => service.RegisterAsync(null));
@@ -23,9 +23,10 @@ namespace FriendlyCashFlow.Identity.Tests
       [Fact]
       public async void Register_WithValidParameters_MustReturnOkResult()
       {
-         var mongoDatabase = MongoConnector.Create().BuildDatabase();
+         var mongoCollection = MongoCollectionMocker<IUser>.Create().Build();
+         var mongoDatabase = MongoDatabaseMocker.Create().WithCollection(mongoCollection).Build();
          var provider = ProviderMocker.Create().WithIdentityService(new IdentityService(mongoDatabase)).Build().BuildServiceProvider();
-         var service = (IIdentityService)provider.GetService<IIdentityService>();
+         var service = provider.GetService<IIdentityService>();
          var registerParam = new RegisterVM { UserName = "userName", Password = "password" };
 
          var result = await service.RegisterAsync(registerParam);
