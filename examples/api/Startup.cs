@@ -1,7 +1,9 @@
+using FriendlyCashFlow.Identity;
 using FriendlyCashFlow.Identity.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -40,7 +42,21 @@ namespace example
          {
             endpoints.MapGet("/", async context =>
                {
-                  await context.Response.WriteAsync("Hello World!");
+                  var sp = app.ApplicationServices.CreateScope().ServiceProvider;
+                  var identityService = sp.GetService<IIdentityService>();
+                  var result = await identityService.ValidatePasswordAsync("password");
+
+                  if (result is OkResult)
+                  {
+                     await context.Response.WriteAsync("Password Validated!");
+                     return;
+                  }
+
+                  var badRequest = result as BadRequestObjectResult;
+                  var badRequestContent = badRequest.Value as string[];
+                  context.Response.StatusCode = badRequest.StatusCode.Value;
+                  await context.Response.WriteAsync(string.Join(", ", badRequestContent));
+
                });
          });
 
