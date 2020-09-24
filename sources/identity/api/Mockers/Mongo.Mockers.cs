@@ -11,7 +11,7 @@ namespace FriendlyCashFlow.Identity.Tests
 
       readonly Mock<IMongoCollection<T>> Mock;
       public MongoCollectionMocker() => Mock = new Mock<IMongoCollection<T>>();
-      public static MongoCollectionMocker<T> Create() => new MongoCollectionMocker<T>();
+      public static MongoCollectionMocker<T> Create(string collectionName = "users") => (new MongoCollectionMocker<T>()).WithName(collectionName);
 
       public MongoCollectionMocker<T> WithName(string collectionName)
       {
