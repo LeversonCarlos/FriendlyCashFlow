@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 
@@ -8,16 +9,30 @@ namespace FriendlyCashFlow.Identity
    {
 
       internal const string WARNING_IDENTITY_INVALID_REGISTER_PARAMETER = "WARNING_IDENTITY_INVALID_REGISTER_PARAMETER";
-      public Task<object> RegisterAsync(RegisterVM value)
+      internal const string WARNING_IDENTITY_INVALID_DATABASE_COLLECTION = "WARNING_IDENTITY_INVALID_DATABASE_COLLECTION";
+
+      public async Task<ActionResult> RegisterAsync(RegisterVM registerVM)
       {
-         throw new ArgumentException(WARNING_IDENTITY_INVALID_REGISTER_PARAMETER);
+
+         if (registerVM == null)
+            throw new ArgumentException(WARNING_IDENTITY_INVALID_REGISTER_PARAMETER);
+
+         var user = new User(registerVM.UserName, registerVM.Password);
+
+         var collection = await GetCollectionAsync();
+         if (collection == null)
+            throw new NullReferenceException(WARNING_IDENTITY_INVALID_DATABASE_COLLECTION);
+
+         await collection.InsertOneAsync(user);
+
+         return new OkResult();
       }
 
    }
 
    partial interface IIdentityService
    {
-      Task<object> RegisterAsync(RegisterVM value);
+      Task<ActionResult> RegisterAsync(RegisterVM registerVM);
    }
 
    public class RegisterVM
