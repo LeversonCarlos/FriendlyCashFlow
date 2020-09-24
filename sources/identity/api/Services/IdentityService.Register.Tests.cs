@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace FriendlyCashFlow.Identity.Tests
 {
-   public class IdentityServiceTests
+   partial class IdentityServiceTests
    {
 
       [Fact]

@@ -6,6 +6,13 @@ namespace FriendlyCashFlow.Identity.Helpers
    internal static class Extentions
    {
 
+      /*
+      internal static bool CheckConnection(this IMongoDatabase mongoDatabase)
+      {
+         return mongoDatabase.RunCommandAsync((Command<MongoDB.Bson.BsonDocument>)"{ping:1}").Wait(1000);
+      }
+      */
+
       internal static async Task<IMongoCollection<T>> GetCollectionAsync<T>(this IMongoDatabase mongoDatabase, string collectionName)
       {
 
