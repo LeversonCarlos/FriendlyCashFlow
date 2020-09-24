@@ -11,11 +11,15 @@ namespace FriendlyCashFlow.Identity.Tests
       [Fact]
       public void Constructor_WithValidParameters_MustResultValidInstance()
       {
-         var user = new User("UserName", "Password");
+         var userName = "userName";
+         var password = "password";
+         var user = new User(userName, password);
 
          Assert.NotNull(user);
          Assert.NotEmpty(user.UserID);
          Assert.Equal(36, user.UserID.Length);
+         Assert.Equal(userName, user.UserName);
+         Assert.Equal(password, user.Password);
       }
 
       [Theory]
@@ -38,7 +42,7 @@ namespace FriendlyCashFlow.Identity.Tests
             new object[] { User.WARNING_IDENTITY_INVALID_USERNAME_PARAMETER, "123456789_123456789_123456789_123456", "", "Password" },
             new object[] { User.WARNING_IDENTITY_INVALID_USERNAME_PARAMETER, "123456789_123456789_123456789_123456", " ", "Password" },
             new object[] { User.WARNING_IDENTITY_INVALID_USERNAME_PARAMETER, "123456789_123456789_123456789_123456", "1234567", "Password" },
-            new object[] { User.WARNING_IDENTITY_INVALID_USERNAME_PARAMETER, "123456789_123456789_123456789_123456", "123456789_123456789_123456789_123456789_123456789_1", "Password" }, 
+            new object[] { User.WARNING_IDENTITY_INVALID_USERNAME_PARAMETER, "123456789_123456789_123456789_123456", "123456789_123456789_123456789_123456789_123456789_1", "Password" },
             new object[] { User.WARNING_IDENTITY_INVALID_PASSWORD_PARAMETER, "123456789_123456789_123456789_123456", "UserName", (string)null },
             new object[] { User.WARNING_IDENTITY_INVALID_PASSWORD_PARAMETER, "123456789_123456789_123456789_123456", "UserName", "" },
             new object[] { User.WARNING_IDENTITY_INVALID_PASSWORD_PARAMETER, "123456789_123456789_123456789_123456", "UserName", " " },
