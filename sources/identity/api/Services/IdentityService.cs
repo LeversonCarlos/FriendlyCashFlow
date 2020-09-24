@@ -9,9 +9,12 @@ namespace FriendlyCashFlow.Identity
    {
 
       readonly IMongoDatabase _MongoDatabase;
-      public IdentityService(IMongoDatabase mongoDatabase)
+      readonly ValidatePasswordSettings _Settings;
+
+      public IdentityService(IMongoDatabase mongoDatabase, ValidatePasswordSettings settings)
       {
          _MongoDatabase = mongoDatabase;
+         _Settings = settings;
       }
 
       internal Task<IMongoCollection<IUser>> GetCollectionAsync() =>

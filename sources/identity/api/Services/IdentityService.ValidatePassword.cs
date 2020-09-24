@@ -46,16 +46,15 @@ namespace FriendlyCashFlow.Identity
             .FirstOrDefault();
 
          var msgs = new List<string>();
-         var settings = _AppSettings.Value.Password;
-         if (passwordStrength.Upper < settings.MinimumUpperCases)
+         if (passwordStrength.Upper < _Settings.MinimumUpperCases)
             msgs.Add("USERS_PASSWORD_REQUIRE_UPPER_CASES_WARNING");
-         if (passwordStrength.Lower < settings.MinimumLowerCases)
+         if (passwordStrength.Lower < _Settings.MinimumLowerCases)
             msgs.Add("USERS_PASSWORD_REQUIRE_LOWER_CASES_WARNING");
-         if (passwordStrength.Number < settings.MinimumNumbers)
+         if (passwordStrength.Number < _Settings.MinimumNumbers)
             msgs.Add("USERS_PASSWORD_REQUIRE_NUMBERS_WARNING");
-         if (passwordStrength.Symbol < settings.MinimumSymbols)
+         if (passwordStrength.Symbol < _Settings.MinimumSymbols)
             msgs.Add("USERS_PASSWORD_REQUIRE_SYMBOLS_WARNING");
-         if (passwordStrength.Size < settings.MinimumSize)
+         if (passwordStrength.Size < _Settings.MinimumSize)
             msgs.Add("USERS_PASSWORD_MINIMUM_SIZE_WARNING");
          if (msgs.Any())
             return new BadRequestObjectResult(msgs.ToArray());
@@ -72,11 +71,6 @@ namespace FriendlyCashFlow.Identity
    }
 
    internal class ValidatePasswordSettings
-   {
-      public ValidatePasswordSettingsPassword Password { get; set; }
-   }
-
-   internal class ValidatePasswordSettingsPassword
    {
       // public string PasswordSalt { get; set; }
       public int MinimumUpperCases { get; set; }
