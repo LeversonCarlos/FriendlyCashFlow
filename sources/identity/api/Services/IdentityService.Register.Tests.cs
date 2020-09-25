@@ -51,5 +51,25 @@ namespace FriendlyCashFlow.Identity.Tests
          Assert.IsType<Microsoft.AspNetCore.Mvc.OkResult>(result);
       }
 
+      [Fact]
+      public async void Register_WithSameUserName_MustReturnBadRequest()
+      {
+         var mongoCollection = MongoCollectionMocker<IUser>.Create().WithCount(0,1).Build();
+         var mongoDatabase = MongoDatabaseMocker.Create().WithCollection(mongoCollection).Build();
+         var identityService = new IdentityService(mongoDatabase, new ValidatePasswordSettings());
+         var provider = ProviderMocker.Create().WithIdentityService(identityService).Build().BuildServiceProvider();
+         var registerParam = new RegisterVM { UserName = "userName", Password = "password" };
+
+         var result = await provider.GetService<IIdentityService>().RegisterAsync(registerParam);
+         Assert.NotNull(result);
+         Assert.IsType<Microsoft.AspNetCore.Mvc.OkResult>(result);
+
+         result = await provider.GetService<IIdentityService>().RegisterAsync(registerParam);
+         Assert.NotNull(result);
+         Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
+         Assert.Equal(new string[] { IdentityService.WARNING_IDENTITY_USERNAME_ALREADY_USED }, (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+      }
+
+
    }
 }
