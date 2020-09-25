@@ -20,12 +20,12 @@ namespace FriendlyCashFlow.Identity
 
          // VALIDATE USERNAME
          var validateUsername = await ValidateUsernameAsync(registerVM.UserName);
-         if (validateUsername?.Length > 0)
+         if (validateUsername.Length > 0)
             return new BadRequestObjectResult(validateUsername);
 
          // VALIDATE PASSWORD
          var validatePassword = await ValidatePasswordAsync(registerVM.Password);
-         if (validatePassword?.Length > 0)
+         if (validatePassword.Length > 0)
             return new BadRequestObjectResult(validatePassword);
 
          // RETRIEVE THE COLLECTION
