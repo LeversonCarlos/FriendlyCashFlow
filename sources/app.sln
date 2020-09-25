@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30406.217
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "identity.api", "api\identity.api.csproj", "{89121154-EA0F-4085-BA3C-7A187BA8E6E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "identity.api", "identity\api\identity.api.csproj", "{89121154-EA0F-4085-BA3C-7A187BA8E6E9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "example", "..\..\examples\api\example.csproj", "{244B1C57-CC47-40FB-9D69-510D6A471864}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "app", "app\app.csproj", "{0677FCAC-B5C7-45C6-8CBF-C973ED1AEFEF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{89121154-EA0F-4085-BA3C-7A187BA8E6E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89121154-EA0F-4085-BA3C-7A187BA8E6E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89121154-EA0F-4085-BA3C-7A187BA8E6E9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{244B1C57-CC47-40FB-9D69-510D6A471864}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{244B1C57-CC47-40FB-9D69-510D6A471864}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{244B1C57-CC47-40FB-9D69-510D6A471864}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{244B1C57-CC47-40FB-9D69-510D6A471864}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0677FCAC-B5C7-45C6-8CBF-C973ED1AEFEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0677FCAC-B5C7-45C6-8CBF-C973ED1AEFEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0677FCAC-B5C7-45C6-8CBF-C973ED1AEFEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0677FCAC-B5C7-45C6-8CBF-C973ED1AEFEF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
