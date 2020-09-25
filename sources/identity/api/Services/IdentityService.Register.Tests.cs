@@ -27,13 +27,29 @@ namespace FriendlyCashFlow.Identity.Tests
          var mongoDatabase = MongoDatabaseMocker.Create().WithCollection(mongoCollection).Build();
          var identityService = new IdentityService(mongoDatabase, new PasswordSettings { MinimumSize = 10 });
          var provider = ProviderMocker.Create().WithIdentityService(identityService).Build().BuildServiceProvider();
+         var registerParam = new RegisterVM { UserName = "userName@xpto.com", Password = "password" };
+
+         var result = await provider.GetService<IIdentityService>().RegisterAsync(registerParam);
+
+         Assert.NotNull(result);
+         Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
+         Assert.Equal(new string[] { IdentityService.USERS_PASSWORD_MINIMUM_SIZE_WARNING }, (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+      }
+
+      [Fact]
+      public async void Register_WithInvalidUsername_MustReturnBadResult()
+      {
+         var mongoCollection = MongoCollectionMocker<IUser>.Create().Build();
+         var mongoDatabase = MongoDatabaseMocker.Create().WithCollection(mongoCollection).Build();
+         var identityService = new IdentityService(mongoDatabase, new PasswordSettings { MinimumSize = 10 });
+         var provider = ProviderMocker.Create().WithIdentityService(identityService).Build().BuildServiceProvider();
          var registerParam = new RegisterVM { UserName = "userName", Password = "password" };
 
          var result = await provider.GetService<IIdentityService>().RegisterAsync(registerParam);
 
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(new string[] { "USERS_PASSWORD_MINIMUM_SIZE_WARNING" }, (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+         Assert.Equal(new string[] { IdentityService.WARNING_IDENTITY_INVALID_USERNAME }, (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
       [Fact]
@@ -43,7 +59,7 @@ namespace FriendlyCashFlow.Identity.Tests
          var mongoDatabase = MongoDatabaseMocker.Create().WithCollection(mongoCollection).Build();
          var identityService = new IdentityService(mongoDatabase, new PasswordSettings { MinimumSize = 5 });
          var provider = ProviderMocker.Create().WithIdentityService(identityService).Build().BuildServiceProvider();
-         var registerParam = new RegisterVM { UserName = "userName", Password = "password" };
+         var registerParam = new RegisterVM { UserName = "userName@xpto.com", Password = "password" };
 
          var result = await provider.GetService<IIdentityService>().RegisterAsync(registerParam);
 
@@ -58,7 +74,7 @@ namespace FriendlyCashFlow.Identity.Tests
          var mongoDatabase = MongoDatabaseMocker.Create().WithCollection(mongoCollection).Build();
          var identityService = new IdentityService(mongoDatabase, new PasswordSettings());
          var provider = ProviderMocker.Create().WithIdentityService(identityService).Build().BuildServiceProvider();
-         var registerParam = new RegisterVM { UserName = "userName", Password = "password" };
+         var registerParam = new RegisterVM { UserName = "userName@xpto.com", Password = "password" };
 
          var result = await provider.GetService<IIdentityService>().RegisterAsync(registerParam);
          Assert.NotNull(result);
@@ -69,7 +85,6 @@ namespace FriendlyCashFlow.Identity.Tests
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
          Assert.Equal(new string[] { IdentityService.WARNING_IDENTITY_USERNAME_ALREADY_USED }, (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
-
 
    }
 }

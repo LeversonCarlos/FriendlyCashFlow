@@ -18,16 +18,21 @@ namespace FriendlyCashFlow.Identity
          if (registerVM == null)
             return new BadRequestObjectResult(new string[] { WARNING_IDENTITY_INVALID_REGISTER_PARAMETER });
 
-         // VALIDATE PASSWORD STRENGTH
-         var passwordStrength = await this.ValidatePasswordAsync(registerVM.Password);
-         if (passwordStrength is BadRequestObjectResult)
-            return passwordStrength;
+         // VALIDATE USERNAME
+         var validateUsername = await ValidateUsernameAsync(registerVM.UserName);
+         if (validateUsername.Length > 0)
+            return new BadRequestObjectResult(validateUsername);
+
+         // VALIDATE PASSWORD
+         var validatePassword = await ValidatePasswordAsync(registerVM.Password);
+         if (validatePassword.Length > 0)
+            return new BadRequestObjectResult(validatePassword);
 
          // RETRIEVE THE COLLECTION
          var collection = await GetCollectionAsync();
 
          // VALIDATE DUPLICITY
-         var usersFound = await collection.CountDocumentsAsync(Builders<IUser>.Filter.Eq(x => x.UserName, registerVM.UserName));
+         var usersFound = await collection.CountDocumentsAsync($"{{'UserName':'{ registerVM.UserName}'}}");
          if (usersFound > 0)
             return new BadRequestObjectResult(new string[] { WARNING_IDENTITY_USERNAME_ALREADY_USED });
 

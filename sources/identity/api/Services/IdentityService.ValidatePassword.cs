@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,11 +5,16 @@ using System.Threading.Tasks;
 
 namespace FriendlyCashFlow.Identity
 {
-
    partial class IdentityService
    {
 
-      public async Task<ActionResult> ValidatePasswordAsync(string password)
+      internal const string USERS_PASSWORD_REQUIRE_UPPER_CASES_WARNING = "USERS_PASSWORD_REQUIRE_UPPER_CASES_WARNING";
+      internal const string USERS_PASSWORD_REQUIRE_LOWER_CASES_WARNING = "USERS_PASSWORD_REQUIRE_LOWER_CASES_WARNING";
+      internal const string USERS_PASSWORD_REQUIRE_NUMBERS_WARNING = "USERS_PASSWORD_REQUIRE_NUMBERS_WARNING";
+      internal const string USERS_PASSWORD_REQUIRE_SYMBOLS_WARNING = "USERS_PASSWORD_REQUIRE_SYMBOLS_WARNING";
+      internal const string USERS_PASSWORD_MINIMUM_SIZE_WARNING = "USERS_PASSWORD_MINIMUM_SIZE_WARNING";
+
+      internal async Task<string[]> ValidatePasswordAsync(string password)
       {
 
          var passwordChars = password
@@ -47,27 +51,19 @@ namespace FriendlyCashFlow.Identity
 
          var msgs = new List<string>();
          if (passwordStrength.Upper < _Settings.MinimumUpperCases)
-            msgs.Add("USERS_PASSWORD_REQUIRE_UPPER_CASES_WARNING");
+            msgs.Add(USERS_PASSWORD_REQUIRE_UPPER_CASES_WARNING);
          if (passwordStrength.Lower < _Settings.MinimumLowerCases)
-            msgs.Add("USERS_PASSWORD_REQUIRE_LOWER_CASES_WARNING");
+            msgs.Add(USERS_PASSWORD_REQUIRE_LOWER_CASES_WARNING);
          if (passwordStrength.Number < _Settings.MinimumNumbers)
-            msgs.Add("USERS_PASSWORD_REQUIRE_NUMBERS_WARNING");
+            msgs.Add(USERS_PASSWORD_REQUIRE_NUMBERS_WARNING);
          if (passwordStrength.Symbol < _Settings.MinimumSymbols)
-            msgs.Add("USERS_PASSWORD_REQUIRE_SYMBOLS_WARNING");
+            msgs.Add(USERS_PASSWORD_REQUIRE_SYMBOLS_WARNING);
          if (passwordStrength.Size < _Settings.MinimumSize)
-            msgs.Add("USERS_PASSWORD_MINIMUM_SIZE_WARNING");
-         if (msgs.Any())
-            return new BadRequestObjectResult(msgs.ToArray());
+            msgs.Add(USERS_PASSWORD_MINIMUM_SIZE_WARNING);
 
          await Task.CompletedTask;
-         return new OkResult();
+         return msgs.ToArray();
       }
 
    }
-
-   partial interface IIdentityService
-   {
-      Task<ActionResult> ValidatePasswordAsync(string password);
-   }
-
 }
