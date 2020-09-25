@@ -21,5 +21,18 @@ namespace FriendlyCashFlow.Identity.Tests
          Assert.Equal(new string[] { IdentityService.WARNING_IDENTITY_INVALID_USERNAME }, result);
       }
 
+      [Theory]
+      [InlineData("abc@xpto.com")]
+      [InlineData("abc@xpto.com.br")]
+      [InlineData("abc+test@xpto.com")]
+      [InlineData("abc@xpto.info")]
+      internal async void ValidateUsername_WithValidParameters_MustResultNoErrorMessages(string username)
+      {
+         var identityService = new IdentityService(null, null);
+         var result = await identityService.ValidateUsernameAsync(username);
+
+         Assert.Equal(new string[] { }, result);
+      }
+
    }
 }
