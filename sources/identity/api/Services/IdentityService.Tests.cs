@@ -11,7 +11,7 @@ namespace FriendlyCashFlow.Identity.Tests
          var collectionName = "users";
          var mongoCollection = MongoCollectionMocker<IUser>.Create().WithName(collectionName).Build();
          var mongoDatabase = MongoDatabaseMocker.Create().WithCollection(mongoCollection, true).Build();
-         var identityService = new IdentityService(mongoDatabase);
+         var identityService = new IdentityService(mongoDatabase, null);
 
          var result = await identityService.GetCollectionAsync();
 
@@ -25,7 +25,7 @@ namespace FriendlyCashFlow.Identity.Tests
          var collectionName = "users";
          var mongoCollection = MongoCollectionMocker<IUser>.Create().WithName(collectionName).Build();
          var mongoDatabase = MongoDatabaseMocker.Create().WithCollection(mongoCollection, false).Build();
-         var identityService = new IdentityService(mongoDatabase);
+         var identityService = new IdentityService(mongoDatabase, null);
 
          var result = await identityService.GetCollectionAsync();
 
