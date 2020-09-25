@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
-using System;
 using System.Threading.Tasks;
 
 namespace FriendlyCashFlow.Identity
@@ -32,11 +31,8 @@ namespace FriendlyCashFlow.Identity
          if (usersFound > 0)
             return new BadRequestObjectResult(new string[] { WARNING_IDENTITY_USERNAME_ALREADY_USED });
 
-         // HASH THE PASSWORD
-         // TODO
-
          // ADD NEW USER
-         var user = new User(registerVM.UserName, registerVM.Password);
+         var user = new User(registerVM.UserName, registerVM.Password.GetHashedText(_Settings.PasswordSalt));
          await collection.InsertOneAsync(user);
 
          // SEND ACTIVATION MAIL

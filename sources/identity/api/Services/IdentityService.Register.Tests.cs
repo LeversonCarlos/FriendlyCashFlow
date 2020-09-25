@@ -25,7 +25,7 @@ namespace FriendlyCashFlow.Identity.Tests
       {
          var mongoCollection = MongoCollectionMocker<IUser>.Create().Build();
          var mongoDatabase = MongoDatabaseMocker.Create().WithCollection(mongoCollection).Build();
-         var identityService = new IdentityService(mongoDatabase, new ValidatePasswordSettings { MinimumSize = 10 });
+         var identityService = new IdentityService(mongoDatabase, new PasswordSettings { MinimumSize = 10 });
          var provider = ProviderMocker.Create().WithIdentityService(identityService).Build().BuildServiceProvider();
          var registerParam = new RegisterVM { UserName = "userName", Password = "password" };
 
@@ -41,7 +41,7 @@ namespace FriendlyCashFlow.Identity.Tests
       {
          var mongoCollection = MongoCollectionMocker<IUser>.Create().Build();
          var mongoDatabase = MongoDatabaseMocker.Create().WithCollection(mongoCollection).Build();
-         var identityService = new IdentityService(mongoDatabase, new ValidatePasswordSettings { MinimumSize = 5 });
+         var identityService = new IdentityService(mongoDatabase, new PasswordSettings { MinimumSize = 5 });
          var provider = ProviderMocker.Create().WithIdentityService(identityService).Build().BuildServiceProvider();
          var registerParam = new RegisterVM { UserName = "userName", Password = "password" };
 
@@ -56,7 +56,7 @@ namespace FriendlyCashFlow.Identity.Tests
       {
          var mongoCollection = MongoCollectionMocker<IUser>.Create().WithCount(0,1).Build();
          var mongoDatabase = MongoDatabaseMocker.Create().WithCollection(mongoCollection).Build();
-         var identityService = new IdentityService(mongoDatabase, new ValidatePasswordSettings());
+         var identityService = new IdentityService(mongoDatabase, new PasswordSettings());
          var provider = ProviderMocker.Create().WithIdentityService(identityService).Build().BuildServiceProvider();
          var registerParam = new RegisterVM { UserName = "userName", Password = "password" };
 

@@ -9,9 +9,9 @@ namespace FriendlyCashFlow.Identity
    {
 
       readonly IMongoDatabase _MongoDatabase;
-      readonly ValidatePasswordSettings _Settings;
+      readonly PasswordSettings _Settings;
 
-      public IdentityService(IMongoDatabase mongoDatabase, ValidatePasswordSettings settings)
+      public IdentityService(IMongoDatabase mongoDatabase, PasswordSettings settings)
       {
          _MongoDatabase = mongoDatabase;
          _Settings = settings;

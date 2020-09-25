@@ -10,7 +10,7 @@ namespace FriendlyCashFlow.Identity.Tests
 
       [Theory]
       [MemberData(nameof(ValidatePassword_WithInvalidParameters_MustResultBadRequest_Data))]
-      internal async void ValidatePassword_WithInvalidParameters_MustResultBadRequest(string password, string warningMessage, ValidatePasswordSettings settings)
+      internal async void ValidatePassword_WithInvalidParameters_MustResultBadRequest(string password, string warningMessage, PasswordSettings settings)
       {
          var identityService = new IdentityService(null, settings);
          var provider = ProviderMocker.Create().WithIdentityService(identityService).Build().BuildServiceProvider();
@@ -23,17 +23,17 @@ namespace FriendlyCashFlow.Identity.Tests
       }
       public static IEnumerable<object[]> ValidatePassword_WithInvalidParameters_MustResultBadRequest_Data() =>
          new[] {
-            new object[] { "Password", "USERS_PASSWORD_REQUIRE_UPPER_CASES_WARNING", new ValidatePasswordSettings { MinimumUpperCases=2 } },
-            new object[] { "pASSWORD", "USERS_PASSWORD_REQUIRE_LOWER_CASES_WARNING", new ValidatePasswordSettings { MinimumLowerCases=2 } },
-            new object[] { "passw0rd", "USERS_PASSWORD_REQUIRE_NUMBERS_WARNING", new ValidatePasswordSettings { MinimumNumbers=2 } },
-            new object[] { "p@ssword", "USERS_PASSWORD_REQUIRE_SYMBOLS_WARNING", new ValidatePasswordSettings { MinimumSymbols=2 } },
-            new object[] { "password", "USERS_PASSWORD_MINIMUM_SIZE_WARNING", new ValidatePasswordSettings { MinimumSize=10 } }
+            new object[] { "Password", "USERS_PASSWORD_REQUIRE_UPPER_CASES_WARNING", new PasswordSettings { MinimumUpperCases=2 } },
+            new object[] { "pASSWORD", "USERS_PASSWORD_REQUIRE_LOWER_CASES_WARNING", new PasswordSettings { MinimumLowerCases=2 } },
+            new object[] { "passw0rd", "USERS_PASSWORD_REQUIRE_NUMBERS_WARNING", new PasswordSettings { MinimumNumbers=2 } },
+            new object[] { "p@ssword", "USERS_PASSWORD_REQUIRE_SYMBOLS_WARNING", new PasswordSettings { MinimumSymbols=2 } },
+            new object[] { "password", "USERS_PASSWORD_MINIMUM_SIZE_WARNING", new PasswordSettings { MinimumSize=10 } }
          };
 
       [Fact]
       internal async void ValidatePassword_WithValidParameters_MustResultOkRequest()
       {
-         var settings = new ValidatePasswordSettings
+         var settings = new PasswordSettings
          {
             MinimumUpperCases = 2,
             MinimumLowerCases = 2,
