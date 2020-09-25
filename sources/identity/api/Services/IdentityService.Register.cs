@@ -32,7 +32,7 @@ namespace FriendlyCashFlow.Identity
          var collection = await GetCollectionAsync();
 
          // VALIDATE DUPLICITY
-         var usersFound = await collection.CountDocumentsAsync(Builders<IUser>.Filter.Eq(x => x.UserName, registerVM.UserName));
+         var usersFound = await collection.CountDocumentsAsync($"{{'UserName':'{ registerVM.UserName}'}}");
          if (usersFound > 0)
             return new BadRequestObjectResult(new string[] { WARNING_IDENTITY_USERNAME_ALREADY_USED });
 
