@@ -23,10 +23,21 @@ namespace FriendlyCashFlow.Identity
          if (passwordStrength is BadRequestObjectResult)
             return passwordStrength;
 
+         // RETRIEVE THE COLLECTION
+         var collection = await GetCollectionAsync();
+
+         // VALIDATE DUPLICITY
+         // TODO
+
+         // HASH THE PASSWORD
+         // TODO
+
          // ADD NEW USER
          var user = new User(registerVM.UserName, registerVM.Password);
-         var collection = await GetCollectionAsync();
          await collection.InsertOneAsync(user);
+
+         // SEND ACTIVATION MAIL
+         // TODO
 
          // RESULT
          return new OkResult();
