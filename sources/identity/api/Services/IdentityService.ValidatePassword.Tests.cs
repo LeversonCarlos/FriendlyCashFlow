@@ -18,11 +18,11 @@ namespace FriendlyCashFlow.Identity.Tests
       }
       public static IEnumerable<object[]> ValidatePassword_WithInvalidParameters_MustResultErrorMessage_Data() =>
          new[] {
-            new object[] { "Password", "USERS_PASSWORD_REQUIRE_UPPER_CASES_WARNING", new PasswordSettings { MinimumUpperCases=2 } },
-            new object[] { "pASSWORD", "USERS_PASSWORD_REQUIRE_LOWER_CASES_WARNING", new PasswordSettings { MinimumLowerCases=2 } },
-            new object[] { "passw0rd", "USERS_PASSWORD_REQUIRE_NUMBERS_WARNING", new PasswordSettings { MinimumNumbers=2 } },
-            new object[] { "p@ssword", "USERS_PASSWORD_REQUIRE_SYMBOLS_WARNING", new PasswordSettings { MinimumSymbols=2 } },
-            new object[] { "password", "USERS_PASSWORD_MINIMUM_SIZE_WARNING", new PasswordSettings { MinimumSize=10 } }
+            new object[] { "Password", IdentityService.USERS_PASSWORD_REQUIRE_UPPER_CASES_WARNING, new PasswordSettings { MinimumUpperCases=2 } },
+            new object[] { "pASSWORD", IdentityService.USERS_PASSWORD_REQUIRE_LOWER_CASES_WARNING, new PasswordSettings { MinimumLowerCases=2 } },
+            new object[] { "passw0rd", IdentityService.USERS_PASSWORD_REQUIRE_NUMBERS_WARNING, new PasswordSettings { MinimumNumbers=2 } },
+            new object[] { "p@ssword", IdentityService.USERS_PASSWORD_REQUIRE_SYMBOLS_WARNING, new PasswordSettings { MinimumSymbols=2 } },
+            new object[] { "password", IdentityService.USERS_PASSWORD_MINIMUM_SIZE_WARNING, new PasswordSettings { MinimumSize=10 } }
          };
 
       [Fact]
