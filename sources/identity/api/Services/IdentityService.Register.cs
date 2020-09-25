@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Driver;
 using System;
 using System.Threading.Tasks;
 
@@ -9,7 +10,7 @@ namespace FriendlyCashFlow.Identity
    {
 
       internal const string WARNING_IDENTITY_INVALID_REGISTER_PARAMETER = "WARNING_IDENTITY_INVALID_REGISTER_PARAMETER";
-      internal const string WARNING_IDENTITY_INVALID_DATABASE_COLLECTION = "WARNING_IDENTITY_INVALID_DATABASE_COLLECTION";
+      internal const string WARNING_IDENTITY_USERNAME_ALREADY_USED = "WARNING_IDENTITY_USERNAME_ALREADY_USED";
 
       public async Task<ActionResult> RegisterAsync(RegisterVM registerVM)
       {
@@ -27,7 +28,9 @@ namespace FriendlyCashFlow.Identity
          var collection = await GetCollectionAsync();
 
          // VALIDATE DUPLICITY
-         // TODO
+         var usersFound = await collection.CountDocumentsAsync(Builders<IUser>.Filter.Eq(x => x.UserName, registerVM.UserName));
+         if (usersFound > 0)
+            return new BadRequestObjectResult(new string[] { WARNING_IDENTITY_USERNAME_ALREADY_USED });
 
          // HASH THE PASSWORD
          // TODO
