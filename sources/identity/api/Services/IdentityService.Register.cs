@@ -14,18 +14,21 @@ namespace FriendlyCashFlow.Identity
       public async Task<ActionResult> RegisterAsync(RegisterVM registerVM)
       {
 
+         // VALIDATE PARAMETERS
          if (registerVM == null)
             return new BadRequestObjectResult(new string[] { WARNING_IDENTITY_INVALID_REGISTER_PARAMETER });
 
+         // VALIDATE PASSWORD STRENGTH
          var passwordStrength = await this.ValidatePasswordAsync(registerVM.Password);
          if (passwordStrength is BadRequestObjectResult)
             return passwordStrength;
 
+         // ADD NEW USER
          var user = new User(registerVM.UserName, registerVM.Password);
-
          var collection = await GetCollectionAsync();
          await collection.InsertOneAsync(user);
 
+         // RESULT
          return new OkResult();
       }
 
