@@ -1,5 +1,6 @@
 using MongoDB.Driver;
 using Moq;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,6 +17,14 @@ namespace FriendlyCashFlow.Identity.Tests
       public MongoCollectionMocker<T> WithName(string collectionName)
       {
          Mock.SetupGet(m => m.CollectionNamespace).Returns(new CollectionNamespace("databaseMockerName", collectionName));
+         return this;
+      }
+
+      public MongoCollectionMocker<T> WithCount(params int[] countResults)
+      {
+         var seq = new MockSequence();
+         foreach (var count in countResults)
+            Mock.InSequence(seq).Setup(m => m.CountDocumentsAsync(It.IsAny<FilterDefinition<T>>(), It.IsAny<CountOptions>(), It.IsAny<CancellationToken>())).ReturnsAsync(count);
          return this;
       }
 
