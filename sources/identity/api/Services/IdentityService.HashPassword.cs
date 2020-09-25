@@ -9,7 +9,7 @@ namespace FriendlyCashFlow.Identity
    partial class IdentityService
    {
 
-      string HashPassword(string password)
+      internal string HashPassword(string password)
       {
 
          // INCOME BYTES
