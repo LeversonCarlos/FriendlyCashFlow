@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MongoDB.Driver;
+using System.Text;
 
 namespace example
 {
@@ -44,11 +45,13 @@ namespace example
                {
                   var sp = app.ApplicationServices.CreateScope().ServiceProvider;
                   var identityService = sp.GetService<IIdentityService>();
-                  var result = await identityService.ValidatePasswordAsync("password");
+
+                  var userName = $"{System.Guid.NewGuid().ToString().Replace("-", "")}@xpto.com";
+                  var result = await identityService.RegisterAsync(new RegisterVM { UserName = userName, Password = "password" });
 
                   if (result is OkResult)
                   {
-                     await context.Response.WriteAsync("Password Validated!");
+                     await context.Response.WriteAsync($"User {userName} Registered!");
                      return;
                   }
 
