@@ -18,10 +18,10 @@ namespace FriendlyCashFlow.Identity
          if (registerVM == null)
             return new BadRequestObjectResult(new string[] { WARNING_IDENTITY_INVALID_REGISTER_PARAMETER });
 
-         // VALIDATE PASSWORD STRENGTH
-         var passwordStrength = await this.ValidatePasswordAsync(registerVM.Password);
-         if (passwordStrength is BadRequestObjectResult)
-            return passwordStrength;
+         // VALIDATE PASSWORD
+         var validatePassword = await ValidatePasswordAsync(registerVM.Password);
+         if (validatePassword?.Length > 0)
+            return new BadRequestObjectResult(validatePassword);
 
          // RETRIEVE THE COLLECTION
          var collection = await GetCollectionAsync();

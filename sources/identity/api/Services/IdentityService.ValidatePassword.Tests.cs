@@ -1,7 +1,5 @@
-using System;
-using Xunit;
-using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
+using Xunit;
 
 namespace FriendlyCashFlow.Identity.Tests
 {
@@ -9,19 +7,16 @@ namespace FriendlyCashFlow.Identity.Tests
    {
 
       [Theory]
-      [MemberData(nameof(ValidatePassword_WithInvalidParameters_MustResultBadRequest_Data))]
-      internal async void ValidatePassword_WithInvalidParameters_MustResultBadRequest(string password, string warningMessage, PasswordSettings settings)
+      [MemberData(nameof(ValidatePassword_WithInvalidParameters_MustResultErrorMessage_Data))]
+      internal async void ValidatePassword_WithInvalidParameters_MustResultErrorMessage(string password, string warningMessage, PasswordSettings settings)
       {
          var identityService = new IdentityService(null, settings);
-         var provider = ProviderMocker.Create().WithIdentityService(identityService).Build().BuildServiceProvider();
 
-         var result = await provider.GetService<IIdentityService>().ValidatePasswordAsync(password);
+         var result = await identityService.ValidatePasswordAsync(password);
 
-         Assert.NotNull(result);
-         Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(new string[] { warningMessage }, (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+         Assert.Equal(new string[] { warningMessage }, result);
       }
-      public static IEnumerable<object[]> ValidatePassword_WithInvalidParameters_MustResultBadRequest_Data() =>
+      public static IEnumerable<object[]> ValidatePassword_WithInvalidParameters_MustResultErrorMessage_Data() =>
          new[] {
             new object[] { "Password", "USERS_PASSWORD_REQUIRE_UPPER_CASES_WARNING", new PasswordSettings { MinimumUpperCases=2 } },
             new object[] { "pASSWORD", "USERS_PASSWORD_REQUIRE_LOWER_CASES_WARNING", new PasswordSettings { MinimumLowerCases=2 } },
@@ -42,13 +37,11 @@ namespace FriendlyCashFlow.Identity.Tests
             MinimumSize = 10
          };
          var identityService = new IdentityService(null, settings);
-         var provider = ProviderMocker.Create().WithIdentityService(identityService).Build().BuildServiceProvider();
 
          var password = "p#sSw0rD$1";
-         var result = await provider.GetService<IIdentityService>().ValidatePasswordAsync(password);
+         var result = await identityService.ValidatePasswordAsync(password);
 
-         Assert.NotNull(result);
-         Assert.IsType<Microsoft.AspNetCore.Mvc.OkResult>(result);
+         Assert.Equal(new string[] { }, result);
       }
 
    }

@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,11 +5,10 @@ using System.Threading.Tasks;
 
 namespace FriendlyCashFlow.Identity
 {
-
    partial class IdentityService
    {
 
-      public async Task<ActionResult> ValidatePasswordAsync(string password)
+      internal async Task<string[]> ValidatePasswordAsync(string password)
       {
 
          var passwordChars = password
@@ -56,18 +54,10 @@ namespace FriendlyCashFlow.Identity
             msgs.Add("USERS_PASSWORD_REQUIRE_SYMBOLS_WARNING");
          if (passwordStrength.Size < _Settings.MinimumSize)
             msgs.Add("USERS_PASSWORD_MINIMUM_SIZE_WARNING");
-         if (msgs.Any())
-            return new BadRequestObjectResult(msgs.ToArray());
 
          await Task.CompletedTask;
-         return new OkResult();
+         return msgs.ToArray();
       }
 
    }
-
-   partial interface IIdentityService
-   {
-      Task<ActionResult> ValidatePasswordAsync(string password);
-   }
-
 }
