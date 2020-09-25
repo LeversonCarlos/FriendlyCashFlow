@@ -13,7 +13,7 @@ namespace FriendlyCashFlow.Identity
       {
 
          // INCOME BYTES
-         var saltStack = new Queue(Encoding.UTF8.GetBytes(_Settings.PasswordSalt));
+         var saltStack = new Queue(Encoding.UTF8.GetBytes(_Settings.PasswordSalt ?? ""));
          var valueStack = new Queue(Encoding.UTF8.GetBytes(password));
 
          // MERGE BYTES
