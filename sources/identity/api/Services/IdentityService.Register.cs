@@ -15,7 +15,7 @@ namespace FriendlyCashFlow.Identity
       {
 
          if (registerVM == null)
-            throw new ArgumentException(WARNING_IDENTITY_INVALID_REGISTER_PARAMETER);
+            return new BadRequestObjectResult(new string[] { WARNING_IDENTITY_INVALID_REGISTER_PARAMETER });
 
          var passwordStrength = await this.ValidatePasswordAsync(registerVM.Password);
          if (passwordStrength is BadRequestObjectResult)

@@ -8,16 +8,16 @@ namespace FriendlyCashFlow.Identity.Tests
    {
 
       [Fact]
-      public async void Register_WithInvalidParameters_MustThrowException()
+      public async void Register_WithInvalidParameters_MustReturnBadResult()
       {
          var identityService = new IdentityService(null, null);
          var provider = ProviderMocker.Create().WithIdentityService(identityService).Build().BuildServiceProvider();
 
-         var expected = IdentityService.WARNING_IDENTITY_INVALID_REGISTER_PARAMETER;
-         var result = await Assert.ThrowsAsync<ArgumentException>(() => provider.GetService<IIdentityService>().RegisterAsync(null));
+         var result = await provider.GetService<IIdentityService>().RegisterAsync(null);
 
          Assert.NotNull(result);
-         Assert.Equal(expected, result.Message);
+         Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
+         Assert.Equal(new string[] { IdentityService.WARNING_IDENTITY_INVALID_REGISTER_PARAMETER }, (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
       [Fact]
