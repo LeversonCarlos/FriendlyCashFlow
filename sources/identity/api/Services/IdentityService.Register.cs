@@ -32,7 +32,7 @@ namespace FriendlyCashFlow.Identity
             return new BadRequestObjectResult(new string[] { WARNING_IDENTITY_USERNAME_ALREADY_USED });
 
          // ADD NEW USER
-         var user = new User(registerVM.UserName, HashPassword(registerVM.Password));
+         var user = new User(registerVM.UserName, registerVM.Password.GetHashedText(_Settings.PasswordSalt));
          await collection.InsertOneAsync(user);
 
          // SEND ACTIVATION MAIL

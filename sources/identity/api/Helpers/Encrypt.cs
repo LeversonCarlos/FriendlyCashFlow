@@ -5,16 +5,15 @@ using System.Text;
 
 namespace FriendlyCashFlow.Identity
 {
-
-   partial class IdentityService
+   internal static class EncryptExtention
    {
 
-      internal string HashPassword(string password)
+      internal static string GetHashedText(this string value, string salt)
       {
 
          // INCOME BYTES
-         var saltStack = new Queue(Encoding.UTF8.GetBytes(_Settings.PasswordSalt ?? ""));
-         var valueStack = new Queue(Encoding.UTF8.GetBytes(password));
+         var saltStack = new Queue(Encoding.UTF8.GetBytes(salt ?? ""));
+         var valueStack = new Queue(Encoding.UTF8.GetBytes(value));
 
          // MERGE BYTES
          byte[] mergedBytes = new byte[valueStack.Count + saltStack.Count];
@@ -39,5 +38,4 @@ namespace FriendlyCashFlow.Identity
       }
 
    }
-
 }
