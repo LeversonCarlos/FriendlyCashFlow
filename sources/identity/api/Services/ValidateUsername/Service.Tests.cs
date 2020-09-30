@@ -18,7 +18,7 @@ namespace FriendlyCashFlow.Identity.Tests
          var identityService = new IdentityService(null, null);
          var result = await identityService.ValidateUsernameAsync(username);
 
-         Assert.Equal(new string[] { IdentityService.WARNING_IDENTITY_INVALID_USERNAME }, result);
+         Assert.Equal(new string[] { Interactors.ValidateUsername.WARNING_IDENTITY_INVALID_USERNAME }, result);
       }
 
       [Theory]
