@@ -26,7 +26,7 @@ namespace FriendlyCashFlow.Identity
             return new BadRequestObjectResult(new string[] { WARNING.INVALID_REGISTER_PARAMETER });
 
          // VALIDATE USERNAME
-         using (var interactor = new Interactors.ValidateUsername(MongoDatabase, Settings))
+         using (var interactor = new ValidateUsernameInteractor(MongoDatabase, Settings))
          {
             var validateUsername = await interactor.ExecuteAsync(registerVM.UserName);
             if (validateUsername.Length > 0)

@@ -3,16 +3,19 @@ using MongoDB.Driver;
 using System;
 using System.Threading.Tasks;
 
-namespace FriendlyCashFlow.Identity.Interactors
+namespace FriendlyCashFlow.Identity
 {
-   internal class ValidateUsername : Interactor<IUser, IdentitySettings, string, string[]>
+   internal class ValidateUsernameInteractor : Interactor<IUser, IdentitySettings, string, string[]>
    {
 
-      public ValidateUsername(IMongoDatabase mongoDatabase, IdentitySettings settings) :
+      public ValidateUsernameInteractor(IMongoDatabase mongoDatabase, IdentitySettings settings) :
          base(mongoDatabase, settings, IdentityService.CollectionName)
       { }
 
-      internal const string WARNING_IDENTITY_INVALID_USERNAME = "WARNING_IDENTITY_INVALID_USERNAME";
+      internal struct WARNING
+      {
+         internal const string INVALID_USERNAME = "WARNING_IDENTITY_INVALID_USERNAME";
+      }
 
       public override async Task<string[]> ExecuteAsync(string username)
       {
@@ -23,7 +26,7 @@ namespace FriendlyCashFlow.Identity.Interactors
 
             return new string[] { };
          }
-         catch (Exception) { return new string[] { WARNING_IDENTITY_INVALID_USERNAME }; }
+         catch (Exception) { return new string[] { WARNING.INVALID_USERNAME }; }
       }
 
    }
