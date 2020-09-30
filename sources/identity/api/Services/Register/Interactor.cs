@@ -34,7 +34,7 @@ namespace FriendlyCashFlow.Identity
          }
 
          // VALIDATE PASSWORD
-         using (var interactor = new Interactors.ValidatePassword(MongoDatabase, Settings))
+         using (var interactor = new ValidatePasswordInteractor(MongoDatabase, Settings))
          {
             var validatePassword = await interactor.ExecuteAsync(registerVM.Password);
             if (validatePassword.Length > 0)

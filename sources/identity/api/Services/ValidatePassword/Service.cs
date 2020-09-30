@@ -7,7 +7,7 @@ namespace FriendlyCashFlow.Identity
 
       internal Task<string[]> ValidatePasswordAsync(string password)
       {
-         using (var interactor = new Interactors.ValidatePassword(_MongoDatabase, _Settings))
+         using (var interactor = new ValidatePasswordInteractor(_MongoDatabase, _Settings))
          {
             return interactor.ExecuteAsync(password);
          }

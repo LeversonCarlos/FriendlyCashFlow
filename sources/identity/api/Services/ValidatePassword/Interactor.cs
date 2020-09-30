@@ -5,20 +5,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FriendlyCashFlow.Identity.Interactors
+namespace FriendlyCashFlow.Identity
 {
-   internal class ValidatePassword : Interactor<IUser, IdentitySettings, string, string[]>
+   internal class ValidatePasswordInteractor : Interactor<IUser, IdentitySettings, string, string[]>
    {
 
-      public ValidatePassword(IMongoDatabase mongoDatabase, IdentitySettings settings) :
+      public ValidatePasswordInteractor(IMongoDatabase mongoDatabase, IdentitySettings settings) :
          base(mongoDatabase, settings, IdentityService.CollectionName)
       { }
 
-      internal const string USERS_PASSWORD_REQUIRE_UPPER_CASES_WARNING = "USERS_PASSWORD_REQUIRE_UPPER_CASES_WARNING";
-      internal const string USERS_PASSWORD_REQUIRE_LOWER_CASES_WARNING = "USERS_PASSWORD_REQUIRE_LOWER_CASES_WARNING";
-      internal const string USERS_PASSWORD_REQUIRE_NUMBERS_WARNING = "USERS_PASSWORD_REQUIRE_NUMBERS_WARNING";
-      internal const string USERS_PASSWORD_REQUIRE_SYMBOLS_WARNING = "USERS_PASSWORD_REQUIRE_SYMBOLS_WARNING";
-      internal const string USERS_PASSWORD_MINIMUM_SIZE_WARNING = "USERS_PASSWORD_MINIMUM_SIZE_WARNING";
+      internal struct WARNING
+      {
+         internal const string PASSWORD_REQUIRE_UPPER_CASES = "WARNING_IDENTITY_PASSWORD_REQUIRE_UPPER_CASES";
+         internal const string PASSWORD_REQUIRE_LOWER_CASES = "WARNING_IDENTITY_PASSWORD_REQUIRE_LOWER_CASES";
+         internal const string PASSWORD_REQUIRE_NUMBERS = "WARNING_IDENTITY_PASSWORD_REQUIRE_NUMBERS";
+         internal const string PASSWORD_REQUIRE_SYMBOLS = "WARNING_IDENTITY_PASSWORD_REQUIRE_SYMBOLS";
+         internal const string PASSWORD_MINIMUM_SIZE = "WARNING_IDENTITY_USERS_PASSWORD_MINIMUM_SIZE";
+      }
 
       public override async Task<string[]> ExecuteAsync(string password)
       {
@@ -57,15 +60,15 @@ namespace FriendlyCashFlow.Identity.Interactors
 
          var msgs = new List<string>();
          if (passwordStrength.Upper < Settings.PasswordRules.MinimumUpperCases)
-            msgs.Add(USERS_PASSWORD_REQUIRE_UPPER_CASES_WARNING);
+            msgs.Add(WARNING.PASSWORD_REQUIRE_UPPER_CASES);
          if (passwordStrength.Lower < Settings.PasswordRules.MinimumLowerCases)
-            msgs.Add(USERS_PASSWORD_REQUIRE_LOWER_CASES_WARNING);
+            msgs.Add(WARNING.PASSWORD_REQUIRE_LOWER_CASES);
          if (passwordStrength.Number < Settings.PasswordRules.MinimumNumbers)
-            msgs.Add(USERS_PASSWORD_REQUIRE_NUMBERS_WARNING);
+            msgs.Add(WARNING.PASSWORD_REQUIRE_NUMBERS);
          if (passwordStrength.Symbol < Settings.PasswordRules.MinimumSymbols)
-            msgs.Add(USERS_PASSWORD_REQUIRE_SYMBOLS_WARNING);
+            msgs.Add(WARNING.PASSWORD_REQUIRE_SYMBOLS);
          if (passwordStrength.Size < Settings.PasswordRules.MinimumSize)
-            msgs.Add(USERS_PASSWORD_MINIMUM_SIZE_WARNING);
+            msgs.Add(WARNING.PASSWORD_MINIMUM_SIZE);
 
          await Task.CompletedTask;
          return msgs.ToArray();
