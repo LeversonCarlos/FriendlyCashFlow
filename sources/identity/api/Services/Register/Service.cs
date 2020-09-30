@@ -9,7 +9,7 @@ namespace FriendlyCashFlow.Identity
 
       public Task<IActionResult> RegisterAsync(RegisterVM registerVM)
       {
-         using (var interactor = new Interactors.Register(_MongoDatabase, _Settings))
+         using (var interactor = new RegisterInteractor(_MongoDatabase, _Settings))
          {
             return interactor.ExecuteAsync(registerVM);
          }

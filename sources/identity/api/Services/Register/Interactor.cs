@@ -3,24 +3,27 @@ using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using System.Threading.Tasks;
 
-namespace FriendlyCashFlow.Identity.Interactors
+namespace FriendlyCashFlow.Identity
 {
-   internal class Register : Interactor<IUser, IdentitySettings, RegisterVM, IActionResult>
+   internal class RegisterInteractor : Interactor<IUser, IdentitySettings, RegisterVM, IActionResult>
    {
 
-      public Register(IMongoDatabase mongoDatabase, IdentitySettings settings) :
+      public RegisterInteractor(IMongoDatabase mongoDatabase, IdentitySettings settings) :
          base(mongoDatabase, settings, IdentityService.CollectionName)
       { }
 
-      internal const string WARNING_IDENTITY_INVALID_REGISTER_PARAMETER = "WARNING_IDENTITY_INVALID_REGISTER_PARAMETER";
-      internal const string WARNING_IDENTITY_USERNAME_ALREADY_USED = "WARNING_IDENTITY_USERNAME_ALREADY_USED";
+      internal struct WARNING
+      {
+         internal const string INVALID_REGISTER_PARAMETER = "WARNING_IDENTITY_INVALID_REGISTER_PARAMETER";
+         internal const string USERNAME_ALREADY_USED = "WARNING_IDENTITY_USERNAME_ALREADY_USED";
+      }
 
       public override async Task<IActionResult> ExecuteAsync(RegisterVM registerVM)
       {
 
          // VALIDATE PARAMETERS
          if (registerVM == null)
-            return new BadRequestObjectResult(new string[] { WARNING_IDENTITY_INVALID_REGISTER_PARAMETER });
+            return new BadRequestObjectResult(new string[] { WARNING.INVALID_REGISTER_PARAMETER });
 
          // VALIDATE USERNAME
          using (var interactor = new Interactors.ValidateUsername(MongoDatabase, Settings))
@@ -41,7 +44,7 @@ namespace FriendlyCashFlow.Identity.Interactors
          // VALIDATE DUPLICITY
          var usersFound = await Collection.CountDocumentsAsync($"{{'UserName':'{ registerVM.UserName}'}}");
          if (usersFound > 0)
-            return new BadRequestObjectResult(new string[] { WARNING_IDENTITY_USERNAME_ALREADY_USED });
+            return new BadRequestObjectResult(new string[] { WARNING.USERNAME_ALREADY_USED });
 
          // ADD NEW USER
          var user = new User(registerVM.UserName, registerVM.Password.GetHashedText(Settings.PasswordSalt));
