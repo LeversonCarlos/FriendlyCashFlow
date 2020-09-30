@@ -1,8 +1,14 @@
 namespace FriendlyCashFlow.Identity
 {
-   internal class PasswordSettings
+
+   public class IdentitySettings
    {
       public string PasswordSalt { get; set; }
+      public PasswordRuleSettings PasswordRules { get; set; }
+   }
+
+   public class PasswordRuleSettings
+   {
       public int MinimumUpperCases { get; set; }
       public int MinimumLowerCases { get; set; }
       public int MinimumNumbers { get; set; }

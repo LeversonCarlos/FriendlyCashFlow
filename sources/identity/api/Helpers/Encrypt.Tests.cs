@@ -10,7 +10,7 @@ namespace FriendlyCashFlow.Identity.Tests
       [MemberData(nameof(GetHashedText_WithSuppliedParameters_MustResultExpectedValue_Data))]
       internal void GetHashedText_WithSuppliedParameters_MustResultExpectedValue(string password, string salt, string expected)
       {
-         var settings = new PasswordSettings { PasswordSalt = salt };
+         var settings = new IdentitySettings { PasswordSalt = salt };
          var result = password.GetHashedText(settings.PasswordSalt);
 
          Assert.Equal(expected, result);

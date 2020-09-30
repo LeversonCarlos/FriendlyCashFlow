@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace FriendlyCashFlow.Identity.Interactors
 {
-   internal class ValidateUsername : Interactor<IUser, string, string[]>
+   internal class ValidateUsername : Interactor<IUser, IdentitySettings, string, string[]>
    {
 
-      public ValidateUsername(IMongoDatabase mongoDatabase) :
-         base(mongoDatabase, IdentityService.CollectionName)
+      public ValidateUsername(IMongoDatabase mongoDatabase, IdentitySettings settings) :
+         base(mongoDatabase, settings, IdentityService.CollectionName)
       { }
 
       internal const string WARNING_IDENTITY_INVALID_USERNAME = "WARNING_IDENTITY_INVALID_USERNAME";

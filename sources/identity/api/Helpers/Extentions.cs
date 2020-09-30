@@ -10,7 +10,7 @@ namespace FriendlyCashFlow.Identity.Helpers
    {
       public static IServiceCollection AddIdentityService(this IServiceCollection services, IConfiguration configs) =>
          services
-            .AddSingleton(s => configs.GetSection("Passwords").Get<PasswordSettings>())
+            .AddSingleton(s => configs.GetSection("Identity").Get<IdentitySettings>())
             .AddScoped<IIdentityService, IdentityService>();
    }
 

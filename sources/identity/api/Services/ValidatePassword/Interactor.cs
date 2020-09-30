@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace FriendlyCashFlow.Identity.Interactors
 {
-   internal class ValidatePassword : Interactor<IUser, string, string[]>
+   internal class ValidatePassword : Interactor<IUser, IdentitySettings, string, string[]>
    {
 
-      public ValidatePassword(IMongoDatabase mongoDatabase) :
-         base(mongoDatabase, IdentityService.CollectionName)
+      public ValidatePassword(IMongoDatabase mongoDatabase, IdentitySettings settings) :
+         base(mongoDatabase, settings, IdentityService.CollectionName)
       { }
 
       internal const string USERS_PASSWORD_REQUIRE_UPPER_CASES_WARNING = "USERS_PASSWORD_REQUIRE_UPPER_CASES_WARNING";
@@ -56,15 +56,15 @@ namespace FriendlyCashFlow.Identity.Interactors
             .FirstOrDefault();
 
          var msgs = new List<string>();
-         if (passwordStrength.Upper < _Settings.MinimumUpperCases)
+         if (passwordStrength.Upper < Settings.PasswordRules.MinimumUpperCases)
             msgs.Add(USERS_PASSWORD_REQUIRE_UPPER_CASES_WARNING);
-         if (passwordStrength.Lower < _Settings.MinimumLowerCases)
+         if (passwordStrength.Lower < Settings.PasswordRules.MinimumLowerCases)
             msgs.Add(USERS_PASSWORD_REQUIRE_LOWER_CASES_WARNING);
-         if (passwordStrength.Number < _Settings.MinimumNumbers)
+         if (passwordStrength.Number < Settings.PasswordRules.MinimumNumbers)
             msgs.Add(USERS_PASSWORD_REQUIRE_NUMBERS_WARNING);
-         if (passwordStrength.Symbol < _Settings.MinimumSymbols)
+         if (passwordStrength.Symbol < Settings.PasswordRules.MinimumSymbols)
             msgs.Add(USERS_PASSWORD_REQUIRE_SYMBOLS_WARNING);
-         if (passwordStrength.Size < _Settings.MinimumSize)
+         if (passwordStrength.Size < Settings.PasswordRules.MinimumSize)
             msgs.Add(USERS_PASSWORD_MINIMUM_SIZE_WARNING);
 
          await Task.CompletedTask;
