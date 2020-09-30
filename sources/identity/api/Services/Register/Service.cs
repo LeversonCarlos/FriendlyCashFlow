@@ -22,10 +22,4 @@ namespace FriendlyCashFlow.Identity
       Task<IActionResult> RegisterAsync(RegisterVM registerVM);
    }
 
-   public class RegisterVM
-   {
-      public string UserName { get; set; }
-      public string Password { get; set; }
-   }
-
 }
