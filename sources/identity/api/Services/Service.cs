@@ -9,9 +9,10 @@ namespace FriendlyCashFlow.Identity
    {
 
       readonly IMongoDatabase _MongoDatabase;
-      readonly PasswordSettings _Settings;
+      internal const string CollectionName = "users";
+      readonly IdentitySettings _Settings;
 
-      public IdentityService(IMongoDatabase mongoDatabase, PasswordSettings settings)
+      public IdentityService(IMongoDatabase mongoDatabase, IdentitySettings settings)
       {
          _MongoDatabase = mongoDatabase;
          _Settings = settings;
