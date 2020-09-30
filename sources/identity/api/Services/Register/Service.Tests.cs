@@ -1,6 +1,5 @@
-using System;
-using Xunit;
 using Microsoft.Extensions.DependencyInjection;
+using Xunit;
 
 namespace FriendlyCashFlow.Identity.Tests
 {
@@ -17,7 +16,7 @@ namespace FriendlyCashFlow.Identity.Tests
 
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(new string[] { IdentityService.WARNING_IDENTITY_INVALID_REGISTER_PARAMETER }, (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+         Assert.Equal(new string[] { Interactors.Register.WARNING_IDENTITY_INVALID_REGISTER_PARAMETER }, (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
       [Fact]
@@ -83,7 +82,7 @@ namespace FriendlyCashFlow.Identity.Tests
          result = await provider.GetService<IIdentityService>().RegisterAsync(registerParam);
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(new string[] { IdentityService.WARNING_IDENTITY_USERNAME_ALREADY_USED }, (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+         Assert.Equal(new string[] { Interactors.Register.WARNING_IDENTITY_USERNAME_ALREADY_USED }, (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
    }

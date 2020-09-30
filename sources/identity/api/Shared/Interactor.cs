@@ -11,17 +11,17 @@ namespace FriendlyCashFlow.Shared
       public Interactor(IMongoDatabase mongoDatabase, SettingsType settings, string collectionName)
       {
          _CollectionName = collectionName;
-         _MongoDatabase = mongoDatabase;
+         MongoDatabase = mongoDatabase;
          Settings = settings;
       }
 
       readonly string _CollectionName;
-      readonly IMongoDatabase _MongoDatabase;
+      readonly protected IMongoDatabase MongoDatabase;
 
       protected SettingsType Settings;
 
       protected IMongoCollection<CollectionType> Collection =>
-         _MongoDatabase.GetCollection<CollectionType>(_CollectionName);
+         MongoDatabase.GetCollection<CollectionType>(_CollectionName);
 
       [ExcludeFromCodeCoverage]
       public virtual Task<RESULT> ExecuteAsync(PARAM param) =>

@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Driver;
 using System.Threading.Tasks;
 
 namespace FriendlyCashFlow.Identity
@@ -8,50 +7,19 @@ namespace FriendlyCashFlow.Identity
    partial class IdentityService
    {
 
-      internal const string WARNING_IDENTITY_INVALID_REGISTER_PARAMETER = "WARNING_IDENTITY_INVALID_REGISTER_PARAMETER";
-      internal const string WARNING_IDENTITY_USERNAME_ALREADY_USED = "WARNING_IDENTITY_USERNAME_ALREADY_USED";
-
-      public async Task<ActionResult> RegisterAsync(RegisterVM registerVM)
+      public Task<IActionResult> RegisterAsync(RegisterVM registerVM)
       {
-
-         // VALIDATE PARAMETERS
-         if (registerVM == null)
-            return new BadRequestObjectResult(new string[] { WARNING_IDENTITY_INVALID_REGISTER_PARAMETER });
-
-         // VALIDATE USERNAME
-         var validateUsername = await ValidateUsernameAsync(registerVM.UserName);
-         if (validateUsername.Length > 0)
-            return new BadRequestObjectResult(validateUsername);
-
-         // VALIDATE PASSWORD
-         var validatePassword = await ValidatePasswordAsync(registerVM.Password);
-         if (validatePassword.Length > 0)
-            return new BadRequestObjectResult(validatePassword);
-
-         // RETRIEVE THE COLLECTION
-         var collection = await GetCollectionAsync();
-
-         // VALIDATE DUPLICITY
-         var usersFound = await collection.CountDocumentsAsync($"{{'UserName':'{ registerVM.UserName}'}}");
-         if (usersFound > 0)
-            return new BadRequestObjectResult(new string[] { WARNING_IDENTITY_USERNAME_ALREADY_USED });
-
-         // ADD NEW USER
-         var user = new User(registerVM.UserName, registerVM.Password.GetHashedText(_Settings.PasswordSalt));
-         await collection.InsertOneAsync(user);
-
-         // SEND ACTIVATION MAIL
-         // TODO
-
-         // RESULT
-         return new OkResult();
+         using (var interactor = new Interactors.Register(_MongoDatabase, _Settings))
+         {
+            return interactor.ExecuteAsync(registerVM);
+         }
       }
 
    }
 
    partial interface IIdentityService
    {
-      Task<ActionResult> RegisterAsync(RegisterVM registerVM);
+      Task<IActionResult> RegisterAsync(RegisterVM registerVM);
    }
 
    public class RegisterVM
