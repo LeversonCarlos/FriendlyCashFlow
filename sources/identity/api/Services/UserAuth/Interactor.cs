@@ -42,7 +42,7 @@ namespace FriendlyCashFlow.Identity
          }
 
          // LOCATE USER
-         var userCursor = await Collection.FindAsync($"{{'UserName':'{ param.UserName}'}}"));
+         var userCursor = await Collection.FindAsync($"{{'UserName':'{ param.UserName}'}}");
          if (userCursor == null)
             return new BadRequestObjectResult(new string[] { WARNING.USERAUTH_FAILED });
          var user = await userCursor.FirstOrDefaultAsync();
@@ -64,8 +64,7 @@ namespace FriendlyCashFlow.Identity
          // TODO
 
          // RESULT
-         await Task.CompletedTask;
-         return new BadRequestObjectResult(new string[] { });
+         return new OkResult();
       }
 
    }
