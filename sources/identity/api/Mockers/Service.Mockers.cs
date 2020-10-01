@@ -16,9 +16,9 @@ namespace FriendlyCashFlow.Identity.Tests
          return this;
       }
 
-      public ServiceMocker WithAuthUser(AuthUserVM param, IActionResult result)
+      public ServiceMocker WithUserAuth(UserAuthVM param, IActionResult result)
       {
-         _Mock.Setup(m => m.AuthUserAsync(param)).ReturnsAsync(result);
+         _Mock.Setup(m => m.UserAuthAsync(param)).ReturnsAsync(result);
          return this;
       }
 

@@ -7,15 +7,15 @@ namespace FriendlyCashFlow.Identity.Tests
    {
 
       [Fact]
-      public async void AuthUser_WithNullParameter_MustReturnBadResult()
+      public async void UserAuth_WithNullParameter_MustReturnBadResult()
       {
          var service = ServiceMocker
             .Create()
-            .WithAuthUser(null, new BadRequestObjectResult(new string[] { }))
+            .WithUserAuth(null, new BadRequestObjectResult(new string[] { }))
             .Build();
          var controller = new IdentityController(service);
 
-         var result = await controller.AuthUserAsync(null);
+         var result = await controller.UserAuthAsync(null);
 
          Assert.NotNull(result);
          Assert.IsType<BadRequestObjectResult>(result);

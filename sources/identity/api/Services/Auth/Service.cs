@@ -7,7 +7,7 @@ namespace FriendlyCashFlow.Identity
    partial class IdentityService
    {
 
-      public async Task<IActionResult> AuthUserAsync(AuthUserVM authUserVM)
+      public async Task<IActionResult> UserAuthAsync(UserAuthVM param)
       {
          await Task.CompletedTask;
          return new BadRequestObjectResult(new string[] { });
@@ -23,7 +23,7 @@ namespace FriendlyCashFlow.Identity
 
    partial interface IIdentityService
    {
-      Task<IActionResult> AuthUserAsync(AuthUserVM authUserVM);
+      Task<IActionResult> UserAuthAsync(UserAuthVM param);
    }
 
 }
