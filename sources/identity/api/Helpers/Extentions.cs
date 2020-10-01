@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace FriendlyCashFlow.Identity.Helpers
@@ -8,10 +9,18 @@ namespace FriendlyCashFlow.Identity.Helpers
 
    public static class StartupExtentions
    {
-      public static IServiceCollection AddIdentityService(this IServiceCollection services, IConfiguration configs) =>
-         services
+
+      public static IMvcBuilder AddIdentityService(this IMvcBuilder mvcBuilder, IConfiguration configs)
+      {
+         mvcBuilder
+            .AddApplicationPart(Assembly.GetAssembly(typeof(IdentityController)));
+         mvcBuilder
+            .Services
             .AddSingleton(s => configs.GetSection("Identity").Get<IdentitySettings>())
             .AddScoped<IIdentityService, IdentityService>();
+         return mvcBuilder;
+      }
+
    }
 
    internal static class MongoExtentions
