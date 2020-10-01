@@ -15,7 +15,7 @@ namespace FriendlyCashFlow.Identity
       internal struct WARNING
       {
          internal const string INVALID_USERAUTH_PARAMETER = "WARNING_IDENTITY_INVALID_USERAUTH_PARAMETER";
-         internal const string USERAUTH_FAILED = "WARNING_IDENTITY_USERAUTH_FAILED";
+         internal const string AUTHENTICATION_HAS_FAILED = "WARNING_IDENTITY_AUTHENTICATION_HAS_FAILED";
       }
 
       public override async Task<IActionResult> ExecuteAsync(UserAuthVM param)
@@ -44,12 +44,12 @@ namespace FriendlyCashFlow.Identity
          // LOCATE USER
          var userCursor = await Collection.FindAsync($"{{'UserName':'{ param.UserName}'}}");
          if (userCursor == null)
-            return new BadRequestObjectResult(new string[] { WARNING.USERAUTH_FAILED });
+            return new BadRequestObjectResult(new string[] { WARNING.AUTHENTICATION_HAS_FAILED });
          var user = await userCursor.FirstOrDefaultAsync();
          if (user == null)
-            return new BadRequestObjectResult(new string[] { WARNING.USERAUTH_FAILED });
+            return new BadRequestObjectResult(new string[] { WARNING.AUTHENTICATION_HAS_FAILED });
          if (param.Password.GetHashedText(Settings.PasswordSalt) != user.Password)
-            return new BadRequestObjectResult(new string[] { WARNING.USERAUTH_FAILED });
+            return new BadRequestObjectResult(new string[] { WARNING.AUTHENTICATION_HAS_FAILED });
 
          // VALIDATE USER
          // TODO
