@@ -68,10 +68,5 @@ namespace FriendlyCashFlow.Identity
          return new BadRequestObjectResult(new string[] { });
       }
 
-      Task<IUser> GetUser(UserAuthVM param)
-      {
-
-      }
-
    }
 }
