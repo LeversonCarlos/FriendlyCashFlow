@@ -10,7 +10,7 @@ namespace FriendlyCashFlow.Identity
 
       [HttpPost("")]
       [AllowAnonymous]
-      public Task<IActionResult> RegisterAsync(RegisterVM registerVM) =>
+      public Task<IActionResult> RegisterAsync([FromBody] RegisterVM registerVM) =>
          _IdentityService.RegisterAsync(registerVM);
 
    }

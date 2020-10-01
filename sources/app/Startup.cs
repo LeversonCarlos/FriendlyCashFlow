@@ -1,14 +1,10 @@
-using FriendlyCashFlow.Identity;
 using FriendlyCashFlow.Identity.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MongoDB.Driver;
-using System.Text;
 
 namespace example
 {
@@ -27,6 +23,13 @@ namespace example
             .AddSingleton(sp => _Configuration.GetSection("Mongo").Get<MongoSettings>())
             .AddSingleton<IMongoClient>(sp => new MongoClient(sp.GetService<MongoSettings>().ConnStr))
             .AddSingleton<IMongoDatabase>(sp => sp.GetService<IMongoClient>().GetDatabase(sp.GetService<MongoSettings>().Database))
+            .AddControllers()
+            .AddJsonOptions(options =>
+            {
+               options.JsonSerializerOptions.IgnoreNullValues = true;
+               options.JsonSerializerOptions.PropertyNamingPolicy = null; // to use PascalCase
+               options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+            })
             .AddIdentityService(_Configuration);
       }
 
@@ -39,6 +42,12 @@ namespace example
 
          app.UseRouting();
 
+         app.UseEndpoints(endpoints =>
+         {
+            endpoints.MapControllers();
+         });
+
+         /*
          app.UseEndpoints(endpoints =>
          {
             endpoints.MapGet("/", async context =>
@@ -62,6 +71,7 @@ namespace example
 
                });
          });
+         */
 
       }
    }
