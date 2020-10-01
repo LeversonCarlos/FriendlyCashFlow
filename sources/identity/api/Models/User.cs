@@ -7,6 +7,7 @@ namespace FriendlyCashFlow.Identity
    {
       string UserID { get; }
       string UserName { get; }
+      string Password { get; }
    }
 
    internal class User : IUser

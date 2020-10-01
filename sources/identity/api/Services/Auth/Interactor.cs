@@ -14,15 +14,64 @@ namespace FriendlyCashFlow.Identity
 
       internal struct WARNING
       {
-         internal const string INVALID_REGISTER_PARAMETER = "WARNING_IDENTITY_INVALID_REGISTER_PARAMETER";
+         internal const string INVALID_USERAUTH_PARAMETER = "WARNING_IDENTITY_INVALID_USERAUTH_PARAMETER";
+         internal const string USERAUTH_FAILED = "WARNING_IDENTITY_USERAUTH_FAILED";
       }
 
       public override async Task<IActionResult> ExecuteAsync(UserAuthVM param)
       {
 
+         // VALIDATE PARAMETERS
+         if (param == null)
+            return new BadRequestObjectResult(new string[] { WARNING.INVALID_USERAUTH_PARAMETER });
+
+         // VALIDATE USERNAME
+         using (var interactor = new ValidateUsernameInteractor(MongoDatabase, Settings))
+         {
+            var validateUsername = await interactor.ExecuteAsync(param.UserName);
+            if (validateUsername.Length > 0)
+               return new BadRequestObjectResult(validateUsername);
+         }
+
+         // VALIDATE PASSWORD
+         using (var interactor = new ValidatePasswordInteractor(MongoDatabase, Settings))
+         {
+            var validatePassword = await interactor.ExecuteAsync(param.Password);
+            if (validatePassword.Length > 0)
+               return new BadRequestObjectResult(validatePassword);
+         }
+
+         // LOCATE USER
+         var userCursor = await Collection.FindAsync($"{{'UserName':'{ param.UserName}'}}"));
+         if (userCursor == null)
+            return new BadRequestObjectResult(new string[] { WARNING.USERAUTH_FAILED });
+         var user = await userCursor.FirstOrDefaultAsync();
+         if (user == null)
+            return new BadRequestObjectResult(new string[] { WARNING.USERAUTH_FAILED });
+         if (param.Password.GetHashedText(Settings.PasswordSalt) != user.Password)
+            return new BadRequestObjectResult(new string[] { WARNING.USERAUTH_FAILED });
+
+         // VALIDATE USER
+         // TODO
+
+         // GENEATE IDENTITY
+         // TODO
+
+         // CREATE ACCESS TOKEN
+         // TODO
+
+         // CREATE REFRESH TOKEN
+         // TODO
+
          // RESULT
          await Task.CompletedTask;
          return new BadRequestObjectResult(new string[] { });
       }
+
+      Task<IUser> GetUser(UserAuthVM param)
+      {
+
+      }
+
    }
 }

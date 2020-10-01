@@ -11,7 +11,7 @@ namespace FriendlyCashFlow.Identity.Tests
       {
          var service = ServiceMocker
             .Create()
-            .WithUserAuth(null, new BadRequestObjectResult(new string[] { }))
+            .WithUserAuth(null, new BadRequestObjectResult(new string[] { UserAuthInteractor.WARNING.INVALID_USERAUTH_PARAMETER }))
             .Build();
          var controller = new IdentityController(service);
 
@@ -19,7 +19,7 @@ namespace FriendlyCashFlow.Identity.Tests
 
          Assert.NotNull(result);
          Assert.IsType<BadRequestObjectResult>(result);
-         Assert.Equal(new string[] { }, (result as BadRequestObjectResult).Value);
+         Assert.Equal(new string[] { UserAuthInteractor.WARNING.INVALID_USERAUTH_PARAMETER }, (result as BadRequestObjectResult).Value);
       }
 
    }
