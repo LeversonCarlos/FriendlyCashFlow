@@ -1,10 +1,8 @@
-using System;
-using Xunit;
-using Microsoft.Extensions.DependencyInjection;
-using System.Collections.Generic;
-using Microsoft.Extensions.Configuration;
 using FriendlyCashFlow.Identity.Helpers;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
+using Xunit;
 
 namespace FriendlyCashFlow.Identity.Tests
 {
@@ -18,12 +16,14 @@ namespace FriendlyCashFlow.Identity.Tests
             .Build();
          var services = new ServiceCollection()
             .AddSingleton<IMongoDatabase>(x => null)
+            .AddControllers()
             .AddIdentityService(configs)
+            .Services
             .BuildServiceProvider();
 
-         var value = services.GetService<IIdentityService>();
+         var identityService = services.GetService<IIdentityService>();
 
-         Assert.NotNull(value);
+         Assert.NotNull(identityService);
       }
 
    }
