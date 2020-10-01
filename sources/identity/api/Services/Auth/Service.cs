@@ -7,16 +7,12 @@ namespace FriendlyCashFlow.Identity
    partial class IdentityService
    {
 
-      public async Task<IActionResult> UserAuthAsync(UserAuthVM param)
+      public Task<IActionResult> UserAuthAsync(UserAuthVM param)
       {
-         await Task.CompletedTask;
-         return new BadRequestObjectResult(new string[] { });
-         /*
-         using (var interactor = new RegisterInteractor(_MongoDatabase, _Settings))
+         using (var interactor = new UserAuthInteractor(_MongoDatabase, _Settings))
          {
-            return interactor.ExecuteAsync(registerVM);
+            return interactor.ExecuteAsync(param);
          }
-         */
       }
 
    }
