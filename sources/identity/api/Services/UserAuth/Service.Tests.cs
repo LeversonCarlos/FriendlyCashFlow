@@ -82,7 +82,10 @@ namespace FriendlyCashFlow.Identity.Tests
       [Fact]
       public async void UserAuth_WithValidParameters_MustReturnOkResult()
       {
-         var mongoCollection = MongoCollectionMocker<IUser>.Create().Build();
+         var mongoCollection = MongoCollectionMocker<IUser>
+            .Create()
+            .WithFind(new User("userName@xpto.com", "X03MO1qnZdYdgyfeuILPmQ=="))
+            .Build();
          var mongoDatabase = MongoDatabaseMocker.Create().WithCollection(mongoCollection).Build();
          var identityService = new IdentityService(mongoDatabase, new IdentitySettings { PasswordRules = new PasswordRuleSettings { MinimumSize = 5 } });
          var provider = ProviderMocker.Create().WithIdentityService(identityService).Build().BuildServiceProvider();
