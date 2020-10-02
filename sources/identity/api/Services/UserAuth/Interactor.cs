@@ -1,6 +1,7 @@
 using FriendlyCashFlow.Shared;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace FriendlyCashFlow.Identity
@@ -42,7 +43,6 @@ namespace FriendlyCashFlow.Identity
          }
 
          // LOCATE USER
-         /*
          var userCursor = await Collection.FindAsync($"{{'UserName':'{ param.UserName}'}}");
          if (userCursor == null)
             return new BadRequestObjectResult(new string[] { WARNING.AUTHENTICATION_HAS_FAILED });
@@ -51,7 +51,6 @@ namespace FriendlyCashFlow.Identity
             return new BadRequestObjectResult(new string[] { WARNING.AUTHENTICATION_HAS_FAILED });
          if (param.Password.GetHashedText(Settings.PasswordSalt) != user.Password)
             return new BadRequestObjectResult(new string[] { WARNING.AUTHENTICATION_HAS_FAILED });
-         */
 
          // VALIDATE USER
          // TODO

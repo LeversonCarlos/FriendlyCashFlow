@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
 using Xunit;
 
 namespace FriendlyCashFlow.Identity.Tests
@@ -51,6 +52,32 @@ namespace FriendlyCashFlow.Identity.Tests
          Assert.IsType<BadRequestObjectResult>(result);
          Assert.Equal(new string[] { ValidatePasswordInteractor.WARNING.PASSWORD_MINIMUM_SIZE }, (result as BadRequestObjectResult).Value);
       }
+
+      [Theory]
+      [MemberData(nameof(UserAuth_WithInvalidAuthData_MustReturnBadResult_Data))]
+      public async void UserAuth_WithInvalidAuthData_MustReturnBadResult(IUser[] results)
+      {
+         var mongoCollection = MongoCollectionMocker<IUser>
+            .Create()
+            .WithFind(results)
+            .Build();
+         var mongoDatabase = MongoDatabaseMocker.Create().WithCollection(mongoCollection).Build();
+         var identityService = new IdentityService(mongoDatabase, new IdentitySettings { PasswordRules = new PasswordRuleSettings { } });
+         var provider = ProviderMocker.Create().WithIdentityService(identityService).Build().BuildServiceProvider();
+         var param = new UserAuthVM { UserName = "userName@xpto.com", Password = "password" };
+
+         var result = await provider.GetService<IIdentityService>().UserAuthAsync(param);
+
+         Assert.NotNull(result);
+         Assert.IsType<BadRequestObjectResult>(result);
+         Assert.Equal(new string[] { UserAuthInteractor.WARNING.AUTHENTICATION_HAS_FAILED }, (result as BadRequestObjectResult).Value);
+      }
+      public static IEnumerable<object[]> UserAuth_WithInvalidAuthData_MustReturnBadResult_Data() =>
+         new[] {
+            new object[] { (IUser[])null },
+            new object[] { new IUser[] { } },
+            new object[] { new IUser[] { new User("userName@xpto.com", "password") } }
+         };
 
       [Fact]
       public async void UserAuth_WithValidParameters_MustReturnOkResult()
