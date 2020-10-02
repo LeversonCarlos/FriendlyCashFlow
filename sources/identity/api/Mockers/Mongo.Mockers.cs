@@ -28,6 +28,34 @@ namespace FriendlyCashFlow.Identity.Tests
          return this;
       }
 
+      public MongoCollectionMocker<T> WithFind(params T[] results)
+      {
+         Mock.Setup(m => m.FindAsync<T>(It.IsAny<FilterDefinition<T>>(), null, It.IsAny<CancellationToken>())).ReturnsAsync(GetCursor(results));
+         return this;
+      }
+
+      IAsyncCursor<D> GetCursor<D>(params D[] results)
+      {
+         if (results == null)
+            return null;
+
+         var mockCursor = new Mock<IAsyncCursor<D>>();
+         mockCursor.Setup(x => x.Current).Returns(results);
+
+         var moveNext = mockCursor.SetupSequence(x => x.MoveNext(It.IsAny<CancellationToken>()));
+         var moveNextAsync = mockCursor.SetupSequence(x => x.MoveNextAsync(It.IsAny<CancellationToken>()));
+         for (int i = 0; i < results.Length; i++)
+         {
+            moveNext = moveNext.Returns(true);
+            moveNextAsync = moveNextAsync.ReturnsAsync(true);
+         }
+         moveNext = moveNext.Returns(false);
+         moveNextAsync = moveNextAsync.ReturnsAsync(false);
+
+         return mockCursor.Object;
+      }
+
+
       public IMongoCollection<T> Build() => Mock.Object;
 
    }
