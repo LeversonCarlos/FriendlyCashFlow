@@ -4,5 +4,6 @@ namespace FriendlyCashFlow.Identity
    {
       public string PasswordSalt { get; set; }
       public PasswordRuleSettings PasswordRules { get; set; }
+      public TokenSettings Token { get; set; }
    }
 }
