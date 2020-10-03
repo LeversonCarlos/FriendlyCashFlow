@@ -10,7 +10,7 @@ namespace FriendlyCashFlow.Identity
 
       [HttpPost("auth/user")]
       [AllowAnonymous]
-      public Task<IActionResult> UserAuthAsync([FromBody] UserAuthVM param) =>
+      public Task<ActionResult<TokenVM>> UserAuthAsync([FromBody] UserAuthVM param) =>
          _IdentityService.UserAuthAsync(param);
 
    }
