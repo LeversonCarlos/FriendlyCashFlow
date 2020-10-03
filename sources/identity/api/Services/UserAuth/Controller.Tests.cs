@@ -16,10 +16,10 @@ namespace FriendlyCashFlow.Identity.Tests
          var controller = new IdentityController(service);
 
          var result = await controller.UserAuthAsync(null);
-
+         
          Assert.NotNull(result);
-         Assert.IsType<BadRequestObjectResult>(result);
-         Assert.Equal(new string[] { UserAuthInteractor.WARNING.INVALID_USERAUTH_PARAMETER }, (result as BadRequestObjectResult).Value);
+         Assert.IsType<BadRequestObjectResult>(result.Result);
+         Assert.Equal(new string[] { UserAuthInteractor.WARNING.INVALID_USERAUTH_PARAMETER }, (result.Result as BadRequestObjectResult).Value);
       }
 
    }

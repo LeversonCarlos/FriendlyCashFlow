@@ -17,8 +17,8 @@ namespace FriendlyCashFlow.Identity.Tests
          var result = await provider.GetService<IIdentityService>().UserAuthAsync(null);
 
          Assert.NotNull(result);
-         Assert.IsType<BadRequestObjectResult>(result);
-         Assert.Equal(new string[] { UserAuthInteractor.WARNING.INVALID_USERAUTH_PARAMETER }, (result as BadRequestObjectResult).Value);
+         Assert.IsType<BadRequestObjectResult>(result.Result);
+         Assert.Equal(new string[] { UserAuthInteractor.WARNING.INVALID_USERAUTH_PARAMETER }, (result.Result as BadRequestObjectResult).Value);
       }
 
       [Fact]
@@ -33,8 +33,8 @@ namespace FriendlyCashFlow.Identity.Tests
          var result = await provider.GetService<IIdentityService>().UserAuthAsync(param);
 
          Assert.NotNull(result);
-         Assert.IsType<BadRequestObjectResult>(result);
-         Assert.Equal(new string[] { ValidateUsernameInteractor.WARNING.INVALID_USERNAME }, (result as BadRequestObjectResult).Value);
+         Assert.IsType<BadRequestObjectResult>(result.Result);
+         Assert.Equal(new string[] { ValidateUsernameInteractor.WARNING.INVALID_USERNAME }, (result.Result as BadRequestObjectResult).Value);
       }
 
       [Fact]
@@ -49,8 +49,8 @@ namespace FriendlyCashFlow.Identity.Tests
          var result = await provider.GetService<IIdentityService>().UserAuthAsync(param);
 
          Assert.NotNull(result);
-         Assert.IsType<BadRequestObjectResult>(result);
-         Assert.Equal(new string[] { ValidatePasswordInteractor.WARNING.PASSWORD_MINIMUM_SIZE }, (result as BadRequestObjectResult).Value);
+         Assert.IsType<BadRequestObjectResult>(result.Result);
+         Assert.Equal(new string[] { ValidatePasswordInteractor.WARNING.PASSWORD_MINIMUM_SIZE }, (result.Result as BadRequestObjectResult).Value);
       }
 
       [Theory]
@@ -69,8 +69,8 @@ namespace FriendlyCashFlow.Identity.Tests
          var result = await provider.GetService<IIdentityService>().UserAuthAsync(param);
 
          Assert.NotNull(result);
-         Assert.IsType<BadRequestObjectResult>(result);
-         Assert.Equal(new string[] { UserAuthInteractor.WARNING.AUTHENTICATION_HAS_FAILED }, (result as BadRequestObjectResult).Value);
+         Assert.IsType<BadRequestObjectResult>(result.Result);
+         Assert.Equal(new string[] { UserAuthInteractor.WARNING.AUTHENTICATION_HAS_FAILED }, (result.Result as BadRequestObjectResult).Value);
       }
       public static IEnumerable<object[]> UserAuth_WithInvalidAuthData_MustReturnBadResult_Data() =>
          new[] {
@@ -87,14 +87,20 @@ namespace FriendlyCashFlow.Identity.Tests
             .WithFind(new User("userName@xpto.com", "X03MO1qnZdYdgyfeuILPmQ=="))
             .Build();
          var mongoDatabase = MongoDatabaseMocker.Create().WithCollection(mongoCollection).Build();
-         var identityService = new IdentityService(mongoDatabase, new IdentitySettings { PasswordRules = new PasswordRuleSettings { MinimumSize = 5 } });
+         var settings = new IdentitySettings
+         {
+            PasswordRules = new PasswordRuleSettings { MinimumSize = 5 },
+            Token = new TokenSettings { SecuritySecret = "security-secret-security-secret" }
+         };
+         var identityService = new IdentityService(mongoDatabase, settings);
          var provider = ProviderMocker.Create().WithIdentityService(identityService).Build().BuildServiceProvider();
          var param = new UserAuthVM { UserName = "userName@xpto.com", Password = "password" };
 
          var result = await provider.GetService<IIdentityService>().UserAuthAsync(param);
 
          Assert.NotNull(result);
-         Assert.IsType<OkResult>(result);
+         Assert.IsType<OkObjectResult>(result.Result);
+         Assert.IsType<TokenVM>((result.Result as OkObjectResult).Value);
       }
 
    }
