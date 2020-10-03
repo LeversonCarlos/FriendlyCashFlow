@@ -10,9 +10,15 @@ namespace FriendlyCashFlow.Identity.Tests
       public ServiceMocker() => _Mock = new Mock<IIdentityService>();
       public static ServiceMocker Create() => new ServiceMocker();
 
-      public ServiceMocker WithRegister(RegisterVM registerVM, IActionResult actionResult)
+      public ServiceMocker WithRegister(RegisterVM param, IActionResult result)
       {
-         _Mock.Setup(m => m.RegisterAsync(registerVM)).ReturnsAsync(actionResult);
+         _Mock.Setup(m => m.RegisterAsync(param)).ReturnsAsync(result);
+         return this;
+      }
+
+      public ServiceMocker WithUserAuth(UserAuthVM param, IActionResult result)
+      {
+         _Mock.Setup(m => m.UserAuthAsync(param)).ReturnsAsync(result);
          return this;
       }
 

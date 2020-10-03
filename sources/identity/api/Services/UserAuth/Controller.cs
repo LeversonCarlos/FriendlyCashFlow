@@ -8,10 +8,10 @@ namespace FriendlyCashFlow.Identity
    partial class IdentityController
    {
 
-      [HttpPost("user")]
+      [HttpPost("auth/user")]
       [AllowAnonymous]
-      public Task<IActionResult> RegisterAsync([FromBody] RegisterVM registerVM) =>
-         _IdentityService.RegisterAsync(registerVM);
+      public Task<IActionResult> UserAuthAsync([FromBody] UserAuthVM param) =>
+         _IdentityService.UserAuthAsync(param);
 
    }
 
