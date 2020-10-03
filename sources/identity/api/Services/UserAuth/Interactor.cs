@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FriendlyCashFlow.Identity
 {
-   internal class UserAuthInteractor : Interactor<IUser, IdentitySettings, UserAuthVM, IActionResult>
+   internal class UserAuthInteractor : Interactor<IUser, IdentitySettings, UserAuthVM, ActionResult<TokenVM>>
    {
 
       public UserAuthInteractor(IMongoDatabase mongoDatabase, IdentitySettings settings) :
@@ -17,9 +17,10 @@ namespace FriendlyCashFlow.Identity
       {
          internal const string INVALID_USERAUTH_PARAMETER = "WARNING_IDENTITY_INVALID_USERAUTH_PARAMETER";
          internal const string AUTHENTICATION_HAS_FAILED = "WARNING_IDENTITY_AUTHENTICATION_HAS_FAILED";
+         internal const string TOKEN_CREATION_HAS_FAILED = "WARNING_IDENTITY_TOKEN_CREATION_HAS_FAILED";
       }
 
-      public override async Task<IActionResult> ExecuteAsync(UserAuthVM param)
+      public override async Task<ActionResult<TokenVM>> ExecuteAsync(UserAuthVM param)
       {
 
          // VALIDATE PARAMETERS
@@ -55,17 +56,17 @@ namespace FriendlyCashFlow.Identity
          // VALIDATE USER
          // TODO
 
-         // GENEATE IDENTITY
-         // TODO
-
-         // CREATE ACCESS TOKEN
-         // TODO
-
-         // CREATE REFRESH TOKEN
-         // TODO
+         // CREATE TOKEN
+         TokenVM result = null;
+         using (var interactor = new CreateTokenInteractor(MongoDatabase, Settings))
+         {
+            result = await interactor.ExecuteAsync(user);
+         }
+         if (result == null)
+            return new BadRequestObjectResult(new string[] { WARNING.TOKEN_CREATION_HAS_FAILED });
 
          // RESULT
-         return new OkResult();
+         return new OkObjectResult(result);
       }
 
    }
