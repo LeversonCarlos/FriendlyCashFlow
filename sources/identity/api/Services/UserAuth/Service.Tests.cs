@@ -34,7 +34,7 @@ namespace FriendlyCashFlow.Identity.Tests
 
          Assert.NotNull(result);
          Assert.IsType<BadRequestObjectResult>(result.Result);
-         Assert.Equal(new string[] { ValidateUsernameInteractor.WARNING.INVALID_USERNAME }, (result.Result as BadRequestObjectResult).Value);
+         Assert.Equal(new string[] { WARNINGS.INVALID_USERNAME }, (result.Result as BadRequestObjectResult).Value);
       }
 
       [Fact]

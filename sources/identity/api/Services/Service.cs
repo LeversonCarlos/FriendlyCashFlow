@@ -23,8 +23,8 @@ namespace FriendlyCashFlow.Identity
 
    }
 
-   public partial interface IIdentityService
-   {
-   }
+   public partial interface IIdentityService { }
+
+   internal partial struct WARNINGS { }
 
 }
