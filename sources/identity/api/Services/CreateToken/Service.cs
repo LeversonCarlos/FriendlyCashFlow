@@ -1,5 +1,3 @@
-using FriendlyCashFlow.Shared;
-using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
@@ -8,14 +6,11 @@ using System.Threading.Tasks;
 
 namespace FriendlyCashFlow.Identity
 {
-   internal class CreateTokenInteractor : Interactor<IUser, IdentitySettings, IUser, TokenVM>
+
+   partial class IdentityService
    {
 
-      public CreateTokenInteractor(IMongoDatabase mongoDatabase, IdentitySettings settings) :
-         base(mongoDatabase, settings, IdentityService.CollectionName)
-      { }
-
-      public override async Task<TokenVM> ExecuteAsync(IUser user)
+      async Task<TokenVM> CreateTokenAsync(IUser user)
       {
          try
          {
@@ -28,7 +23,7 @@ namespace FriendlyCashFlow.Identity
             };
 
             // ADD USER ROLES AS CLAIMS 
-            var userRoles = await GetRoles(user);
+            var userRoles = new string[] { "editor" };
             foreach (var userRole in userRoles)
                claimsList.Add(new Claim(ClaimTypes.Role, userRole));
 
@@ -39,7 +34,7 @@ namespace FriendlyCashFlow.Identity
             );
 
             // CREATE ACCESS TOKEN
-            var accessToken = Helpers.Token.CreateToken(identity, Settings.Token);
+            var accessToken = Helpers.Token.CreateToken(identity, _Settings.Token);
 
             // CREATE REFRESH TOKEN
             // TODO
@@ -56,10 +51,6 @@ namespace FriendlyCashFlow.Identity
          catch (Exception) { throw; }
       }
 
-      Task<string[]> GetRoles(IUser user)
-      {
-         return Task.FromResult(new string[] { "editor" });
-      }
-
    }
+
 }

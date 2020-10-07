@@ -38,11 +38,7 @@ namespace FriendlyCashFlow.Identity
          // TODO
 
          // CREATE TOKEN
-         TokenVM result = null;
-         using (var interactor = new CreateTokenInteractor(_MongoDatabase, _Settings))
-         {
-            result = await interactor.ExecuteAsync(user);
-         }
+         var result = await CreateTokenAsync(user);
          if (result == null)
             return new BadRequestObjectResult(new string[] { WARNINGS.TOKEN_CREATION_HAS_FAILED });
 
