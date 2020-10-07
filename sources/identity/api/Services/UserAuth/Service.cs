@@ -7,7 +7,7 @@ namespace FriendlyCashFlow.Identity
    partial class IdentityService
    {
 
-      public Task<IActionResult> UserAuthAsync(UserAuthVM param)
+      public Task<ActionResult<TokenVM>> UserAuthAsync(UserAuthVM param)
       {
          using (var interactor = new UserAuthInteractor(_MongoDatabase, _Settings))
          {
@@ -19,7 +19,7 @@ namespace FriendlyCashFlow.Identity
 
    partial interface IIdentityService
    {
-      Task<IActionResult> UserAuthAsync(UserAuthVM param);
+      Task<ActionResult<TokenVM>> UserAuthAsync(UserAuthVM param);
    }
 
 }
