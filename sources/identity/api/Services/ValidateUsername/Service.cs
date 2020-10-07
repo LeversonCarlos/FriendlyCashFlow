@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 
 namespace FriendlyCashFlow.Identity
 {
+
    partial class IdentityService
    {
 

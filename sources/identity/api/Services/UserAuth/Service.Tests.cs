@@ -50,7 +50,7 @@ namespace FriendlyCashFlow.Identity.Tests
 
          Assert.NotNull(result);
          Assert.IsType<BadRequestObjectResult>(result.Result);
-         Assert.Equal(new string[] { ValidatePasswordInteractor.WARNING.PASSWORD_MINIMUM_SIZE }, (result.Result as BadRequestObjectResult).Value);
+         Assert.Equal(new string[] { WARNINGS.PASSWORD_MINIMUM_SIZE }, (result.Result as BadRequestObjectResult).Value);
       }
 
       [Theory]
