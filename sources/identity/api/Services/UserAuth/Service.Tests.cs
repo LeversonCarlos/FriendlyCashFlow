@@ -18,7 +18,7 @@ namespace FriendlyCashFlow.Identity.Tests
 
          Assert.NotNull(result);
          Assert.IsType<BadRequestObjectResult>(result.Result);
-         Assert.Equal(new string[] { UserAuthInteractor.WARNING.INVALID_USERAUTH_PARAMETER }, (result.Result as BadRequestObjectResult).Value);
+         Assert.Equal(new string[] { WARNINGS.INVALID_USERAUTH_PARAMETER }, (result.Result as BadRequestObjectResult).Value);
       }
 
       [Fact]
@@ -70,7 +70,7 @@ namespace FriendlyCashFlow.Identity.Tests
 
          Assert.NotNull(result);
          Assert.IsType<BadRequestObjectResult>(result.Result);
-         Assert.Equal(new string[] { UserAuthInteractor.WARNING.AUTHENTICATION_HAS_FAILED }, (result.Result as BadRequestObjectResult).Value);
+         Assert.Equal(new string[] { WARNINGS.AUTHENTICATION_HAS_FAILED }, (result.Result as BadRequestObjectResult).Value);
       }
       public static IEnumerable<object[]> UserAuth_WithInvalidAuthData_MustReturnBadResult_Data() =>
          new[] {
