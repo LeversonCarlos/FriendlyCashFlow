@@ -34,7 +34,8 @@ namespace FriendlyCashFlow.Identity
             );
 
             // CREATE ACCESS TOKEN
-            var accessToken = Helpers.Token.CreateToken(identity, _Settings.Token);
+            var tokenDescriptor = Helpers.Token.GetTokenDescriptor(identity, _Settings.Token);
+            var accessToken = Helpers.Token.CreateToken(tokenDescriptor);
 
             // CREATE REFRESH TOKEN
             // TODO
