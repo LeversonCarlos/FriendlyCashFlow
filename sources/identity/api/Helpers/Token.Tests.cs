@@ -25,8 +25,11 @@ namespace FriendlyCashFlow.Identity.Tests
       internal void GetSecurityKey_WithEmptySecuritySecret_MustThrowException()
       {
          var settings = new TokenSettings { SecuritySecret = "" };
-         var value = Assert.Throws<ArgumentException>(() => Token.GetSecurityKey(settings));
+
+         var value = Assert.Throws<ArgumentNullException>(() => Token.GetSecurityKey(settings));
+
          Assert.NotNull(value);
+         Assert.Contains("The SecuritySecret property of the TokenSettings is required to build a SecurityKey", value.Message);
       }
 
       [Theory]
