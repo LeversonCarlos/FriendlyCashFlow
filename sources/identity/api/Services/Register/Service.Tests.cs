@@ -16,7 +16,7 @@ namespace FriendlyCashFlow.Identity.Tests
 
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(new string[] { RegisterInteractor.WARNING.INVALID_REGISTER_PARAMETER }, (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+         Assert.Equal(new string[] { WARNINGS.INVALID_REGISTER_PARAMETER }, (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
       [Fact]
@@ -32,7 +32,7 @@ namespace FriendlyCashFlow.Identity.Tests
 
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(new string[] { ValidatePasswordInteractor.WARNING.PASSWORD_MINIMUM_SIZE }, (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+         Assert.Equal(new string[] { WARNINGS.PASSWORD_MINIMUM_SIZE }, (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
       [Fact]
@@ -48,7 +48,7 @@ namespace FriendlyCashFlow.Identity.Tests
 
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(new string[] { ValidateUsernameInteractor.WARNING.INVALID_USERNAME }, (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+         Assert.Equal(new string[] { WARNINGS.INVALID_USERNAME }, (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
       [Fact]
@@ -82,7 +82,7 @@ namespace FriendlyCashFlow.Identity.Tests
          result = await provider.GetService<IIdentityService>().RegisterAsync(registerParam);
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(new string[] { RegisterInteractor.WARNING.USERNAME_ALREADY_USED }, (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+         Assert.Equal(new string[] { WARNINGS.USERNAME_ALREADY_USED }, (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
    }

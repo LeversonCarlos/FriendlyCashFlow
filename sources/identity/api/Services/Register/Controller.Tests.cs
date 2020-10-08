@@ -11,7 +11,7 @@ namespace FriendlyCashFlow.Identity.Tests
       {
          var service = ServiceMocker
             .Create()
-            .WithRegister(null, new BadRequestObjectResult(new string[] { RegisterInteractor.WARNING.INVALID_REGISTER_PARAMETER }))
+            .WithRegister(null, new BadRequestObjectResult(new string[] { WARNINGS.INVALID_REGISTER_PARAMETER }))
             .Build();
          var controller = new IdentityController(service);
 
@@ -19,7 +19,7 @@ namespace FriendlyCashFlow.Identity.Tests
 
          Assert.NotNull(result);
          Assert.IsType<BadRequestObjectResult>(result);
-         Assert.Equal(new string[] { RegisterInteractor.WARNING.INVALID_REGISTER_PARAMETER }, (result as BadRequestObjectResult).Value);
+         Assert.Equal(new string[] { WARNINGS.INVALID_REGISTER_PARAMETER }, (result as BadRequestObjectResult).Value);
       }
 
    }

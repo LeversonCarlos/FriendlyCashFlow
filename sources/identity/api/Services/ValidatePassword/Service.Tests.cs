@@ -18,11 +18,11 @@ namespace FriendlyCashFlow.Identity.Tests
       }
       public static IEnumerable<object[]> ValidatePassword_WithInvalidParameters_MustResultErrorMessage_Data() =>
          new[] {
-            new object[] { "Password", ValidatePasswordInteractor.WARNING.PASSWORD_REQUIRE_UPPER_CASES, new IdentitySettings { PasswordRules = new PasswordRuleSettings { MinimumUpperCases = 2 } } },
-            new object[] { "pASSWORD", ValidatePasswordInteractor.WARNING.PASSWORD_REQUIRE_LOWER_CASES, new IdentitySettings { PasswordRules = new PasswordRuleSettings { MinimumLowerCases = 2 } } },
-            new object[] { "passw0rd", ValidatePasswordInteractor.WARNING.PASSWORD_REQUIRE_NUMBERS, new IdentitySettings { PasswordRules = new PasswordRuleSettings {   MinimumNumbers=2 } } },
-            new object[] { "p@ssword", ValidatePasswordInteractor.WARNING.PASSWORD_REQUIRE_SYMBOLS, new IdentitySettings { PasswordRules = new PasswordRuleSettings {   MinimumSymbols=2 } } },
-            new object[] { "password", ValidatePasswordInteractor.WARNING.PASSWORD_MINIMUM_SIZE, new IdentitySettings { PasswordRules = new PasswordRuleSettings { MinimumSize = 10 } } }
+            new object[] { "Password", WARNINGS.PASSWORD_REQUIRE_UPPER_CASES, new IdentitySettings { PasswordRules = new PasswordRuleSettings { MinimumUpperCases = 2 } } },
+            new object[] { "pASSWORD", WARNINGS.PASSWORD_REQUIRE_LOWER_CASES, new IdentitySettings { PasswordRules = new PasswordRuleSettings { MinimumLowerCases = 2 } } },
+            new object[] { "passw0rd", WARNINGS.PASSWORD_REQUIRE_NUMBERS, new IdentitySettings { PasswordRules = new PasswordRuleSettings {   MinimumNumbers=2 } } },
+            new object[] { "p@ssword", WARNINGS.PASSWORD_REQUIRE_SYMBOLS, new IdentitySettings { PasswordRules = new PasswordRuleSettings {   MinimumSymbols=2 } } },
+            new object[] { "password", WARNINGS.PASSWORD_MINIMUM_SIZE, new IdentitySettings { PasswordRules = new PasswordRuleSettings { MinimumSize = 10 } } }
          };
 
       [Fact]

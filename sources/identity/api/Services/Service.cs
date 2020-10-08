@@ -8,8 +8,8 @@ namespace FriendlyCashFlow.Identity
    internal partial class IdentityService : IIdentityService
    {
 
+      const string _CollectionName = "users";
       readonly IMongoDatabase _MongoDatabase;
-      internal const string CollectionName = "users";
       readonly IdentitySettings _Settings;
 
       public IdentityService(IMongoDatabase mongoDatabase, IdentitySettings settings)
@@ -18,13 +18,16 @@ namespace FriendlyCashFlow.Identity
          _Settings = settings;
       }
 
+      internal IMongoCollection<IUser> _Collection =>
+         _MongoDatabase.GetCollection<IUser>(_CollectionName);
+
       internal Task<IMongoCollection<IUser>> GetCollectionAsync() =>
          _MongoDatabase.GetCollectionAsync<IUser>("users");
 
    }
 
-   public partial interface IIdentityService
-   {
-   }
+   public partial interface IIdentityService { }
+
+   internal partial struct WARNINGS { }
 
 }
