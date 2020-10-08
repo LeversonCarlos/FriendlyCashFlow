@@ -12,6 +12,10 @@ namespace FriendlyCashFlow.Identity.Helpers
 
       internal static SymmetricSecurityKey GetSecurityKey(TokenSettings settings)
       {
+
+         if (settings == null || string.IsNullOrEmpty(settings.SecuritySecret))
+            throw new ArgumentException("The SecuritySecret property of the TokenSettings is required to build a SecurityKey");
+
          var secretBytes = Encoding.UTF8.GetBytes(settings.SecuritySecret);
          var securityKey = new SymmetricSecurityKey(secretBytes);
          return securityKey;

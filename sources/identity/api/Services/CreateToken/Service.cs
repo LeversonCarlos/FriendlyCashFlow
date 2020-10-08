@@ -23,7 +23,7 @@ namespace FriendlyCashFlow.Identity
             };
 
             // ADD USER ROLES AS CLAIMS 
-            var userRoles = new string[] { "editor" };
+            var userRoles = new string[] { "editor" }; // TODO
             foreach (var userRole in userRoles)
                claimsList.Add(new Claim(ClaimTypes.Role, userRole));
 
@@ -45,6 +45,7 @@ namespace FriendlyCashFlow.Identity
                UserID = user.UserID,
                AccessToken = accessToken
             };
+            await Task.CompletedTask;
             return token;
 
          }
