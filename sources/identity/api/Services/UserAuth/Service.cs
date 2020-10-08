@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
+using System;
 using System.Threading.Tasks;
 
 namespace FriendlyCashFlow.Identity
@@ -10,40 +11,43 @@ namespace FriendlyCashFlow.Identity
 
       public async Task<ActionResult<TokenVM>> UserAuthAsync(UserAuthVM param)
       {
-         // VALIDATE PARAMETERS
-         if (param == null)
-            return new BadRequestObjectResult(new string[] { WARNINGS.INVALID_USERAUTH_PARAMETER });
+         try
+         {
 
-         // VALIDATE USERNAME
-         var validateUsername = await ValidateUsernameAsync(param.UserName);
-         if (validateUsername.Length > 0)
-            return new BadRequestObjectResult(validateUsername);
+            // VALIDATE PARAMETERS
+            if (param == null)
+               return new BadRequestObjectResult(new string[] { WARNINGS.INVALID_USERAUTH_PARAMETER });
 
-         // VALIDATE PASSWORD
-         var validatePassword = await ValidatePasswordAsync(param.Password);
-         if (validatePassword.Length > 0)
-            return new BadRequestObjectResult(validatePassword);
+            // VALIDATE USERNAME
+            var validateUsername = await ValidateUsernameAsync(param.UserName);
+            if (validateUsername.Length > 0)
+               return new BadRequestObjectResult(validateUsername);
 
-         // LOCATE USER
-         var userCursor = await _Collection.FindAsync($"{{'UserName':'{ param.UserName}'}}");
-         if (userCursor == null)
-            return new BadRequestObjectResult(new string[] { WARNINGS.AUTHENTICATION_HAS_FAILED });
-         var user = await userCursor.FirstOrDefaultAsync();
-         if (user == null)
-            return new BadRequestObjectResult(new string[] { WARNINGS.AUTHENTICATION_HAS_FAILED });
-         if (param.Password.GetHashedText(_Settings.PasswordSalt) != user.Password)
-            return new BadRequestObjectResult(new string[] { WARNINGS.AUTHENTICATION_HAS_FAILED });
+            // VALIDATE PASSWORD
+            var validatePassword = await ValidatePasswordAsync(param.Password);
+            if (validatePassword.Length > 0)
+               return new BadRequestObjectResult(validatePassword);
 
-         // VALIDATE USER
-         // TODO
+            // LOCATE USER
+            var userCursor = await _Collection.FindAsync($"{{'UserName':'{ param.UserName}'}}");
+            if (userCursor == null)
+               return new BadRequestObjectResult(new string[] { WARNINGS.AUTHENTICATION_HAS_FAILED });
+            var user = await userCursor.FirstOrDefaultAsync();
+            if (user == null)
+               return new BadRequestObjectResult(new string[] { WARNINGS.AUTHENTICATION_HAS_FAILED });
+            if (param.Password.GetHashedText(_Settings.PasswordSalt) != user.Password)
+               return new BadRequestObjectResult(new string[] { WARNINGS.AUTHENTICATION_HAS_FAILED });
 
-         // CREATE TOKEN
-         var result = await CreateTokenAsync(user);
-         if (result == null)
-            return new BadRequestObjectResult(new string[] { WARNINGS.TOKEN_CREATION_HAS_FAILED });
+            // VALIDATE USER
+            // TODO
 
-         // RESULT
-         return new OkObjectResult(result);
+            // CREATE TOKEN
+            var result = await CreateTokenAsync(user);
+
+            // RESULT
+            return new OkObjectResult(result);
+         }
+         catch (Exception ex) { return new BadRequestObjectResult(new string[] { ex.Message }); }
       }
 
    }
