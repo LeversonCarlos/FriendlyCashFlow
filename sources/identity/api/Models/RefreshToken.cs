@@ -16,13 +16,13 @@ namespace FriendlyCashFlow.Identity
       RefreshToken() { }
       internal partial struct WARNINGS { }
 
-      public static RefreshToken Create(string userID, int expirationInSeconds)
+      public static RefreshToken Create(string userID, DateTime expirationDate)
       {
          return new RefreshToken
          {
             TokenID = System.Guid.NewGuid().ToString(),
             UserID = userID,
-            ExpirationDate = DateTime.UtcNow.AddSeconds(expirationInSeconds)
+            ExpirationDate = expirationDate
          };
       }
 
@@ -33,13 +33,9 @@ namespace FriendlyCashFlow.Identity
          get => _TokenID;
          private set
          {
-            if (string.IsNullOrEmpty(value) || value.Length != 36)
-               throw new ArgumentException(WARNINGS.INVALID_TOKENID_PARAMETER);
             _TokenID = value;
          }
       }
-      partial struct WARNINGS { public const string INVALID_TOKENID_PARAMETER = "WARNING_IDENTITY_INVALID_REFRESHTOKEN_TOKENID_PARAMETER"; }
-
 
       string _UserID;
       public string UserID
@@ -60,7 +56,7 @@ namespace FriendlyCashFlow.Identity
          get => _ExpirationDate;
          private set
          {
-            if (value == null || value < DateTime.MinValue)
+            if (value == null || value <= DateTime.MinValue)
                throw new ArgumentException(WARNINGS.INVALID_EXPIRATIONDATE_PARAMETER);
             _ExpirationDate = value;
          }
