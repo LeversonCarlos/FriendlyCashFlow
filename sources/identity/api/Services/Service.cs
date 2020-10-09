@@ -17,13 +17,15 @@ namespace FriendlyCashFlow.Identity
          _Settings = settings;
       }
 
-      const string _UserCollectionName = "users";
+      internal static string GetUserCollectionName() =>
+         nameof(IUser).Substring(1).ToLower();
       internal IMongoCollection<IUser> _Collection =>
-         _MongoDatabase.GetCollection<IUser>(_UserCollectionName);
+         _MongoDatabase.GetCollection<IUser>(GetUserCollectionName());
 
-      const string _RefreshTokenCollectionName = "refresh-tokens";
+      internal static string GetRefreshTokenCollectionName() =>
+         nameof(IRefreshToken).Substring(1).ToLower();
       internal IMongoCollection<IRefreshToken> _RefreshTokenCollection =>
-         _MongoDatabase.GetCollection<IRefreshToken>(_RefreshTokenCollectionName);
+         _MongoDatabase.GetCollection<IRefreshToken>(GetRefreshTokenCollectionName());
 
       internal Task<IMongoCollection<IUser>> GetCollectionAsync() =>
          _MongoDatabase.GetCollectionAsync<IUser>("users");
