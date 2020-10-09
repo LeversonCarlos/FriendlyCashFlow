@@ -33,6 +33,7 @@ namespace FriendlyCashFlow.Identity.Helpers
       }
       */
 
+      /*
       internal static async Task<IMongoCollection<T>> GetCollectionAsync<T>(this IMongoDatabase mongoDatabase, string collectionName)
       {
 
@@ -48,6 +49,7 @@ namespace FriendlyCashFlow.Identity.Helpers
          return mongoDatabase.GetCollection<T>(collectionName);
 
       }
+      */
 
    }
 }

@@ -38,15 +38,15 @@ namespace FriendlyCashFlow.Identity
          var accessToken = Helpers.Token.CreateToken(tokenDescriptor);
 
          // CREATE REFRESH TOKEN
-         // TODO
+         var refreshToken = await CreateRefreshTokenAsync(user);
 
          // RESULT
          var token = new TokenVM
          {
             UserID = user.UserID,
-            AccessToken = accessToken
+            AccessToken = accessToken,
+            RefreshToken = refreshToken.TokenID
          };
-         await Task.CompletedTask;
          return token;
 
       }
