@@ -8,7 +8,6 @@ namespace FriendlyCashFlow.Identity
    internal partial class IdentityService : IIdentityService
    {
 
-      const string _CollectionName = "users";
       readonly IMongoDatabase _MongoDatabase;
       readonly IdentitySettings _Settings;
 
@@ -18,8 +17,13 @@ namespace FriendlyCashFlow.Identity
          _Settings = settings;
       }
 
+      const string _UserCollectionName = "users";
       internal IMongoCollection<IUser> _Collection =>
-         _MongoDatabase.GetCollection<IUser>(_CollectionName);
+         _MongoDatabase.GetCollection<IUser>(_UserCollectionName);
+
+      const string _RefreshTokenCollectionName = "refresh-tokens";
+      internal IMongoCollection<IRefreshToken> _RefreshTokenCollection =>
+         _MongoDatabase.GetCollection<IRefreshToken>(_RefreshTokenCollectionName);
 
       internal Task<IMongoCollection<IUser>> GetCollectionAsync() =>
          _MongoDatabase.GetCollectionAsync<IUser>("users");
