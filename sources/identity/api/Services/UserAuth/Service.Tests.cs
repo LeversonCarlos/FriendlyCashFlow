@@ -25,7 +25,7 @@ namespace FriendlyCashFlow.Identity.Tests
       public async void UserAuth_WithInvalidUsername_MustReturnBadResult()
       {
          var mongoCollection = MongoCollectionMocker<IUser>.Create().Build();
-         var mongoDatabase = MongoDatabaseMocker.Create().WithCollection(mongoCollection).Build();
+         var mongoDatabase = MongoDatabaseMocker.Create().WithCollection(mongoCollection, IdentityService.GetUserCollectionName()).Build();
          var identityService = new IdentityService(mongoDatabase, new IdentitySettings { PasswordRules = new PasswordRuleSettings { } });
          var provider = ProviderMocker.Create().WithIdentityService(identityService).Build().BuildServiceProvider();
          var param = new UserAuthVM { UserName = "userName", Password = "password" };
@@ -41,7 +41,7 @@ namespace FriendlyCashFlow.Identity.Tests
       public async void UserAuth_WithInvalidPassword_MustReturnBadResult()
       {
          var mongoCollection = MongoCollectionMocker<IUser>.Create().Build();
-         var mongoDatabase = MongoDatabaseMocker.Create().WithCollection(mongoCollection).Build();
+         var mongoDatabase = MongoDatabaseMocker.Create().WithCollection(mongoCollection, IdentityService.GetUserCollectionName()).Build();
          var identityService = new IdentityService(mongoDatabase, new IdentitySettings { PasswordRules = new PasswordRuleSettings { MinimumSize = 10 } });
          var provider = ProviderMocker.Create().WithIdentityService(identityService).Build().BuildServiceProvider();
          var param = new UserAuthVM { UserName = "userName@xpto.com", Password = "password" };
@@ -61,7 +61,7 @@ namespace FriendlyCashFlow.Identity.Tests
             .Create()
             .WithFind(results)
             .Build();
-         var mongoDatabase = MongoDatabaseMocker.Create().WithCollection(mongoCollection).Build();
+         var mongoDatabase = MongoDatabaseMocker.Create().WithCollection(mongoCollection, IdentityService.GetUserCollectionName()).Build();
          var identityService = new IdentityService(mongoDatabase, new IdentitySettings { PasswordRules = new PasswordRuleSettings { } });
          var provider = ProviderMocker.Create().WithIdentityService(identityService).Build().BuildServiceProvider();
          var param = new UserAuthVM { UserName = "userName@xpto.com", Password = "password" };
@@ -86,7 +86,7 @@ namespace FriendlyCashFlow.Identity.Tests
             .Create()
             .WithFind(new User("userName@xpto.com", "X03MO1qnZdYdgyfeuILPmQ=="))
             .Build();
-         var mongoDatabase = MongoDatabaseMocker.Create().WithCollection(mongoCollection).Build();
+         var mongoDatabase = MongoDatabaseMocker.Create().WithCollection(mongoCollection, IdentityService.GetUserCollectionName()).Build();
          var settings = new IdentitySettings
          {
             PasswordRules = new PasswordRuleSettings { MinimumSize = 5 },
@@ -117,7 +117,6 @@ namespace FriendlyCashFlow.Identity.Tests
             .Create()
             .WithCollection(userCollection, IdentityService.GetUserCollectionName())
             .WithCollection(refreshTokenCollection, IdentityService.GetRefreshTokenCollectionName())
-            .WithListCollectionNames(userCollection.CollectionNamespace.CollectionName, refreshTokenCollection.CollectionNamespace.CollectionName)
             .Build();
          var settings = new IdentitySettings
          {
