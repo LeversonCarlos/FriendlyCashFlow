@@ -42,7 +42,7 @@ namespace FriendlyCashFlow.Identity
             // TODO
 
             // CREATE TOKEN
-            var result = await CreateTokenAsync(user);
+            var result = await CreateAccessTokenAsync(user);
 
             // RESULT
             return new OkObjectResult(result);
