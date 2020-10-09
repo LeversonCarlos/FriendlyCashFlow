@@ -14,6 +14,12 @@ namespace FriendlyCashFlow.Identity
          try
          {
 
+            // VALIDATE PARAMETERS
+            if (param == null)
+               return new BadRequestObjectResult(new string[] { WARNINGS.INVALID_TOKENAUTH_PARAMETER });
+            if (string.IsNullOrWhiteSpace(param.RefreshToken))
+               return new BadRequestObjectResult(new string[] { WARNINGS.INVALID_TOKENAUTH_PARAMETER });
+
             // RESULT
             await Task.CompletedTask;
             TokenVM result = null;
@@ -31,6 +37,7 @@ namespace FriendlyCashFlow.Identity
 
    partial struct WARNINGS
    {
+      internal const string INVALID_TOKENAUTH_PARAMETER = "WARNING_IDENTITY_INVALID_TOKENAUTH_PARAMETER";
    }
 
 }

@@ -22,6 +22,12 @@ namespace FriendlyCashFlow.Identity.Tests
          return this;
       }
 
+      public ServiceMocker WithTokenAuth(TokenAuthVM param, ActionResult<TokenVM> result)
+      {
+         _Mock.Setup(m => m.TokenAuthAsync(param)).ReturnsAsync(result);
+         return this;
+      }
+
       public IIdentityService Build() => _Mock.Object;
    }
 }
