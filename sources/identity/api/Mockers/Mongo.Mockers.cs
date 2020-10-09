@@ -68,33 +68,9 @@ namespace FriendlyCashFlow.Identity.Tests
       public MongoDatabaseMocker() => Mock = new Mock<IMongoDatabase>();
       public static MongoDatabaseMocker Create() => new MongoDatabaseMocker();
 
-      public MongoDatabaseMocker WithListCollectionNames(params string[] collectionNames)
-      {
-         var collectionNamesMock = new Mock<IAsyncCursor<string>>();
-         collectionNamesMock.Setup(m => m.Current).Returns(collectionNames);
-         Mock.Setup(m => m.ListCollectionNamesAsync(It.IsAny<ListCollectionNamesOptions>(), It.IsAny<CancellationToken>())).ReturnsAsync(collectionNamesMock.Object);
-         return this;
-      }
-
       public MongoDatabaseMocker WithCollection<T>(IMongoCollection<T> collection, string collectionName)
       {
-         this.WithListCollectionNames(collectionName);
          Mock.Setup(m => m.GetCollection<T>(collectionName, null)).Returns(collection);
-         return this;
-      }
-
-      public MongoDatabaseMocker WithCollection<T>(IMongoCollection<T> collection, bool createBeforeReturning = false)
-      {
-         if (createBeforeReturning)
-         {
-            this.WithListCollectionNames();
-            Mock.Setup(m => m.CreateCollectionAsync(It.IsAny<string>(), It.IsAny<CreateCollectionOptions>(), It.IsAny<CancellationToken>())).Returns(Task.CompletedTask);
-         }
-         else
-         {
-            this.WithListCollectionNames(collection.CollectionNamespace.CollectionName);
-         }
-         Mock.Setup(m => m.GetCollection<T>(collection.CollectionNamespace.CollectionName, null)).Returns(collection);
          return this;
       }
 
