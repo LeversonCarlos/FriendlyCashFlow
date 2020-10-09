@@ -106,15 +106,23 @@ namespace FriendlyCashFlow.Identity.Tests
       [Fact]
       public async void UserAuth_WithValidParameters_MustReturnOkResult()
       {
-         var mongoCollection = MongoCollectionMocker<IUser>
+         var userCollection = MongoCollectionMocker<IUser>
             .Create()
             .WithFind(new User("userName@xpto.com", "X03MO1qnZdYdgyfeuILPmQ=="))
             .Build();
-         var mongoDatabase = MongoDatabaseMocker.Create().WithCollection(mongoCollection).Build();
+         var refreshTokenCollection = MongoCollectionMocker<IRefreshToken>
+            .Create()
+            .Build();
+         var mongoDatabase = MongoDatabaseMocker
+            .Create()
+            .WithCollection(userCollection, IdentityService.GetUserCollectionName())
+            .WithCollection(refreshTokenCollection, IdentityService.GetRefreshTokenCollectionName())
+            .WithListCollectionNames(userCollection.CollectionNamespace.CollectionName, refreshTokenCollection.CollectionNamespace.CollectionName)
+            .Build();
          var settings = new IdentitySettings
          {
             PasswordRules = new PasswordRuleSettings { MinimumSize = 5 },
-            Token = new TokenSettings { SecuritySecret = "security-secret-security-secret", AccessExpirationInSeconds = 1 }
+            Token = new TokenSettings { SecuritySecret = "security-secret-security-secret", AccessExpirationInSeconds = 1, RefreshExpirationInSeconds = 60 }
          };
          var identityService = new IdentityService(mongoDatabase, settings);
          var provider = ProviderMocker.Create().WithIdentityService(identityService).Build().BuildServiceProvider();
@@ -128,6 +136,7 @@ namespace FriendlyCashFlow.Identity.Tests
          var tokenVM = (TokenVM)((result.Result as OkObjectResult).Value);
          Assert.NotEmpty(tokenVM.UserID);
          Assert.NotEmpty(tokenVM.AccessToken);
+         Assert.NotEmpty(tokenVM.RefreshToken);
       }
 
    }
