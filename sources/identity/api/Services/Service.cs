@@ -27,9 +27,6 @@ namespace FriendlyCashFlow.Identity
       internal IMongoCollection<IRefreshToken> _RefreshTokenCollection =>
          _MongoDatabase.GetCollection<IRefreshToken>(GetRefreshTokenCollectionName());
 
-      internal Task<IMongoCollection<IUser>> GetCollectionAsync() =>
-         _MongoDatabase.GetCollectionAsync<IUser>("users");
-
    }
 
    public partial interface IIdentityService { }
