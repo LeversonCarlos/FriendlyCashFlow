@@ -94,5 +94,36 @@ namespace FriendlyCashFlow.Identity.Tests
             new object[] { WARNINGS.AUTHENTICATION_HAS_FAILED, new IUser[] { } }
          };
 
+      [Fact]
+      public async void TokenAuth_WithInvalidSettings_MustReturnBadResult()
+      {
+         var tokenCollection = MongoCollectionMocker<IRefreshToken>
+            .Create()
+            .WithFindAndDelete(RefreshToken.Create(System.Guid.NewGuid().ToString(), DateTime.UtcNow.AddMinutes(1)))
+            .Build();
+         var userCollection = MongoCollectionMocker<IUser>
+            .Create()
+            .WithFind(new User("userName@xpto.com", "X03MO1qnZdYdgyfeuILPmQ=="))
+            .Build();
+         var mongoDatabase = MongoDatabaseMocker.Create()
+            .WithCollection(tokenCollection, IdentityService.GetRefreshTokenCollectionName())
+            .WithCollection(userCollection, IdentityService.GetUserCollectionName())
+            .Build();
+         var settings = new IdentitySettings
+         {
+            PasswordRules = new PasswordRuleSettings { MinimumSize = 5 },
+            Token = new TokenSettings { }
+         };
+         var identityService = new IdentityService(mongoDatabase, settings);
+         var provider = ProviderMocker.Create().WithIdentityService(identityService).Build().BuildServiceProvider();
+         var param = new TokenAuthVM { RefreshToken = "refresh-token" };
+
+         var result = await provider.GetService<IIdentityService>().TokenAuthAsync(param);
+
+         Assert.NotNull(result);
+         Assert.IsType<BadRequestObjectResult>(result.Result);
+         Assert.Equal(new string[] { "The AccessExpirationInSeconds property on the Settings parameter is required for the GetTokenDescriptor function on the Token class (Parameter 'settings')" }, (result.Result as BadRequestObjectResult).Value);
+      }
+
    }
 }
