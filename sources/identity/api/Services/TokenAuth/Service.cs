@@ -37,10 +37,13 @@ namespace FriendlyCashFlow.Identity
             if (user == null)
                return new BadRequestObjectResult(new string[] { WARNINGS.AUTHENTICATION_HAS_FAILED });
 
+            // VALIDATE USER
+            // TODO
 
+            // CREATE TOKEN
+            var result = await CreateAccessTokenAsync(user);
 
             // RESULT
-            TokenVM result = null;
             return new OkObjectResult(result);
          }
          catch (Exception ex) { return new BadRequestObjectResult(new string[] { ex.Message }); }
