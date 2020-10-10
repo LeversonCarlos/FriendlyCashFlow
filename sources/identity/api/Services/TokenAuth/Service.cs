@@ -29,10 +29,17 @@ namespace FriendlyCashFlow.Identity
             if (token.ExpirationDate < DateTime.UtcNow)
                return new BadRequestObjectResult(new string[] { WARNINGS.AUTHENTICATION_HAS_FAILED });
 
+            // LOCATE USER
+            var userCursor = await _Collection.FindAsync($"{{'UserID':'{ token.UserID}'}}");
+            if (userCursor == null)
+               return new BadRequestObjectResult(new string[] { WARNINGS.AUTHENTICATION_HAS_FAILED });
+            var user = await userCursor.FirstOrDefaultAsync();
+            if (user == null)
+               return new BadRequestObjectResult(new string[] { WARNINGS.AUTHENTICATION_HAS_FAILED });
+
 
 
             // RESULT
-            await Task.CompletedTask;
             TokenVM result = null;
             return new OkObjectResult(result);
          }

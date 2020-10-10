@@ -40,8 +40,8 @@ namespace FriendlyCashFlow.Identity.Tests
       }
 
       [Theory]
-      [MemberData(nameof(TokenAuth_WithInvalidAuthData_MustReturnBadResult_Data))]
-      public async void TokenAuth_WithInvalidAuthData_MustReturnBadResult(string exceptionMessage, IRefreshToken results)
+      [MemberData(nameof(TokenAuth_WithInvalidRefreshTokenData_MustReturnBadResult_Data))]
+      public async void TokenAuth_WithInvalidRefreshTokenData_MustReturnBadResult(string exceptionMessage, IRefreshToken results)
       {
          var mongoCollection = MongoCollectionMocker<IRefreshToken>
             .Create()
@@ -57,10 +57,41 @@ namespace FriendlyCashFlow.Identity.Tests
          Assert.IsType<BadRequestObjectResult>(result.Result);
          Assert.Equal(new string[] { exceptionMessage }, (result.Result as BadRequestObjectResult).Value);
       }
-      public static IEnumerable<object[]> TokenAuth_WithInvalidAuthData_MustReturnBadResult_Data() =>
+      public static IEnumerable<object[]> TokenAuth_WithInvalidRefreshTokenData_MustReturnBadResult_Data() =>
          new[] {
             new object[] { WARNINGS.AUTHENTICATION_HAS_FAILED, (RefreshToken)null },
             new object[] { WARNINGS.AUTHENTICATION_HAS_FAILED, RefreshToken.Create(System.Guid.NewGuid().ToString(), DateTime.UtcNow.AddMilliseconds(-1) ) }
+         };
+
+      [Theory]
+      [MemberData(nameof(TokenAuth_WithInvalidUserData_MustReturnBadResult_Data))]
+      public async void TokenAuth_WithInvalidUserData_MustReturnBadResult(string exceptionMessage, IUser[] results)
+      {
+         var tokenCollection = MongoCollectionMocker<IRefreshToken>
+            .Create()
+            .WithFindAndDelete(RefreshToken.Create(System.Guid.NewGuid().ToString(), DateTime.UtcNow.AddMinutes(1)))
+            .Build();
+         var userCollection = MongoCollectionMocker<IUser>
+            .Create()
+            .WithFind(results)
+            .Build();
+         var mongoDatabase = MongoDatabaseMocker.Create()
+            .WithCollection(tokenCollection, IdentityService.GetRefreshTokenCollectionName())
+            .WithCollection(userCollection, IdentityService.GetUserCollectionName())
+            .Build();
+         var service = new IdentityService(mongoDatabase, null);
+         var param = new TokenAuthVM { RefreshToken = "refresh-token" };
+
+         var result = await service.TokenAuthAsync(param);
+
+         Assert.NotNull(result);
+         Assert.IsType<BadRequestObjectResult>(result.Result);
+         Assert.Equal(new string[] { exceptionMessage }, (result.Result as BadRequestObjectResult).Value);
+      }
+      public static IEnumerable<object[]> TokenAuth_WithInvalidUserData_MustReturnBadResult_Data() =>
+         new[] {
+            new object[] { WARNINGS.AUTHENTICATION_HAS_FAILED, (IUser[])null },
+            new object[] { WARNINGS.AUTHENTICATION_HAS_FAILED, new IUser[] { } }
          };
 
    }
