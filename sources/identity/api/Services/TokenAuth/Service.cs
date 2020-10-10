@@ -20,6 +20,17 @@ namespace FriendlyCashFlow.Identity
             if (string.IsNullOrWhiteSpace(param.RefreshToken))
                return new BadRequestObjectResult(new string[] { WARNINGS.INVALID_TOKENAUTH_PARAMETER });
 
+            // LOCATE TOKEN
+            var token = await _RefreshTokenCollection.FindOneAndDeleteAsync($"{{'TokenID':'{ param.RefreshToken}'}}");
+            if (token == null)
+               return new BadRequestObjectResult(new string[] { WARNINGS.AUTHENTICATION_HAS_FAILED });
+
+            // VALIDATE TOKEN
+            if (token.ExpirationDate < DateTime.UtcNow)
+               return new BadRequestObjectResult(new string[] { WARNINGS.AUTHENTICATION_HAS_FAILED });
+
+
+
             // RESULT
             await Task.CompletedTask;
             TokenVM result = null;
