@@ -21,7 +21,7 @@ namespace FriendlyCashFlow.Identity
                return new BadRequestObjectResult(new string[] { WARNINGS.INVALID_TOKENAUTH_PARAMETER });
 
             // LOCATE TOKEN
-            var token = await _RefreshTokenCollection.FindOneAndDeleteAsync($"{{'TokenID':'{ param.RefreshToken}'}}");
+            var token = await _RefreshTokenCollection.FindOneAndDeleteAsync($"{{'TokenID':'{param.RefreshToken}'}}");
             if (token == null)
                return new BadRequestObjectResult(new string[] { WARNINGS.AUTHENTICATION_HAS_FAILED });
 
@@ -30,7 +30,7 @@ namespace FriendlyCashFlow.Identity
                return new BadRequestObjectResult(new string[] { WARNINGS.AUTHENTICATION_HAS_FAILED });
 
             // LOCATE USER
-            var userCursor = await _Collection.FindAsync($"{{'UserID':'{ token.UserID}'}}");
+            var userCursor = await _Collection.FindAsync($"{{'UserID':'{token.UserID}'}}");
             if (userCursor == null)
                return new BadRequestObjectResult(new string[] { WARNINGS.AUTHENTICATION_HAS_FAILED });
             var user = await userCursor.FirstOrDefaultAsync();
@@ -38,7 +38,7 @@ namespace FriendlyCashFlow.Identity
                return new BadRequestObjectResult(new string[] { WARNINGS.AUTHENTICATION_HAS_FAILED });
 
             // VALIDATE USER
-            // TODO
+            // TODO: CHECK ACTIVATION
 
             // CREATE TOKEN
             var result = await CreateAccessTokenAsync(user);
