@@ -18,12 +18,27 @@ namespace FriendlyCashFlow.Identity
 
       public static RefreshToken Create(string userID, DateTime expirationDate)
       {
+
+         // RANDOMIZE TOKEN
+         var randomNumber = new byte[32];
+         using (var rng = System.Security.Cryptography.RandomNumberGenerator.Create())
+         {
+            rng.GetBytes(randomNumber);
+         }
+         var refreshToken = Convert
+            .ToBase64String(randomNumber)
+            .Replace("+", string.Empty)
+            .Replace("&", string.Empty)
+            .Replace("=", string.Empty)
+            .Replace("/", string.Empty);
+
          return new RefreshToken
          {
-            TokenID = System.Guid.NewGuid().ToString(),
+            TokenID = refreshToken,
             UserID = userID,
             ExpirationDate = expirationDate
          };
+
       }
 
       string _TokenID;

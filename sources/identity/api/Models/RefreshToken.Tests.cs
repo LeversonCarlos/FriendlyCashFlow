@@ -17,7 +17,6 @@ namespace FriendlyCashFlow.Identity.Tests
 
          Assert.NotNull(value);
          Assert.NotEmpty(value.TokenID);
-         Assert.Equal(36, value.TokenID.Length);
          Assert.Equal(userID, value.UserID);
          Assert.True(DateTime.UtcNow < value.ExpirationDate);
       }

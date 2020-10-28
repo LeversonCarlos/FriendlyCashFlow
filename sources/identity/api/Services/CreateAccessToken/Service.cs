@@ -10,7 +10,7 @@ namespace FriendlyCashFlow.Identity
    partial class IdentityService
    {
 
-      internal async Task<TokenVM> CreateTokenAsync(IUser user)
+      internal async Task<TokenVM> CreateAccessTokenAsync(IUser user)
       {
 
          if (user == null)

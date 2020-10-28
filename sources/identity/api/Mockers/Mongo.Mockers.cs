@@ -35,6 +35,12 @@ namespace FriendlyCashFlow.Identity.Tests
          return this;
       }
 
+      public MongoCollectionMocker<T> WithFindAndDelete(T results)
+      {
+         Mock.Setup(m => m.FindOneAndDeleteAsync<T>(It.IsAny<FilterDefinition<T>>(), null, It.IsAny<CancellationToken>())).ReturnsAsync(results);
+         return this;
+      }
+
       IAsyncCursor<D> GetCursor<D>(params D[] results)
       {
          if (results == null)
