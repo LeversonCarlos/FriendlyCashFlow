@@ -6,8 +6,8 @@ namespace Elesse.Identity
    public interface IUserRepository
    {
 
-      Task<bool> GetUserByUserNameAsync(string userName);
       Task<IUserEntity> GetUserByUserIDAsync(Guid userID);
+      Task<IUserEntity> GetUserByUserNameAsync(string userName);
 
       Task AddUserAsync(IUserEntity user);
 
