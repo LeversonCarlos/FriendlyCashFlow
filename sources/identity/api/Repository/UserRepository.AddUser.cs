@@ -1,11 +1,12 @@
-using System;
+using System.Threading.Tasks;
+
 namespace Elesse.Identity
 {
    partial class UserRepository
    {
 
       public Task AddUserAsync(IUserEntity user) =>
-         throw new NotImplementedException();
+         _Collection.InsertOneAsync(user);
 
    }
 }
