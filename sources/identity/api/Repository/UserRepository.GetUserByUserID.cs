@@ -1,11 +1,14 @@
+using MongoDB.Driver;
 using System;
+using System.Threading.Tasks;
+
 namespace Elesse.Identity
 {
    partial class UserRepository
    {
 
       public Task<IUserEntity> GetUserByUserIDAsync(Guid userID) =>
-         throw new NotImplementedException();
+         _Collection.Find<IUserEntity>(user => user.UserID == userID.ToString()).SingleAsync();
 
    }
 }
