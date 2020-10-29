@@ -1,4 +1,4 @@
-using FriendlyCashFlow.Identity.Helpers;
+using Elesse.Identity.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
