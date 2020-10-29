@@ -2,10 +2,10 @@ using System.Threading.Tasks;
 
 namespace Elesse.Identity
 {
-   partial class UserRepository
+   partial class TokenRepository
    {
 
-      public Task AddUserAsync(IUserEntity value) =>
+      public Task AddTokenAsync(IRefreshToken value) =>
          _Collection.InsertOneAsync(value);
 
    }
