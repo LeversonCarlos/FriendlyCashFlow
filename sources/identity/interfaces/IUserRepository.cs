@@ -8,7 +8,7 @@ namespace Elesse.Identity
       Task<IUserEntity> GetUserByUserIDAsync(string userID);
       Task<IUserEntity> GetUserByUserNameAsync(string userName);
 
-      Task AddUserAsync(IUserEntity user);
+      Task AddUserAsync(IUserEntity value);
 
    }
 }
