@@ -1,5 +1,4 @@
 using MongoDB.Driver;
-using System;
 using System.Threading.Tasks;
 
 namespace Elesse.Identity
@@ -7,8 +6,8 @@ namespace Elesse.Identity
    partial class UserRepository
    {
 
-      public Task<IUserEntity> GetUserByUserIDAsync(Guid userID) =>
-         _Collection.Find<IUserEntity>(user => user.UserID == userID.ToString()).SingleAsync();
+      public Task<IUserEntity> GetUserByUserIDAsync(string userID) =>
+         _Collection.Find<IUserEntity>(user => user.UserID == userID).SingleAsync();
 
    }
 }
