@@ -9,9 +9,13 @@ namespace Elesse.Identity.Tests
       public UserRepositoryMocker() => _Mock = new Mock<IUserRepository>();
       public static UserRepositoryMocker Create() => new UserRepositoryMocker();
 
-      public UserRepositoryMocker WithGetUserByUserName(string userName, IUserEntity result)
+      public UserRepositoryMocker WithGetUserByUserName(params IUserEntity[] results)
       {
-         _Mock.Setup(m => m.GetUserByUserNameAsync(userName)).ReturnsAsync(result);
+         var seq = new MockSequence();
+         foreach (var result in results)
+            _Mock.InSequence(seq)
+               .Setup(m => m.GetUserByUserNameAsync(It.IsAny<string>()))
+               .ReturnsAsync(result);
          return this;
       }
 
