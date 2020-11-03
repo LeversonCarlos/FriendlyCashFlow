@@ -9,6 +9,8 @@ namespace Elesse.Identity.Tests
       public UserRepositoryMocker() => _Mock = new Mock<IUserRepository>();
       public static UserRepositoryMocker Create() => new UserRepositoryMocker();
 
+      public UserRepositoryMocker WithGetUserByUserName() =>
+         WithGetUserByUserName(new IUserEntity[] { });
       public UserRepositoryMocker WithGetUserByUserName(params IUserEntity[] results)
       {
          var seq = new MockSequence();
@@ -19,6 +21,8 @@ namespace Elesse.Identity.Tests
          return this;
       }
 
+      public UserRepositoryMocker WithGetUserByUserID() =>
+         WithGetUserByUserID(new IUserEntity[] { });
       public UserRepositoryMocker WithGetUserByUserID(params IUserEntity[] results)
       {
          var seq = new MockSequence();

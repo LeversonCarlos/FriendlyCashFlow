@@ -39,7 +39,7 @@ namespace Elesse.Identity.Tests
          var identitySettings = new IdentitySettings { PasswordRules = new PasswordRuleSettings { MinimumSize = 10 } };
          var userRepository = UserRepositoryMocker
             .Create()
-            .WithGetUserByUserName(null)
+            .WithGetUserByUserName()
             .Build();
          var identityService = new IdentityService(identitySettings, userRepository, null);
 

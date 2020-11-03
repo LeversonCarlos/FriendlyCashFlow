@@ -64,7 +64,7 @@ namespace Elesse.Identity.Tests
       {
          var userRepository = UserRepositoryMocker
             .Create()
-            .WithGetUserByUserID(null)
+            .WithGetUserByUserID()
             .Build();
          var tokenRepository = TokenRepositoryMocker
             .Create()
