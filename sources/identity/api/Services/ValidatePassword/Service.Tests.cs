@@ -10,7 +10,7 @@ namespace Elesse.Identity.Tests
       [MemberData(nameof(ValidatePassword_WithInvalidParameters_MustResultErrorMessage_Data))]
       internal async void ValidatePassword_WithInvalidParameters_MustResultErrorMessage(string password, string warningMessage, IdentitySettings settings)
       {
-         var identityService = new IdentityService(null, settings);
+         var identityService = new IdentityService(settings, null, null);
 
          var result = await identityService.ValidatePasswordAsync(password);
 
@@ -39,7 +39,7 @@ namespace Elesse.Identity.Tests
                MinimumSize = 10
             }
          };
-         var identityService = new IdentityService(null, settings);
+         var identityService = new IdentityService(settings, null, null);
 
          var password = "p#sSw0rD$1";
          var result = await identityService.ValidatePasswordAsync(password);
