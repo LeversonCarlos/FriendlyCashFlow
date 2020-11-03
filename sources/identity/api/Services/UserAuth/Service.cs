@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Driver;
 using System;
 using System.Threading.Tasks;
 
@@ -29,10 +28,7 @@ namespace Elesse.Identity
                return new BadRequestObjectResult(validatePassword);
 
             // LOCATE USER
-            var userCursor = await _Collection.FindAsync($"{{'UserName':'{ param.UserName}'}}");
-            if (userCursor == null)
-               return new BadRequestObjectResult(new string[] { WARNINGS.AUTHENTICATION_HAS_FAILED });
-            var user = await userCursor.FirstOrDefaultAsync();
+            var user = await _UserRepository.GetUserByUserNameAsync(param.UserName);
             if (user == null)
                return new BadRequestObjectResult(new string[] { WARNINGS.AUTHENTICATION_HAS_FAILED });
             if (param.Password.GetHashedText(_Settings.PasswordSalt) != user.Password)
