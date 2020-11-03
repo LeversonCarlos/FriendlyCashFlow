@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Driver;
 using System;
 using System.Threading.Tasks;
 
@@ -21,7 +20,7 @@ namespace Elesse.Identity
                return new BadRequestObjectResult(new string[] { WARNINGS.INVALID_TOKENAUTH_PARAMETER });
 
             // LOCATE TOKEN
-            var token = await _RefreshTokenCollection.FindOneAndDeleteAsync($"{{'TokenID':'{param.RefreshToken}'}}");
+            var token = await _TokenRepository.RetrieveRefreshTokenAsync(param.RefreshToken);
             if (token == null)
                return new BadRequestObjectResult(new string[] { WARNINGS.AUTHENTICATION_HAS_FAILED });
 
@@ -30,10 +29,7 @@ namespace Elesse.Identity
                return new BadRequestObjectResult(new string[] { WARNINGS.AUTHENTICATION_HAS_FAILED });
 
             // LOCATE USER
-            var userCursor = await _Collection.FindAsync($"{{'UserID':'{token.UserID}'}}");
-            if (userCursor == null)
-               return new BadRequestObjectResult(new string[] { WARNINGS.AUTHENTICATION_HAS_FAILED });
-            var user = await userCursor.FirstOrDefaultAsync();
+            var user = await _UserRepository.GetUserByUserIDAsync(token.UserID);
             if (user == null)
                return new BadRequestObjectResult(new string[] { WARNINGS.AUTHENTICATION_HAS_FAILED });
 

@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Driver;
 using System.Threading.Tasks;
 
 namespace Elesse.Identity
@@ -29,10 +28,7 @@ namespace Elesse.Identity
          var userName = "TODO";
 
          // LOCATE USER
-         var userCursor = await _Collection.FindAsync($"{{'UserName':'{ userName}'}}");
-         if (userCursor == null)
-            return new BadRequestObjectResult(new string[] { WARNINGS.AUTHENTICATION_HAS_FAILED });
-         var user = await userCursor.FirstOrDefaultAsync();
+         var user = await _UserRepository.GetUserByUserNameAsync(userName);
          if (user == null)
             return new BadRequestObjectResult(new string[] { WARNINGS.AUTHENTICATION_HAS_FAILED });
 

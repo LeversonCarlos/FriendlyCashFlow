@@ -19,6 +19,16 @@ namespace Elesse.Identity.Tests
          return this;
       }
 
+      public UserRepositoryMocker WithGetUserByUserID(params IUserEntity[] results)
+      {
+         var seq = new MockSequence();
+         foreach (var result in results)
+            _Mock.InSequence(seq)
+               .Setup(m => m.GetUserByUserIDAsync(It.IsAny<string>()))
+               .ReturnsAsync(result);
+         return this;
+      }
+
       public IUserRepository Build() => _Mock.Object;
    }
 }
