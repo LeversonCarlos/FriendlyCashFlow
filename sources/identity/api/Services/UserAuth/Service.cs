@@ -3,7 +3,7 @@ using MongoDB.Driver;
 using System;
 using System.Threading.Tasks;
 
-namespace FriendlyCashFlow.Identity
+namespace Elesse.Identity
 {
 
    partial class IdentityService

@@ -1,6 +1,6 @@
 using System;
 
-namespace FriendlyCashFlow.Identity
+namespace Elesse.Identity
 {
 
    public interface IUser

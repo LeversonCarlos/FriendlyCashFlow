@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 
-namespace FriendlyCashFlow.Identity.Tests
+namespace Elesse.Identity.Tests
 {
    internal class ProviderMocker
    {

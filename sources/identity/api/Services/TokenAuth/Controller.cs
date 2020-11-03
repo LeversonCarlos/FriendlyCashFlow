@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace FriendlyCashFlow.Identity
+namespace Elesse.Identity
 {
 
    partial class IdentityController

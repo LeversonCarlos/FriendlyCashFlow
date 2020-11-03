@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FriendlyCashFlow.Identity
+namespace Elesse.Identity
 {
 
    partial class IdentityService

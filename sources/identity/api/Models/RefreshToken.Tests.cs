@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace FriendlyCashFlow.Identity.Tests
+namespace Elesse.Identity.Tests
 {
    public class RefreshTokenTests
    {

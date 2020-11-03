@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using Xunit;
 
-namespace FriendlyCashFlow.Identity.Tests
+namespace Elesse.Identity.Tests
 {
    partial class IdentityServiceTests
    {

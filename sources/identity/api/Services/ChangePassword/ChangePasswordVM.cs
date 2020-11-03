@@ -1,4 +1,4 @@
-namespace FriendlyCashFlow.Identity
+namespace Elesse.Identity
 {
    public class ChangePasswordVM
    {

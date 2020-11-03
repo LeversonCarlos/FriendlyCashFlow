@@ -1,6 +1,6 @@
 using Xunit;
 
-namespace FriendlyCashFlow.Identity.Tests
+namespace Elesse.Identity.Tests
 {
    partial class IdentityServiceTests
    {

@@ -1,4 +1,4 @@
-namespace FriendlyCashFlow.Identity.Tests
+namespace Elesse.Identity.Tests
 {
    public partial class IdentityServiceTests
    {

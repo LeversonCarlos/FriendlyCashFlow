@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 
-namespace FriendlyCashFlow.Identity.Tests
+namespace Elesse.Identity.Tests
 {
    internal class ServiceMocker
    {

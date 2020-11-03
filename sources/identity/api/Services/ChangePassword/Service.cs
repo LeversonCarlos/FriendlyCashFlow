@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using System.Threading.Tasks;
 
-namespace FriendlyCashFlow.Identity
+namespace Elesse.Identity
 {
 
    partial class IdentityService

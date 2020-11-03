@@ -4,7 +4,7 @@ using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
 
-namespace FriendlyCashFlow.Identity
+namespace Elesse.Identity
 {
 
    partial class IdentityService
