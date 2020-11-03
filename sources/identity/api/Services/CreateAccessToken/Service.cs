@@ -10,7 +10,7 @@ namespace Elesse.Identity
    partial class IdentityService
    {
 
-      internal async Task<TokenVM> CreateAccessTokenAsync(IUser user)
+      internal async Task<TokenVM> CreateAccessTokenAsync(IUserEntity user)
       {
 
          if (user == null)
