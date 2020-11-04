@@ -46,6 +46,19 @@ namespace Elesse.Identity.Tests
          Assert.Equal(new string[] { WARNINGS.PASSWORD_MINIMUM_SIZE }, (result as BadRequestObjectResult).Value);
       }
 
+      [Fact]
+      public async void ChangePassword_WithSamePassword_MustReturnBadResult()
+      {
+         var identitySettings = new IdentitySettings { PasswordRules = new PasswordRuleSettings { MinimumSize = 10 } };
+         var identityService = new IdentityService(identitySettings, null, null);
+
+         var param = new ChangePasswordVM { OldPassword = "same-password", NewPassword = "same-password" };
+         var result = await identityService.ChangePasswordAsync(new GenericIdentity("my-user-id"), param);
+
+         Assert.NotNull(result);
+         Assert.IsType<BadRequestObjectResult>(result);
+         Assert.Equal(new string[] { WARNINGS.INVALID_CHANGEPASSWORD_PARAMETER }, (result as BadRequestObjectResult).Value);
+      }
 
       /*
 

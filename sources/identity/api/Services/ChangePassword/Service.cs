@@ -29,6 +29,10 @@ namespace Elesse.Identity
          if (validateNewPassword.Length > 0)
             return new BadRequestObjectResult(validateNewPassword);
 
+         // VALIDATE PASSWORDS BETWEEN EACH OTHER
+         if (changePasswordVM.OldPassword == changePasswordVM.NewPassword)
+            return new BadRequestObjectResult(new string[] { WARNINGS.INVALID_CHANGEPASSWORD_PARAMETER });
+
          // LOCATE USER
          var user = await _UserRepository.GetUserByUserIDAsync(userID);
          if (user == null)
