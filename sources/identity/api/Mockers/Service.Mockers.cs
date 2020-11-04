@@ -28,6 +28,12 @@ namespace Elesse.Identity.Tests
          return this;
       }
 
+      public ServiceMocker WithChangePassword(ChangePasswordVM param, IActionResult result)
+      {
+         _Mock.Setup(m => m.ChangePasswordAsync(It.IsAny<System.Security.Principal.IIdentity>(), param)).ReturnsAsync(result);
+         return this;
+      }
+
       public IIdentityService Build() => _Mock.Object;
    }
 }
