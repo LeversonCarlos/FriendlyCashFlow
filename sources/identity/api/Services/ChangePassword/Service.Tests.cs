@@ -28,38 +28,26 @@ namespace Elesse.Identity.Tests
             new object[] { (IIdentity)(new GenericIdentity("my-user-id" )), (ChangePasswordVM)null }
          };
 
-      /*
-      [Fact]
-      public async void UserAuth_WithInvalidUsername_MustReturnBadResult()
-      {
-         var identitySettings = new IdentitySettings { PasswordRules = new PasswordRuleSettings { } };
-         var identityService = new IdentityService(identitySettings, null, null);
-
-         var param = new UserAuthVM { UserName = "userName", Password = "password" };
-         var result = await identityService.UserAuthAsync(param);
-
-         Assert.NotNull(result);
-         Assert.IsType<BadRequestObjectResult>(result.Result);
-         Assert.Equal(new string[] { WARNINGS.INVALID_USERNAME }, (result.Result as BadRequestObjectResult).Value);
-      }
-
-      [Fact]
-      public async void UserAuth_WithInvalidPassword_MustReturnBadResult()
+      [Theory]
+      [InlineData(" ", "")]
+      [InlineData("password", "")]
+      [InlineData("lengthy-password", " ")]
+      [InlineData("lengthy-password", "password")]
+      public async void ChangePassword_WithInvalidPassword_MustReturnBadResult(string oldPassword, string newPassword)
       {
          var identitySettings = new IdentitySettings { PasswordRules = new PasswordRuleSettings { MinimumSize = 10 } };
-         var userRepository = UserRepositoryMocker
-            .Create()
-            .WithGetUserByUserName()
-            .Build();
-         var identityService = new IdentityService(identitySettings, userRepository, null);
+         var identityService = new IdentityService(identitySettings, null, null);
 
-         var param = new UserAuthVM { UserName = "userName@xpto.com", Password = "password" };
-         var result = await identityService.UserAuthAsync(param);
+         var param = new ChangePasswordVM { OldPassword = oldPassword, NewPassword = newPassword };
+         var result = await identityService.ChangePasswordAsync(new GenericIdentity("my-user-id"), param);
 
          Assert.NotNull(result);
-         Assert.IsType<BadRequestObjectResult>(result.Result);
-         Assert.Equal(new string[] { WARNINGS.PASSWORD_MINIMUM_SIZE }, (result.Result as BadRequestObjectResult).Value);
+         Assert.IsType<BadRequestObjectResult>(result);
+         Assert.Equal(new string[] { WARNINGS.PASSWORD_MINIMUM_SIZE }, (result as BadRequestObjectResult).Value);
       }
+
+
+      /*
 
       [Theory]
       [MemberData(nameof(UserAuth_WithInvalidAuthData_MustReturnBadResult_Data))]
