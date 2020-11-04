@@ -34,7 +34,7 @@ namespace Elesse.Identity
             return new BadRequestObjectResult(new string[] { WARNINGS.INVALID_CHANGEPASSWORD_PARAMETER });
 
          // LOCATE USER
-         var user = await _UserRepository.GetUserByUserIDAsync(userID);
+         var user = (User)(await _UserRepository.GetUserByUserIDAsync(userID));
          if (user == null)
             return new BadRequestObjectResult(new string[] { WARNINGS.AUTHENTICATION_HAS_FAILED });
 
@@ -43,11 +43,8 @@ namespace Elesse.Identity
             return new BadRequestObjectResult(new string[] { WARNINGS.AUTHENTICATION_HAS_FAILED });
 
          // APPLY NEW PASSWORD
-         /*
-          * TODO
          user.Password = changePasswordVM.NewPassword.GetHashedText(_Settings.PasswordSalt);
-         await _Collection.UpdateOneAsync($"{{'UserName':'{ userName}'}}", user);
-         */
+         await _UserRepository.UpdateUserAsync(user);
 
          // RESULT
          return new OkResult();
