@@ -1,15 +1,15 @@
 using System;
 using Xunit;
 
-namespace FriendlyCashFlow.Identity.Tests
+namespace Elesse.Identity.Tests
 {
    partial class IdentityServiceTests
    {
 
       [Fact]
-      internal async void CreateAccessTokenAsync_WithNullParameter_MustThrowException()
+      internal async void CreateAccessToken_WithNullParameter_MustThrowException()
       {
-         var service = new IdentityService(null, null);
+         var service = new IdentityService(null, null, null);
 
          var value = await Assert.ThrowsAsync<ArgumentNullException>(() => service.CreateAccessTokenAsync(null));
 

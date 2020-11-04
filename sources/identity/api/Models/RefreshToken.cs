@@ -1,14 +1,7 @@
 using System;
 
-namespace FriendlyCashFlow.Identity
+namespace Elesse.Identity
 {
-
-   public interface IRefreshToken
-   {
-      string TokenID { get; }
-      string UserID { get; }
-      DateTime ExpirationDate { get; }
-   }
 
    internal class RefreshToken : IRefreshToken
    {

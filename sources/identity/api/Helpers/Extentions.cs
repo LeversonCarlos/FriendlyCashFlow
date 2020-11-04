@@ -1,10 +1,8 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MongoDB.Driver;
 using System.Reflection;
-using System.Threading.Tasks;
 
-namespace FriendlyCashFlow.Identity.Helpers
+namespace Elesse.Identity.Helpers
 {
 
    public static class StartupExtentions
@@ -17,6 +15,8 @@ namespace FriendlyCashFlow.Identity.Helpers
          mvcBuilder
             .Services
             .AddSingleton(s => configs.GetSection("Identity").Get<IdentitySettings>())
+            .AddScoped<IUserRepository, UserRepository>()
+            .AddScoped<ITokenRepository, TokenRepository>()
             .AddScoped<IIdentityService, IdentityService>();
          return mvcBuilder;
       }

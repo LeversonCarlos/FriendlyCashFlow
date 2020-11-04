@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Xunit;
 
-namespace FriendlyCashFlow.Identity.Tests
+namespace Elesse.Identity.Tests
 {
    partial class ControllerTests
    {

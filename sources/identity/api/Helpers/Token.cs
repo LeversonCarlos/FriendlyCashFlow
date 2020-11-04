@@ -4,7 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace FriendlyCashFlow.Identity.Helpers
+namespace Elesse.Identity.Helpers
 {
 
    internal class Token

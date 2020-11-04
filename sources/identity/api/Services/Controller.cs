@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace FriendlyCashFlow.Identity
+namespace Elesse.Identity
 {
 
    [Route("api/identity")]

@@ -1,31 +1,19 @@
-using FriendlyCashFlow.Identity.Helpers;
-using MongoDB.Driver;
-using System.Threading.Tasks;
-
-namespace FriendlyCashFlow.Identity
+namespace Elesse.Identity
 {
 
    internal partial class IdentityService : IIdentityService
    {
 
-      readonly IMongoDatabase _MongoDatabase;
       readonly IdentitySettings _Settings;
+      readonly IUserRepository _UserRepository;
+      readonly ITokenRepository _TokenRepository;
 
-      public IdentityService(IMongoDatabase mongoDatabase, IdentitySettings settings)
+      public IdentityService(IdentitySettings settings, IUserRepository userRepository, ITokenRepository tokenRepository)
       {
-         _MongoDatabase = mongoDatabase;
          _Settings = settings;
+         _UserRepository = userRepository;
+         _TokenRepository = tokenRepository;
       }
-
-      internal static string GetUserCollectionName() =>
-         nameof(IUser).Substring(1).ToLower();
-      internal IMongoCollection<IUser> _Collection =>
-         _MongoDatabase.GetCollection<IUser>(GetUserCollectionName());
-
-      internal static string GetRefreshTokenCollectionName() =>
-         nameof(IRefreshToken).Substring(1).ToLower();
-      internal IMongoCollection<IRefreshToken> _RefreshTokenCollection =>
-         _MongoDatabase.GetCollection<IRefreshToken>(GetRefreshTokenCollectionName());
 
    }
 

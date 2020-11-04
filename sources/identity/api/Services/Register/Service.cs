@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace FriendlyCashFlow.Identity
+namespace Elesse.Identity
 {
 
    partial class IdentityService
@@ -9,6 +9,7 @@ namespace FriendlyCashFlow.Identity
 
       public async Task<IActionResult> RegisterAsync(RegisterVM registerVM)
       {
+
          // VALIDATE PARAMETERS
          if (registerVM == null)
             return new BadRequestObjectResult(new string[] { WARNINGS.INVALID_REGISTER_PARAMETER });
@@ -24,13 +25,13 @@ namespace FriendlyCashFlow.Identity
             return new BadRequestObjectResult(validatePassword);
 
          // VALIDATE DUPLICITY
-         var usersFound = await _Collection.CountDocumentsAsync($"{{'UserName':'{ registerVM.UserName}'}}");
-         if (usersFound > 0)
+         var user = await _UserRepository.GetUserByUserNameAsync(registerVM.UserName);
+         if (user != null)
             return new BadRequestObjectResult(new string[] { WARNINGS.USERNAME_ALREADY_USED });
 
          // ADD NEW USER
-         var user = new User(registerVM.UserName, registerVM.Password.GetHashedText(_Settings.PasswordSalt));
-         await _Collection.InsertOneAsync(user);
+         user = new User(registerVM.UserName, registerVM.Password.GetHashedText(_Settings.PasswordSalt));
+         await _UserRepository.AddUserAsync(user);
 
          // SEND ACTIVATION MAIL
          // TODO

@@ -1,18 +1,17 @@
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
-namespace FriendlyCashFlow.Identity.Tests
+namespace Elesse.Identity.Tests
 {
    partial class IdentityServiceTests
    {
 
       [Fact]
-      public async void Register_WithInvalidParameters_MustReturnBadResult()
+      public async void Register_WithNullParameter_MustReturnBadResult()
       {
-         var identityService = new IdentityService(null, null);
-         var provider = ProviderMocker.Create().WithIdentityService(identityService).Build().BuildServiceProvider();
+         var identityService = new IdentityService(null, null, null);
 
-         var result = await provider.GetService<IIdentityService>().RegisterAsync(null);
+         var result = await identityService.RegisterAsync(null);
 
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
@@ -20,31 +19,13 @@ namespace FriendlyCashFlow.Identity.Tests
       }
 
       [Fact]
-      public async void Register_WithInvalidPassword_MustReturnBadResult()
-      {
-         var mongoCollection = MongoCollectionMocker<IUser>.Create().Build();
-         var mongoDatabase = MongoDatabaseMocker.Create().WithCollection(mongoCollection, IdentityService.GetUserCollectionName()).Build();
-         var identityService = new IdentityService(mongoDatabase, new IdentitySettings { PasswordRules = new PasswordRuleSettings { MinimumSize = 10 } });
-         var provider = ProviderMocker.Create().WithIdentityService(identityService).Build().BuildServiceProvider();
-         var registerParam = new RegisterVM { UserName = "userName@xpto.com", Password = "password" };
-
-         var result = await provider.GetService<IIdentityService>().RegisterAsync(registerParam);
-
-         Assert.NotNull(result);
-         Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(new string[] { WARNINGS.PASSWORD_MINIMUM_SIZE }, (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
-      }
-
-      [Fact]
       public async void Register_WithInvalidUsername_MustReturnBadResult()
       {
-         var mongoCollection = MongoCollectionMocker<IUser>.Create().Build();
-         var mongoDatabase = MongoDatabaseMocker.Create().WithCollection(mongoCollection, IdentityService.GetUserCollectionName()).Build();
-         var identityService = new IdentityService(mongoDatabase, new IdentitySettings { PasswordRules = new PasswordRuleSettings { MinimumSize = 10 } });
-         var provider = ProviderMocker.Create().WithIdentityService(identityService).Build().BuildServiceProvider();
-         var registerParam = new RegisterVM { UserName = "userName", Password = "password" };
+         var identitySettings = new IdentitySettings { PasswordRules = new PasswordRuleSettings { MinimumSize = 10 } };
+         var identityService = new IdentityService(identitySettings, null, null);
 
-         var result = await provider.GetService<IIdentityService>().RegisterAsync(registerParam);
+         var registerParam = new RegisterVM { UserName = "userName", Password = "password" };
+         var result = await identityService.RegisterAsync(registerParam);
 
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
@@ -52,37 +33,55 @@ namespace FriendlyCashFlow.Identity.Tests
       }
 
       [Fact]
-      public async void Register_WithValidParameters_MustReturnOkResult()
+      public async void Register_WithInvalidPassword_MustReturnBadResult()
       {
-         var mongoCollection = MongoCollectionMocker<IUser>.Create().Build();
-         var mongoDatabase = MongoDatabaseMocker.Create().WithCollection(mongoCollection, IdentityService.GetUserCollectionName()).Build();
-         var identityService = new IdentityService(mongoDatabase, new IdentitySettings { PasswordRules = new PasswordRuleSettings { MinimumSize = 5 } });
-         var provider = ProviderMocker.Create().WithIdentityService(identityService).Build().BuildServiceProvider();
-         var registerParam = new RegisterVM { UserName = "userName@xpto.com", Password = "password" };
+         var identitySettings = new IdentitySettings { PasswordRules = new PasswordRuleSettings { MinimumSize = 10 } };
+         var identityService = new IdentityService(identitySettings, null, null);
 
-         var result = await provider.GetService<IIdentityService>().RegisterAsync(registerParam);
+         var registerParam = new RegisterVM { UserName = "userName@xpto.com", Password = "password" };
+         var result = await identityService.RegisterAsync(registerParam);
 
          Assert.NotNull(result);
-         Assert.IsType<Microsoft.AspNetCore.Mvc.OkResult>(result);
+         Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
+         Assert.Equal(new string[] { WARNINGS.PASSWORD_MINIMUM_SIZE }, (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
       [Fact]
-      public async void Register_WithSameUserName_MustReturnBadRequest()
+      public async void Register_WithExistingUserName_MustReturnBadRequest()
       {
-         var mongoCollection = MongoCollectionMocker<IUser>.Create().WithCount(0, 1).Build();
-         var mongoDatabase = MongoDatabaseMocker.Create().WithCollection(mongoCollection, IdentityService.GetUserCollectionName()).Build();
-         var identityService = new IdentityService(mongoDatabase, new IdentitySettings { PasswordRules = new PasswordRuleSettings { } });
-         var provider = ProviderMocker.Create().WithIdentityService(identityService).Build().BuildServiceProvider();
+         var identitySettings = new IdentitySettings { PasswordRules = new PasswordRuleSettings { } };
+         var userRepository = UserRepositoryMocker
+            .Create()
+            .WithGetUserByUserName(null, new User("userName@xpto.com", "password"))
+            .Build();
+         var identityService = new IdentityService(identitySettings, userRepository, null);
          var registerParam = new RegisterVM { UserName = "userName@xpto.com", Password = "password" };
 
-         var result = await provider.GetService<IIdentityService>().RegisterAsync(registerParam);
+         var result = await identityService.RegisterAsync(registerParam);
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.OkResult>(result);
 
-         result = await provider.GetService<IIdentityService>().RegisterAsync(registerParam);
+         result = await identityService.RegisterAsync(registerParam);
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
          Assert.Equal(new string[] { WARNINGS.USERNAME_ALREADY_USED }, (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+      }
+
+      [Fact]
+      public async void Register_WithValidParameters_MustReturnOkResult()
+      {
+         var identitySettings = new IdentitySettings { PasswordRules = new PasswordRuleSettings { MinimumSize = 5 } };
+         var userRepository = UserRepositoryMocker
+            .Create()
+            .WithGetUserByUserName()
+            .Build();
+         var identityService = new IdentityService(identitySettings, userRepository, null);
+
+         var registerParam = new RegisterVM { UserName = "userName@xpto.com", Password = "password" };
+         var result = await identityService.RegisterAsync(registerParam);
+
+         Assert.NotNull(result);
+         Assert.IsType<Microsoft.AspNetCore.Mvc.OkResult>(result);
       }
 
    }

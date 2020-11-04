@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Xunit;
 
-namespace FriendlyCashFlow.Identity.Tests
+namespace Elesse.Identity.Tests
 {
    partial class IdentityServiceTests
    {
@@ -10,7 +10,7 @@ namespace FriendlyCashFlow.Identity.Tests
       [MemberData(nameof(ValidatePassword_WithInvalidParameters_MustResultErrorMessage_Data))]
       internal async void ValidatePassword_WithInvalidParameters_MustResultErrorMessage(string password, string warningMessage, IdentitySettings settings)
       {
-         var identityService = new IdentityService(null, settings);
+         var identityService = new IdentityService(settings, null, null);
 
          var result = await identityService.ValidatePasswordAsync(password);
 
@@ -39,7 +39,7 @@ namespace FriendlyCashFlow.Identity.Tests
                MinimumSize = 10
             }
          };
-         var identityService = new IdentityService(null, settings);
+         var identityService = new IdentityService(settings, null, null);
 
          var password = "p#sSw0rD$1";
          var result = await identityService.ValidatePasswordAsync(password);

@@ -1,15 +1,15 @@
 using System;
 using Xunit;
 
-namespace FriendlyCashFlow.Identity.Tests
+namespace Elesse.Identity.Tests
 {
    partial class IdentityServiceTests
    {
 
       [Fact]
-      internal async void CreateRefreshTokenAsync_WithNullParameter_MustThrowException()
+      internal async void CreateRefreshToken_WithNullParameter_MustThrowException()
       {
-         var service = new IdentityService(null, null);
+         var service = new IdentityService(null, null, null);
 
          var value = await Assert.ThrowsAsync<ArgumentNullException>(() => service.CreateRefreshTokenAsync(null));
 
@@ -18,11 +18,11 @@ namespace FriendlyCashFlow.Identity.Tests
       }
 
       [Fact]
-      internal async void CreateRefreshTokenAsync_WithInvalidSettings_MustThrowException()
+      internal async void CreateRefreshToken_WithInvalidSettings_MustThrowException()
       {
          var settings = new IdentitySettings { Token = new TokenSettings { } };
          var user = new User("user@Name.com", "password");
-         var service = new IdentityService(null, settings);
+         var service = new IdentityService(settings, null, null);
 
          var value = await Assert.ThrowsAsync<ArgumentException>(() => service.CreateRefreshTokenAsync(user));
 

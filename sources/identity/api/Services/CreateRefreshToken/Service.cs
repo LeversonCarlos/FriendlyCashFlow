@@ -1,13 +1,13 @@
 using System;
 using System.Threading.Tasks;
 
-namespace FriendlyCashFlow.Identity
+namespace Elesse.Identity
 {
 
    partial class IdentityService
    {
 
-      internal async Task<IRefreshToken> CreateRefreshTokenAsync(IUser user)
+      internal async Task<IRefreshToken> CreateRefreshTokenAsync(IUserEntity user)
       {
 
          // VALIDATE
@@ -19,7 +19,7 @@ namespace FriendlyCashFlow.Identity
          // CREATE INSTANCE
          var refreshTokenExpiration = DateTime.UtcNow.AddSeconds(_Settings.Token.RefreshExpirationInSeconds);
          var refreshToken = RefreshToken.Create(user.UserID, refreshTokenExpiration);
-         await _RefreshTokenCollection.InsertOneAsync(refreshToken);
+         await _TokenRepository.AddRefreshTokenAsync(refreshToken);
 
          // RESULT
          return refreshToken;

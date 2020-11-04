@@ -1,16 +1,9 @@
 using System;
 
-namespace FriendlyCashFlow.Identity
+namespace Elesse.Identity
 {
 
-   public interface IUser
-   {
-      string UserID { get; }
-      string UserName { get; }
-      string Password { get; }
-   }
-
-   internal class User : IUser
+   internal class User : IUserEntity
    {
 
       public User(string userName, string password)

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace FriendlyCashFlow.Identity
+namespace Elesse.Identity
 {
    internal static class EncryptExtention
    {

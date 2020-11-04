@@ -13,6 +13,7 @@
    </PropertyGroup>
 
    <ItemGroup>
+      <ProjectReference Include="..\interfaces\identity.interfaces.csproj" />
       <FrameworkReference Include="Microsoft.AspNetCore.App" />
       <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.8" />
       <PackageReference Include="MongoDB.Driver" Version="2.11.2" />

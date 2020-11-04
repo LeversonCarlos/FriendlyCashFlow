@@ -4,13 +4,13 @@ using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
 
-namespace FriendlyCashFlow.Identity
+namespace Elesse.Identity
 {
 
    partial class IdentityService
    {
 
-      internal async Task<TokenVM> CreateAccessTokenAsync(IUser user)
+      internal async Task<TokenVM> CreateAccessTokenAsync(IUserEntity user)
       {
 
          if (user == null)

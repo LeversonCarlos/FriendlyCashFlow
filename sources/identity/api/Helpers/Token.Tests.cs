@@ -1,4 +1,4 @@
-using FriendlyCashFlow.Identity.Helpers;
+using Elesse.Identity.Helpers;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Security.Claims;
 using System.Security.Principal;
 using Xunit;
 
-namespace FriendlyCashFlow.Identity.Tests
+namespace Elesse.Identity.Tests
 {
    public class TokenTests
    {

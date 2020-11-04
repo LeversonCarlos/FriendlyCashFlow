@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using Xunit;
 
-namespace FriendlyCashFlow.Identity.Tests
+namespace Elesse.Identity.Tests
 {
    partial class IdentityServiceTests
    {
@@ -11,10 +10,9 @@ namespace FriendlyCashFlow.Identity.Tests
       [Fact]
       public async void UserAuth_WithNullParameter_MustReturnBadResult()
       {
-         var identityService = new IdentityService(null, null);
-         var provider = ProviderMocker.Create().WithIdentityService(identityService).Build().BuildServiceProvider();
+         var identityService = new IdentityService(null, null, null);
 
-         var result = await provider.GetService<IIdentityService>().UserAuthAsync(null);
+         var result = await identityService.UserAuthAsync(null);
 
          Assert.NotNull(result);
          Assert.IsType<BadRequestObjectResult>(result.Result);
@@ -24,13 +22,11 @@ namespace FriendlyCashFlow.Identity.Tests
       [Fact]
       public async void UserAuth_WithInvalidUsername_MustReturnBadResult()
       {
-         var mongoCollection = MongoCollectionMocker<IUser>.Create().Build();
-         var mongoDatabase = MongoDatabaseMocker.Create().WithCollection(mongoCollection, IdentityService.GetUserCollectionName()).Build();
-         var identityService = new IdentityService(mongoDatabase, new IdentitySettings { PasswordRules = new PasswordRuleSettings { } });
-         var provider = ProviderMocker.Create().WithIdentityService(identityService).Build().BuildServiceProvider();
-         var param = new UserAuthVM { UserName = "userName", Password = "password" };
+         var identitySettings = new IdentitySettings { PasswordRules = new PasswordRuleSettings { } };
+         var identityService = new IdentityService(identitySettings, null, null);
 
-         var result = await provider.GetService<IIdentityService>().UserAuthAsync(param);
+         var param = new UserAuthVM { UserName = "userName", Password = "password" };
+         var result = await identityService.UserAuthAsync(param);
 
          Assert.NotNull(result);
          Assert.IsType<BadRequestObjectResult>(result.Result);
@@ -40,13 +36,15 @@ namespace FriendlyCashFlow.Identity.Tests
       [Fact]
       public async void UserAuth_WithInvalidPassword_MustReturnBadResult()
       {
-         var mongoCollection = MongoCollectionMocker<IUser>.Create().Build();
-         var mongoDatabase = MongoDatabaseMocker.Create().WithCollection(mongoCollection, IdentityService.GetUserCollectionName()).Build();
-         var identityService = new IdentityService(mongoDatabase, new IdentitySettings { PasswordRules = new PasswordRuleSettings { MinimumSize = 10 } });
-         var provider = ProviderMocker.Create().WithIdentityService(identityService).Build().BuildServiceProvider();
-         var param = new UserAuthVM { UserName = "userName@xpto.com", Password = "password" };
+         var identitySettings = new IdentitySettings { PasswordRules = new PasswordRuleSettings { MinimumSize = 10 } };
+         var userRepository = UserRepositoryMocker
+            .Create()
+            .WithGetUserByUserName()
+            .Build();
+         var identityService = new IdentityService(identitySettings, userRepository, null);
 
-         var result = await provider.GetService<IIdentityService>().UserAuthAsync(param);
+         var param = new UserAuthVM { UserName = "userName@xpto.com", Password = "password" };
+         var result = await identityService.UserAuthAsync(param);
 
          Assert.NotNull(result);
          Assert.IsType<BadRequestObjectResult>(result.Result);
@@ -55,18 +53,17 @@ namespace FriendlyCashFlow.Identity.Tests
 
       [Theory]
       [MemberData(nameof(UserAuth_WithInvalidAuthData_MustReturnBadResult_Data))]
-      public async void UserAuth_WithInvalidAuthData_MustReturnBadResult(IUser[] results)
+      public async void UserAuth_WithInvalidAuthData_MustReturnBadResult(IUserEntity results)
       {
-         var mongoCollection = MongoCollectionMocker<IUser>
+         var identitySettings = new IdentitySettings { PasswordRules = new PasswordRuleSettings { } };
+         var userRepository = UserRepositoryMocker
             .Create()
-            .WithFind(results)
+            .WithGetUserByUserName(results)
             .Build();
-         var mongoDatabase = MongoDatabaseMocker.Create().WithCollection(mongoCollection, IdentityService.GetUserCollectionName()).Build();
-         var identityService = new IdentityService(mongoDatabase, new IdentitySettings { PasswordRules = new PasswordRuleSettings { } });
-         var provider = ProviderMocker.Create().WithIdentityService(identityService).Build().BuildServiceProvider();
-         var param = new UserAuthVM { UserName = "userName@xpto.com", Password = "password" };
+         var identityService = new IdentityService(identitySettings, userRepository, null);
 
-         var result = await provider.GetService<IIdentityService>().UserAuthAsync(param);
+         var param = new UserAuthVM { UserName = "userName@xpto.com", Password = "password" };
+         var result = await identityService.UserAuthAsync(param);
 
          Assert.NotNull(result);
          Assert.IsType<BadRequestObjectResult>(result.Result);
@@ -74,29 +71,26 @@ namespace FriendlyCashFlow.Identity.Tests
       }
       public static IEnumerable<object[]> UserAuth_WithInvalidAuthData_MustReturnBadResult_Data() =>
          new[] {
-            new object[] { (IUser[])null },
-            new object[] { new IUser[] { } },
-            new object[] { new IUser[] { new User("userName@xpto.com", "password") } }
+            new object[] { (User)null },
+            new object[] {  new User("userName@xpto.com", "not-hashed-password") }
          };
 
       [Fact]
-      public async void UserAuth_WithInvalidSettings_MustReturnBadResult()
+      public async void UserAuth_WithInvalidSettingsThatThrowsException_MustReturnBadResult()
       {
-         var mongoCollection = MongoCollectionMocker<IUser>
+         var userRepository = UserRepositoryMocker
             .Create()
-            .WithFind(new User("userName@xpto.com", "X03MO1qnZdYdgyfeuILPmQ=="))
+            .WithGetUserByUserName(new User("userName@xpto.com", "X03MO1qnZdYdgyfeuILPmQ=="))
             .Build();
-         var mongoDatabase = MongoDatabaseMocker.Create().WithCollection(mongoCollection, IdentityService.GetUserCollectionName()).Build();
-         var settings = new IdentitySettings
+         var identitySettings = new IdentitySettings
          {
             PasswordRules = new PasswordRuleSettings { MinimumSize = 5 },
             Token = new TokenSettings { }
          };
-         var identityService = new IdentityService(mongoDatabase, settings);
-         var provider = ProviderMocker.Create().WithIdentityService(identityService).Build().BuildServiceProvider();
-         var param = new UserAuthVM { UserName = "userName@xpto.com", Password = "password" };
+         var identityService = new IdentityService(identitySettings, userRepository, null);
 
-         var result = await provider.GetService<IIdentityService>().UserAuthAsync(param);
+         var param = new UserAuthVM { UserName = "userName@xpto.com", Password = "password" };
+         var result = await identityService.UserAuthAsync(param);
 
          Assert.NotNull(result);
          Assert.IsType<BadRequestObjectResult>(result.Result);
@@ -106,28 +100,22 @@ namespace FriendlyCashFlow.Identity.Tests
       [Fact]
       public async void UserAuth_WithValidParameters_MustReturnOkResult()
       {
-         var userCollection = MongoCollectionMocker<IUser>
+         var userRepository = UserRepositoryMocker
             .Create()
-            .WithFind(new User("userName@xpto.com", "X03MO1qnZdYdgyfeuILPmQ=="))
+            .WithGetUserByUserName(new User("userName@xpto.com", "X03MO1qnZdYdgyfeuILPmQ=="))
             .Build();
-         var refreshTokenCollection = MongoCollectionMocker<IRefreshToken>
+         var tokenRepository = TokenRepositoryMocker
             .Create()
             .Build();
-         var mongoDatabase = MongoDatabaseMocker
-            .Create()
-            .WithCollection(userCollection, IdentityService.GetUserCollectionName())
-            .WithCollection(refreshTokenCollection, IdentityService.GetRefreshTokenCollectionName())
-            .Build();
-         var settings = new IdentitySettings
+         var identitySettings = new IdentitySettings
          {
             PasswordRules = new PasswordRuleSettings { MinimumSize = 5 },
             Token = new TokenSettings { SecuritySecret = "security-secret-security-secret", AccessExpirationInSeconds = 1, RefreshExpirationInSeconds = 60 }
          };
-         var identityService = new IdentityService(mongoDatabase, settings);
-         var provider = ProviderMocker.Create().WithIdentityService(identityService).Build().BuildServiceProvider();
-         var param = new UserAuthVM { UserName = "userName@xpto.com", Password = "password" };
+         var identityService = new IdentityService(identitySettings, userRepository, tokenRepository);
 
-         var result = await provider.GetService<IIdentityService>().UserAuthAsync(param);
+         var param = new UserAuthVM { UserName = "userName@xpto.com", Password = "password" };
+         var result = await identityService.UserAuthAsync(param);
 
          Assert.NotNull(result);
          Assert.IsType<OkObjectResult>(result.Result);
