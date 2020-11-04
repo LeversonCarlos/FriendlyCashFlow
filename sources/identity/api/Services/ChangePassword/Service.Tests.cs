@@ -60,31 +60,31 @@ namespace Elesse.Identity.Tests
          Assert.Equal(new string[] { WARNINGS.INVALID_CHANGEPASSWORD_PARAMETER }, (result as BadRequestObjectResult).Value);
       }
 
-      /*
-
       [Theory]
-      [MemberData(nameof(UserAuth_WithInvalidAuthData_MustReturnBadResult_Data))]
-      public async void UserAuth_WithInvalidAuthData_MustReturnBadResult(IUserEntity results)
+      [MemberData(nameof(ChangePassword_WithNotFoundUser_MustReturnBadResult_Data))]
+      public async void ChangePassword_WithNotFoundUser_MustReturnBadResult(IUserEntity[] results)
       {
          var identitySettings = new IdentitySettings { PasswordRules = new PasswordRuleSettings { } };
          var userRepository = UserRepositoryMocker
             .Create()
-            .WithGetUserByUserName(results)
+            .WithGetUserByUserID(results)
             .Build();
          var identityService = new IdentityService(identitySettings, userRepository, null);
 
-         var param = new UserAuthVM { UserName = "userName@xpto.com", Password = "password" };
-         var result = await identityService.UserAuthAsync(param);
+         var param = new ChangePasswordVM { OldPassword = "old-password", NewPassword = "new-password" };
+         var result = await identityService.ChangePasswordAsync(new GenericIdentity("my-user-id"), param);
 
          Assert.NotNull(result);
-         Assert.IsType<BadRequestObjectResult>(result.Result);
-         Assert.Equal(new string[] { WARNINGS.AUTHENTICATION_HAS_FAILED }, (result.Result as BadRequestObjectResult).Value);
+         Assert.IsType<BadRequestObjectResult>(result);
+         Assert.Equal(new string[] { WARNINGS.AUTHENTICATION_HAS_FAILED }, (result as BadRequestObjectResult).Value);
       }
-      public static IEnumerable<object[]> UserAuth_WithInvalidAuthData_MustReturnBadResult_Data() =>
+      public static IEnumerable<object[]> ChangePassword_WithNotFoundUser_MustReturnBadResult_Data() =>
          new[] {
-            new object[] { (User)null },
-            new object[] {  new User("userName@xpto.com", "not-hashed-password") }
+            new object[] { new IUserEntity[] { } },
+            new object[] { new IUserEntity[] { new User("userName@xpto.com", "not-hashed-password") } }
          };
+
+      /*
 
       [Fact]
       public async void UserAuth_WithInvalidSettingsThatThrowsException_MustReturnBadResult()
