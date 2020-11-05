@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30406.217
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "identity.api", "identity\api\identity.api.csproj", "{89121154-EA0F-4085-BA3C-7A187BA8E6E9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "app", "app\app.csproj", "{0677FCAC-B5C7-45C6-8CBF-C973ED1AEFEF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "app", "app\api\app.csproj", "{3F31ACDC-7AA8-439C-8A65-CB24C0FA85E4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "identity.interfaces", "identity\interfaces\identity.interfaces.csproj", "{38E023F4-6894-41EA-823E-C85D980213DC}"
 EndProject
@@ -19,10 +19,10 @@ Global
 		{89121154-EA0F-4085-BA3C-7A187BA8E6E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89121154-EA0F-4085-BA3C-7A187BA8E6E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89121154-EA0F-4085-BA3C-7A187BA8E6E9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0677FCAC-B5C7-45C6-8CBF-C973ED1AEFEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0677FCAC-B5C7-45C6-8CBF-C973ED1AEFEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0677FCAC-B5C7-45C6-8CBF-C973ED1AEFEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0677FCAC-B5C7-45C6-8CBF-C973ED1AEFEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F31ACDC-7AA8-439C-8A65-CB24C0FA85E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F31ACDC-7AA8-439C-8A65-CB24C0FA85E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F31ACDC-7AA8-439C-8A65-CB24C0FA85E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F31ACDC-7AA8-439C-8A65-CB24C0FA85E4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{38E023F4-6894-41EA-823E-C85D980213DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{38E023F4-6894-41EA-823E-C85D980213DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38E023F4-6894-41EA-823E-C85D980213DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
