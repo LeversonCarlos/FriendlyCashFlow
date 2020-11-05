@@ -7,7 +7,7 @@ namespace Elesse.Identity
    {
 
       public User(string userName, string password)
-         : this(System.Guid.NewGuid().ToString(), userName, password)
+         : this(Guid.NewGuid().ToString(), userName, password)
       { }
 
       public User(string userID, string userName, string password)
@@ -48,7 +48,7 @@ namespace Elesse.Identity
       public string Password
       {
          get => _Password;
-         private set
+         internal set
          {
             if (string.IsNullOrEmpty(value) || value.Length < 5)
                throw new ArgumentException(WARNING_IDENTITY_INVALID_PASSWORD_PARAMETER);

@@ -7,8 +7,13 @@ namespace Elesse.Identity
    partial class IdentityService
    {
 
-      public async Task<IActionResult> ChangePasswordAsync(ChangePasswordVM changePasswordVM)
+      public async Task<IActionResult> ChangePasswordAsync(System.Security.Principal.IIdentity identity, ChangePasswordVM changePasswordVM)
       {
+
+         // CURRENT USER 
+         if (identity == null || !identity.IsAuthenticated)
+            return new BadRequestObjectResult(new string[] { WARNINGS.INVALID_CHANGEPASSWORD_PARAMETER });
+         var userID = identity.Name;
 
          // VALIDATE PARAMETERS
          if (changePasswordVM == null)
@@ -24,11 +29,12 @@ namespace Elesse.Identity
          if (validateNewPassword.Length > 0)
             return new BadRequestObjectResult(validateNewPassword);
 
-         // CURRENT USER NAME
-         var userName = "TODO";
+         // VALIDATE PASSWORDS BETWEEN EACH OTHER
+         if (changePasswordVM.OldPassword == changePasswordVM.NewPassword)
+            return new BadRequestObjectResult(new string[] { WARNINGS.INVALID_CHANGEPASSWORD_PARAMETER });
 
          // LOCATE USER
-         var user = await _UserRepository.GetUserByUserNameAsync(userName);
+         var user = (User)(await _UserRepository.GetUserByUserIDAsync(userID));
          if (user == null)
             return new BadRequestObjectResult(new string[] { WARNINGS.AUTHENTICATION_HAS_FAILED });
 
@@ -37,11 +43,8 @@ namespace Elesse.Identity
             return new BadRequestObjectResult(new string[] { WARNINGS.AUTHENTICATION_HAS_FAILED });
 
          // APPLY NEW PASSWORD
-         /*
-          * TODO
          user.Password = changePasswordVM.NewPassword.GetHashedText(_Settings.PasswordSalt);
-         await _Collection.UpdateOneAsync($"{{'UserName':'{ userName}'}}", user);
-         */
+         await _UserRepository.UpdateUserAsync(user);
 
          // RESULT
          return new OkResult();
@@ -51,7 +54,7 @@ namespace Elesse.Identity
 
    partial interface IIdentityService
    {
-      Task<IActionResult> ChangePasswordAsync(ChangePasswordVM changePasswordVM);
+      Task<IActionResult> ChangePasswordAsync(System.Security.Principal.IIdentity identity, ChangePasswordVM changePasswordVM);
    }
 
    partial struct WARNINGS
