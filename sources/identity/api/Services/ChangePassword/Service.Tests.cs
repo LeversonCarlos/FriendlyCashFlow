@@ -71,7 +71,7 @@ namespace Elesse.Identity.Tests
             .Build();
          var identityService = new IdentityService(identitySettings, userRepository, null);
 
-         var param = new ChangePasswordVM { OldPassword = "old-password", NewPassword = "new-password" };
+         var param = new ChangePasswordVM { OldPassword = "password", NewPassword = "new-password" };
          var result = await identityService.ChangePasswordAsync(new GenericIdentity("my-user-id"), param);
 
          Assert.NotNull(result);
@@ -84,36 +84,26 @@ namespace Elesse.Identity.Tests
             new object[] { new IUserEntity[] { new User("userName@xpto.com", "not-hashed-password") } }
          };
 
-      /*
       [Fact]
-      public async void UserAuth_WithValidParameters_MustReturnOkResult()
+      public async void ChangePassword_WithSuccessExecution_MustReturnOkResult()
       {
          var userRepository = UserRepositoryMocker
             .Create()
-            .WithGetUserByUserName(new User("userName@xpto.com", "X03MO1qnZdYdgyfeuILPmQ=="))
-            .Build();
-         var tokenRepository = TokenRepositoryMocker
-            .Create()
+            .WithGetUserByUserID(new User("userName@xpto.com", "X03MO1qnZdYdgyfeuILPmQ=="))
             .Build();
          var identitySettings = new IdentitySettings
          {
             PasswordRules = new PasswordRuleSettings { MinimumSize = 5 },
             Token = new TokenSettings { SecuritySecret = "security-secret-security-secret", AccessExpirationInSeconds = 1, RefreshExpirationInSeconds = 60 }
          };
-         var identityService = new IdentityService(identitySettings, userRepository, tokenRepository);
+         var identityService = new IdentityService(identitySettings, userRepository, null);
 
-         var param = new UserAuthVM { UserName = "userName@xpto.com", Password = "password" };
-         var result = await identityService.UserAuthAsync(param);
+         var param = new ChangePasswordVM { OldPassword = "password", NewPassword = "new-password" };
+         var result = await identityService.ChangePasswordAsync(new GenericIdentity("my-user-id"), param);
 
          Assert.NotNull(result);
-         Assert.IsType<OkObjectResult>(result.Result);
-         Assert.IsType<TokenVM>((result.Result as OkObjectResult).Value);
-         var tokenVM = (TokenVM)((result.Result as OkObjectResult).Value);
-         Assert.NotEmpty(tokenVM.UserID);
-         Assert.NotEmpty(tokenVM.AccessToken);
-         Assert.NotEmpty(tokenVM.RefreshToken);
+         Assert.IsType<OkResult>(result);
       }
-      */
 
    }
 }
