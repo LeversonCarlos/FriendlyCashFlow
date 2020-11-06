@@ -9,7 +9,7 @@ namespace Elesse.Identity
    {
 
       [Authorize]
-      [HttpPut("password")]
+      [HttpPut("password-change")]
       public Task<IActionResult> ChangePasswordAsync([FromBody] ChangePasswordVM param) =>
          _IdentityService.ChangePasswordAsync(this.User.Identity, param);
 

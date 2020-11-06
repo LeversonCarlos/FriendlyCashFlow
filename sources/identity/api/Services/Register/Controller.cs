@@ -8,7 +8,7 @@ namespace Elesse.Identity
    partial class IdentityController
    {
 
-      [HttpPost("user")]
+      [HttpPost("register")]
       [AllowAnonymous]
       public Task<IActionResult> RegisterAsync([FromBody] RegisterVM registerVM) =>
          _IdentityService.RegisterAsync(registerVM);
