@@ -22,7 +22,7 @@ namespace Elesse.Identity
       public string UserID
       {
          get => _UserID;
-         private set
+         internal set
          {
             if (string.IsNullOrEmpty(value) || value.Length != 36)
                throw new ArgumentException(WARNING_IDENTITY_INVALID_USERID_PARAMETER);
@@ -35,7 +35,7 @@ namespace Elesse.Identity
       public string UserName
       {
          get => _UserName;
-         private set
+         internal set
          {
             if (string.IsNullOrEmpty(value) || value.Length < 8 || value.Length > 50)
                throw new ArgumentException(WARNING_IDENTITY_INVALID_USERNAME_PARAMETER);

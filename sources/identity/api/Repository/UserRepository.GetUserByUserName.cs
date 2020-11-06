@@ -6,8 +6,10 @@ namespace Elesse.Identity
    partial class UserRepository
    {
 
-      public Task<IUserEntity> GetUserByUserNameAsync(string userName) =>
-         _Collection.Find<IUserEntity>(user => user.UserName == userName).SingleAsync();
+      public async Task<IUserEntity> GetUserByUserNameAsync(string userName) =>
+         await _Collection
+            .Find(user => user.UserName == userName)
+            .SingleOrDefaultAsync();
 
    }
 }

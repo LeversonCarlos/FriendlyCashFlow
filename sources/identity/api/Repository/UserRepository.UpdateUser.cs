@@ -6,8 +6,9 @@ namespace Elesse.Identity
    partial class UserRepository
    {
 
-      public Task UpdateUserAsync(IUserEntity value) =>
-         _Collection.ReplaceOneAsync(x => x.UserID == value.UserID, value);
+      public async Task UpdateUserAsync(IUserEntity value) =>
+         await _Collection
+            .ReplaceOneAsync(x => x.UserID == value.UserID, value as User);
 
    }
 }
