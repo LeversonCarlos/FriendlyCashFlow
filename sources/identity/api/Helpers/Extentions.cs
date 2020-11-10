@@ -1,5 +1,9 @@
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using System.Reflection;
 
 namespace Elesse.Identity.Helpers
@@ -10,15 +14,67 @@ namespace Elesse.Identity.Helpers
 
       public static IMvcBuilder AddIdentityService(this IMvcBuilder mvcBuilder, IConfiguration configs)
       {
-         mvcBuilder
-            .AddApplicationPart(Assembly.GetAssembly(typeof(IdentityController)));
-         mvcBuilder
-            .Services
+         var services =
+            mvcBuilder.Services;
+         services
             .AddSingleton(s => configs.GetSection("Identity").Get<IdentitySettings>())
             .AddScoped<IUserRepository, UserRepository>()
             .AddScoped<ITokenRepository, TokenRepository>()
             .AddScoped<IIdentityService, IdentityService>();
+         services
+            .AddAuthentication(SetAuthenticationOptions)
+            .AddJwtBearer(options => SetJwtBearerOptions(options, configs));
+         services
+            .AddAuthorization(SetAuthorizationOptions);
+         mvcBuilder
+            .AddApplicationPart(Assembly.GetAssembly(typeof(IdentityController)));
          return mvcBuilder;
+      }
+
+      static void SetAuthenticationOptions(AuthenticationOptions options)
+      {
+         options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+         options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+      }
+
+      static void SetJwtBearerOptions(JwtBearerOptions options, IConfiguration configs)
+      {
+         options.RequireHttpsMetadata = false;
+         options.SaveToken = true;
+
+         var settings = configs.GetSection("Identity").Get<IdentitySettings>();
+         options.TokenValidationParameters = new TokenValidationParameters
+         {
+            ValidIssuer = settings.Token.Issuer,
+            ValidateIssuer = true,
+            ValidAudience = settings.Token.Audience,
+            ValidateAudience = true,
+            IssuerSigningKey = Helpers.Token.GetSecurityKey(settings.Token),
+            ValidateIssuerSigningKey = true,
+            ValidateLifetime = true,
+            ClockSkew = System.TimeSpan.Zero
+         };
+
+         options.Events = new JwtBearerEvents
+         {
+            OnTokenValidated = (TokenValidatedContext context) =>
+            {
+               var user = context.HttpContext.RequestServices.GetRequiredService<Helpers.User>();
+               user.Identity = context.Principal.Identity;
+               user.UserID = user.Identity.Name;
+               return Task.CompletedTask;
+            }
+         };
+
+      }
+
+      static void SetAuthorizationOptions(AuthorizationOptions options)
+      {
+         options
+            .AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+            .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+            .RequireAuthenticatedUser()
+            .Build());
       }
 
    }
