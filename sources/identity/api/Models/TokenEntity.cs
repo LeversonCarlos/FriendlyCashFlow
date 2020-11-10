@@ -3,13 +3,13 @@ using System;
 namespace Elesse.Identity
 {
 
-   internal class RefreshToken : ITokenEntity
+   internal class TokenEntity : ITokenEntity
    {
 
-      RefreshToken() { }
+      TokenEntity() { }
       internal partial struct WARNINGS { }
 
-      public static RefreshToken Create(string userID, DateTime expirationDate)
+      public static TokenEntity Create(string userID, DateTime expirationDate)
       {
 
          // RANDOMIZE TOKEN
@@ -25,7 +25,7 @@ namespace Elesse.Identity
             .Replace("=", string.Empty)
             .Replace("/", string.Empty);
 
-         return new RefreshToken
+         return new TokenEntity
          {
             TokenID = refreshToken,
             UserID = userID,

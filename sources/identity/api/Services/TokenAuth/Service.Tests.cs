@@ -55,8 +55,8 @@ namespace Elesse.Identity.Tests
       }
       public static IEnumerable<object[]> TokenAuth_WithInvalidRefreshTokenData_MustReturnBadResult_Data() =>
          new[] {
-            new object[] { WARNINGS.AUTHENTICATION_HAS_FAILED, (RefreshToken)null },
-            new object[] { WARNINGS.AUTHENTICATION_HAS_FAILED, RefreshToken.Create(Guid.NewGuid().ToString(), DateTime.UtcNow.AddMilliseconds(-1) ) }
+            new object[] { WARNINGS.AUTHENTICATION_HAS_FAILED, (TokenEntity)null },
+            new object[] { WARNINGS.AUTHENTICATION_HAS_FAILED, TokenEntity.Create(Guid.NewGuid().ToString(), DateTime.UtcNow.AddMilliseconds(-1) ) }
          };
 
       [Fact]
@@ -68,7 +68,7 @@ namespace Elesse.Identity.Tests
             .Build();
          var tokenRepository = TokenRepositoryMocker
             .Create()
-            .WithRetrieveRefreshToken(RefreshToken.Create(System.Guid.NewGuid().ToString(), DateTime.UtcNow.AddMinutes(1)))
+            .WithRetrieveRefreshToken(TokenEntity.Create(System.Guid.NewGuid().ToString(), DateTime.UtcNow.AddMinutes(1)))
             .Build();
          var identityService = new IdentityService(null, userRepository, tokenRepository);
 
@@ -89,7 +89,7 @@ namespace Elesse.Identity.Tests
             .Build();
          var tokenRepository = TokenRepositoryMocker
             .Create()
-            .WithRetrieveRefreshToken(RefreshToken.Create(System.Guid.NewGuid().ToString(), DateTime.UtcNow.AddMinutes(1)))
+            .WithRetrieveRefreshToken(TokenEntity.Create(System.Guid.NewGuid().ToString(), DateTime.UtcNow.AddMinutes(1)))
             .Build();
          var identitySettings = new IdentitySettings
          {
@@ -115,7 +115,7 @@ namespace Elesse.Identity.Tests
             .Build();
          var tokenRepository = TokenRepositoryMocker
             .Create()
-            .WithRetrieveRefreshToken(RefreshToken.Create(System.Guid.NewGuid().ToString(), DateTime.UtcNow.AddMinutes(1)))
+            .WithRetrieveRefreshToken(TokenEntity.Create(System.Guid.NewGuid().ToString(), DateTime.UtcNow.AddMinutes(1)))
             .Build();
          var identitySettings = new IdentitySettings
          {

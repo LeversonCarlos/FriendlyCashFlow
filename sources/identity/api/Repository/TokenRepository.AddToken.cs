@@ -7,7 +7,7 @@ namespace Elesse.Identity
 
       public async Task AddRefreshTokenAsync(ITokenEntity value) =>
          await _Collection
-            .InsertOneAsync(value as RefreshToken);
+            .InsertOneAsync(value as TokenEntity);
 
    }
 }

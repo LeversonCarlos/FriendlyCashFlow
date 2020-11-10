@@ -18,7 +18,7 @@ namespace Elesse.Identity
 
          // CREATE INSTANCE
          var refreshTokenExpiration = DateTime.UtcNow.AddSeconds(_Settings.Token.RefreshExpirationInSeconds);
-         var refreshToken = RefreshToken.Create(user.UserID, refreshTokenExpiration);
+         var refreshToken = TokenEntity.Create(user.UserID, refreshTokenExpiration);
          await _TokenRepository.AddRefreshTokenAsync(refreshToken);
 
          // RESULT
