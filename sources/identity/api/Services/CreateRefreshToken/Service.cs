@@ -7,7 +7,7 @@ namespace Elesse.Identity
    partial class IdentityService
    {
 
-      internal async Task<IRefreshToken> CreateRefreshTokenAsync(IUserEntity user)
+      internal async Task<ITokenEntity> CreateRefreshTokenAsync(IUserEntity user)
       {
 
          // VALIDATE

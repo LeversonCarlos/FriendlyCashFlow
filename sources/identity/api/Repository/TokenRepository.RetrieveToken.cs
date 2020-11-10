@@ -6,7 +6,7 @@ namespace Elesse.Identity
    partial class TokenRepository
    {
 
-      public async Task<IRefreshToken> RetrieveRefreshTokenAsync(string refreshToken) =>
+      public async Task<ITokenEntity> RetrieveRefreshTokenAsync(string refreshToken) =>
          await _Collection
             .FindOneAndDeleteAsync(x => x.TokenID == refreshToken);
 

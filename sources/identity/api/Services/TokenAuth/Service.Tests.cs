@@ -38,7 +38,7 @@ namespace Elesse.Identity.Tests
 
       [Theory]
       [MemberData(nameof(TokenAuth_WithInvalidRefreshTokenData_MustReturnBadResult_Data))]
-      public async void TokenAuth_WithInvalidRefreshTokenData_MustReturnBadResult(string exceptionMessage, IRefreshToken results)
+      public async void TokenAuth_WithInvalidRefreshTokenData_MustReturnBadResult(string exceptionMessage, ITokenEntity results)
       {
          var tokenRepositoty = TokenRepositoryMocker
             .Create()

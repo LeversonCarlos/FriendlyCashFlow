@@ -3,7 +3,7 @@ using System;
 namespace Elesse.Identity
 {
 
-   internal class RefreshToken : IRefreshToken
+   internal class RefreshToken : ITokenEntity
    {
 
       RefreshToken() { }
