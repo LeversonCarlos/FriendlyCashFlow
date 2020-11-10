@@ -2,7 +2,7 @@
 
    <PropertyGroup>
       <TargetFramework>netcoreapp3.1</TargetFramework>
-      <RootNamespace>FriendlyCashFlow.Identity</RootNamespace>
+      <RootNamespace>Elesse.Identity</RootNamespace>
    </PropertyGroup>
 
    <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
