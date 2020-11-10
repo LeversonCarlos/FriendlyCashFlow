@@ -8,7 +8,7 @@ namespace Elesse.Identity
 
       public async Task UpdateUserAsync(IUserEntity value) =>
          await _Collection
-            .ReplaceOneAsync(x => x.UserID == value.UserID, value as User);
+            .ReplaceOneAsync(x => x.UserID == value.UserID, value as UserEntity);
 
    }
 }

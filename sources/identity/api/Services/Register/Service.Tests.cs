@@ -52,7 +52,7 @@ namespace Elesse.Identity.Tests
          var identitySettings = new IdentitySettings { PasswordRules = new PasswordRuleSettings { } };
          var userRepository = UserRepositoryMocker
             .Create()
-            .WithGetUserByUserName(null, new User("userName@xpto.com", "password"))
+            .WithGetUserByUserName(null, new UserEntity("userName@xpto.com", "password"))
             .Build();
          var identityService = new IdentityService(identitySettings, userRepository, null);
          var registerParam = new RegisterVM { UserName = "userName@xpto.com", Password = "password" };

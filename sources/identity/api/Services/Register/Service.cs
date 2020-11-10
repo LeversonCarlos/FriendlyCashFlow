@@ -30,7 +30,7 @@ namespace Elesse.Identity
             return new BadRequestObjectResult(new string[] { WARNINGS.USERNAME_ALREADY_USED });
 
          // ADD NEW USER
-         user = new User(registerVM.UserName, registerVM.Password.GetHashedText(_Settings.PasswordSalt));
+         user = new UserEntity(registerVM.UserName, registerVM.Password.GetHashedText(_Settings.PasswordSalt));
          await _UserRepository.AddUserAsync(user);
 
          // SEND ACTIVATION MAIL

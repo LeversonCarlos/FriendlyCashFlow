@@ -7,7 +7,7 @@ namespace Elesse.Identity
 
       public async Task AddUserAsync(IUserEntity value) =>
          await _Collection
-            .InsertOneAsync(value as User);
+            .InsertOneAsync(value as UserEntity);
 
    }
 }

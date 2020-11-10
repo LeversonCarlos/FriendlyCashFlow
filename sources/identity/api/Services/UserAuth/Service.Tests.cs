@@ -71,8 +71,8 @@ namespace Elesse.Identity.Tests
       }
       public static IEnumerable<object[]> UserAuth_WithInvalidAuthData_MustReturnBadResult_Data() =>
          new[] {
-            new object[] { (User)null },
-            new object[] {  new User("userName@xpto.com", "not-hashed-password") }
+            new object[] { (UserEntity)null },
+            new object[] {  new UserEntity("userName@xpto.com", "not-hashed-password") }
          };
 
       [Fact]
@@ -80,7 +80,7 @@ namespace Elesse.Identity.Tests
       {
          var userRepository = UserRepositoryMocker
             .Create()
-            .WithGetUserByUserName(new User("userName@xpto.com", "X03MO1qnZdYdgyfeuILPmQ=="))
+            .WithGetUserByUserName(new UserEntity("userName@xpto.com", "X03MO1qnZdYdgyfeuILPmQ=="))
             .Build();
          var identitySettings = new IdentitySettings
          {
@@ -102,7 +102,7 @@ namespace Elesse.Identity.Tests
       {
          var userRepository = UserRepositoryMocker
             .Create()
-            .WithGetUserByUserName(new User("userName@xpto.com", "X03MO1qnZdYdgyfeuILPmQ=="))
+            .WithGetUserByUserName(new UserEntity("userName@xpto.com", "X03MO1qnZdYdgyfeuILPmQ=="))
             .Build();
          var tokenRepository = TokenRepositoryMocker
             .Create()

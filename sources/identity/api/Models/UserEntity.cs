@@ -3,14 +3,14 @@ using System;
 namespace Elesse.Identity
 {
 
-   internal class User : IUserEntity
+   internal class UserEntity : IUserEntity
    {
 
-      public User(string userName, string password)
+      public UserEntity(string userName, string password)
          : this(Guid.NewGuid().ToString(), userName, password)
       { }
 
-      public User(string userID, string userName, string password)
+      public UserEntity(string userID, string userName, string password)
       {
          UserID = userID;
          UserName = userName;

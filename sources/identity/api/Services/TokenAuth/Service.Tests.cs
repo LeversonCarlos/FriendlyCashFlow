@@ -85,7 +85,7 @@ namespace Elesse.Identity.Tests
       {
          var userRepository = UserRepositoryMocker
             .Create()
-            .WithGetUserByUserID(new User("userName@xpto.com", "X03MO1qnZdYdgyfeuILPmQ=="))
+            .WithGetUserByUserID(new UserEntity("userName@xpto.com", "X03MO1qnZdYdgyfeuILPmQ=="))
             .Build();
          var tokenRepository = TokenRepositoryMocker
             .Create()
@@ -111,7 +111,7 @@ namespace Elesse.Identity.Tests
       {
          var userRepository = UserRepositoryMocker
             .Create()
-            .WithGetUserByUserID(new User("userName@xpto.com", "X03MO1qnZdYdgyfeuILPmQ=="))
+            .WithGetUserByUserID(new UserEntity("userName@xpto.com", "X03MO1qnZdYdgyfeuILPmQ=="))
             .Build();
          var tokenRepository = TokenRepositoryMocker
             .Create()
