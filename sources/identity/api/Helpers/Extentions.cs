@@ -4,7 +4,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System.Linq;
 using System.Reflection;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace Elesse.Identity.Helpers
 {
@@ -59,9 +62,13 @@ namespace Elesse.Identity.Helpers
          {
             OnTokenValidated = (TokenValidatedContext context) =>
             {
-               var user = context.HttpContext.RequestServices.GetRequiredService<Helpers.User>();
-               user.Identity = context.Principal.Identity;
+               var user = context.HttpContext.RequestServices.GetRequiredService<IUser>();
+               user.Identity = context.Principal.Identity as ClaimsIdentity;
                user.UserID = user.Identity.Name;
+               user.UserName = user.Identity.Claims
+                  .Where(claim => claim.Type == ClaimTypes.NameIdentifier)
+                  .Select(claim => claim.Value)
+                  .FirstOrDefault();
                return Task.CompletedTask;
             }
          };
