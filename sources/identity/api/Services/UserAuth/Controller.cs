@@ -8,7 +8,7 @@ namespace Elesse.Identity
    partial class IdentityController
    {
 
-      [HttpPost("auth/user")]
+      [HttpPost("user-auth")]
       [AllowAnonymous]
       public Task<ActionResult<TokenVM>> UserAuthAsync([FromBody] UserAuthVM param) =>
          _IdentityService.UserAuthAsync(param);

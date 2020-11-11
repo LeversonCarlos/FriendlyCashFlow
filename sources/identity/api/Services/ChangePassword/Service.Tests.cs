@@ -81,7 +81,7 @@ namespace Elesse.Identity.Tests
       public static IEnumerable<object[]> ChangePassword_WithNotFoundUser_MustReturnBadResult_Data() =>
          new[] {
             new object[] { new IUserEntity[] { } },
-            new object[] { new IUserEntity[] { new User("userName@xpto.com", "not-hashed-password") } }
+            new object[] { new IUserEntity[] { new UserEntity("userName@xpto.com", "not-hashed-password") } }
          };
 
       [Fact]
@@ -89,7 +89,7 @@ namespace Elesse.Identity.Tests
       {
          var userRepository = UserRepositoryMocker
             .Create()
-            .WithGetUserByUserID(new User("userName@xpto.com", "X03MO1qnZdYdgyfeuILPmQ=="))
+            .WithGetUserByUserID(new UserEntity("userName@xpto.com", "X03MO1qnZdYdgyfeuILPmQ=="))
             .Build();
          var identitySettings = new IdentitySettings
          {

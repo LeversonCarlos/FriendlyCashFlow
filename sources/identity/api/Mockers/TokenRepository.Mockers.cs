@@ -10,8 +10,8 @@ namespace Elesse.Identity.Tests
       public static TokenRepositoryMocker Create() => new TokenRepositoryMocker();
 
       public TokenRepositoryMocker WithRetrieveRefreshToken() =>
-         WithRetrieveRefreshToken(new IRefreshToken[] { });
-      public TokenRepositoryMocker WithRetrieveRefreshToken(params IRefreshToken[] results)
+         WithRetrieveRefreshToken(new ITokenEntity[] { });
+      public TokenRepositoryMocker WithRetrieveRefreshToken(params ITokenEntity[] results)
       {
          var seq = new MockSequence();
          foreach (var result in results)

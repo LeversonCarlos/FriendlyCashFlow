@@ -19,7 +19,7 @@ namespace Elesse.Identity
          // INITIALIZE CLAIMS
          var claimsList = new List<Claim>{
                new Claim(ClaimTypes.NameIdentifier, user.UserName)
-               // new Claim(ClaimTypes.GivenName, user.Text)
+               // new Claim(ClaimTypes.GivenName, user.UserDescription)
             };
 
          // ADD USER ROLES AS CLAIMS 

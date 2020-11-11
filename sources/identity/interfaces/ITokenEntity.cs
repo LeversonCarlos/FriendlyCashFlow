@@ -2,7 +2,7 @@ using System;
 
 namespace Elesse.Identity
 {
-   public interface IRefreshToken
+   public interface ITokenEntity
    {
       string TokenID { get; }
       string UserID { get; }

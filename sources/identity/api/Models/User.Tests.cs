@@ -1,5 +1,6 @@
-using System;
 using System.Collections.Generic;
+using System.Security.Claims;
+using System.Security.Principal;
 using Xunit;
 
 namespace Elesse.Identity.Tests
@@ -9,45 +10,27 @@ namespace Elesse.Identity.Tests
 
 
       [Fact]
-      public void Constructor_WithValidParameters_MustResultValidInstance()
+      public void ApplyIdentity_WithValidParameters_MustSetClassProperties()
       {
-         var userName = "userName";
-         var password = "password";
-         var user = new User(userName, password);
+         var userID = "my-user-dD";
+         var userName = "my-user-name";
+         var roleID = "my-role-id";
 
-         Assert.NotNull(user);
-         Assert.NotEmpty(user.UserID);
-         Assert.Equal(36, user.UserID.Length);
+         var claimsIdentity = new ClaimsIdentity(
+             new GenericIdentity(userID, "Login"),
+             new List<Claim> {
+               new Claim(ClaimTypes.NameIdentifier, userName),
+               new Claim(ClaimTypes.Role, roleID)
+             }.ToArray()
+          );
+
+         var user = new User();
+         user.ApplyIdentity(claimsIdentity);
+
+         Assert.Equal(userID, user.UserID);
          Assert.Equal(userName, user.UserName);
-         Assert.Equal(password, user.Password);
+         Assert.Equal(new string[] { roleID }, user.Roles);
       }
-
-      [Theory]
-      [MemberData(nameof(Constructor_WithInvalidParameters_MustThrowException_Data))]
-      public void Constructor_WithInvalidParameters_MustThrowException(string exceptionText, string userID, string userName, string password)
-      {
-         var exception = Assert.Throws<ArgumentException>(() => new User(userID, userName, password));
-
-         Assert.NotNull(exception);
-         Assert.Equal(exceptionText, exception.Message);
-      }
-      public static IEnumerable<object[]> Constructor_WithInvalidParameters_MustThrowException_Data() =>
-         new[] {
-            new object[] { User.WARNING_IDENTITY_INVALID_USERID_PARAMETER, (string)null, "UserName", "Password" },
-            new object[] { User.WARNING_IDENTITY_INVALID_USERID_PARAMETER, "", "UserName", "Password" },
-            new object[] { User.WARNING_IDENTITY_INVALID_USERID_PARAMETER, " ", "UserName", "Password" },
-            new object[] { User.WARNING_IDENTITY_INVALID_USERID_PARAMETER, "123456789_123456789_123456789_12345", "UserName", "Password" },
-            new object[] { User.WARNING_IDENTITY_INVALID_USERID_PARAMETER, "123456789_123456789_123456789_1234567", "UserName", "Password" },
-            new object[] { User.WARNING_IDENTITY_INVALID_USERNAME_PARAMETER, "123456789_123456789_123456789_123456", (string)null, "Password" },
-            new object[] { User.WARNING_IDENTITY_INVALID_USERNAME_PARAMETER, "123456789_123456789_123456789_123456", "", "Password" },
-            new object[] { User.WARNING_IDENTITY_INVALID_USERNAME_PARAMETER, "123456789_123456789_123456789_123456", " ", "Password" },
-            new object[] { User.WARNING_IDENTITY_INVALID_USERNAME_PARAMETER, "123456789_123456789_123456789_123456", "1234567", "Password" },
-            new object[] { User.WARNING_IDENTITY_INVALID_USERNAME_PARAMETER, "123456789_123456789_123456789_123456", "123456789_123456789_123456789_123456789_123456789_1", "Password" },
-            new object[] { User.WARNING_IDENTITY_INVALID_PASSWORD_PARAMETER, "123456789_123456789_123456789_123456", "UserName", (string)null },
-            new object[] { User.WARNING_IDENTITY_INVALID_PASSWORD_PARAMETER, "123456789_123456789_123456789_123456", "UserName", "" },
-            new object[] { User.WARNING_IDENTITY_INVALID_PASSWORD_PARAMETER, "123456789_123456789_123456789_123456", "UserName", " " },
-            new object[] { User.WARNING_IDENTITY_INVALID_PASSWORD_PARAMETER, "123456789_123456789_123456789_123456", "UserName", "1234" }
-         };
 
    }
 }

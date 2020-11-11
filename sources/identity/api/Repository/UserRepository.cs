@@ -13,8 +13,8 @@ namespace Elesse.Identity
       readonly IMongoDatabase _MongoDatabase;
 
       internal const string UserCollectionName = "users";
-      internal IMongoCollection<IUserEntity> _Collection =>
-         _MongoDatabase.GetCollection<IUserEntity>(UserCollectionName);
+      IMongoCollection<UserEntity> _Collection =>
+         _MongoDatabase.GetCollection<UserEntity>(UserCollectionName);
 
    }
 }

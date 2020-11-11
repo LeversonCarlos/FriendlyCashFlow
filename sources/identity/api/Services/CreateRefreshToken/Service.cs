@@ -7,7 +7,7 @@ namespace Elesse.Identity
    partial class IdentityService
    {
 
-      internal async Task<IRefreshToken> CreateRefreshTokenAsync(IUserEntity user)
+      internal async Task<ITokenEntity> CreateRefreshTokenAsync(IUserEntity user)
       {
 
          // VALIDATE
@@ -18,7 +18,7 @@ namespace Elesse.Identity
 
          // CREATE INSTANCE
          var refreshTokenExpiration = DateTime.UtcNow.AddSeconds(_Settings.Token.RefreshExpirationInSeconds);
-         var refreshToken = RefreshToken.Create(user.UserID, refreshTokenExpiration);
+         var refreshToken = TokenEntity.Create(user.UserID, refreshTokenExpiration);
          await _TokenRepository.AddRefreshTokenAsync(refreshToken);
 
          // RESULT

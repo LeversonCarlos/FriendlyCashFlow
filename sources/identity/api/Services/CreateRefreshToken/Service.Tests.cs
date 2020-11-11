@@ -21,7 +21,7 @@ namespace Elesse.Identity.Tests
       internal async void CreateRefreshToken_WithInvalidSettings_MustThrowException()
       {
          var settings = new IdentitySettings { Token = new TokenSettings { } };
-         var user = new User("user@Name.com", "password");
+         var user = new UserEntity("user@Name.com", "password");
          var service = new IdentityService(settings, null, null);
 
          var value = await Assert.ThrowsAsync<ArgumentException>(() => service.CreateRefreshTokenAsync(user));

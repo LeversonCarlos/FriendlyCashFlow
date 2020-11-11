@@ -34,7 +34,7 @@ namespace Elesse.Identity
             return new BadRequestObjectResult(new string[] { WARNINGS.INVALID_CHANGEPASSWORD_PARAMETER });
 
          // LOCATE USER
-         var user = (User)(await _UserRepository.GetUserByUserIDAsync(userID));
+         var user = (UserEntity)(await _UserRepository.GetUserByUserIDAsync(userID));
          if (user == null)
             return new BadRequestObjectResult(new string[] { WARNINGS.AUTHENTICATION_HAS_FAILED });
 

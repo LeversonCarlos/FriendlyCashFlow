@@ -5,8 +5,9 @@ namespace Elesse.Identity
    partial class TokenRepository
    {
 
-      public Task AddRefreshTokenAsync(IRefreshToken value) =>
-         _Collection.InsertOneAsync(value);
+      public async Task AddRefreshTokenAsync(ITokenEntity value) =>
+         await _Collection
+            .InsertOneAsync(value as TokenEntity);
 
    }
 }

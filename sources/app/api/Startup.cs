@@ -40,7 +40,9 @@ namespace example
             app.UseDeveloperExceptionPage();
          }
 
+         app.UseAuthentication();
          app.UseRouting();
+         app.UseAuthorization();
 
          app.UseEndpoints(endpoints =>
          {

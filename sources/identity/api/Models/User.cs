@@ -1,62 +1,28 @@
-using System;
+using System.Linq;
+using System.Security.Claims;
 
 namespace Elesse.Identity
 {
-
-   internal class User : IUserEntity
+   internal class User : IUser
    {
 
-      public User(string userName, string password)
-         : this(Guid.NewGuid().ToString(), userName, password)
-      { }
+      public string UserID { get; set; }
+      public string UserName { get; set; }
 
-      public User(string userID, string userName, string password)
-      {
-         UserID = userID;
-         UserName = userName;
-         Password = password;
-      }
+      public string[] Roles { get; set; }
 
-      string _UserID;
-      [MongoDB.Bson.Serialization.Attributes.BsonId]
-      public string UserID
+      internal void ApplyIdentity(ClaimsIdentity claimsIdentity)
       {
-         get => _UserID;
-         private set
-         {
-            if (string.IsNullOrEmpty(value) || value.Length != 36)
-               throw new ArgumentException(WARNING_IDENTITY_INVALID_USERID_PARAMETER);
-            _UserID = value;
-         }
+         UserID = claimsIdentity.Name;
+         UserName = claimsIdentity.Claims
+            .Where(claim => claim.Type == ClaimTypes.NameIdentifier)
+            .Select(claim => claim.Value)
+            .FirstOrDefault();
+         Roles = claimsIdentity.Claims
+            .Where(claim => claim.Type == ClaimTypes.Role)
+            .Select(claim => claim.Value)
+            .ToArray();
       }
-      internal const string WARNING_IDENTITY_INVALID_USERID_PARAMETER = "WARNING_IDENTITY_INVALID_USERID_PARAMETER";
-
-      string _UserName;
-      public string UserName
-      {
-         get => _UserName;
-         private set
-         {
-            if (string.IsNullOrEmpty(value) || value.Length < 8 || value.Length > 50)
-               throw new ArgumentException(WARNING_IDENTITY_INVALID_USERNAME_PARAMETER);
-            _UserName = value;
-         }
-      }
-      internal const string WARNING_IDENTITY_INVALID_USERNAME_PARAMETER = "WARNING_IDENTITY_INVALID_USERNAME_PARAMETER";
-
-      string _Password;
-      public string Password
-      {
-         get => _Password;
-         internal set
-         {
-            if (string.IsNullOrEmpty(value) || value.Length < 5)
-               throw new ArgumentException(WARNING_IDENTITY_INVALID_PASSWORD_PARAMETER);
-            _Password = value;
-         }
-      }
-      internal const string WARNING_IDENTITY_INVALID_PASSWORD_PARAMETER = "WARNING_IDENTITY_INVALID_PASSWORD_PARAMETER";
 
    }
-
 }
