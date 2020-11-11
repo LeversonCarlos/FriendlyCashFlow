@@ -63,17 +63,8 @@ namespace Elesse.Identity.Helpers
          {
             OnTokenValidated = (TokenValidatedContext context) =>
             {
-               var user = (User)context.HttpContext.RequestServices.GetRequiredService<IUser>();
-               var identity = context.Principal.Identity as ClaimsIdentity;
-               user.UserID = identity.Name;
-               user.UserName = identity.Claims
-                  .Where(claim => claim.Type == ClaimTypes.NameIdentifier)
-                  .Select(claim => claim.Value)
-                  .FirstOrDefault();
-               user.Roles = identity.Claims
-                  .Where(claim => claim.Type == ClaimTypes.Role)
-                  .Select(claim => claim.Value)
-                  .ToArray();
+               var user = (User)context.HttpContext.RequestServices.GetService<IUser>();
+               user.ApplyIdentity(context.Principal.Identity as ClaimsIdentity);
                return Task.CompletedTask;
             }
          };
