@@ -21,6 +21,7 @@ namespace Elesse.Identity.Helpers
             mvcBuilder.Services;
          services
             .AddSingleton(s => configs.GetSection("Identity").Get<IdentitySettings>())
+            .AddScoped<IUser, User>()
             .AddScoped<IUserRepository, UserRepository>()
             .AddScoped<ITokenRepository, TokenRepository>()
             .AddScoped<IIdentityService, IdentityService>();
