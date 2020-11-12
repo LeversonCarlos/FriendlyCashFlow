@@ -1,5 +1,5 @@
 {
-  "name": "elesse-identity",
+  "name": "elesse-identity-container",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
