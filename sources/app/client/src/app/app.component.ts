@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
       <div class="content">
          <h1>Welcome to {{title}}!</h1>
          <span style="display: block">{{ title }} app is running!</span>
+         <identity-ElesseIdentity></identity-ElesseIdentity>
       </div>
       <router-outlet></router-outlet>
    `,
