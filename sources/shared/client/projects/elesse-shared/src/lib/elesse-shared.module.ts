@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
-import { ElesseSharedComponent } from './elesse-shared.component';
-
-
+import { BusyComponent } from './busy/busy.component';
 
 @NgModule({
-  declarations: [ElesseSharedComponent],
-  imports: [
-  ],
-  exports: [ElesseSharedComponent]
+   declarations: [BusyComponent],
+   imports: [
+   ],
+   exports: [BusyComponent]
 })
 export class ElesseSharedModule { }

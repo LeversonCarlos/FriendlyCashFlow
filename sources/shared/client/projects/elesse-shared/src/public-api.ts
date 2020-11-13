@@ -2,6 +2,6 @@
  * Public API Surface of elesse-shared
  */
 
-export * from './lib/elesse-shared.service';
-export * from './lib/elesse-shared.component';
+export * from './lib/busy/busy.service';
+export * from './lib/busy/busy.component';
 export * from './lib/elesse-shared.module';
