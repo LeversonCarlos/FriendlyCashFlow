@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
     <p>
       elesse-identity works!
     </p>
-  `,
+    <router-outlet></router-outlet>
+   `,
    styles: [
    ]
 })
