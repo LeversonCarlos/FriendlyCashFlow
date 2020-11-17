@@ -19,6 +19,9 @@
     "paths": {
       "elesse-identity": [
         "../../identity/client/dist/elesse-identity"
+      ],
+      "elesse-shared": [
+        "../../shared/client/dist/elesse-shared"
       ]
     }
   }

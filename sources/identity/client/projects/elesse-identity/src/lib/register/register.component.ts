@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BusyService } from 'elesse-shared';
 
 @Component({
    selector: 'identity-register',
@@ -9,7 +10,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
 
-   constructor(private fb: FormBuilder, private http: HttpClient) { }
+   constructor(private busy: BusyService,
+      private fb: FormBuilder, private http: HttpClient) { }
 
    public inputForm: FormGroup;
 
@@ -34,12 +36,12 @@ export class RegisterComponent implements OnInit {
             UserName: this.inputForm.value.UserName,
             Password: this.inputForm.value.Password
          });
-         const registerResult = await this.http.post<boolean>(`api/users`, registerParam).toPromise();
+         const registerResult = await this.http.post<boolean>(`api/identity/register`, registerParam).toPromise();
          if (!registerResult)
             return;
 
-         await this.msg.ShowInfo('IDENTITY_REGISTER_SUCCESS_MESSAGE')
-         this.router.navigate(['/auth/signin']);
+         // await this.msg.ShowInfo('IDENTITY_REGISTER_SUCCESS_MESSAGE')
+         // this.router.navigate(['/auth/signin']);
       }
       catch (ex) { console.error(ex); }
       finally { this.busy.hide(); }

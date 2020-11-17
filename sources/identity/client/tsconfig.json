@@ -19,6 +19,9 @@
       "elesse-identity": [
         "dist/elesse-identity/elesse-identity",
         "dist/elesse-identity"
+      ],
+      "elesse-shared": [
+        "../../shared/client/dist/elesse-shared"
       ]
     }
   }
