@@ -3,14 +3,14 @@ import { NgModule } from '@angular/core';
 
 import { AppRouting } from './app-routing';
 import { AppComponent } from './app.component';
-import { BusyService, MessageService, TokenService } from 'elesse-shared';
+import { ElesseSharedModule, BusyService, MessageService, TokenService } from 'elesse-shared';
 
 @NgModule({
    declarations: [
       AppComponent
    ],
    imports: [
-      BrowserModule,
+      BrowserModule, ElesseSharedModule,
       AppRouting
    ],
    providers: [MessageService, BusyService, TokenService],

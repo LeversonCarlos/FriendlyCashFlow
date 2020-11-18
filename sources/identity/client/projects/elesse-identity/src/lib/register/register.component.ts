@@ -32,6 +32,8 @@ export class RegisterComponent implements OnInit {
             return;
          this.busy.show();
 
+         // await new Promise(r => setTimeout(r, 1000 * 5));
+
          const registerParam = Object.assign(new RegisterVM, {
             UserName: this.inputForm.value.UserName,
             Password: this.inputForm.value.Password

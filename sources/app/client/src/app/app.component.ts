@@ -10,6 +10,7 @@ import { Component } from '@angular/core';
          <a routerLink="/identity/login">Login</a>
       </div>
       <router-outlet></router-outlet>
+      <shared-busy></shared-busy>
    `,
    styles: [`
       .content {
