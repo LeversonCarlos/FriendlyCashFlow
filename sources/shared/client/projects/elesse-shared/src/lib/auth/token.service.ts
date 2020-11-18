@@ -27,4 +27,11 @@ export class TokenService {
       catch (error) { }
    }
 
+   public get IsValid(): boolean {
+      if (this.Token && this.Token.UserID)
+         return true;
+      else
+         return false;
+   }
+
 }

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRouting } from './app-routing';
 import { AppComponent } from './app.component';
+import { BusyService, MessageService, TokenService } from 'elesse-shared';
 
 @NgModule({
    declarations: [
@@ -12,7 +13,7 @@ import { AppComponent } from './app.component';
       BrowserModule,
       AppRouting
    ],
-   providers: [],
+   providers: [MessageService, BusyService, TokenService],
    bootstrap: [AppComponent]
 })
 export class AppModule { }
