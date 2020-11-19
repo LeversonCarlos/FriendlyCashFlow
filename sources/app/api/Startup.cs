@@ -23,6 +23,13 @@ namespace example
             .AddSingleton(sp => _Configuration.GetSection("Mongo").Get<MongoSettings>())
             .AddSingleton<IMongoClient>(sp => new MongoClient(sp.GetService<MongoSettings>().ConnStr))
             .AddSingleton<IMongoDatabase>(sp => sp.GetService<IMongoClient>().GetDatabase(sp.GetService<MongoSettings>().Database))
+            .AddCors(options => options.AddPolicy("FrontendPolicy", policy =>
+            {
+               policy
+                  .AllowAnyHeader()
+                  .AllowAnyMethod()
+                  .WithOrigins("http://localhost:4200");
+            }))
             .AddControllers()
             .AddJsonOptions(options =>
             {
@@ -40,6 +47,7 @@ namespace example
             app.UseDeveloperExceptionPage();
          }
 
+         app.UseCors("FrontendPolicy");
          app.UseAuthentication();
          app.UseRouting();
          app.UseAuthorization();
