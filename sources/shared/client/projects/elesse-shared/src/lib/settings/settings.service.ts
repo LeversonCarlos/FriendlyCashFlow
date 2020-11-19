@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
    providedIn: 'root'
@@ -8,13 +9,13 @@ export class SettingsService {
 
    constructor(private http: HttpClient) { }
 
-   private Settings: any = null;
+   private Settings: Observable<any> = null;
 
-   public async getSettings(): Promise<any> {
+   public getSettings(): Observable<any> {
       if (!this.Settings)
          return this.Settings
       else
-         this.Settings = await this.http.get<any>('./assets/appsettings.json').toPromise();
+         this.Settings = this.http.get<any>('./assets/appsettings.json');
       return this.Settings;
    }
 
