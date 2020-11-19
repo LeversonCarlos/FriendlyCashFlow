@@ -10,13 +10,16 @@ export class UrlInterceptor implements HttpInterceptor {
    constructor(private settings: SettingsService) { }
 
    intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-      return this.settings.getSettings()
-         .pipe(
-            map(settings => settings.ApiBaseUrl as string),
-            map(apiBaseUrl => `${apiBaseUrl}${request.url}`),
-            map(url => request.clone({ url: url })),
-            switchMap(cloneRequest => next.handle(cloneRequest))
-         );
+      if (!request.url.startsWith('api/'))
+         return next.handle(request);
+      else
+         return this.settings.getSettings()
+            .pipe(
+               map(settings => settings.ApiBaseUrl as string),
+               map(apiBaseUrl => `${apiBaseUrl}/${request.url}`),
+               map(fullUrl => request.clone({ url: fullUrl })),
+               switchMap(cloneRequest => next.handle(cloneRequest))
+            );
    }
 }
 
