@@ -11,11 +11,13 @@ export class SettingsService {
 
    private Settings: Observable<any> = null;
 
+   private get SettingsFile(): string { return './assets/appsettings.json'; }
+
    public getSettings(): Observable<any> {
-      if (!this.Settings)
+      if (this.Settings)
          return this.Settings
       else
-         this.Settings = this.http.get<any>('./assets/appsettings.json');
+         this.Settings = this.http.get<any>(this.SettingsFile);
       return this.Settings;
    }
 
