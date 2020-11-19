@@ -15,7 +15,35 @@ export class ErrorInterceptor implements HttpInterceptor {
          .pipe(
             tap(
                (next: HttpEvent<any>) => { },
-               (error: HttpErrorResponse) => { }
+               (error: HttpErrorResponse) => {
+
+                  // SUCCESS RESULT
+                  if (!error || !error.status || error.status == 200)
+                     return;
+
+                  // TRANSLATION NOT FOUND
+                  // if (request.url.includes('api/translations'))
+                  //   return;
+
+                  // UNAUTHORIZED WILL FALL INTO TOKEN LIFE CICLE
+                  if (error.status == 401)
+                     return;
+
+                  // SPECIFIC MESSAGE FOR FORBIDDEN ACCESS
+                  if (error.status == 403) {
+                     this.msg.ShowInfo("SHARED_FORBIDDEN_MESSAGE");
+                     return;
+                  }
+
+                  // UNESPECTED RESULT FROM API
+                  if (!error.error) {
+                     console.error('Unespected Result from API', error); return;
+                  }
+
+                  // SHOW API MESSAGE ON SCREEN
+                  this.msg.ShowMessage(this.GetMessage(error.error));
+
+               }
             )
          );
    }
