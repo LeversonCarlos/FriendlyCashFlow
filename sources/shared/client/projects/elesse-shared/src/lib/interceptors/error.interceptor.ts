@@ -3,6 +3,7 @@ import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS
 import { Observable } from 'rxjs';
 import { MessageService } from '../message/message.service';
 import { tap } from 'rxjs/operators';
+import { MessageData, MessageDataType } from '../message/message.models';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -46,6 +47,26 @@ export class ErrorInterceptor implements HttpInterceptor {
                }
             )
          );
+   }
+
+   private GetMessage(errorList: string[]): MessageData {
+      let msg = new MessageData();
+      msg.Messages = [];
+      errorList.forEach(errorKey => {
+
+         if (errorKey.lastIndexOf("WARNING_", 0) == 0)
+            msg.Type = MessageDataType.Warning;
+         else if (errorKey.lastIndexOf("EXCEPTION_", 0) == 0)
+            // msg.Details = JSON.stringify(error);
+            msg.Type = MessageDataType.Error;
+         else if (errorKey.lastIndexOf("INNER_EXCEPTION_", 0) == 0)
+            msg.Type = MessageDataType.Error;
+         else
+            msg.Type = MessageDataType.Information;
+         msg.Messages.push(errorKey);
+
+      });
+      return msg;
    }
 
 }
