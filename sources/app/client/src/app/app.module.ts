@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import {
    ElesseSharedModule,
-   BusyService, MessageService, TokenService, SettingsService,
+   BusyService, MessageService, TokenService, SettingsService, InsightsService,
    UrlInterceptorProvider, ErrorInterceptorProvider
 } from 'elesse-shared';
 
@@ -18,7 +18,8 @@ import {
       BrowserModule, HttpClientModule, ElesseSharedModule,
       AppRouting
    ],
-   providers: [SettingsService, MessageService, BusyService, TokenService,
+   providers: [SettingsService, MessageService, InsightsService,
+      BusyService, TokenService,
       UrlInterceptorProvider, ErrorInterceptorProvider],
    bootstrap: [AppComponent]
 })

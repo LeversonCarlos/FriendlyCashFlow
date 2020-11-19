@@ -4,11 +4,12 @@ import { Observable } from 'rxjs';
 import { MessageService } from '../message/message.service';
 import { tap } from 'rxjs/operators';
 import { MessageData, MessageDataType } from '../message/message.models';
+import { InsightsService } from '../insights/insights.service';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-   constructor(private msg: MessageService) { }
+   constructor(private msg: MessageService, private insights: InsightsService) { }
 
    intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
       return next
@@ -38,7 +39,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
                   // UNESPECTED RESULT FROM API
                   if (!error.error) {
-                     console.error('Unespected Result from API', error); return;
+                     this.insights.TrackException(error); return;
                   }
 
                   // SHOW API MESSAGE ON SCREEN

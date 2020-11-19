@@ -8,6 +8,8 @@ export { BusyService } from './lib/busy/busy.service';
 export { BusyComponent } from './lib/busy/busy.component';
 export { MessageService } from './lib/message/message.service';
 export { SettingsService } from './lib/settings/settings.service';
+export { InsightsService } from './lib/insights/insights.service';
+
 export { UrlInterceptorProvider } from './lib/interceptors/url.interceptor';
 export { ErrorInterceptorProvider } from './lib/interceptors/error.interceptor';
 
