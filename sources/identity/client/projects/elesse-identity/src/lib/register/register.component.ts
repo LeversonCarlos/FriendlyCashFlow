@@ -37,9 +37,7 @@ export class RegisterComponent implements OnInit {
             UserName: this.inputForm.value.UserName,
             Password: this.inputForm.value.Password
          });
-         const registerResult = await this.http.post<boolean>(`api/identity/register`, registerParam).toPromise();
-         if (!registerResult)
-            return;
+         await this.http.post<boolean>(`api/identity/register`, registerParam).toPromise();
 
          await this.msg.ShowInfo('IDENTITY_REGISTER_SUCCESS_MESSAGE')
          this.router.navigate(['/'], { queryParamsHandling: 'preserve' });
