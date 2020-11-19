@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRouting } from './app-routing';
 import { AppComponent } from './app.component';
+import { HttpClientModule } from '@angular/common/http';
 import { ElesseSharedModule, BusyService, MessageService, TokenService, SettingsService, UrlInterceptorProvider } from 'elesse-shared';
 
 @NgModule({
@@ -10,7 +11,7 @@ import { ElesseSharedModule, BusyService, MessageService, TokenService, Settings
       AppComponent
    ],
    imports: [
-      BrowserModule, ElesseSharedModule,
+      BrowserModule, HttpClientModule, ElesseSharedModule,
       AppRouting
    ],
    providers: [SettingsService, MessageService, BusyService, TokenService,
