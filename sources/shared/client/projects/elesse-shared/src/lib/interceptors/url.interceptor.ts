@@ -15,8 +15,8 @@ export class UrlInterceptor implements HttpInterceptor {
       else
          return this.settings.getSettings()
             .pipe(
-               map(settings => settings.ApiBaseUrl as string),
-               map(apiBaseUrl => `${apiBaseUrl}/${request.url}`),
+               map(settings => settings.Backend.Url as string),
+               map(backendUrl => `${backendUrl}/${request.url}`),
                map(fullUrl => request.clone({ url: fullUrl })),
                switchMap(cloneRequest => next.handle(cloneRequest))
             );
