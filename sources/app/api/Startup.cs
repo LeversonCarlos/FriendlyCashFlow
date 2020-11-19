@@ -20,15 +20,15 @@ namespace example
       public void ConfigureServices(IServiceCollection services)
       {
          services
-            .AddSingleton(sp => _Configuration.GetSection("Mongo").Get<MongoSettings>())
+            .AddSingleton(sp => _Configuration.GetMongoSettings())
             .AddSingleton<IMongoClient>(sp => new MongoClient(sp.GetService<MongoSettings>().ConnStr))
-            .AddSingleton<IMongoDatabase>(sp => sp.GetService<IMongoClient>().GetDatabase(sp.GetService<MongoSettings>().Database))
+            .AddSingleton<IMongoDatabase>(sp => sp.GetService<IMongoClient>().GetDatabase(_Configuration.GetMongoSettings().Database))
             .AddCors(options => options.AddPolicy("FrontendPolicy", policy =>
             {
                policy
                   .AllowAnyHeader()
                   .AllowAnyMethod()
-                  .WithOrigins("http://localhost:4200");
+                  .WithOrigins(_Configuration.GetFrontendSettings().Url);
             }))
             .AddControllers()
             .AddJsonOptions(options =>
