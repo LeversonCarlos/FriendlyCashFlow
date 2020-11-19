@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BusyService } from 'elesse-shared';
+import { BusyService, MessageService } from 'elesse-shared';
+import { Router } from '@angular/router';
 
 @Component({
    selector: 'identity-register',
@@ -10,8 +11,8 @@ import { BusyService } from 'elesse-shared';
 })
 export class RegisterComponent implements OnInit {
 
-   constructor(private busy: BusyService,
-      private fb: FormBuilder, private http: HttpClient) { }
+   constructor(private busy: BusyService, private msg: MessageService,
+      private fb: FormBuilder, private http: HttpClient, private router: Router) { }
 
    public inputForm: FormGroup;
 
@@ -32,8 +33,6 @@ export class RegisterComponent implements OnInit {
             return;
          this.busy.show();
 
-         // await new Promise(r => setTimeout(r, 1000 * 5));
-
          const registerParam = Object.assign(new RegisterVM, {
             UserName: this.inputForm.value.UserName,
             Password: this.inputForm.value.Password
@@ -42,8 +41,8 @@ export class RegisterComponent implements OnInit {
          if (!registerResult)
             return;
 
-         // await this.msg.ShowInfo('IDENTITY_REGISTER_SUCCESS_MESSAGE')
-         // this.router.navigate(['/auth/signin']);
+         await this.msg.ShowInfo('IDENTITY_REGISTER_SUCCESS_MESSAGE')
+         this.router.navigate(['/'], { queryParamsHandling: 'preserve' });
       }
       catch (ex) { console.error(ex); }
       finally { this.busy.hide(); }
