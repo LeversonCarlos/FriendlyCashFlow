@@ -1,7 +1,7 @@
 import { Injectable, Injector } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { InsightsService, MessageService } from 'elesse-shared';
 import { MessageData, MessageDataType } from 'elesse-shared';
 
@@ -14,39 +14,37 @@ export class ErrorInterceptor implements HttpInterceptor {
       return next
          .handle(request)
          .pipe(
-            tap(
-               (next: HttpEvent<any>) => { },
-               (error: HttpErrorResponse) => {
+            catchError((error: HttpErrorResponse): Observable<HttpEvent<any>> => {
 
-                  // SUCCESS RESULT
-                  if (!error || !error.status || error.status == 200)
-                     return;
+               // SUCCESS RESULT
+               if (!error || !error.status || error.status == 200)
+                  return;
 
-                  // TRANSLATION NOT FOUND
-                  // if (request.url.includes('api/translations'))
-                  //   return;
+               // TRANSLATION NOT FOUND
+               // if (request.url.includes('api/translations'))
+               //   return;
 
-                  // UNAUTHORIZED WILL FALL INTO TOKEN LIFE CICLE
-                  if (error.status == 401)
-                     return;
+               // UNAUTHORIZED WILL FALL INTO TOKEN LIFE CICLE
+               if (error.status == 401)
+                  return;
 
-                  // SPECIFIC MESSAGE FOR FORBIDDEN ACCESS
-                  if (error.status == 403) {
-                     this.injector.get<MessageService>(MessageService).ShowInfo("SHARED_FORBIDDEN_MESSAGE");
-                     return;
-                  }
-
-                  // UNESPECTED RESULT FROM API
-                  this.injector.get<InsightsService>(InsightsService).TrackEvent('Result from Backend', { error: error });
-                  if (!error.error) {
-                     console.error(' UNESPECTED RESULT FROM API', error); return;
-                  }
-
-                  // SHOW API MESSAGE ON SCREEN
-                  this.injector.get<MessageService>(MessageService).ShowMessage(this.GetMessage(error.error));
-
+               // SPECIFIC MESSAGE FOR FORBIDDEN ACCESS
+               if (error.status == 403) {
+                  this.injector.get<MessageService>(MessageService).ShowInfo("SHARED_FORBIDDEN_MESSAGE");
+                  return;
                }
-            )
+
+               // UNESPECTED RESULT FROM API
+               this.injector.get<InsightsService>(InsightsService).TrackEvent('Result from Backend', { error: error });
+               if (!error.error) {
+                  console.error(' UNESPECTED RESULT FROM API', error); return;
+               }
+
+               // SHOW API MESSAGE ON SCREEN
+               this.injector.get<MessageService>(MessageService).ShowMessage(this.GetMessage(error.error));
+               return throwError(error);
+
+            })
          );
    }
 
