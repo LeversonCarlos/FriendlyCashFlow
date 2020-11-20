@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { InsightsService } from '../insights/insights.service';
 import { MessageData, MessageDataType } from './message.models';
 
 @Injectable({
@@ -6,7 +7,7 @@ import { MessageData, MessageDataType } from './message.models';
 })
 export class MessageService {
 
-   constructor() { }
+   constructor(private insights: InsightsService) { }
 
    ShowMessage(messageData: MessageData): void {
       /*
@@ -53,6 +54,17 @@ export class MessageService {
          Type: MessageDataType.Error
       });
       this.ShowMessage(messageData);
+   }
+
+   public async ShowException(ex: any): Promise<void> {
+      const translatedMessage = 'SHARED_EXCEPTION_MESSAGE';
+      const messageData = Object.assign(new MessageData, {
+         Messages: translatedMessage,
+         Details: ex,
+         Type: MessageDataType.Error
+      });
+      this.ShowMessage(messageData);
+      this.insights.TrackError(ex);
    }
 
 }

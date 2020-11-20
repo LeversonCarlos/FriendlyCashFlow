@@ -6,9 +6,10 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import {
    ElesseSharedModule,
-   BusyService, MessageService, TokenService, SettingsService,
-   UrlInterceptorProvider, ErrorInterceptorProvider
+   BusyService, MessageService, TokenService, SettingsService, InsightsService
 } from 'elesse-shared';
+import { UrlInterceptorProvider } from './interceptors/url.interceptor';
+import { ErrorInterceptorProvider } from './interceptors/error.interceptor';
 
 @NgModule({
    declarations: [
@@ -18,7 +19,8 @@ import {
       BrowserModule, HttpClientModule, ElesseSharedModule,
       AppRouting
    ],
-   providers: [SettingsService, MessageService, BusyService, TokenService,
+   providers: [SettingsService, InsightsService, MessageService,
+      BusyService, TokenService,
       UrlInterceptorProvider, ErrorInterceptorProvider],
    bootstrap: [AppComponent]
 })
