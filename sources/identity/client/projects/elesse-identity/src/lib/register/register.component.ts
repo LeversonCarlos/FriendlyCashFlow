@@ -42,7 +42,7 @@ export class RegisterComponent implements OnInit {
          await this.msg.ShowInfo('IDENTITY_REGISTER_SUCCESS_MESSAGE')
          this.router.navigate(['/'], { queryParamsHandling: 'preserve' });
       }
-      catch (ex) { console.error(ex); }
+      catch { /* error absorber */ }
       finally { this.busy.hide(); }
    }
 
