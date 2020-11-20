@@ -20,7 +20,6 @@ export class InsightsService {
          this.settings
             .getSettings()
             .subscribe(cfg => {
-               console.log('insights init', cfg)
 
                if (!cfg || !cfg.AppInsights)
                   return;
