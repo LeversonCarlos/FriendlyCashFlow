@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import { SettingsService } from '../settings/settings.service';
+import { ApplicationInsights } from '@microsoft/applicationinsights-web';
 
-/*
-export enum SeverityLevel {
+enum SeverityLevel {
    Verbose = 0,
    Information = 1,
    Warning = 2,
    Error = 3,
    Critical = 4,
 }
-*/
 
 @Injectable({
    providedIn: 'root'
@@ -21,6 +20,7 @@ export class InsightsService {
          this.settings
             .getSettings()
             .subscribe(cfg => {
+               console.log('insights init', cfg)
 
                if (!cfg || !cfg.AppInsights)
                   return;
@@ -29,8 +29,6 @@ export class InsightsService {
                if (!cfg.AppInsights.Key || cfg.AppInsights.Key == '')
                   return;
 
-               /*
-               TODO
                this.AppInsights = new ApplicationInsights({
                   config: {
                      instrumentationKey: cfg.AppInsights.Key,
@@ -39,40 +37,34 @@ export class InsightsService {
                   }
                });
                this.AppInsights.loadAppInsights();
-               */
 
             });
       }
       catch (ex) { console.error(ex) }
    }
 
-   // private AppInsights: ApplicationInsights
+   private AppInsights: ApplicationInsights
 
    public TrackEvent(name: string, properties?: any) {
-      //if (this.AppInsights)
-      //   this.AppInsights.trackEvent({ name }, properties)
+      if (this.AppInsights)
+         this.AppInsights.trackEvent({ name }, properties)
    }
 
-   public TrackError(exception: Error) {
-      //if (this.AppInsights)
-      //   this.AppInsights.trackException({ exception, severityLevel: SeverityLevel.Critical })
-   }
-
-   public TrackException(exception: any) {
-      //if (this.AppInsights)
-      //   this.AppInsights.trackException({ exception, severityLevel: SeverityLevel.Critical })
+   public TrackError(error: Error) {
+      if (this.AppInsights)
+         this.AppInsights.trackException({ error, severityLevel: SeverityLevel.Critical })
    }
 
    /*
    public TrackTrace(message: string, severityLevel: SeverityLevel = SeverityLevel.Information, properties?: any) {
-      //if (this.AppInsights)
-      //   this.AppInsights.trackTrace({ message, severityLevel }, properties)
+      if (this.AppInsights)
+         this.AppInsights.trackTrace({ message, severityLevel }, properties)
    }
    */
 
    public TrackMetric(name: string, value?: number, min?: number, max?: number) {
-      //if (this.AppInsights)
-      //   this.AppInsights.trackMetric({ name, average: value, min, max })
+      if (this.AppInsights)
+         this.AppInsights.trackMetric({ name, average: value, min, max })
    }
 
 }
