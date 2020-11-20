@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -8,7 +8,7 @@ import { MessageData, MessageDataType } from 'elesse-shared';
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-   constructor(private msg: MessageService, private insights: InsightsService) { }
+   constructor(private injector: Injector) { }
 
    intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
       return next
@@ -32,18 +32,18 @@ export class ErrorInterceptor implements HttpInterceptor {
 
                   // SPECIFIC MESSAGE FOR FORBIDDEN ACCESS
                   if (error.status == 403) {
-                     this.msg.ShowInfo("SHARED_FORBIDDEN_MESSAGE");
+                     this.injector.get<MessageService>(MessageService).ShowInfo("SHARED_FORBIDDEN_MESSAGE");
                      return;
                   }
 
                   // UNESPECTED RESULT FROM API
-                  this.insights.TrackEvent('Result from Backend', { error: error });
+                  this.injector.get<InsightsService>(InsightsService).TrackEvent('Result from Backend', { error: error });
                   if (!error.error) {
                      console.error(' UNESPECTED RESULT FROM API', error); return;
                   }
 
                   // SHOW API MESSAGE ON SCREEN
-                  this.msg.ShowMessage(this.GetMessage(error.error));
+                  this.injector.get<MessageService>(MessageService).ShowMessage(this.GetMessage(error.error));
 
                }
             )
