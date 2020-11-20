@@ -4,6 +4,8 @@
   "peerDependencies": {
     "@angular/common": "^10.2.0",
     "@angular/core": "^10.2.0",
+    "@angular/forms": "~10.2.0",
+    "@angular/router": "~10.2.0",
     "@microsoft/applicationinsights-web": "^2.5.10"
   },
   "dependencies": {
