@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { MessageService } from '../message/message.service';
 import { tap } from 'rxjs/operators';
-import { MessageData, MessageDataType } from '../message/message.models';
-import { InsightsService } from '../insights/insights.service';
+import { InsightsService, MessageService } from 'elesse-shared';
+import { MessageData, MessageDataType } from 'elesse-shared';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -38,8 +37,9 @@ export class ErrorInterceptor implements HttpInterceptor {
                   }
 
                   // UNESPECTED RESULT FROM API
+                  this.insights.TrackEvent('Result from Backend', { error: error });
                   if (!error.error) {
-                     this.insights.TrackException(error); return;
+                     console.error(' UNESPECTED RESULT FROM API', error); return;
                   }
 
                   // SHOW API MESSAGE ON SCREEN
