@@ -10,6 +10,7 @@ import {
 } from 'elesse-shared';
 import { UrlInterceptorProvider } from './interceptors/url.interceptor';
 import { ErrorInterceptorProvider } from './interceptors/error.interceptor';
+import { RequestAuthInterceptorProvider } from './interceptors/auth.interceptor';
 
 @NgModule({
    declarations: [
@@ -21,7 +22,8 @@ import { ErrorInterceptorProvider } from './interceptors/error.interceptor';
    ],
    providers: [SettingsService, InsightsService, MessageService,
       BusyService, TokenService,
-      UrlInterceptorProvider, ErrorInterceptorProvider],
+      UrlInterceptorProvider, ErrorInterceptorProvider, RequestAuthInterceptorProvider
+   ],
    bootstrap: [AppComponent]
 })
 export class AppModule { }

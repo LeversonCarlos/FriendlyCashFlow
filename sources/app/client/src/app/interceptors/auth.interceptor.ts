@@ -1,18 +1,28 @@
 import { Injectable } from '@angular/core';
-import {
-   HttpRequest,
-   HttpHandler,
-   HttpEvent,
-   HttpInterceptor
-} from '@angular/common/http';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { TokenService } from 'elesse-shared';
 
 @Injectable()
-export class AuthInterceptor implements HttpInterceptor {
+export class RequestAuthInterceptor implements HttpInterceptor {
 
-   constructor() { }
+   constructor(private tokenService: TokenService) { }
 
    intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-      return next.handle(request);
+      if (this.tokenService.IsValid)
+         request = request.clone({
+            setHeaders: {
+               Authorization: `Bearer ${this.tokenService.Token.AccessToken}`
+            }
+         });
+      return next
+         .handle(request);
    }
+
 }
+
+export const RequestAuthInterceptorProvider = {
+   provide: HTTP_INTERCEPTORS,
+   useClass: RequestAuthInterceptor,
+   multi: true
+};
