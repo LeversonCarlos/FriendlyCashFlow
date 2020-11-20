@@ -27,8 +27,8 @@ export class TokenService {
       catch (error) { }
    }
 
-   public get IsValid(): boolean {
-      if (this.Token && this.Token.UserID)
+   public get HasToken(): boolean {
+      if (this.Token && this.Token.UserID && this.Token.AccessToken && this.Token.AccessToken != '')
          return true;
       else
          return false;
