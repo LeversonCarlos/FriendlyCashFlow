@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { InsightsService } from 'elesse-shared';
 
 @Component({
    selector: 'app-root',
@@ -26,5 +27,10 @@ import { Component } from '@angular/core';
    `]
 })
 export class AppComponent {
-   title = 'FriendlyCashFlow';
+   title = 'Cash Flow';
+
+   constructor(private insights: InsightsService) {
+      this.insights.TrackEvent('Application Opened');
+   }
+
 }
