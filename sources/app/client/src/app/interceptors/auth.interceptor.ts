@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { TokenService } from 'elesse-shared';
-import { catchError } from 'rxjs/operators';
+import { catchError, filter, switchMap, take } from 'rxjs/operators';
 
 @Injectable()
 export class RequestAuthInterceptor implements HttpInterceptor {
@@ -10,7 +10,7 @@ export class RequestAuthInterceptor implements HttpInterceptor {
    constructor(private tokenService: TokenService) { }
 
    intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-      if (this.tokenService.IsValid)
+      if (this.tokenService.HasToken)
          request = request.clone({
             setHeaders: {
                Authorization: `Bearer ${this.tokenService.Token.AccessToken}`
@@ -27,6 +27,9 @@ export class ResponseAuthInterceptor implements HttpInterceptor {
 
    constructor(private tokenService: TokenService) { }
 
+   private IsRefreshingToken: boolean = false;
+   private RefreshingTokenEvent: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+
    intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
       return next
          .handle(request)
@@ -40,7 +43,58 @@ export class ResponseAuthInterceptor implements HttpInterceptor {
    }
 
    private HandleUnauthorized(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
-      return null;
+      try {
+
+         // IF HAS NO TOKEN, FORCE A LOCATION RELOAD AND THIS WILL SEND USER TO THE LOGIN PAGE
+         if (!this.tokenService.HasToken) {
+            this.tokenService.Token = null;
+            location.reload();
+            return of(null);
+         }
+
+         // IF IS ALREADY REFRESHING TOKEN, WAIT FOR IT THROUGH A BEHAVIOR SUBJECT
+         if (this.IsRefreshingToken) {
+            return this.RefreshingTokenEvent
+               .pipe(
+                  filter(token => token != null),
+                  take(1),
+                  switchMap(token => {
+                     return this.RetryRequest(req, next);
+                  })
+               )
+         }
+
+         // ENTER IN REFRESHING STATE SO CONCURRENT INSTANCES WAIT FOR IT
+         this.IsRefreshingToken = true;
+         this.RefreshingTokenEvent.next(null);
+
+         return this.auth
+            .signRefresh()
+            .pipe(
+               catchError(refreshError => {
+                  this.tokenService.Token = null;
+                  location.reload();
+                  this.IsRefreshingToken = false
+                  return of(null);
+               }),
+               switchMap(() => {
+                  this.RefreshingTokenEvent.next(this.tokenService.Token.AccessToken);
+                  this.IsRefreshingToken = false
+                  return this.RetryRequest(req, next);
+               })
+            );
+
+      }
+      catch (ex) { return of(null); }
+   }
+
+   private RetryRequest(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
+      req = req.clone({
+         setHeaders: {
+            Authorization: `Bearer ${this.tokenService.Token.AccessToken}`
+         }
+      });
+      return next.handle(req);
    }
 
 }
