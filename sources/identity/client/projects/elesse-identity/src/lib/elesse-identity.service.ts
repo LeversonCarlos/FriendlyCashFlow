@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BusyService, MessageService, TokenVM } from 'elesse-shared';
+import { Observable } from 'rxjs';
 
 @Injectable({
    providedIn: 'root'
@@ -28,24 +29,29 @@ export class ElesseIdentityService {
       finally { this.busy.hide(); }
    }
 
-   public async TokenAuth(refreshToken: string) {
-      try {
-         this.busy.show();
+   public UserAuth(userName: string, password: string): Observable<TokenVM> {
+      const authParam = Object.assign(new UserAuthVM, {
+         UserName: userName,
+         Password: password
+      });
+      return this.http.post<TokenVM>(`api/identity/user-auth`, authParam);
+   }
 
-         const authParam = Object.assign(new TokenAuthVM, {
-            RefreshToken: refreshToken
-         });
-         const authResult = await this.http.post<TokenVM>(`api/identity/token-auth`, authParam).toPromise();
-
-         return authResult;
-      }
-      catch { /* error absorber */ }
-      finally { this.busy.hide(); }
+   public TokenAuth(refreshToken: string): Observable<TokenVM> {
+      const authParam = Object.assign(new TokenAuthVM, {
+         RefreshToken: refreshToken
+      });
+      return this.http.post<TokenVM>(`api/identity/token-auth`, authParam);
    }
 
 }
 
 class RegisterVM {
+   UserName: string;
+   Password: string;
+}
+
+class UserAuthVM {
    UserName: string;
    Password: string;
 }
