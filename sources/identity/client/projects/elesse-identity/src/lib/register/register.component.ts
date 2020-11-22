@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BusyService, MessageService } from 'elesse-shared';
-import { Router } from '@angular/router';
+import { IdentityService } from '../identity.service';
 
 @Component({
    selector: 'identity-register',
@@ -11,8 +9,8 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
 
-   constructor(private busy: BusyService, private msg: MessageService,
-      private fb: FormBuilder, private http: HttpClient, private router: Router) { }
+   constructor(private service: IdentityService,
+      private fb: FormBuilder) { }
 
    public inputForm: FormGroup;
 
@@ -28,27 +26,9 @@ export class RegisterComponent implements OnInit {
    }
 
    public async OnClick() {
-      try {
-         if (!this.inputForm.valid)
-            return;
-         this.busy.show();
-
-         const registerParam = Object.assign(new RegisterVM, {
-            UserName: this.inputForm.value.UserName,
-            Password: this.inputForm.value.Password
-         });
-         await this.http.post<boolean>(`api/identity/register`, registerParam).toPromise();
-
-         await this.msg.ShowInfo('IDENTITY_REGISTER_SUCCESS_MESSAGE')
-         this.router.navigate(['/'], { queryParamsHandling: 'preserve' });
-      }
-      catch { /* error absorber */ }
-      finally { this.busy.hide(); }
+      if (!this.inputForm.valid)
+         return;
+      this.service.Register(this.inputForm.value.UserName, this.inputForm.value.Password);
    }
 
-}
-
-class RegisterVM {
-   UserName: string;
-   Password: string;
 }

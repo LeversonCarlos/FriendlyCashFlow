@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ElesseIdentityService } from './elesse-identity.service';
+import { IdentityService } from './elesse-identity.service';
 
-describe('ElesseIdentityService', () => {
-   let service: ElesseIdentityService;
+describe('IdentityService', () => {
+   let service: IdentityService;
 
    beforeEach(() => {
       TestBed.configureTestingModule({});
-      service = TestBed.inject(ElesseIdentityService);
+      service = TestBed.inject(IdentityService);
    });
 
    it('should be created', () => {
