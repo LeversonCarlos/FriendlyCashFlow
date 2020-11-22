@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ElesseIdentityService } from '../elesse-identity.service';
+import { IdentityService } from '../identity.service';
 
 @Component({
    selector: 'identity-register',
@@ -9,7 +9,7 @@ import { ElesseIdentityService } from '../elesse-identity.service';
 })
 export class RegisterComponent implements OnInit {
 
-   constructor(private service: ElesseIdentityService,
+   constructor(private service: IdentityService,
       private fb: FormBuilder) { }
 
    public inputForm: FormGroup;

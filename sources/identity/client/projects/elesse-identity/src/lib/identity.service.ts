@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 @Injectable({
    providedIn: 'root'
 })
-export class ElesseIdentityService {
+export class IdentityService {
 
    constructor(private busy: BusyService, private msg: MessageService,
       private http: HttpClient, private router: Router) { }
