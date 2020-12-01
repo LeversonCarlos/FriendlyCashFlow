@@ -28,19 +28,15 @@ export class RegisterComponent implements OnInit {
       });
    }
 
-   public OnFormSubmit() {
-      if (!this.inputForm.valid)
-         return;
-      this.Register(this.inputForm.value.UserName, this.inputForm.value.Password);
-   }
-
-   private async Register(userName: string, password: string) {
+   public async OnFormSubmit() {
       try {
+         if (!this.inputForm.valid)
+            return;
          this.busy.show();
 
          const registerParam = Object.assign(new RegisterVM, {
-            UserName: userName,
-            Password: password
+            UserName: this.inputForm.value.UserName,
+            Password: this.inputForm.value.Password
          });
          await this.http.post<boolean>(`api/identity/register`, registerParam).toPromise();
 
