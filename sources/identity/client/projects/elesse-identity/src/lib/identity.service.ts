@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BusyService, MessageService, TokenService, TokenVM } from 'elesse-shared';
-import { Observable } from 'rxjs';
 
 @Injectable({
    providedIn: 'root'
@@ -59,13 +58,6 @@ export class IdentityService {
       finally { this.busy.hide(); }
    }
 
-   public TokenAuth(refreshToken: string): Observable<TokenVM> {
-      const authParam = Object.assign(new TokenAuthVM, {
-         RefreshToken: refreshToken
-      });
-      return this.http.post<TokenVM>(`api/identity/token-auth`, authParam);
-   }
-
 }
 
 class RegisterVM {
@@ -76,8 +68,4 @@ class RegisterVM {
 class UserAuthVM {
    UserName: string;
    Password: string;
-}
-
-class TokenAuthVM {
-   RefreshToken: string;
 }
