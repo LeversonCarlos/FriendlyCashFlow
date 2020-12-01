@@ -1,1 +1,11 @@
-<p>login works!</p>
+<form *ngIf="inputForm" [formGroup]="inputForm" (ngSubmit)="OnClick()">
+
+   <label>USERNAME_LABEL</label>
+   <input type="email" formControlName="UserName" autocomplete="username">
+
+   <label>PASSWORD_LABEL</label>
+   <input type="password" formControlName="Password" autocomplete="current-password">
+
+   <button type="submit" [disabled]="!inputForm?.valid || busy.IsBusy">LOGIN_COMMAND</button>
+
+</form>
