@@ -1,22 +1,22 @@
 Write-Host "> Shared.Client"
-cd ../shared/client
+cd ../sources/shared/client
 ## npm install
 npm run build
 # npm run test
-cd ../../devops
+cd ../../../devops
 
 
 Write-Host "> Identity.Client"
-cd ../identity/client
+cd ../sources/identity/client
 ## npm install
 npm run build
 # npm run test
-cd ../../devops
+cd ../../../devops
 
 
 Write-Host "> Application.Client"
-cd ../app/client
+cd ../sources/app/client
 ## npm install
 npm run build
 # npm run test
-cd ../../devops
+cd ../../../devops
