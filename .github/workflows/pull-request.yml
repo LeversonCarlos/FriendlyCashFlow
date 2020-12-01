@@ -1,7 +1,7 @@
 name: Pull Request
 
 on: [pull_request]
-  
+
 jobs:
   tests:
     name: Validate Changes
@@ -11,17 +11,33 @@ jobs:
 
       - name: Checkout Source
         uses: actions/checkout@v2
-      
-      - name: Build Project
+
+      - name: Identity Backend - Build
         working-directory: 'sources/identity/api/'
         run: dotnet build
-        
-      - name: Run Tests
+
+      - name: Identity Backend - Tests
         working-directory: 'sources/identity/api/'
         run: dotnet test /p:CoverletOutputFormat=lcov
 
-      - name: Write Report
+      - name: Identity Backend - Report
         uses: romeovs/lcov-reporter-action@v0.2.16
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          lcov-file: ./sources/identity/api/coverage.info        
+          lcov-file: ./sources/identity/api/coverage.info
+
+      - name: Shared Frontend - Libraries
+        working-directory: 'sources/shared/client/'
+        run: npm install
+
+      - name: Shared Frontend - Build
+        working-directory: 'sources/shared/client/'
+        run: npm run build
+
+      - name: Identity Frontend - Libraries
+        working-directory: 'sources/identity/client/'
+        run: npm install
+
+      - name: Identity Frontend - Build
+        working-directory: 'sources/identity/client/'
+        run: npm run build
