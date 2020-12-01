@@ -3,8 +3,9 @@ name: Pull Request
 on: [pull_request]
 
 jobs:
-  tests:
-    name: Validate Changes
+
+  backend:
+    name: Backend
     runs-on: ubuntu-latest
 
     steps:
@@ -12,32 +13,45 @@ jobs:
       - name: Checkout Source
         uses: actions/checkout@v2
 
-      - name: Identity Backend - Build
+      - name: Identity - Restore
         working-directory: 'sources/identity/api/'
-        run: dotnet build
+        run: dotnet restore
 
-      - name: Identity Backend - Tests
+      - name: Identity - Build
         working-directory: 'sources/identity/api/'
-        run: dotnet test /p:CoverletOutputFormat=lcov
+        run: dotnet build --no-restore
 
-      - name: Identity Backend - Report
+      - name: Identity - Tests
+        working-directory: 'sources/identity/api/'
+        run: dotnet test --no-build /p:CoverletOutputFormat=lcov
+
+      - name: Identity - Report
         uses: romeovs/lcov-reporter-action@v0.2.16
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           lcov-file: ./sources/identity/api/coverage.info
 
-      - name: Shared Frontend - Libraries
+  frontend:
+    name: Frontend
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Source
+        uses: actions/checkout@v2
+
+      - name: Shared - Restore
         working-directory: 'sources/shared/client/'
         run: npm install
 
-      - name: Shared Frontend - Build
+      - name: Shared - Build
         working-directory: 'sources/shared/client/'
         run: npm run build
 
-      - name: Identity Frontend - Libraries
+      - name: Identity - Restore
         working-directory: 'sources/identity/client/'
         run: npm install
 
-      - name: Identity Frontend - Build
+      - name: Identity - Build
         working-directory: 'sources/identity/client/'
         run: npm run build
