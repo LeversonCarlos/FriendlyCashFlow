@@ -31,6 +31,14 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           lcov-file: ./sources/identity/api/coverage.info
 
+      - name: Application - Restore
+        working-directory: 'sources/app/api/'
+        run: dotnet restore
+
+      - name: Application - Build
+        working-directory: 'sources/app/api/'
+        run: dotnet build --no-restore
+
   frontend:
     name: Frontend
     runs-on: ubuntu-latest
@@ -55,3 +63,12 @@ jobs:
       - name: Identity - Build
         working-directory: 'sources/identity/client/'
         run: npm run build
+
+      - name: Application - Restore
+        working-directory: 'sources/app/client/'
+        run: npm install
+
+      - name: Shared - Build
+        working-directory: 'sources/app/client/'
+        run: npm run build
+
