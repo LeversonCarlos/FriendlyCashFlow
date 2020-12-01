@@ -5,10 +5,12 @@ import { ElesseIdentityRouting } from './elesse-identity.routing';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
    declarations: [ElesseIdentityComponent,
-      RegisterComponent, LoginComponent, LogoutComponent],
+      RegisterComponent, LoginComponent, LogoutComponent, ChangePasswordComponent
+   ],
    imports: [
       ElesseSharedModule,
       ElesseIdentityRouting
