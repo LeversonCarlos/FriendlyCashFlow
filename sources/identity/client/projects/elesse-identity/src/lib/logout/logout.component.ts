@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { IdentityService } from '../identity.service';
+import { Router } from '@angular/router';
+import { BusyService, TokenService } from 'elesse-shared';
 
 @Component({
    selector: 'identity-logout',
@@ -8,10 +9,23 @@ import { IdentityService } from '../identity.service';
 })
 export class LogoutComponent implements OnInit {
 
-   constructor(private service: IdentityService) { }
+   constructor(private tokenService: TokenService, private busy: BusyService,
+      private router: Router) { }
 
    ngOnInit(): void {
-      this.service.Logout();
+      this.Logout();
+   }
+
+   private async Logout() {
+      try {
+         this.busy.show();
+
+         this.tokenService.Token = null;
+         this.router.navigateByUrl('/');
+
+      }
+      catch { /* error absorber */ }
+      finally { this.busy.hide(); }
    }
 
 }

@@ -3,5 +3,5 @@
  */
 
 export { RefreshService } from './lib/refresh/refresh.service'
-export * from './lib/elesse-identity.module';
+export { ElesseIdentityModule } from './lib/elesse-identity.module';
 export { ElesseIdentityRoutes } from './lib/elesse-identity.routing';
