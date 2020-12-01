@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { IdentityService } from './elesse-identity.service';
+import { RefreshService } from './refresh.service';
 
-describe('IdentityService', () => {
-   let service: IdentityService;
+describe('RefreshService', () => {
+   let service: RefreshService;
 
    beforeEach(() => {
       TestBed.configureTestingModule({});
-      service = TestBed.inject(IdentityService);
+      service = TestBed.inject(RefreshService);
    });
 
    it('should be created', () => {

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { TokenService, TokenVM } from 'elesse-shared';
-import { IdentityService } from 'elesse-identity';
+import { RefreshService } from 'elesse-identity';
 import { catchError, filter, switchMap, take } from 'rxjs/operators';
 
 @Injectable()
@@ -26,7 +26,7 @@ export class RequestAuthInterceptor implements HttpInterceptor {
 @Injectable()
 export class ResponseAuthInterceptor implements HttpInterceptor {
 
-   constructor(private tokenService: TokenService, private identityService: IdentityService) { }
+   constructor(private tokenService: TokenService, private refreshService: RefreshService) { }
 
    private IsRefreshingToken: boolean = false;
    private RefreshingTokenEvent: BehaviorSubject<string> = new BehaviorSubject<string>(null);
@@ -69,8 +69,8 @@ export class ResponseAuthInterceptor implements HttpInterceptor {
          this.IsRefreshingToken = true;
          this.RefreshingTokenEvent.next(null);
 
-         return this.identityService
-            .TokenAuth(this.tokenService.Token.RefreshToken)
+         return this.refreshService
+            .TokenRefresh(this.tokenService.Token.RefreshToken)
             .pipe(
                catchError((error): Observable<TokenVM> => {
                   this.tokenService.Token = null;
