@@ -11,23 +11,6 @@ export class IdentityService {
    constructor(private tokenService: TokenService, private busy: BusyService, private msg: MessageService,
       private http: HttpClient, private router: Router) { }
 
-   public async Register(userName: string, password: string) {
-      try {
-         this.busy.show();
-
-         const registerParam = Object.assign(new RegisterVM, {
-            UserName: userName,
-            Password: password
-         });
-         await this.http.post<boolean>(`api/identity/register`, registerParam).toPromise();
-
-         await this.msg.ShowInfo('IDENTITY_REGISTER_SUCCESS_MESSAGE')
-         this.router.navigate(['/'], { queryParamsHandling: 'preserve' });
-      }
-      catch { /* error absorber */ }
-      finally { this.busy.hide(); }
-   }
-
    public async Login(userName: string, password: string, returnUrl: string) {
       try {
          this.busy.show();
@@ -58,11 +41,6 @@ export class IdentityService {
       finally { this.busy.hide(); }
    }
 
-}
-
-class RegisterVM {
-   UserName: string;
-   Password: string;
 }
 
 class UserAuthVM {
