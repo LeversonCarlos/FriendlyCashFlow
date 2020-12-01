@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { UnauthGuard } from 'elesse-shared';
+import { AuthGuard, UnauthGuard } from 'elesse-shared';
 import { ElesseIdentityComponent } from './elesse-identity.component';
 import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';
 import { RegisterComponent } from './register/register.component';
 
 export const ElesseIdentityRoutes: Routes = [
@@ -15,6 +16,7 @@ const internalRoutes: Routes = [
       children: [
          { path: 'register', canActivate: [UnauthGuard], component: RegisterComponent },
          { path: 'login', canActivate: [UnauthGuard], component: LoginComponent },
+         { path: 'logout', canActivate: [AuthGuard], component: LogoutComponent },
          // { path: 'activate/:id/:code', component: ActivateComponent },
       ]
    }
