@@ -22,7 +22,7 @@ export class ChangePasswordComponent implements OnInit {
 
    private OnFormCreate() {
       this.inputForm = this.fb.group({
-         OldPassword: ['', [Validators.required, Validators.email]],
+         OldPassword: ['', [Validators.required]],
          NewPassword: ['', Validators.required]
       });
    }
@@ -37,7 +37,7 @@ export class ChangePasswordComponent implements OnInit {
             OldPassword: this.inputForm.value.OldPassword,
             NewPassword: this.inputForm.value.NewPassword
          });
-         await this.http.post(`api/identity/change-password`, changePasswordParam).toPromise();
+         await this.http.put(`api/identity/change-password`, changePasswordParam).toPromise();
 
          await this.msg.ShowInfo('IDENTITY_CHANGE_PASSWORD_SUCCESS_MESSAGE')
 
