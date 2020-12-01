@@ -1,4 +1,4 @@
-<form *ngIf="inputForm" [formGroup]="inputForm" (ngSubmit)="OnClick()">
+<form *ngIf="inputForm" [formGroup]="inputForm" (ngSubmit)="OnFormSubmit()">
 
    <label>USERNAME_LABEL</label>
    <input type="email" formControlName="UserName" autocomplete="username">

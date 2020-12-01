@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
       });
    }
 
-   public OnClick() {
+   public OnFormSubmit() {
       if (!this.inputForm.valid)
          return;
       this.Register(this.inputForm.value.UserName, this.inputForm.value.Password);

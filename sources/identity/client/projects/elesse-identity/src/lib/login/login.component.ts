@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
       });
    }
 
-   public OnClick() {
+   public OnFormSubmit() {
       if (!this.inputForm.valid)
          return;
       this.Login(this.inputForm.value.UserName, this.inputForm.value.Password, this.returnUrl);
