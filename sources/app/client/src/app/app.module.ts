@@ -1,13 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRouting } from './app-routing';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
-import {
-   ElesseSharedModule,
-   BusyService, MessageService, TokenService, SettingsService, InsightsService
-} from 'elesse-shared';
+import { ElesseSharedModule, BusyService, MessageService, TokenService, SettingsService, InsightsService } from 'elesse-shared';
+
 import { UrlInterceptorProvider } from './interceptors/url.interceptor';
 import { ErrorInterceptorProvider } from './interceptors/error.interceptor';
 import { RequestAuthInterceptorProvider, ResponseAuthInterceptorProvider } from './interceptors/auth.interceptor';

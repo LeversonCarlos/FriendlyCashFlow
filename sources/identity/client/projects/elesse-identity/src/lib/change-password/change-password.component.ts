@@ -5,11 +5,11 @@ import { Router } from '@angular/router';
 import { BusyService, MessageService } from 'elesse-shared';
 
 @Component({
-   selector: 'identity-register',
-   templateUrl: './register.component.html',
-   styleUrls: ['./register.component.css']
+   selector: 'identity-change-password',
+   templateUrl: './change-password.component.html',
+   styleUrls: ['./change-password.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class ChangePasswordComponent implements OnInit {
 
    constructor(private busy: BusyService, private msg: MessageService,
       private fb: FormBuilder, private http: HttpClient, private router: Router) { }
@@ -17,31 +17,32 @@ export class RegisterComponent implements OnInit {
    public inputForm: FormGroup;
    public get IsBusy(): boolean { return this.busy.IsBusy; }
 
-   public ngOnInit(): void {
+   ngOnInit(): void {
       this.OnFormCreate();
    }
 
    private OnFormCreate() {
       this.inputForm = this.fb.group({
-         UserName: ['', [Validators.required, Validators.email]],
-         Password: ['', Validators.required]
+         OldPassword: ['', [Validators.required]],
+         NewPassword: ['', Validators.required]
       });
    }
 
-   public async OnFormSubmit() {
+   private async OnFormSubmit() {
       try {
          if (!this.inputForm.valid)
             return;
          this.busy.show();
 
-         const registerParam = Object.assign(new RegisterVM, {
-            UserName: this.inputForm.value.UserName,
-            Password: this.inputForm.value.Password
+         const changePasswordParam = Object.assign(new ChangePasswordVM, {
+            OldPassword: this.inputForm.value.OldPassword,
+            NewPassword: this.inputForm.value.NewPassword
          });
-         await this.http.post<boolean>(`api/identity/register`, registerParam).toPromise();
+         await this.http.put(`api/identity/change-password`, changePasswordParam).toPromise();
 
-         await this.msg.ShowInfo('IDENTITY_REGISTER_SUCCESS_MESSAGE')
-         this.router.navigate(['/'], { queryParamsHandling: 'preserve' });
+         await this.msg.ShowInfo('IDENTITY_CHANGE_PASSWORD_SUCCESS_MESSAGE')
+         this.router.navigateByUrl('/');
+
       }
       catch { /* error absorber */ }
       finally { this.busy.hide(); }
@@ -49,7 +50,7 @@ export class RegisterComponent implements OnInit {
 
 }
 
-class RegisterVM {
-   UserName: string;
-   Password: string;
+class ChangePasswordVM {
+   OldPassword: string;
+   NewPassword: string;
 }
