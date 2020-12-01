@@ -47,6 +47,18 @@ export class IdentityService {
       finally { this.busy.hide(); }
    }
 
+   public async Logout() {
+      try {
+         this.busy.show();
+
+         this.tokenService.Token = null;
+         this.router.navigateByUrl('/');
+
+      }
+      catch { /* error absorber */ }
+      finally { this.busy.hide(); }
+   }
+
    public TokenAuth(refreshToken: string): Observable<TokenVM> {
       const authParam = Object.assign(new TokenAuthVM, {
          RefreshToken: refreshToken
