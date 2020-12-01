@@ -1,8 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { BusyService } from 'elesse-shared';
-import { IdentityService } from '../identity.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BusyService, TokenService, TokenVM } from 'elesse-shared';
 
 @Component({
    selector: 'identity-login',
@@ -11,8 +11,8 @@ import { IdentityService } from '../identity.service';
 })
 export class LoginComponent implements OnInit {
 
-   constructor(private service: IdentityService, private busy: BusyService,
-      private fb: FormBuilder, private activatedRoute: ActivatedRoute) { }
+   constructor(private tokenService: TokenService, private busy: BusyService,
+      private fb: FormBuilder, private activatedRoute: ActivatedRoute, private http: HttpClient, private router: Router) { }
 
    public inputForm: FormGroup;
    public get IsBusy(): boolean { return this.busy.IsBusy; }
@@ -33,7 +33,30 @@ export class LoginComponent implements OnInit {
    public OnClick() {
       if (!this.inputForm.valid)
          return;
-      this.service.Login(this.inputForm.value.UserName, this.inputForm.value.Password, this.returnUrl);
+      this.Login(this.inputForm.value.UserName, this.inputForm.value.Password, this.returnUrl);
    }
 
+   private async Login(userName: string, password: string, returnUrl: string) {
+      try {
+         this.busy.show();
+
+         const authParam = Object.assign(new UserAuthVM, {
+            UserName: userName,
+            Password: password
+         });
+         this.tokenService.Token = await this.http.post<TokenVM>(`api/identity/user-auth`, authParam).toPromise();
+
+         if (this.tokenService.HasToken)
+            this.router.navigateByUrl(returnUrl);
+
+      }
+      catch { /* error absorber */ }
+      finally { this.busy.hide(); }
+   }
+
+}
+
+class UserAuthVM {
+   UserName: string;
+   Password: string;
 }

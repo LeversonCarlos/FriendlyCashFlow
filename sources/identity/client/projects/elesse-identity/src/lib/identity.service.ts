@@ -1,33 +1,14 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BusyService, MessageService, TokenService, TokenVM } from 'elesse-shared';
+import { BusyService, TokenService } from 'elesse-shared';
 
 @Injectable({
    providedIn: 'root'
 })
 export class IdentityService {
 
-   constructor(private tokenService: TokenService, private busy: BusyService, private msg: MessageService,
-      private http: HttpClient, private router: Router) { }
-
-   public async Login(userName: string, password: string, returnUrl: string) {
-      try {
-         this.busy.show();
-
-         const authParam = Object.assign(new UserAuthVM, {
-            UserName: userName,
-            Password: password
-         });
-         this.tokenService.Token = await this.http.post<TokenVM>(`api/identity/user-auth`, authParam).toPromise();
-
-         if (this.tokenService.HasToken)
-            this.router.navigateByUrl(returnUrl);
-
-      }
-      catch { /* error absorber */ }
-      finally { this.busy.hide(); }
-   }
+   constructor(private tokenService: TokenService, private busy: BusyService,
+      private router: Router) { }
 
    public async Logout() {
       try {
@@ -41,9 +22,4 @@ export class IdentityService {
       finally { this.busy.hide(); }
    }
 
-}
-
-class UserAuthVM {
-   UserName: string;
-   Password: string;
 }
