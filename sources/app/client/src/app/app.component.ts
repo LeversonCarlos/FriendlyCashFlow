@@ -9,6 +9,7 @@ import { InsightsService } from 'elesse-shared';
          <span style="display: block">{{ title }} app is running!</span>
          <a routerLink="/identity/register">Register</a>
          <a routerLink="/identity/login">Login</a>
+         <a routerLink="/identity/logout">Logout</a>
       </div>
       <router-outlet></router-outlet>
       <shared-busy></shared-busy>

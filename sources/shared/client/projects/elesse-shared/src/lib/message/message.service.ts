@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { InsightsService } from '../insights/insights.service';
 import { MessageData, MessageDataType } from './message.models';
 
@@ -7,7 +7,7 @@ import { MessageData, MessageDataType } from './message.models';
 })
 export class MessageService {
 
-   constructor(private insights: InsightsService) { }
+   constructor(private injector: Injector) { }
 
    ShowMessage(messageData: MessageData): void {
       /*
@@ -64,7 +64,7 @@ export class MessageService {
          Type: MessageDataType.Error
       });
       this.ShowMessage(messageData);
-      this.insights.TrackError(ex);
+      this.injector.get<InsightsService>(InsightsService).TrackError(ex);
    }
 
 }

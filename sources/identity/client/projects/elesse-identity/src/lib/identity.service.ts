@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BusyService, MessageService, TokenVM } from 'elesse-shared';
+import { BusyService, MessageService, TokenService, TokenVM } from 'elesse-shared';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class IdentityService {
 
-   constructor(private busy: BusyService, private msg: MessageService,
+   constructor(private tokenService: TokenService, private busy: BusyService, private msg: MessageService,
       private http: HttpClient, private router: Router) { }
 
    public async Register(userName: string, password: string) {
@@ -29,12 +29,34 @@ export class IdentityService {
       finally { this.busy.hide(); }
    }
 
-   public UserAuth(userName: string, password: string): Observable<TokenVM> {
-      const authParam = Object.assign(new UserAuthVM, {
-         UserName: userName,
-         Password: password
-      });
-      return this.http.post<TokenVM>(`api/identity/user-auth`, authParam);
+   public async Login(userName: string, password: string, returnUrl: string) {
+      try {
+         this.busy.show();
+
+         const authParam = Object.assign(new UserAuthVM, {
+            UserName: userName,
+            Password: password
+         });
+         this.tokenService.Token = await this.http.post<TokenVM>(`api/identity/user-auth`, authParam).toPromise();
+
+         if (this.tokenService.HasToken)
+            this.router.navigateByUrl(returnUrl);
+
+      }
+      catch { /* error absorber */ }
+      finally { this.busy.hide(); }
+   }
+
+   public async Logout() {
+      try {
+         this.busy.show();
+
+         this.tokenService.Token = null;
+         this.router.navigateByUrl('/');
+
+      }
+      catch { /* error absorber */ }
+      finally { this.busy.hide(); }
    }
 
    public TokenAuth(refreshToken: string): Observable<TokenVM> {
