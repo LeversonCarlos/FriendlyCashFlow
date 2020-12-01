@@ -12,6 +12,7 @@ import { LoginComponent } from './login/login.component';
       ElesseSharedModule,
       ElesseIdentityRouting
    ],
-   exports: [ElesseIdentityComponent]
+   exports: [],
+   bootstrap: [ElesseIdentityComponent]
 })
 export class ElesseIdentityModule { }
