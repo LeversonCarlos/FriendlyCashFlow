@@ -1,4 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BusyService, MessageService } from 'elesse-shared';
 
 @Component({
    selector: 'identity-change-password',
@@ -7,9 +10,45 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChangePasswordComponent implements OnInit {
 
-   constructor() { }
+   constructor(private busy: BusyService, private msg: MessageService,
+      private fb: FormBuilder, private http: HttpClient) { }
+
+   public inputForm: FormGroup;
+   public get IsBusy(): boolean { return this.busy.IsBusy; }
 
    ngOnInit(): void {
+      this.OnFormCreate();
    }
 
+   private OnFormCreate() {
+      this.inputForm = this.fb.group({
+         OldPassword: ['', [Validators.required, Validators.email]],
+         NewPassword: ['', Validators.required]
+      });
+   }
+
+   private async OnFormSubmit() {
+      try {
+         if (!this.inputForm.valid)
+            return;
+         this.busy.show();
+
+         const changePasswordParam = Object.assign(new ChangePasswordVM, {
+            OldPassword: this.inputForm.value.OldPassword,
+            NewPassword: this.inputForm.value.NewPassword
+         });
+         await this.http.post(`api/identity/change-password`, changePasswordParam).toPromise();
+
+         await this.msg.ShowInfo('IDENTITY_CHANGE_PASSWORD_SUCCESS_MESSAGE')
+
+      }
+      catch { /* error absorber */ }
+      finally { this.busy.hide(); }
+   }
+
+}
+
+class ChangePasswordVM {
+   OldPassword: string;
+   NewPassword: string;
 }
