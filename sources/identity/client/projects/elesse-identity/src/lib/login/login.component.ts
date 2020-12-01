@@ -30,24 +30,20 @@ export class LoginComponent implements OnInit {
       });
    }
 
-   public OnFormSubmit() {
-      if (!this.inputForm.valid)
-         return;
-      this.Login(this.inputForm.value.UserName, this.inputForm.value.Password, this.returnUrl);
-   }
-
-   private async Login(userName: string, password: string, returnUrl: string) {
+   public async OnFormSubmit() {
       try {
+         if (!this.inputForm.valid)
+            return;
          this.busy.show();
 
          const authParam = Object.assign(new UserAuthVM, {
-            UserName: userName,
-            Password: password
+            UserName: this.inputForm.value.UserName,
+            Password: this.inputForm.value.Password
          });
          this.tokenService.Token = await this.http.post<TokenVM>(`api/identity/user-auth`, authParam).toPromise();
 
          if (this.tokenService.HasToken)
-            this.router.navigateByUrl(returnUrl);
+            this.router.navigateByUrl(this.returnUrl);
 
       }
       catch { /* error absorber */ }
