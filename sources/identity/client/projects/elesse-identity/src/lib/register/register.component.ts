@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BusyService } from 'elesse-shared';
 import { IdentityService } from '../identity.service';
 
 @Component({
@@ -9,10 +10,11 @@ import { IdentityService } from '../identity.service';
 })
 export class RegisterComponent implements OnInit {
 
-   constructor(private service: IdentityService,
+   constructor(private service: IdentityService, private busy: BusyService,
       private fb: FormBuilder) { }
 
    public inputForm: FormGroup;
+   public get IsBusy(): boolean { return this.busy.IsBusy; }
 
    public ngOnInit(): void {
       this.OnFormCreate();
@@ -25,7 +27,7 @@ export class RegisterComponent implements OnInit {
       });
    }
 
-   public async OnClick() {
+   public OnClick() {
       if (!this.inputForm.valid)
          return;
       this.service.Register(this.inputForm.value.UserName, this.inputForm.value.Password);
