@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -15,7 +16,7 @@ import { RequestAuthInterceptorProvider, ResponseAuthInterceptorProvider } from 
       AppComponent
    ],
    imports: [
-      BrowserModule, HttpClientModule, ElesseSharedModule,
+      BrowserModule, BrowserAnimationsModule, HttpClientModule, ElesseSharedModule,
       AppRouting
    ],
    providers: [SettingsService, InsightsService, MessageService,
