@@ -1,20 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'elesse-identity-ElesseIdentity',
-  template: `
-    <p>
-      elesse-identity works!
-    </p>
-  `,
-  styles: [
-  ]
+   selector: 'identity-ElesseIdentity',
+   template: `
+    <router-outlet></router-outlet>
+   `,
+   styles: [
+   ]
 })
 export class ElesseIdentityComponent implements OnInit {
 
-  constructor() { }
+   constructor() { }
 
-  ngOnInit(): void {
-  }
+   ngOnInit(): void {
+   }
 
 }
