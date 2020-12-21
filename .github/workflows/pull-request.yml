@@ -62,5 +62,5 @@ jobs:
 
       - name: Shared - Build
         working-directory: 'sources/frontend/'
-        run: npm run build ElesseFlowCash
+        run: npm run build ElesseCashFlow
 
