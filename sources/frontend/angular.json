@@ -97,7 +97,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ElesseCashFlow",
+            "outputPath": "dist/elesse-cash-flow",
             "index": "projects/elesse-cash-flow/src/index.html",
             "main": "projects/elesse-cash-flow/src/main.ts",
             "polyfills": "projects/elesse-cash-flow/src/polyfills.ts",
