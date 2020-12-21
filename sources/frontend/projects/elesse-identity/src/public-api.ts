@@ -2,6 +2,6 @@
  * Public API Surface of elesse-identity
  */
 
-export * from './lib/elesse-identity.service';
-export * from './lib/elesse-identity.component';
-export * from './lib/elesse-identity.module';
+export { RefreshService } from './lib/refresh/refresh.service'
+export { ElesseIdentityModule } from './lib/elesse-identity.module';
+export { ElesseIdentityRoutes } from './lib/elesse-identity.routing';
