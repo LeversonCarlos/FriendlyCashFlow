@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ElesseIdentityRoutes } from 'elesse-identity'
+import { ElesseIdentityRoutes } from '@elesse/identity'
 
 const routes: Routes = [];
 
