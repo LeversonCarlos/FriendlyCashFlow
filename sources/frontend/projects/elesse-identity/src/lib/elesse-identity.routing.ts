@@ -24,8 +24,9 @@ const internalRoutes: Routes = [
    }
 ];
 
+export const routerModuleForChild = RouterModule.forChild(internalRoutes)
 @NgModule({
-   imports: [RouterModule.forChild(internalRoutes)],
+   imports: [routerModuleForChild],
    exports: [RouterModule]
 })
 export class ElesseIdentityRouting { }
