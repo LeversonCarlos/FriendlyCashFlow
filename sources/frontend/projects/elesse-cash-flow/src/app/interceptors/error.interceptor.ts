@@ -2,8 +2,8 @@ import { Injectable, Injector } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { InsightsService, MessageService } from 'elesse-shared';
-import { MessageData, MessageDataType } from 'elesse-shared';
+import { InsightsService, MessageService } from '@elesse/shared';
+import { MessageData, MessageDataType } from '@elesse/shared';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {

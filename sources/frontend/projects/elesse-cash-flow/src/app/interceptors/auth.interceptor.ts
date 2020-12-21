@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
-import { TokenService, TokenVM } from 'elesse-shared';
-import { RefreshService } from 'elesse-identity';
+import { TokenService, TokenVM } from '@elesse/shared';
+import { RefreshService } from '@elesse/identity';
 import { catchError, filter, switchMap, take } from 'rxjs/operators';
 
 @Injectable()

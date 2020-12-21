@@ -2,7 +2,7 @@ import { Injectable, Injector } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { SettingsService } from 'elesse-shared';
+import { SettingsService } from '@elesse/shared';
 
 @Injectable()
 export class UrlInterceptor implements HttpInterceptor {
