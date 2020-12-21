@@ -13,12 +13,14 @@ export class UnauthGuard implements CanActivate {
    canActivate(
       route: ActivatedRouteSnapshot,
       state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+      return this.canActivateHandler(state.url);
+   }
 
+   canActivateHandler(returnUrl: string): boolean {
       if (!this.tokenService.HasToken)
          return true;
-      this.router.navigate(['/'], { queryParams: { returnUrl: state.url } });
+      this.router.navigate(['/'], { queryParams: { returnUrl: returnUrl } });
       return false
-
    }
 
 }
