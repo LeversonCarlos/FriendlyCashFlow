@@ -6,7 +6,10 @@
 
    <ItemGroup>
       <PackageReference Include="MongoDB.Driver" Version="2.11.2" />
-      <ProjectReference Include="..\..\identity\api\identity.api.csproj" />
+   </ItemGroup>
+
+   <ItemGroup>
+     <ProjectReference Include="..\identity\identity.csproj" />
    </ItemGroup>
 
 </Project>
