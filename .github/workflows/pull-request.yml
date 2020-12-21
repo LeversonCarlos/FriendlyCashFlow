@@ -48,27 +48,19 @@ jobs:
       - name: Checkout Source
         uses: actions/checkout@v2
 
-      - name: Shared - Restore
-        working-directory: 'sources/shared/client/'
+      - name: Restore
+        working-directory: 'sources/frontend/'
         run: npm install
 
       - name: Shared - Build
-        working-directory: 'sources/shared/client/'
-        run: npm run build
-
-      - name: Identity - Restore
-        working-directory: 'sources/identity/client/'
-        run: npm install
+        working-directory: 'sources/frontend/'
+        run: npm run build ElesseShared
 
       - name: Identity - Build
-        working-directory: 'sources/identity/client/'
-        run: npm run build
-
-      - name: Application - Restore
-        working-directory: 'sources/app/client/'
-        run: npm install
+        working-directory: 'sources/frontend/'
+        run: npm run build ElesseIdentity
 
       - name: Shared - Build
-        working-directory: 'sources/app/client/'
-        run: npm run build
+        working-directory: 'sources/frontend/'
+        run: npm run build ElesseCashFlow
 

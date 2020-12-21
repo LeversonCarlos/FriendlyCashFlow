@@ -1,0 +1,37 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "es2020",
+    "lib": [
+      "es2018",
+      "dom"
+    ],
+    "paths": {
+      "@elesse/shared/*": [
+        "projects/elesse-shared/*",
+        "projects/elesse-shared"
+      ],
+      "@elesse/shared": [
+        "dist/elesse-shared/*",
+        "dist/elesse-shared"
+      ],
+      "@elesse/identity/*": [
+        "projects/elesse-identity/*",
+        "projects/elesse-identity"
+      ],
+      "@elesse/identity": [
+        "dist/elesse-identity/*",
+        "dist/elesse-identity"
+      ]
+    }
+  }
+}
