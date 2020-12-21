@@ -4,13 +4,13 @@
     "directive-selector": [
       true,
       "attribute",
-      "elesseIdentity",
+      "identity",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "elesse-identity",
+      "identity",
       "kebab-case"
     ]
   }
