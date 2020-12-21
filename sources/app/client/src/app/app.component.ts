@@ -10,7 +10,7 @@ import { InsightsService } from 'elesse-shared';
          <a routerLink="/identity/register">Register</a>
          <a routerLink="/identity/login">Login</a>
          <a routerLink="/identity/logout">Logout</a>
-         <a routerLink="/identity/change-password">Change Password</a>
+         <a mat-raised-button routerLink="/identity/change-password">Change Password</a>
       </div>
       <router-outlet></router-outlet>
       <shared-busy></shared-busy>

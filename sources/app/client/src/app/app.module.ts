@@ -3,6 +3,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
+import { MatButtonModule } from '@angular/material/button';
+
 import { AppRouting } from './app-routing';
 import { AppComponent } from './app.component';
 import { ElesseSharedModule, BusyService, MessageService, TokenService, SettingsService, InsightsService } from 'elesse-shared';
@@ -17,6 +19,7 @@ import { RequestAuthInterceptorProvider, ResponseAuthInterceptorProvider } from 
    ],
    imports: [
       BrowserModule, BrowserAnimationsModule, HttpClientModule, ElesseSharedModule,
+      MatButtonModule,
       AppRouting
    ],
    providers: [SettingsService, InsightsService, MessageService,
