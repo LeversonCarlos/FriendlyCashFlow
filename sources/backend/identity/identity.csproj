@@ -13,7 +13,6 @@
    </PropertyGroup>
 
    <ItemGroup>
-      <ProjectReference Include="..\interfaces\identity.interfaces.csproj" />
       <FrameworkReference Include="Microsoft.AspNetCore.App" />
       <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.8" />
       <PackageReference Include="MongoDB.Driver" Version="2.11.2" />
@@ -32,6 +31,10 @@
       <PackageReference Include="coverlet.collector" Version="1.2.0" />
       <PackageReference Include="coverlet.msbuild" Version="2.9.0" />
       <PackageReference Include="Moq" Version="4.14.1" />
+   </ItemGroup>
+
+   <ItemGroup>
+     <ProjectReference Include="..\shared\shared.csproj" />
    </ItemGroup>
 
 </Project>
