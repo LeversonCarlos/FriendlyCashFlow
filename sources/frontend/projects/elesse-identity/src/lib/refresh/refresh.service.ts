@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { TokenVM } from 'elesse-shared';
+import { TokenVM } from '@elesse/shared';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({

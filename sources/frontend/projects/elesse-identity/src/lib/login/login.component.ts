@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BusyService, TokenService, TokenVM } from 'elesse-shared';
+import { BusyService, TokenService, TokenVM } from '@elesse/shared';
 
 @Component({
    selector: 'identity-login',

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard, UnauthGuard } from 'elesse-shared';
+import { AuthGuard, UnauthGuard } from '@elesse/shared';
 import { ElesseIdentityComponent } from './elesse-identity.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
