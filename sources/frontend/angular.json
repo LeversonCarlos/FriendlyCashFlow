@@ -104,11 +104,11 @@
             "tsConfig": "projects/elesse-cash-flow/tsconfig.app.json",
             "aot": true,
             "assets": [
-              "projects/elesse-cash-flow/src/favicon.ico",
               "projects/elesse-cash-flow/src/assets"
             ],
             "styles": [
-              "projects/elesse-cash-flow/src/styles.scss"
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+              "projects/elesse-cash-flow/src/styles/styles.scss"
             ],
             "scripts": []
           },
@@ -168,10 +168,10 @@
             "tsConfig": "projects/elesse-cash-flow/tsconfig.spec.json",
             "karmaConfig": "projects/elesse-cash-flow/karma.conf.js",
             "assets": [
-              "projects/elesse-cash-flow/src/favicon.ico",
               "projects/elesse-cash-flow/src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "projects/elesse-cash-flow/src/styles.scss"
             ],
             "scripts": []
@@ -203,6 +203,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "ElesseCashFlow"
 }
