@@ -1,11 +1,15 @@
 <form *ngIf="inputForm" [formGroup]="inputForm" (ngSubmit)="OnFormSubmit()">
 
-   <label>USERNAME_LABEL</label>
-   <input type="email" formControlName="UserName" autocomplete="username">
+   <mat-form-field>
+      <mat-label>USERNAME_LABEL</mat-label>
+      <input matInput type="email" formControlName="UserName" autocomplete="username">
+   </mat-form-field>
 
-   <label>PASSWORD_LABEL</label>
-   <input type="password" formControlName="Password" autocomplete="current-password">
+   <mat-form-field>
+      <mat-label>PASSWORD_LABEL</mat-label>
+      <input matInput type="password" formControlName="Password" autocomplete="current-password">
+   </mat-form-field>
 
-   <button type="submit" [disabled]="!inputForm?.valid || IsBusy">LOGIN_COMMAND</button>
+   <button mat-raised-button color="primary" type="submit" [disabled]="!inputForm?.valid || IsBusy">LOGIN_COMMAND</button>
 
 </form>

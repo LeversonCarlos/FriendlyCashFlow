@@ -1,13 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
-import { MatButtonModule } from '@angular/material/button';
-
 import { AppRouting } from './app-routing';
 import { AppComponent } from './app.component';
+
 import { ElesseSharedModule, BusyService, MessageService, TokenService, SettingsService, InsightsService } from '@elesse/shared';
+import { ElesseIdentityModule } from '@elesse/identity'
 
 import { UrlInterceptorProvider } from './interceptors/url.interceptor';
 import { ErrorInterceptorProvider } from './interceptors/error.interceptor';
@@ -18,9 +19,8 @@ import { RequestAuthInterceptorProvider, ResponseAuthInterceptorProvider } from 
       AppComponent
    ],
    imports: [
-      BrowserModule, BrowserAnimationsModule, HttpClientModule, ElesseSharedModule,
-      MatButtonModule,
-      AppRouting
+      BrowserModule, BrowserAnimationsModule, HttpClientModule, FormsModule, ReactiveFormsModule,
+      ElesseSharedModule, ElesseIdentityModule, AppRouting
    ],
    providers: [SettingsService, InsightsService, MessageService,
       BusyService, TokenService,
