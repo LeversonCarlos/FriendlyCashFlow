@@ -1,10 +1,8 @@
 <div class="background">
+   <div class="logo-image"></div>
+   <h1 class="app-title">Friendly Cash Flow</h1>
    <form *ngIf="inputForm" [formGroup]="inputForm" (ngSubmit)="OnFormSubmit()">
       <mat-card>
-
-         <mat-card-header>
-            <mat-card-title>LOGIN_TITLE</mat-card-title>
-         </mat-card-header>
 
          <mat-card-content>
             <mat-form-field>
@@ -18,7 +16,7 @@
          </mat-card-content>
 
          <mat-card-actions>
-            <button mat-button color="primary" type="submit"
+            <button mat-raised-button color="primary" type="submit"
                [disabled]="!inputForm?.valid || IsBusy">LOGIN_COMMAND</button>
          </mat-card-actions>
 
