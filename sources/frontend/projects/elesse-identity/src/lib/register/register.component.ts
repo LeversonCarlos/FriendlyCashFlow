@@ -7,7 +7,7 @@ import { BusyService, MessageService } from '@elesse/shared';
 @Component({
    selector: 'identity-register',
    templateUrl: './register.component.html',
-   styleUrls: ['./register.component.css', '../elesse-identity.stylesheet.scss']
+   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
 
