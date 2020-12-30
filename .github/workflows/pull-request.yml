@@ -52,15 +52,10 @@ jobs:
         working-directory: 'sources/frontend/'
         run: npm install
 
-      - name: Shared - Build
+      - name: Build
         working-directory: 'sources/frontend/'
-        run: npm run build ElesseShared
+        run: npm run build
 
-      - name: Identity - Build
+      - name: Tests
         working-directory: 'sources/frontend/'
-        run: npm run build ElesseIdentity
-
-      - name: Shared - Build
-        working-directory: 'sources/frontend/'
-        run: npm run build ElesseCashFlow
-
+        run: npm run test
