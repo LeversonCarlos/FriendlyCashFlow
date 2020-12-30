@@ -50,6 +50,10 @@ export class LoginComponent implements OnInit {
       finally { this.busy.hide(); }
    }
 
+   public OnActivationClick() {
+      console.error('TODO: PRECISAMOS IMPLEMENTAR ISSO AQUI')
+   }
+
 }
 
 class UserAuthVM {
