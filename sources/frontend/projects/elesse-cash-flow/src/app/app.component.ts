@@ -3,7 +3,10 @@ import { InsightsService } from '@elesse/shared';
 
 @Component({
    selector: 'elesse-cash-flow-root',
-   template: `<elesse-cash-flow-home></elesse-cash-flow-home>`,
+   template: `
+   <router-outlet></router-outlet>
+   <shared-busy></shared-busy>
+   `,
    styles: []
 })
 export class AppComponent {
