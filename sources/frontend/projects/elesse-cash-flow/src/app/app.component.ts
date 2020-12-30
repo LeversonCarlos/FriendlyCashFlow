@@ -6,13 +6,15 @@ import { InsightsService } from '@elesse/shared';
    template: `
       <div class="content">
          <h1>Welcome to {{title}}!</h1>
-         <span style="display: block">{{ title }} app is running!</span>
-         <a routerLink="/identity/register">Register</a>
-         <a routerLink="/identity/login">Login</a>
-         <a routerLink="/identity/logout">Logout</a>
-         <a mat-raised-button routerLink="/identity/change-password">Change Password</a>
+         <h3 style="display: block">{{ title }} app is running!</h3>
+         <div class="menu">
+            <a routerLink="/identity/register">Register</a>
+            <a routerLink="/identity/login">Login</a>
+            <a routerLink="/identity/logout">Logout</a>
+            <a routerLink="/identity/change-password">Change Password</a>
+         </div>
+         <router-outlet></router-outlet>
       </div>
-      <router-outlet></router-outlet>
       <shared-busy></shared-busy>
    `,
    styles: [`
@@ -22,6 +24,11 @@ import { InsightsService } from '@elesse/shared';
          flex-direction:column;
          justify-content:center;
          align-items:center;
+      }
+      .menu {
+         display:flex;
+         width:50%;
+         justify-content:space-evenly;
       }
       h1 {
          text-transform:uppercase;

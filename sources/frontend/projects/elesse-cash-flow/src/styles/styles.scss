@@ -8,3 +8,9 @@ body {
    margin: 0;
    font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+mat-card-content {
+   mat-form-field {
+      display: block !important;
+   }
+}

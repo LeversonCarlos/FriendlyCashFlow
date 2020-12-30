@@ -16,21 +16,11 @@
       "dom"
     ],
     "paths": {
-      "@elesse/shared/*": [
-        "projects/elesse-shared/*",
-        "projects/elesse-shared"
-      ],
       "@elesse/shared": [
-        "dist/elesse-shared/*",
-        "dist/elesse-shared"
-      ],
-      "@elesse/identity/*": [
-        "projects/elesse-identity/*",
-        "projects/elesse-identity"
+        "projects/elesse-shared/src/public-api.ts"
       ],
       "@elesse/identity": [
-        "dist/elesse-identity/*",
-        "dist/elesse-identity"
+        "projects/elesse-identity/src/public-api.ts",
       ]
     }
   }
