@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -19,6 +20,7 @@ import { ContainerComponent } from './container/container.component';
       RegisterComponent, LoginComponent, LogoutComponent, ChangePasswordComponent, ContainerComponent
    ],
    imports: [
+      CommonModule,
       MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule,
       ElesseSharedModule,
       ElesseIdentityRouting
