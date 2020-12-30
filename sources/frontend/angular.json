@@ -109,7 +109,7 @@
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "projects/elesse-cash-flow/src/styles/styles.scss",
-              "projects/elesse-cash-flow/src/styles/background.scss"
+              "projects/elesse-cash-flow/src/styles/container.scss"
             ],
             "scripts": []
           },
@@ -174,7 +174,7 @@
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "projects/elesse-cash-flow/src/styles/styles.scss",
-              "projects/elesse-cash-flow/src/styles/background.scss"
+              "projects/elesse-cash-flow/src/styles/container.scss"
             ],
             "scripts": []
           }
