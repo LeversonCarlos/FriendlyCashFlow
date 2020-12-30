@@ -16,12 +16,15 @@
             </mat-card-content>
 
             <mat-card-actions>
-               <button mat-flat-button color="primary" type="submit"
-                  [disabled]="!inputForm?.valid || IsBusy">REGISTER_COMMAND</button>
+               <button type="submit" mat-flat-button color="primary" [disabled]="!inputForm?.valid || IsBusy"
+                  matTooltip="REGISTER_COMMAND_TOOLTIP">REGISTER_COMMAND</button>
             </mat-card-actions>
 
          </mat-card>
       </form>
+
+      <button type="button" mat-button color="accent" [disabled]="IsBusy" routerLink="../login"
+         matTooltip="LOGIN_LINK_TOOLTIP">LOGIN_LINK</button>
 
    </div>
 </elesse-identity-container>
