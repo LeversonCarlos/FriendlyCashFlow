@@ -14,10 +14,12 @@ import { ElesseIdentityModule } from '@elesse/identity'
 import { UrlInterceptorProvider } from './interceptors/url.interceptor';
 import { ErrorInterceptorProvider } from './interceptors/error.interceptor';
 import { RequestAuthInterceptorProvider, ResponseAuthInterceptorProvider } from './interceptors/auth.interceptor';
+import { AnonymousHomeComponent } from './home/anonymous-home/anonymous-home.component';
+import { AuthenticatedHomeComponent } from './home/authenticated-home/authenticated-home.component';
 
 @NgModule({
    declarations: [
-      AppComponent, HomeComponent
+      AppComponent, HomeComponent, AnonymousHomeComponent, AuthenticatedHomeComponent
    ],
    imports: [
       BrowserModule, BrowserAnimationsModule, HttpClientModule, FormsModule, ReactiveFormsModule,
