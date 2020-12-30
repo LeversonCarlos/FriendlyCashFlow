@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -12,12 +13,14 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ContainerComponent } from './container/container.component';
 
 @NgModule({
    declarations: [ElesseIdentityComponent,
-      RegisterComponent, LoginComponent, LogoutComponent, ChangePasswordComponent
+      RegisterComponent, LoginComponent, LogoutComponent, ChangePasswordComponent, ContainerComponent
    ],
    imports: [
+      CommonModule,
       MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule,
       ElesseSharedModule,
       ElesseIdentityRouting

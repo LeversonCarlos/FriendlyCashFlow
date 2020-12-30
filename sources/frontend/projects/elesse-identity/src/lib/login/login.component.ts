@@ -7,7 +7,7 @@ import { BusyService, TokenService, TokenVM } from '@elesse/shared';
 @Component({
    selector: 'identity-login',
    templateUrl: './login.component.html',
-   styleUrls: ['./login.component.css']
+   styleUrls: ['./login.component.scss', '../elesse-identity.common.scss']
 })
 export class LoginComponent implements OnInit {
 
@@ -48,6 +48,10 @@ export class LoginComponent implements OnInit {
       }
       catch { /* error absorber */ }
       finally { this.busy.hide(); }
+   }
+
+   public OnActivationClick() {
+      console.error('TODO: PRECISAMOS IMPLEMENTAR ISSO AQUI')
    }
 
 }

@@ -5,7 +5,7 @@ import { BusyService, TokenService } from '@elesse/shared';
 @Component({
    selector: 'identity-logout',
    templateUrl: './logout.component.html',
-   styleUrls: ['./logout.component.css']
+   styleUrls: ['./logout.component.scss']
 })
 export class LogoutComponent implements OnInit {
 

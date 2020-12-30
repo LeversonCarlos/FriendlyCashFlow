@@ -19,7 +19,7 @@ import { InsightsService } from '@elesse/shared';
    `,
    styles: [`
       .content {
-         height:80vh;
+         height:100%;
          display:flex;
          flex-direction:column;
          justify-content:center;
