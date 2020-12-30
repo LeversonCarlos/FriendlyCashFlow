@@ -13,8 +13,9 @@ export const ElesseIdentityRoutes: Routes = [
 
 const internalRoutes: Routes = [
    {
-      path: '', component: ElesseIdentityComponent,
+      path: 'identity', component: ElesseIdentityComponent,
       children: [
+         { path: '', redirectTo: 'login', pathMatch: 'full' },
          { path: 'register', canActivate: [UnauthGuard], component: RegisterComponent },
          { path: 'login', canActivate: [UnauthGuard], component: LoginComponent },
          { path: 'logout', canActivate: [AuthGuard], component: LogoutComponent },
