@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRouting } from './app-routing';
 import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
 
 import { ElesseSharedModule, BusyService, MessageService, TokenService, SettingsService, InsightsService } from '@elesse/shared';
 import { ElesseIdentityModule } from '@elesse/identity'
@@ -16,7 +17,7 @@ import { RequestAuthInterceptorProvider, ResponseAuthInterceptorProvider } from 
 
 @NgModule({
    declarations: [
-      AppComponent
+      AppComponent, HomeComponent
    ],
    imports: [
       BrowserModule, BrowserAnimationsModule, HttpClientModule, FormsModule, ReactiveFormsModule,
