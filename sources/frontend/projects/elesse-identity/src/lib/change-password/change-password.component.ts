@@ -28,7 +28,7 @@ export class ChangePasswordComponent implements OnInit {
       });
    }
 
-   private async OnFormSubmit() {
+   public async OnFormSubmit() {
       try {
          if (!this.inputForm.valid)
             return;
