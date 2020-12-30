@@ -1,27 +1,27 @@
-<div class="background">
-   <form *ngIf="inputForm" [formGroup]="inputForm" (ngSubmit)="OnFormSubmit()">
-      <mat-card>
+<elesse-identity-container>
+   <div content>
 
-         <mat-card-header>
-            <mat-card-title>REGISTER_TITLE</mat-card-title>
-         </mat-card-header>
+      <form *ngIf="inputForm" [formGroup]="inputForm" (ngSubmit)="OnFormSubmit()">
+         <mat-card>
 
-         <mat-card-content>
-            <mat-form-field>
-               <mat-label>USERNAME_LABEL</mat-label>
-               <input matInput type="email" formControlName="UserName" autocomplete="username">
-            </mat-form-field>
-            <mat-form-field>
-               <mat-label>PASSWORD_LABEL</mat-label>
-               <input matInput type="password" formControlName="Password" autocomplete="new-password">
-            </mat-form-field>
-         </mat-card-content>
+            <mat-card-content>
+               <mat-form-field>
+                  <mat-label>USERNAME_LABEL</mat-label>
+                  <input matInput type="email" formControlName="UserName" autocomplete="username">
+               </mat-form-field>
+               <mat-form-field>
+                  <mat-label>PASSWORD_LABEL</mat-label>
+                  <input matInput type="password" formControlName="Password" autocomplete="new-password">
+               </mat-form-field>
+            </mat-card-content>
 
-         <mat-card-actions>
-            <button mat-button color="primary" type="submit"
-               [disabled]="!inputForm?.valid || IsBusy">REGISTER_COMMAND</button>
-         </mat-card-actions>
+            <mat-card-actions>
+               <button mat-raised-button color="primary" type="submit"
+                  [disabled]="!inputForm?.valid || IsBusy">REGISTER_COMMAND</button>
+            </mat-card-actions>
 
-      </mat-card>
-   </form>
-</div>
+         </mat-card>
+      </form>
+
+   </div>
+</elesse-identity-container>

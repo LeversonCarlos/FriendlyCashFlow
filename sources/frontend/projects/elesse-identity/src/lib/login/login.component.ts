@@ -7,7 +7,7 @@ import { BusyService, TokenService, TokenVM } from '@elesse/shared';
 @Component({
    selector: 'identity-login',
    templateUrl: './login.component.html',
-   styleUrls: ['./login.component.scss']
+   styleUrls: ['./login.component.scss', '../elesse-identity.common.scss']
 })
 export class LoginComponent implements OnInit {
 
