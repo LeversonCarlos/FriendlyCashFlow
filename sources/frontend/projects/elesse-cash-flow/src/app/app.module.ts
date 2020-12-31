@@ -16,10 +16,11 @@ import { ErrorInterceptorProvider } from './interceptors/error.interceptor';
 import { RequestAuthInterceptorProvider, ResponseAuthInterceptorProvider } from './interceptors/auth.interceptor';
 import { AnonymousHomeComponent } from './home/anonymous-home/anonymous-home.component';
 import { AuthenticatedHomeComponent } from './home/authenticated-home/authenticated-home.component';
+import { ContainerComponent } from './container/container.component';
 
 @NgModule({
    declarations: [
-      AppComponent, HomeComponent, AnonymousHomeComponent, AuthenticatedHomeComponent
+      AppComponent, HomeComponent, AnonymousHomeComponent, AuthenticatedHomeComponent, ContainerComponent
    ],
    imports: [
       BrowserModule, BrowserAnimationsModule, HttpClientModule, FormsModule, ReactiveFormsModule,
