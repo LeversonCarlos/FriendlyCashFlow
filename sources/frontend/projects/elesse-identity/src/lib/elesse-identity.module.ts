@@ -13,11 +13,11 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
-import { ContainerComponent } from './container/container.component';
+import { LogoHeaderComponent } from './logo-header/logo-header.component';
 
 @NgModule({
    declarations: [ElesseIdentityComponent,
-      RegisterComponent, LoginComponent, LogoutComponent, ChangePasswordComponent, ContainerComponent
+      RegisterComponent, LoginComponent, LogoutComponent, ChangePasswordComponent, LogoHeaderComponent
    ],
    imports: [
       CommonModule,
