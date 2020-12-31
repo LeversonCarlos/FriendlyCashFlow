@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 
 import { AppRouting } from './app-routing';
 import { MainContainerComponent } from './main-container/main-container.component';
@@ -26,7 +27,7 @@ import { RequestAuthInterceptorProvider, ResponseAuthInterceptorProvider } from 
    ],
    imports: [
       BrowserModule, BrowserAnimationsModule, HttpClientModule, FormsModule, ReactiveFormsModule,
-      MatSidenavModule,
+      MatSidenavModule, MatListModule,
       ElesseSharedModule, ElesseIdentityModule, AppRouting
    ],
    providers: [SettingsService, InsightsService, MessageService,

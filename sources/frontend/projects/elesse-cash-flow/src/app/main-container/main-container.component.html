@@ -6,12 +6,24 @@
 <!-- AUTHENTICATED -->
 <div *ngIf="IsAuthenticated" class="main-container">
    <mat-sidenav-container autosize (backdropClick)="snav.close()">
-      <mat-sidenav #snav fixedInViewport="false" [mode]="IsMobile ? 'over' : 'side'" [opened]="!IsMobile"
+      <mat-sidenav #snav fixedInViewport="true" [mode]="IsMobile ? 'over' : 'side'" [opened]="!IsMobile"
          (keydown.escape)="snav.close()">
-         <div class="menu">
-            <a mat-flat-button routerLink="/identity/change-password">Change Password</a>
-            <a mat-flat-button routerLink="/identity/logout">Logout</a>
-         </div>
+         <mat-nav-list>
+            <mat-list-item>
+               <a matLine routerLink="/identity/change-password">Change Password</a>
+            </mat-list-item>
+            <mat-list-item>
+               <a matLine routerLink="/identity/logout">Logout</a>
+            </mat-list-item>
+            <!--
+            <mat-list-item *ngFor="let link of links">
+               <a matLine href="...">{{ link }}</a>
+               <button mat-icon-button (click)="showInfo(link)">
+                  <mat-icon>info</mat-icon>
+               </button>
+            </mat-list-item>
+            -->
+         </mat-nav-list>
       </mat-sidenav>
       <mat-sidenav-content>
          <div class="main-container central-content">
