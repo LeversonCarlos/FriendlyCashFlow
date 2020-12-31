@@ -7,7 +7,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
 export class ResponsiveService {
 
    constructor(private media: MediaMatcher) {
-      this.mobileQuery = this.media.matchMedia('(max-width: 960px)');
+      this.mobileQuery = this.media.matchMedia('(max-width: 600px)');
    }
 
    private mobileQuery: MediaQueryList
