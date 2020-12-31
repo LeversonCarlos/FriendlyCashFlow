@@ -1,16 +1,29 @@
 <!-- ANONYMOUS -->
-<div *ngIf="!IsAuthenticated" class="main-container background">
+<div *ngIf="!IsAuthenticated" class="main-container central-content background">
    <ng-container *ngTemplateOutlet="template"></ng-container>
 </div>
 
 <!-- AUTHENTICATED -->
 <div *ngIf="IsAuthenticated" class="main-container">
-   <ng-container *ngTemplateOutlet="template"></ng-container>
+   <mat-sidenav-container autosize (backdropClick)="snav.close()">
+      <mat-sidenav #snav fixedInViewport="false" [mode]="IsMobile ? 'over' : 'side'" [opened]="!IsMobile"
+         (keydown.escape)="snav.close()">
+         <div class="menu">
+            <a mat-flat-button routerLink="/identity/change-password">Change Password</a>
+            <a mat-flat-button routerLink="/identity/logout">Logout</a>
+         </div>
+      </mat-sidenav>
+      <mat-sidenav-content>
+         <div class="main-container central-content">
+            <ng-container *ngTemplateOutlet="template"></ng-container>
+         </div>
+      </mat-sidenav-content>
+   </mat-sidenav-container>
 </div>
 
 <!-- SHARED ROUTER OUTLET -->
 <ng-template #template>
-   <router-outlet> </router-outlet>
+   <router-outlet></router-outlet>
 </ng-template>
 
 <!-- AUXILIARY COMPONENTS -->

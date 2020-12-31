@@ -4,13 +4,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
+import { MatSidenavModule } from '@angular/material/sidenav';
+
 import { AppRouting } from './app-routing';
 import { MainContainerComponent } from './main-container/main-container.component';
 import { HomeComponent } from './home/home.component';
 import { AnonymousHomeComponent } from './home/anonymous-home/anonymous-home.component';
 import { AuthenticatedHomeComponent } from './home/authenticated-home/authenticated-home.component';
 
-import { ElesseSharedModule, BusyService, MessageService, TokenService, SettingsService, InsightsService } from '@elesse/shared';
+import { ElesseSharedModule, BusyService, MessageService, TokenService, SettingsService, InsightsService, ResponsiveService } from '@elesse/shared';
 import { ElesseIdentityModule } from '@elesse/identity'
 
 import { UrlInterceptorProvider } from './interceptors/url.interceptor';
@@ -24,10 +26,11 @@ import { RequestAuthInterceptorProvider, ResponseAuthInterceptorProvider } from 
    ],
    imports: [
       BrowserModule, BrowserAnimationsModule, HttpClientModule, FormsModule, ReactiveFormsModule,
+      MatSidenavModule,
       ElesseSharedModule, ElesseIdentityModule, AppRouting
    ],
    providers: [SettingsService, InsightsService, MessageService,
-      BusyService, TokenService,
+      BusyService, TokenService, ResponsiveService,
       UrlInterceptorProvider, ErrorInterceptorProvider, RequestAuthInterceptorProvider, ResponseAuthInterceptorProvider
    ],
    bootstrap: [MainContainerComponent]

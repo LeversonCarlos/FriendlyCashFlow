@@ -8,6 +8,7 @@ export { MessageService } from './lib/message/message.service';
 
 export { SettingsService } from './lib/settings/settings.service';
 export { InsightsService } from './lib/insights/insights.service';
+export { ResponsiveService } from './lib/responsive/responsive.service';
 
 export { AuthGuard } from './lib/auth/auth.guard';
 export { UnauthGuard } from './lib/auth/unauth.guard';
