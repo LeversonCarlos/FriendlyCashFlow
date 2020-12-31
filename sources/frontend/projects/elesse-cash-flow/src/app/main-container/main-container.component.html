@@ -1,11 +1,17 @@
+<!-- ANONYMOUS -->
 <div *ngIf="!IsAuthenticated" class="main-container background">
    <ng-container *ngTemplateOutlet="template"></ng-container>
 </div>
+
+<!-- AUTHENTICATED -->
 <div *ngIf="IsAuthenticated" class="main-container">
    <ng-container *ngTemplateOutlet="template"></ng-container>
 </div>
+
+<!-- SHARED ROUTER OUTLET -->
 <ng-template #template>
    <router-outlet> </router-outlet>
 </ng-template>
 
+<!-- AUXILIARY COMPONENTS -->
 <shared-busy></shared-busy>
