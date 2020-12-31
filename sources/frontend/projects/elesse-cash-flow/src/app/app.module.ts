@@ -18,10 +18,11 @@ import { AnonymousHomeComponent } from './home/anonymous-home/anonymous-home.com
 import { AuthenticatedHomeComponent } from './home/authenticated-home/authenticated-home.component';
 import { ContainerComponent } from './container/container.component';
 import { AnonymousContainerComponent } from './container/anonymous-container/anonymous-container.component';
+import { AuthenticatedContainerComponent } from './container/authenticated-container/authenticated-container.component';
 
 @NgModule({
    declarations: [
-      AppComponent, HomeComponent, AnonymousHomeComponent, AuthenticatedHomeComponent, ContainerComponent, AnonymousContainerComponent
+      AppComponent, HomeComponent, AnonymousHomeComponent, AuthenticatedHomeComponent, ContainerComponent, AnonymousContainerComponent, AuthenticatedContainerComponent
    ],
    imports: [
       BrowserModule, BrowserAnimationsModule, HttpClientModule, FormsModule, ReactiveFormsModule,
