@@ -6,8 +6,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRouting } from './app-routing';
 import { MainContainerComponent } from './main-container/main-container.component';
-import { AnonymousContainerComponent } from './main-container/anonymous-container/anonymous-container.component';
-import { AuthenticatedContainerComponent } from './main-container/authenticated-container/authenticated-container.component';
 import { HomeComponent } from './home/home.component';
 import { AnonymousHomeComponent } from './home/anonymous-home/anonymous-home.component';
 import { AuthenticatedHomeComponent } from './home/authenticated-home/authenticated-home.component';
@@ -21,7 +19,7 @@ import { RequestAuthInterceptorProvider, ResponseAuthInterceptorProvider } from 
 
 @NgModule({
    declarations: [
-      MainContainerComponent, AnonymousContainerComponent, AuthenticatedContainerComponent,
+      MainContainerComponent,
       HomeComponent, AnonymousHomeComponent, AuthenticatedHomeComponent
    ],
    imports: [
