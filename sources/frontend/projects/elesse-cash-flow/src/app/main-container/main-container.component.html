@@ -1,0 +1,11 @@
+<div *ngIf="!IsAuthenticated" class="main-container background">
+   <ng-container *ngTemplateOutlet="template"></ng-container>
+</div>
+<div *ngIf="IsAuthenticated" class="main-container">
+   <ng-container *ngTemplateOutlet="template"></ng-container>
+</div>
+<ng-template #template>
+   <router-outlet> </router-outlet>
+</ng-template>
+
+<shared-busy></shared-busy>

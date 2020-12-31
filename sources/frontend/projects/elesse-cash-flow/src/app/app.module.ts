@@ -5,7 +5,10 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRouting } from './app-routing';
-import { AppComponent } from './app.component';
+import { MainContainerComponent } from './main-container/main-container.component';
+import { HomeComponent } from './home/home.component';
+import { AnonymousHomeComponent } from './home/anonymous-home/anonymous-home.component';
+import { AuthenticatedHomeComponent } from './home/authenticated-home/authenticated-home.component';
 
 import { ElesseSharedModule, BusyService, MessageService, TokenService, SettingsService, InsightsService } from '@elesse/shared';
 import { ElesseIdentityModule } from '@elesse/identity'
@@ -16,7 +19,8 @@ import { RequestAuthInterceptorProvider, ResponseAuthInterceptorProvider } from 
 
 @NgModule({
    declarations: [
-      AppComponent
+      MainContainerComponent,
+      HomeComponent, AnonymousHomeComponent, AuthenticatedHomeComponent
    ],
    imports: [
       BrowserModule, BrowserAnimationsModule, HttpClientModule, FormsModule, ReactiveFormsModule,
@@ -26,6 +30,6 @@ import { RequestAuthInterceptorProvider, ResponseAuthInterceptorProvider } from 
       BusyService, TokenService,
       UrlInterceptorProvider, ErrorInterceptorProvider, RequestAuthInterceptorProvider, ResponseAuthInterceptorProvider
    ],
-   bootstrap: [AppComponent]
+   bootstrap: [MainContainerComponent]
 })
 export class AppModule { }
