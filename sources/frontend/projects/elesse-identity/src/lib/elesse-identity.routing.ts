@@ -7,13 +7,15 @@ import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 
+/*
 export const ElesseIdentityRoutes: Routes = [
    { path: 'identity', loadChildren: () => import('./elesse-identity.module').then(m => m.ElesseIdentityModule) }
 ];
+*/
 
 const internalRoutes: Routes = [
    {
-      path: 'identity', component: ElesseIdentityComponent,
+      path: '', component: ElesseIdentityComponent,
       children: [
          { path: '', redirectTo: 'login', pathMatch: 'full' },
          { path: 'register', canActivate: [UnauthGuard], component: RegisterComponent },
@@ -25,9 +27,8 @@ const internalRoutes: Routes = [
    }
 ];
 
-export const routerModuleForChild = RouterModule.forChild(internalRoutes)
 @NgModule({
-   imports: [routerModuleForChild],
+   imports: [RouterModule.forChild(internalRoutes)],
    exports: [RouterModule]
 })
 export class ElesseIdentityRouting { }

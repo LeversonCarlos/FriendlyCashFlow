@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { InsightsService, TokenService } from '@elesse/shared';
+import { InsightsService, ResponsiveService, TokenService } from '@elesse/shared';
 
 @Component({
    selector: 'elesse-cash-flow-main-container',
@@ -8,11 +8,12 @@ import { InsightsService, TokenService } from '@elesse/shared';
 })
 export class MainContainerComponent implements OnInit {
 
-   constructor(private insights: InsightsService, private tokenService: TokenService) {
+   constructor(private insights: InsightsService, private tokenService: TokenService, private responsive: ResponsiveService) {
       this.insights.TrackEvent('Application Opened');
    }
 
    public get IsAuthenticated(): boolean { return this.tokenService && this.tokenService.HasToken; }
+   public get IsMobile(): boolean { return this.responsive && this.responsive.IsMobile; }
 
    ngOnInit(): void {
    }
