@@ -21,24 +21,23 @@
     "@angular/material-moment-adapter": "^10.2.7",
     "@angular/platform-browser": "~10.2.4",
     "@angular/platform-browser-dynamic": "~10.2.4",
-    "@angular/pwa": "^0.1002.1",
     "@angular/router": "~10.2.4",
     "@angular/service-worker": "~10.2.4",
     "@microsoft/applicationinsights-web": "^2.5.6",
     "highcharts": "^8.1.2",
     "moment": "^2.27.0",
     "rxjs": "~6.6.3",
-    "tslib": "^1.13.0",
-    "zone.js": "~0.10.3"
+    "tslib": "^2.0.0",
+    "zone.js": "~0.10.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.803.28",
-    "@angular/cli": "^8.3.28",
-    "@angular/compiler-cli": "~8.2.14",
-    "@angular/language-service": "~8.2.14",
-    "@types/node": "~8.9.4",
+    "@angular-devkit/build-angular": "~0.1002.1",
+    "@angular/cli": "^10.2.1",
+    "@angular/compiler-cli": "~10.2.4",
+    "@angular/language-service": "~10.2.4",
+    "@types/node": "^12.11.1",
     "ts-node": "~7.0.0",
-    "tslint": "~5.15.0",
+    "tslint": "~6.1.0",
     "typescript": "~4.0.5"
   }
 }
