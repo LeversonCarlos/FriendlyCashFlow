@@ -1,16 +1,11 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { SettingsService } from './settings.service';
 
 describe('SettingsService', () => {
    let service: SettingsService;
 
    beforeEach(() => {
-      TestBed.configureTestingModule({
-         imports: [
-            HttpClientTestingModule
-         ]
-      });
+      TestBed.configureTestingModule({});
       service = TestBed.inject(SettingsService);
    });
 
@@ -19,6 +14,7 @@ describe('SettingsService', () => {
    });
 
    /*
+   TODO
    it('getPrinter_WithValidParameter_MustResultExpectedData',
       inject([HttpTestingController, PrintersSelectorService],
          (httpMock: HttpTestingController, service: PrintersSelectorService) => {

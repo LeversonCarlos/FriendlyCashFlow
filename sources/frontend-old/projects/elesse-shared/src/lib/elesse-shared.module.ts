@@ -9,10 +9,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 
-import { BusyComponent } from './busy/busy.component';
-
 @NgModule({
-   declarations: [BusyComponent],
+   declarations: [],
    imports: [
       CommonModule, FormsModule, ReactiveFormsModule,
       MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule,
@@ -21,8 +19,7 @@ import { BusyComponent } from './busy/busy.component';
    exports: [
       CommonModule, FormsModule, ReactiveFormsModule,
       MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule,
-      MatSidenavModule, MatListModule,
-      BusyComponent
+      MatSidenavModule, MatListModule
    ]
 })
 export class ElesseSharedModule { }
