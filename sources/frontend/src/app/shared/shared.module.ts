@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { BusyComponent } from './busy/busy.component';
 
 @NgModule({
@@ -7,9 +9,10 @@ import { BusyComponent } from './busy/busy.component';
       BusyComponent
    ],
    imports: [
-      CommonModule
+      CommonModule, FormsModule, ReactiveFormsModule
    ],
    exports: [
+      CommonModule, FormsModule, ReactiveFormsModule,
       BusyComponent
    ]
 })
