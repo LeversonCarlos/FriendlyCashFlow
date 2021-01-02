@@ -9,7 +9,7 @@ import { HomeComponent } from './home/home.component';
 import { AnonymousHomeComponent } from './home/anonymous-home/anonymous-home.component';
 import { AuthenticatedHomeComponent } from './home/authenticated-home/authenticated-home.component';
 
-import { ElesseSharedModule, BusyService, MessageService, TokenService, SettingsService, InsightsService, ResponsiveService } from '@elesse/shared';
+import { ElesseSharedModule, TokenService, ResponsiveService } from '@elesse/shared';
 // import { ElesseIdentityModule } from '@elesse/identity'
 
 import { UrlInterceptorProvider } from './interceptors/url.interceptor';
@@ -25,8 +25,8 @@ import { RequestAuthInterceptorProvider, ResponseAuthInterceptorProvider } from 
       BrowserModule, BrowserAnimationsModule, HttpClientModule,
       ElesseSharedModule, AppRouting
    ],
-   providers: [SettingsService, InsightsService, MessageService,
-      BusyService, TokenService, ResponsiveService,
+   providers: [
+      TokenService, ResponsiveService,
       UrlInterceptorProvider, ErrorInterceptorProvider, RequestAuthInterceptorProvider, ResponseAuthInterceptorProvider
    ],
    bootstrap: [MainContainerComponent]
