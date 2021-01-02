@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { SharedModule, SettingsService, BusyService, InsightsService, MessageService } from '@elesse/shared';
+import { SharedModule, SettingsService, BusyService, InsightsService, MessageService, ResponsiveService } from '@elesse/shared';
 import { MaterialModule } from '@elesse/material';
 
 import { AppRouting } from './app.routing';
@@ -18,7 +18,7 @@ import { RootComponent } from './root/root.component';
       AppRouting,
    ],
    providers: [
-      SettingsService, BusyService, InsightsService, MessageService
+      SettingsService, BusyService, InsightsService, MessageService, ResponsiveService
    ],
    bootstrap: [RootComponent]
 })

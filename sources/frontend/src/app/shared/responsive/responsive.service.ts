@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MediaMatcher } from '@angular/cdk/layout';
+import { MediaMatcher } from '@elesse/material';
 
 @Injectable({
    providedIn: 'root'
