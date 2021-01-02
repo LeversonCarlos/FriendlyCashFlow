@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { InsightsService } from '../shared/shared.exports';
 
 @Component({
    selector: 'elesse-root',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RootComponent implements OnInit {
 
-   constructor() { }
+   constructor(private insights: InsightsService) {
+      this.insights.TrackEvent('Application Opened');
+   }
 
    title = 'CashFlow';
 
