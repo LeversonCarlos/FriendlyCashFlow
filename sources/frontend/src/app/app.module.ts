@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { AppRouting } from './app.routing';
 import { RootComponent } from './root/root.component';
 
+import { SettingsService, BusyService, MessageService } from './shared/shared.exports';
+
 @NgModule({
    declarations: [
       RootComponent
@@ -12,7 +14,9 @@ import { RootComponent } from './root/root.component';
       BrowserModule,
       AppRouting
    ],
-   providers: [],
+   providers: [
+      SettingsService, BusyService, MessageService
+   ],
    bootstrap: [RootComponent]
 })
 export class AppModule { }
