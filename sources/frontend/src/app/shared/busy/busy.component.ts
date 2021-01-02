@@ -4,7 +4,7 @@ import { BusyService } from './busy.service';
 @Component({
    selector: 'shared-busy',
    templateUrl: './busy.component.html',
-   styleUrls: ['./busy.component.css']
+   styleUrls: ['./busy.component.scss']
 })
 export class BusyComponent implements OnInit {
 
