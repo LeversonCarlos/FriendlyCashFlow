@@ -56,6 +56,6 @@ jobs:
         working-directory: 'sources/frontend/'
         run: npm run build
 
-      # - name: Tests
-      #   working-directory: 'sources/frontend/'
-      #   run: npm run test
+      - name: Tests
+        working-directory: 'sources/frontend/'
+        run: npm run test
