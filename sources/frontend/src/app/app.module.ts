@@ -7,6 +7,7 @@ import {
    SettingsService, BusyService, InsightsService, MessageService, ResponsiveService
 } from '@elesse/shared';
 import { MaterialModule } from '@elesse/material';
+import { IdentityModule, TokenService } from '@elesse/identity';
 
 import { AppRouting } from './app.routing';
 import { RootComponent } from './root/root.component';
@@ -17,11 +18,12 @@ import { RootComponent } from './root/root.component';
    ],
    imports: [
       BrowserModule, BrowserAnimationsModule,
-      MaterialModule, SharedModule,
+      MaterialModule, SharedModule, IdentityModule,
       AppRouting,
    ],
    providers: [
-      SettingsService, BusyService, InsightsService, MessageService, ResponsiveService
+      SettingsService, BusyService, InsightsService, MessageService, ResponsiveService,
+      TokenService
    ],
    bootstrap: [RootComponent]
 })

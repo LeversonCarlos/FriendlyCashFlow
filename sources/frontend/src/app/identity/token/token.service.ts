@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TokenVM } from './token.models';
+import { TokenData } from './token-data';
 
 @Injectable({
    providedIn: 'root'
@@ -10,14 +10,14 @@ export class TokenService {
 
    private tokenTag: string = 'currentToken';
 
-   public get Token(): TokenVM {
+   public get Token(): TokenData {
       try {
          return JSON.parse(localStorage.getItem(this.tokenTag))
       }
       catch (error) { return null; }
    }
 
-   public set Token(value: TokenVM) {
+   public set Token(value: TokenData) {
       try {
          if (!value)
             localStorage.removeItem(this.tokenTag);
