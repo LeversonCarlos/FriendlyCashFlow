@@ -1,4 +1,4 @@
-import { TokenData } from './token-data';
+import { TokenData } from './token.data';
 
 describe('TokenData', () => {
 
