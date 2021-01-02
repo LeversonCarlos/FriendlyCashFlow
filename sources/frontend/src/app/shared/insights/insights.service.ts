@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { SettingsService } from '../settings/settings.service';
 import { ApplicationInsights } from '@microsoft/applicationinsights-web';
+import { SettingsService } from '../settings/settings.service';
 
 enum SeverityLevel {
    Verbose = 0,
@@ -17,6 +17,9 @@ export class InsightsService {
 
    constructor(private settings: SettingsService) {
       try {
+         if (settings == undefined || settings == null)
+            return;
+
          this.settings
             .getSettings()
             .subscribe(cfg => {
@@ -38,11 +41,12 @@ export class InsightsService {
                this.AppInsights.loadAppInsights();
 
             });
+
       }
-      catch (ex) { console.error(ex) }
+      catch (ex) { console.error(ex); }
    }
 
-   private AppInsights: ApplicationInsights
+   private AppInsights: ApplicationInsights;
 
    public TrackEvent(name: string, properties?: any) {
       if (this.AppInsights)
