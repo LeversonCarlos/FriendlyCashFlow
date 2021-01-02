@@ -1,16 +1,16 @@
-export enum MessageDataType {
+export enum MessageType {
    Information = 0, Warning = 1, Error = 2
 }
 
 export class MessageData {
    Messages: string[];
    Details: string;
-   Type: MessageDataType;
+   Type: MessageType;
    get Duration(): number {
       switch (this.Type) {
-         case MessageDataType.Error:
+         case MessageType.Error:
             return 0;
-         case MessageDataType.Warning:
+         case MessageType.Warning:
             return 5000;
          default:
             return 3000;
