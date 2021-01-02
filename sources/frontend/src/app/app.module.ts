@@ -2,10 +2,11 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { SharedModule, SettingsService, BusyService, InsightsService, MessageService } from '@elesse/shared';
+import { MaterialModule } from '@elesse/material';
+
 import { AppRouting } from './app.routing';
 import { RootComponent } from './root/root.component';
-
-import { SettingsService, BusyService, InsightsService, MessageService } from './shared/shared.exports';
 
 @NgModule({
    declarations: [
@@ -13,6 +14,7 @@ import { SettingsService, BusyService, InsightsService, MessageService } from '.
    ],
    imports: [
       BrowserModule, BrowserAnimationsModule,
+      MaterialModule, SharedModule,
       AppRouting,
    ],
    providers: [

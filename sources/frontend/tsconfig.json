@@ -15,6 +15,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@elesse/shared": [
+        "src/app/shared/shared.exports.ts"
+      ],
+      "@elesse/material": [
+        "src/app/material/material.exports.ts"
+      ],
+    }
   }
 }

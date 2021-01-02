@@ -1,3 +1,6 @@
+export { SharedModule } from './shared.module';
+
+
 export { SettingsService } from './settings/settings.service';
 
 export { BusyService } from './busy/busy.service';

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { InsightsService } from '../shared/shared.exports';
+import { InsightsService } from '@elesse/shared';
 
 @Component({
    selector: 'elesse-root',
