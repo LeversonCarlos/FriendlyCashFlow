@@ -2,7 +2,10 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { SharedModule, SettingsService, BusyService, InsightsService, MessageService, ResponsiveService } from '@elesse/shared';
+import {
+   SharedModule,
+   SettingsService, BusyService, InsightsService, MessageService, ResponsiveService
+} from '@elesse/shared';
 import { MaterialModule } from '@elesse/material';
 
 import { AppRouting } from './app.routing';
