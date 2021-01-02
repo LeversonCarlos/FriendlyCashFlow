@@ -1,4 +1,4 @@
-import { Injectable, Output, Input, EventEmitter } from '@angular/core';
+import { EventEmitter, Injectable, Input, Output } from '@angular/core';
 
 @Injectable({
    providedIn: 'root'
@@ -17,6 +17,7 @@ export class BusyService {
    public get IsBusy(): boolean { return this._IsBusy; }
    public set IsBusy(val: boolean) {
       this._IsBusy = val;
+      this.BusyChange.emit(this._IsBusy);
    }
    private _IsBusy: boolean;
 
