@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRouting } from './app.routing';
 import { RootComponent } from './root/root.component';
 
-import { SettingsService, BusyService, MessageService } from './shared/shared.exports';
+import { SettingsService, BusyService, InsightsService, MessageService } from './shared/shared.exports';
 
 @NgModule({
    declarations: [
@@ -15,7 +15,7 @@ import { SettingsService, BusyService, MessageService } from './shared/shared.ex
       AppRouting
    ],
    providers: [
-      SettingsService, BusyService, MessageService
+      SettingsService, BusyService, InsightsService, MessageService
    ],
    bootstrap: [RootComponent]
 })
