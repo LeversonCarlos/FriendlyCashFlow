@@ -23,6 +23,9 @@
       "@elesse/material": [
         "src/app/material/material.exports.ts"
       ],
+      "@elesse/identity": [
+        "src/app/identity/identity.exports.ts"
+      ],
     }
   }
 }
