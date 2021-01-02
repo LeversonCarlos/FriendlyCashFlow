@@ -1,13 +1,13 @@
-import { Injectable, Injector } from '@angular/core';
-import { InsightsService } from '../insights/insights.service';
-import { MessageData, MessageDataType } from './message.models';
+import { Injectable } from '@angular/core';
+import { MessageData, MessageType } from './message.models';
 
 @Injectable({
    providedIn: 'root'
 })
 export class MessageService {
 
-   constructor(private injector: Injector) { }
+   constructor() { }
+   // TODO: constructor(private injector: Injector) { }
 
    ShowMessage(messageData: MessageData): void {
       /*
@@ -26,11 +26,11 @@ export class MessageService {
    public async ShowInfo(...messages: string[]): Promise<void> {
       if (!messages || messages.length == 0)
          return;
-      // const translatedMessage = await Promise.all(messages.map(async message => await this.translation.getValue(message))); }
+      // TODO: const translatedMessage = await Promise.all(messages.map(async message => await this.translation.getValue(message))); }
       const translatedMessage = messages;
       const messageData = Object.assign(new MessageData, {
          Messages: translatedMessage,
-         Type: MessageDataType.Information
+         Type: MessageType.Information
       });
       this.ShowMessage(messageData);
    }
@@ -38,11 +38,11 @@ export class MessageService {
    public async ShowWarning(...messages: string[]): Promise<void> {
       if (!messages || messages.length == 0)
          return;
-      // const translatedMessage = await Promise.all(messages.map(async message => await this.translation.getValue(message))); }
+      // TODO: const translatedMessage = await Promise.all(messages.map(async message => await this.translation.getValue(message))); }
       const translatedMessage = messages;
       let messageData = Object.assign(new MessageData, {
          Messages: translatedMessage,
-         Type: MessageDataType.Warning
+         Type: MessageType.Warning
       });
       this.ShowMessage(messageData);
    }
@@ -51,7 +51,7 @@ export class MessageService {
       const messageData = Object.assign(new MessageData, {
          Messages: messages,
          Details: details,
-         Type: MessageDataType.Error
+         Type: MessageType.Error
       });
       this.ShowMessage(messageData);
    }
@@ -61,10 +61,10 @@ export class MessageService {
       const messageData = Object.assign(new MessageData, {
          Messages: translatedMessage,
          Details: ex,
-         Type: MessageDataType.Error
+         Type: MessageType.Error
       });
       this.ShowMessage(messageData);
-      this.injector.get<InsightsService>(InsightsService).TrackError(ex);
+      // TODO: this.injector.get<InsightsService>(InsightsService).TrackError(ex);
    }
 
 }
