@@ -16,9 +16,6 @@
       "dom"
     ],
     "paths": {
-      "@elesse/shared": [
-        "projects/elesse-shared/src/public-api.ts"
-      ],
       "@elesse/identity": [
         "projects/elesse-identity/src/public-api.ts",
       ]
