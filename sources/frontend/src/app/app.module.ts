@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
 import {
    SharedModule,
@@ -18,7 +19,7 @@ import { RootComponent } from './root/root.component';
       RootComponent
    ],
    imports: [
-      CommonModule, BrowserModule, BrowserAnimationsModule,
+      CommonModule, BrowserModule, BrowserAnimationsModule, HttpClientModule,
       MaterialModule, SharedModule, IdentityModule,
       AppRouting,
    ],
