@@ -12,7 +12,7 @@ import { BusyComponent } from './busy/busy.component';
       CommonModule, FormsModule, ReactiveFormsModule
    ],
    exports: [
-      CommonModule, FormsModule, ReactiveFormsModule,
+      FormsModule, ReactiveFormsModule,
       BusyComponent
    ]
 })

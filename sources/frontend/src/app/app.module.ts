@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -17,7 +18,7 @@ import { RootComponent } from './root/root.component';
       RootComponent
    ],
    imports: [
-      BrowserModule, BrowserAnimationsModule,
+      CommonModule, BrowserModule, BrowserAnimationsModule,
       MaterialModule, SharedModule, IdentityModule,
       AppRouting,
    ],
