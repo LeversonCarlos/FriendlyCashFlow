@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TokenService } from './token.service';
+import { TokenService } from '../token/token.service';
 import { UnauthGuard } from './unauth.guard';
 
 describe('UnauthGuard', () => {
