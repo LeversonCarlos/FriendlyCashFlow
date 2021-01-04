@@ -28,11 +28,4 @@ describe('RootComponent', () => {
       expect(app.title).toEqual('CashFlow');
    });
 
-   it('should render title', () => {
-      const fixture = TestBed.createComponent(RootComponent);
-      fixture.detectChanges();
-      const compiled = fixture.nativeElement;
-      expect(compiled.querySelector('.content span').textContent).toContain('CashFlow app is running!');
-   });
-
 });

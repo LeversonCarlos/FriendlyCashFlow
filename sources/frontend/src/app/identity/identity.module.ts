@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { MaterialModule } from '../material/material.exports';
+import { SharedModule } from '../shared/shared.exports';
 import { IdentityRouting } from './identity.routing';
 
 @NgModule({
    declarations: [],
    imports: [
-      CommonModule,
+      MaterialModule, SharedModule,
       IdentityRouting
    ]
 })
