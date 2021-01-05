@@ -3,22 +3,17 @@ import { Routes, RouterModule } from '@angular/router';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { AuthGuard } from './guards/auth.guard';
 import { UnauthGuard } from './guards/unauth.guard';
-import { IdentityComponent } from './identity.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { RegisterComponent } from './register/register.component';
 
-const routes: Routes = [{
-   path: '', component: IdentityComponent,
-   children: [
-      { path: '', redirectTo: 'login', pathMatch: 'full' },
-      { path: 'register', canActivate: [UnauthGuard], component: RegisterComponent },
-      { path: 'login', canActivate: [UnauthGuard], component: LoginComponent },
-      { path: 'logout', canActivate: [AuthGuard], component: LogoutComponent },
-      { path: 'change-password', canActivate: [AuthGuard], component: ChangePasswordComponent },
-      // { path: 'activate/:id/:code', component: ActivateComponent },
-   ]
-}];
+const routes: Routes = [
+   { path: 'register', canActivate: [UnauthGuard], component: RegisterComponent },
+   { path: 'login', canActivate: [UnauthGuard], component: LoginComponent },
+   { path: 'logout', canActivate: [AuthGuard], component: LogoutComponent },
+   { path: 'change-password', canActivate: [AuthGuard], component: ChangePasswordComponent },
+   // { path: 'activate/:id/:code', component: ActivateComponent },
+];
 
 @NgModule({
    imports: [RouterModule.forChild(routes)],

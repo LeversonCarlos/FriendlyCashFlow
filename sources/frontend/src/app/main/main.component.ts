@@ -12,8 +12,6 @@ export class MainComponent implements OnInit {
       this.insights.TrackEvent('Application Opened');
    }
 
-   title = 'Friendly Cash Flow';
-
    ngOnInit(): void {
    }
 
