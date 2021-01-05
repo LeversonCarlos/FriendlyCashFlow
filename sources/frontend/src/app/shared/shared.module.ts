@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { BusyComponent } from './busy/busy.component';
@@ -13,10 +14,11 @@ import { MaterialModule } from '@elesse/material';
       AnonymousContainerComponent, AuthenticatedContainerComponent
    ],
    imports: [
-      CommonModule, MaterialModule, FormsModule, ReactiveFormsModule
+      CommonModule, RouterModule, FormsModule, ReactiveFormsModule,
+      MaterialModule
    ],
    exports: [
-      CommonModule, FormsModule, ReactiveFormsModule,
+      CommonModule, RouterModule, FormsModule, ReactiveFormsModule,
       BusyComponent,
       AnonymousContainerComponent, AuthenticatedContainerComponent
    ]
