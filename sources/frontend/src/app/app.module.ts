@@ -12,6 +12,10 @@ import { MaterialModule } from '@elesse/material';
 import { IdentityModule, TokenService } from '@elesse/identity';
 
 import { AppRouting } from './app.routing';
+import { UrlInterceptorProvider } from './main/interceptors/url.interceptor';
+import { ErrorInterceptorProvider } from './main/interceptors/error.interceptor';
+import { RequestAuthInterceptorProvider, ResponseAuthInterceptorProvider } from './main/interceptors/auth.interceptor';
+
 import { MainComponent } from './main/main.component';
 import { HomeComponent } from './main/home/home.component';
 import { AnonymousHomeComponent } from './main/home/anonymous-home/anonymous-home.component';
@@ -28,7 +32,8 @@ import { AuthenticatedHomeComponent } from './main/home/authenticated-home/authe
    ],
    providers: [
       SettingsService, BusyService, InsightsService, MessageService, ResponsiveService,
-      TokenService
+      TokenService,
+      UrlInterceptorProvider, ErrorInterceptorProvider, RequestAuthInterceptorProvider, ResponseAuthInterceptorProvider
    ],
    bootstrap: [MainComponent]
 })
