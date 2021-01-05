@@ -1,3 +1,4 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
   "compilerOptions": {
@@ -17,11 +18,14 @@
     ],
     "paths": {
       "@elesse/shared": [
-        "projects/elesse-shared/src/public-api.ts"
+        "src/app/shared/shared.exports.ts"
+      ],
+      "@elesse/material": [
+        "src/app/material/material.exports.ts"
       ],
       "@elesse/identity": [
-        "projects/elesse-identity/src/public-api.ts",
-      ]
+        "src/app/identity/identity.exports.ts"
+      ],
     }
   }
 }

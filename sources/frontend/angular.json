@@ -3,112 +3,32 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ElesseShared": {
-      "projectType": "library",
-      "root": "projects/elesse-shared",
-      "sourceRoot": "projects/elesse-shared/src",
-      "prefix": "elesse-shared",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "tsConfig": "projects/elesse-shared/tsconfig.lib.json",
-            "project": "projects/elesse-shared/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/elesse-shared/tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/elesse-shared/src/test.ts",
-            "tsConfig": "projects/elesse-shared/tsconfig.spec.json",
-            "karmaConfig": "projects/elesse-shared/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/elesse-shared/tsconfig.lib.json",
-              "projects/elesse-shared/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
-    "ElesseIdentity": {
-      "projectType": "library",
-      "root": "projects/elesse-identity",
-      "sourceRoot": "projects/elesse-identity/src",
-      "prefix": "elesse-identity",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "tsConfig": "projects/elesse-identity/tsconfig.lib.json",
-            "project": "projects/elesse-identity/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/elesse-identity/tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/elesse-identity/src/test.ts",
-            "tsConfig": "projects/elesse-identity/tsconfig.spec.json",
-            "karmaConfig": "projects/elesse-identity/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/elesse-identity/tsconfig.lib.json",
-              "projects/elesse-identity/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
-    "ElesseCashFlow": {
+    "CashFlow": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
         }
       },
-      "root": "projects/elesse-cash-flow",
-      "sourceRoot": "projects/elesse-cash-flow/src",
-      "prefix": "elesse-cash-flow",
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "elesse",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/elesse-cash-flow",
-            "index": "projects/elesse-cash-flow/src/index.html",
-            "main": "projects/elesse-cash-flow/src/main.ts",
-            "polyfills": "projects/elesse-cash-flow/src/polyfills.ts",
-            "tsConfig": "projects/elesse-cash-flow/tsconfig.app.json",
+            "outputPath": "dist/CashFlow",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.app.json",
             "aot": true,
             "assets": [
-              "projects/elesse-cash-flow/src/assets"
+              "src/assets"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
-              "projects/elesse-cash-flow/src/styles/styles.scss"
+              "src/styles/styles.scss"
             ],
             "scripts": []
           },
@@ -116,8 +36,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "projects/elesse-cash-flow/src/environments/environment.ts",
-                  "with": "projects/elesse-cash-flow/src/environments/environment.prod.ts"
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -146,33 +66,33 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ElesseCashFlow:build"
+            "browserTarget": "CashFlow:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ElesseCashFlow:build:production"
+              "browserTarget": "CashFlow:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ElesseCashFlow:build"
+            "browserTarget": "CashFlow:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/elesse-cash-flow/src/test.ts",
-            "polyfills": "projects/elesse-cash-flow/src/polyfills.ts",
-            "tsConfig": "projects/elesse-cash-flow/tsconfig.spec.json",
-            "karmaConfig": "projects/elesse-cash-flow/karma.conf.js",
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
             "assets": [
-              "projects/elesse-cash-flow/src/assets"
+              "src/assets"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
-              "projects/elesse-cash-flow/src/styles/styles.scss"
+              "src/styles/styles.scss"
             ],
             "scripts": []
           }
@@ -181,9 +101,9 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/elesse-cash-flow/tsconfig.app.json",
-              "projects/elesse-cash-flow/tsconfig.spec.json",
-              "projects/elesse-cash-flow/e2e/tsconfig.json"
+              "tsconfig.app.json",
+              "tsconfig.spec.json",
+              "e2e/tsconfig.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -193,17 +113,17 @@
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
-            "protractorConfig": "projects/elesse-cash-flow/e2e/protractor.conf.js",
-            "devServerTarget": "ElesseCashFlow:serve"
+            "protractorConfig": "e2e/protractor.conf.js",
+            "devServerTarget": "CashFlow:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "ElesseCashFlow:serve:production"
+              "devServerTarget": "CashFlow:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "ElesseCashFlow"
+  "defaultProject": "CashFlow"
 }
