@@ -12,14 +12,14 @@ import { MaterialModule } from '@elesse/material';
 import { IdentityModule, TokenService } from '@elesse/identity';
 
 import { AppRouting } from './app.routing';
-import { RootComponent } from './root/root.component';
+import { MainComponent } from './main/main.component';
 import { HomeComponent } from './home/home.component';
 import { AnonymousHomeComponent } from './home/anonymous-home/anonymous-home.component';
 import { AuthenticatedHomeComponent } from './home/authenticated-home/authenticated-home.component';
 
 @NgModule({
    declarations: [
-      RootComponent, HomeComponent, AnonymousHomeComponent, AuthenticatedHomeComponent
+      MainComponent, HomeComponent, AnonymousHomeComponent, AuthenticatedHomeComponent
    ],
    imports: [
       CommonModule, BrowserModule, BrowserAnimationsModule, HttpClientModule,
@@ -30,6 +30,6 @@ import { AuthenticatedHomeComponent } from './home/authenticated-home/authentica
       SettingsService, BusyService, InsightsService, MessageService, ResponsiveService,
       TokenService
    ],
-   bootstrap: [RootComponent]
+   bootstrap: [MainComponent]
 })
 export class AppModule { }

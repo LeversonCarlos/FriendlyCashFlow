@@ -3,16 +3,16 @@ import { InsightsService } from '@elesse/shared';
 
 @Component({
    selector: 'elesse-root',
-   templateUrl: './root.component.html',
-   styleUrls: ['./root.component.scss']
+   template: `<router-outlet></router-outlet>`,
+   styles: []
 })
-export class RootComponent implements OnInit {
+export class MainComponent implements OnInit {
 
    constructor(private insights: InsightsService) {
       this.insights.TrackEvent('Application Opened');
    }
 
-   title = 'CashFlow';
+   title = 'Friendly Cash Flow';
 
    ngOnInit(): void {
    }
