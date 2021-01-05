@@ -84,10 +84,6 @@ jobs:
         with:
           path: testReports
 
-      - name: List Reports
-        run: ls -R
-        working-directory: testReports
-
       # - name: Setup .NET Core
       #   uses: actions/setup-dotnet@v1
       #   with:
@@ -110,18 +106,14 @@ jobs:
           tag: '${{ github.run_number }}_${{ github.run_id }}' # Optional tag or build version.
           customSettings: '' # Optional custom settings (separated by semicolon). See: https://github.com/danielpalme/ReportGenerator/wiki/Settings.
 
-      - name: List Reports
-        run: ls -R
-        working-directory: mergedReports
-
       - name: Store Tests
         uses: actions/upload-artifact@v2
         with:
           name: merged-tests
           path: mergedReports
 
-      # - name: Identity - Report
-      #   uses: romeovs/lcov-reporter-action@v0.2.16
-      #   with:
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
-      #     lcov-file: ./sources/backend/identity/coverage.info
+      - name: Publish Test Reports
+        uses: romeovs/lcov-reporter-action@v0.2.16
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          lcov-file: ./mergedReports/lcov.info
