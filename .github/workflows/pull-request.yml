@@ -26,7 +26,7 @@ jobs:
         run: dotnet test --no-build /p:CoverletOutputFormat=lcov
 
       - name: Identity - Store Tests
-        uses: actions/upload-artifact@v1.0.0
+        uses: actions/upload-artifact@v2
         with:
           name: identity-tests
           path: ./sources/backend/identity/coverage.info
@@ -67,7 +67,7 @@ jobs:
         run: npm run test
 
       - name: Store Tests
-        uses: actions/upload-artifact@v1.0.0
+        uses: actions/upload-artifact@v2
         with:
           name: frontend-tests
           path: ./sources/frontend/coverage.info
@@ -80,7 +80,7 @@ jobs:
     steps:
 
       - name: Retrieve Reports
-        uses: actions/download-artifact@v1.0.0
+        uses: actions/download-artifact@v2
         with:
           path: testReports
 
