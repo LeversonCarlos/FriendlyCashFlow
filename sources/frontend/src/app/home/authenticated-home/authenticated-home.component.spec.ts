@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from '@elesse/shared';
 import { AuthenticatedHomeComponent } from './authenticated-home.component';
 
@@ -10,7 +11,7 @@ describe('AuthenticatedHomeComponent', () => {
    beforeEach(async () => {
       await TestBed.configureTestingModule({
          declarations: [AuthenticatedHomeComponent],
-         imports: [SharedModule]
+         imports: [SharedModule, NoopAnimationsModule]
       })
          .compileComponents();
    });
