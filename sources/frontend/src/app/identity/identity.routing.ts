@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 import { AuthGuard } from './guards/auth.guard';
 import { UnauthGuard } from './guards/unauth.guard';
 import { IdentityComponent } from './identity.component';
@@ -13,7 +14,7 @@ const routes: Routes = [{
       { path: 'register', canActivate: [UnauthGuard], component: RegisterComponent },
       // { path: 'login', canActivate: [UnauthGuard], component: LoginComponent },
       { path: 'logout', canActivate: [AuthGuard], component: LogoutComponent },
-      // { path: 'change-password', canActivate: [AuthGuard], component: ChangePasswordComponent },
+      { path: 'change-password', canActivate: [AuthGuard], component: ChangePasswordComponent },
       // { path: 'activate/:id/:code', component: ActivateComponent },
    ]
 }];
