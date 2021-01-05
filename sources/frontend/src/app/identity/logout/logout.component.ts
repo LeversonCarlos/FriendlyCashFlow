@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BusyService, TokenService } from '@elesse/shared';
+import { TokenService } from '../token/token.service';
+import { BusyService } from '@elesse/shared';
 
 @Component({
    selector: 'identity-logout',
