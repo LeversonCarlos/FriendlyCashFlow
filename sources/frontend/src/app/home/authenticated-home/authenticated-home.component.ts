@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-   selector: 'elesse-cash-flow-authenticated-home',
+   selector: 'elesse-authenticated-home',
    templateUrl: './authenticated-home.component.html',
    styleUrls: ['./authenticated-home.component.scss']
 })

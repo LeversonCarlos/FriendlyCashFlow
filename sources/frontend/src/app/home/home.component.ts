@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { TokenService } from '@elesse/shared';
+import { TokenService } from '@elesse/identity';
 
 @Component({
-   selector: 'elesse-cash-flow-home',
+   selector: 'elesse-home',
    templateUrl: './home.component.html',
-   styleUrls: ['./home.component.scss']
+   template: `
+      <elesse-anonymous-home *ngIf="!IsAuthenticated"></elesse-anonymous-home>
+      <elesse-authenticated-home *ngIf="IsAuthenticated"></elesse-authenticated-home>
+   `,
+   styles: []
 })
 export class HomeComponent implements OnInit {
 

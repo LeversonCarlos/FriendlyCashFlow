@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-   selector: 'elesse-cash-flow-anonymous-home',
+   selector: 'elesse-anonymous-home',
    templateUrl: './anonymous-home.component.html',
    styleUrls: ['./anonymous-home.component.scss']
 })
