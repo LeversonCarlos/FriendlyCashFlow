@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
-import { TokenService, TokenVM } from '@elesse/shared';
-import { RefreshService } from '@elesse/identity';
+import { TokenService, TokenData, TokenRefreshService } from '@elesse/identity';
 import { catchError, filter, switchMap, take } from 'rxjs/operators';
 
 @Injectable()
@@ -26,7 +25,7 @@ export class RequestAuthInterceptor implements HttpInterceptor {
 @Injectable()
 export class ResponseAuthInterceptor implements HttpInterceptor {
 
-   constructor(private tokenService: TokenService, private refreshService: RefreshService) { }
+   constructor(private tokenService: TokenService, private refreshService: TokenRefreshService) { }
 
    private IsRefreshingToken: boolean = false;
    private RefreshingTokenEvent: BehaviorSubject<string> = new BehaviorSubject<string>(null);
@@ -72,7 +71,7 @@ export class ResponseAuthInterceptor implements HttpInterceptor {
          return this.refreshService
             .TokenRefresh(this.tokenService.Token.RefreshToken)
             .pipe(
-               catchError((error): Observable<TokenVM> => {
+               catchError((error): Observable<TokenData> => {
                   this.tokenService.Token = null;
                   this.IsRefreshingToken = false
                   location.reload();

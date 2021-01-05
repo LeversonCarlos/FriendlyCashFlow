@@ -3,7 +3,7 @@ import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { InsightsService, MessageService } from '@elesse/shared';
-import { MessageData, MessageDataType } from '@elesse/shared';
+import { MessageData, MessageType } from '@elesse/shared';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -54,14 +54,14 @@ export class ErrorInterceptor implements HttpInterceptor {
       errorList.forEach(errorKey => {
 
          if (errorKey.lastIndexOf("WARNING_", 0) == 0)
-            msg.Type = MessageDataType.Warning;
+            msg.Type = MessageType.Warning;
          else if (errorKey.lastIndexOf("EXCEPTION_", 0) == 0)
             // msg.Details = JSON.stringify(error);
-            msg.Type = MessageDataType.Error;
+            msg.Type = MessageType.Error;
          else if (errorKey.lastIndexOf("INNER_EXCEPTION_", 0) == 0)
-            msg.Type = MessageDataType.Error;
+            msg.Type = MessageType.Error;
          else
-            msg.Type = MessageDataType.Information;
+            msg.Type = MessageType.Information;
          msg.Messages.push(errorKey);
 
       });
