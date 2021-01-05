@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from '@elesse/material';
+import { TestsModule } from '@elesse/tests';
 import { AuthenticatedContainerComponent } from './authenticated-container.component';
 
 describe('AuthenticatedContainerComponent', () => {
@@ -11,9 +10,9 @@ describe('AuthenticatedContainerComponent', () => {
    beforeEach(async () => {
       await TestBed.configureTestingModule({
          declarations: [AuthenticatedContainerComponent],
-         imports: [MaterialModule, NoopAnimationsModule]
+         imports: [TestsModule]
       })
-         .compileComponents();
+      .compileComponents();
    });
 
    beforeEach(() => {

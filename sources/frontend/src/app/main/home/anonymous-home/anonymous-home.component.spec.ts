@@ -1,7 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
-import { SharedModule } from '@elesse/shared';
+import { TestsModule } from '@elesse/tests';
 import { AnonymousHomeComponent } from './anonymous-home.component';
 
 describe('AnonymousHomeComponent', () => {
@@ -12,9 +10,9 @@ describe('AnonymousHomeComponent', () => {
    beforeEach(async () => {
       await TestBed.configureTestingModule({
          declarations: [AnonymousHomeComponent],
-         imports: [SharedModule, RouterTestingModule, NoopAnimationsModule]
+         imports: [TestsModule]
       })
-         .compileComponents();
+      .compileComponents();
    });
 
    beforeEach(() => {
