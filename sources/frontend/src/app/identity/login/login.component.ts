@@ -2,12 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BusyService, TokenService, TokenVM } from '@elesse/shared';
+import { TokenService } from '../token/token.service';
+import { BusyService } from '@elesse/shared';
+import { TokenData } from '../token/token.data';
 
 @Component({
    selector: 'identity-login',
    templateUrl: './login.component.html',
-   styleUrls: ['./login.component.scss', '../elesse-identity.common.scss']
+   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
 
@@ -40,7 +42,7 @@ export class LoginComponent implements OnInit {
             UserName: this.inputForm.value.UserName,
             Password: this.inputForm.value.Password
          });
-         this.tokenService.Token = await this.http.post<TokenVM>(`api/identity/user-auth`, authParam).toPromise();
+         this.tokenService.Token = await this.http.post<TokenData>(`api/identity/user-auth`, authParam).toPromise();
 
          if (this.tokenService.HasToken)
             this.router.navigateByUrl(this.returnUrl);

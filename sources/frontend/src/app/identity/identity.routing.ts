@@ -4,6 +4,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { AuthGuard } from './guards/auth.guard';
 import { UnauthGuard } from './guards/unauth.guard';
 import { IdentityComponent } from './identity.component';
+import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { RegisterComponent } from './register/register.component';
 
@@ -12,7 +13,7 @@ const routes: Routes = [{
    children: [
       { path: '', redirectTo: 'login', pathMatch: 'full' },
       { path: 'register', canActivate: [UnauthGuard], component: RegisterComponent },
-      // { path: 'login', canActivate: [UnauthGuard], component: LoginComponent },
+      { path: 'login', canActivate: [UnauthGuard], component: LoginComponent },
       { path: 'logout', canActivate: [AuthGuard], component: LogoutComponent },
       { path: 'change-password', canActivate: [AuthGuard], component: ChangePasswordComponent },
       // { path: 'activate/:id/:code', component: ActivateComponent },
