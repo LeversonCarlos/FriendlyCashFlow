@@ -13,9 +13,9 @@ import { IdentityModule, TokenService } from '@elesse/identity';
 
 import { AppRouting } from './app.routing';
 import { MainComponent } from './main/main.component';
-import { HomeComponent } from './home/home.component';
-import { AnonymousHomeComponent } from './home/anonymous-home/anonymous-home.component';
-import { AuthenticatedHomeComponent } from './home/authenticated-home/authenticated-home.component';
+import { HomeComponent } from './main/home/home.component';
+import { AnonymousHomeComponent } from './main/home/anonymous-home/anonymous-home.component';
+import { AuthenticatedHomeComponent } from './main/home/authenticated-home/authenticated-home.component';
 
 @NgModule({
    declarations: [
