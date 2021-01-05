@@ -21,15 +21,21 @@ jobs:
         working-directory: 'sources/backend/identity/'
         run: dotnet build --no-restore
 
-      - name: Identity - Tests
+      - name: Identity - Run Tests
         working-directory: 'sources/backend/identity/'
         run: dotnet test --no-build /p:CoverletOutputFormat=lcov
 
-      - name: Identity - Report
-        uses: romeovs/lcov-reporter-action@v0.2.16
+      - name: Identity - Store Tests
+        uses: actions/upload-artifact@v1.0.0
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          lcov-file: ./sources/backend/identity/coverage.info
+          name: identity-tests
+          path: ./sources/backend/identity/coverage.info
+
+      # - name: Identity - Report
+      #   uses: romeovs/lcov-reporter-action@v0.2.16
+      #   with:
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      #     lcov-file: ./sources/backend/identity/coverage.info
 
       - name: Application - Restore
         working-directory: 'sources/backend/main/'
@@ -56,6 +62,28 @@ jobs:
         working-directory: 'sources/frontend/'
         run: npm run build
 
-      - name: Tests
+      - name: Run Tests
         working-directory: 'sources/frontend/'
         run: npm run test
+
+      - name: Store Tests
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          name: frontend-tests
+          path: ./sources/frontend/coverage.info
+
+  testReports:
+    name: Test Reports
+    runs-on: ubuntu-latest
+    needs: [backend,frontend]
+
+    steps:
+
+      - name: Retrieve Reports
+        uses: actions/download-artifact@v1.0.0
+        with:
+          path: testReports
+
+      - name: List Reports
+        run: ls -R
+        working-directory: testReports
