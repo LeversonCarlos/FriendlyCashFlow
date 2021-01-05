@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-   selector: 'elesse-anonymous-container',
+   selector: 'shared-anonymous-container',
    templateUrl: './anonymous-container.component.html',
    styleUrls: ['./anonymous-container.component.scss']
 })

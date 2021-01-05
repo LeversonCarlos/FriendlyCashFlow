@@ -3,7 +3,6 @@ import { TokenService } from '@elesse/identity';
 
 @Component({
    selector: 'elesse-home',
-   templateUrl: './home.component.html',
    template: `
       <elesse-anonymous-home *ngIf="!IsAuthenticated"></elesse-anonymous-home>
       <elesse-authenticated-home *ngIf="IsAuthenticated"></elesse-authenticated-home>
