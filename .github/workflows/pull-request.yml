@@ -66,19 +66,10 @@ jobs:
         working-directory: 'sources/frontend/'
         run: npm run test
 
-      - name: Github Workspace
-        working-directory: 'sources/frontend/'
-        run: |
-          echo "GITHUB_WORKSPACE = $GITHUB_WORKSPACE"
-          echo "github.workspace = ${{ github.workspace }}"
-          echo "$GITHUB_CONTEXT"
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-
       - name: Fix Tests Paths
         working-directory: 'sources/frontend/'
         run: |
-          sed 's|SF:src/|SF:${{ github.workspace }}/sources/frontend/src/|' coverage.info
+          sed -i 's|SF:src/|SF:${{ github.workspace }}/sources/frontend/src/|' coverage.info
 
       - name: Store Tests
         uses: actions/upload-artifact@v2
