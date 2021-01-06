@@ -57,12 +57,12 @@ namespace Elesse.Accounts
          get => _Type;
          internal set
          {
-            if (value == null)
-               throw new ArgumentException(WARNING_INVALID_TYPE);
-            _Text = value;
+            // if (value == null)
+            //    throw new ArgumentException(WARNING_INVALID_TYPE);
+            _Type = value;
          }
       }
-      internal const string WARNING_INVALID_TYPE = "WARNING_ACCOUNTS_INVALID_TYPE_PARAMETER";
+      // internal const string WARNING_INVALID_TYPE = "WARNING_ACCOUNTS_INVALID_TYPE_PARAMETER";
 
       short? _ClosingDay;
       public short? ClosingDay
@@ -96,12 +96,12 @@ namespace Elesse.Accounts
          get => _Active;
          internal set
          {
-            if (value == null)
-               throw new ArgumentException(WARNING_INVALID_ACTIVE);
-            _Password = value;
+            // if (value == null)
+            //    throw new ArgumentException(WARNING_INVALID_ACTIVE);
+            _Active = value;
          }
       }
-      internal const string WARNING_INVALID_ACTIVE = "WARNING_ACCOUNTS_INVALID_ACCOUNT_PARAMETER";
+      // internal const string WARNING_INVALID_ACTIVE = "WARNING_ACCOUNTS_INVALID_ACCOUNT_PARAMETER";
 
    }
 
