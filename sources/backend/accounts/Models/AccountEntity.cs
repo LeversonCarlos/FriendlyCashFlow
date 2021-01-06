@@ -46,6 +46,45 @@ namespace Elesse.Accounts
       }
       internal const string WARNING_INVALID_TEXT = "WARNING_ACCOUNTS_INVALID_TEXT_PARAMETER";
 
+      enAccountType _Type;
+      public enAccountType Type
+      {
+         get => _Type;
+         internal set
+         {
+            if (value == null)
+               throw new ArgumentException(WARNING_INVALID_TYPE);
+            _Text = value;
+         }
+      }
+      internal const string WARNING_INVALID_TYPE = "WARNING_ACCOUNTS_INVALID_TYPE_PARAMETER";
+
+      short? _ClosingDay;
+      public short? ClosingDay
+      {
+         get => _ClosingDay;
+         internal set
+         {
+            if (value.HasValue && (value.Value < 1 || value.Value > 31))
+               throw new ArgumentException(WARNING_INVALID_CLOSING_DAY);
+            _ClosingDay = value;
+         }
+      }
+      internal const string WARNING_INVALID_CLOSING_DAY = "WARNING_ACCOUNTS_INVALID_CLOSING_DAY_PARAMETER";
+
+      short? _DueDay;
+      public short? DueDay
+      {
+         get => _DueDay;
+         internal set
+         {
+            if (value.HasValue && (value.Value < 1 || value.Value > 31))
+               throw new ArgumentException(WARNING_INVALID_DUE_DAY);
+            _DueDay = value;
+         }
+      }
+      internal const string WARNING_INVALID_DUE_DAY = "WARNING_ACCOUNTS_INVALID_DUE_DAY_PARAMETER";
+
       bool _Active;
       public bool Active
       {
