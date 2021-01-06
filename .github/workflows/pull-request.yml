@@ -21,15 +21,21 @@ jobs:
         working-directory: 'sources/backend/identity/'
         run: dotnet build --no-restore
 
-      - name: Identity - Tests
+      - name: Identity - Run Tests
         working-directory: 'sources/backend/identity/'
         run: dotnet test --no-build /p:CoverletOutputFormat=lcov
 
-      - name: Identity - Report
-        uses: romeovs/lcov-reporter-action@v0.2.16
+      - name: Identity - Store Tests
+        uses: actions/upload-artifact@v2
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          lcov-file: ./sources/backend/identity/coverage.info
+          name: identity-tests
+          path: ./sources/backend/identity/coverage.info
+
+      # - name: Identity - Report
+      #   uses: romeovs/lcov-reporter-action@v0.2.16
+      #   with:
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      #     lcov-file: ./sources/backend/identity/coverage.info
 
       - name: Application - Restore
         working-directory: 'sources/backend/main/'
@@ -56,6 +62,66 @@ jobs:
         working-directory: 'sources/frontend/'
         run: npm run build
 
-      - name: Tests
+      - name: Run Tests
         working-directory: 'sources/frontend/'
         run: npm run test
+
+      - name: Fix Tests Paths
+        working-directory: 'sources/frontend/'
+        run: |
+          sed -i 's|SF:src/|SF:${{ github.workspace }}/sources/frontend/src/|' coverage.info
+
+      - name: Store Tests
+        uses: actions/upload-artifact@v2
+        with:
+          name: frontend-tests
+          path: ./sources/frontend/coverage.info
+
+  testReports:
+    name: Test Reports
+    runs-on: ubuntu-latest
+    needs: [backend,frontend]
+
+    steps:
+
+      # - name: Checkout Source
+      #   uses: actions/checkout@v2
+
+      - name: Retrieve Reports
+        uses: actions/download-artifact@v2
+        with:
+          path: testReports
+
+      # - name: Setup .NET Core
+      #   uses: actions/setup-dotnet@v1
+      #   with:
+      #     dotnet-version: 5.0.101
+
+      - name: Merge Reports
+        uses: danielpalme/ReportGenerator-GitHub-Action@4.8.4
+        with:
+          reports: 'testReports/**/coverage.info' # REQUIRED # The coverage reports that should be parsed (separated by semicolon). Globbing is supported.
+          targetdir: 'mergedReports' # REQUIRED # The directory where the generated report should be saved.
+          reporttypes: 'lcov;Cobertura' # The output formats and scope (separated by semicolon) Values: Badges, Clover, Cobertura, CsvSummary, Html, HtmlChart, HtmlInline, HtmlInline_AzurePipelines, HtmlInline_AzurePipelines_Dark, HtmlSummary, JsonSummary, Latex, LatexSummary, lcov, MHtml, PngChart, SonarQube, TeamCitySummary, TextSummary, Xml, XmlSummary
+          sourcedirs: '' # Optional directories which contain the corresponding source code (separated by semicolon). The source directories are used if coverage report contains classes without path information.
+          historydir: '' # Optional directory for storing persistent coverage information. Can be used in future reports to show coverage evolution.
+          plugins: '' # Optional plugin files for custom reports or custom history storage (separated by semicolon).
+          assemblyfilters: '+*' # Optional list of assemblies that should be included or excluded in the report. Exclusion filters take precedence over inclusion filters. Wildcards are allowed.
+          classfilters: '+*' # Optional list of classes that should be included or excluded in the report. Exclusion filters take precedence over inclusion filters. Wildcards are allowed.
+          filefilters: '+*' # Optional list of files that should be included or excluded in the report. Exclusion filters take precedence over inclusion filters. Wildcards are allowed.
+          verbosity: 'Info' # The verbosity level of the log messages. Values: Verbose, Info, Warning, Error, Off
+          title: '' # Optional title.
+          tag: '${{ github.run_number }}_${{ github.run_id }}' # Optional tag or build version.
+          customSettings: '' # Optional custom settings (separated by semicolon). See: https://github.com/danielpalme/ReportGenerator/wiki/Settings.
+
+      - name: Store Tests
+        uses: actions/upload-artifact@v2
+        with:
+          name: merged-tests
+          path: mergedReports
+
+      - name: Publish Test Reports
+        uses: romeovs/lcov-reporter-action@v0.2.16
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          lcov-file: ./mergedReports/lcov.info
