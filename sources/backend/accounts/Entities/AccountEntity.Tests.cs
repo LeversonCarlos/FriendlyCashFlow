@@ -9,40 +9,23 @@ namespace Elesse.Accounts.Tests
 
 
       [Theory]
-      [InlineData("Bank Text", enAccountType.Bank)]
-      [InlineData("General Text", enAccountType.General)]
-      [InlineData("Investment Text", enAccountType.Investment)]
-      [InlineData("Service Text", enAccountType.Service)]
-      public void SimpleConstructor_WithValidParameters_MustResultValidInstance(string accountText, enAccountType accountType)
+      [InlineData("Bank Text", enAccountType.Bank, null, null)]
+      [InlineData("General Text", enAccountType.General, null, null)]
+      [InlineData("Investment Text", enAccountType.Investment, null, null)]
+      [InlineData("Service Text", enAccountType.Service, null, null)]
+      [InlineData("Credit Card Text", enAccountType.CreditCard, (short)7, (short)15)]
+      public void Constructor_WithValidParameters_MustResultValidInstance(string accountText, enAccountType accountType, short? closingDay, short? dueDay)
       {
-         var account = new AccountEntity(accountText, accountType);
+         var account = new AccountEntity(accountText, accountType, closingDay, dueDay);
 
          Assert.NotNull(account);
          Assert.NotNull(account.AccountID);
          Assert.Equal(36, account.AccountID.ToString().Length);
          Assert.Equal(accountText, account.Text);
          Assert.Equal(accountType, account.Type);
-         Assert.True(account.Active);
-         Assert.Null(account.ClosingDay);
-         Assert.Null(account.DueDay);
-      }
-
-      [Fact]
-      public void CreditCardConstructor_WithValidParameters_MustResultValidInstance()
-      {
-         var accountText = "Credit Card Text";
-         short closingDay = 7;
-         short dueDay = 15;
-         var account = new AccountEntity(accountText, closingDay, dueDay);
-
-         Assert.NotNull(account);
-         Assert.NotNull(account.AccountID);
-         Assert.Equal(36, account.AccountID.ToString().Length);
-         Assert.Equal(accountText, account.Text);
-         Assert.Equal(enAccountType.CreditCard, account.Type);
-         Assert.True(account.Active);
          Assert.Equal(closingDay, account.ClosingDay);
          Assert.Equal(dueDay, account.DueDay);
+         Assert.True(account.Active);
       }
 
       [Theory]
