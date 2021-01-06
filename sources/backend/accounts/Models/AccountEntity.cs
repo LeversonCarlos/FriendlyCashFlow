@@ -6,18 +6,23 @@ namespace Elesse.Accounts
    internal class AccountEntity : IAccountEntity
    {
 
-      /*
-      public UserEntity(string text, enAccountType type, short? closingDay, short? dueDay)
-         : this(Guid.NewGuid().ToString(), userName, password)
+      public AccountEntity(string text, enAccountType type)
+         : this(new Shared.EntityID(), text, type, null, null, true)
       { }
 
-      public UserEntity(string userID, string userName, string password)
+      public AccountEntity(string text, enAccountType type, short closingDay, short dueDay)
+         : this(new Shared.EntityID(), text, type, closingDay, dueDay, true)
+      { }
+
+      public AccountEntity(Shared.EntityID accountID, string text, enAccountType type, short? closingDay, short? dueDay, bool active)
       {
-         UserID = userID;
-         UserName = userName;
-         Password = password;
+         AccountID = accountID;
+         Text = text;
+         Type = type;
+         ClosingDay = closingDay;
+         DueDay = dueDay;
+         Active = active;
       }
-      */
 
       Shared.EntityID _AccountID;
       [MongoDB.Bson.Serialization.Attributes.BsonId]
