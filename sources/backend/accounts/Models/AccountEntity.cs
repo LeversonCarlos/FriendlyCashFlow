@@ -10,8 +10,8 @@ namespace Elesse.Accounts
          : this(new Shared.EntityID(), text, type, null, null, true)
       { }
 
-      public AccountEntity(string text, enAccountType type, short closingDay, short dueDay)
-         : this(new Shared.EntityID(), text, type, closingDay, dueDay, true)
+      public AccountEntity(string text, short closingDay, short dueDay)
+         : this(new Shared.EntityID(), text, enAccountType.CreditCard, closingDay, dueDay, true)
       { }
 
       public AccountEntity(Shared.EntityID accountID, string text, enAccountType type, short? closingDay, short? dueDay, bool active)
