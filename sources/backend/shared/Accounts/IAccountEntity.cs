@@ -2,7 +2,7 @@ namespace Elesse.Accounts
 {
    public interface IAccountEntity
    {
-      string AccountID { get; }
+      Shared.EntityID AccountID { get; }
       string Text { get; }
       short Type { get; }
       short? ClosingDay { get; }
