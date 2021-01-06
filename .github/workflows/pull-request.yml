@@ -78,7 +78,7 @@ jobs:
       - name: Fix Tests Paths
         working-directory: 'sources/frontend/'
         run: |
-          sed -i 's/SF:src\/SF:${{ github.workspace }}/sources/frontend/src\/g' coverage.info
+          sed 's|SF:src\|SF:${{ github.workspace }}/sources/frontend/src\|' coverage.info
 
       - name: Store Tests
         uses: actions/upload-artifact@v2
