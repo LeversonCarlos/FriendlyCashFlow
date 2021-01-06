@@ -45,35 +45,28 @@ namespace Elesse.Accounts.Tests
          Assert.Equal(dueDay, account.DueDay);
       }
 
-      /*
       [Theory]
       [MemberData(nameof(Constructor_WithInvalidParameters_MustThrowException_Data))]
-      public void Constructor_WithInvalidParameters_MustThrowException(string exceptionText, string userID, string userName, string password)
+      public void Constructor_WithInvalidParameters_MustThrowException(string exceptionText, Shared.EntityID accountID, string accountText, enAccountType accountType, short? closingDay, short? dueDay)
       {
-         var exception = Assert.Throws<ArgumentException>(() => new UserEntity(userID, userName, password));
+         var active = true;
+         var exception = Assert.Throws<ArgumentException>(() => new AccountEntity(accountID, accountText, accountType, closingDay, dueDay, active));
 
          Assert.NotNull(exception);
          Assert.Equal(exceptionText, exception.Message);
       }
       public static IEnumerable<object[]> Constructor_WithInvalidParameters_MustThrowException_Data() =>
          new[] {
-            new object[] { UserEntity.WARNING_IDENTITY_INVALID_USERID_PARAMETER, (string)null, "UserName", "Password" },
-            new object[] { UserEntity.WARNING_IDENTITY_INVALID_USERID_PARAMETER, "", "UserName", "Password" },
-            new object[] { UserEntity.WARNING_IDENTITY_INVALID_USERID_PARAMETER, " ", "UserName", "Password" },
-            new object[] { UserEntity.WARNING_IDENTITY_INVALID_USERID_PARAMETER, "123456789_123456789_123456789_12345", "UserName", "Password" },
-            new object[] { UserEntity.WARNING_IDENTITY_INVALID_USERID_PARAMETER, "123456789_123456789_123456789_1234567", "UserName", "Password" },
-            new object[] { UserEntity.WARNING_IDENTITY_INVALID_USERNAME_PARAMETER, "123456789_123456789_123456789_123456", (string)null, "Password" },
-            new object[] { UserEntity.WARNING_IDENTITY_INVALID_USERNAME_PARAMETER, "123456789_123456789_123456789_123456", "", "Password" },
-            new object[] { UserEntity.WARNING_IDENTITY_INVALID_USERNAME_PARAMETER, "123456789_123456789_123456789_123456", " ", "Password" },
-            new object[] { UserEntity.WARNING_IDENTITY_INVALID_USERNAME_PARAMETER, "123456789_123456789_123456789_123456", "1234567", "Password" },
-            new object[] { UserEntity.WARNING_IDENTITY_INVALID_USERNAME_PARAMETER, "123456789_123456789_123456789_123456", "123456789_123456789_123456789_123456789_123456789_1", "Password" },
-            new object[] { UserEntity.WARNING_IDENTITY_INVALID_PASSWORD_PARAMETER, "123456789_123456789_123456789_123456", "UserName", (string)null },
-            new object[] { UserEntity.WARNING_IDENTITY_INVALID_PASSWORD_PARAMETER, "123456789_123456789_123456789_123456", "UserName", "" },
-            new object[] { UserEntity.WARNING_IDENTITY_INVALID_PASSWORD_PARAMETER, "123456789_123456789_123456789_123456", "UserName", " " },
-            new object[] { UserEntity.WARNING_IDENTITY_INVALID_PASSWORD_PARAMETER, "123456789_123456789_123456789_123456", "UserName", "1234" }
+            new object[] { AccountEntity.WARNING_INVALID_ACCOUNTID, null, "accountText", enAccountType.General, null, null},
+            new object[] { AccountEntity.WARNING_INVALID_TEXT, new Shared.EntityID(), (string)null, enAccountType.General, null, null},
+            new object[] { AccountEntity.WARNING_INVALID_TEXT, new Shared.EntityID(), "", enAccountType.General, null, null},
+            new object[] { AccountEntity.WARNING_INVALID_TEXT, new Shared.EntityID(), " ", enAccountType.General, null, null},
+            new object[] { AccountEntity.WARNING_INVALID_TEXT, new Shared.EntityID(), new string('0', 101), enAccountType.General, null, null},
+            new object[] { AccountEntity.WARNING_INVALID_CLOSING_DAY, new Shared.EntityID(), "accountText", enAccountType.CreditCard, (short)0, null},
+            new object[] { AccountEntity.WARNING_INVALID_CLOSING_DAY, new Shared.EntityID(), "accountText", enAccountType.CreditCard, (short)32, null},
+            new object[] { AccountEntity.WARNING_INVALID_DUE_DAY, new Shared.EntityID(), "accountText", enAccountType.CreditCard, (short)1, (short)0 },
+            new object[] { AccountEntity.WARNING_INVALID_DUE_DAY, new Shared.EntityID(), "accountText", enAccountType.CreditCard, (short)1, (short)32 }
          };
-
-      */
 
    }
 }

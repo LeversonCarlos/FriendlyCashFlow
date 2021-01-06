@@ -44,7 +44,7 @@ namespace Elesse.Accounts
          get => _Text;
          internal set
          {
-            if (string.IsNullOrEmpty(value) || value.Length > 100)
+            if (string.IsNullOrWhiteSpace(value) || value.Length > 100)
                throw new ArgumentException(WARNING_INVALID_TEXT);
             _Text = value;
          }
