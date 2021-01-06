@@ -28,6 +28,8 @@ namespace Elesse.Shared
       public static explicit operator EntityID<T>(T value) => new EntityID<T>(value);
       public static explicit operator T(EntityID<T> id) => id.Value;
 
+      public override string ToString() => this.Value?.ToString() ?? string.Empty;
+
       /*
          ESSES OPERATORS PERMITIRA:
          Guid guid1 = Guid.NewGuid();
