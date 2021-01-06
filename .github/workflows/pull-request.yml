@@ -31,11 +31,23 @@ jobs:
           name: identity-tests
           path: ./sources/backend/identity/coverage.info
 
-      # - name: Identity - Report
-      #   uses: romeovs/lcov-reporter-action@v0.2.16
-      #   with:
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
-      #     lcov-file: ./sources/backend/identity/coverage.info
+      - name: Accounts - Restore
+        working-directory: 'sources/backend/accounts/'
+        run: dotnet restore
+
+      - name: Accounts - Build
+        working-directory: 'sources/backend/accounts/'
+        run: dotnet build --no-restore
+
+      - name: Accounts - Run Tests
+        working-directory: 'sources/backend/accounts/'
+        run: dotnet test --no-build /p:CoverletOutputFormat=lcov
+
+      - name: Accounts - Store Tests
+        uses: actions/upload-artifact@v2
+        with:
+          name: accounts-tests
+          path: ./sources/backend/accounts/coverage.info
 
       - name: Application - Restore
         working-directory: 'sources/backend/main/'
