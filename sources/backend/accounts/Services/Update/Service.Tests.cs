@@ -17,20 +17,20 @@ namespace Elesse.Accounts.Tests
          Assert.Equal(new string[] { WARNINGS.INVALID_UPDATE_PARAMETER }, (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
-      /*
       [Fact]
-      public async void Insert_WithInvalidType_MustReturnBadResult()
+      public async void Update_WithInvalidType_MustReturnBadResult()
       {
          var service = new AccountService(null);
 
-         var param = new InsertVM { Text = "Account Text", Type = enAccountType.Bank, ClosingDay = 1, DueDay = 1 };
-         var result = await service.InsertAsync(param);
+         var param = new UpdateVM { AccountID = new Shared.EntityID(), Text = "Account Text", Type = enAccountType.Bank, ClosingDay = 1, DueDay = 1 };
+         var result = await service.UpdateAsync(param);
 
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
          Assert.Equal(new string[] { WARNINGS.DAYS_ONLY_VALID_FOR_CREDIT_CARD_TYPE }, (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
+      /*
       [Fact]
       public async void Insert_WithExistingText_MustReturnBadRequest()
       {
