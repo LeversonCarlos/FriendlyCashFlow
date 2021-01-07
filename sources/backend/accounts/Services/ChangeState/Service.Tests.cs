@@ -18,17 +18,16 @@ namespace Elesse.Accounts.Tests
       }
 
       [Fact]
-      public async void Update_WithInexistingAccount_MustReturnBadRequest()
+      public async void ChangeState_WithInexistingAccount_MustReturnBadRequest()
       {
          var repository = AccountRepositoryMocker
             .Create()
-            .WithSearchAccounts()
             .WithGetAccountByID()
             .Build();
          var service = new AccountService(repository);
-         var param = new UpdateVM { AccountID = new Shared.EntityID(), Text = "Account Text", Type = enAccountType.General };
+         var param = new ChangeStateVM { AccountID = new Shared.EntityID(), State = false };
 
-         var result = await service.UpdateAsync(param);
+         var result = await service.ChangeStateAsync(param);
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
          Assert.Equal(new string[] { WARNINGS.ACCOUNT_NOT_FOUND }, (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
