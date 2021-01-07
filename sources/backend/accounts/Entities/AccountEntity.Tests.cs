@@ -20,7 +20,7 @@ namespace Elesse.Accounts.Tests
 
          Assert.NotNull(account);
          Assert.NotNull(account.AccountID);
-         Assert.Equal(36, account.AccountID.ToString().Length);
+         Assert.Equal(36, ((string)account.AccountID).Length);
          Assert.Equal(accountText, account.Text);
          Assert.Equal(accountType, account.Type);
          Assert.Equal(closingDay, account.ClosingDay);

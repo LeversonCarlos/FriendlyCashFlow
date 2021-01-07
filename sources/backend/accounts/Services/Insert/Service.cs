@@ -26,7 +26,7 @@ namespace Elesse.Accounts
 
          // ADD NEW ACCOUNT
          var account = new AccountEntity(insertVM.Text, insertVM.Type, insertVM.ClosingDay, insertVM.DueDay);
-         await _AccountRepository.AddAccountAsync(account);
+         await _AccountRepository.InsertAccountAsync(account);
 
          // RESULT
          return new OkResult();

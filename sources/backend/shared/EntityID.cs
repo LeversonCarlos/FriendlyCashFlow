@@ -7,9 +7,11 @@ namespace Elesse.Shared
    public class EntityID : EntityID<Guid>
    {
       public EntityID() : base(Guid.NewGuid()) { }
+      public EntityID(string guidString) : base(new Guid(guidString)) { }
       public EntityID(Guid guid) : base(guid) { }
 
-      public static explicit operator string(EntityID id) => id.Value.ToString();
+      public static implicit operator string(EntityID id) => id.Value.ToString();
+      public static implicit operator EntityID(string id) => new EntityID(id);
    }
 
    public class EntityID<T> : ValueObject
