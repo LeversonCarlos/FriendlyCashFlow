@@ -16,6 +16,12 @@ namespace Elesse.Accounts.Tests
          return this;
       }
 
+      public AccountServiceMocker WithUpdate(UpdateVM param, IActionResult result)
+      {
+         _Mock.Setup(m => m.UpdateAsync(param)).ReturnsAsync(result);
+         return this;
+      }
+
       public IAccountService Build() => _Mock.Object;
    }
 }
