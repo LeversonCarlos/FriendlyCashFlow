@@ -24,6 +24,9 @@ namespace Elesse.Accounts
       public Task UpdateAccountAsync(IAccountEntity value) =>
          throw new System.NotImplementedException();
 
+      public Task DeleteAccountAsync(Shared.EntityID accountID) =>
+         throw new System.NotImplementedException();
+
       public Task<IAccountEntity[]> GetAccountsListAsync() =>
          throw new System.NotImplementedException();
 
