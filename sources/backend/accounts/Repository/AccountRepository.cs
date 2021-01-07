@@ -18,7 +18,7 @@ namespace Elesse.Accounts
       IMongoCollection<AccountEntity> _Collection =>
          _MongoDatabase.GetCollection<AccountEntity>(AccountCollectionName);
 
-      public Task AddAccountAsync(IAccountEntity value) =>
+      public Task InsertAccountAsync(IAccountEntity value) =>
          throw new System.NotImplementedException();
 
       public Task UpdateAccountAsync(IAccountEntity value) =>

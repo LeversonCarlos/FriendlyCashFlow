@@ -5,7 +5,7 @@ namespace Elesse.Accounts
    public interface IAccountRepository
    {
 
-      Task AddAccountAsync(IAccountEntity value);
+      Task InsertAccountAsync(IAccountEntity value);
       Task UpdateAccountAsync(IAccountEntity value);
 
       Task<IAccountEntity[]> GetAccountsListAsync();
