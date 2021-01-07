@@ -8,9 +8,9 @@ namespace Elesse.Accounts
    partial class AccountController
    {
 
-      [HttpPut("update")]
-      public Task<IActionResult> UpdateAsync([FromBody] UpdateVM updateVM) =>
-         _AccountService.UpdateAsync(updateVM);
+      [HttpPut("change-state")]
+      public Task<IActionResult> ChangeStateAsync([FromBody] ChangeStateVM changeStateVM) =>
+         _AccountService.ChangeStateAsync(changeStateVM);
 
    }
 
