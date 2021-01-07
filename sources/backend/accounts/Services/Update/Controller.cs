@@ -8,8 +8,7 @@ namespace Elesse.Accounts
    partial class AccountController
    {
 
-      [HttpPost("update")]
-      [AllowAnonymous]
+      [HttpPut("update")]
       public Task<IActionResult> UpdateAsync([FromBody] UpdateVM updateVM) =>
          _AccountService.UpdateAsync(updateVM);
 

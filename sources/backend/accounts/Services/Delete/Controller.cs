@@ -9,7 +9,6 @@ namespace Elesse.Accounts
    {
 
       [HttpDelete("delete/{id}")]
-      [AllowAnonymous]
       public Task<IActionResult> DeleteAsync(Shared.EntityID id) =>
          _AccountService.DeleteAsync(id);
 

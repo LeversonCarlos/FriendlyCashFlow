@@ -9,7 +9,6 @@ namespace Elesse.Accounts
    {
 
       [HttpPost("insert")]
-      [AllowAnonymous]
       public Task<IActionResult> InsertAsync([FromBody] InsertVM insertVM) =>
          _AccountService.InsertAsync(insertVM);
 

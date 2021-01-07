@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Elesse.Accounts
 {
 
    [Route("api/accounts")]
+   [Authorize]
    public partial class AccountController : Controller
    {
 
