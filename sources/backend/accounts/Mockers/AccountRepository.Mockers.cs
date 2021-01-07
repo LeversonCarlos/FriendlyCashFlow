@@ -21,6 +21,18 @@ namespace Elesse.Accounts.Tests
          return this;
       }
 
+      public AccountRepositoryMocker WithGetAccountByID() =>
+         WithGetAccountByID(new IAccountEntity[] { });
+      public AccountRepositoryMocker WithGetAccountByID(params IAccountEntity[] results)
+      {
+         var seq = new MockSequence();
+         foreach (var result in results)
+            _Mock.InSequence(seq)
+               .Setup(m => m.GetAccountByIDAsync(It.IsAny<Shared.EntityID>()))
+               .ReturnsAsync(result);
+         return this;
+      }
+
       public IAccountRepository Build() => _Mock.Object;
    }
 }
