@@ -22,6 +22,12 @@ namespace Elesse.Accounts.Tests
          return this;
       }
 
+      public AccountServiceMocker WithChangeState(ChangeStateVM param, IActionResult result)
+      {
+         _Mock.Setup(m => m.ChangeStateAsync(param)).ReturnsAsync(result);
+         return this;
+      }
+
       public AccountServiceMocker WithDelete(Shared.EntityID param, IActionResult result)
       {
          _Mock.Setup(m => m.DeleteAsync(param)).ReturnsAsync(result);
