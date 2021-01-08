@@ -10,7 +10,7 @@ namespace Elesse.Accounts
       Task DeleteAccountAsync(Shared.EntityID accountID);
 
       Task<IAccountEntity[]> ListAccountsAsync();
-      Task<IAccountEntity> GetAccountByIDAsync(Shared.EntityID accountID);
+      Task<IAccountEntity> LoadAccountAsync(Shared.EntityID accountID);
       Task<IAccountEntity[]> SearchAccountsAsync(string searchText);
 
    }

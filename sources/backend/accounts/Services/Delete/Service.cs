@@ -16,7 +16,7 @@ namespace Elesse.Accounts
             return new BadRequestObjectResult(new string[] { WARNINGS.INVALID_DELETE_PARAMETER });
 
          // LOCATE ACCOUNT
-         var account = (AccountEntity)(await _AccountRepository.GetAccountByIDAsync(accountID));
+         var account = (AccountEntity)(await _AccountRepository.LoadAccountAsync(accountID));
          if (account == null)
             return new BadRequestObjectResult(new string[] { WARNINGS.ACCOUNT_NOT_FOUND });
 

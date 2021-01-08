@@ -22,7 +22,7 @@ namespace Elesse.Accounts.Tests
       {
          var repository = AccountRepositoryMocker
             .Create()
-            .WithGetAccountByID()
+            .WithLoadAccount()
             .Build();
          var service = new AccountService(repository);
 
@@ -39,7 +39,7 @@ namespace Elesse.Accounts.Tests
          var accountID = new Shared.EntityID();
          var repository = AccountRepositoryMocker
             .Create()
-            .WithGetAccountByID(new AccountEntity(accountID, "Account Text", enAccountType.General, null, null, true))
+            .WithLoadAccount(new AccountEntity(accountID, "Account Text", enAccountType.General, null, null, true))
             .Build();
          var service = new AccountService(repository);
 

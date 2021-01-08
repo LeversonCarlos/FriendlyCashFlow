@@ -26,7 +26,7 @@ namespace Elesse.Accounts
             return new BadRequestObjectResult(new string[] { WARNINGS.ACCOUNT_TEXT_ALREADY_USED });
 
          // LOCATE ACCOUNT
-         var account = (AccountEntity)(await _AccountRepository.GetAccountByIDAsync(updateVM.AccountID));
+         var account = (AccountEntity)(await _AccountRepository.LoadAccountAsync(updateVM.AccountID));
          if (account == null)
             return new BadRequestObjectResult(new string[] { WARNINGS.ACCOUNT_NOT_FOUND });
 

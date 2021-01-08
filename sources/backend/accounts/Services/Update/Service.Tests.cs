@@ -52,7 +52,7 @@ namespace Elesse.Accounts.Tests
          var repository = AccountRepositoryMocker
             .Create()
             .WithSearchAccounts()
-            .WithGetAccountByID()
+            .WithLoadAccount()
             .Build();
          var service = new AccountService(repository);
          var param = new UpdateVM { AccountID = new Shared.EntityID(), Text = "Account Text", Type = enAccountType.General };
@@ -70,7 +70,7 @@ namespace Elesse.Accounts.Tests
          var repository = AccountRepositoryMocker
             .Create()
             .WithSearchAccounts()
-            .WithGetAccountByID(new AccountEntity(accountID, "Account Text", enAccountType.General, null, null, true))
+            .WithLoadAccount(new AccountEntity(accountID, "Account Text", enAccountType.General, null, null, true))
             .Build();
          var service = new AccountService(repository);
 
