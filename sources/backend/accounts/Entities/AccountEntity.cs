@@ -8,7 +8,9 @@ namespace Elesse.Accounts
 
       public AccountEntity(string text, enAccountType type, short? closingDay, short? dueDay)
          : this(new Shared.EntityID(), text, type, closingDay, dueDay, true)
-      { }
+      {
+         RowStatus = true;
+      }
 
       public AccountEntity(Shared.EntityID accountID, string text, enAccountType type, short? closingDay, short? dueDay, bool active)
       {
@@ -98,6 +100,8 @@ namespace Elesse.Accounts
          }
       }
       // internal const string WARNING_INVALID_ACTIVE = "WARNING_ACCOUNTS_INVALID_ACCOUNT_PARAMETER";
+
+      internal bool RowStatus { get; set; }
 
    }
 
