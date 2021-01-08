@@ -27,7 +27,7 @@ namespace Elesse.Accounts
 
       public Task<IAccountEntity[]> ListAccountsAsync() =>
          throw new System.NotImplementedException();
-      public Task<IAccountEntity> GetAccountByIDAsync(EntityID accountID) =>
+      public Task<IAccountEntity> LoadAccountAsync(EntityID accountID) =>
          throw new System.NotImplementedException();
       public Task<IAccountEntity[]> SearchAccountsAsync(string searchText) =>
          throw new System.NotImplementedException();

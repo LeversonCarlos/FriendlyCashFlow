@@ -16,7 +16,7 @@ namespace Elesse.Accounts
             return new BadRequestObjectResult(new string[] { WARNINGS.INVALID_CHANGESTATE_PARAMETER });
 
          // LOCATE ACCOUNT
-         var account = (AccountEntity)(await _AccountRepository.GetAccountByIDAsync(changeStateVM.AccountID));
+         var account = (AccountEntity)(await _AccountRepository.LoadAccountAsync(changeStateVM.AccountID));
          if (account == null)
             return new BadRequestObjectResult(new string[] { WARNINGS.ACCOUNT_NOT_FOUND });
 

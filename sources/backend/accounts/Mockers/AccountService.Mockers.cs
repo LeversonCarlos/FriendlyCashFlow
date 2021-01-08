@@ -10,6 +10,12 @@ namespace Elesse.Accounts.Tests
       public AccountServiceMocker() => _Mock = new Mock<IAccountService>();
       public static AccountServiceMocker Create() => new AccountServiceMocker();
 
+      public AccountServiceMocker WithLoad(Shared.EntityID param, ActionResult<IAccountEntity> result)
+      {
+         _Mock.Setup(m => m.LoadAsync(param)).ReturnsAsync(result);
+         return this;
+      }
+
       public AccountServiceMocker WithList(ActionResult<IAccountEntity[]> result)
       {
          _Mock.Setup(m => m.ListAsync()).ReturnsAsync(result);
