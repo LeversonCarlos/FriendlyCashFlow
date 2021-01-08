@@ -1,3 +1,4 @@
+using Elesse.Accounts;
 using Elesse.Identity.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -37,7 +38,8 @@ namespace example
                options.JsonSerializerOptions.PropertyNamingPolicy = null; // to use PascalCase
                options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
             })
-            .AddIdentityService(_Configuration);
+            .AddIdentityService(_Configuration)
+            .AddAccountService(_Configuration);
       }
 
       public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
