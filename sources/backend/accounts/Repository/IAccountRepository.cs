@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 
 namespace Elesse.Accounts
 {
-   public interface IAccountRepository
+   internal interface IAccountRepository
    {
 
       Task InsertAccountAsync(IAccountEntity value);
