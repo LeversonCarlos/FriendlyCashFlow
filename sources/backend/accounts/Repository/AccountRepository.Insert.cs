@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using MongoDB.Driver;
 
 namespace Elesse.Accounts
 {
@@ -7,7 +6,8 @@ namespace Elesse.Accounts
    {
 
       public Task InsertAccountAsync(IAccountEntity value) =>
-         throw new System.NotImplementedException();
+         _Collection
+            .InsertOneAsync(value as AccountEntity);
 
    }
 }
