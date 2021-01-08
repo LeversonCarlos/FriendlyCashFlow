@@ -9,6 +9,18 @@ namespace Elesse.Accounts.Tests
       public AccountRepositoryMocker() => _Mock = new Mock<IAccountRepository>();
       public static AccountRepositoryMocker Create() => new AccountRepositoryMocker();
 
+      public AccountRepositoryMocker WithList() =>
+         WithList(new IAccountEntity[] { });
+      public AccountRepositoryMocker WithList(params IAccountEntity[][] results)
+      {
+         var seq = new MockSequence();
+         foreach (var result in results)
+            _Mock.InSequence(seq)
+               .Setup(m => m.ListAccountsAsync())
+               .ReturnsAsync(result);
+         return this;
+      }
+
       public AccountRepositoryMocker WithSearchAccounts() =>
          WithSearchAccounts(new IAccountEntity[][] { });
       public AccountRepositoryMocker WithSearchAccounts(params IAccountEntity[][] results)

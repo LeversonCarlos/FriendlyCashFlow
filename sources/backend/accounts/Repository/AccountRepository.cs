@@ -20,19 +20,15 @@ namespace Elesse.Accounts
 
       public Task InsertAccountAsync(IAccountEntity value) =>
          throw new System.NotImplementedException();
-
       public Task UpdateAccountAsync(IAccountEntity value) =>
          throw new System.NotImplementedException();
-
       public Task DeleteAccountAsync(Shared.EntityID accountID) =>
          throw new System.NotImplementedException();
 
-      public Task<IAccountEntity[]> GetAccountsListAsync() =>
+      public Task<IAccountEntity[]> ListAccountsAsync() =>
          throw new System.NotImplementedException();
-
       public Task<IAccountEntity> GetAccountByIDAsync(EntityID accountID) =>
          throw new System.NotImplementedException();
-
       public Task<IAccountEntity[]> SearchAccountsAsync(string searchText) =>
          throw new System.NotImplementedException();
 
