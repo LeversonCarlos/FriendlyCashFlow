@@ -101,7 +101,7 @@ namespace Elesse.Accounts
       }
       // internal const string WARNING_INVALID_ACTIVE = "WARNING_ACCOUNTS_INVALID_ACCOUNT_PARAMETER";
 
-      internal bool RowStatus { get; set; }
+      public bool RowStatus { get; set; }
 
    }
 
