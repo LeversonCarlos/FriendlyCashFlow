@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using Elesse.Shared;
 using MongoDB.Driver;
 
 namespace Elesse.Accounts
@@ -7,8 +6,13 @@ namespace Elesse.Accounts
    partial class AccountRepository
    {
 
-      public Task<IAccountEntity[]> ListAccountsAsync() =>
-         throw new System.NotImplementedException();
+      public async Task<IAccountEntity[]> ListAccountsAsync()
+      {
+         var list = await _Collection
+            .Find(account => account.RowStatus == true)
+            .ToListAsync();
+         return list.ToArray();
+      }
 
    }
 }
