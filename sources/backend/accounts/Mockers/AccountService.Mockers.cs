@@ -16,6 +16,12 @@ namespace Elesse.Accounts.Tests
          return this;
       }
 
+      public AccountServiceMocker WithSearch(string param, ActionResult<IAccountEntity[]> result)
+      {
+         _Mock.Setup(m => m.SearchAsync(param)).ReturnsAsync(result);
+         return this;
+      }
+
       public AccountServiceMocker WithList(ActionResult<IAccountEntity[]> result)
       {
          _Mock.Setup(m => m.ListAsync()).ReturnsAsync(result);

@@ -1,23 +1,23 @@
-using Xunit;
 using Microsoft.AspNetCore.Mvc;
+using Xunit;
 
 namespace Elesse.Accounts.Tests
 {
-   partial class AccountServiceTests
+   partial class AccountControllerTests
    {
 
       [Fact]
-      public async void Search_WithValidData_MustReturnOkResultWithData()
+      public async void Search_MustReturnOkResult_WithDataList()
       {
-         var account = new AccountEntity(new Shared.EntityID(), "Account Text", enAccountType.General, null, null, true);
+         var account = new AccountEntity("Account Text", enAccountType.General, null, null);
          var accountsList = new AccountEntity[] { account };
-         var repository = AccountRepositoryMocker
+         var service = AccountServiceMocker
             .Create()
-            .WithSearchAccounts(accountsList)
+            .WithSearch(account.Text, new OkObjectResult(accountsList))
             .Build();
-         var service = new AccountService(repository);
+         var controller = new AccountController(service);
 
-         var result = await service.SearchAsync(account.Text);
+         var result = await controller.SearchAsync(account.Text);
 
          Assert.NotNull(result);
          Assert.IsType<OkObjectResult>(result.Result);
