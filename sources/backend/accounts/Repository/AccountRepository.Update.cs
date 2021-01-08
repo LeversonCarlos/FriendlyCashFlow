@@ -6,8 +6,8 @@ namespace Elesse.Accounts
    partial class AccountRepository
    {
 
-      public async Task UpdateAccountAsync(IAccountEntity value) =>
-         await _Collection
+      public Task UpdateAccountAsync(IAccountEntity value) =>
+         _Collection
             .ReplaceOneAsync(account => account.AccountID == value.AccountID, value as AccountEntity);
 
    }

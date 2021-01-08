@@ -19,9 +19,6 @@ namespace Elesse.Accounts
       IMongoCollection<AccountEntity> _Collection =>
          _MongoDatabase.GetCollection<AccountEntity>(_CollectionName);
 
-      public Task DeleteAccountAsync(Shared.EntityID accountID) =>
-         throw new System.NotImplementedException();
-
       public Task<IAccountEntity> LoadAccountAsync(EntityID accountID) =>
          throw new System.NotImplementedException();
       public Task<IAccountEntity[]> SearchAccountsAsync(string searchText) =>
