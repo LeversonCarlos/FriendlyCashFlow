@@ -50,8 +50,8 @@ namespace Elesse.FriendlyCashFlow
          }
 
          app.UseCors("FrontendPolicy");
-         app.UseAuthentication();
          app.UseRouting();
+         app.UseAuthentication();
          app.UseAuthorization();
 
          app.UseEndpoints(endpoints =>
