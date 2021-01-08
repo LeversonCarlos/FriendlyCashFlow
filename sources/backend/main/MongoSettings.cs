@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Configuration;
 
-namespace example
+namespace Elesse.FriendlyCashFlow
 {
 
    public class MongoSettings

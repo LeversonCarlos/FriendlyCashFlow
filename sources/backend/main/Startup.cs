@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MongoDB.Driver;
 
-namespace example
+namespace Elesse.FriendlyCashFlow
 {
    public class Startup
    {
