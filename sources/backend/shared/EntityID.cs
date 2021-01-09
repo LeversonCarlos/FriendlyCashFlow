@@ -32,13 +32,6 @@ namespace Elesse.Shared
 
       public override string ToString() => this.Value?.ToString() ?? string.Empty;
 
-      /*
-         ESSES OPERATORS PERMITIRA:
-         Guid guid1 = Guid.NewGuid();
-         EntityID<Guid> id = (EntityID<Guid>)guid1;
-         Guid guid = (Guid)id;
-      */
-
    }
 
 }
