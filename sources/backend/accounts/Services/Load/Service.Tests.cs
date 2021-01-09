@@ -16,7 +16,7 @@ namespace Elesse.Accounts.Tests
             .Build();
          var service = new AccountService(repository);
 
-         var result = await service.LoadAsync(account.AccountID);
+         var result = await service.LoadAsync((string)account.AccountID);
 
          Assert.NotNull(result);
          Assert.IsType<OkObjectResult>(result.Result);

@@ -12,7 +12,7 @@ namespace Elesse.Accounts.Tests
          var account = new AccountEntity("Account Text", enAccountType.General, null, null);
          var service = AccountServiceMocker
             .Create()
-            .WithLoad(account.AccountID, new OkObjectResult(account))
+            .WithLoad((string)account.AccountID, new OkObjectResult(account))
             .Build();
          var controller = new AccountController(service);
 
