@@ -24,7 +24,7 @@ namespace Elesse.Accounts
       }
 
       Shared.EntityID _AccountID;
-      [BsonId, BsonSerializer(typeof(Shared.EntityIDMongoSerializer)) /*, BsonRepresentation(BsonType.String)*/]      
+      [BsonId]
       public Shared.EntityID AccountID
       {
          get => _AccountID;

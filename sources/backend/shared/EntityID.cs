@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Elesse.Shared
 {
 
-   [JsonConverter(typeof(Shared.EntityIDJsonConverter))]
+   [JsonConverter(typeof(EntityIDJsonConverter))]
+   [BsonSerializer(typeof(EntityIDMongoSerializer)) /*, BsonRepresentation(BsonType.String)*/]
    public class EntityID : EntityID<Guid>
    {
       public EntityID() : base(Guid.NewGuid()) { }
