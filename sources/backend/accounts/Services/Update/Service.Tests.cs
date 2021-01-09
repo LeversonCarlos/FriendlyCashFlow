@@ -22,7 +22,7 @@ namespace Elesse.Accounts.Tests
       {
          var service = new AccountService(null);
 
-         var param = new UpdateVM { AccountID = new Shared.EntityID(), Text = "Account Text", Type = enAccountType.Bank, ClosingDay = 1, DueDay = 1 };
+         var param = new UpdateVM { AccountID = Shared.EntityID.NewID(), Text = "Account Text", Type = enAccountType.Bank, ClosingDay = 1, DueDay = 1 };
          var result = await service.UpdateAsync(param);
 
          Assert.NotNull(result);
@@ -35,10 +35,10 @@ namespace Elesse.Accounts.Tests
       {
          var repository = AccountRepositoryMocker
             .Create()
-            .WithSearchAccounts(new AccountEntity[] { new AccountEntity(new Shared.EntityID(), "Account Text", enAccountType.General, null, null, true) })
+            .WithSearchAccounts(new AccountEntity[] { new AccountEntity(Shared.EntityID.NewID(), "Account Text", enAccountType.General, null, null, true) })
             .Build();
          var service = new AccountService(repository);
-         var param = new UpdateVM { AccountID = new Shared.EntityID(), Text = "Account Text", Type = enAccountType.General };
+         var param = new UpdateVM { AccountID = Shared.EntityID.NewID(), Text = "Account Text", Type = enAccountType.General };
 
          var result = await service.UpdateAsync(param);
          Assert.NotNull(result);
@@ -55,7 +55,7 @@ namespace Elesse.Accounts.Tests
             .WithLoadAccount()
             .Build();
          var service = new AccountService(repository);
-         var param = new UpdateVM { AccountID = new Shared.EntityID(), Text = "Account Text", Type = enAccountType.General };
+         var param = new UpdateVM { AccountID = Shared.EntityID.NewID(), Text = "Account Text", Type = enAccountType.General };
 
          var result = await service.UpdateAsync(param);
          Assert.NotNull(result);
@@ -66,7 +66,7 @@ namespace Elesse.Accounts.Tests
       [Fact]
       public async void Update_WithValidParameters_MustReturnOkResult()
       {
-         var accountID = new Shared.EntityID();
+         var accountID = Shared.EntityID.NewID();
          var repository = AccountRepositoryMocker
             .Create()
             .WithSearchAccounts()

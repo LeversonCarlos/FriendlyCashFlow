@@ -8,7 +8,7 @@ namespace Elesse.Accounts
    {
 
       public AccountEntity(string text, enAccountType type, short? closingDay, short? dueDay)
-         : this(new Shared.EntityID(), text, type, closingDay, dueDay, true)
+         : this(Shared.EntityID.NewID(), text, type, closingDay, dueDay, true)
       {
          RowStatus = true;
       }

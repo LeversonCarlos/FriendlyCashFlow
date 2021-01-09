@@ -10,12 +10,23 @@ namespace Elesse.Shared
    [BsonSerializer(typeof(EntityIDMongoSerializer)) /*, BsonRepresentation(BsonType.String)*/]
    public class EntityID : EntityID<Guid>
    {
-      public EntityID() : base(Guid.NewGuid()) { }
-      public EntityID(string guidString) : base(new Guid(guidString)) { }
+
       public EntityID(Guid guid) : base(guid) { }
 
-      public static implicit operator string(EntityID id) => id.Value.ToString();
-      public static implicit operator EntityID(string id) => new EntityID(id);
+      public static EntityID NewID() => EntityID.Parse(Guid.NewGuid());
+      public static EntityID Parse(Guid guid) => new EntityID(guid);
+      public static EntityID Parse(string guidString)
+      {
+         if (string.IsNullOrWhiteSpace(guidString))
+            throw new ArgumentException("The string argument to parse an EntityID type cannot be empty");
+         if (!Guid.TryParse(guidString, out Guid guid))
+            throw new ArgumentException($"The string argument [{guidString}] received to parse an EntityID type is invalid");
+         return EntityID.Parse(guid);
+      }
+
+      // implicit
+      public static explicit operator string(EntityID id) => id.Value.ToString();
+      public static explicit operator EntityID(string id) => EntityID.Parse(id);
    }
 
    public class EntityID<T> : ValueObject

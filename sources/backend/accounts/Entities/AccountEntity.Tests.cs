@@ -41,14 +41,14 @@ namespace Elesse.Accounts.Tests
       public static IEnumerable<object[]> Constructor_WithInvalidParameters_MustThrowException_Data() =>
          new[] {
             new object[] { AccountEntity.WARNING_INVALID_ACCOUNTID, null, "accountText", enAccountType.General, null, null},
-            new object[] { AccountEntity.WARNING_INVALID_TEXT, new Shared.EntityID(), (string)null, enAccountType.General, null, null},
-            new object[] { AccountEntity.WARNING_INVALID_TEXT, new Shared.EntityID(), "", enAccountType.General, null, null},
-            new object[] { AccountEntity.WARNING_INVALID_TEXT, new Shared.EntityID(), " ", enAccountType.General, null, null},
-            new object[] { AccountEntity.WARNING_INVALID_TEXT, new Shared.EntityID(), new string('0', 101), enAccountType.General, null, null},
-            new object[] { AccountEntity.WARNING_INVALID_CLOSING_DAY, new Shared.EntityID(), "accountText", enAccountType.CreditCard, (short)0, null},
-            new object[] { AccountEntity.WARNING_INVALID_CLOSING_DAY, new Shared.EntityID(), "accountText", enAccountType.CreditCard, (short)32, null},
-            new object[] { AccountEntity.WARNING_INVALID_DUE_DAY, new Shared.EntityID(), "accountText", enAccountType.CreditCard, (short)1, (short)0 },
-            new object[] { AccountEntity.WARNING_INVALID_DUE_DAY, new Shared.EntityID(), "accountText", enAccountType.CreditCard, (short)1, (short)32 }
+            new object[] { AccountEntity.WARNING_INVALID_TEXT, Shared.EntityID.NewID(), (string)null, enAccountType.General, null, null},
+            new object[] { AccountEntity.WARNING_INVALID_TEXT, Shared.EntityID.NewID(), "", enAccountType.General, null, null},
+            new object[] { AccountEntity.WARNING_INVALID_TEXT, Shared.EntityID.NewID(), " ", enAccountType.General, null, null},
+            new object[] { AccountEntity.WARNING_INVALID_TEXT, Shared.EntityID.NewID(), new string('0', 101), enAccountType.General, null, null},
+            new object[] { AccountEntity.WARNING_INVALID_CLOSING_DAY, Shared.EntityID.NewID(), "accountText", enAccountType.CreditCard, (short)0, null},
+            new object[] { AccountEntity.WARNING_INVALID_CLOSING_DAY, Shared.EntityID.NewID(), "accountText", enAccountType.CreditCard, (short)32, null},
+            new object[] { AccountEntity.WARNING_INVALID_DUE_DAY, Shared.EntityID.NewID(), "accountText", enAccountType.CreditCard, (short)1, (short)0 },
+            new object[] { AccountEntity.WARNING_INVALID_DUE_DAY, Shared.EntityID.NewID(), "accountText", enAccountType.CreditCard, (short)1, (short)32 }
          };
 
    }

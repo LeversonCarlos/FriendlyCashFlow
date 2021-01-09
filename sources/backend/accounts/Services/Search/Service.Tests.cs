@@ -9,7 +9,7 @@ namespace Elesse.Accounts.Tests
       [Fact]
       public async void Search_WithValidData_MustReturnOkResultWithData()
       {
-         var account = new AccountEntity(new Shared.EntityID(), "Account Text", enAccountType.General, null, null, true);
+         var account = new AccountEntity(Shared.EntityID.NewID(), "Account Text", enAccountType.General, null, null, true);
          var accountsList = new AccountEntity[] { account };
          var repository = AccountRepositoryMocker
             .Create()
