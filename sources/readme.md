@@ -28,6 +28,17 @@
       { path: 'list', component: ListComponent },
    ];
    ```
+- Import test module on the component test file with:
+   ``` typescript
+   beforeEach(async () => {
+      await TestBed.configureTestingModule({
+         declarations: [ListComponent],
+         imports: [TestsModule]
+      })
+      .compileComponents();
+   });
+
+   ```
 
 ## New front end Library
 - Create project with:  
