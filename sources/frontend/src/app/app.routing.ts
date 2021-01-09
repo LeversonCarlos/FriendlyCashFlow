@@ -6,6 +6,7 @@ const routes: Routes = [
    { path: '', redirectTo: 'home', pathMatch: 'full' },
    { path: 'home', component: HomeComponent },
    { path: 'identity', loadChildren: () => import('./identity/identity.module').then(m => m.IdentityModule) },
+   { path: 'accounts', loadChildren: () => import('./accounts/accounts.module').then(m => m.AccountsModule) },
    { path: '**', component: HomeComponent }
 ];
 

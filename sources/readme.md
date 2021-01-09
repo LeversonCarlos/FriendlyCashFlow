@@ -11,8 +11,19 @@
    import { MaterialModule } from '../material/material.exports';
    import { SharedModule } from '../shared/shared.exports';
    ```
+- Add module into app routes with:
+   ``` typescript
+   { path: 'accounts', loadChildren: () => import('./accounts/accounts.module').then(m => m.AccountsModule) },
+   ```
 - Create components with:
    `ng g c accounts/List --selector accounts-list`
+- Add component to module routes with:
+   ``` typescript
+   const routes: Routes = [
+      { path: '', redirectTo: 'list', pathMatch: 'full' },
+      { path: 'list', component: ListComponent },
+   ];
+   ```
 
 ## New front end Library
 - Create project with:  
