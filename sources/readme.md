@@ -11,6 +11,8 @@
    import { MaterialModule } from '../material/material.exports';
    import { SharedModule } from '../shared/shared.exports';
    ```
+- Create components with:
+   `ng g c accounts/List --selector accounts-list`
 
 ## New front end Library
 - Create project with:  
