@@ -26,6 +26,7 @@ namespace Elesse.Accounts.Tests
          Assert.Equal(closingDay, account.ClosingDay);
          Assert.Equal(dueDay, account.DueDay);
          Assert.True(account.Active);
+         Assert.True(account.RowStatus);
       }
 
       [Theory]
