@@ -26,7 +26,7 @@ namespace Elesse.Accounts.Tests
             .Build();
          var service = new AccountService(repository);
 
-         var result = await service.DeleteAsync(Shared.EntityID.NewID());
+         var result = await service.DeleteAsync((string)Shared.EntityID.NewID());
 
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
@@ -43,7 +43,7 @@ namespace Elesse.Accounts.Tests
             .Build();
          var service = new AccountService(repository);
 
-         var result = await service.DeleteAsync(accountID);
+         var result = await service.DeleteAsync((string)accountID);
 
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.OkResult>(result);

@@ -24,6 +24,16 @@ namespace Elesse.Shared
          return EntityID.Parse(guid);
       }
 
+      public static bool TryParse(string inputID, out EntityID outputID)
+      {
+         try
+         {
+            outputID = Parse(inputID);
+            return true;
+         }
+         catch { outputID = null; return false; }
+      }
+
       // implicit
       public static explicit operator string(EntityID id) => id.Value.ToString();
       public static explicit operator EntityID(string id) => EntityID.Parse(id);

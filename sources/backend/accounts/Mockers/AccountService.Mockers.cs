@@ -46,7 +46,7 @@ namespace Elesse.Accounts.Tests
          return this;
       }
 
-      public AccountServiceMocker WithDelete(Shared.EntityID param, IActionResult result)
+      public AccountServiceMocker WithDelete(string param, IActionResult result)
       {
          _Mock.Setup(m => m.DeleteAsync(param)).ReturnsAsync(result);
          return this;

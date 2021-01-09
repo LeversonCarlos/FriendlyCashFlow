@@ -16,7 +16,7 @@ namespace Elesse.Accounts.Tests
             .Build();
          var controller = new AccountController(service);
 
-         var result = await controller.LoadAsync(account.AccountID);
+         var result = await controller.LoadAsync((string)account.AccountID);
 
          Assert.NotNull(result);
          Assert.IsType<OkObjectResult>(result.Result);

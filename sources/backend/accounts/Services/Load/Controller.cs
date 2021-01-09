@@ -9,7 +9,7 @@ namespace Elesse.Accounts
 
       [HttpGet("load/{id}")]
       public Task<ActionResult<IAccountEntity>> LoadAsync(string id) =>
-         _AccountService.LoadAsync(id);
+         _AccountService.LoadAsync(Shared.EntityID.Parse(id));
 
    }
 
