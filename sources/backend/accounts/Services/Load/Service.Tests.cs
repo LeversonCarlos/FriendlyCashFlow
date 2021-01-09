@@ -7,16 +7,28 @@ namespace Elesse.Accounts.Tests
    {
 
       [Fact]
+      public async void Load_WithNullParameter_MustReturnBadResult()
+      {
+         var service = new AccountService(null);
+
+         var result = await service.LoadAsync(null);
+
+         Assert.NotNull(result);
+         Assert.IsType<BadRequestObjectResult>(result.Result);
+         Assert.Equal(new string[] { WARNINGS.INVALID_LOAD_PARAMETER }, (result.Result as BadRequestObjectResult).Value);
+      }
+
+      [Fact]
       public async void Load_WithValidData_MustReturnOkResultWithData()
       {
-         var account = new AccountEntity(new Shared.EntityID(), "Account Text", enAccountType.General, null, null, true);
+         var account = new AccountEntity(Shared.EntityID.NewID(), "Account Text", enAccountType.General, null, null, true);
          var repository = AccountRepositoryMocker
             .Create()
             .WithLoadAccount(account)
             .Build();
          var service = new AccountService(repository);
 
-         var result = await service.LoadAsync(account.AccountID);
+         var result = await service.LoadAsync((string)account.AccountID);
 
          Assert.NotNull(result);
          Assert.IsType<OkObjectResult>(result.Result);

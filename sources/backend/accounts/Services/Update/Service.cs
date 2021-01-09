@@ -22,7 +22,7 @@ namespace Elesse.Accounts
 
          // VALIDATE DUPLICITY
          var accountsList = await _AccountRepository.SearchAccountsAsync(updateVM.Text);
-         if (accountsList.Any(x=> x.AccountID != updateVM.AccountID))
+         if (accountsList.Any(x => x.AccountID != updateVM.AccountID))
             return new BadRequestObjectResult(new string[] { WARNINGS.ACCOUNT_TEXT_ALREADY_USED });
 
          // LOCATE ACCOUNT

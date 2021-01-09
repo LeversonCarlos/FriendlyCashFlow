@@ -1,6 +1,5 @@
-using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Elesse.Accounts
 {
@@ -8,11 +7,11 @@ namespace Elesse.Accounts
    partial class AccountService
    {
 
-      public async Task<IActionResult> DeleteAsync(Shared.EntityID accountID)
+      public async Task<IActionResult> DeleteAsync(string id)
       {
 
          // VALIDATE PARAMETERS
-         if (accountID == null)
+         if (!Shared.EntityID.TryParse(id, out var accountID))
             return new BadRequestObjectResult(new string[] { WARNINGS.INVALID_DELETE_PARAMETER });
 
          // LOCATE ACCOUNT
@@ -31,7 +30,7 @@ namespace Elesse.Accounts
 
    partial interface IAccountService
    {
-      Task<IActionResult> DeleteAsync(Shared.EntityID accountID);
+      Task<IActionResult> DeleteAsync(string id);
    }
 
    partial struct WARNINGS

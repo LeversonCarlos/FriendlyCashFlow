@@ -1,3 +1,4 @@
+using Elesse.Accounts;
 using Elesse.Identity.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -6,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MongoDB.Driver;
 
-namespace example
+namespace Elesse.FriendlyCashFlow
 {
    public class Startup
    {
@@ -37,7 +38,8 @@ namespace example
                options.JsonSerializerOptions.PropertyNamingPolicy = null; // to use PascalCase
                options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
             })
-            .AddIdentityService(_Configuration);
+            .AddIdentityService(_Configuration)
+            .AddAccountService(_Configuration);
       }
 
       public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -48,8 +50,8 @@ namespace example
          }
 
          app.UseCors("FrontendPolicy");
-         app.UseAuthentication();
          app.UseRouting();
+         app.UseAuthentication();
          app.UseAuthorization();
 
          app.UseEndpoints(endpoints =>

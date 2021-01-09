@@ -10,9 +10,9 @@ namespace Elesse.Accounts.Tests
       public AccountServiceMocker() => _Mock = new Mock<IAccountService>();
       public static AccountServiceMocker Create() => new AccountServiceMocker();
 
-      public AccountServiceMocker WithLoad(Shared.EntityID param, ActionResult<IAccountEntity> result)
+      public AccountServiceMocker WithLoad(string accountID, ActionResult<IAccountEntity> result)
       {
-         _Mock.Setup(m => m.LoadAsync(param)).ReturnsAsync(result);
+         _Mock.Setup(m => m.LoadAsync(accountID)).ReturnsAsync(result);
          return this;
       }
 
@@ -46,9 +46,9 @@ namespace Elesse.Accounts.Tests
          return this;
       }
 
-      public AccountServiceMocker WithDelete(Shared.EntityID param, IActionResult result)
+      public AccountServiceMocker WithDelete(string accountID, IActionResult result)
       {
-         _Mock.Setup(m => m.DeleteAsync(param)).ReturnsAsync(result);
+         _Mock.Setup(m => m.DeleteAsync(accountID)).ReturnsAsync(result);
          return this;
       }
 

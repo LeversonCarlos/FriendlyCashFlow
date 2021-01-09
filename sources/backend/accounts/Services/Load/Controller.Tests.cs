@@ -12,11 +12,11 @@ namespace Elesse.Accounts.Tests
          var account = new AccountEntity("Account Text", enAccountType.General, null, null);
          var service = AccountServiceMocker
             .Create()
-            .WithLoad(account.AccountID, new OkObjectResult(account))
+            .WithLoad((string)account.AccountID, new OkObjectResult(account))
             .Build();
          var controller = new AccountController(service);
 
-         var result = await controller.LoadAsync(account.AccountID);
+         var result = await controller.LoadAsync((string)account.AccountID);
 
          Assert.NotNull(result);
          Assert.IsType<OkObjectResult>(result.Result);

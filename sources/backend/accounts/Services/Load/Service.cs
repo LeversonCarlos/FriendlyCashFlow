@@ -1,6 +1,5 @@
-using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Elesse.Accounts
 {
@@ -8,8 +7,12 @@ namespace Elesse.Accounts
    partial class AccountService
    {
 
-      public async Task<ActionResult<IAccountEntity>> LoadAsync(Shared.EntityID accountID)
+      public async Task<ActionResult<IAccountEntity>> LoadAsync(string id)
       {
+
+         // VALIDATE PARAMETERS
+         if (!Shared.EntityID.TryParse(id, out var accountID))
+            return new BadRequestObjectResult(new string[] { WARNINGS.INVALID_LOAD_PARAMETER });
 
          // LOAD ACCOUNT
          var account = (AccountEntity)(await _AccountRepository.LoadAccountAsync(accountID));
@@ -22,7 +25,12 @@ namespace Elesse.Accounts
 
    partial interface IAccountService
    {
-      Task<ActionResult<IAccountEntity>> LoadAsync(Shared.EntityID accountID);
+      Task<ActionResult<IAccountEntity>> LoadAsync(string id);
+   }
+
+   partial struct WARNINGS
+   {
+      internal const string INVALID_LOAD_PARAMETER = "WARNING_ACCOUNTS_INVALID_LOAD_PARAMETER";
    }
 
 }

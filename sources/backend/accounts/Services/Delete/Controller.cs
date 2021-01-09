@@ -1,6 +1,5 @@
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Elesse.Accounts
 {
@@ -9,7 +8,7 @@ namespace Elesse.Accounts
    {
 
       [HttpDelete("delete/{id}")]
-      public Task<IActionResult> DeleteAsync(Shared.EntityID id) =>
+      public Task<IActionResult> DeleteAsync(string id) =>
          _AccountService.DeleteAsync(id);
 
    }

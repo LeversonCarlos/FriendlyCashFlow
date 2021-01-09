@@ -15,10 +15,17 @@ namespace Elesse.Shared
          return ReferenceEquals(left, null) || left.Equals(right);
       }
 
+      public static bool operator ==(ValueObject left, ValueObject right) =>
+         EqualOperator(left, right);
+
       protected static bool NotEqualOperator(ValueObject left, ValueObject right)
       {
          return !(EqualOperator(left, right));
       }
+
+      public static bool operator !=(ValueObject left, ValueObject right) =>
+         NotEqualOperator(left, right);
+
 
       protected abstract IEnumerable<object> GetAtomicValues();
 

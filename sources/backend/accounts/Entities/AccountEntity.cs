@@ -1,4 +1,5 @@
 using System;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Elesse.Accounts
 {
@@ -7,7 +8,7 @@ namespace Elesse.Accounts
    {
 
       public AccountEntity(string text, enAccountType type, short? closingDay, short? dueDay)
-         : this(new Shared.EntityID(), text, type, closingDay, dueDay, true)
+         : this(Shared.EntityID.NewID(), text, type, closingDay, dueDay, true)
       {
          RowStatus = true;
       }
@@ -23,7 +24,7 @@ namespace Elesse.Accounts
       }
 
       Shared.EntityID _AccountID;
-      [MongoDB.Bson.Serialization.Attributes.BsonId]
+      [BsonId]
       public Shared.EntityID AccountID
       {
          get => _AccountID;
@@ -101,7 +102,7 @@ namespace Elesse.Accounts
       }
       // internal const string WARNING_INVALID_ACTIVE = "WARNING_ACCOUNTS_INVALID_ACCOUNT_PARAMETER";
 
-      internal bool RowStatus { get; set; }
+      public bool RowStatus { get; set; }
 
    }
 

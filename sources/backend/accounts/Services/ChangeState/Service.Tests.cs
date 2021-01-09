@@ -25,7 +25,7 @@ namespace Elesse.Accounts.Tests
             .WithLoadAccount()
             .Build();
          var service = new AccountService(repository);
-         var param = new ChangeStateVM { AccountID = new Shared.EntityID(), State = false };
+         var param = new ChangeStateVM { AccountID = Shared.EntityID.NewID(), State = false };
 
          var result = await service.ChangeStateAsync(param);
          Assert.NotNull(result);
@@ -36,7 +36,7 @@ namespace Elesse.Accounts.Tests
       [Fact]
       public async void ChangeState_WithValidParameters_MustReturnOkResult()
       {
-         var accountID = new Shared.EntityID();
+         var accountID = Shared.EntityID.NewID();
          var repository = AccountRepositoryMocker
             .Create()
             .WithLoadAccount(new AccountEntity(accountID, "Account Text", enAccountType.General, null, null, true))

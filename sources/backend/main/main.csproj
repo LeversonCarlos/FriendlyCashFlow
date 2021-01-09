@@ -2,6 +2,7 @@
 
    <PropertyGroup>
       <TargetFramework>netcoreapp3.1</TargetFramework>
+     <RootNamespace>Elesse.FriendlyCashFlow</RootNamespace>
    </PropertyGroup>
 
    <ItemGroup>
@@ -9,6 +10,7 @@
    </ItemGroup>
 
    <ItemGroup>
+     <ProjectReference Include="..\accounts\accounts.csproj" />
      <ProjectReference Include="..\identity\identity.csproj" />
    </ItemGroup>
 

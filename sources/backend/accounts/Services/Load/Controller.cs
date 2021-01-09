@@ -1,6 +1,5 @@
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Elesse.Accounts
 {
@@ -9,7 +8,7 @@ namespace Elesse.Accounts
    {
 
       [HttpGet("load/{id}")]
-      public Task<ActionResult<IAccountEntity>> LoadAsync(Shared.EntityID id) =>
+      public Task<ActionResult<IAccountEntity>> LoadAsync(string id) =>
          _AccountService.LoadAsync(id);
 
    }
