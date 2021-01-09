@@ -13,7 +13,11 @@
    ```
 - Add module into app routes with:
    ``` typescript
-   { path: 'accounts', loadChildren: () => import('./accounts/accounts.module').then(m => m.AccountsModule) },
+   { 
+      path: 'accounts', 
+      canActivate: [AuthGuard], 
+      loadChildren: () => import('./accounts/accounts.module').then(m => m.AccountsModule) 
+   },
    ```
 - Create components with:
    `ng g c accounts/List --selector accounts-list`
