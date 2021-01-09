@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Elesse.Shared
 {
 
+   [JsonConverter(typeof(Shared.EntityIDJsonConverter))]
    public class EntityID : EntityID<Guid>
    {
       public EntityID() : base(Guid.NewGuid()) { }

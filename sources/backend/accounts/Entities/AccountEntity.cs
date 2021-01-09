@@ -1,6 +1,4 @@
 using System;
-using System.Text.Json.Serialization;
-using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace Elesse.Accounts
@@ -26,8 +24,7 @@ namespace Elesse.Accounts
       }
 
       Shared.EntityID _AccountID;
-      [BsonId, BsonSerializer(typeof(Shared.EntityIDMongoSerializer)) /*, BsonRepresentation(BsonType.String)*/]
-      [JsonConverter(typeof(Shared.EntityIDJsonConverter))]
+      [BsonId, BsonSerializer(typeof(Shared.EntityIDMongoSerializer)) /*, BsonRepresentation(BsonType.String)*/]      
       public Shared.EntityID AccountID
       {
          get => _AccountID;
