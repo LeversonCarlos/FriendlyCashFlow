@@ -6,6 +6,11 @@
 - Review the routing module name and file
    - accounts.routing.ts
    - AccountsRouting
+- Edit the module and import the Material and Shared modules insted of Commom module
+   ``` typescript
+   import { MaterialModule } from '../material/material.exports';
+   import { SharedModule } from '../shared/shared.exports';
+   ```
 
 ## New front end Library
 - Create project with:  

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { MaterialModule } from '../material/material.exports';
+import { SharedModule } from '../shared/shared.exports';
 
 import { AccountsRouting } from './accounts.routing';
 
@@ -7,7 +8,7 @@ import { AccountsRouting } from './accounts.routing';
 @NgModule({
    declarations: [],
    imports: [
-      CommonModule,
+      SharedModule, MaterialModule,
       AccountsRouting
    ]
 })
