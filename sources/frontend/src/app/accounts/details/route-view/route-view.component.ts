@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AccountEntity } from '../../accounts.data';
+import { AccountsService } from '../../accounts.service';
 
 @Component({
    selector: 'accounts-details-route-view',
@@ -8,13 +10,13 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DetailsRouteViewComponent implements OnInit {
 
-   constructor(private route: ActivatedRoute) {
-      this.paramID = this.route.snapshot.params.id;
-   }
+   constructor(private service: AccountsService, private route: ActivatedRoute) { }
 
-   public paramID: string;
+   public Data: AccountEntity
 
-   ngOnInit(): void {
+   async ngOnInit(): Promise<void> {
+      const paramID = this.route.snapshot.params.id;
+      this.Data = await this.service.LoadAccount(paramID);
    }
 
 }
