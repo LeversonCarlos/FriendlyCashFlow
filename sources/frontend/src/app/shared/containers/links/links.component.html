@@ -1,0 +1,41 @@
+<div class="sidenav">
+
+   <img class="header" src="assets/sidenav.png" />
+
+   <mat-nav-list class="links">
+      <a mat-list-item routerLink="/home" disabled>
+         <span>DASHBOARD_MENU</span>
+         <mat-icon matListIcon>dashboard</mat-icon>
+      </a>
+      <a mat-list-item routerLink="/entries" disabled>
+         <span>ENTRIES_MENU</span>
+         <mat-icon matListIcon>receipt</mat-icon>
+      </a>
+      <a mat-list-item routerLink="/accounts">
+         <span>ACCOUNTS_MENU</span>
+         <mat-icon matListIcon>account_balance</mat-icon>
+      </a>
+      <a mat-list-item routerLink="/categories" disabled>
+         <span>CATEGORIES_MENU</span>
+         <mat-icon matListIcon>label</mat-icon>
+      </a>
+      <a mat-list-item routerLink="/analytics" disabled>
+         <span>ANALYTICS_MENU</span>
+         <mat-icon matListIcon>equalizer</mat-icon>
+      </a>
+   </mat-nav-list>
+
+   <div class="spacer"></div>
+
+   <mat-nav-list class="links">
+      <a mat-list-item routerLink="/identity/change-password">
+         <span>SETTINGS_MENU</span>
+         <mat-icon matListIcon>settings</mat-icon>
+      </a>
+      <a mat-list-item routerLink="/identity/logout">
+         <span>LOGOUT_MENU</span>
+         <mat-icon matListIcon>power_settings_new</mat-icon>
+      </a>
+   </mat-nav-list>
+
+</div>

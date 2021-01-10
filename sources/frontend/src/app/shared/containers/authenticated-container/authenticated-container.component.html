@@ -3,25 +3,7 @@
    <mat-sidenav-container autosize (backdropClick)="snav.close()">
       <mat-sidenav #snav fixedInViewport="true" [mode]="IsMobile ? 'over' : 'side'" [opened]="!IsMobile"
          (keydown.escape)="snav.close()">
-         <mat-nav-list>
-            <mat-list-item>
-               <a matLine routerLink="/accounts">ACCOUNTS_MENU</a>
-            </mat-list-item>
-            <mat-list-item>
-               <a matLine routerLink="/identity/change-password">Change Password</a>
-            </mat-list-item>
-            <mat-list-item>
-               <a matLine routerLink="/identity/logout">Logout</a>
-            </mat-list-item>
-            <!--
-            <mat-list-item *ngFor="let link of links">
-               <a matLine href="...">{{ link }}</a>
-               <button mat-icon-button (click)="showInfo(link)">
-                  <mat-icon>info</mat-icon>
-               </button>
-            </mat-list-item>
-            -->
-         </mat-nav-list>
+         <elesse-links></elesse-links>
       </mat-sidenav>
       <mat-sidenav-content>
          <header>
