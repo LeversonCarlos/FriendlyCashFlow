@@ -1,11 +1,15 @@
+@import "variables.scss";
+
 .container {
    height: 100vh;
 }
 
-.content {
-   height: 100vh;
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
-   align-items: center;
+header {
+   mat-toolbar {
+      justify-content: space-between;
+   }
+}
+
+section {
+   height: $section-height;
 }
