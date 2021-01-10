@@ -1,16 +1,9 @@
-.row {
-   display: flex;
-   justify-content: space-between;
-   width: 100%;
+mat-card {
+   mat-card-actions {
+      text-align: right;
+   }
 }
 
-.col {
-   margin: 0 0.5vw 2vh 0.5vw;
-
-   &:first-child {
-      margin-left: 0;
-   }
-   &:last-child {
-      margin-right: 0;
-   }
+mat-form-field {
+   width: 100%;
 }
