@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestsModule } from '@elesse/tests';
 
 import { LinksComponent } from './links.component';
 
@@ -9,9 +10,10 @@ describe('LinksComponent', () => {
 
    beforeEach(async () => {
       await TestBed.configureTestingModule({
-         declarations: [LinksComponent]
+         declarations: [LinksComponent],
+         imports: [TestsModule]
       })
-         .compileComponents();
+      .compileComponents();
    });
 
    beforeEach(() => {
