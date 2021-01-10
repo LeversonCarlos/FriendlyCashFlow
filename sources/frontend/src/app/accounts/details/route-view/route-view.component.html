@@ -2,31 +2,37 @@
    <div header-title>ACCOUNTS_TITLE</div>
    <div content>
 
-      <mat-card>
+      <form *ngIf="inputForm" [formGroup]="inputForm" (ngSubmit)="OnFormSubmit()">
+         <mat-card>
 
-         <mat-card-content>
-            <pre style="margin: 0;">{{ Data | json }}</pre>
-            <!--
-            <mat-form-field class="row">
-               <mat-label>OLD_PASSWORD_LABEL</mat-label>
-               <input type="password" matInput autofocus formControlName="OldPassword"
-                  autocomplete="current-password">
-            </mat-form-field>
-            <mat-form-field class="row">
-               <mat-label>NEW_PASSWORD_LABEL</mat-label>
-               <input type="password" matInput formControlName="NewPassword" autocomplete="new-password">
-            </mat-form-field>
-            -->
-         </mat-card-content>
+            <mat-card-content>
+               <mat-form-field class="row">
+                  <mat-label>ACCOUNTS_TEXT_LABEL</mat-label>
+                  <input type="text" matInput autofocus formControlName="Text">
+               </mat-form-field>
+               <mat-form-field class="row">
+                  <mat-label>ACCOUNTS_TYPE_LABEL</mat-label>
+                  <input type="text" matInput formControlName="Type">
+               </mat-form-field>
+               <div class="row">
+                  <mat-form-field class="col">
+                     <mat-label>ACCOUNTS_CLOSINGDAY_LABEL</mat-label>
+                     <input type="number" matInput autofocus formControlName="ClosingDay">
+                  </mat-form-field>
+                  <mat-form-field class="col">
+                     <mat-label>ACCOUNTS_DUEDAY_LABEL</mat-label>
+                     <input type="number" matInput autofocus formControlName="DueDay">
+                  </mat-form-field>
+               </div>
+            </mat-card-content>
 
-         <!--
-         <mat-card-actions>
-            <button type="submit" mat-flat-button color="primary" [disabled]="!inputForm?.valid || IsBusy"
-               matTooltip="CHANGE_PASSWORD_COMMAND_TOOLTIP">CHANGE_PASSWORD_COMMAND</button>
-         </mat-card-actions>
-         -->
+            <mat-card-actions>
+               <button type="submit" mat-flat-button color="primary" [disabled]="!inputForm?.valid || IsBusy"
+                  matTooltip="SAVE_COMMAND_TOOLTIP">SAVE_COMMAND</button>
+            </mat-card-actions>
 
-      </mat-card>
+         </mat-card>
+      </form>
 
    </div>
 </shared-authenticated-container>
