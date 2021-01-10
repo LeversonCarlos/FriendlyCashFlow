@@ -18,14 +18,15 @@ describe('AccountsService', () => {
    it('GetData WhenDataIsNull MustResult EmptyArray', (done) => {
       const account = Object.assign(new AccountEntity, { Text: 'Account Text' });
 
+      service.SetData(true, [account])
+      service.SetData(false, [account])
+
       service.GetData(false).subscribe(result => {
          expect(result).toEqual([account]);
          expect(result[0].Text).toEqual(account.Text);
          done();
       });
 
-      service.SetData(true, [account])
-      service.SetData(false, [account])
    });
 
 });
