@@ -1,0 +1,17 @@
+.sidenav {
+   height: -webkit-fill-available;
+   display: flex;
+   flex-direction: column;
+
+   .header {
+      height: 130px;
+   }
+
+   .links {
+      padding: 0;
+   }
+
+   .spacer {
+      flex-grow: 1;
+   }
+}

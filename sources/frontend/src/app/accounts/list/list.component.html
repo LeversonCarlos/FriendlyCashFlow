@@ -1,14 +1,45 @@
 <shared-authenticated-container>
+   <div header-title>ACCOUNTS_TITLE</div>
+   <div header-toolbar>
+      <button mat-icon-button color="accent" (click)="AddClick()">
+         <mat-icon>add_circle</mat-icon>
+      </button>
+   </div>
    <div content>
 
-      <h2>Active Accounts</h2>
-      <p *ngFor="let account of ActiveAccounts | async">{{ account.Type }} - {{ account.Text }}</p>
+      <mat-tab-group dynamicHeight="false">
 
-      <h2>Inactive Accounts</h2>
-      <p *ngFor="let account of InactiveAccounts | async">{{ account.Type }} - {{ account.Text }}</p>
+         <mat-tab label="ACCOUNTS_ACTIVE_ACCOUNTS_LABEL">
+            <mat-nav-list>
+               <mat-list-item *ngFor="let account of ActiveAccounts | async">
+                  <mat-icon matListIcon>{{ getAccountIcon(account.Type) }}</mat-icon>
+                  <a matLine routerLink="../details/{{account.AccountID}}">
+                     <span>{{ account.Text }}</span>
+                  </a>
+                  <button mat-icon-button>
+                     <mat-icon>more_vert</mat-icon>
+                  </button>
+               </mat-list-item>
+            </mat-nav-list>
+         </mat-tab>
+
+         <mat-tab label="ACCOUNTS_INACTIVE_ACCOUNTS_LABEL">
+            <mat-nav-list>
+               <mat-list-item *ngFor="let account of InactiveAccounts | async">
+                  <mat-icon matListIcon>{{ getAccountIcon(account.Type) }}</mat-icon>
+                  <a matLine routerLink="../details/{{account.AccountID}}">
+                     <span>{{ account.Text }}</span>
+                  </a>
+                  <button mat-icon-button>
+                     <mat-icon>more_vert</mat-icon>
+                  </button>
+               </mat-list-item>
+            </mat-nav-list>
+         </mat-tab>
+
+      </mat-tab-group>
 
       <button type="button" mat-flat-button color="accent" (click)="RefreshClick()">Refresh</button>
-
 
    </div>
 </shared-authenticated-container>

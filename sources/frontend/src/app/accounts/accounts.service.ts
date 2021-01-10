@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AccountEntity } from './accounts.data';
+import { AccountEntity, enAccountType } from './accounts.data';
 import { Observable, Subject } from 'rxjs';
 import { StorageService } from '@elesse/shared';
 import { HttpClient } from '@angular/common/http';
@@ -41,6 +41,21 @@ export class AccountsService {
 
       }
       catch { /* error absorber */ }
+   }
+
+   public getAccountIcon(type: enAccountType): string {
+      switch (type) {
+         case enAccountType.Bank:
+            return 'account_balance';
+         case enAccountType.CreditCard:
+            return 'credit_card';
+         case enAccountType.Investment:
+            return 'local_atm';
+         case enAccountType.Service:
+            return 'card_giftcard';
+         default:
+            return 'account_balance_wallet';
+      }
    }
 
 }
