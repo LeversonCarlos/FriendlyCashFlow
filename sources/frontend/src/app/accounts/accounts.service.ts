@@ -24,10 +24,10 @@ export class AccountsService {
 
          const sorter = (a: AccountEntity, b: AccountEntity): number => {
             let result = 0;
-            if (a.Text > b.Text) result += 10;
-            if (a.Text > b.Text) result -= 10;
-            if (a.Type > b.Type) result += 1;
-            if (a.Type < b.Type) result -= 1;
+            if (a.Type > b.Type) result += 10;
+            if (a.Type < b.Type) result -= 10;
+            if (a.Text > b.Text) result += 1;
+            if (a.Text < b.Text) result -= 1;
             return result;
          }
 
