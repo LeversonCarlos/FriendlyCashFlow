@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BusyService, MessageService } from '@elesse/shared';
 import { AccountEntity, enAccountType } from '../../accounts.data';
 import { AccountsService } from '../../accounts.service';
@@ -14,13 +14,13 @@ export class DetailsRouteViewComponent implements OnInit {
 
    constructor(private service: AccountsService,
       private busy: BusyService, private msg: MessageService,
-      private fb: FormBuilder, private route: ActivatedRoute) { }
+      private fb: FormBuilder, private activatedRoute: ActivatedRoute, private router: Router) { }
 
    public inputForm: FormGroup;
    public get IsBusy(): boolean { return this.busy.IsBusy; }
 
    public async ngOnInit(): Promise<void> {
-      const paramID = this.route.snapshot.params.id;
+      const paramID = this.activatedRoute.snapshot.params.id;
       const data = await this.service.LoadAccount(paramID);
       this.OnFormCreate(data);
    }
@@ -57,6 +57,17 @@ export class DetailsRouteViewComponent implements OnInit {
       control.updateValueAndValidity();
    }
 
+   public async OnCancelClick() {
+      if (!this.inputForm.pristine)
+         //if (!await this.msg.Confirm('BASE_CANCEL_CHANGES_CONFIRMATION_TEXT', 'BASE_CANCEL_CHANGES_CONFIRM', 'BASE_CANCEL_CHANGES_ABORT'))
+         return;
+      this.router.navigateByUrl("../list")
+   }
 
+   public async OnSaveClick() {
+      // if (!await this.service.saveAccount(this.Data))
+      // return;
+      this.router.navigate(["/accounts/list"])
+   }
 
 }
