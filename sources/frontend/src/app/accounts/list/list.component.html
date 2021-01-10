@@ -2,13 +2,30 @@
    <div content>
 
       <h2>Active Accounts</h2>
-      <p *ngFor="let account of ActiveAccounts | async">{{ account.Type }} - {{ account.Text }}</p>
+      <mat-nav-list>
+         <mat-list-item *ngFor="let account of ActiveAccounts | async">
+            <a matLine routerLink="details/accountID">{{ account.Type }} - {{ account.Text }}</a>
+            <!--
+            <button mat-icon-button (click)="showInfo(link)">
+               <mat-icon>info</mat-icon>
+            </button>
+            -->
+         </mat-list-item>
+      </mat-nav-list>
 
       <h2>Inactive Accounts</h2>
-      <p *ngFor="let account of InactiveAccounts | async">{{ account.Type }} - {{ account.Text }}</p>
+      <mat-nav-list>
+         <mat-list-item *ngFor="let account of InactiveAccounts | async">
+            <a matLine routerLink="details/accountID">{{ account.Type }} - {{ account.Text }}</a>
+            <!--
+            <button mat-icon-button (click)="showInfo(link)">
+               <mat-icon>info</mat-icon>
+            </button>
+            -->
+         </mat-list-item>
+      </mat-nav-list>
 
       <button type="button" mat-flat-button color="accent" (click)="RefreshClick()">Refresh</button>
-
 
    </div>
 </shared-authenticated-container>
