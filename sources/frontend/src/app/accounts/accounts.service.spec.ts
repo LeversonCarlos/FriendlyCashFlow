@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { TestsModule } from '@elesse/tests';
 import { AccountEntity } from './accounts.data';
 import { AccountsService } from './accounts.service';
 
@@ -7,7 +8,9 @@ describe('AccountsService', () => {
    let service: AccountsService;
 
    beforeEach(() => {
-      TestBed.configureTestingModule({});
+      TestBed.configureTestingModule({
+         imports: [TestsModule]
+      });
       service = TestBed.inject(AccountsService);
    });
 
@@ -15,17 +18,14 @@ describe('AccountsService', () => {
       expect(service).toBeTruthy();
    });
 
-   it('GetData WhenDataIsNull MustResult EmptyArray', (done) => {
+   it('GetData InitialValue MustResult Null', (done) => {
       const account = Object.assign(new AccountEntity, { Text: 'Account Text' });
 
       service.GetData(false).subscribe(result => {
-         expect(result).toEqual([account]);
-         expect(result[0].Text).toEqual(account.Text);
+         expect(result).toBeNull();
          done();
       });
 
-      service.SetData(true, [account])
-      service.SetData(false, [account])
    });
 
 });

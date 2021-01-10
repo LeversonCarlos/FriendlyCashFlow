@@ -1,7 +1,14 @@
 <shared-authenticated-container>
    <div content>
 
-      <h2>Accounts List</h2>
+      <h2>Active Accounts</h2>
+      <p *ngFor="let account of ActiveAccounts | async">{{ account.Type }} - {{ account.Text }}</p>
+
+      <h2>Inactive Accounts</h2>
+      <p *ngFor="let account of InactiveAccounts | async">{{ account.Type }} - {{ account.Text }}</p>
+
+      <button type="button" mat-flat-button color="accent" (click)="RefreshClick()">Refresh</button>
+
 
    </div>
 </shared-authenticated-container>

@@ -1,26 +1,46 @@
 import { Injectable } from '@angular/core';
 import { AccountEntity } from './accounts.data';
 import { Observable, Subject } from 'rxjs';
+import { StorageService } from '@elesse/shared';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
    providedIn: 'root'
 })
 export class AccountsService {
 
-   constructor() { }
-
-   private _Data: { [id: number]: Subject<AccountEntity[]>; } = {
-      0: new Subject<AccountEntity[]>(),
-      1: new Subject<AccountEntity[]>()
-   };
-   private _DataKey = (state: boolean): number =>
-      state == true ? 1 : 0;
-
-   public GetData(state: boolean = true): Observable<AccountEntity[]> {
-      return this._Data[this._DataKey(state)];
+   constructor(private http: HttpClient) {
+      this._Data = new StorageService<boolean, AccountEntity[]>("AccountsService");
+      this._Data.InitializeValues(false, true);
    }
-   public SetData(state: boolean, value: AccountEntity[]): void {
-      this._Data[this._DataKey(state)].next(value);
+
+   private _Data: StorageService<boolean, AccountEntity[]>;
+   public GetData = (state: boolean = true): Observable<AccountEntity[]> => this._Data.GetValue(state);
+
+   public async RefreshData(): Promise<void> {
+      try {
+         const values = await this.http.get<AccountEntity[]>(`api/accounts/list`).toPromise();
+         if (!values) return;
+
+         const sorter = (a: AccountEntity, b: AccountEntity): number => {
+            let result = 0;
+            if (a.Type > b.Type) result += 10;
+            if (a.Type < b.Type) result -= 10;
+            if (a.Text > b.Text) result += 1;
+            if (a.Text < b.Text) result -= 1;
+            return result;
+         }
+
+         const keys = [false, true];
+         keys.forEach(key => {
+            const value = values
+               .filter(x => x.Active == key)
+               .sort(sorter)
+            this._Data.SetValue(key, value);
+         });
+
+      }
+      catch { /* error absorber */ }
    }
 
 }
