@@ -27,18 +27,18 @@ export class DetailsRouteViewComponent implements OnInit {
 
    private OnFormCreate(data: AccountEntity) {
       this.inputForm = this.fb.group({
-         AccountID: [data.AccountID],
-         Text: [data.Text, Validators.required],
-         Type: [data.Type, Validators.required],
-         ClosingDay: new FormControl({ value: data.ClosingDay, disabled: true }),
-         DueDay: new FormControl({ value: data.DueDay, disabled: true })
+         AccountID: [data?.AccountID],
+         Text: [data?.Text, Validators.required],
+         Type: [data?.Type, Validators.required],
+         ClosingDay: new FormControl({ value: data?.ClosingDay, disabled: true }),
+         DueDay: new FormControl({ value: data?.DueDay, disabled: true })
       });
       this.inputForm.controls['Type'].valueChanges.subscribe(type => {
          this.OnAccountTypeChanged(type, 'ClosingDay');
          this.OnAccountTypeChanged(type, 'DueDay');
       });
-      this.OnAccountTypeChanged(data.Type, 'ClosingDay');
-      this.OnAccountTypeChanged(data.Type, 'DueDay');
+      this.OnAccountTypeChanged(data?.Type, 'ClosingDay');
+      this.OnAccountTypeChanged(data?.Type, 'DueDay');
    }
 
    private OnAccountTypeChanged(type: enAccountType, controlName: string) {
