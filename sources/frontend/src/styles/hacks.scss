@@ -1,4 +1,9 @@
-.row {
-   display: flex;
+mat-card {
+   mat-card-actions {
+      text-align: right;
+   }
+}
+
+mat-form-field {
    width: 100%;
 }

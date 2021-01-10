@@ -43,6 +43,26 @@ export class AccountsService {
       catch { /* error absorber */ }
    }
 
+   public async LoadAccount(accountID: string): Promise<AccountEntity> {
+      try {
+
+         if (!accountID)
+            return null;
+
+         if (accountID == 'new')
+            return Object.assign(new AccountEntity, { Type: enAccountType.General });
+
+         let value = await this.http.get<AccountEntity>(`api/accounts/load/${accountID}`).toPromise();
+         if (!value)
+            return null;
+
+         value = Object.assign(new AccountEntity, value);
+         return value;
+
+      }
+      catch { /* error absorber */ }
+   }
+
    public getAccountIcon(type: enAccountType): string {
       switch (type) {
          case enAccountType.Bank:
