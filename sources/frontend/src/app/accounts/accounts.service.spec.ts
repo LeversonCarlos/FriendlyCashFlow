@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { TestsModule } from '@elesse/tests';
 import { AccountEntity } from './accounts.data';
 import { AccountsService } from './accounts.service';
 
@@ -7,7 +8,9 @@ describe('AccountsService', () => {
    let service: AccountsService;
 
    beforeEach(() => {
-      TestBed.configureTestingModule({});
+      TestBed.configureTestingModule({
+         imports: [TestsModule]
+      });
       service = TestBed.inject(AccountsService);
    });
 
