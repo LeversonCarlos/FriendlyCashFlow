@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
    selector: 'accounts-details-route-view',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetailsRouteViewComponent implements OnInit {
 
-   constructor() { }
+   constructor(private route: ActivatedRoute) {
+      this.paramID = this.route.snapshot.params.id;
+   }
+
+   public paramID: string;
 
    ngOnInit(): void {
    }
