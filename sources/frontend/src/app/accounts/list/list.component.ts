@@ -22,4 +22,8 @@ export class ListComponent implements OnInit {
       this.service.RefreshData();
    }
 
+   public AddClick(): void {
+      console.log('add clicked')
+   }
+
 }

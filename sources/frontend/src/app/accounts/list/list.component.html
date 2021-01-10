@@ -1,29 +1,37 @@
 <shared-authenticated-container>
+   <div header-title>ACCOUNTS_TITLE</div>
+   <div header-toolbar>
+      <button mat-icon-button (click)="AddClick()">
+         <mat-icon>add_circle</mat-icon>
+      </button>
+   </div>
    <div content>
 
-      <h2>Active Accounts</h2>
-      <mat-nav-list>
-         <mat-list-item *ngFor="let account of ActiveAccounts | async">
-            <a matLine routerLink="details/accountID">{{ account.Type }} - {{ account.Text }}</a>
-            <!--
-            <button mat-icon-button (click)="showInfo(link)">
-               <mat-icon>info</mat-icon>
-            </button>
-            -->
-         </mat-list-item>
-      </mat-nav-list>
+      <mat-tab-group dynamicHeight="false">
 
-      <h2>Inactive Accounts</h2>
-      <mat-nav-list>
-         <mat-list-item *ngFor="let account of InactiveAccounts | async">
-            <a matLine routerLink="details/accountID">{{ account.Type }} - {{ account.Text }}</a>
-            <!--
-            <button mat-icon-button (click)="showInfo(link)">
-               <mat-icon>info</mat-icon>
-            </button>
-            -->
-         </mat-list-item>
-      </mat-nav-list>
+         <mat-tab label="ACCOUNTS_ACTIVE_ACCOUNTS_LABEL">
+            <mat-nav-list>
+               <mat-list-item *ngFor="let account of ActiveAccounts | async">
+                  <a matLine routerLink="details/accountID">{{ account.Type }} - {{ account.Text }}</a>
+                  <button mat-icon-button>
+                     <mat-icon>arrow_drop_down</mat-icon>
+                  </button>
+               </mat-list-item>
+            </mat-nav-list>
+         </mat-tab>
+
+         <mat-tab label="ACCOUNTS_INACTIVE_ACCOUNTS_LABEL">
+            <mat-nav-list>
+               <mat-list-item *ngFor="let account of InactiveAccounts | async">
+                  <a matLine routerLink="details/accountID">{{ account.Type }} - {{ account.Text }}</a>
+                  <button mat-icon-button>
+                     <mat-icon>arrow_drop_down</mat-icon>
+                  </button>
+               </mat-list-item>
+            </mat-nav-list>
+         </mat-tab>
+
+      </mat-tab-group>
 
       <button type="button" mat-flat-button color="accent" (click)="RefreshClick()">Refresh</button>
 
