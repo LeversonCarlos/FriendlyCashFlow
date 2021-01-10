@@ -8,11 +8,14 @@ import { AnonymousContainerComponent } from './containers/anonymous-container/an
 import { AuthenticatedContainerComponent } from './containers/authenticated-container/authenticated-container.component';
 import { MaterialModule } from '@elesse/material';
 import { LinksComponent } from './containers/links/links.component';
+import { MessageViewComponent } from './message/message-view/message-view.component';
 
 @NgModule({
+   entryComponents: [MessageViewComponent],
    declarations: [
       BusyComponent,
-      AnonymousContainerComponent, AuthenticatedContainerComponent, LinksComponent
+      AnonymousContainerComponent, AuthenticatedContainerComponent, LinksComponent,
+      MessageViewComponent
    ],
    imports: [
       CommonModule, RouterModule, FormsModule, ReactiveFormsModule,

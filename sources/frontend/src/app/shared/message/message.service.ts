@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@elesse/material';
+import { MessageViewComponent } from './message-view/message-view.component';
 import { MessageData, MessageType } from './message.models';
 
 @Injectable({
@@ -6,21 +8,17 @@ import { MessageData, MessageType } from './message.models';
 })
 export class MessageService {
 
-   constructor() { }
+   constructor(private snackBar: MatSnackBar) { }
    // TODO: constructor(private injector: Injector) { }
 
    ShowMessage(messageData: MessageData): void {
-      /*
-      TODO
-      this.snackBar.openFromComponent(MessageComponent, {
+      this.snackBar.openFromComponent(MessageViewComponent, {
          panelClass: 'message-snack-panel',
-         data: data,
-         duration: data.Duration,
+         data: messageData,
+         duration: messageData.Duration,
          horizontalPosition: 'right',
          verticalPosition: 'top'
       });
-      */
-      console.log('ShowMessage', messageData);
    }
 
    public async ShowInfo(...messages: string[]): Promise<void> {
