@@ -2,7 +2,31 @@
    <div header-title>ACCOUNTS_TITLE</div>
    <div content>
 
-      <pre style="margin: 0;">{{ Data | json }}</pre>
+      <mat-card>
+
+         <mat-card-content>
+            <pre style="margin: 0;">{{ Data | json }}</pre>
+            <!--
+            <mat-form-field class="row">
+               <mat-label>OLD_PASSWORD_LABEL</mat-label>
+               <input type="password" matInput autofocus formControlName="OldPassword"
+                  autocomplete="current-password">
+            </mat-form-field>
+            <mat-form-field class="row">
+               <mat-label>NEW_PASSWORD_LABEL</mat-label>
+               <input type="password" matInput formControlName="NewPassword" autocomplete="new-password">
+            </mat-form-field>
+            -->
+         </mat-card-content>
+
+         <!--
+         <mat-card-actions>
+            <button type="submit" mat-flat-button color="primary" [disabled]="!inputForm?.valid || IsBusy"
+               matTooltip="CHANGE_PASSWORD_COMMAND_TOOLTIP">CHANGE_PASSWORD_COMMAND</button>
+         </mat-card-actions>
+         -->
+
+      </mat-card>
 
    </div>
 </shared-authenticated-container>
