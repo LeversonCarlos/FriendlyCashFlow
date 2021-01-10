@@ -16,8 +16,4 @@ export class AccountsService {
    private _Data: StorageService<boolean, AccountEntity[]>;
    public GetData = (state: boolean = true): Observable<AccountEntity[]> => this._Data.GetValue(state);
 
-   public SetData(state: boolean, value: AccountEntity[]): void {
-      this._Data.SetValue(state, value);
-   }
-
 }
