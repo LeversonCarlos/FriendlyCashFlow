@@ -8,9 +8,16 @@ namespace Elesse.Shared
    {
 
       static string GetLanguageID(Microsoft.AspNetCore.Http.HttpContext _HttpContext) =>
-         GetLanguageIDs(_HttpContext).OrderBy(x => x.Value).Select(x => x.Key).FirstOrDefault();
+         GetAcceptedLanguageIDs(_HttpContext)
+            .Where(x => GetAvailabledLanguageID().Contains(x.Key))
+            .OrderBy(x => x.Value)
+            .Select(x => x.Key)
+            .FirstOrDefault();
 
-      static Dictionary<string, double> GetLanguageIDs(Microsoft.AspNetCore.Http.HttpContext _HttpContext)
+      static string[] GetAvailabledLanguageID() =>
+         new string[] { "en-US", "pt-BR" };
+
+      static Dictionary<string, double> GetAcceptedLanguageIDs(Microsoft.AspNetCore.Http.HttpContext _HttpContext)
       {
          var languageIDs = new Dictionary<string, double>();
          try
