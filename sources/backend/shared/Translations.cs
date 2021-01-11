@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
 namespace Elesse.Shared
 {
 
@@ -5,16 +8,29 @@ namespace Elesse.Shared
    {
       public string Version { get; private set; }
       public string Language { get; private set; }
+      public Dictionary<string, string> Values { get; private set; }
    }
 
    partial class Translations
    {
-      public static Translations Create(Microsoft.AspNetCore.Http.HttpContext _HttpContext) =>
-         new Translations
+      public static async Task<Translations> CreateAsync(ITranslationsProvider translationsProvider, Microsoft.AspNetCore.Http.HttpContext _HttpContext)
+      {
+
+         var translations = new Translations
          {
             Version = GetVersion(),
             Language = GetLanguageID(_HttpContext)
          };
+
+         var resourceName = _HttpContext.Request.Path
+            .ToString()
+            .ToLower()
+            .Replace("/api/", "")
+            .Replace("/translations", "");
+         translations.Values = await translationsProvider.GetTranslationsResource(resourceName, translations.Language);
+
+         return translations;
+      }
    }
 
 }
