@@ -59,7 +59,7 @@ export class DetailsRouteViewComponent implements OnInit {
 
    public async OnCancelClick() {
       if (!this.inputForm.pristine)
-         if (!await this.msg.Confirm('SHARED_CANCEL_CHANGES_CONFIRMATION_TEXT', 'SHARED_CANCEL_CHANGES_CONFIRM', 'SHARED_CANCEL_CHANGES_ABORT'))
+         if (!await this.msg.Confirm('shared.ROLLBACK_TEXT', 'shared.ROLLBACK_CONFIRM_COMMAND', 'shared.ROLLBACK_ABORT_COMMAND'))
             return;
       this.router.navigate(["/accounts/list"])
    }

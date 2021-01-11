@@ -2,5 +2,8 @@
   "CANCEL_COMMAND": "Cancelar",
   "CANCEL_COMMAND_TOOLTIP": "Clique para cancelar e descartar qualquer alteração",
   "SAVE_COMMAND": "Gravar",
-  "SAVE_COMMAND_TOOLTIP": "Clique para gravar as alterações"
+  "SAVE_COMMAND_TOOLTIP": "Clique para gravar as alterações",
+  "ROLLBACK_TEXT": "Você deseja reverter descartando as alterações?",
+  "ROLLBACK_CONFIRM_COMMAND": "Confirmar Reversão",
+  "ROLLBACK_ABORT_COMMAND": "Continuar Editando"
 }

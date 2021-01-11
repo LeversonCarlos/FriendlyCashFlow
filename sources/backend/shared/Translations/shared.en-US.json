@@ -2,5 +2,8 @@
   "CANCEL_COMMAND": "Cancel",
   "CANCEL_COMMAND_TOOLTIP": "Click to cancel and discard any changes",
   "SAVE_COMMAND": "Save",
-  "SAVE_COMMAND_TOOLTIP": "Click to save changes"
+  "SAVE_COMMAND_TOOLTIP": "Click to save changes",
+  "ROLLBACK_TEXT": "Do you want to rollback and lose changes ?",
+  "ROLLBACK_CONFIRM_COMMAND": "Confirm Rollback",
+  "ROLLBACK_ABORT_COMMAND": "Continue Editing"
 }
