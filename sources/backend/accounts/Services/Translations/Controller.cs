@@ -10,7 +10,7 @@ namespace Elesse.Accounts
 
       [HttpGet("translations")]
       [AllowAnonymous]
-      public Task<Shared.Translations> TranslationsAsync() =>
+      public Task<ActionResult<Shared.Translations>> TranslationsAsync() =>
          Shared.Translations.CreateAsync(this.HttpContext);
 
    }

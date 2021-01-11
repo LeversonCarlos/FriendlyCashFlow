@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Elesse.Shared
 {
@@ -14,20 +16,23 @@ namespace Elesse.Shared
    partial class Translations
    {
 
-      public static async Task<Translations> CreateAsync(Microsoft.AspNetCore.Http.HttpContext _HttpContext)
+      public static async Task<ActionResult<Translations>> CreateAsync(Microsoft.AspNetCore.Http.HttpContext _HttpContext)
       {
-
-         var translations = new Translations
+         try
          {
-            Version = GetVersion(),
-            Language = GetLanguageID(_HttpContext)
-         };
+            var translations = new Translations
+            {
+               Version = GetVersion(),
+               Language = GetLanguageID(_HttpContext)
+            };
 
-         var resourceName = GetResourceName(_HttpContext);
-         var resourcePath = GetResourcePath(resourceName, translations.Language);
-         translations.Values = await GetResourceValues(resourcePath);
+            var resourceName = GetResourceName(_HttpContext);
+            var resourcePath = GetResourcePath(resourceName, translations.Language);
+            translations.Values = await GetResourceValues(resourcePath);
 
-         return translations;
+            return translations;
+         }
+         catch (Exception ex) { return new BadRequestObjectResult(new string[] { $"EXCEPTION_{ex.Message}" }); }
       }
 
 
