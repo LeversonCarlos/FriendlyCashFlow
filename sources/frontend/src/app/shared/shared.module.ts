@@ -9,13 +9,14 @@ import { AuthenticatedContainerComponent } from './containers/authenticated-cont
 import { MaterialModule } from '@elesse/material';
 import { LinksComponent } from './containers/links/links.component';
 import { MessageViewComponent } from './message/message-view/message-view.component';
+import { ConfirmViewComponent } from './message/confirm-view/confirm-view.component';
 
 @NgModule({
    entryComponents: [MessageViewComponent],
    declarations: [
       BusyComponent,
       AnonymousContainerComponent, AuthenticatedContainerComponent, LinksComponent,
-      MessageViewComponent
+      MessageViewComponent, ConfirmViewComponent
    ],
    imports: [
       CommonModule, RouterModule, FormsModule, ReactiveFormsModule,
