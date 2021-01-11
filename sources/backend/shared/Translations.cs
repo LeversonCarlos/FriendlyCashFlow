@@ -7,14 +7,14 @@ namespace Elesse.Shared
       public string Language { get; private set; }
    }
 
-   public static Translations Create(Microsoft.AspNetCore.Http.HttpContext _HttpContext)
+   partial class Translations
    {
-      var translation = new Translations
-      {
-         Version = GetVersion(),
-         Language = GetLanguageID(_HttpContext)
-      };
-      return translation;
+      public static Translations Create(Microsoft.AspNetCore.Http.HttpContext _HttpContext) =>
+         new Translations
+         {
+            Version = GetVersion(),
+            Language = GetLanguageID(_HttpContext)
+         };
    }
 
 }
