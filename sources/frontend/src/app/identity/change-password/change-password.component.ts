@@ -40,7 +40,7 @@ export class ChangePasswordComponent implements OnInit {
          });
          await this.http.put(`api/identity/change-password`, changePasswordParam).toPromise();
 
-         await this.msg.ShowInfo('IDENTITY_CHANGE_PASSWORD_SUCCESS_MESSAGE')
+         await this.msg.ShowInfo('identity.CHANGE_PASSWORD_SUCCESS')
          this.router.navigateByUrl('/');
 
       }

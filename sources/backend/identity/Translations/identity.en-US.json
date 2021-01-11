@@ -3,11 +3,13 @@
   "PASSWORD_LABEL": "Password",
   "REGISTER_COMMAND": "Register",
   "REGISTER_COMMAND_TOOLTIP": "Click to register your access into the system",
+  "REGISTER_SUCCESS": "Your access has been registered, check your email for the activation link",
   "LOGIN_LINK": "Already have access ? Click to login",
   "LOGOUT_MENU": "Logout",
   "CHANGE_PASSWORD_TITLE": "Change Password",
   "OLD_PASSWORD_LABEL": "Old Password",
   "NEW_PASSWORD_LABEL": "New Password",
   "CHANGE_PASSWORD_COMMAND": "Change Password",
-  "CHANGE_PASSWORD_COMMAND_TOOLTIP": "Click to change your current password"
+  "CHANGE_PASSWORD_COMMAND_TOOLTIP": "Click to change your current password",
+  "CHANGE_PASSWORD_SUCCESS": "Your password has been changed"
 }

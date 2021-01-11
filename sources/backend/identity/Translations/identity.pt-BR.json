@@ -3,11 +3,13 @@
   "PASSWORD_LABEL": "Senha",
   "REGISTER_COMMAND": "Registrar",
   "REGISTER_COMMAND_TOOLTIP": "Clique para registrar seu acesso no sistema",
+  "REGISTER_SUCCESS": "Seu acesso foi registrado, verifique seu email para o link de ativação",
   "LOGIN_LINK": "Já possui acesso ? Clique para logar",
   "LOGOUT_MENU": "Logout",
   "CHANGE_PASSWORD_TITLE": "Trocar Senha",
   "OLD_PASSWORD_LABEL": "Senha Antiga",
   "NEW_PASSWORD_LABEL": "Senha Nova",
   "CHANGE_PASSWORD_COMMAND": "Trocar a Senha",
-  "CHANGE_PASSWORD_COMMAND_TOOLTIP": "Clique para trocar sua senha atual"
+  "CHANGE_PASSWORD_COMMAND_TOOLTIP": "Clique para trocar sua senha atual",
+  "CHANGE_PASSWORD_SUCCESS": "Sua senha foi trocada com sucesso"
 }
