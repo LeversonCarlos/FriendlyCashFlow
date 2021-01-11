@@ -2,5 +2,9 @@
   "TITLE": "Accounts",
   "MENU": "Accounts",
   "ACTIVE_ACCOUNTS_LABEL": "Active Accounts",
-  "INACTIVE_ACCOUNTS_LABEL": "Inactive Accounts"
+  "INACTIVE_ACCOUNTS_LABEL": "Inactive Accounts",
+  "TEXT_LABEL": "Description",
+  "TYPE_LABEL": "Type",
+  "CLOSINGDAY_LABEL": "ClosingDay",
+  "DUEDAY_LABEL": "DueDay"
 }
