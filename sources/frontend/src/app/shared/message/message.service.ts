@@ -27,8 +27,7 @@ export class MessageService {
    public async ShowInfo(...messages: string[]): Promise<void> {
       if (!messages || messages.length == 0)
          return;
-      // TODO: const translatedMessage = await Promise.all(messages.map(async message => await this.translation.getValue(message))); }
-      const translatedMessage = messages;
+      const translatedMessage = await Promise.all(messages.map(async message => await this.localization.GetTranslation(message)));
       const messageData = Object.assign(new MessageData, {
          Messages: translatedMessage,
          Type: MessageType.Information
@@ -39,8 +38,7 @@ export class MessageService {
    public async ShowWarning(...messages: string[]): Promise<void> {
       if (!messages || messages.length == 0)
          return;
-      // TODO: const translatedMessage = await Promise.all(messages.map(async message => await this.translation.getValue(message))); }
-      const translatedMessage = messages;
+      const translatedMessage = await Promise.all(messages.map(async message => await this.localization.GetTranslation(message)));
       let messageData = Object.assign(new MessageData, {
          Messages: translatedMessage,
          Type: MessageType.Warning
@@ -72,13 +70,10 @@ export class MessageService {
       let data = Object.assign(new ConfirmData, {});
       if (message)
          data.Message = await this.localization.GetTranslation(message);
-         // data.Message = message;
       if (confirmText)
          data.ConfirmText = await this.localization.GetTranslation(confirmText);
-         // data.ConfirmText = confirmText;
       if (cancelText)
          data.CancelText = await this.localization.GetTranslation(cancelText);
-         // data.CancelText = cancelText;
       const confirmDialog = this.dialog.open(ConfirmViewComponent, {
          panelClass: 'confirm-dialog-panel',
          data: data
