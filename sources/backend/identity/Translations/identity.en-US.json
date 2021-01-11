@@ -1,0 +1,23 @@
+{
+  "USERNAME_LABEL": "Username",
+  "PASSWORD_LABEL": "Password",
+
+  "REGISTER_COMMAND": "Register",
+  "REGISTER_COMMAND_TOOLTIP": "Click to register your access into the system",
+  "REGISTER_SUCCESS": "Your access has been registered, check your email for the activation link",
+  "REGISTER_LINK": "Click to register, if you have not done it  yet",
+
+  "LOGIN_COMMAND": "Logar",
+  "LOGIN_COMMAND_TOOLTIP": "Clique para logar no sistema",
+  "LOGIN_LINK": "Click to login, if you already have access",
+  "ACTIVATION_LINK": "Click to send activation mail again",
+
+  "CHANGE_PASSWORD_TITLE": "Change Password",
+  "OLD_PASSWORD_LABEL": "Old Password",
+  "NEW_PASSWORD_LABEL": "New Password",
+  "CHANGE_PASSWORD_COMMAND": "Change Password",
+  "CHANGE_PASSWORD_COMMAND_TOOLTIP": "Click to change your current password",
+  "CHANGE_PASSWORD_SUCCESS": "Your password has been changed",
+
+  "LOGOUT_MENU": "Logout"
+}

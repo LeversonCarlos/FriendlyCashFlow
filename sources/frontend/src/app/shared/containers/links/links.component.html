@@ -33,7 +33,7 @@
          <mat-icon matListIcon>settings</mat-icon>
       </a>
       <a mat-list-item routerLink="/identity/logout">
-         <span>LOGOUT_MENU</span>
+         <span>{{ 'identity.LOGOUT_MENU' | translation | async }}</span>
          <mat-icon matListIcon>power_settings_new</mat-icon>
       </a>
    </mat-nav-list>

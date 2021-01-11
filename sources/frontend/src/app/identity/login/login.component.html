@@ -6,27 +6,32 @@
 
             <mat-card-content>
                <mat-form-field>
-                  <mat-label>USERNAME_LABEL</mat-label>
+                  <mat-label>{{ 'identity.USERNAME_LABEL' | translation | async }}</mat-label>
                   <input type="email" matInput autofocus formControlName="UserName" autocomplete="username">
                </mat-form-field>
                <mat-form-field>
-                  <mat-label>PASSWORD_LABEL</mat-label>
+                  <mat-label>{{ 'identity.PASSWORD_LABEL' | translation | async }}</mat-label>
                   <input type="password" matInput formControlName="Password" autocomplete="current-password">
                </mat-form-field>
             </mat-card-content>
 
             <mat-card-actions>
-               <button type="submit" mat-flat-button color="primary" [disabled]="!inputForm?.valid || IsBusy"
-                  matTooltip='LOGIN_COMMAND_TOOLTIP'>LOGIN_COMMAND</button>
+               <button type="submit" mat-button color="primary"
+                  [matTooltip]="'identity.LOGIN_COMMAND_TOOLTIP' | translation | async"
+                  [disabled]="!inputForm?.valid || IsBusy">{{ 'identity.LOGIN_COMMAND' | translation | async }}</button>
             </mat-card-actions>
 
          </mat-card>
       </form>
 
-      <button type="button" mat-button color="accent" [disabled]="IsBusy" routerLink="../register"
-         matTooltip="REGISTER_LINK_TOOLTIP">REGISTER_LINK</button>
-      <button type="button" mat-button color="accent" [disabled]="IsBusy" (click)="OnActivationClick()"
-         matTooltip="ACTIVATION_LINK_TOOLTIP">ACTIVATION_LINK</button>
+      <div>
+         <button type="button" mat-button color="accent" routerLink="../register"
+            [disabled]="IsBusy">{{ 'identity.REGISTER_LINK' | translation | async }}</button>
+      </div>
+      <div>
+         <button type="button" mat-button color="accent" (click)="OnActivationClick()"
+            [disabled]="IsBusy">{{ 'identity.ACTIVATION_LINK' | translation | async }}</button>
+      </div>
 
    </div>
 </shared-anonymous-container>

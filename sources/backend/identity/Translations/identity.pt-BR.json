@@ -1,0 +1,23 @@
+{
+  "USERNAME_LABEL": "Usuário",
+  "PASSWORD_LABEL": "Senha",
+
+  "REGISTER_COMMAND": "Registrar",
+  "REGISTER_COMMAND_TOOLTIP": "Clique para registrar seu acesso no sistema",
+  "REGISTER_SUCCESS": "Seu acesso foi registrado, verifique seu email para o link de ativação",
+  "REGISTER_LINK": "Clique para se registrar, se ainda não o fez",
+
+  "LOGIN_COMMAND": "Logar",
+  "LOGIN_COMMAND_TOOLTIP": "Clique para logar no sistema",
+  "LOGIN_LINK": "Clique para logar, se já possuir acesso",
+  "ACTIVATION_LINK": "Clique para enviar novamente o email de ativação",
+
+  "CHANGE_PASSWORD_TITLE": "Trocar Senha",
+  "OLD_PASSWORD_LABEL": "Senha Antiga",
+  "NEW_PASSWORD_LABEL": "Senha Nova",
+  "CHANGE_PASSWORD_COMMAND": "Trocar a Senha",
+  "CHANGE_PASSWORD_COMMAND_TOOLTIP": "Clique para trocar sua senha atual",
+  "CHANGE_PASSWORD_SUCCESS": "Sua senha foi trocada com sucesso",
+
+  "LOGOUT_MENU": "Logout"
+}

@@ -40,7 +40,7 @@ export class RegisterComponent implements OnInit {
          });
          await this.http.post<boolean>(`api/identity/register`, registerParam).toPromise();
 
-         await this.msg.ShowInfo('IDENTITY_REGISTER_SUCCESS_MESSAGE')
+         await this.msg.ShowInfo('shared.REGISTER_SUCCESS')
          this.router.navigate(['/'], { queryParamsHandling: 'preserve' });
       }
       catch { /* error absorber */ }
