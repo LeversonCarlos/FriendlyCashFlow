@@ -27,6 +27,8 @@
             </mat-card-content>
 
             <mat-card-actions>
+               <button type="button" mat-button [disabled]="IsBusy" (click)="OnCancelClick()"
+                  matTooltip="CANCEL_COMMAND_TOOLTIP">CANCEL_COMMAND</button>
                <button type="submit" mat-button color="primary" [disabled]="!inputForm?.valid || IsBusy"
                   matTooltip="SAVE_COMMAND_TOOLTIP">SAVE_COMMAND</button>
             </mat-card-actions>
