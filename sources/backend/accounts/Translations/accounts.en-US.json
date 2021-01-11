@@ -1,4 +1,6 @@
 {
   "TITLE": "Accounts",
-  "MENU": "Accounts"
+  "MENU": "Accounts",
+  "ACTIVE_ACCOUNTS_LABEL": "Active Accounts",
+  "INACTIVE_ACCOUNTS_LABEL": "Inactive Accounts"
 }
