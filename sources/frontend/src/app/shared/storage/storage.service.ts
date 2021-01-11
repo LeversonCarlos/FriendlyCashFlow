@@ -33,8 +33,12 @@ export class StorageService<KEY, VALUE> {
       });
    }
 
-   public GetValue(key: KEY): Observable<VALUE> {
+   public GetObservable(key: KEY): Observable<VALUE> {
       return this._Data[`${key}`].asObservable();
+   }
+
+   public GetValue(key: KEY): VALUE {
+      return this._Data[`${key}`].getValue();
    }
 
    public SetValue(key: KEY, value: VALUE): void {
