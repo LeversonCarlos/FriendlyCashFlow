@@ -12,7 +12,7 @@
          <mat-icon matListIcon>receipt</mat-icon>
       </a>
       <a mat-list-item routerLink="/accounts">
-         <span>ACCOUNTS_MENU</span>
+         <span>{{ "accounts.MENU" | translation | async }}</span>
          <mat-icon matListIcon>account_balance</mat-icon>
       </a>
       <a mat-list-item routerLink="/categories" disabled>
