@@ -32,9 +32,14 @@ export class LocalizationService {
       catch { /* error absorber */ }
    }
 
-   public GetTranslation(resource: string, key: string): string {
-      try { return this.Resources.GetValue(resource)[key]; }
-      catch { return `${resource}.${key}`; }
+   public GetTranslation(value: string): string {
+      try {
+         const keyParts = value.split(".");
+         const resource = keyParts[0];
+         const key = keyParts[1];
+         return this.Resources.GetValue(resource)[key];
+      }
+      catch { return value; }
    }
 
 }
