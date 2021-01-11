@@ -15,7 +15,7 @@ export class AccountsService {
    }
 
    private _Data: StorageService<boolean, AccountEntity[]>;
-   public GetData = (state: boolean = true): Observable<AccountEntity[]> => this._Data.GetValue(state);
+   public GetData = (state: boolean = true): Observable<AccountEntity[]> => this._Data.GetObservable(state);
 
    public async RefreshData(): Promise<void> {
       try {

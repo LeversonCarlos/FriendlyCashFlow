@@ -1,5 +1,5 @@
 <shared-authenticated-container>
-   <div header-title>ACCOUNTS_TITLE</div>
+   <div header-title>{{ "accounts.TITLE" | translation | async }}</div>
    <div content>
 
       <form *ngIf="inputForm" [formGroup]="inputForm" (ngSubmit)="OnSaveClick()">
@@ -7,30 +7,32 @@
 
             <mat-card-content>
                <mat-form-field class="row">
-                  <mat-label>ACCOUNTS_TEXT_LABEL</mat-label>
+                  <mat-label>{{ "accounts.TEXT_LABEL" | translation | async }}</mat-label>
                   <input type="text" matInput autofocus formControlName="Text">
                </mat-form-field>
                <mat-form-field class="row">
-                  <mat-label>ACCOUNTS_TYPE_LABEL</mat-label>
+                  <mat-label>{{ "accounts.TYPE_LABEL" | translation | async }}</mat-label>
                   <input type="text" matInput formControlName="Type">
                </mat-form-field>
                <div class="row">
                   <mat-form-field class="col">
-                     <mat-label>ACCOUNTS_CLOSINGDAY_LABEL</mat-label>
+                     <mat-label>{{ "accounts.CLOSINGDAY_LABEL" | translation | async }}</mat-label>
                      <input type="number" matInput autofocus formControlName="ClosingDay">
                   </mat-form-field>
                   <mat-form-field class="col">
-                     <mat-label>ACCOUNTS_DUEDAY_LABEL</mat-label>
+                     <mat-label>{{ "accounts.DUEDAY_LABEL" | translation | async }}</mat-label>
                      <input type="number" matInput autofocus formControlName="DueDay">
                   </mat-form-field>
                </div>
             </mat-card-content>
 
             <mat-card-actions>
-               <button type="button" mat-button [disabled]="IsBusy" (click)="OnCancelClick()"
-                  matTooltip="CANCEL_COMMAND_TOOLTIP">CANCEL_COMMAND</button>
-               <button type="submit" mat-button color="primary" [disabled]="!inputForm?.valid || IsBusy"
-                  matTooltip="SAVE_COMMAND_TOOLTIP">SAVE_COMMAND</button>
+               <button type="button" mat-button (click)="OnCancelClick()"
+                  [matTooltip]="'shared.CANCEL_COMMAND_TOOLTIP' | translation | async"
+                  [disabled]="IsBusy">{{ "shared.CANCEL_COMMAND" | translation | async }}</button>
+               <button type="submit" mat-button color="primary"
+                  [matTooltip]="'shared.SAVE_COMMAND_TOOLTIP' | translation | async"
+                  [disabled]="!inputForm?.valid || IsBusy">{{ "shared.SAVE_COMMAND" | translation | async }}</button>
             </mat-card-actions>
 
          </mat-card>

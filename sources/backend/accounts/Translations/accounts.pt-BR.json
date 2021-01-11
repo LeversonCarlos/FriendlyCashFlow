@@ -1,0 +1,10 @@
+{
+  "TITLE": "Contas",
+  "MENU": "Contas",
+  "ACTIVE_ACCOUNTS_LABEL": "Contas Ativas",
+  "INACTIVE_ACCOUNTS_LABEL": "Contas Inativas",
+  "TEXT_LABEL": "Descrição",
+  "TYPE_LABEL": "Tipo",
+  "CLOSINGDAY_LABEL": "Dia para Fechamento",
+  "DUEDAY_LABEL": "Dia para Vencimento"
+}

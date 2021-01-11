@@ -1,5 +1,5 @@
 <shared-authenticated-container>
-   <div header-title>ACCOUNTS_TITLE</div>
+   <div header-title>{{ "accounts.TITLE" | translation | async}}</div>
    <div header-toolbar>
       <button mat-icon-button color="accent" (click)="AddClick()">
          <mat-icon>add_circle</mat-icon>
@@ -9,7 +9,7 @@
 
       <mat-tab-group dynamicHeight="false">
 
-         <mat-tab label="ACCOUNTS_ACTIVE_ACCOUNTS_LABEL">
+         <mat-tab [label]="'accounts.ACTIVE_ACCOUNTS_LABEL' | translation | async">
             <mat-nav-list>
                <mat-list-item *ngFor="let account of ActiveAccounts | async">
                   <mat-icon matListIcon>{{ getAccountIcon(account.Type) }}</mat-icon>
@@ -23,7 +23,7 @@
             </mat-nav-list>
          </mat-tab>
 
-         <mat-tab label="ACCOUNTS_INACTIVE_ACCOUNTS_LABEL">
+         <mat-tab [label]="'accounts.INACTIVE_ACCOUNTS_LABEL' | translation | async">
             <mat-nav-list>
                <mat-list-item *ngFor="let account of InactiveAccounts | async">
                   <mat-icon matListIcon>{{ getAccountIcon(account.Type) }}</mat-icon>

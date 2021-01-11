@@ -2,10 +2,25 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>Elesse.Identity</RootNamespace>
+    <RootNamespace>Elesse.Shared</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Translations\shared.en-US.json" />
+    <None Remove="Translations\shared.pt-BR.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Translations\shared.en-US.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Translations\shared.pt-BR.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="MongoDB.Driver" Version="2.11.2" />
   </ItemGroup>
 

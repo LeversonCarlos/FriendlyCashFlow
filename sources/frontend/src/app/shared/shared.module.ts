@@ -10,13 +10,16 @@ import { MaterialModule } from '@elesse/material';
 import { LinksComponent } from './containers/links/links.component';
 import { MessageViewComponent } from './message/message-view/message-view.component';
 import { ConfirmViewComponent } from './message/confirm-view/confirm-view.component';
+import { VersionComponent } from './version/version.component';
+import { TranslationPipe } from './localization/translation.pipe';
 
 @NgModule({
    entryComponents: [MessageViewComponent],
    declarations: [
       BusyComponent,
       AnonymousContainerComponent, AuthenticatedContainerComponent, LinksComponent,
-      MessageViewComponent, ConfirmViewComponent
+      MessageViewComponent, ConfirmViewComponent, VersionComponent,
+      TranslationPipe
    ],
    imports: [
       CommonModule, RouterModule, FormsModule, ReactiveFormsModule,
@@ -25,7 +28,8 @@ import { ConfirmViewComponent } from './message/confirm-view/confirm-view.compon
    exports: [
       CommonModule, RouterModule, FormsModule, ReactiveFormsModule,
       BusyComponent,
-      AnonymousContainerComponent, AuthenticatedContainerComponent
+      AnonymousContainerComponent, AuthenticatedContainerComponent,
+      TranslationPipe
    ]
 })
 export class SharedModule { }

@@ -17,24 +17,31 @@ export class StorageService<KEY, VALUE> {
    private _Keys: KEY[];
    private GetKey = (key: KEY): string => `StorageService.${this._Name}.${key}`;
 
+   public PersistentStorage: boolean = true;
+
    public InitializeValues(...keys: KEY[]) {
       this._Keys = keys ?? [];
       this._Keys.forEach(key => {
          this._Data[`${key}`] = new BehaviorSubject<VALUE>(null)
-         try {
-            const valueString = localStorage.getItem(this.GetKey(key));
-            if (valueString) {
-               const value: VALUE = JSON.parse(valueString);
-               if (value)
-                  this._Data[`${key}`].next(value);
+         if (this.PersistentStorage)
+            try {
+               const valueString = localStorage.getItem(this.GetKey(key));
+               if (valueString) {
+                  const value: VALUE = JSON.parse(valueString);
+                  if (value)
+                     this._Data[`${key}`].next(value);
+               }
             }
-         }
-         catch { }
+            catch { }
       });
    }
 
-   public GetValue(key: KEY): Observable<VALUE> {
+   public GetObservable(key: KEY): Observable<VALUE> {
       return this._Data[`${key}`].asObservable();
+   }
+
+   public GetValue(key: KEY): VALUE {
+      return this._Data[`${key}`].getValue();
    }
 
    public SetValue(key: KEY, value: VALUE): void {

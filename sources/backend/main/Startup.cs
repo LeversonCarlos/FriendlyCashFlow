@@ -1,5 +1,6 @@
 using Elesse.Accounts;
 using Elesse.Identity.Helpers;
+using Elesse.Shared;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -39,6 +40,7 @@ namespace Elesse.FriendlyCashFlow
                options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
             })
             .AddIdentityService(_Configuration)
+            .AddSharedService(_Configuration)
             .AddAccountService(_Configuration);
       }
 

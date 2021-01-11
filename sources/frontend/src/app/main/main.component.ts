@@ -10,6 +10,7 @@ export class MainComponent implements OnInit {
 
    constructor(private insights: InsightsService) {
       this.insights.TrackEvent('Application Opened');
+
    }
 
    ngOnInit(): void {
