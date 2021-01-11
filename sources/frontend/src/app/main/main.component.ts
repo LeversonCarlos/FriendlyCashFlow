@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { InsightsService, LocalizationService } from '@elesse/shared';
+import { InsightsService } from '@elesse/shared';
 
 @Component({
    selector: 'elesse-root',
@@ -8,9 +8,9 @@ import { InsightsService, LocalizationService } from '@elesse/shared';
 })
 export class MainComponent implements OnInit {
 
-   constructor(private insights: InsightsService, private localization: LocalizationService) {
+   constructor(private insights: InsightsService) {
       this.insights.TrackEvent('Application Opened');
-      this.localization.RefreshResources();
+
    }
 
    ngOnInit(): void {
