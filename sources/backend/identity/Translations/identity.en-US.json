@@ -1,4 +1,10 @@
 {
+  "USERNAME_LABEL": "Username",
+  "PASSWORD_LABEL": "Password",
+  "REGISTER_COMMAND": "Register",
+  "REGISTER_COMMAND_TOOLTIP": "Click to register your access into the system",
+  "LOGIN_LINK": "Already have access ? Click to login",
+  "LOGOUT_MENU": "Logout",
   "CHANGE_PASSWORD_TITLE": "Change Password",
   "OLD_PASSWORD_LABEL": "Old Password",
   "NEW_PASSWORD_LABEL": "New Password",
