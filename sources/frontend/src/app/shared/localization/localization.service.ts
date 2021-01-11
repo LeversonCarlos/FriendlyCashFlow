@@ -11,7 +11,7 @@ export class LocalizationService {
 
    constructor(private http: HttpClient) {
       this.Resources = new StorageService<string, TranslationValues>(`LocalizationService.${version}`);
-      // this.Resources.PersistentStorage = false;
+      this.Resources.PersistentStorage = false;
       this.Resources.InitializeValues(...this.ResourceKeys);
    }
 
