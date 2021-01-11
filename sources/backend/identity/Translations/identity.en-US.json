@@ -1,0 +1,7 @@
+{
+  "CHANGE_PASSWORD_TITLE": "Change Password",
+  "OLD_PASSWORD_LABEL": "Old Password",
+  "NEW_PASSWORD_LABEL": "New Password",
+  "CHANGE_PASSWORD_COMMAND": "Change Password",
+  "CHANGE_PASSWORD_COMMAND_TOOLTIP": "Click to change your current password"
+}

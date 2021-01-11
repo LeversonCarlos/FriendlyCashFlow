@@ -1,0 +1,7 @@
+{
+  "CHANGE_PASSWORD_TITLE": "Trocar Senha",
+  "OLD_PASSWORD_LABEL": "Senha Antiga",
+  "NEW_PASSWORD_LABEL": "Senha Nova",
+  "CHANGE_PASSWORD_COMMAND": "Trocar a Senha",
+  "CHANGE_PASSWORD_COMMAND_TOOLTIP": "Clique para trocar sua senha atual"
+}

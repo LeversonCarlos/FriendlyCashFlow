@@ -13,6 +13,20 @@
    </PropertyGroup>
 
    <ItemGroup>
+     <None Remove="Translations\identity.en-US.json" />
+     <None Remove="Translations\identity.pt-BR.json" />
+   </ItemGroup>
+
+   <ItemGroup>
+     <Content Include="Translations\identity.en-US.json">
+       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+     </Content>
+     <Content Include="Translations\identity.pt-BR.json">
+       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+     </Content>
+   </ItemGroup>
+
+   <ItemGroup>
       <FrameworkReference Include="Microsoft.AspNetCore.App" />
       <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.8" />
       <PackageReference Include="MongoDB.Driver" Version="2.11.2" />
