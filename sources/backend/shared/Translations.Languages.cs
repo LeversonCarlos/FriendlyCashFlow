@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Elesse.Shared
 {
-   partial class Translation
+   partial class Translations
    {
 
       static string GetLanguageID(Microsoft.AspNetCore.Http.HttpContext _HttpContext) =>
