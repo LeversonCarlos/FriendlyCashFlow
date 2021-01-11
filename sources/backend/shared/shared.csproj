@@ -2,17 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>Elesse.Identity</RootNamespace>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <Version>1.0.0</Version>
-    <Authors>Leverson Carlos</Authors>
-    <Product>Friendly Cash Flow</Product>
-    <Company>Friendship</Company>
+    <RootNamespace>Elesse.Shared</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="MongoDB.Driver" Version="2.11.2" />
   </ItemGroup>
 
