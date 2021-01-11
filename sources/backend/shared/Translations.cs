@@ -24,8 +24,8 @@ namespace Elesse.Shared
          };
 
          var resourceName = GetResourceName(_HttpContext);
-         var resurcePath = GetResourcePath(resourceName, translations.Language);
-         translations.Values = await translationsProvider.GetTranslationsResource(resourceName, translations.Language);
+         var resourcePath = GetResourcePath(resourceName, translations.Language);
+         translations.Values = await GetResourceValues(resourcePath);
 
          return translations;
       }

@@ -25,6 +25,13 @@ namespace Elesse.Shared
          return resourcePath;
       }
 
+      static async Task<Dictionary<string, string>> GetResourceValues(string resourcePath)
+      {
+         var resourceContent = await File.ReadAllTextAsync(resourcePath);
+         var resourceValues = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(resourceContent);
+         return resourceValues;
+      }
+
    }
 
    public interface ITranslationsProvider
@@ -47,9 +54,6 @@ namespace Elesse.Shared
          var rootPath = Assembly.GetEntryAssembly().Location;
          rootPath = System.IO.Path.GetDirectoryName(rootPath);
          var resourcePath = Path.Combine(rootPath, "Translations", $"{resourceName}.{languageID}.json");
-         var resourceContent = await File.ReadAllTextAsync(resourcePath);
-         var resourceValues = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(resourceContent);
-         return resourceValues;
       }
 
    }
