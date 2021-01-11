@@ -18,20 +18,6 @@ export class LocalizationService {
    private ResourceKeys: string[] = ["accounts"];
    private Resources: StorageService<string, TranslationValues>;
 
-   public async RefreshResources(): Promise<void> {
-      try {
-         for (let index = 0; index < this.ResourceKeys.length; index++) {
-            const resourceKey = this.ResourceKeys[index];
-
-            const translationData = await this.http.get<TranslationData>(`api/${resourceKey}/translations`).toPromise();
-            if (!translationData) continue;
-
-            this.Resources.SetValue(resourceKey, translationData.Values);
-         }
-      }
-      catch { /* error absorber */ }
-   }
-
    public async GetTranslation(value: string): Promise<string> {
       try {
          const valueParts = value.split(".");
