@@ -1,11 +1,14 @@
 import { TestBed } from '@angular/core/testing';
+import { TestsModule } from '@elesse/tests';
 import { LocalizationService } from './localization.service';
 
 describe('LocalizationService', () => {
    let service: LocalizationService;
 
    beforeEach(() => {
-      TestBed.configureTestingModule({});
+      TestBed.configureTestingModule({
+         imports: [TestsModule]
+      });
       service = TestBed.inject(LocalizationService);
    });
 
