@@ -17,6 +17,14 @@ namespace Elesse.Shared
             .Replace("/api/", "")
             .Replace("/translations", "");
 
+      static string GetResourcePath(string resourceName, string languageID)
+      {
+         var rootPath = Assembly.GetEntryAssembly().Location;
+         rootPath = Path.GetDirectoryName(rootPath);
+         var resourcePath = Path.Combine(rootPath, "Translations", $"{resourceName}.{languageID}.json");
+         return resourcePath;
+      }
+
    }
 
    public interface ITranslationsProvider
