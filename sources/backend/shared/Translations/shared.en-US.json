@@ -1,0 +1,6 @@
+{
+  "CANCEL_COMMAND": "Cancel",
+  "CANCEL_COMMAND_TOOLTIP": "Click to cancel and discard any changes",
+  "SAVE_COMMAND": "Save",
+  "SAVE_COMMAND_TOOLTIP": "Click to save changes"
+}
