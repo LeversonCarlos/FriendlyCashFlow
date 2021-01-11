@@ -11,7 +11,7 @@ export class LocalizationService {
 
    constructor(private http: HttpClient) {
       this.Resources = new StorageService<string, TranslationValues>(`LocalizationService.${version}`);
-      this.Resources.PersistentStorage = false;
+      // this.Resources.PersistentStorage = false;
       this.Resources.InitializeValues(...this.ResourceKeys);
    }
 
@@ -32,7 +32,7 @@ export class LocalizationService {
       catch { /* error absorber */ }
    }
 
-   public async GetTranslationAsync(value: string): Promise<string> {
+   public async GetTranslation(value: string): Promise<string> {
       try {
          const valueParts = value.split(".");
          const resourceKey = valueParts[0];
@@ -54,21 +54,6 @@ export class LocalizationService {
          if (translationValue)
             return translationValue;
 
-         return value;
-      }
-      catch { return value; }
-   }
-
-   public GetTranslation(value: string): string {
-      try {
-         const keyParts = value.split(".");
-         const resource = keyParts[0];
-         const key = keyParts[1];
-         const resourceData = this.Resources.GetValue(resource);
-         console.log(value, resourceData)
-         const result = resourceData[key];
-         if (result)
-            return result;
          return value;
       }
       catch { return value; }

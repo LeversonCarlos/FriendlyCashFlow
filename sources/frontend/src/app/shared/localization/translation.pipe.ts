@@ -8,7 +8,7 @@ export class TranslationPipe implements PipeTransform {
 
    constructor(private service: LocalizationService) { }
 
-   transform(value: string): string {
+   transform(value: string): Promise<string> {
       return this.service.GetTranslation(value);
    }
 
