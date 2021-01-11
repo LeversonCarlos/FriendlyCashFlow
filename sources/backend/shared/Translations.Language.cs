@@ -47,15 +47,18 @@ namespace Elesse.Shared
                ?.Select(x => new { LangID = (string)x.LangID, Order = ((string)x.Order).Replace("q=", "") })
                ?.Select(x => new { x.LangID, x.Order })
                ?.ToArray();
-            var cultureInfo = System.Globalization.CultureInfo.GetCultureInfo("en-US");
-            foreach (var acceptLanguage in acceptLanguages)
+            if (acceptLanguages != null)
             {
-               if (!double.TryParse(acceptLanguage.Order, System.Globalization.NumberStyles.Float, cultureInfo, out var order)) order = 0;
+               var cultureInfo = System.Globalization.CultureInfo.GetCultureInfo("en-US");
+               foreach (var acceptLanguage in acceptLanguages)
+               {
+                  if (!double.TryParse(acceptLanguage.Order, System.Globalization.NumberStyles.Float, cultureInfo, out var order)) order = 0;
 
-               // invert order so 1.0 gets priority over 0.6
-               order = (1 - order);
+                  // invert order so 1.0 gets priority over 0.6
+                  order = (1 - order);
 
-               add(acceptLanguage.LangID, order);
+                  add(acceptLanguage.LangID, order);
+               }
             }
 
          }
