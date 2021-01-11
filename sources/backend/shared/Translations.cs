@@ -13,6 +13,7 @@ namespace Elesse.Shared
 
    partial class Translations
    {
+
       public static async Task<Translations> CreateAsync(ITranslationsProvider translationsProvider, Microsoft.AspNetCore.Http.HttpContext _HttpContext)
       {
 
@@ -22,15 +23,13 @@ namespace Elesse.Shared
             Language = GetLanguageID(_HttpContext)
          };
 
-         var resourceName = _HttpContext.Request.Path
-            .ToString()
-            .ToLower()
-            .Replace("/api/", "")
-            .Replace("/translations", "");
+         var resourceName = GetResourceName(_HttpContext);
          translations.Values = await translationsProvider.GetTranslationsResource(resourceName, translations.Language);
 
          return translations;
       }
+
+
    }
 
 }
