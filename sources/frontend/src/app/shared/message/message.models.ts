@@ -18,12 +18,8 @@ export class MessageData {
    }
 }
 
-/*
-TODO
 export class ConfirmData {
-   // Title: string;
    Message: string;
    CancelText: string;
    ConfirmText: string;
 }
-*/

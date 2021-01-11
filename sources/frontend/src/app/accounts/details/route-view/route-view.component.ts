@@ -27,18 +27,18 @@ export class DetailsRouteViewComponent implements OnInit {
 
    private OnFormCreate(data: AccountEntity) {
       this.inputForm = this.fb.group({
-         AccountID: [data.AccountID],
-         Text: [data.Text, Validators.required],
-         Type: [data.Type, Validators.required],
-         ClosingDay: new FormControl({ value: data.ClosingDay, disabled: true }),
-         DueDay: new FormControl({ value: data.DueDay, disabled: true })
+         AccountID: [data?.AccountID],
+         Text: [data?.Text, Validators.required],
+         Type: [data?.Type, Validators.required],
+         ClosingDay: new FormControl({ value: data?.ClosingDay, disabled: true }),
+         DueDay: new FormControl({ value: data?.DueDay, disabled: true })
       });
       this.inputForm.controls['Type'].valueChanges.subscribe(type => {
          this.OnAccountTypeChanged(type, 'ClosingDay');
          this.OnAccountTypeChanged(type, 'DueDay');
       });
-      this.OnAccountTypeChanged(data.Type, 'ClosingDay');
-      this.OnAccountTypeChanged(data.Type, 'DueDay');
+      this.OnAccountTypeChanged(data?.Type, 'ClosingDay');
+      this.OnAccountTypeChanged(data?.Type, 'DueDay');
    }
 
    private OnAccountTypeChanged(type: enAccountType, controlName: string) {
@@ -59,9 +59,9 @@ export class DetailsRouteViewComponent implements OnInit {
 
    public async OnCancelClick() {
       if (!this.inputForm.pristine)
-         //if (!await this.msg.Confirm('BASE_CANCEL_CHANGES_CONFIRMATION_TEXT', 'BASE_CANCEL_CHANGES_CONFIRM', 'BASE_CANCEL_CHANGES_ABORT'))
-         return;
-      this.router.navigateByUrl("../list")
+         if (!await this.msg.Confirm('SHARED_CANCEL_CHANGES_CONFIRMATION_TEXT', 'SHARED_CANCEL_CHANGES_CONFIRM', 'SHARED_CANCEL_CHANGES_ABORT'))
+            return;
+      this.router.navigate(["/accounts/list"])
    }
 
    public async OnSaveClick() {

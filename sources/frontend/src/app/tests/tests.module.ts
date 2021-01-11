@@ -14,12 +14,12 @@ import { MaterialModule } from '@elesse/material';
       CommonModule,
       RouterTestingModule, HttpClientTestingModule,
       SharedModule, MaterialModule,
-      NoopAnimationsModule
+      NoopAnimationsModule,
    ],
    exports: [
       RouterTestingModule, HttpClientTestingModule,
       SharedModule, MaterialModule,
-      NoopAnimationsModule
+      NoopAnimationsModule,
    ]
 })
 export class TestsModule { }

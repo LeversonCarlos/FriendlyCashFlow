@@ -1,26 +1,26 @@
 import { Injectable } from '@angular/core';
-import { MessageData, MessageType } from './message.models';
+import { MatSnackBar } from '@elesse/material';
+import { MatDialog } from '@elesse/material';
+import { ConfirmViewComponent } from './confirm-view/confirm-view.component';
+import { MessageViewComponent } from './message-view/message-view.component';
+import { ConfirmData, MessageData, MessageType } from './message.models';
 
 @Injectable({
    providedIn: 'root'
 })
 export class MessageService {
 
-   constructor() { }
+   constructor(private snackBar: MatSnackBar, private dialog: MatDialog) { }
    // TODO: constructor(private injector: Injector) { }
 
    ShowMessage(messageData: MessageData): void {
-      /*
-      TODO
-      this.snackBar.openFromComponent(MessageComponent, {
+      this.snackBar.openFromComponent(MessageViewComponent, {
          panelClass: 'message-snack-panel',
-         data: data,
-         duration: data.Duration,
+         data: messageData,
+         duration: messageData.Duration,
          horizontalPosition: 'right',
          verticalPosition: 'top'
       });
-      */
-      console.log('ShowMessage', messageData);
    }
 
    public async ShowInfo(...messages: string[]): Promise<void> {
@@ -65,6 +65,25 @@ export class MessageService {
       });
       this.ShowMessage(messageData);
       // TODO: this.injector.get<InsightsService>(InsightsService).TrackError(ex);
+   }
+
+   public async Confirm(message: string, confirmText = 'SHARED_CONFIRM_COMMAND', cancelText = 'SHARED_CANCEL_COMMAND'): Promise<boolean> {
+      let data = Object.assign(new ConfirmData, {});
+      if (message)
+         // data.Message = await this.translation.getValue(message);
+         data.Message = message;
+      if (confirmText)
+         // data.ConfirmText = await this.translation.getValue(confirmText);
+         data.ConfirmText = confirmText;
+      if (cancelText)
+         // data.CancelText = await this.translation.getValue(cancelText);
+         data.CancelText = cancelText;
+      const confirmDialog = this.dialog.open(ConfirmViewComponent, {
+         panelClass: 'confirm-dialog-panel',
+         data: data
+      });
+      const confirmResult = await confirmDialog.afterClosed().toPromise<boolean>();
+      return confirmResult;
    }
 
 }
