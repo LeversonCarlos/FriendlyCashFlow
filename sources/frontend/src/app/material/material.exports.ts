@@ -10,3 +10,4 @@ export { MatSidenavModule } from '@angular/material/sidenav';
 export { MatListModule } from '@angular/material/list';
 
 export { MatSnackBar, MatSnackBarRef, MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
+export { MatDialog } from '@angular/material/dialog';
