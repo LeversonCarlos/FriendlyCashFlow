@@ -6,7 +6,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import {
    SharedModule,
-   SettingsService, BusyService, InsightsService, MessageService, ResponsiveService
+   SettingsService, BusyService, InsightsService, MessageService,
+   ResponsiveService, LocalizationService,
 } from '@elesse/shared';
 import { MaterialModule } from '@elesse/material';
 import { IdentityModule, TokenService } from '@elesse/identity';
@@ -31,7 +32,8 @@ import { AuthenticatedHomeComponent } from './main/home/authenticated-home/authe
       AppRouting,
    ],
    providers: [
-      SettingsService, BusyService, InsightsService, MessageService, ResponsiveService,
+      SettingsService, BusyService, InsightsService, MessageService,
+      ResponsiveService, LocalizationService,
       TokenService,
       UrlInterceptorProvider, ErrorInterceptorProvider, RequestAuthInterceptorProvider, ResponseAuthInterceptorProvider
    ],

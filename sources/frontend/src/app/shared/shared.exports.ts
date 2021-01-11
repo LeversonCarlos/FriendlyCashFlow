@@ -13,3 +13,4 @@ export { MessageService } from './message/message.service';
 export { ResponsiveService } from './responsive/responsive.service';
 
 export { StorageService } from './storage/storage.service';
+export { LocalizationService } from './localization/localization.service';
