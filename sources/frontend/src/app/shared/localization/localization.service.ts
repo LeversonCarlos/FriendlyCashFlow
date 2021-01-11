@@ -11,6 +11,7 @@ export class LocalizationService {
 
    constructor(private http: HttpClient) {
       this.Resources = new StorageService<string, TranslationValues>(`LocalizationService.${version}`);
+      this.Resources.PersistentStorage = false;
       this.Resources.InitializeValues(...this.ResourceKeys);
    }
 
@@ -25,11 +26,37 @@ export class LocalizationService {
             const translationData = await this.http.get<TranslationData>(`api/${resourceKey}/translations`).toPromise();
             if (!translationData) continue;
 
-            const translationKey = `${resourceKey}`;
-            this.Resources.SetValue(translationKey, translationData.Values);
+            this.Resources.SetValue(resourceKey, translationData.Values);
          }
       }
       catch { /* error absorber */ }
+   }
+
+   public async GetTranslationAsync(value: string): Promise<string> {
+      try {
+         const valueParts = value.split(".");
+         const resourceKey = valueParts[0];
+         const translationKey = valueParts[1];
+
+         let resourceData = this.Resources.GetValue(resourceKey);
+         if (resourceData == undefined || resourceData == null) {
+            const translationData = await this.http.get<TranslationData>(`api/${resourceKey}/translations`).toPromise();
+            if (translationData) {
+               this.Resources.SetValue(resourceKey, translationData.Values);
+               resourceData = this.Resources.GetValue(resourceKey);
+            }
+         }
+
+         if (resourceData == undefined || resourceData == null)
+            return value;
+
+         const translationValue = resourceData[translationKey];
+         if (translationValue)
+            return translationValue;
+
+         return value;
+      }
+      catch { return value; }
    }
 
    public GetTranslation(value: string): string {
@@ -37,7 +64,12 @@ export class LocalizationService {
          const keyParts = value.split(".");
          const resource = keyParts[0];
          const key = keyParts[1];
-         return this.Resources.GetValue(resource)[key];
+         const resourceData = this.Resources.GetValue(resource);
+         console.log(value, resourceData)
+         const result = resourceData[key];
+         if (result)
+            return result;
+         return value;
       }
       catch { return value; }
    }
