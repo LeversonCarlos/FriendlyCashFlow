@@ -12,19 +12,23 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+
 
 @NgModule({
    declarations: [],
    imports: [
       CommonModule,
       MatSnackBarModule, MatDialogModule, MatTooltipModule,
-      MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule,
+      MatCardModule, MatButtonModule,
+      MatFormFieldModule, MatInputModule, MatAutocompleteModule,
       MatSidenavModule, MatToolbarModule, MatListModule, MatTabsModule,
       MatIconModule,
    ],
    exports: [
       MatSnackBarModule, MatDialogModule, MatTooltipModule,
-      MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule,
+      MatCardModule, MatButtonModule,
+      MatFormFieldModule, MatInputModule, MatAutocompleteModule,
       MatSidenavModule, MatToolbarModule, MatListModule, MatTabsModule,
       MatIconModule,
    ]
