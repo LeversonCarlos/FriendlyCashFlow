@@ -12,6 +12,7 @@ import { MessageViewComponent } from './message/message-view/message-view.compon
 import { ConfirmViewComponent } from './message/confirm-view/confirm-view.component';
 import { VersionComponent } from './version/version.component';
 import { TranslationPipe } from './localization/translation.pipe';
+import { RelatedboxComponent } from './relatedbox/relatedbox.component';
 
 @NgModule({
    entryComponents: [MessageViewComponent],
@@ -19,7 +20,8 @@ import { TranslationPipe } from './localization/translation.pipe';
       BusyComponent,
       AnonymousContainerComponent, AuthenticatedContainerComponent, LinksComponent,
       MessageViewComponent, ConfirmViewComponent, VersionComponent,
-      TranslationPipe
+      TranslationPipe,
+      RelatedboxComponent
    ],
    imports: [
       CommonModule, RouterModule, FormsModule, ReactiveFormsModule,
