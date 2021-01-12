@@ -23,7 +23,7 @@ export class DetailsRouteViewComponent implements OnInit {
    public async ngOnInit(): Promise<void> {
       const paramID = this.activatedRoute.snapshot.params.id;
       const data = await this.service.LoadAccount(paramID);
-      this.AccountTypes = await this.service.LoadAccountTypes();
+      this.AccountTypes = await this.service.GetAccountTypes();
       this.OnFormCreate(data);
    }
 

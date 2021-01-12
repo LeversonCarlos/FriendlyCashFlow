@@ -12,7 +12,7 @@
          <mat-tab [label]="'accounts.ACTIVE_ACCOUNTS_LABEL' | translation | async">
             <mat-nav-list>
                <mat-list-item *ngFor="let account of ActiveAccounts | async">
-                  <mat-icon matListIcon>{{ getAccountIcon(account.Type) }}</mat-icon>
+                  <mat-icon matListIcon>{{ GetAccountIcon(account.Type) }}</mat-icon>
                   <a matLine routerLink="../details/{{account.AccountID}}">
                      <span>{{ account.Text }}</span>
                   </a>
@@ -26,7 +26,7 @@
          <mat-tab [label]="'accounts.INACTIVE_ACCOUNTS_LABEL' | translation | async">
             <mat-nav-list>
                <mat-list-item *ngFor="let account of InactiveAccounts | async">
-                  <mat-icon matListIcon>{{ getAccountIcon(account.Type) }}</mat-icon>
+                  <mat-icon matListIcon>{{ GetAccountIcon(account.Type) }}</mat-icon>
                   <a matLine routerLink="../details/{{account.AccountID}}">
                      <span>{{ account.Text }}</span>
                   </a>

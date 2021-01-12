@@ -16,7 +16,7 @@ export class AccountsService {
 
    private Cache: StorageService<boolean, AccountEntity[]>;
 
-   public async RefreshData(): Promise<void> {
+   public async RefreshCache(): Promise<void> {
       try {
          const values = await this.http.get<AccountEntity[]>(`api/accounts/list`).toPromise();
          if (!values) return;
@@ -42,7 +42,34 @@ export class AccountsService {
       catch { /* error absorber */ }
    }
 
-   public GetData = (state: boolean = true): Observable<AccountEntity[]> => this.Cache.GetObservable(state);
+   public ObserveAccounts = (state: boolean = true): Observable<AccountEntity[]> =>
+      this.Cache.GetObservable(state);
+
+   public async GetAccountTypes(): Promise<AccountType[]> {
+      const accountTypes: AccountType[] = [
+         { Value: enAccountType.General, Text: await this.localization.GetTranslation(`accounts.enAccountType_General`) },
+         { Value: enAccountType.Bank, Text: await this.localization.GetTranslation(`accounts.enAccountType_Bank`) },
+         { Value: enAccountType.CreditCard, Text: await this.localization.GetTranslation(`accounts.enAccountType_CreditCard`) },
+         { Value: enAccountType.Investment, Text: await this.localization.GetTranslation(`accounts.enAccountType_Investment`) },
+         { Value: enAccountType.Service, Text: await this.localization.GetTranslation(`accounts.enAccountType_Service`) }
+      ];
+      return accountTypes;
+   }
+
+   public GetAccountIcon(type: enAccountType): string {
+      switch (type) {
+         case enAccountType.Bank:
+            return 'account_balance';
+         case enAccountType.CreditCard:
+            return 'credit_card';
+         case enAccountType.Investment:
+            return 'local_atm';
+         case enAccountType.Service:
+            return 'card_giftcard';
+         default:
+            return 'account_balance_wallet';
+      }
+   }
 
    public async LoadAccount(accountID: string): Promise<AccountEntity> {
       try {
@@ -62,32 +89,6 @@ export class AccountsService {
 
       }
       catch { /* error absorber */ }
-   }
-
-   public async LoadAccountTypes(): Promise<AccountType[]> {
-      const accountTypes: AccountType[] = [
-         { Value: enAccountType.General, Text: await this.localization.GetTranslation(`accounts.enAccountType_General`) },
-         { Value: enAccountType.Bank, Text: await this.localization.GetTranslation(`accounts.enAccountType_Bank`) },
-         { Value: enAccountType.CreditCard, Text: await this.localization.GetTranslation(`accounts.enAccountType_CreditCard`) },
-         { Value: enAccountType.Investment, Text: await this.localization.GetTranslation(`accounts.enAccountType_Investment`) },
-         { Value: enAccountType.Service, Text: await this.localization.GetTranslation(`accounts.enAccountType_Service`) }
-      ];
-      return accountTypes;
-   }
-
-   public getAccountIcon(type: enAccountType): string {
-      switch (type) {
-         case enAccountType.Bank:
-            return 'account_balance';
-         case enAccountType.CreditCard:
-            return 'credit_card';
-         case enAccountType.Investment:
-            return 'local_atm';
-         case enAccountType.Service:
-            return 'card_giftcard';
-         default:
-            return 'account_balance_wallet';
-      }
    }
 
 }

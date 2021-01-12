@@ -18,10 +18,10 @@ describe('AccountsService', () => {
       expect(service).toBeTruthy();
    });
 
-   it('GetData InitialValue MustResult Null', (done) => {
+   it('ObserveAccounts InitialValue MustResult Null', (done) => {
       const account = Object.assign(new AccountEntity, { Text: 'Account Text' });
 
-      service.GetData(false).subscribe(result => {
+      service.ObserveAccounts(false).subscribe(result => {
          expect(result).toBeNull();
          done();
       });
