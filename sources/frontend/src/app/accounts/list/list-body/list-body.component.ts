@@ -4,7 +4,7 @@ import { AccountEntity, enAccountType } from '../../accounts.data';
 import { AccountsService } from '../../accounts.service';
 
 @Component({
-   selector: 'elesse-list-body',
+   selector: 'accounts-list-body',
    templateUrl: './list-body.component.html',
    styleUrls: ['./list-body.component.scss']
 })
