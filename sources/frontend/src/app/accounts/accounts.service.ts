@@ -91,4 +91,21 @@ export class AccountsService {
       catch { /* error absorber */ }
    }
 
+   public async SaveAccount(account: AccountEntity): Promise<boolean> {
+      try {
+
+         if (!account)
+            return false;
+
+         if (account.AccountID == 'new')
+            await this.http.post("api/accounts/insert", account).toPromise();
+         else
+            await this.http.put("api/accounts/update", account).toPromise();
+
+         return true;
+
+      }
+      catch { return false;/* error absorber */ }
+   }
+
 }

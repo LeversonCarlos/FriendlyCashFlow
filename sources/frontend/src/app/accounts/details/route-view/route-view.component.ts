@@ -67,8 +67,11 @@ export class DetailsRouteViewComponent implements OnInit {
    }
 
    public async OnSaveClick() {
-      // if (!await this.service.saveAccount(this.Data))
-      // return;
+      if (!this.inputForm.valid)
+         return;
+      const data: AccountEntity = Object.assign(new AccountEntity, this.inputForm.value);
+      if (!await this.service.SaveAccount(data))
+         return;
       this.router.navigate(["/accounts/list"])
    }
 
