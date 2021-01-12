@@ -8,6 +8,10 @@
   "CLOSINGDAY_LABEL": "Dia para Fechamento",
   "DUEDAY_LABEL": "Dia para Vencimento",
 
+  "ENABLE_ACCOUNT": "Habilitar Conta",
+  "DISABLE_ACCOUNT": "Desabilitar Conta",
+  "REMOVE_ACCOUNT": "Remover Conta",
+
   "enAccountType_General": "Carteira",
   "enAccountType_Bank": "Banco",
   "enAccountType_CreditCard": "Cartão de Crédito ",
