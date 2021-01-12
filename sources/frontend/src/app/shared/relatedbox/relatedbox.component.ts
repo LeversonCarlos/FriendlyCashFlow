@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Optional, Output, Self, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
-import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
+import { MatAutocompleteSelectedEvent, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { fromEvent, Observable } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
 import { RelatedData } from './relatedbox.models';
@@ -31,7 +31,6 @@ export class RelatedboxComponent implements OnInit, OnDestroy, ControlValueAcces
 
    /* PROPERTIES */
    @ViewChild(MatAutocompleteTrigger, { read: MatAutocompleteTrigger }) autoComplete: MatAutocompleteTrigger;
-   @Output() public optionsChanging: EventEmitter<string>;
    @Input() public placeholder: string = '';
    @Input() public disabled: boolean = false;
    @Input() public delay: number = 500;
@@ -42,6 +41,30 @@ export class RelatedboxComponent implements OnInit, OnDestroy, ControlValueAcces
    /* INPUT VALUE */
    public inputValue: string;
    private inputValueChanged: Observable<string>;
+   private OnInputValueChanging(option: any) {
+      const value = this.OnDisplayWith(option);
+      this.writeValue(null);
+      if (value.length < this.minSize) { return; }
+      this.optionsChanging.emit(value);
+   }
+
+   /* OPTIONS */
+   @Input() public options: RelatedData<any>[] = [];
+   @Output() public optionsChanging: EventEmitter<string>;
+   public OnOptionSelected(val: MatAutocompleteSelectedEvent) {
+      this.writeValue(val.option.value);
+   }
+   public OnDisplayWith(option?: RelatedData<any>): string {
+      if (!option) { return ''; }
+      else if (typeof option === 'string') { return option; }
+      else { return option.description; }
+   }
+
+   /* FOCUS */
+   public OnFocus() {
+      this.OnInputValueChanging(this.inputValue);
+      this.autoComplete.openPanel();
+   }
 
    writeValue(obj: any): void {
       throw new Error('Method not implemented.');
