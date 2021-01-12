@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BusyService } from '@elesse/shared';
 
 @Component({
    selector: 'elesse-authenticated-home',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthenticatedHomeComponent implements OnInit {
 
-   constructor() { }
+   constructor(private busy: BusyService) { }
+
+   public get IsBusy(): boolean { return this.busy.IsBusy; }
 
    ngOnInit(): void {
+   }
+
+   public SetBusy(state: boolean) {
+      if (state)
+         this.busy.show();
+      else
+         this.busy.hide();
    }
 
 }
