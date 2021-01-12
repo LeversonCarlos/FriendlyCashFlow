@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AccountEntity, AccountType, enAccountType } from './accounts.data';
 import { Observable } from 'rxjs';
-import { LocalizationService, MessageService, StorageService } from '@elesse/shared';
+import { BusyService, LocalizationService, MessageService, StorageService } from '@elesse/shared';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AccountsService {
 
-   constructor(private localization: LocalizationService, private messsage: MessageService,
+   constructor(private localization: LocalizationService, private messsage: MessageService, private busy: BusyService,
       private http: HttpClient) {
       this.Cache = new StorageService<boolean, AccountEntity[]>("AccountsService");
       this.Cache.InitializeValues(false, true);
@@ -19,6 +19,7 @@ export class AccountsService {
 
    public async RefreshCache(): Promise<void> {
       try {
+         this.busy.show();
          const values = await this.http.get<AccountEntity[]>(`api/accounts/list`).toPromise();
          if (!values) return;
 
@@ -41,6 +42,7 @@ export class AccountsService {
 
       }
       catch { /* error absorber */ }
+      finally { this.busy.hide(); }
    }
 
    public ObserveAccounts = (state: boolean = true): Observable<AccountEntity[]> =>
@@ -74,6 +76,7 @@ export class AccountsService {
 
    public async LoadAccount(accountID: string): Promise<AccountEntity> {
       try {
+         this.busy.show();
 
          if (!accountID)
             return null;
@@ -90,10 +93,12 @@ export class AccountsService {
 
       }
       catch { /* error absorber */ }
+      finally { this.busy.hide(); }
    }
 
    public async SaveAccount(account: AccountEntity): Promise<boolean> {
       try {
+         this.busy.show();
 
          if (!account)
             return false;
@@ -106,11 +111,13 @@ export class AccountsService {
          return true;
 
       }
-      catch { return false;/* error absorber */ }
+      catch { return false; /* error absorber */ }
+      finally { this.busy.hide(); }
    }
 
    public async ChangeAccountState(account: AccountEntity, state: boolean) {
       try {
+         this.busy.show();
 
          if (!account)
             return;
@@ -125,6 +132,7 @@ export class AccountsService {
 
       }
       catch { /* error absorber */ }
+      finally { this.busy.hide(); }
    }
 
    public async RemoveAccount(account: AccountEntity) {
@@ -137,12 +145,15 @@ export class AccountsService {
          if (!confirm)
             return
 
+         this.busy.show();
+
          await this.http.delete(`api/accounts/delete/${account.AccountID}`).toPromise();
 
          await this.RefreshCache();
 
       }
       catch { /* error absorber */ }
+      finally { this.busy.hide(); }
    }
 
 }

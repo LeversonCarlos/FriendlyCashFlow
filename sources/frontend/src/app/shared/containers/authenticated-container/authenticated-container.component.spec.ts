@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TestsModule } from '@elesse/tests';
+import { BusyComponent } from '../../busy/busy.component';
 import { AuthenticatedContainerComponent } from './authenticated-container.component';
 
 describe('AuthenticatedContainerComponent', () => {
@@ -9,7 +10,7 @@ describe('AuthenticatedContainerComponent', () => {
 
    beforeEach(async () => {
       await TestBed.configureTestingModule({
-         declarations: [AuthenticatedContainerComponent],
+         declarations: [AuthenticatedContainerComponent, BusyComponent],
          imports: [TestsModule]
       })
       .compileComponents();
