@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, Optional, Self } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnDestroy, OnInit, Optional, Output, Self } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 
 @Component({
@@ -8,10 +8,17 @@ import { ControlValueAccessor, NgControl } from '@angular/forms';
 })
 export class RelatedboxComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
-   constructor(@Optional() @Self() private ngControl: NgControl, private elRef: ElementRef<HTMLElement>) { }
+   constructor(@Optional() @Self() private ngControl: NgControl, private elRef: ElementRef<HTMLElement>) {
+      this.optionsChanging = new EventEmitter<string>();
+      if (this.ngControl != null) {
+         this.ngControl.valueAccessor = this;
+      }
+   }
 
    ngOnInit(): void {
    }
+
+   @Output() public optionsChanging: EventEmitter<string>;
 
    writeValue(obj: any): void {
       throw new Error('Method not implemented.');
