@@ -10,14 +10,13 @@ import { HttpClient } from '@angular/common/http';
 export class AccountsService {
 
    constructor(private localization: LocalizationService, private http: HttpClient) {
-      this._Data = new StorageService<boolean, AccountEntity[]>("AccountsService");
-      this._Data.InitializeValues(false, true);
+      this.Cache = new StorageService<boolean, AccountEntity[]>("AccountsService");
+      this.Cache.InitializeValues(false, true);
    }
 
-   private _Data: StorageService<boolean, AccountEntity[]>;
-   public GetData = (state: boolean = true): Observable<AccountEntity[]> => this._Data.GetObservable(state);
+   private Cache: StorageService<boolean, AccountEntity[]>;
 
-   public async RefreshData(): Promise<void> {
+   public async RefreshCache(): Promise<void> {
       try {
          const values = await this.http.get<AccountEntity[]>(`api/accounts/list`).toPromise();
          if (!values) return;
@@ -36,11 +35,40 @@ export class AccountsService {
             const value = values
                .filter(x => x.Active == key)
                .sort(sorter)
-            this._Data.SetValue(key, value);
+            this.Cache.SetValue(key, value);
          });
 
       }
       catch { /* error absorber */ }
+   }
+
+   public ObserveAccounts = (state: boolean = true): Observable<AccountEntity[]> =>
+      this.Cache.GetObservable(state);
+
+   public async GetAccountTypes(): Promise<AccountType[]> {
+      const accountTypes: AccountType[] = [
+         { Value: enAccountType.General, Text: await this.localization.GetTranslation(`accounts.enAccountType_General`) },
+         { Value: enAccountType.Bank, Text: await this.localization.GetTranslation(`accounts.enAccountType_Bank`) },
+         { Value: enAccountType.CreditCard, Text: await this.localization.GetTranslation(`accounts.enAccountType_CreditCard`) },
+         { Value: enAccountType.Investment, Text: await this.localization.GetTranslation(`accounts.enAccountType_Investment`) },
+         { Value: enAccountType.Service, Text: await this.localization.GetTranslation(`accounts.enAccountType_Service`) }
+      ];
+      return accountTypes;
+   }
+
+   public GetAccountIcon(type: enAccountType): string {
+      switch (type) {
+         case enAccountType.Bank:
+            return 'account_balance';
+         case enAccountType.CreditCard:
+            return 'credit_card';
+         case enAccountType.Investment:
+            return 'local_atm';
+         case enAccountType.Service:
+            return 'card_giftcard';
+         default:
+            return 'account_balance_wallet';
+      }
    }
 
    public async LoadAccount(accountID: string): Promise<AccountEntity> {
@@ -63,30 +91,21 @@ export class AccountsService {
       catch { /* error absorber */ }
    }
 
-   public async LoadAccountTypes(): Promise<AccountType[]> {
-      const accountTypes: AccountType[] = [
-         { Value: enAccountType.General, Text: await this.localization.GetTranslation(`accounts.enAccountType_General`) },
-         { Value: enAccountType.Bank, Text: await this.localization.GetTranslation(`accounts.enAccountType_Bank`) },
-         { Value: enAccountType.CreditCard, Text: await this.localization.GetTranslation(`accounts.enAccountType_CreditCard`) },
-         { Value: enAccountType.Investment, Text: await this.localization.GetTranslation(`accounts.enAccountType_Investment`) },
-         { Value: enAccountType.Service, Text: await this.localization.GetTranslation(`accounts.enAccountType_Service`) }
-      ];
-      return accountTypes;
-   }
+   public async SaveAccount(account: AccountEntity): Promise<boolean> {
+      try {
 
-   public getAccountIcon(type: enAccountType): string {
-      switch (type) {
-         case enAccountType.Bank:
-            return 'account_balance';
-         case enAccountType.CreditCard:
-            return 'credit_card';
-         case enAccountType.Investment:
-            return 'local_atm';
-         case enAccountType.Service:
-            return 'card_giftcard';
-         default:
-            return 'account_balance_wallet';
+         if (!account)
+            return false;
+
+         if (account.AccountID == null)
+            await this.http.post("api/accounts/insert", account).toPromise();
+         else
+            await this.http.put("api/accounts/update", account).toPromise();
+
+         return true;
+
       }
+      catch { return false;/* error absorber */ }
    }
 
 }
