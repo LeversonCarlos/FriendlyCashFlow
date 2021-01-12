@@ -14,19 +14,20 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
    declarations: [],
    imports: [
       CommonModule,
-      MatSnackBarModule, MatDialogModule, MatTooltipModule,
+      MatSnackBarModule, MatDialogModule, MatTooltipModule, MatMenuModule,
       MatCardModule, MatButtonModule,
       MatFormFieldModule, MatInputModule, MatSelectModule, MatAutocompleteModule,
       MatSidenavModule, MatToolbarModule, MatListModule, MatTabsModule,
       MatIconModule,
    ],
    exports: [
-      MatSnackBarModule, MatDialogModule, MatTooltipModule,
+      MatSnackBarModule, MatDialogModule, MatTooltipModule, MatMenuModule,
       MatCardModule, MatButtonModule,
       MatFormFieldModule, MatInputModule, MatSelectModule, MatAutocompleteModule,
       MatSidenavModule, MatToolbarModule, MatListModule, MatTabsModule,
