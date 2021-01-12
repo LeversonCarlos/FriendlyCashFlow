@@ -97,7 +97,7 @@ export class AccountsService {
          if (!account)
             return false;
 
-         if (account.AccountID == 'new')
+         if (account.AccountID == null)
             await this.http.post("api/accounts/insert", account).toPromise();
          else
             await this.http.put("api/accounts/update", account).toPromise();
