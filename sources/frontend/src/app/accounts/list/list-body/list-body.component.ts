@@ -21,11 +21,11 @@ export class ListBodyComponent implements OnInit {
    }
 
    public OnEnableAccount(account: AccountEntity) {
-      console.log('OnEnableAccount',account);
+      this.service.ChangeAccountState(account, true);
    }
 
    public OnDisableAccount(account: AccountEntity) {
-      console.log('OnDisableAccount', account);
+      this.service.ChangeAccountState(account, false);
    }
 
    public OnRemoveAccount(account: AccountEntity) {

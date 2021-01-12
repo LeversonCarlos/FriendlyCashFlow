@@ -108,4 +108,24 @@ export class AccountsService {
       catch { return false;/* error absorber */ }
    }
 
+   public async ChangeAccountState(account: AccountEntity, state: boolean) {
+      try {
+
+         if (!account)
+            return;
+
+         const changeStateVM = {
+            AccountID: account.AccountID,
+            State: state
+         };
+         await this.http.put("api/accounts/change-state", changeStateVM).toPromise();
+
+         await this.RefreshCache();
+
+      }
+      catch { /* error absorber */ }
+   }
+
+
+
 }
