@@ -6,9 +6,10 @@ import { AccountsRouting } from './accounts.routing';
 import { AccountsService } from './accounts.service';
 import { ListComponent } from './list/list.component';
 import { DetailsRouteViewComponent } from './details/route-view/route-view.component';
+import { ListBodyComponent } from './list/list-body/list-body.component';
 
 @NgModule({
-   declarations: [ListComponent, DetailsRouteViewComponent],
+   declarations: [ListComponent, DetailsRouteViewComponent, ListBodyComponent],
    imports: [
       SharedModule, MaterialModule,
       AccountsRouting
