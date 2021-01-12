@@ -20,8 +20,7 @@ import { RelatedboxComponent } from './relatedbox/relatedbox.component';
       BusyComponent,
       AnonymousContainerComponent, AuthenticatedContainerComponent, LinksComponent,
       MessageViewComponent, ConfirmViewComponent, VersionComponent,
-      TranslationPipe,
-      RelatedboxComponent
+      TranslationPipe, RelatedboxComponent
    ],
    imports: [
       CommonModule, RouterModule, FormsModule, ReactiveFormsModule,
@@ -31,7 +30,7 @@ import { RelatedboxComponent } from './relatedbox/relatedbox.component';
       CommonModule, RouterModule, FormsModule, ReactiveFormsModule,
       BusyComponent,
       AnonymousContainerComponent, AuthenticatedContainerComponent,
-      TranslationPipe
+      TranslationPipe, RelatedboxComponent
    ]
 })
 export class SharedModule { }
