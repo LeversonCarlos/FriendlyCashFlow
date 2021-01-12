@@ -13,7 +13,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
    declarations: [],
@@ -21,14 +21,14 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
       CommonModule,
       MatSnackBarModule, MatDialogModule, MatTooltipModule,
       MatCardModule, MatButtonModule,
-      MatFormFieldModule, MatInputModule, MatAutocompleteModule,
+      MatFormFieldModule, MatInputModule, MatSelectModule, MatAutocompleteModule,
       MatSidenavModule, MatToolbarModule, MatListModule, MatTabsModule,
       MatIconModule,
    ],
    exports: [
       MatSnackBarModule, MatDialogModule, MatTooltipModule,
       MatCardModule, MatButtonModule,
-      MatFormFieldModule, MatInputModule, MatAutocompleteModule,
+      MatFormFieldModule, MatInputModule, MatSelectModule, MatAutocompleteModule,
       MatSidenavModule, MatToolbarModule, MatListModule, MatTabsModule,
       MatIconModule,
    ]
