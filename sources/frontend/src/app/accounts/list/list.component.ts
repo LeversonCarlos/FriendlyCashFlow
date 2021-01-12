@@ -17,9 +17,6 @@ export class ListComponent implements OnInit {
    public getAccountIcon(type: enAccountType): string { return this.service.getAccountIcon(type); }
 
    ngOnInit(): void {
-   }
-
-   public RefreshClick(): void {
       this.service.RefreshData();
    }
 
