@@ -4,8 +4,18 @@
       <a matLine routerLink="../details/{{account.AccountID}}">
          <span>{{ account.Text }}</span>
       </a>
-      <button mat-icon-button>
+      <button mat-icon-button [matMenuTriggerFor]="menu">
          <mat-icon>more_vert</mat-icon>
       </button>
+      <mat-menu #menu="matMenu">
+         <button mat-menu-item>
+            <mat-icon></mat-icon>
+            <span>Disable</span>
+         </button>
+         <button mat-menu-item>
+            <mat-icon>delete_forever</mat-icon>
+            <span>Remove</span>
+         </button>
+      </mat-menu>
    </mat-list-item>
 </mat-nav-list>
