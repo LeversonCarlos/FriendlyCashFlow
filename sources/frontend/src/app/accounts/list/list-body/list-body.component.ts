@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AccountEntity, enAccountType } from '../../accounts.data';
+import { AccountsService } from '../../accounts.service';
 
 @Component({
    selector: 'elesse-list-body',
@@ -7,7 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListBodyComponent implements OnInit {
 
-   constructor() { }
+   constructor(private service: AccountsService) { }
+
+   @Input()
+   public Accounts: Observable<AccountEntity[]>
+
+   public GetAccountIcon(type: enAccountType): string { return this.service.GetAccountIcon(type); }
 
    ngOnInit(): void {
    }

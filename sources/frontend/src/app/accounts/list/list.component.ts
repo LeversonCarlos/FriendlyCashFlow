@@ -20,8 +20,4 @@ export class ListComponent implements OnInit {
       this.service.RefreshCache();
    }
 
-   public AddClick(): void {
-      console.log('add clicked')
-   }
-
 }

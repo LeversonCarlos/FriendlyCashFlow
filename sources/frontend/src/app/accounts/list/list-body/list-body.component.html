@@ -1,1 +1,11 @@
-<p>list-body works!</p>
+<mat-nav-list>
+   <mat-list-item *ngFor="let account of Accounts | async">
+      <mat-icon matListIcon>{{ GetAccountIcon(account.Type) }}</mat-icon>
+      <a matLine routerLink="../details/{{account.AccountID}}">
+         <span>{{ account.Text }}</span>
+      </a>
+      <button mat-icon-button>
+         <mat-icon>more_vert</mat-icon>
+      </button>
+   </mat-list-item>
+</mat-nav-list>
