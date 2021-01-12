@@ -66,21 +66,28 @@ export class RelatedboxComponent implements OnInit, OnDestroy, ControlValueAcces
       this.autoComplete.openPanel();
    }
 
-   writeValue(obj: any): void {
-      throw new Error('Method not implemented.');
+   /* VALUE ACCESSOR  */
+   writeValue(val: RelatedData<any>): void {
+      if (val) { this.inputValue = val.description; }
+      this.value = val
+      this.onChange(val);
    }
+   onChange = (val: RelatedData<any>) => { };
    registerOnChange(fn: any): void {
-      throw new Error('Method not implemented.');
+      this.onChange = fn;
    }
    registerOnTouched(fn: any): void {
-      throw new Error('Method not implemented.');
+      // throw new Error('Method not implemented.');
    }
    setDisabledState?(isDisabled: boolean): void {
-      throw new Error('Method not implemented.');
+      // throw new Error('Method not implemented.');
    }
 
+   /* DESTROY */
    ngOnDestroy(): void {
-      throw new Error('Method not implemented.');
+      this.inputValueChanged = null;
+      this.optionsChanging.complete();
+      this.optionsChanging = null;
    }
 
 }
