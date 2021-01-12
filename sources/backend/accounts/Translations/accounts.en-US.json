@@ -6,5 +6,11 @@
   "TEXT_LABEL": "Description",
   "TYPE_LABEL": "Type",
   "CLOSINGDAY_LABEL": "ClosingDay",
-  "DUEDAY_LABEL": "DueDay"
+  "DUEDAY_LABEL": "DueDay",
+
+  "enAccountType_General": "General",
+  "enAccountType_Bank": "Bank",
+  "enAccountType_CreditCard": "CreditCard ",
+  "enAccountType_Investment": "Investment",
+  "enAccountType_Service": "Service"
 }

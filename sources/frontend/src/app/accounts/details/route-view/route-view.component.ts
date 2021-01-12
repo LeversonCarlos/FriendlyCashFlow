@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BusyService, MessageService } from '@elesse/shared';
-import { AccountEntity, enAccountType } from '../../accounts.data';
+import { AccountEntity, AccountType, enAccountType } from '../../accounts.data';
 import { AccountsService } from '../../accounts.service';
 
 @Component({
@@ -16,12 +16,14 @@ export class DetailsRouteViewComponent implements OnInit {
       private busy: BusyService, private msg: MessageService,
       private fb: FormBuilder, private activatedRoute: ActivatedRoute, private router: Router) { }
 
+   public AccountTypes: AccountType[];
    public inputForm: FormGroup;
    public get IsBusy(): boolean { return this.busy.IsBusy; }
 
    public async ngOnInit(): Promise<void> {
       const paramID = this.activatedRoute.snapshot.params.id;
       const data = await this.service.LoadAccount(paramID);
+      this.AccountTypes = await this.service.LoadAccountTypes();
       this.OnFormCreate(data);
    }
 

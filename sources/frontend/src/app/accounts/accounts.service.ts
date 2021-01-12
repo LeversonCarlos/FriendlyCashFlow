@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { AccountEntity, enAccountType } from './accounts.data';
-import { Observable, Subject } from 'rxjs';
-import { StorageService } from '@elesse/shared';
+import { AccountEntity, AccountType, enAccountType } from './accounts.data';
+import { Observable } from 'rxjs';
+import { LocalizationService, StorageService } from '@elesse/shared';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AccountsService {
 
-   constructor(private http: HttpClient) {
+   constructor(private localization: LocalizationService, private http: HttpClient) {
       this._Data = new StorageService<boolean, AccountEntity[]>("AccountsService");
       this._Data.InitializeValues(false, true);
    }
@@ -61,6 +61,17 @@ export class AccountsService {
 
       }
       catch { /* error absorber */ }
+   }
+
+   public async LoadAccountTypes(): Promise<AccountType[]> {
+      const accountTypes: AccountType[] = [
+         { Value: enAccountType.General, Text: await this.localization.GetTranslation(`accounts.enAccountType_General`) },
+         { Value: enAccountType.Bank, Text: await this.localization.GetTranslation(`accounts.enAccountType_Bank`) },
+         { Value: enAccountType.CreditCard, Text: await this.localization.GetTranslation(`accounts.enAccountType_CreditCard`) },
+         { Value: enAccountType.Investment, Text: await this.localization.GetTranslation(`accounts.enAccountType_Investment`) },
+         { Value: enAccountType.Service, Text: await this.localization.GetTranslation(`accounts.enAccountType_Service`) }
+      ];
+      return accountTypes;
    }
 
    public getAccountIcon(type: enAccountType): string {
