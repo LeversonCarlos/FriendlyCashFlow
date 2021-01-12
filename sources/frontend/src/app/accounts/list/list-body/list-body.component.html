@@ -9,13 +9,13 @@
       </button>
       <mat-menu #menu="matMenu">
          <button mat-menu-item *ngIf="!account.Active" (click)="OnEnableAccount(account)">
-            <span>{{ 'accounts.ENABLE_ACCOUNT' | translation | async }}</span>
+            <span>{{ 'accounts.ENABLE_MENU' | translation | async }}</span>
          </button>
          <button mat-menu-item *ngIf="account.Active" (click)="OnDisableAccount(account)">
-            <span>{{ 'accounts.DISABLE_ACCOUNT' | translation | async }}</span>
+            <span>{{ 'accounts.DISABLE_MENU' | translation | async }}</span>
          </button>
          <button mat-menu-item class="danger" (click)="OnRemoveAccount(account)">
-            <span>{{ 'accounts.REMOVE_ACCOUNT' | translation | async }}</span>
+            <span>{{ 'accounts.REMOVE_MENU' | translation | async }}</span>
          </button>
       </mat-menu>
    </mat-list-item>

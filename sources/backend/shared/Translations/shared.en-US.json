@@ -5,5 +5,8 @@
   "SAVE_COMMAND_TOOLTIP": "Click to save changes",
   "ROLLBACK_TEXT": "Do you want to rollback and lose changes ?",
   "ROLLBACK_CONFIRM_COMMAND": "Confirm Rollback",
-  "ROLLBACK_ABORT_COMMAND": "Continue Editing"
+  "ROLLBACK_ABORT_COMMAND": "Continue Editing",
+
+  "REMOVE_CONFIRM_COMMAND": "Remove",
+  "REMOVE_CANCEL_COMMAND": "Cancel"
 }

@@ -29,7 +29,7 @@ export class ListBodyComponent implements OnInit {
    }
 
    public OnRemoveAccount(account: AccountEntity) {
-      console.log('OnRemoveAccount', account);
+      this.service.RemoveAccount(account);
    }
 
 }

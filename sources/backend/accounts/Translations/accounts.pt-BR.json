@@ -8,9 +8,11 @@
   "CLOSINGDAY_LABEL": "Dia para Fechamento",
   "DUEDAY_LABEL": "Dia para Vencimento",
 
-  "ENABLE_ACCOUNT": "Habilitar Conta",
-  "DISABLE_ACCOUNT": "Desabilitar Conta",
-  "REMOVE_ACCOUNT": "Remover Conta",
+  "ENABLE_MENU": "Habilitar Conta",
+  "DISABLE_MENU": "Desabilitar Conta",
+
+  "REMOVE_MENU": "Remover Conta",
+  "REMOVE_TEXT": "Deseja realmente remover essa conta ?",
 
   "enAccountType_General": "Carteira",
   "enAccountType_Bank": "Banco",
