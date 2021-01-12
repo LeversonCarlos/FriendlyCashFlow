@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestsModule } from '@elesse/tests';
 import { BusyComponent } from './busy.component';
 import { BusyService } from './busy.service';
 
@@ -11,6 +12,7 @@ describe('BusyComponent', () => {
       await TestBed
          .configureTestingModule({
             declarations: [BusyComponent],
+            imports: [TestsModule],
             providers: [BusyService]
          })
          .compileComponents();
@@ -38,7 +40,7 @@ describe('BusyComponent', () => {
       busyService.show();
       fixture.detectChanges();
       const compiled = fixture.nativeElement;
-      expect(compiled.querySelector('p')).toBeTruthy();
+      expect(compiled.querySelector('mat-progress-bar')).toBeTruthy();
    });
 
    it('after service.hide call render must be null', () => {
@@ -46,7 +48,7 @@ describe('BusyComponent', () => {
       busyService.hide();
       fixture.detectChanges();
       const compiled = fixture.nativeElement;
-      expect(compiled.querySelector('p')).toBeNull();
+      expect(compiled.querySelector('mat-progress-bar')).toBeNull();
    });
 
 });
