@@ -8,13 +8,14 @@
          <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-         <button mat-menu-item>
-            <mat-icon></mat-icon>
-            <span>Disable</span>
+         <button mat-menu-item *ngIf="!account.Active">
+            <span>{{ 'accounts.ENABLE_ACCOUNT' | translation | async }}</span>
+         </button>
+         <button mat-menu-item *ngIf="account.Active">
+            <span>{{ 'accounts.DISABLE_ACCOUNT' | translation | async }}</span>
          </button>
          <button mat-menu-item>
-            <mat-icon>delete_forever</mat-icon>
-            <span>Remove</span>
+            <span>{{ 'accounts.REMOVE_ACCOUNT' | translation | async }}</span>
          </button>
       </mat-menu>
    </mat-list-item>
