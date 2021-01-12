@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AccountEntity, enAccountType } from '../accounts.data';
+import { AccountEntity } from '../accounts.data';
 import { AccountsService } from '../accounts.service';
 
 @Component({
@@ -14,14 +14,9 @@ export class ListComponent implements OnInit {
 
    public get ActiveAccounts(): Observable<AccountEntity[]> { return this.service.ObserveAccounts(true); }
    public get InactiveAccounts(): Observable<AccountEntity[]> { return this.service.ObserveAccounts(false); }
-   public GetAccountIcon(type: enAccountType): string { return this.service.GetAccountIcon(type); }
 
    ngOnInit(): void {
       this.service.RefreshCache();
-   }
-
-   public AddClick(): void {
-      console.log('add clicked')
    }
 
 }

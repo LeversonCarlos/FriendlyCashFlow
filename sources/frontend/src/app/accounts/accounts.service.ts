@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AccountEntity, AccountType, enAccountType } from './accounts.data';
 import { Observable } from 'rxjs';
-import { LocalizationService, StorageService } from '@elesse/shared';
+import { LocalizationService, MessageService, StorageService } from '@elesse/shared';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -9,7 +9,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AccountsService {
 
-   constructor(private localization: LocalizationService, private http: HttpClient) {
+   constructor(private localization: LocalizationService, private messsage: MessageService,
+      private http: HttpClient) {
       this.Cache = new StorageService<boolean, AccountEntity[]>("AccountsService");
       this.Cache.InitializeValues(false, true);
    }
@@ -106,6 +107,42 @@ export class AccountsService {
 
       }
       catch { return false;/* error absorber */ }
+   }
+
+   public async ChangeAccountState(account: AccountEntity, state: boolean) {
+      try {
+
+         if (!account)
+            return;
+
+         const changeStateVM = {
+            AccountID: account.AccountID,
+            State: state
+         };
+         await this.http.put("api/accounts/change-state", changeStateVM).toPromise();
+
+         await this.RefreshCache();
+
+      }
+      catch { /* error absorber */ }
+   }
+
+   public async RemoveAccount(account: AccountEntity) {
+      try {
+
+         if (!account)
+            return;
+
+         const confirm = await this.messsage.Confirm("accounts.REMOVE_TEXT", "shared.REMOVE_CONFIRM_COMMAND", "shared.REMOVE_CANCEL_COMMAND");
+         if (!confirm)
+            return
+
+         await this.http.delete(`api/accounts/delete/${account.AccountID}`).toPromise();
+
+         await this.RefreshCache();
+
+      }
+      catch { /* error absorber */ }
    }
 
 }

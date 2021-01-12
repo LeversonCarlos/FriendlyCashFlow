@@ -5,5 +5,8 @@
   "SAVE_COMMAND_TOOLTIP": "Clique para gravar as alterações",
   "ROLLBACK_TEXT": "Você deseja reverter descartando as alterações?",
   "ROLLBACK_CONFIRM_COMMAND": "Confirmar Reversão",
-  "ROLLBACK_ABORT_COMMAND": "Continuar Editando"
+  "ROLLBACK_ABORT_COMMAND": "Continuar Editando",
+
+  "REMOVE_CONFIRM_COMMAND": "Remover",
+  "REMOVE_CANCEL_COMMAND": "Cancelar"
 }

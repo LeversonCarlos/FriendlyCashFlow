@@ -1,0 +1,22 @@
+<mat-nav-list>
+   <mat-list-item *ngFor="let account of Accounts | async">
+      <mat-icon matListIcon>{{ GetAccountIcon(account.Type) }}</mat-icon>
+      <a matLine routerLink="../details/{{account.AccountID}}">
+         <span>{{ account.Text }}</span>
+      </a>
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+         <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+         <button mat-menu-item *ngIf="!account.Active" (click)="OnEnableAccount(account)">
+            <span>{{ 'accounts.ENABLE_MENU' | translation | async }}</span>
+         </button>
+         <button mat-menu-item *ngIf="account.Active" (click)="OnDisableAccount(account)">
+            <span>{{ 'accounts.DISABLE_MENU' | translation | async }}</span>
+         </button>
+         <button mat-menu-item class="danger" (click)="OnRemoveAccount(account)">
+            <span>{{ 'accounts.REMOVE_MENU' | translation | async }}</span>
+         </button>
+      </mat-menu>
+   </mat-list-item>
+</mat-nav-list>

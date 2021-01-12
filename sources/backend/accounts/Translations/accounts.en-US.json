@@ -8,6 +8,12 @@
   "CLOSINGDAY_LABEL": "ClosingDay",
   "DUEDAY_LABEL": "DueDay",
 
+  "ENABLE_MENU": "Enable Account",
+  "DISABLE_MENU": "Disable Account",
+
+  "REMOVE_MENU": "Remove Account",
+  "REMOVE_TEXT": "Do you want to remove this account ?",
+
   "enAccountType_General": "General",
   "enAccountType_Bank": "Bank",
   "enAccountType_CreditCard": "CreditCard ",
