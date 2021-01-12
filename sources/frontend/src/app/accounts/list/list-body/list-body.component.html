@@ -8,13 +8,13 @@
          <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-         <button mat-menu-item *ngIf="!account.Active">
+         <button mat-menu-item *ngIf="!account.Active" (click)="OnEnableAccount(account)">
             <span>{{ 'accounts.ENABLE_ACCOUNT' | translation | async }}</span>
          </button>
-         <button mat-menu-item *ngIf="account.Active">
+         <button mat-menu-item *ngIf="account.Active" (click)="OnDisableAccount(account)">
             <span>{{ 'accounts.DISABLE_ACCOUNT' | translation | async }}</span>
          </button>
-         <button mat-menu-item>
+         <button mat-menu-item class="danger" (click)="OnRemoveAccount(account)">
             <span>{{ 'accounts.REMOVE_ACCOUNT' | translation | async }}</span>
          </button>
       </mat-menu>

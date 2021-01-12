@@ -20,4 +20,16 @@ export class ListBodyComponent implements OnInit {
    ngOnInit(): void {
    }
 
+   public OnEnableAccount(account: AccountEntity) {
+      console.log('OnEnableAccount',account);
+   }
+
+   public OnDisableAccount(account: AccountEntity) {
+      console.log('OnDisableAccount', account);
+   }
+
+   public OnRemoveAccount(account: AccountEntity) {
+      console.log('OnRemoveAccount', account);
+   }
+
 }
