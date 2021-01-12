@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ControlValueAccessor } from '@angular/forms';
+import { Component, ElementRef, OnDestroy, OnInit, Optional, Self } from '@angular/core';
+import { ControlValueAccessor, NgControl } from '@angular/forms';
 
 @Component({
    selector: 'elesse-relatedbox',
@@ -8,7 +8,7 @@ import { ControlValueAccessor } from '@angular/forms';
 })
 export class RelatedboxComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
-   constructor() { }
+   constructor(@Optional() @Self() private ngControl: NgControl, private elRef: ElementRef<HTMLElement>) { }
 
    ngOnInit(): void {
    }
