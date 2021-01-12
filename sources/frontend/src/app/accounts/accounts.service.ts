@@ -10,12 +10,11 @@ import { HttpClient } from '@angular/common/http';
 export class AccountsService {
 
    constructor(private localization: LocalizationService, private http: HttpClient) {
-      this._Data = new StorageService<boolean, AccountEntity[]>("AccountsService");
-      this._Data.InitializeValues(false, true);
+      this.Cache = new StorageService<boolean, AccountEntity[]>("AccountsService");
+      this.Cache.InitializeValues(false, true);
    }
 
-   private _Data: StorageService<boolean, AccountEntity[]>;
-   public GetData = (state: boolean = true): Observable<AccountEntity[]> => this._Data.GetObservable(state);
+   private Cache: StorageService<boolean, AccountEntity[]>;
 
    public async RefreshData(): Promise<void> {
       try {
@@ -36,12 +35,14 @@ export class AccountsService {
             const value = values
                .filter(x => x.Active == key)
                .sort(sorter)
-            this._Data.SetValue(key, value);
+            this.Cache.SetValue(key, value);
          });
 
       }
       catch { /* error absorber */ }
    }
+
+   public GetData = (state: boolean = true): Observable<AccountEntity[]> => this.Cache.GetObservable(state);
 
    public async LoadAccount(accountID: string): Promise<AccountEntity> {
       try {
