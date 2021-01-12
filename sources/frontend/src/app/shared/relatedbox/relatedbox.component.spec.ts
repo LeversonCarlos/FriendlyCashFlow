@@ -1,25 +1,28 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { TestsModule } from '@elesse/tests';
 import { RelatedboxComponent } from './relatedbox.component';
 
 describe('RelatedboxComponent', () => {
-  let component: RelatedboxComponent;
-  let fixture: ComponentFixture<RelatedboxComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ RelatedboxComponent ]
-    })
-    .compileComponents();
-  });
+   let component: RelatedboxComponent;
+   let fixture: ComponentFixture<RelatedboxComponent>;
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(RelatedboxComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+   beforeEach(async () => {
+      await TestBed.configureTestingModule({
+         declarations: [RelatedboxComponent],
+         imports: [TestsModule]
+      })
+      .compileComponents();
+   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+   beforeEach(() => {
+      fixture = TestBed.createComponent(RelatedboxComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+   });
+
+   it('should create', () => {
+      expect(component).toBeTruthy();
+   });
+
 });
