@@ -15,19 +15,20 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
    declarations: [],
    imports: [
       CommonModule,
-      MatSnackBarModule, MatDialogModule, MatTooltipModule, MatMenuModule,
+      MatSnackBarModule, MatDialogModule, MatTooltipModule, MatMenuModule, MatProgressBarModule,
       MatCardModule, MatButtonModule,
       MatFormFieldModule, MatInputModule, MatSelectModule, MatAutocompleteModule,
       MatSidenavModule, MatToolbarModule, MatListModule, MatTabsModule,
       MatIconModule,
    ],
    exports: [
-      MatSnackBarModule, MatDialogModule, MatTooltipModule, MatMenuModule,
+      MatSnackBarModule, MatDialogModule, MatTooltipModule, MatMenuModule, MatProgressBarModule,
       MatCardModule, MatButtonModule,
       MatFormFieldModule, MatInputModule, MatSelectModule, MatAutocompleteModule,
       MatSidenavModule, MatToolbarModule, MatListModule, MatTabsModule,
