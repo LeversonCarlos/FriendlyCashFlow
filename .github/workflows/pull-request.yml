@@ -5,7 +5,7 @@ on: [pull_request]
 jobs:
 
   backend:
-    name: Backend
+    name: Test Backend
     runs-on: ubuntu-latest
 
     steps:
@@ -58,7 +58,7 @@ jobs:
         run: dotnet build --no-restore
 
   frontend:
-    name: Frontend
+    name: Test Frontend
     runs-on: ubuntu-latest
 
     steps:

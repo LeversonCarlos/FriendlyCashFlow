@@ -1,0 +1,88 @@
+name: Release
+
+on:
+  push:
+    branches: [ v7 ] #, 'v7.lc'
+  # release:
+  #   types: [created]
+
+jobs:
+
+  backend:
+    name: Build Backend
+    runs-on: windows-latest
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '3.1.x'
+
+      - name: Clean
+        working-directory: 'sources/backend'
+        run: |
+          cd shared
+          dotnet clean --configuration Release
+          cd ../identity
+          dotnet clean --configuration Release
+          cd ../accounts
+          dotnet clean --configuration Release
+          cd ../main
+          dotnet clean --configuration Release
+
+      - name: Build
+        working-directory: 'sources/backend/main'
+        run: dotnet build --configuration Release
+
+      - name: Publish
+        working-directory: 'sources/backend/main/'
+        run: dotnet publish --no-build --no-restore --configuration Release --output ../../../publish/backend
+
+      - name: Store Packages
+        uses: actions/upload-artifact@v2
+        with:
+          name: publish
+          path: ./publish
+
+  deploy:
+    name: Deploy to Azure
+    runs-on: ubuntu-latest
+    needs: [backend]
+
+    steps:
+
+      - name: Retrieve Packages
+        uses: actions/download-artifact@v2
+        with:
+          path: ./
+
+      - name: AppSettings Substitution
+        uses: microsoft/variable-substitution@v1
+        with:
+          files: ./publish/backend/appsettings.json
+        env:
+          Frontend.Url: 'https://friendlycashflow.azurewebsites.net'
+          Mongo.ConnStr: ${{ secrets.AZURE_BACKEND_MONGO_CONNSTR }}
+          Mongo.Database: ${{ secrets.AZURE_BACKEND_MONGO_DATABASE }}
+          Identity.PasswordSalt: ${{ secrets.AZURE_BACKEND_IDENTITY_PASSWORDSALT }}
+          Identity.PasswordRules.MinimumUpperCases: 0
+          Identity.PasswordRules.MinimumLowerCases: 0
+          Identity.PasswordRules.MinimumNumbers: 0
+          Identity.PasswordRules.MinimumSymbols: 0
+          Identity.PasswordRules.MinimumSize: 5
+          Identity.Token.SecuritySecret: ${{ secrets.AZURE_BACKEND_IDENTITY_TOKEN_SECURITYSECRET }}
+          Identity.Token.Issuer: ${{ secrets.AZURE_BACKEND_IDENTITY_TOKEN_ISSUER }}
+          Identity.Token.Audience: ${{ secrets.AZURE_BACKEND_IDENTITY_TOKEN_AUDIENCE }}
+          Identity.Token.AccessExpirationInSeconds: 60
+          Identity.Token.RefreshExpirationInSeconds: 3600
+
+      - name: Backend App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: friendlycashflowAPI
+          publish-profile: ${{ secrets.AZURE_BACKEND_PUBLISH_PROFILE }}
+          package: ./publish/backend
