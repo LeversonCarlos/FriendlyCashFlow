@@ -26,6 +26,7 @@ jobs:
           dotnet-version: '3.1.x'
 
       - name: Clean
+        # workaroud for environment with greater "5.0" version than the required "3.1"
         working-directory: 'sources/backend'
         run: |
           cd shared
@@ -67,11 +68,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      #- name: Setup
-      #  uses: actions/setup-dotnet@v1
-      #  with:
-      #    dotnet-version: '3.1.x'
-
       - name: Version
         working-directory: 'sources/frontend'
         run: |
@@ -86,6 +82,21 @@ jobs:
       - name: Build
         working-directory: 'sources/frontend'
         run: npm run build
+
+      - name: WebConfig
+        # workqroud required by AzureWebSites to allow json to be loaded (assets/appsettings.json)
+        working-directory: 'sources/frontend'
+        run: |
+          echo '<?xml version="1.0"?>' > web.config
+          echo '<configuration>' >> web.config
+          echo '    <system.webServer>' >> web.config
+          echo '        <staticContent>' >> web.config
+          echo '            <mimeMap fileExtension=".json" mimeType="application/json" />' >> web.config
+          echo '        </staticContent>' >> web.config
+          echo '    </system.webServer>' >> web.config
+          echo '</configuration>' >> web.config
+          ls
+          cat web.config
 
       - name: Store Packages
         uses: actions/upload-artifact@v2
