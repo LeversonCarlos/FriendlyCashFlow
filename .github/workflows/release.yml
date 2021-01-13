@@ -37,6 +37,12 @@ jobs:
           cd ../main
           dotnet clean --configuration Release
 
+      - name: Dummy
+        run: |
+          echo ${{ env.version }}
+          sed -i 's/<Version>1.0.0</Version>/<Version>${{ env.version }}</Version>/g' main.csproj
+          cat main.csproj
+
       - name: Version
         uses: microsoft/variable-substitution@v1
         with:
