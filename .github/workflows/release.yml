@@ -2,9 +2,12 @@ name: Release
 
 on:
   push:
-    branches: [ v7 ] #, 'v7.lc'
+    branches: [ v7, 'v7.lc' ]
   # release:
   #   types: [created]
+
+env:
+  version: 2.3.${{ github.run_number }}
 
 jobs:
 
@@ -33,6 +36,13 @@ jobs:
           dotnet clean --configuration Release
           cd ../main
           dotnet clean --configuration Release
+
+      - name: AppSettings Substitution
+        uses: microsoft/variable-substitution@v1
+        with:
+          files: ./sources/backend/main/main.csproj
+        env:
+          Project.PropertyGroup[1].Version: ${{ env.version }}
 
       - name: Build
         working-directory: 'sources/backend/main'
