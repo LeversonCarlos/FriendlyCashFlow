@@ -45,7 +45,19 @@ jobs:
           sed -i 's|<Version>1.0.0</Version>|<Version>${{ env.version }}</Version>|g' main.csproj
           cat main.csproj
 
-      - name: Build
+      - name: Build Shared
+        working-directory: 'sources/backend/shared'
+        run: dotnet build --configuration Release
+
+      - name: Build Identity
+        working-directory: 'sources/backend/identity'
+        run: dotnet build --configuration Release
+
+      - name: Build Accounts
+        working-directory: 'sources/backend/accounts'
+        run: dotnet build --configuration Release
+
+      - name: Build Main
         working-directory: 'sources/backend/main'
         run: dotnet build --configuration Release
 
