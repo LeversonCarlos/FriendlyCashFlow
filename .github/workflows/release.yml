@@ -55,27 +55,63 @@ jobs:
       - name: Store Packages
         uses: actions/upload-artifact@v2
         with:
-          name: publish
+          name: backend
           path: ./publish
+
+  frontend:
+    name: Build Frontend
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      #- name: Setup
+      #  uses: actions/setup-dotnet@v1
+      #  with:
+      #    dotnet-version: '3.1.x'
+
+      - name: Version
+        working-directory: 'sources/frontend'
+        run: |
+          echo ${{ env.version }}
+          sed -i 's|"version": "1.0.0",|"version": "${{ env.version }}",|g' package.json
+          cat package.json
+
+      - name: Restore
+        working-directory: 'sources/frontend'
+        run: npm install
+
+      - name: Build
+        working-directory: 'sources/frontend'
+        run: npm run build
+
+      - name: Store Packages
+        uses: actions/upload-artifact@v2
+        with:
+          name: frontend
+          path: ./sources/frontend/dist/CashFlow
 
   deploy:
     name: Deploy to Azure
     runs-on: ubuntu-latest
-    needs: [backend]
+    needs: [backend,frontend]
 
     steps:
 
       - name: Retrieve Packages
         uses: actions/download-artifact@v2
         with:
-          path: ./
+          path: ./publish
 
       - name: AppSettings Substitution
         uses: microsoft/variable-substitution@v1
         with:
-          files: ./publish/backend/appsettings.json
+          files: './publish/backend/appsettings.json,./publish/frontend/assets/appsettings.json'
         env:
           Frontend.Url: 'https://friendlycashflow.azurewebsites.net'
+          Backend.Url: 'https://friendlycashflowapi.azurewebsites.net'
           Mongo.ConnStr: ${{ secrets.AZURE_BACKEND_MONGO_CONNSTR }}
           Mongo.Database: ${{ secrets.AZURE_BACKEND_MONGO_DATABASE }}
           Identity.PasswordSalt: ${{ secrets.AZURE_BACKEND_IDENTITY_PASSWORDSALT }}
@@ -89,6 +125,9 @@ jobs:
           Identity.Token.Audience: ${{ secrets.AZURE_BACKEND_IDENTITY_TOKEN_AUDIENCE }}
           Identity.Token.AccessExpirationInSeconds: 60
           Identity.Token.RefreshExpirationInSeconds: 3600
+          AppInsights.Activated: false
+          AppInsights.Key: 'AppInsights.Key'
+          AppInsights.GlobalProperties.Environment: PRD
 
       - name: Backend App
         uses: azure/webapps-deploy@v2
