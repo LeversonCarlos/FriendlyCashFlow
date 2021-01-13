@@ -6,11 +6,14 @@ on:
   # release:
   #   types: [created]
 
+env:
+  version: 2.3.${{ github.run_number }}
+
 jobs:
 
   backend:
     name: Build Backend
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
 
@@ -33,6 +36,13 @@ jobs:
           dotnet clean --configuration Release
           cd ../main
           dotnet clean --configuration Release
+
+      - name: Version
+        working-directory: 'sources/backend/main'
+        run: |
+          echo ${{ env.version }}
+          sed -i 's|<Version>1.0.0</Version>|<Version>${{ env.version }}</Version>|g' main.csproj
+          cat main.csproj
 
       - name: Build
         working-directory: 'sources/backend/main'
