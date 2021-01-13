@@ -39,33 +39,21 @@ jobs:
         with:
           dotnet-version: '3.1.x'
 
-      - name: Shared
-        working-directory: 'sources/backend/shared'
+      - name: Clean
+        working-directory: 'sources/backend'
         run: |
+          cd shared
           dotnet clean --configuration Release
-          dotnet restore
-          dotnet build --no-restore --configuration Release
-
-      - name: Identity
-        working-directory: 'sources/backend/identity'
-        run: |
+          cd ../identity
           dotnet clean --configuration Release
-          dotnet restore
-          dotnet build --no-restore --configuration Release
-
-      - name: Accounts
-        working-directory: 'sources/backend/accounts'
-        run: |
+          cd ../accounts
           dotnet clean --configuration Release
-          dotnet restore
-          dotnet build --no-restore --configuration Release
+          cd ../main
+          dotnet clean --configuration Release
 
-      - name: Main
+      - name: Build
         working-directory: 'sources/backend/main'
-        run: |
-          dotnet clean --configuration Release
-          dotnet restore
-          dotnet build --no-restore --configuration Release
+        run: dotnet build --configuration Release
 
       - name: Publish
         working-directory: 'sources/backend/main/'
