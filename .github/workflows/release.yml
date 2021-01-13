@@ -2,12 +2,12 @@ name: Release
 
 on:
   push:
-    branches: [ v7 ] #, 'v7.lc'
+    branches: [ v7, 'v7.lc' ]
   # release:
   #   types: [created]
 
 env:
-  version: 2.3.${{ github.run_number }}
+  version: 7.0.${{ github.run_number }}
 
 jobs:
 
