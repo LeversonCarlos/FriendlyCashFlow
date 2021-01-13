@@ -43,28 +43,28 @@ jobs:
         working-directory: 'sources/backend/shared'
         run: |
           dotnet clean --configuration Release
-          dotnet restore --configuration Release
+          dotnet restore
           dotnet build --no-restore --configuration Release
 
       - name: Identity
         working-directory: 'sources/backend/identity'
         run: |
           dotnet clean --configuration Release
-          dotnet restore --configuration Release
+          dotnet restore
           dotnet build --no-restore --configuration Release
 
       - name: Accounts
         working-directory: 'sources/backend/accounts'
         run: |
           dotnet clean --configuration Release
-          dotnet restore --configuration Release
+          dotnet restore
           dotnet build --no-restore --configuration Release
 
       - name: Main
         working-directory: 'sources/backend/main'
         run: |
           dotnet clean --configuration Release
-          dotnet restore --configuration Release
+          dotnet restore
           dotnet build --no-restore --configuration Release
 
       - name: Publish
