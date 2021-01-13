@@ -37,12 +37,12 @@ jobs:
           cd ../main
           dotnet clean --configuration Release
 
-      - name: AppSettings Substitution
+      - name: Version
         uses: microsoft/variable-substitution@v1
         with:
           files: ./sources/backend/main/main.csproj
         env:
-          Project.PropertyGroup[1].Version: ${{ env.version }}
+          Project.PropertyGroup.Version: ${{ env.version }}
 
       - name: Build
         working-directory: 'sources/backend/main'
