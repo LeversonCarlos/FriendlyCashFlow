@@ -97,7 +97,7 @@ jobs:
 
       - name: WebConfig
         # workqroud required by AzureWebSites to allow json to be loaded (assets/appsettings.json)
-        working-directory: 'sources/frontend'
+        working-directory: 'sources/frontend/dist/CashFlow'
         run: |
           echo '<?xml version="1.0"?>' > web.config
           echo '<configuration>' >> web.config
