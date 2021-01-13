@@ -65,7 +65,7 @@ jobs:
         with:
           files: ./publish/backend/appsettings.json
         env:
-          Frontend.Url: 'http://localhost:4200'
+          Frontend.Url: 'https://friendlycashflow.azurewebsites.net'
           Mongo.ConnStr: ${{ secrets.AZURE_BACKEND_MONGO_CONNSTR }}
           Mongo.Database: ${{ secrets.AZURE_BACKEND_MONGO_DATABASE }}
           Identity.PasswordSalt: ${{ secrets.AZURE_BACKEND_IDENTITY_PASSWORDSALT }}
