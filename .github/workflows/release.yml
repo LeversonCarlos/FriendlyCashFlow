@@ -13,7 +13,7 @@ jobs:
 
   backend:
     name: Build Backend
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
 
@@ -29,7 +29,7 @@ jobs:
         working-directory: 'sources/backend/main'
         run: |
           echo ${{ env.version }}
-          sed -i 's/<Version>1.0.0</Version>/<Version>${{ env.version }}</Version>/g' main.csproj
+          sed -i 's|<Version>1.0.0</Version>|<Version>${{ env.version }}</Version>|g' main.csproj
           cat main.csproj
 
       - name: Clean
