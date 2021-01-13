@@ -50,13 +50,13 @@ jobs:
 
       - name: Publish
         working-directory: 'sources/backend/main/'
-        run: dotnet publish --no-build --no-restore --configuration Release --output ../../../publish/backend
+        run: dotnet publish --no-build --no-restore --configuration Release --output ./publish
 
       - name: Store Packages
         uses: actions/upload-artifact@v2
         with:
           name: backend
-          path: ./publish
+          path: ./sources/backend/main/publish
 
   frontend:
     name: Build Frontend
