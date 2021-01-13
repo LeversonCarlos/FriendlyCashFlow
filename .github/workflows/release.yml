@@ -66,17 +66,17 @@ jobs:
           files: ./publish/backend/appsettings.json
         env:
           Frontend.Url: 'http://localhost:4200'
-          Mongo.ConnStr: 'mongodb://username:password@server:port'
-          Mongo.Database: 'databaseName'
-          Identity.PasswordSalt: 'some-salt-for-the-hash-algorithm'
+          Mongo.ConnStr: ${{ secrets.AZURE_BACKEND_MONGO_CONNSTR }}
+          Mongo.Database: ${{ secrets.AZURE_BACKEND_MONGO_DATABASE }}
+          Identity.PasswordSalt: ${{ secrets.AZURE_BACKEND_IDENTITY_PASSWORDSALT }}
           Identity.PasswordRules.MinimumUpperCases: 0
           Identity.PasswordRules.MinimumLowerCases: 0
           Identity.PasswordRules.MinimumNumbers: 0
           Identity.PasswordRules.MinimumSymbols: 0
           Identity.PasswordRules.MinimumSize: 5
-          Identity.Token.SecuritySecret: 'some-secret-for-the-token-security-key'
-          Identity.Token.Issuer: 'my-issuer'
-          Identity.Token.Audience: 'my-audience'
+          Identity.Token.SecuritySecret: ${{ secrets.AZURE_BACKEND_IDENTITY_TOKEN_SECURITYSECRET }}
+          Identity.Token.Issuer: ${{ secrets.AZURE_BACKEND_IDENTITY_TOKEN_ISSUER }}
+          Identity.Token.Audience: ${{ secrets.AZURE_BACKEND_IDENTITY_TOKEN_AUDIENCE }}
           Identity.Token.AccessExpirationInSeconds: 60
           Identity.Token.RefreshExpirationInSeconds: 3600
 
