@@ -23,9 +23,6 @@ on:
   # release:
   #   types: [created]
 
-env:
-  AZURE_WEBAPP_NAME: friendlycashflowAPI
-
 jobs:
 
   build:
@@ -47,7 +44,7 @@ jobs:
 
       - name: Publish
         working-directory: 'sources/backend/main/'
-        run: dotnet publish --no-build --no-restore --configuration Release --output ./publish/backend
+        run: dotnet publish --no-build --no-restore --configuration Release --output ../../../publish/backend
 
       - name: Store Packages
         uses: actions/upload-artifact@v2
@@ -70,6 +67,6 @@ jobs:
       - name: Backend App
         uses: azure/webapps-deploy@v2
         with:
-          app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          app-name: friendlycashflowAPI
+          publish-profile: ${{ secrets.AZURE_BACKEND_PUBLISH_PROFILE }}
           package: ./publish/backend
