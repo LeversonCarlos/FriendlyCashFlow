@@ -25,6 +25,13 @@ jobs:
         with:
           dotnet-version: '3.1.x'
 
+      - name: Version
+        working-directory: 'sources/backend/main'
+        run: |
+          echo ${{ env.version }}
+          sed -i 's/<Version>1.0.0</Version>/<Version>${{ env.version }}</Version>/g' main.csproj
+          cat main.csproj
+
       - name: Clean
         working-directory: 'sources/backend'
         run: |
@@ -37,18 +44,12 @@ jobs:
           cd ../main
           dotnet clean --configuration Release
 
-      - name: Dummy
-        run: |
-          echo ${{ env.version }}
-          sed -i 's/<Version>1.0.0</Version>/<Version>${{ env.version }}</Version>/g' main.csproj
-          cat main.csproj
-
-      - name: Version
-        uses: microsoft/variable-substitution@v1
-        with:
-          files: ./sources/backend/main/main.csproj
-        env:
-          Project.PropertyGroup.Version: ${{ env.version }}
+      # - name: Version
+      #   uses: microsoft/variable-substitution@v1
+      #   with:
+      #     files: ./sources/backend/main/main.csproj
+      #   env:
+      #     Project.PropertyGroup.Version: ${{ env.version }}
 
       - name: Build
         working-directory: 'sources/backend/main'
