@@ -25,8 +25,8 @@ on:
 
 jobs:
 
-  build:
-    name: Build Packages
+  backend:
+    name: Build Backend
     runs-on: windows-latest
 
     steps:
@@ -39,13 +39,33 @@ jobs:
         with:
           dotnet-version: '3.1.x'
 
-      - name: Restore
-        working-directory: 'sources/backend/main/'
-        run: dotnet restore
+      - name: Shared
+        working-directory: 'sources/backend/shared'
+        run: |
+          dotnet clean --configuration Release
+          dotnet restore --configuration Release
+          dotnet build --no-restore --configuration Release
 
-      - name: Build
-        working-directory: 'sources/backend/main/'
-        run: dotnet build --no-restore --configuration Release
+      - name: Identity
+        working-directory: 'sources/backend/identity'
+        run: |
+          dotnet clean --configuration Release
+          dotnet restore --configuration Release
+          dotnet build --no-restore --configuration Release
+
+      - name: Accounts
+        working-directory: 'sources/backend/accounts'
+        run: |
+          dotnet clean --configuration Release
+          dotnet restore --configuration Release
+          dotnet build --no-restore --configuration Release
+
+      - name: Main
+        working-directory: 'sources/backend/main'
+        run: |
+          dotnet clean --configuration Release
+          dotnet restore --configuration Release
+          dotnet build --no-restore --configuration Release
 
       - name: Publish
         working-directory: 'sources/backend/main/'
@@ -60,7 +80,7 @@ jobs:
   deploy:
     name: Deploy to Azure
     runs-on: ubuntu-latest
-    needs: [build]
+    needs: [backend]
 
     steps:
 
