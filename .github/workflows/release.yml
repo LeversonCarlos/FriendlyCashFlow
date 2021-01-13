@@ -126,7 +126,7 @@ jobs:
           Identity.Token.AccessExpirationInSeconds: 60
           Identity.Token.RefreshExpirationInSeconds: 3600
           AppInsights.Activated: false
-          AppInsights.Key: 'AppInsights.Key'
+          AppInsights.Key: ${{ secrets.AZURE_INSIGHTS_KEY }}
           AppInsights.GlobalProperties.Environment: PRD
 
       - name: Backend App
@@ -135,3 +135,10 @@ jobs:
           app-name: friendlycashflowAPI
           publish-profile: ${{ secrets.AZURE_BACKEND_PUBLISH_PROFILE }}
           package: ./publish/backend
+
+      - name: Backend App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: friendlycashflow
+          publish-profile: ${{ secrets.AZURE_FRONTEND_PUBLISH_PROFILE }}
+          package: ./publish/frontend
