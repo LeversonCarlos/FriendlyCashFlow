@@ -7,6 +7,10 @@
 header {
    mat-toolbar {
       justify-content: space-between;
+      .title {
+         display: flex;
+         align-items: center;
+      }
    }
 }
 
