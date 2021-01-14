@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Elesse.Shared
@@ -10,6 +11,9 @@ namespace Elesse.Shared
 
       void TrackMetric(string name, double value, Dictionary<string, string> properties);
       void TrackMetric(string name, double value, params string[] propertyList);
+
+      void TrackException(Exception ex, Dictionary<string, string> properties);
+      void TrackException(Exception ex, params string[] propertyList);
 
    }
 }

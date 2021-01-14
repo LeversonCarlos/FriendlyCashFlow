@@ -60,6 +60,28 @@ namespace Elesse.Shared
       }
 
       [DebuggerStepThrough]
+      public void TrackException(Exception ex, Dictionary<string, string> properties)
+      {
+         try
+         {
+            if (_TelemetryClient != null)
+               _TelemetryClient.TrackException(ex, properties);
+         }
+         catch { }
+      }
+
+      [DebuggerStepThrough]
+      public void TrackException(Exception ex, params string[] propertyList)
+      {
+         try
+         {
+            var properties = GetPropertiesDictionary(propertyList);
+            this.TrackException(ex, properties);
+         }
+         catch { }
+      }
+
+      [DebuggerStepThrough]
       Dictionary<string, string> GetPropertiesDictionary(params string[] propertyList)
       {
          var properties = propertyList
