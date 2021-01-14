@@ -1,8 +1,8 @@
-using Microsoft.ApplicationInsights;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Microsoft.ApplicationInsights;
 
 namespace Elesse.Shared
 {
@@ -82,9 +82,9 @@ namespace Elesse.Shared
       }
 
       [DebuggerStepThrough]
-      Dictionary<string, string> GetPropertiesDictionary(params string[] propertyList)
+      internal Dictionary<string, string> GetPropertiesDictionary(params string[] propertyList)
       {
-         if (propertyList?.Length ==0 )
+         if (propertyList == null || propertyList.Length == 0)
             return null;
          var properties = propertyList
             .Select(prop => prop.Split(new string[] { ":" }, StringSplitOptions.RemoveEmptyEntries))
