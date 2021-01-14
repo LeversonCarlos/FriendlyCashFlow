@@ -4,19 +4,19 @@ namespace Elesse.Identity
    {
 
       internal static IdentityService Create() =>
-         new IdentityService(null, null, null, null);
+         new IdentityService(null, null, null, Shared.Tests.InsightsServiceMocker.Create().Build());
 
       internal static IdentityService Create(IdentitySettings settings) =>
-         new IdentityService(settings, null, null, null);
+         new IdentityService(settings, null, null, Shared.Tests.InsightsServiceMocker.Create().Build());
 
       internal static IdentityService Create(IdentitySettings settings, IUserRepository userRepository) =>
-         new IdentityService(settings, userRepository, null, null);
+         new IdentityService(settings, userRepository, null, Shared.Tests.InsightsServiceMocker.Create().Build());
 
       internal static IdentityService Create(IUserRepository userRepository, ITokenRepository tokenRepository) =>
-         new IdentityService(null, userRepository, tokenRepository, null);
+         new IdentityService(null, userRepository, tokenRepository, Shared.Tests.InsightsServiceMocker.Create().Build());
 
       internal static IdentityService Create(IdentitySettings settings, IUserRepository userRepository, ITokenRepository tokenRepository) =>
-         new IdentityService(settings, userRepository, tokenRepository, null);
+         new IdentityService(settings, userRepository, tokenRepository, Shared.Tests.InsightsServiceMocker.Create().Build());
 
       // Shared.Tests.InsightsServiceMocker.Create().Build()
       // IdentitySettings settings, IUserRepository userRepository, ITokenRepository tokenRepository

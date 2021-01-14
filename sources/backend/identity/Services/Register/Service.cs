@@ -36,6 +36,9 @@ namespace Elesse.Identity
          // SEND ACTIVATION MAIL
          // TODO
 
+         // TRACK EVENT
+         _InsightsService.TrackEvent("Identity Service Register");
+
          // RESULT
          return new OkResult();
       }
