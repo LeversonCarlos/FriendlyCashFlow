@@ -40,11 +40,14 @@ namespace Elesse.Identity.Tests
       [MemberData(nameof(TokenAuth_WithInvalidRefreshTokenData_MustReturnBadResult_Data))]
       public async void TokenAuth_WithInvalidRefreshTokenData_MustReturnBadResult(string exceptionMessage, ITokenEntity results)
       {
+         var userRepository = UserRepositoryMocker
+            .Create()
+            .Build();
          var tokenRepositoty = TokenRepositoryMocker
             .Create()
             .WithRetrieveRefreshToken(results)
             .Build();
-         var service = new IdentityService(null, null, tokenRepositoty);
+         var service = IdentityService.Create(userRepository, tokenRepositoty);
 
          var param = new TokenAuthVM { RefreshToken = "refresh-token" };
          var result = await service.TokenAuthAsync(param);
@@ -70,7 +73,7 @@ namespace Elesse.Identity.Tests
             .Create()
             .WithRetrieveRefreshToken(TokenEntity.Create(System.Guid.NewGuid().ToString(), DateTime.UtcNow.AddMinutes(1)))
             .Build();
-         var identityService = new IdentityService(null, userRepository, tokenRepository);
+         var identityService = IdentityService.Create(userRepository, tokenRepository);
 
          var param = new TokenAuthVM { RefreshToken = "refresh-token" };
          var result = await identityService.TokenAuthAsync(param);

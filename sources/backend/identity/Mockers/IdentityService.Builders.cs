@@ -12,6 +12,9 @@ namespace Elesse.Identity
       internal static IdentityService Create(IdentitySettings settings, IUserRepository userRepository) =>
          new IdentityService(settings, userRepository, null);
 
+      internal static IdentityService Create(IUserRepository userRepository, ITokenRepository tokenRepository) =>
+         new IdentityService(null, userRepository, tokenRepository);
+
       internal static IdentityService Create(IdentitySettings settings, IUserRepository userRepository, ITokenRepository tokenRepository) =>
          new IdentityService(settings, userRepository, tokenRepository);
 
