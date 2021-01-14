@@ -2,7 +2,7 @@ name: Release
 
 on:
   push:
-    branches: [ v7, v7.lc ]
+    branches: [ v7 ]
   # release:
   #   types: [created]
 
