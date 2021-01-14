@@ -10,7 +10,7 @@ namespace Elesse.Identity.Tests
       [Fact]
       public async void UserAuth_WithNullParameter_MustReturnBadResult()
       {
-         var identityService = new IdentityService(null, null, null);
+         var identityService = IdentityService.Create();
 
          var result = await identityService.UserAuthAsync(null);
 

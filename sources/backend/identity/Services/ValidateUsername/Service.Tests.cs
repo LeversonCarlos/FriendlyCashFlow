@@ -15,7 +15,7 @@ namespace Elesse.Identity.Tests
       [InlineData("abc_com")]
       internal async void ValidateUsername_WithInvalidParameters_MustResultErrorMessage(string username)
       {
-         var identityService = new IdentityService(null, null, null);
+         var identityService = IdentityService.Create();
          var result = await identityService.ValidateUsernameAsync(username);
 
          Assert.Equal(new string[] { WARNINGS.INVALID_USERNAME }, result);
@@ -28,7 +28,7 @@ namespace Elesse.Identity.Tests
       [InlineData("abc@xpto.info")]
       internal async void ValidateUsername_WithValidParameters_MustResultNoErrorMessages(string username)
       {
-         var identityService = new IdentityService(null, null, null);
+         var identityService = IdentityService.Create();
          var result = await identityService.ValidateUsernameAsync(username);
 
          Assert.Equal(new string[] { }, result);

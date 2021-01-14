@@ -11,7 +11,7 @@ namespace Elesse.Identity.Tests
       [Fact]
       public async void TokenAuth_WithNullParameter_MustReturnBadResult()
       {
-         var identityService = new IdentityService(null, null, null);
+         var identityService = IdentityService.Create();
 
          var result = await identityService.TokenAuthAsync(null);
 
@@ -26,7 +26,7 @@ namespace Elesse.Identity.Tests
       [InlineData(" ")]
       public async void TokenAuth_WithEmptyRefreshToken_MustReturnBadResult(string refreshToken)
       {
-         var identityService = new IdentityService(null, null, null);
+         var identityService = IdentityService.Create();
 
          var param = new TokenAuthVM { RefreshToken = refreshToken };
          var result = await identityService.TokenAuthAsync(param);

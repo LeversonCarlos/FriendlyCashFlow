@@ -13,7 +13,7 @@ namespace Elesse.Identity.Tests
       [MemberData(nameof(ChangePassword_WithNullParameters_MustReturnBadResult_Data))]
       public async void ChangePassword_WithNullParameters_MustReturnBadResult(IIdentity identity, ChangePasswordVM changePasswordVM)
       {
-         var identityService = new IdentityService(null, null, null);
+         var identityService = IdentityService.Create();
 
          var result = await identityService.ChangePasswordAsync(identity, changePasswordVM);
 

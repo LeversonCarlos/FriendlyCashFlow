@@ -9,7 +9,7 @@ namespace Elesse.Identity.Tests
       [Fact]
       internal async void CreateAccessToken_WithNullParameter_MustThrowException()
       {
-         var service = new IdentityService(null, null, null);
+         var service = IdentityService.Create();
 
          var value = await Assert.ThrowsAsync<ArgumentNullException>(() => service.CreateAccessTokenAsync(null));
 
