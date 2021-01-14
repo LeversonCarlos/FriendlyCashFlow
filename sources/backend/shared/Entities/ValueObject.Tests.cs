@@ -54,6 +54,17 @@ namespace Elesse.Shared.Tests
       }
 
       [Fact]
+      internal void EqualOperator_WithNullValues_MustResultFalse()
+      {
+         var first = new ValueObjectTest { One = "One", Two = "Two" };
+         ValueObjectTest second = null;
+
+         var result = first == second;
+
+         Assert.False(result);
+      }
+
+      [Fact]
       internal void Clone_HashCode_MustBeEqual()
       {
          var first = new ValueObjectTest { One = "One", Two = "Two" };
