@@ -23,8 +23,20 @@ namespace Elesse.Shared.Tests
          new[] {
             new object[] { null },
             new object[] { new string[] { } }
-   };
+      };
 
+      [Fact]
+      internal void GetPropertiesDictionary_WithOneParameterAndThreeSplits_MustResultAsExpected()
+      {
+         var service = new InsightsService(null);
+         var param = new string[] { "one:two:three" };
+         var expected = new Dictionary<string, string> { { "Property", "one:two:three" } };
+
+         var result = service.GetPropertiesDictionary(param);
+
+         Assert.NotNull(result);
+         Assert.Equal(expected, result);
+      }
 
    }
 }
