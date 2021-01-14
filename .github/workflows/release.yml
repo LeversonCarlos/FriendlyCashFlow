@@ -43,7 +43,6 @@ jobs:
         run: |
           echo ${{ env.version }}
           sed -i 's|<Version>1.0.0</Version>|<Version>${{ env.version }}</Version>|g' main.csproj
-          cat main.csproj
 
       - name: Build Shared
         working-directory: 'sources/backend/shared'
@@ -85,7 +84,8 @@ jobs:
         run: |
           echo ${{ env.version }}
           sed -i 's|"version": "1.0.0",|"version": "${{ env.version }}",|g' package.json
-          cat package.json
+          sed -i 's|"version": "1.0.0",|"version": "${{ env.version }}",|g' src/manifest.webmanifest
+          cat src/manifest.webmanifest
 
       - name: Restore
         working-directory: 'sources/frontend'
