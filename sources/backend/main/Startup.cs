@@ -39,6 +39,7 @@ namespace Elesse.FriendlyCashFlow
                options.JsonSerializerOptions.PropertyNamingPolicy = null; // to use PascalCase
                options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
             })
+            .AddInsightsService(_Configuration)
             .AddIdentityService(_Configuration)
             .AddSharedService(_Configuration)
             .AddAccountService(_Configuration);

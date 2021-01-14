@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Elesse.Shared
 {
 
-   public static class StartupExtentions
+   public static partial class StartupExtentions
    {
 
       public static IMvcBuilder AddSharedService(this IMvcBuilder mvcBuilder, IConfiguration configs)
