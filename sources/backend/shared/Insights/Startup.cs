@@ -8,12 +8,13 @@ namespace Elesse.Shared
    public static partial class StartupExtentions
    {
 
-      public static IMvcBuilder AddSharedService(this IMvcBuilder mvcBuilder, IConfiguration configs)
+      public static IMvcBuilder AddInsightsService(this IMvcBuilder mvcBuilder, IConfiguration configs)
       {
          var services =
             mvcBuilder.Services;
-         mvcBuilder
-            .AddApplicationPart(Assembly.GetAssembly(typeof(SharedController)));
+         services
+            // .AddSingleton(s => configs.GetSection("Identity").Get<IdentitySettings>())
+            .AddScoped<IInsightsService, InsightsService>();
          return mvcBuilder;
       }
 
