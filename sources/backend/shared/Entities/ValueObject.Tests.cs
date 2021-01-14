@@ -53,6 +53,15 @@ namespace Elesse.Shared.Tests
          Assert.True(result);
       }
 
+      [Fact]
+      internal void Clone_HashCode_MustBeEqual()
+      {
+         var first = new ValueObjectTest { One = "One", Two = "Two" };
+         var second = first.GetCopy();
+
+         Assert.Equal(first.GetHashCode(), second.GetHashCode());
+      }
+
       internal class ValueObjectTest : ValueObject
       {
          public string One { get; set; }
