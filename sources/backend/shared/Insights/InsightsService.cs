@@ -91,7 +91,7 @@ namespace Elesse.Shared
             .Select(prop => new
             {
                Key = (prop.Length == 2 ? prop[0] : "Property"),
-               Value = (prop.Length == 2 ? prop[1] : prop[0])
+               Value = (prop.Length == 2 ? prop[1] : string.Join(":", prop))
             })
             .ToDictionary(k => k.Key, v => v.Value);
          return properties;
