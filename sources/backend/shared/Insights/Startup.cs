@@ -13,7 +13,7 @@ namespace Elesse.Shared
          var services =
             mvcBuilder.Services;
          services
-            // .AddSingleton(s => configs.GetSection("Identity").Get<IdentitySettings>())
+            .AddSingleton(s => configs.GetSection("AppInsights").Get<InsightsSettings>())
             .AddScoped<IInsightsService, InsightsService>();
          return mvcBuilder;
       }
