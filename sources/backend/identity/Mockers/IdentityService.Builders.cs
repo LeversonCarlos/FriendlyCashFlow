@@ -18,8 +18,5 @@ namespace Elesse.Identity
       internal static IdentityService Create(IdentitySettings settings, IUserRepository userRepository, ITokenRepository tokenRepository) =>
          new IdentityService(settings, userRepository, tokenRepository, Shared.Tests.InsightsServiceMocker.Create().Build());
 
-      // Shared.Tests.InsightsServiceMocker.Create().Build()
-      // IdentitySettings settings, IUserRepository userRepository, ITokenRepository tokenRepository
-
    }
 }

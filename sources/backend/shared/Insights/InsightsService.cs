@@ -84,6 +84,8 @@ namespace Elesse.Shared
       [DebuggerStepThrough]
       Dictionary<string, string> GetPropertiesDictionary(params string[] propertyList)
       {
+         if (propertyList?.Length ==0 )
+            return null;
          var properties = propertyList
             .Select(prop => prop.Split(new string[] { ":" }, StringSplitOptions.RemoveEmptyEntries))
             .Select(prop => new
