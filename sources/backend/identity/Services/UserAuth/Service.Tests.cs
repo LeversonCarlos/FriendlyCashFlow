@@ -10,7 +10,7 @@ namespace Elesse.Identity.Tests
       [Fact]
       public async void UserAuth_WithNullParameter_MustReturnBadResult()
       {
-         var identityService = new IdentityService(null, null, null);
+         var identityService = IdentityService.Create();
 
          var result = await identityService.UserAuthAsync(null);
 
@@ -23,7 +23,7 @@ namespace Elesse.Identity.Tests
       public async void UserAuth_WithInvalidUsername_MustReturnBadResult()
       {
          var identitySettings = new IdentitySettings { PasswordRules = new PasswordRuleSettings { } };
-         var identityService = new IdentityService(identitySettings, null, null);
+         var identityService = IdentityService.Create(identitySettings);
 
          var param = new UserAuthVM { UserName = "userName", Password = "password" };
          var result = await identityService.UserAuthAsync(param);
@@ -41,7 +41,7 @@ namespace Elesse.Identity.Tests
             .Create()
             .WithGetUserByUserName()
             .Build();
-         var identityService = new IdentityService(identitySettings, userRepository, null);
+         var identityService = IdentityService.Create(identitySettings, userRepository);
 
          var param = new UserAuthVM { UserName = "userName@xpto.com", Password = "password" };
          var result = await identityService.UserAuthAsync(param);
@@ -60,7 +60,7 @@ namespace Elesse.Identity.Tests
             .Create()
             .WithGetUserByUserName(results)
             .Build();
-         var identityService = new IdentityService(identitySettings, userRepository, null);
+         var identityService = IdentityService.Create(identitySettings, userRepository);
 
          var param = new UserAuthVM { UserName = "userName@xpto.com", Password = "password" };
          var result = await identityService.UserAuthAsync(param);
@@ -87,7 +87,7 @@ namespace Elesse.Identity.Tests
             PasswordRules = new PasswordRuleSettings { MinimumSize = 5 },
             Token = new TokenSettings { }
          };
-         var identityService = new IdentityService(identitySettings, userRepository, null);
+         var identityService = IdentityService.Create(identitySettings, userRepository);
 
          var param = new UserAuthVM { UserName = "userName@xpto.com", Password = "password" };
          var result = await identityService.UserAuthAsync(param);
@@ -112,7 +112,7 @@ namespace Elesse.Identity.Tests
             PasswordRules = new PasswordRuleSettings { MinimumSize = 5 },
             Token = new TokenSettings { SecuritySecret = "security-secret-security-secret", AccessExpirationInSeconds = 1, RefreshExpirationInSeconds = 60 }
          };
-         var identityService = new IdentityService(identitySettings, userRepository, tokenRepository);
+         var identityService = IdentityService.Create(identitySettings, userRepository, tokenRepository);
 
          var param = new UserAuthVM { UserName = "userName@xpto.com", Password = "password" };
          var result = await identityService.UserAuthAsync(param);

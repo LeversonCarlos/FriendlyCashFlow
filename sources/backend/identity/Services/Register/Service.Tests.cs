@@ -9,7 +9,7 @@ namespace Elesse.Identity.Tests
       [Fact]
       public async void Register_WithNullParameter_MustReturnBadResult()
       {
-         var identityService = new IdentityService(null, null, null);
+         var identityService = IdentityService.Create();
 
          var result = await identityService.RegisterAsync(null);
 
@@ -22,7 +22,7 @@ namespace Elesse.Identity.Tests
       public async void Register_WithInvalidUsername_MustReturnBadResult()
       {
          var identitySettings = new IdentitySettings { PasswordRules = new PasswordRuleSettings { MinimumSize = 10 } };
-         var identityService = new IdentityService(identitySettings, null, null);
+         var identityService = IdentityService.Create(identitySettings);
 
          var registerParam = new RegisterVM { UserName = "userName", Password = "password" };
          var result = await identityService.RegisterAsync(registerParam);
@@ -36,7 +36,7 @@ namespace Elesse.Identity.Tests
       public async void Register_WithInvalidPassword_MustReturnBadResult()
       {
          var identitySettings = new IdentitySettings { PasswordRules = new PasswordRuleSettings { MinimumSize = 10 } };
-         var identityService = new IdentityService(identitySettings, null, null);
+         var identityService = IdentityService.Create(identitySettings);
 
          var registerParam = new RegisterVM { UserName = "userName@xpto.com", Password = "password" };
          var result = await identityService.RegisterAsync(registerParam);
@@ -54,7 +54,7 @@ namespace Elesse.Identity.Tests
             .Create()
             .WithGetUserByUserName(null, new UserEntity("userName@xpto.com", "password"))
             .Build();
-         var identityService = new IdentityService(identitySettings, userRepository, null);
+         var identityService = IdentityService.Create(identitySettings, userRepository);
          var registerParam = new RegisterVM { UserName = "userName@xpto.com", Password = "password" };
 
          var result = await identityService.RegisterAsync(registerParam);
@@ -75,7 +75,7 @@ namespace Elesse.Identity.Tests
             .Create()
             .WithGetUserByUserName()
             .Build();
-         var identityService = new IdentityService(identitySettings, userRepository, null);
+         var identityService = IdentityService.Create(identitySettings, userRepository);
 
          var registerParam = new RegisterVM { UserName = "userName@xpto.com", Password = "password" };
          var result = await identityService.RegisterAsync(registerParam);

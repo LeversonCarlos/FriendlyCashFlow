@@ -11,7 +11,7 @@ namespace Elesse.Identity.Tests
       [Fact]
       public async void TokenAuth_WithNullParameter_MustReturnBadResult()
       {
-         var identityService = new IdentityService(null, null, null);
+         var identityService = IdentityService.Create();
 
          var result = await identityService.TokenAuthAsync(null);
 
@@ -26,7 +26,7 @@ namespace Elesse.Identity.Tests
       [InlineData(" ")]
       public async void TokenAuth_WithEmptyRefreshToken_MustReturnBadResult(string refreshToken)
       {
-         var identityService = new IdentityService(null, null, null);
+         var identityService = IdentityService.Create();
 
          var param = new TokenAuthVM { RefreshToken = refreshToken };
          var result = await identityService.TokenAuthAsync(param);
@@ -40,11 +40,14 @@ namespace Elesse.Identity.Tests
       [MemberData(nameof(TokenAuth_WithInvalidRefreshTokenData_MustReturnBadResult_Data))]
       public async void TokenAuth_WithInvalidRefreshTokenData_MustReturnBadResult(string exceptionMessage, ITokenEntity results)
       {
+         var userRepository = UserRepositoryMocker
+            .Create()
+            .Build();
          var tokenRepositoty = TokenRepositoryMocker
             .Create()
             .WithRetrieveRefreshToken(results)
             .Build();
-         var service = new IdentityService(null, null, tokenRepositoty);
+         var service = IdentityService.Create(userRepository, tokenRepositoty);
 
          var param = new TokenAuthVM { RefreshToken = "refresh-token" };
          var result = await service.TokenAuthAsync(param);
@@ -70,7 +73,7 @@ namespace Elesse.Identity.Tests
             .Create()
             .WithRetrieveRefreshToken(TokenEntity.Create(System.Guid.NewGuid().ToString(), DateTime.UtcNow.AddMinutes(1)))
             .Build();
-         var identityService = new IdentityService(null, userRepository, tokenRepository);
+         var identityService = IdentityService.Create(userRepository, tokenRepository);
 
          var param = new TokenAuthVM { RefreshToken = "refresh-token" };
          var result = await identityService.TokenAuthAsync(param);
@@ -96,7 +99,7 @@ namespace Elesse.Identity.Tests
             PasswordRules = new PasswordRuleSettings { MinimumSize = 5 },
             Token = new TokenSettings { }
          };
-         var identityService = new IdentityService(identitySettings, userRepository, tokenRepository);
+         var identityService = IdentityService.Create(identitySettings, userRepository, tokenRepository);
 
          var param = new TokenAuthVM { RefreshToken = "refresh-token" };
          var result = await identityService.TokenAuthAsync(param);
@@ -122,7 +125,7 @@ namespace Elesse.Identity.Tests
             PasswordRules = new PasswordRuleSettings { MinimumSize = 5 },
             Token = new TokenSettings { SecuritySecret = "security-secret-security-secret", AccessExpirationInSeconds = 1, RefreshExpirationInSeconds = 60 }
          };
-         var identityService = new IdentityService(identitySettings, userRepository, tokenRepository);
+         var identityService = IdentityService.Create(identitySettings, userRepository, tokenRepository);
 
          var param = new TokenAuthVM { RefreshToken = "refresh-token" };
          var result = await identityService.TokenAuthAsync(param);

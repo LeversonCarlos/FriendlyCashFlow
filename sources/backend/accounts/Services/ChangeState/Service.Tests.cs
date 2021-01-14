@@ -8,7 +8,7 @@ namespace Elesse.Accounts.Tests
       [Fact]
       public async void ChangeState_WithNullParameter_MustReturnBadResult()
       {
-         var service = new AccountService(null);
+         var service = AccountService.Create(null);
 
          var result = await service.ChangeStateAsync(null);
 
@@ -24,7 +24,7 @@ namespace Elesse.Accounts.Tests
             .Create()
             .WithLoadAccount()
             .Build();
-         var service = new AccountService(repository);
+         var service = AccountService.Create(repository);
          var param = new ChangeStateVM { AccountID = Shared.EntityID.NewID(), State = false };
 
          var result = await service.ChangeStateAsync(param);
@@ -41,7 +41,7 @@ namespace Elesse.Accounts.Tests
             .Create()
             .WithLoadAccount(new AccountEntity(accountID, "Account Text", enAccountType.General, null, null, true))
             .Build();
-         var service = new AccountService(repository);
+         var service = AccountService.Create(repository);
 
          var param = new ChangeStateVM { AccountID = accountID, State = false };
          var result = await service.ChangeStateAsync(param);

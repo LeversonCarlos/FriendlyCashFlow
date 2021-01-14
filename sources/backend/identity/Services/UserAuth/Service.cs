@@ -40,6 +40,9 @@ namespace Elesse.Identity
             // CREATE TOKEN
             var result = await CreateAccessTokenAsync(user);
 
+            // TRACK EVENT
+            _InsightsService.TrackEvent("Identity Service UserAuth");
+
             // RESULT
             return new OkObjectResult(result);
          }

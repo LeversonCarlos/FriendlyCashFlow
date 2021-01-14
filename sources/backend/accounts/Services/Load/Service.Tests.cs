@@ -9,7 +9,7 @@ namespace Elesse.Accounts.Tests
       [Fact]
       public async void Load_WithNullParameter_MustReturnBadResult()
       {
-         var service = new AccountService(null);
+         var service = AccountService.Create(null);
 
          var result = await service.LoadAsync(null);
 
@@ -26,7 +26,7 @@ namespace Elesse.Accounts.Tests
             .Create()
             .WithLoadAccount(account)
             .Build();
-         var service = new AccountService(repository);
+         var service = AccountService.Create(repository);
 
          var result = await service.LoadAsync((string)account.AccountID);
 

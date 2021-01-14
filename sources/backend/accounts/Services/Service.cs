@@ -4,12 +4,14 @@ namespace Elesse.Accounts
    internal partial class AccountService : IAccountService
    {
 
-      readonly IAccountRepository _AccountRepository;
-
-      public AccountService(IAccountRepository accountRepository)
+      public AccountService(IAccountRepository accountRepository, Shared.IInsightsService insightsService)
       {
          _AccountRepository = accountRepository;
+         _InsightsService=insightsService;
       }
+
+      readonly IAccountRepository _AccountRepository;
+      readonly Shared.IInsightsService _InsightsService;
 
    }
 
