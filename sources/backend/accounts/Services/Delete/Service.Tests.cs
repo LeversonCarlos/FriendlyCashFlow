@@ -8,7 +8,7 @@ namespace Elesse.Accounts.Tests
       [Fact]
       public async void Delete_WithNullParameter_MustReturnBadResult()
       {
-         var service = new AccountService(null);
+         var service = AccountService.Create(null);
 
          var result = await service.DeleteAsync(null);
 
@@ -24,7 +24,7 @@ namespace Elesse.Accounts.Tests
             .Create()
             .WithLoadAccount()
             .Build();
-         var service = new AccountService(repository);
+         var service = AccountService.Create(repository);
 
          var result = await service.DeleteAsync((string)Shared.EntityID.NewID());
 
@@ -41,7 +41,7 @@ namespace Elesse.Accounts.Tests
             .Create()
             .WithLoadAccount(new AccountEntity(accountID, "Account Text", enAccountType.General, null, null, true))
             .Build();
-         var service = new AccountService(repository);
+         var service = AccountService.Create(repository);
 
          var result = await service.DeleteAsync((string)accountID);
 

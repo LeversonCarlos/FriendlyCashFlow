@@ -15,7 +15,7 @@ namespace Elesse.Accounts.Tests
             .Create()
             .WithList(accountsList)
             .Build();
-         var service = new AccountService(repository);
+         var service = AccountService.Create(repository);
 
          var result = await service.ListAsync();
 

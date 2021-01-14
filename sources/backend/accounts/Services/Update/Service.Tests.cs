@@ -8,7 +8,7 @@ namespace Elesse.Accounts.Tests
       [Fact]
       public async void Update_WithNullParameter_MustReturnBadResult()
       {
-         var service = new AccountService(null);
+         var service = AccountService.Create();
 
          var result = await service.UpdateAsync(null);
 
@@ -20,7 +20,7 @@ namespace Elesse.Accounts.Tests
       [Fact]
       public async void Update_WithInvalidType_MustReturnBadResult()
       {
-         var service = new AccountService(null);
+         var service = AccountService.Create();
 
          var param = new UpdateVM { AccountID = Shared.EntityID.NewID(), Text = "Account Text", Type = enAccountType.Bank, ClosingDay = 1, DueDay = 1 };
          var result = await service.UpdateAsync(param);
@@ -37,7 +37,7 @@ namespace Elesse.Accounts.Tests
             .Create()
             .WithSearchAccounts(new AccountEntity[] { new AccountEntity(Shared.EntityID.NewID(), "Account Text", enAccountType.General, null, null, true) })
             .Build();
-         var service = new AccountService(repository);
+         var service = AccountService.Create(repository);
          var param = new UpdateVM { AccountID = Shared.EntityID.NewID(), Text = "Account Text", Type = enAccountType.General };
 
          var result = await service.UpdateAsync(param);
@@ -54,7 +54,7 @@ namespace Elesse.Accounts.Tests
             .WithSearchAccounts()
             .WithLoadAccount()
             .Build();
-         var service = new AccountService(repository);
+         var service = AccountService.Create(repository);
          var param = new UpdateVM { AccountID = Shared.EntityID.NewID(), Text = "Account Text", Type = enAccountType.General };
 
          var result = await service.UpdateAsync(param);
@@ -72,7 +72,7 @@ namespace Elesse.Accounts.Tests
             .WithSearchAccounts()
             .WithLoadAccount(new AccountEntity(accountID, "Account Text", enAccountType.General, null, null, true))
             .Build();
-         var service = new AccountService(repository);
+         var service = AccountService.Create(repository);
 
          var param = new UpdateVM { AccountID = accountID, Text = "Changed Account Text", Type = enAccountType.General };
          var result = await service.UpdateAsync(param);

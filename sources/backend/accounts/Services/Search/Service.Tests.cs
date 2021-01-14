@@ -15,7 +15,7 @@ namespace Elesse.Accounts.Tests
             .Create()
             .WithSearchAccounts(accountsList)
             .Build();
-         var service = new AccountService(repository);
+         var service = AccountService.Create(repository);
 
          var result = await service.SearchAsync(account.Text);
 

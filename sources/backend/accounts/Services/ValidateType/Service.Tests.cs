@@ -17,7 +17,7 @@ namespace Elesse.Accounts.Tests
       [InlineData(WARNINGS.DAYS_REQUIRED_FOR_CREDIT_CARD_TYPE, enAccountType.CreditCard, null, (short)1)]
       internal async void ValidateType_WithInvalidParameters_MustResultErrorMessage(string warningText, enAccountType type, short? closingDay, short? dueDay)
       {
-         var service = new AccountService(null);
+         var service = AccountService.Create();
          var result = await service.ValidateTypeAsync(type, closingDay, dueDay);
 
          Assert.Equal(new string[] { warningText }, result);
@@ -31,7 +31,7 @@ namespace Elesse.Accounts.Tests
       [InlineData(enAccountType.CreditCard, (short)1, (short)1)]
       internal async void ValidateUsername_WithValidParameters_MustResultNoErrorMessages(enAccountType type, short? closingDay, short? dueDay)
       {
-         var service = new AccountService(null);
+         var service = AccountService.Create();
          var result = await service.ValidateTypeAsync(type, closingDay, dueDay);
 
          Assert.Equal(new string[] { }, result);

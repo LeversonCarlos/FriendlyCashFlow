@@ -8,7 +8,7 @@ namespace Elesse.Accounts.Tests
       [Fact]
       public async void Insert_WithNullParameter_MustReturnBadResult()
       {
-         var service = new AccountService(null);
+         var service = AccountService.Create(null);
 
          var result = await service.InsertAsync(null);
 
@@ -20,7 +20,7 @@ namespace Elesse.Accounts.Tests
       [Fact]
       public async void Insert_WithInvalidType_MustReturnBadResult()
       {
-         var service = new AccountService(null);
+         var service = AccountService.Create(null);
 
          var param = new InsertVM { Text = "Account Text", Type = enAccountType.Bank, ClosingDay = 1, DueDay = 1 };
          var result = await service.InsertAsync(param);
@@ -37,7 +37,7 @@ namespace Elesse.Accounts.Tests
             .Create()
             .WithSearchAccounts(null, new AccountEntity[] { new AccountEntity("Account Text", enAccountType.General, null, null) })
             .Build();
-         var service = new AccountService(repository);
+         var service = AccountService.Create(repository);
          var param = new InsertVM { Text = "Account Text", Type = enAccountType.General };
 
          var result = await service.InsertAsync(param);
@@ -57,7 +57,7 @@ namespace Elesse.Accounts.Tests
             .Create()
             .WithSearchAccounts()
             .Build();
-         var service = new AccountService(repository);
+         var service = AccountService.Create(repository);
 
          var param = new InsertVM { Text = "Account Text", Type = enAccountType.General };
          var result = await service.InsertAsync(param);
