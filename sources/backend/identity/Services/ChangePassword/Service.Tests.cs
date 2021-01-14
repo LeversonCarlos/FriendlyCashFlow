@@ -69,7 +69,7 @@ namespace Elesse.Identity.Tests
             .Create()
             .WithGetUserByUserID(results)
             .Build();
-         var identityService = new IdentityService(identitySettings, userRepository, null);
+         var identityService = IdentityService.Create(identitySettings, userRepository);
 
          var param = new ChangePasswordVM { OldPassword = "password", NewPassword = "new-password" };
          var result = await identityService.ChangePasswordAsync(new GenericIdentity("my-user-id"), param);
@@ -96,7 +96,7 @@ namespace Elesse.Identity.Tests
             PasswordRules = new PasswordRuleSettings { MinimumSize = 5 },
             Token = new TokenSettings { SecuritySecret = "security-secret-security-secret", AccessExpirationInSeconds = 1, RefreshExpirationInSeconds = 60 }
          };
-         var identityService = new IdentityService(identitySettings, userRepository, null);
+         var identityService = IdentityService.Create(identitySettings, userRepository);
 
          var param = new ChangePasswordVM { OldPassword = "password", NewPassword = "new-password" };
          var result = await identityService.ChangePasswordAsync(new GenericIdentity("my-user-id"), param);

@@ -96,7 +96,7 @@ namespace Elesse.Identity.Tests
             PasswordRules = new PasswordRuleSettings { MinimumSize = 5 },
             Token = new TokenSettings { }
          };
-         var identityService = new IdentityService(identitySettings, userRepository, tokenRepository);
+         var identityService = IdentityService.Create(identitySettings, userRepository, tokenRepository);
 
          var param = new TokenAuthVM { RefreshToken = "refresh-token" };
          var result = await identityService.TokenAuthAsync(param);
@@ -122,7 +122,7 @@ namespace Elesse.Identity.Tests
             PasswordRules = new PasswordRuleSettings { MinimumSize = 5 },
             Token = new TokenSettings { SecuritySecret = "security-secret-security-secret", AccessExpirationInSeconds = 1, RefreshExpirationInSeconds = 60 }
          };
-         var identityService = new IdentityService(identitySettings, userRepository, tokenRepository);
+         var identityService = IdentityService.Create(identitySettings, userRepository, tokenRepository);
 
          var param = new TokenAuthVM { RefreshToken = "refresh-token" };
          var result = await identityService.TokenAuthAsync(param);

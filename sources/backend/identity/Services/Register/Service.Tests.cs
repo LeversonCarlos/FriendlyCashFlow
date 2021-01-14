@@ -54,7 +54,7 @@ namespace Elesse.Identity.Tests
             .Create()
             .WithGetUserByUserName(null, new UserEntity("userName@xpto.com", "password"))
             .Build();
-         var identityService = new IdentityService(identitySettings, userRepository, null);
+         var identityService = IdentityService.Create(identitySettings, userRepository);
          var registerParam = new RegisterVM { UserName = "userName@xpto.com", Password = "password" };
 
          var result = await identityService.RegisterAsync(registerParam);
@@ -75,7 +75,7 @@ namespace Elesse.Identity.Tests
             .Create()
             .WithGetUserByUserName()
             .Build();
-         var identityService = new IdentityService(identitySettings, userRepository, null);
+         var identityService = IdentityService.Create(identitySettings, userRepository);
 
          var registerParam = new RegisterVM { UserName = "userName@xpto.com", Password = "password" };
          var result = await identityService.RegisterAsync(registerParam);
