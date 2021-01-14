@@ -42,14 +42,23 @@ namespace Elesse.Shared.Tests
       }
 
       [Fact]
-      internal void Parse_WithValidGuid_MustCreateInstance()
+      internal void TryParse_WithValidGuid_MustCreateInstance()
       {
 
          var guidString = Guid.NewGuid().ToString();
-         var result = EntityID.Parse(guidString);
+         EntityID.TryParse(guidString, out EntityID result);
 
          Assert.NotNull(result);
          Assert.Equal(guidString, result.ToString());
+      }
+
+      [Fact]
+      internal void TryParse_WithInvalidGuid_MustResultFalse()
+      {
+
+         var result = EntityID.TryParse("some invalid guid", out EntityID dummy);
+
+         Assert.False(result);
       }
 
    }
