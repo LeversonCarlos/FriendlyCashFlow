@@ -9,10 +9,12 @@
       <mat-sidenav-content>
          <header>
             <mat-toolbar color="primary">
-               <button mat-icon-button (click)="snav.toggle()" *ngIf="IsMobile">
-                  <mat-icon>menu</mat-icon>
-               </button>
-               <ng-content select="[header-title]"></ng-content>
+               <div class="title">
+                  <button mat-icon-button (click)="snav.toggle()" *ngIf="IsMobile">
+                     <mat-icon>menu</mat-icon>
+                  </button>
+                  <ng-content select="[header-title]"></ng-content>
+               </div>
                <ng-content select="[header-toolbar]"></ng-content>
             </mat-toolbar>
             <ng-content select="[header]"></ng-content>

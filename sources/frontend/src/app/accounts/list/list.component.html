@@ -1,7 +1,7 @@
 <shared-authenticated-container>
    <div header-title>{{ "accounts.TITLE" | translation | async}}</div>
    <div header-toolbar>
-      <button mat-icon-button color="accent" routerLink="../details/new">
+      <button mat-icon-button routerLink="../details/new">
          <mat-icon>add_circle</mat-icon>
       </button>
    </div>
@@ -10,11 +10,15 @@
       <mat-tab-group dynamicHeight="false">
 
          <mat-tab [label]="'accounts.ACTIVE_ACCOUNTS_LABEL' | translation | async">
-            <accounts-list-body [Accounts]="ActiveAccounts"></accounts-list-body>
+            <div class="tab-contents">
+               <accounts-list-body [Accounts]="ActiveAccounts"></accounts-list-body>
+            </div>
          </mat-tab>
 
          <mat-tab [label]="'accounts.INACTIVE_ACCOUNTS_LABEL' | translation | async">
-            <accounts-list-body [Accounts]="InactiveAccounts"></accounts-list-body>
+            <div class="tab-contents">
+               <accounts-list-body [Accounts]="InactiveAccounts"></accounts-list-body>
+            </div>
          </mat-tab>
 
       </mat-tab-group>

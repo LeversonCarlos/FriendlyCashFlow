@@ -25,12 +25,14 @@
       </form>
 
       <div>
-         <button type="button" mat-button color="accent" routerLink="../register"
-            [disabled]="IsBusy">{{ 'identity.REGISTER_LINK' | translation | async }}</button>
+         <button type="button" mat-button routerLink="../register" [disabled]="IsBusy">
+            <span class="forecolor-white">{{ 'identity.REGISTER_LINK' | translation | async }}</span>
+         </button>
       </div>
       <div>
-         <button type="button" mat-button color="accent" (click)="OnActivationClick()"
-            [disabled]="IsBusy">{{ 'identity.ACTIVATION_LINK' | translation | async }}</button>
+         <button type="button" mat-button (click)="OnActivationClick()" [disabled]="IsBusy">
+            <span class="forecolor-white">{{ 'identity.ACTIVATION_LINK' | translation | async }}</span>
+         </button>
       </div>
 
    </div>
