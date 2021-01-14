@@ -85,7 +85,7 @@ jobs:
           echo ${{ env.version }}
           sed -i 's|"version": "1.0.0",|"version": "${{ env.version }}",|g' package.json
           sed -i 's|"version": "1.0.0",|"version": "${{ env.version }}",|g' src/manifest.webmanifest
-          cat src/manifest.webmanifest
+        # cat src/manifest.webmanifest
 
       - name: Restore
         working-directory: 'sources/frontend'
