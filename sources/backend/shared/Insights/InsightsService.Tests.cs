@@ -25,18 +25,24 @@ namespace Elesse.Shared.Tests
             new object[] { new string[] { } }
       };
 
-      [Fact]
-      internal void GetPropertiesDictionary_WithOneParameterAndThreeSplits_MustResultAsExpected()
+      [Theory]
+      [MemberData(nameof(GetPropertiesDictionary_WithExpecifiedParameter_MustResultAsExpected_Data))]
+      internal void GetPropertiesDictionary_WithExpecifiedParameter_MustResultAsExpected(string[] param, Dictionary<string, string> expected)
       {
          var service = new InsightsService(null);
-         var param = new string[] { "one:two:three" };
-         var expected = new Dictionary<string, string> { { "Property", "one:two:three" } };
 
          var result = service.GetPropertiesDictionary(param);
 
          Assert.NotNull(result);
          Assert.Equal(expected, result);
       }
+      public static IEnumerable<object[]> GetPropertiesDictionary_WithExpecifiedParameter_MustResultAsExpected_Data() =>
+         new[] {
+            new object[] { new string[] { "one:two:three" }, new Dictionary<string, string> { { "Property", "one:two:three" } } },
+            new object[] { new string[] { "one" }, new Dictionary<string, string> { { "Property", "one" } } },
+            new object[] { new string[] { "one:two" }, new Dictionary<string, string> { { "one", "two" } } }
+      };
+
 
    }
 }
