@@ -28,6 +28,9 @@ namespace Elesse.Accounts
          var account = new AccountEntity(insertVM.Text, insertVM.Type, insertVM.ClosingDay, insertVM.DueDay);
          await _AccountRepository.InsertAccountAsync(account);
 
+         // TRACK EVENT
+         _InsightsService.TrackEvent("Account Service Insert");
+
          // RESULT
          return new OkResult();
       }

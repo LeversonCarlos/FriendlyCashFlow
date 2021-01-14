@@ -22,6 +22,9 @@ namespace Elesse.Accounts
          // SAVE CHANGES
          await _AccountRepository.DeleteAccountAsync(accountID);
 
+         // TRACK EVENT
+         _InsightsService.TrackEvent("Account Service Delete");
+
          // RESULT
          return new OkResult();
       }
