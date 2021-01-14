@@ -1,4 +1,5 @@
 using System.Reflection;
+using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,7 +15,8 @@ namespace Elesse.Shared
             mvcBuilder.Services;
          services
             .AddSingleton(s => configs.GetSection("AppInsights").Get<InsightsSettings>())
-            .AddScoped<IInsightsService, InsightsService>();
+            .AddScoped<IInsightsService, InsightsService>()
+            .AddSingleton<ITelemetryInitializer, TelemetryInitializer>(sp => new TelemetryInitializer(sp.GetService<InsightsSettings>()));
          return mvcBuilder;
       }
 
