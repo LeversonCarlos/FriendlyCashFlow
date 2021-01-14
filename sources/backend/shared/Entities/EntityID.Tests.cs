@@ -61,5 +61,17 @@ namespace Elesse.Shared.Tests
          Assert.False(result);
       }
 
+      [Fact]
+      internal void ExplicitOperator_OneEqualValuesOfDifferentTypes_MustResultTrue()
+      {
+         var guid = Guid.NewGuid().ToString();
+
+         var first = (EntityID)guid;
+         var second = EntityID.Parse(guid);
+
+         Assert.Equal(first.GetHashCode(), second.GetHashCode());
+         Assert.Equal((string)first, (string)second);
+      }
+
    }
 }
