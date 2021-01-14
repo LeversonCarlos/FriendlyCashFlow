@@ -1,7 +1,4 @@
 using System.Collections.Generic;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using MongoDB.Driver;
 using Xunit;
 
 namespace Elesse.Shared.Tests
@@ -53,6 +50,7 @@ namespace Elesse.Shared.Tests
          Assert.True(result);
       }
 
+      [Fact]
       internal void EqualOperator_WithBothNullValues_MustResultTrue()
       {
          ValueObjectTest first = null;
