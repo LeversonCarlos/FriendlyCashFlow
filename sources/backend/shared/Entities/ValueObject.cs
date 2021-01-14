@@ -9,25 +9,28 @@ namespace Elesse.Shared
       protected static bool EqualOperator(ValueObject left, ValueObject right)
       {
          if (ReferenceEquals(left, null) ^ ReferenceEquals(right, null))
-         {
             return false;
-         }
          return ReferenceEquals(left, null) || left.Equals(right);
       }
-
       public static bool operator ==(ValueObject left, ValueObject right) =>
          EqualOperator(left, right);
 
-      protected static bool NotEqualOperator(ValueObject left, ValueObject right)
-      {
-         return !(EqualOperator(left, right));
-      }
-
+      protected static bool NotEqualOperator(ValueObject left, ValueObject right) =>
+         !(EqualOperator(left, right));
       public static bool operator !=(ValueObject left, ValueObject right) =>
          NotEqualOperator(left, right);
 
 
       protected abstract IEnumerable<object> GetAtomicValues();
+
+      public override int GetHashCode() =>
+         GetAtomicValues()
+            .Select(x => x != null ? x.GetHashCode() : 0)
+            .Aggregate((x, y) => x ^ y);
+
+      public ValueObject GetCopy() =>
+         this.MemberwiseClone() as ValueObject;
+
 
       public override bool Equals(object obj)
       {
@@ -50,18 +53,6 @@ namespace Elesse.Shared
             }
          }
          return !thisValues.MoveNext() && !otherValues.MoveNext();
-      }
-
-      public override int GetHashCode()
-      {
-         return GetAtomicValues()
-            .Select(x => x != null ? x.GetHashCode() : 0)
-            .Aggregate((x, y) => x ^ y);
-      }
-
-      public ValueObject GetCopy()
-      {
-         return this.MemberwiseClone() as ValueObject;
       }
 
    }
