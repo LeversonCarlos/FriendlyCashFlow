@@ -15,6 +15,7 @@ namespace Elesse.Identity.Helpers.Tests
             .Build();
          var services = new ServiceCollection()
             .AddSingleton<IMongoDatabase>(x => null)
+            .AddSingleton<Shared.IInsightsService>(sp => Shared.Tests.InsightsServiceMocker.Create().Build())
             .AddControllers()
             .AddIdentityService(configs)
             .Services
