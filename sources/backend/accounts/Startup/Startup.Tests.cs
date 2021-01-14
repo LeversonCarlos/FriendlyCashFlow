@@ -16,6 +16,7 @@ namespace Elesse.Accounts.Tests
             .Build();
          var services = new ServiceCollection()
             .AddSingleton<IMongoDatabase>(x => null)
+            .AddSingleton<Shared.IInsightsService>(x => Shared.Tests.InsightsServiceMocker.Create().Build())
             .AddScoped(x => new Mock<Identity.IUser>().Object)
             .AddControllers()
             .AddAccountService(configs)
