@@ -18,14 +18,17 @@
             <mat-card-actions>
                <button type="submit" mat-button color="primary"
                   [matTooltip]="'REGISTER_COMMAND_TOOLTIP' | translation | async"
-                  [disabled]="!inputForm?.valid || IsBusy">{{ 'identity.REGISTER_COMMAND' | translation | async }}</button>
+                  [disabled]="!inputForm?.valid || IsBusy">
+                  <span>{{ 'identity.REGISTER_COMMAND' | translation | async }}</span>
+               </button>
             </mat-card-actions>
 
          </mat-card>
       </form>
 
-      <button type="button" mat-button color="accent" routerLink="../login"
-         [disabled]="IsBusy" >{{ 'identity.LOGIN_LINK' | translation | async }}</button>
+      <button type="button" mat-button routerLink="../login" [disabled]="IsBusy">
+         <span class="forecolor-white">{{ 'identity.LOGIN_LINK' | translation | async }}</span>
+      </button>
 
    </div>
 </shared-anonymous-container>
