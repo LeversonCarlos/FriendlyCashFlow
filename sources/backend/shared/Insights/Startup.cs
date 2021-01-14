@@ -16,7 +16,14 @@ namespace Elesse.Shared
          services
             .AddSingleton(s => configs.GetSection("AppInsights").Get<InsightsSettings>())
             .AddScoped<IInsightsService, InsightsService>()
-            .AddSingleton<ITelemetryInitializer, TelemetryInitializer>(sp => new TelemetryInitializer(sp.GetService<InsightsSettings>()));
+            .AddSingleton<ITelemetryInitializer, TelemetryInitializer>()
+            .AddApplicationInsightsTelemetry(opt =>
+            {
+               opt.InstrumentationKey = configs.GetSection("AppInsights").Get<InsightsSettings>().Key;
+               // opt.EnablePerformanceCounterCollectionModule
+               // opt.EnableAdaptiveSampling = true;
+               // opt.AddAutoCollectedMetricExtractor = true;
+            });
          return mvcBuilder;
       }
 
