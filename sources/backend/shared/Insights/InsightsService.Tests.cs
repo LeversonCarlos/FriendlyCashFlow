@@ -40,7 +40,9 @@ namespace Elesse.Shared.Tests
          new[] {
             new object[] { new string[] { "one:two:three" }, new Dictionary<string, string> { { "Property", "one:two:three" } } },
             new object[] { new string[] { "one" }, new Dictionary<string, string> { { "Property", "one" } } },
-            new object[] { new string[] { "one:two" }, new Dictionary<string, string> { { "one", "two" } } }
+            new object[] { new string[] { "one:two" }, new Dictionary<string, string> { { "one", "two" } } },
+            new object[] { new string[] { "one:two", "a:b" }, new Dictionary<string, string> { { "one", "two" }, { "a", "b" } } },
+            new object[] { new string[] { "one:two", "a:b", "unsplited" }, new Dictionary<string, string> { { "one", "two" }, { "a", "b" }, { "Property", "unsplited" } } }
       };
 
 
