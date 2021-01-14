@@ -32,7 +32,7 @@ import { environment } from '../environments/environment';
       CommonModule, BrowserModule, BrowserAnimationsModule, HttpClientModule,
       MaterialModule, SharedModule, IdentityModule,
       AppRouting,
-      ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+      ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production, registrationStrategy: 'registerImmediately' }),
    ],
    providers: [
       SettingsService, BusyService, InsightsService, MessageService,
