@@ -13,6 +13,24 @@ jobs:
       - name: Checkout Source
         uses: actions/checkout@v2
 
+      - name: Shared - Restore
+        working-directory: 'sources/backend/shared/'
+        run: dotnet restore
+
+      - name: Shared - Build
+        working-directory: 'sources/backend/shared/'
+        run: dotnet build --no-restore
+
+      - name: Shared - Run Tests
+        working-directory: 'sources/backend/shared/'
+        run: dotnet test --no-build /p:CoverletOutputFormat=lcov
+
+      - name: Shared - Store Tests
+        uses: actions/upload-artifact@v2
+        with:
+          name: shared-tests
+          path: ./sources/backend/shared/coverage.info
+
       - name: Identity - Restore
         working-directory: 'sources/backend/identity/'
         run: dotnet restore
