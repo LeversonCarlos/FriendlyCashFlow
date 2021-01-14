@@ -4,7 +4,7 @@ namespace Elesse.Accounts
    {
 
       internal static AccountService Create() =>
-         new AccountService(null);
+         new AccountService(Tests.AccountRepositoryMocker.Create().Build());
 
       internal static AccountService Create(IAccountRepository accountRepository) =>
          new AccountService(accountRepository);
