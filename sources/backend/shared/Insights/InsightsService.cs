@@ -37,6 +37,29 @@ namespace Elesse.Shared
          catch { }
       }
 
+      [DebuggerStepThrough]
+      public void TrackMetric(string name, double value, Dictionary<string, string> properties)
+      {
+         try
+         {
+            if (_TelemetryClient != null)
+               _TelemetryClient.TrackMetric(name, value, properties);
+         }
+         catch { }
+      }
+
+      [DebuggerStepThrough]
+      public void TrackMetric(string name, double value, params string[] propertyList)
+      {
+         try
+         {
+            var properties = GetPropertiesDictionary(propertyList);
+            this.TrackMetric(name, value, properties);
+         }
+         catch { }
+      }
+
+      [DebuggerStepThrough]
       Dictionary<string, string> GetPropertiesDictionary(params string[] propertyList)
       {
          var properties = propertyList
