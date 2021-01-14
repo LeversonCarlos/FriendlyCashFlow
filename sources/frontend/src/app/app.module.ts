@@ -21,6 +21,8 @@ import { MainComponent } from './main/main.component';
 import { HomeComponent } from './main/home/home.component';
 import { AnonymousHomeComponent } from './main/home/anonymous-home/anonymous-home.component';
 import { AuthenticatedHomeComponent } from './main/home/authenticated-home/authenticated-home.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
    declarations: [
@@ -30,6 +32,7 @@ import { AuthenticatedHomeComponent } from './main/home/authenticated-home/authe
       CommonModule, BrowserModule, BrowserAnimationsModule, HttpClientModule,
       MaterialModule, SharedModule, IdentityModule,
       AppRouting,
+      ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production, registrationStrategy: 'registerImmediately' }),
    ],
    providers: [
       SettingsService, BusyService, InsightsService, MessageService,
