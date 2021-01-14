@@ -5,5 +5,6 @@ namespace Elesse.Shared
    public interface IInsightsService
    {
       void TrackEvent(string eventName, Dictionary<string, string> properties);
+      void TrackEvent(string eventName, params string[] propertyList);
    }
 }

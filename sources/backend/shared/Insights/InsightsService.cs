@@ -1,6 +1,8 @@
+using Microsoft.ApplicationInsights;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Microsoft.ApplicationInsights;
+using System.Linq;
 
 namespace Elesse.Shared
 {
@@ -11,7 +13,6 @@ namespace Elesse.Shared
       {
          _TelemetryClient = telemetryClient;
       }
-
       readonly TelemetryClient _TelemetryClient;
 
       [DebuggerStepThrough]
@@ -23,6 +24,30 @@ namespace Elesse.Shared
                _TelemetryClient.TrackEvent(eventName, properties);
          }
          catch { }
+      }
+
+      [DebuggerStepThrough]
+      public void TrackEvent(string eventName, params string[] propertyList)
+      {
+         try
+         {
+            var properties = GetPropertiesDictionary(propertyList);
+            this.TrackEvent(eventName, properties);
+         }
+         catch { }
+      }
+
+      Dictionary<string, string> GetPropertiesDictionary(params string[] propertyList)
+      {
+         var properties = propertyList
+            .Select(prop => prop.Split(new string[] { ":" }, StringSplitOptions.RemoveEmptyEntries))
+            .Select(prop => new
+            {
+               Key = (prop.Length == 2 ? prop[0] : "Property"),
+               Value = (prop.Length == 2 ? prop[1] : prop[0])
+            })
+            .ToDictionary(k => k.Key, v => v.Value);
+         return properties;
       }
 
    }
