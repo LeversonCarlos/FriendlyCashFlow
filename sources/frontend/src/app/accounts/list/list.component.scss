@@ -1,0 +1,5 @@
+@import 'src/styles/variables.scss';
+
+.tab-contents {
+   height: calc(#{$section-height} - 48px);
+}
