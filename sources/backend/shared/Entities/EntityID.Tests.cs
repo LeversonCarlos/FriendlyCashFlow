@@ -30,6 +30,7 @@ namespace Elesse.Shared.Tests
          Assert.Equal("The string argument to parse an EntityID type cannot be empty", result.Message);
       }
 
+      [Fact]
       internal void Parse_WithInvalidGuid_MustThrowException()
       {
 
@@ -38,6 +39,17 @@ namespace Elesse.Shared.Tests
          Assert.NotNull(result);
          Assert.IsType<ArgumentException>(result);
          Assert.Equal("The string argument [some invalid guid] received to parse an EntityID type is invalid", result.Message);
+      }
+
+      [Fact]
+      internal void Parse_WithValidGuid_MustCreateInstance()
+      {
+
+         var guidString = Guid.NewGuid().ToString();
+         var result = EntityID.Parse(guidString);
+
+         Assert.NotNull(result);
+         Assert.Equal(guidString, result.ToString());
       }
 
    }
