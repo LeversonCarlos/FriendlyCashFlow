@@ -31,6 +31,28 @@ namespace Elesse.Shared.Tests
          Assert.False(result);
       }
 
+      [Fact]
+      internal void NotEqualOperator_WithEqualValues_MustResultFalse()
+      {
+         var first = new ValueObjectTest { One = "One", Two = "Two" };
+         var second = new ValueObjectTest { Two = "Two", One = "One" };
+
+         var result = first != second;
+
+         Assert.False(result);
+      }
+
+      [Fact]
+      internal void NotEqualOperator_WithDifferentValues_MustResultTrue()
+      {
+         var first = new ValueObjectTest { One = "One", Two = "Two" };
+         var second = new ValueObjectTest { One = "One" };
+
+         var result = first != second;
+
+         Assert.True(result);
+      }
+
       internal class ValueObjectTest : ValueObject
       {
          public string One { get; set; }
