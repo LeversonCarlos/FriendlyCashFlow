@@ -23,7 +23,7 @@ namespace Elesse.Identity.Tests
       public async void UserAuth_WithInvalidUsername_MustReturnBadResult()
       {
          var identitySettings = new IdentitySettings { PasswordRules = new PasswordRuleSettings { } };
-         var identityService = new IdentityService(identitySettings, null, null);
+         var identityService = IdentityService.Create(identitySettings);
 
          var param = new UserAuthVM { UserName = "userName", Password = "password" };
          var result = await identityService.UserAuthAsync(param);

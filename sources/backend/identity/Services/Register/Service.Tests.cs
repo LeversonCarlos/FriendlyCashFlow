@@ -22,7 +22,7 @@ namespace Elesse.Identity.Tests
       public async void Register_WithInvalidUsername_MustReturnBadResult()
       {
          var identitySettings = new IdentitySettings { PasswordRules = new PasswordRuleSettings { MinimumSize = 10 } };
-         var identityService = new IdentityService(identitySettings, null, null);
+         var identityService = IdentityService.Create(identitySettings);
 
          var registerParam = new RegisterVM { UserName = "userName", Password = "password" };
          var result = await identityService.RegisterAsync(registerParam);
@@ -36,7 +36,7 @@ namespace Elesse.Identity.Tests
       public async void Register_WithInvalidPassword_MustReturnBadResult()
       {
          var identitySettings = new IdentitySettings { PasswordRules = new PasswordRuleSettings { MinimumSize = 10 } };
-         var identityService = new IdentityService(identitySettings, null, null);
+         var identityService = IdentityService.Create(identitySettings);
 
          var registerParam = new RegisterVM { UserName = "userName@xpto.com", Password = "password" };
          var result = await identityService.RegisterAsync(registerParam);

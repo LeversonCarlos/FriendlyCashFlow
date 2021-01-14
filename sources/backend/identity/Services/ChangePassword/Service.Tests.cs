@@ -36,7 +36,7 @@ namespace Elesse.Identity.Tests
       public async void ChangePassword_WithInvalidPassword_MustReturnBadResult(string oldPassword, string newPassword)
       {
          var identitySettings = new IdentitySettings { PasswordRules = new PasswordRuleSettings { MinimumSize = 10 } };
-         var identityService = new IdentityService(identitySettings, null, null);
+         var identityService = IdentityService.Create(identitySettings);
 
          var param = new ChangePasswordVM { OldPassword = oldPassword, NewPassword = newPassword };
          var result = await identityService.ChangePasswordAsync(new GenericIdentity("my-user-id"), param);
@@ -50,7 +50,7 @@ namespace Elesse.Identity.Tests
       public async void ChangePassword_WithSamePassword_MustReturnBadResult()
       {
          var identitySettings = new IdentitySettings { PasswordRules = new PasswordRuleSettings { MinimumSize = 10 } };
-         var identityService = new IdentityService(identitySettings, null, null);
+         var identityService = IdentityService.Create(identitySettings);
 
          var param = new ChangePasswordVM { OldPassword = "same-password", NewPassword = "same-password" };
          var result = await identityService.ChangePasswordAsync(new GenericIdentity("my-user-id"), param);

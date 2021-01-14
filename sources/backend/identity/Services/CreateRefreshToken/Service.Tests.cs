@@ -22,7 +22,7 @@ namespace Elesse.Identity.Tests
       {
          var settings = new IdentitySettings { Token = new TokenSettings { } };
          var user = new UserEntity("user@Name.com", "password");
-         var service = new IdentityService(settings, null, null);
+         var service = IdentityService.Create(settings);
 
          var value = await Assert.ThrowsAsync<ArgumentException>(() => service.CreateRefreshTokenAsync(user));
 
