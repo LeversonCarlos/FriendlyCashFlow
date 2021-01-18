@@ -10,6 +10,12 @@ namespace Elesse.Shared
       public static BadRequestObjectResult Info(params string[] messageList) =>
          Message(enMessageType.Info, messageList);
 
+      public static BadRequestObjectResult Warning(params string[] messageList) =>
+         Message(enMessageType.Warning, messageList);
+
+      public static BadRequestObjectResult Error(params string[] messageList) =>
+         Message(enMessageType.Error, messageList);
+
       static BadRequestObjectResult Message(enMessageType type, string[] messageList) =>
          Message(messageList.Select(text => new Message(type, text)).ToArray());
 
