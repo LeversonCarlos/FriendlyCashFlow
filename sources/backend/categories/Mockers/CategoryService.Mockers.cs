@@ -28,13 +28,11 @@ namespace Elesse.Categories.Tests
          return this;
       }
 
-      /*
       public CategoryServiceMocker WithUpdate(UpdateVM param, IActionResult result)
       {
          _Mock.Setup(m => m.UpdateAsync(param)).ReturnsAsync(result);
          return this;
       }
-      */
 
       /*
       public CategoryServiceMocker WithDelete(string categoryID, IActionResult result)

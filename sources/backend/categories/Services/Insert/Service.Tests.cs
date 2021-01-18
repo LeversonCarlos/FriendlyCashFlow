@@ -42,7 +42,7 @@ namespace Elesse.Categories.Tests
       {
          var repository = CategoryRepositoryMocker
             .Create()
-            // .WithSearchAccounts()
+            .WithSearchCategories()
             .Build();
          var service = CategoryService.Create(repository);
 

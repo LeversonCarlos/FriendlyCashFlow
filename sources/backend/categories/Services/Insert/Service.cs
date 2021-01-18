@@ -14,6 +14,9 @@ namespace Elesse.Categories
          if (insertVM == null)
             return new BadRequestObjectResult(new string[] { WARNINGS.INVALID_INSERT_PARAMETER });
 
+         // VALIDATE PARENT
+         // TODO
+
          // VALIDATE DUPLICITY
          var categoryList = await _CategoryRepository.SearchCategoriesAsync(insertVM.Type, insertVM.ParentID, insertVM.Text);
          if (categoryList != null && categoryList.Length > 0)
