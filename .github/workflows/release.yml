@@ -35,6 +35,8 @@ jobs:
           dotnet clean --configuration Release
           cd ../accounts
           dotnet clean --configuration Release
+          cd ../categories
+          dotnet clean --configuration Release
           cd ../main
           dotnet clean --configuration Release
 
@@ -54,6 +56,10 @@ jobs:
 
       - name: Build Accounts
         working-directory: 'sources/backend/accounts'
+        run: dotnet build --configuration Release
+
+      - name: Build Categories
+        working-directory: 'sources/backend/categories'
         run: dotnet build --configuration Release
 
       - name: Build Main

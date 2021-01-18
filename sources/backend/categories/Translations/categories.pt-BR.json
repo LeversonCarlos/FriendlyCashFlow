@@ -1,0 +1,8 @@
+{
+  "TITLE": "Categorias",
+  "MENU": "Categorias",
+
+  "enCategoryType_None": "<Selecione>",
+  "enCategoryType_Expense": "Despesa",
+  "enCategoryType_Income": "Receita"
+}

@@ -67,6 +67,24 @@ jobs:
           name: accounts-tests
           path: ./sources/backend/accounts/coverage.info
 
+      - name: Categories - Restore
+        working-directory: 'sources/backend/categories/'
+        run: dotnet restore
+
+      - name: Categories - Build
+        working-directory: 'sources/backend/categories/'
+        run: dotnet build --no-restore
+
+      - name: Categories - Run Tests
+        working-directory: 'sources/backend/categories/'
+        run: dotnet test --no-build /p:CoverletOutputFormat=lcov
+
+      - name: Categories - Store Tests
+        uses: actions/upload-artifact@v2
+        with:
+          name: categories-tests
+          path: ./sources/backend/categories/coverage.info
+
       - name: Application - Restore
         working-directory: 'sources/backend/main/'
         run: dotnet restore

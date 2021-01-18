@@ -1,0 +1,8 @@
+{
+  "TITLE": "Categories",
+  "MENU": "Categories",
+
+  "enCategoryType_None": "<Select>",
+  "enCategoryType_Expense": "Expense",
+  "enCategoryType_Income": "Income"
+}
