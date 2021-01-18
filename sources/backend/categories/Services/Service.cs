@@ -4,7 +4,7 @@ namespace Elesse.Categories
    internal partial class CategoryService : ICategoryService
    {
 
-      public AccountService(ICategoryRepository categoryRepository, Shared.IInsightsService insightsService)
+      public CategoryService(ICategoryRepository categoryRepository, Shared.IInsightsService insightsService)
       {
          _CategoryRepository = categoryRepository;
          _InsightsService = insightsService;

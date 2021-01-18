@@ -8,7 +8,7 @@ namespace Elesse.Categories
       Shared.EntityID CategoryID { get; }
       string Text { get; }
       enCategoryType Type { get; }
-      Shared.EntityID? ParentID { get; }
+      Shared.EntityID ParentID { get; }
       string HierarchyText { get; }
    }
 
