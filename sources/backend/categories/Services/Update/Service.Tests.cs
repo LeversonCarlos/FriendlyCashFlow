@@ -5,11 +5,10 @@ namespace Elesse.Categories.Tests
    partial class CategoryServiceTests
    {
 
-      /*
       [Fact]
       public async void Update_WithNullParameter_MustReturnBadResult()
       {
-         var service = AccountService.Create();
+         var service = CategoryService.Create();
 
          var result = await service.UpdateAsync(null);
 
@@ -19,69 +18,55 @@ namespace Elesse.Categories.Tests
       }
 
       [Fact]
-      public async void Update_WithInvalidType_MustReturnBadResult()
-      {
-         var service = AccountService.Create();
-
-         var param = new UpdateVM { AccountID = Shared.EntityID.NewID(), Text = "Account Text", Type = enAccountType.Bank, ClosingDay = 1, DueDay = 1 };
-         var result = await service.UpdateAsync(param);
-
-         Assert.NotNull(result);
-         Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(new string[] { WARNINGS.DAYS_ONLY_VALID_FOR_CREDIT_CARD_TYPE }, (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
-      }
-
-      [Fact]
       public async void Update_WithExistingText_MustReturnBadRequest()
       {
-         var repository = AccountRepositoryMocker
+         var repository = CategoryRepositoryMocker
             .Create()
-            .WithSearchAccounts(new AccountEntity[] { new AccountEntity(Shared.EntityID.NewID(), "Account Text", enAccountType.General, null, null, true) })
+            .WithSearchCategories(new CategoryEntity[] { new CategoryEntity(Shared.EntityID.NewID(), "Category Text", enCategoryType.Income, null) })
             .Build();
-         var service = AccountService.Create(repository);
-         var param = new UpdateVM { AccountID = Shared.EntityID.NewID(), Text = "Account Text", Type = enAccountType.General };
+         var service = CategoryService.Create(repository);
+         var param = new UpdateVM { CategoryID = Shared.EntityID.NewID(), Text = "Category Text", Type = enCategoryType.Income };
 
          var result = await service.UpdateAsync(param);
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(new string[] { WARNINGS.ACCOUNT_TEXT_ALREADY_USED }, (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+         Assert.Equal(new string[] { WARNINGS.CATEGORY_TEXT_ALREADY_USED }, (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
       [Fact]
-      public async void Update_WithInexistingAccount_MustReturnBadRequest()
+      public async void Update_WithInexistingCategory_MustReturnBadRequest()
       {
-         var repository = AccountRepositoryMocker
+         var repository = CategoryRepositoryMocker
             .Create()
-            .WithSearchAccounts()
-            .WithLoadAccount()
+            .WithSearchCategories()
+            .WithLoadCategory()
             .Build();
-         var service = AccountService.Create(repository);
-         var param = new UpdateVM { AccountID = Shared.EntityID.NewID(), Text = "Account Text", Type = enAccountType.General };
+         var service = CategoryService.Create(repository);
+         var param = new UpdateVM { CategoryID = Shared.EntityID.NewID(), Text = "Category Text", Type = enCategoryType.Income };
 
          var result = await service.UpdateAsync(param);
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(new string[] { WARNINGS.ACCOUNT_NOT_FOUND }, (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+         Assert.Equal(new string[] { WARNINGS.CATEGORY_NOT_FOUND }, (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
       [Fact]
       public async void Update_WithValidParameters_MustReturnOkResult()
       {
-         var accountID = Shared.EntityID.NewID();
-         var repository = AccountRepositoryMocker
+         var categoryID = Shared.EntityID.NewID();
+         var repository = CategoryRepositoryMocker
             .Create()
-            .WithSearchAccounts()
-            .WithLoadAccount(new AccountEntity(accountID, "Account Text", enAccountType.General, null, null, true))
+            .WithSearchCategories()
+            .WithLoadCategory(new CategoryEntity(categoryID, "Category Text", enCategoryType.Income, null))
             .Build();
-         var service = AccountService.Create(repository);
+         var service = CategoryService.Create(repository);
 
-         var param = new UpdateVM { AccountID = accountID, Text = "Changed Account Text", Type = enAccountType.General };
+         var param = new UpdateVM { CategoryID = categoryID, Text = "Changed Category Text", Type = enCategoryType.Income };
          var result = await service.UpdateAsync(param);
 
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.OkResult>(result);
       }
-      */
 
    }
 }
