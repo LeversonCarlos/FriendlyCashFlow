@@ -34,13 +34,11 @@ namespace Elesse.Categories.Tests
          return this;
       }
 
-      /*
       public CategoryServiceMocker WithDelete(string categoryID, IActionResult result)
       {
          _Mock.Setup(m => m.DeleteAsync(categoryID)).ReturnsAsync(result);
          return this;
       }
-      */
 
       public ICategoryService Build() => _Mock.Object;
    }
