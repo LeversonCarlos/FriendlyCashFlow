@@ -10,13 +10,11 @@ namespace Elesse.Categories.Tests
       public CategoryServiceMocker() => _Mock = new Mock<ICategoryService>();
       public static CategoryServiceMocker Create() => new CategoryServiceMocker();
 
-      /*
       public CategoryServiceMocker WithList(ActionResult<ICategoryEntity[]> result)
       {
          _Mock.Setup(m => m.ListAsync()).ReturnsAsync(result);
          return this;
       }
-      */
 
       /*
       public CategoryServiceMocker WithLoad(string categoryID, ActionResult<ICategoryEntity> result)
