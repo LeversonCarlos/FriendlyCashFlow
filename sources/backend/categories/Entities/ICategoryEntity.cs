@@ -9,7 +9,7 @@ namespace Elesse.Categories
       string Text { get; }
       enCategoryType Type { get; }
       Shared.EntityID ParentID { get; }
-      string HierarchyText { get; }
+      // string HierarchyText { get; }
    }
 
 }
