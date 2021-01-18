@@ -16,7 +16,7 @@
 
   "enAccountType_General": "Carteira",
   "enAccountType_Bank": "Banco",
-  "enAccountType_CreditCard": "Cartão de Crédito ",
+  "enAccountType_CreditCard": "Cartão de Crédito",
   "enAccountType_Investment": "Investimento",
   "enAccountType_Service": "Serviço"
 }
