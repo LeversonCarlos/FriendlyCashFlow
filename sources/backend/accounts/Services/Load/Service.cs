@@ -15,10 +15,10 @@ namespace Elesse.Accounts
             return new BadRequestObjectResult(new string[] { WARNINGS.INVALID_LOAD_PARAMETER });
 
          // LOAD ACCOUNT
-         var account = (AccountEntity)(await _AccountRepository.LoadAccountAsync(accountID));
+         var account = await _AccountRepository.LoadAccountAsync(accountID);
 
          // RESULT
-         return new OkObjectResult(account);
+         return Shared.Results.Ok(account);
       }
 
    }
