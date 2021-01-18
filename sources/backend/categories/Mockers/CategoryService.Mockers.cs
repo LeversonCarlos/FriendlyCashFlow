@@ -16,13 +16,11 @@ namespace Elesse.Categories.Tests
          return this;
       }
 
-      /*
       public CategoryServiceMocker WithLoad(string categoryID, ActionResult<ICategoryEntity> result)
       {
          _Mock.Setup(m => m.LoadAsync(categoryID)).ReturnsAsync(result);
          return this;
       }
-      */
 
       /*
       public CategoryServiceMocker WithInsert(InsertVM param, IActionResult result)
