@@ -16,7 +16,12 @@ namespace Elesse.Categories
             return new BadRequestObjectResult(new string[] { WARNINGS.INVALID_UPDATE_PARAMETER });
 
          // VALIDATE PARENT
-         // TODO
+         if (updateVM.ParentID != null)
+         {
+            var parent = await _CategoryRepository.LoadCategoryAsync(updateVM.ParentID);
+            if (parent == null)
+               return new BadRequestObjectResult(new string[] { WARNINGS.PARENT_CATEGORY_NOT_FOUND });
+         }
 
          // VALIDATE DUPLICITY
          var categoriesList = await _CategoryRepository.SearchCategoriesAsync(updateVM.Type, updateVM.ParentID, updateVM.Text);

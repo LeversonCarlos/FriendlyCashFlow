@@ -18,6 +18,22 @@ namespace Elesse.Categories.Tests
       }
 
       [Fact]
+      public async void Insert_WithInexistingParentCategory_MustReturnBadRequest()
+      {
+         var repository = CategoryRepositoryMocker
+            .Create()
+            .WithLoadCategory()
+            .Build();
+         var service = CategoryService.Create(repository);
+         var param = new InsertVM { Text = "Category Text", Type = enCategoryType.Income, ParentID = Shared.EntityID.NewID() };
+
+         var result = await service.InsertAsync(param);
+         Assert.NotNull(result);
+         Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
+         Assert.Equal(new string[] { WARNINGS.PARENT_CATEGORY_NOT_FOUND }, (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+      }
+
+      [Fact]
       public async void Insert_WithExistingText_MustReturnBadRequest()
       {
          var repository = CategoryRepositoryMocker
