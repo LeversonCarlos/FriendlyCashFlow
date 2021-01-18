@@ -2,6 +2,9 @@
   "TITLE": "Categorias",
   "MENU": "Categorias",
 
+  "INVALID_CATEGORYID_PARAMETER": "O valor informado para o identificador da categoria é inválido",
+  "INVALID_TEXT_PARAMETER": "O texto da categoria precisa ser informado e ter no máximo 100 caracteres",
+
   "enCategoryType_None": "<Selecione>",
   "enCategoryType_Expense": "Despesa",
   "enCategoryType_Income": "Receita"

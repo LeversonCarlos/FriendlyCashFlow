@@ -21,6 +21,23 @@ namespace Elesse.Categories.Tests
          return this;
       }
 
+      public CategoryRepositoryMocker WithSearchCategories() =>
+         WithSearchCategories(new ICategoryEntity[][] { });
+      public CategoryRepositoryMocker WithSearchCategories(params ICategoryEntity[][] results)
+      {
+         var seq = new MockSequence();
+         foreach (var result in results)
+            _Mock.InSequence(seq)
+               .Setup(m => m.SearchCategoriesAsync(It.IsAny<enCategoryType>(), It.IsAny<string>()))
+               .ReturnsAsync(result);
+         var seq2 = new MockSequence();
+         foreach (var result in results)
+            _Mock.InSequence(seq2)
+               .Setup(m => m.SearchCategoriesAsync(It.IsAny<enCategoryType>(), It.IsAny<Shared.EntityID>(), It.IsAny<string>()))
+               .ReturnsAsync(result);
+         return this;
+      }
+
       public CategoryRepositoryMocker WithLoadCategory() =>
          WithLoadCategory(new ICategoryEntity[] { });
       public CategoryRepositoryMocker WithLoadCategory(params ICategoryEntity[] results)

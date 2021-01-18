@@ -60,7 +60,7 @@ namespace Elesse.Categories
       public Shared.EntityID ParentID
       {
          get => _ParentID;
-         private set
+         internal set
          {
             _ParentID = value;
          }
