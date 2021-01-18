@@ -30,7 +30,7 @@ namespace Elesse.Categories
 
    partial struct WARNINGS
    {
-      internal const string INVALID_LOAD_PARAMETER = "INVALID_LOAD_PARAMETER";
+      internal const string INVALID_LOAD_PARAMETER = "INVALID_CATEGORYID_PARAMETER";
    }
 
 }
