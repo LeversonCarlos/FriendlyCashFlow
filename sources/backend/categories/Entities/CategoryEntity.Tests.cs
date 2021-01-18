@@ -31,30 +31,23 @@ namespace Elesse.Categories.Tests
          Assert.True(entity.RowStatus);
       }
 
-      /*
       [Theory]
       [MemberData(nameof(Constructor_WithInvalidParameters_MustThrowException_Data))]
-      public void Constructor_WithInvalidParameters_MustThrowException(string exceptionText, Shared.EntityID categoryID, string accountText, enAccountType accountType, short? closingDay, short? dueDay)
+      public void Constructor_WithInvalidParameters_MustThrowException(string exceptionText, Shared.EntityID categoryID, string text, enCategoryType type, Shared.EntityID parentID)
       {
-         var active = true;
-         var exception = Assert.Throws<ArgumentException>(() => new AccountEntity(accountID, accountText, accountType, closingDay, dueDay, active));
+         var exception = Assert.Throws<ArgumentException>(() => new CategoryEntity(categoryID, text, type, parentID));
 
          Assert.NotNull(exception);
          Assert.Equal(exceptionText, exception.Message);
       }
       public static IEnumerable<object[]> Constructor_WithInvalidParameters_MustThrowException_Data() =>
          new[] {
-            new object[] { AccountEntity.WARNING_INVALID_ACCOUNTID, null, "accountText", enAccountType.General, null, null},
-            new object[] { AccountEntity.WARNING_INVALID_TEXT, Shared.EntityID.NewID(), (string)null, enAccountType.General, null, null},
-            new object[] { AccountEntity.WARNING_INVALID_TEXT, Shared.EntityID.NewID(), "", enAccountType.General, null, null},
-            new object[] { AccountEntity.WARNING_INVALID_TEXT, Shared.EntityID.NewID(), " ", enAccountType.General, null, null},
-            new object[] { AccountEntity.WARNING_INVALID_TEXT, Shared.EntityID.NewID(), new string('0', 101), enAccountType.General, null, null},
-            new object[] { AccountEntity.WARNING_INVALID_CLOSING_DAY, Shared.EntityID.NewID(), "accountText", enAccountType.CreditCard, (short)0, null},
-            new object[] { AccountEntity.WARNING_INVALID_CLOSING_DAY, Shared.EntityID.NewID(), "accountText", enAccountType.CreditCard, (short)32, null},
-            new object[] { AccountEntity.WARNING_INVALID_DUE_DAY, Shared.EntityID.NewID(), "accountText", enAccountType.CreditCard, (short)1, (short)0 },
-            new object[] { AccountEntity.WARNING_INVALID_DUE_DAY, Shared.EntityID.NewID(), "accountText", enAccountType.CreditCard, (short)1, (short)32 }
+            new object[] { WARNINGS.INVALID_CATEGORYID, null, "Category Text", enCategoryType.Income, null},
+            new object[] { WARNINGS.INVALID_TEXT, Shared.EntityID.NewID(), (string)null, enCategoryType.Income, null},
+            new object[] { WARNINGS.INVALID_TEXT, Shared.EntityID.NewID(), "", enCategoryType.Income, null},
+            new object[] { WARNINGS.INVALID_TEXT, Shared.EntityID.NewID(), " ", enCategoryType.Income, null},
+            new object[] { WARNINGS.INVALID_TEXT, Shared.EntityID.NewID(), new string('0', 101), enCategoryType.Income, null}
          };
-      */
 
    }
 }
