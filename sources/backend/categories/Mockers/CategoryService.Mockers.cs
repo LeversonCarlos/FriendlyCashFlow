@@ -22,13 +22,11 @@ namespace Elesse.Categories.Tests
          return this;
       }
 
-      /*
       public CategoryServiceMocker WithInsert(InsertVM param, IActionResult result)
       {
          _Mock.Setup(m => m.InsertAsync(param)).ReturnsAsync(result);
          return this;
       }
-      */
 
       /*
       public CategoryServiceMocker WithUpdate(UpdateVM param, IActionResult result)
