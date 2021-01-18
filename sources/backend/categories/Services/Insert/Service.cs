@@ -15,11 +15,9 @@ namespace Elesse.Categories
             return new BadRequestObjectResult(new string[] { WARNINGS.INVALID_INSERT_PARAMETER });
 
          // VALIDATE DUPLICITY
-         /* TODO
          var categoryList = await _CategoryRepository.SearchCategoriesAsync(insertVM.Type, insertVM.ParentID, insertVM.Text);
          if (categoryList != null && categoryList.Length > 0)
             return new BadRequestObjectResult(new string[] { WARNINGS.CATEGORY_TEXT_ALREADY_USED });
-         */
 
          // ADD NEW CATEGORY
          var category = new CategoryEntity(insertVM.Text, insertVM.Type, insertVM.ParentID);
@@ -42,7 +40,7 @@ namespace Elesse.Categories
    partial struct WARNINGS
    {
       internal const string INVALID_INSERT_PARAMETER = "INVALID_INSERT_PARAMETER";
-      // internal const string CATEGORY_TEXT_ALREADY_USED = "CATEGORY_TEXT_ALREADY_USED";
+      internal const string CATEGORY_TEXT_ALREADY_USED = "CATEGORY_TEXT_ALREADY_USED";
    }
 
 }

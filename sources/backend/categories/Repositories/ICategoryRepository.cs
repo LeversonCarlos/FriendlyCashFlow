@@ -11,7 +11,8 @@ namespace Elesse.Categories
 
       Task<ICategoryEntity[]> ListCategoriesAsync();
       Task<ICategoryEntity> LoadCategoryAsync(Shared.EntityID categoryID);
-      // Task<ICategoryEntity[]> SearchCategoriesAsync(enCategoryType type, string searchText);
+      Task<ICategoryEntity[]> SearchCategoriesAsync(enCategoryType type, string searchText);
+      Task<ICategoryEntity[]> SearchCategoriesAsync(enCategoryType type, Shared.EntityID parentID, string searchText);
 
    }
 }

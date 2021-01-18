@@ -17,16 +17,15 @@ namespace Elesse.Categories.Tests
          Assert.Equal(new string[] { WARNINGS.INVALID_INSERT_PARAMETER }, (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
-      /*
       [Fact]
       public async void Insert_WithExistingText_MustReturnBadRequest()
       {
-         var repository = AccountRepositoryMocker
+         var repository = CategoryRepositoryMocker
             .Create()
-            .WithSearchAccounts(null, new AccountEntity[] { new AccountEntity("Category Text", enAccountType.General, null, null) })
+            .WithSearchCategories(null, new CategoryEntity[] { new CategoryEntity("Category Text", enCategoryType.Income, null) })
             .Build();
          var service = CategoryService.Create(repository);
-         var param = new InsertVM { Text = "Category Text", Type = enAccountType.General };
+         var param = new InsertVM { Text = "Category Text", Type = enCategoryType.Income };
 
          var result = await service.InsertAsync(param);
          Assert.NotNull(result);
@@ -35,9 +34,8 @@ namespace Elesse.Categories.Tests
          result = await service.InsertAsync(param);
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(new string[] { WARNINGS.ACCOUNT_TEXT_ALREADY_USED }, (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+         Assert.Equal(new string[] { WARNINGS.CATEGORY_TEXT_ALREADY_USED }, (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
-      */
 
       [Fact]
       public async void Insert_WithValidParameters_MustReturnOkResult()
