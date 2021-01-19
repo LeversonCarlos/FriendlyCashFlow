@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { CategoryEntity } from '../../categories.data';
 
 @Component({
    selector: 'categories-list-body',
@@ -8,6 +10,9 @@ import { Component, OnInit } from '@angular/core';
 export class ListBodyComponent implements OnInit {
 
    constructor() { }
+
+   @Input()
+   public Categories: Observable<CategoryEntity[]>
 
    ngOnInit(): void {
    }
