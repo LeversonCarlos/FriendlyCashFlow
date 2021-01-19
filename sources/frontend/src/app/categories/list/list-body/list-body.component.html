@@ -1,1 +1,15 @@
-<pre>{{ Categories | async | json }}</pre>
+<mat-nav-list>
+   <mat-list-item *ngFor="let category of Categories | async">
+      <a matLine routerLink="../details/{{category.CategoryID}}">
+         <span>{{ category.Text }}</span>
+      </a>
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+         <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+         <button mat-menu-item class="danger" (click)="OnRemoveCategory(category)">
+            <span>{{ 'categories.REMOVE_MENU' | translation | async }}</span>
+         </button>
+      </mat-menu>
+   </mat-list-item>
+</mat-nav-list>

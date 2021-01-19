@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BusyService, StorageService } from '@elesse/shared';
+import { BusyService, MessageService, StorageService } from '@elesse/shared';
 import { Observable } from 'rxjs';
 import { CategoryEntity, enCategoryType } from './categories.data';
 
@@ -9,7 +9,7 @@ import { CategoryEntity, enCategoryType } from './categories.data';
 })
 export class CategoriesService {
 
-   constructor(private busy: BusyService,
+   constructor(private message: MessageService, private busy: BusyService,
       private http: HttpClient) {
       this.Cache = new StorageService<enCategoryType, CategoryEntity[]>("CategoriesService");
       this.Cache.InitializeValues(enCategoryType.Income, enCategoryType.Expense);
@@ -68,6 +68,27 @@ export class CategoriesService {
 
          value = Object.assign(new CategoryEntity, value);
          return value;
+
+      }
+      catch { /* error absorber */ }
+      finally { this.busy.hide(); }
+   }
+
+   public async RemoveCategory(category: CategoryEntity) {
+      try {
+
+         if (!category)
+            return;
+
+         const confirm = await this.message.Confirm("categories.REMOVE_TEXT", "shared.REMOVE_CONFIRM_COMMAND", "shared.REMOVE_CANCEL_COMMAND");
+         if (!confirm)
+            return
+
+         this.busy.show();
+
+         await this.http.delete(`api/categories/delete/${category.CategoryID}`).toPromise();
+
+         await this.RefreshCache();
 
       }
       catch { /* error absorber */ }
