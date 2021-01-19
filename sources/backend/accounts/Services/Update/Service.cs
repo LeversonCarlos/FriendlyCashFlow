@@ -13,22 +13,22 @@ namespace Elesse.Accounts
 
          // VALIDATE PARAMETERS
          if (updateVM == null)
-            return Shared.Results.Warning("accounts", WARNINGS.INVALID_UPDATE_PARAMETER);
+            return Warning(WARNINGS.INVALID_UPDATE_PARAMETER);
 
          // VALIDATE TYPE
          var validateType = await ValidateTypeAsync(updateVM.Type, updateVM.ClosingDay, updateVM.DueDay);
          if (validateType.Length > 0)
-            return Shared.Results.Warning("accounts", validateType);
+            return Warning(validateType);
 
          // VALIDATE DUPLICITY
          var accountsList = await _AccountRepository.SearchAccountsAsync(updateVM.Text);
          if (accountsList.Any(x => x.AccountID != updateVM.AccountID))
-            return Shared.Results.Warning("accounts", WARNINGS.ACCOUNT_TEXT_ALREADY_USED);
+            return Warning(WARNINGS.ACCOUNT_TEXT_ALREADY_USED);
 
          // LOCATE ACCOUNT
          var account = (AccountEntity)(await _AccountRepository.LoadAccountAsync(updateVM.AccountID));
          if (account == null)
-            return Shared.Results.Warning("accounts", WARNINGS.ACCOUNT_NOT_FOUND);
+            return Warning(WARNINGS.ACCOUNT_NOT_FOUND);
 
          // APPLY CHANGES
          account.Text = updateVM.Text;

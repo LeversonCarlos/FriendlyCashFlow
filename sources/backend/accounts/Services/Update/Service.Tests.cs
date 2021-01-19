@@ -14,7 +14,7 @@ namespace Elesse.Accounts.Tests
 
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(Shared.Results.GetResults("accounts", Shared.enResultType.Warning, WARNINGS.INVALID_UPDATE_PARAMETER), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+         Assert.Equal(Warning(WARNINGS.INVALID_UPDATE_PARAMETER), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
       [Fact]
@@ -27,7 +27,7 @@ namespace Elesse.Accounts.Tests
 
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(Shared.Results.GetResults("accounts", Shared.enResultType.Warning, WARNINGS.DAYS_ONLY_VALID_FOR_CREDIT_CARD_TYPE), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+         Assert.Equal(Warning(WARNINGS.DAYS_ONLY_VALID_FOR_CREDIT_CARD_TYPE), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
       [Fact]
@@ -43,7 +43,7 @@ namespace Elesse.Accounts.Tests
          var result = await service.UpdateAsync(param);
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(Shared.Results.GetResults("accounts", Shared.enResultType.Warning, WARNINGS.ACCOUNT_TEXT_ALREADY_USED), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+         Assert.Equal(Warning(WARNINGS.ACCOUNT_TEXT_ALREADY_USED), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
       [Fact]
@@ -60,7 +60,7 @@ namespace Elesse.Accounts.Tests
          var result = await service.UpdateAsync(param);
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(Shared.Results.GetResults("accounts", Shared.enResultType.Warning, WARNINGS.ACCOUNT_NOT_FOUND), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+         Assert.Equal(Warning(WARNINGS.ACCOUNT_NOT_FOUND), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
       [Fact]

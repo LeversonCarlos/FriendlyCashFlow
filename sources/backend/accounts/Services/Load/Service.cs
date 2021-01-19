@@ -12,7 +12,7 @@ namespace Elesse.Accounts
 
          // VALIDATE PARAMETERS
          if (!Shared.EntityID.TryParse(id, out var accountID))
-            return Shared.Results.Warning("accounts", WARNINGS.INVALID_LOAD_PARAMETER);
+            return Warning(WARNINGS.INVALID_LOAD_PARAMETER);
 
          // LOAD ACCOUNT
          var account = await _AccountRepository.LoadAccountAsync(accountID);

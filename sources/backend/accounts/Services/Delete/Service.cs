@@ -12,12 +12,12 @@ namespace Elesse.Accounts
 
          // VALIDATE PARAMETERS
          if (!Shared.EntityID.TryParse(id, out var accountID))
-            return Shared.Results.Warning("accounts", WARNINGS.INVALID_DELETE_PARAMETER);
+            return Warning(WARNINGS.INVALID_DELETE_PARAMETER);
 
          // LOCATE ACCOUNT
          var account = (AccountEntity)(await _AccountRepository.LoadAccountAsync(accountID));
          if (account == null)
-            return Shared.Results.Warning("accounts", WARNINGS.ACCOUNT_NOT_FOUND);
+            return Warning(WARNINGS.ACCOUNT_NOT_FOUND);
 
          // SAVE CHANGES
          await _AccountRepository.DeleteAccountAsync(accountID);

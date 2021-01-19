@@ -7,11 +7,14 @@ namespace Elesse.Accounts
       public AccountService(IAccountRepository accountRepository, Shared.IInsightsService insightsService)
       {
          _AccountRepository = accountRepository;
-         _InsightsService=insightsService;
+         _InsightsService = insightsService;
       }
 
       readonly IAccountRepository _AccountRepository;
       readonly Shared.IInsightsService _InsightsService;
+
+      Microsoft.AspNetCore.Mvc.BadRequestObjectResult Warning(params string[] messageList) =>
+         Shared.Results.Warning("accounts", messageList);
 
    }
 
