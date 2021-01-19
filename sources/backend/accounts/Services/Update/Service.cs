@@ -13,22 +13,22 @@ namespace Elesse.Accounts
 
          // VALIDATE PARAMETERS
          if (updateVM == null)
-            return new BadRequestObjectResult(new string[] { WARNINGS.INVALID_UPDATE_PARAMETER });
+            return Shared.Results.Warning("accounts", WARNINGS.INVALID_UPDATE_PARAMETER);
 
          // VALIDATE TYPE
          var validateType = await ValidateTypeAsync(updateVM.Type, updateVM.ClosingDay, updateVM.DueDay);
          if (validateType.Length > 0)
-            return new BadRequestObjectResult(validateType);
+            return Shared.Results.Warning("accounts", validateType);
 
          // VALIDATE DUPLICITY
          var accountsList = await _AccountRepository.SearchAccountsAsync(updateVM.Text);
          if (accountsList.Any(x => x.AccountID != updateVM.AccountID))
-            return new BadRequestObjectResult(new string[] { WARNINGS.ACCOUNT_TEXT_ALREADY_USED });
+            return Shared.Results.Warning("accounts", WARNINGS.ACCOUNT_TEXT_ALREADY_USED);
 
          // LOCATE ACCOUNT
          var account = (AccountEntity)(await _AccountRepository.LoadAccountAsync(updateVM.AccountID));
          if (account == null)
-            return new BadRequestObjectResult(new string[] { WARNINGS.ACCOUNT_NOT_FOUND });
+            return Shared.Results.Warning("accounts", WARNINGS.ACCOUNT_NOT_FOUND);
 
          // APPLY CHANGES
          account.Text = updateVM.Text;
@@ -40,7 +40,7 @@ namespace Elesse.Accounts
          await _AccountRepository.UpdateAccountAsync(account);
 
          // RESULT
-         return new OkResult();
+         return Shared.Results.Ok();
       }
 
    }
