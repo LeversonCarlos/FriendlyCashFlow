@@ -9,7 +9,7 @@ namespace Elesse.Accounts
       public async Task<IAccountEntity[]> ListAccountsAsync()
       {
          var list = await _Collection
-            .Find(account => account.RowStatus == true)
+            .Find(entity => entity.RowStatus == true)
             .ToListAsync();
          return list.ToArray();
       }

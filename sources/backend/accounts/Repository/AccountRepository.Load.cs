@@ -8,7 +8,7 @@ namespace Elesse.Accounts
 
       public async Task<IAccountEntity> LoadAccountAsync(Shared.EntityID accountID) =>
          await _Collection
-            .Find(account => account.AccountID == accountID)
+            .Find(entity => entity.AccountID == accountID)
             .SingleOrDefaultAsync();
 
    }

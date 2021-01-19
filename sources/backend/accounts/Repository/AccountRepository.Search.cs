@@ -13,7 +13,7 @@ namespace Elesse.Accounts
          // var filter = Builders<AccountEntity>.Filter.And(rowStatusFilter, textFilter);
          var list = await _Collection
             //.Find(filter)
-            .Find(account => account.RowStatus == true && account.Text.ToLower().Contains(searchText.ToLower()))
+            .Find(entity => entity.RowStatus == true && entity.Text.ToLower().Contains(searchText.ToLower()))
             .ToListAsync();
          return list.ToArray();
       }
