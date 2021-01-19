@@ -34,40 +34,45 @@ export class ErrorInterceptor implements HttpInterceptor {
                   return;
                }
 
+               // SHOW API MESSAGE ON SCREEN
+               if (error.error)
+                  this.injector.get<MessageService>(MessageService).ShowMessage(this.GetMessage(error.error));
+
                // UNESPECTED RESULT FROM API
-               this.injector.get<InsightsService>(InsightsService).TrackEvent('Result from Backend', { error: error });
                if (!error.error) {
-                  console.error(' UNESPECTED RESULT FROM API', error); return;
+                  this.injector.get<InsightsService>(InsightsService).TrackEvent('UNESPECTED RESULT FROM API', { error: error });
+                  console.error('UNESPECTED RESULT FROM API', error); return;
                }
 
-               // SHOW API MESSAGE ON SCREEN
-               this.injector.get<MessageService>(MessageService).ShowMessage(this.GetMessage(error.error));
                return throwError(error);
-
             })
          );
    }
 
-   private GetMessage(errorList: string[]): MessageData {
+   private GetMessage(backendMessageList: BackendMessage[]): MessageData {
       let msg = new MessageData();
       msg.Messages = [];
-      errorList.forEach(errorKey => {
+      backendMessageList.forEach(backendMessage => {
 
-         if (errorKey.lastIndexOf("WARNING_", 0) == 0)
+         if (backendMessage.Type == enBackendMessageType.Warning)
             msg.Type = MessageType.Warning;
-         else if (errorKey.lastIndexOf("EXCEPTION_", 0) == 0)
+         else if (backendMessage.Type == enBackendMessageType.Error)
             // msg.Details = JSON.stringify(error);
-            msg.Type = MessageType.Error;
-         else if (errorKey.lastIndexOf("INNER_EXCEPTION_", 0) == 0)
             msg.Type = MessageType.Error;
          else
             msg.Type = MessageType.Information;
-         msg.Messages.push(errorKey);
+         msg.Messages.push(backendMessage.Text);
 
       });
       return msg;
    }
 
+}
+
+enum enBackendMessageType { Info = 0, Warning = 1, Error = 2 };
+class BackendMessage {
+   Type: enBackendMessageType;
+   Text: string;
 }
 
 export const ErrorInterceptorProvider = {
