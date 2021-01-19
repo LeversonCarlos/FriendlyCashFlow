@@ -18,6 +18,8 @@
   "INVALID_ACCOUNTID_PARAMETER": "O valor informado para o identificador da conta é inválido",
   "INVALID_INSERT_PARAMETER": "O valor informado para o parâmetro da função é inválido",
   "ACCOUNT_TEXT_ALREADY_USED": "Já existe uma outra conta com esse texto",
+  "DAYS_ONLY_VALID_FOR_CREDIT_CARD_TYPE": "O valor informado em dia para fechamento e vencimento só é válido para cartão de crédito",
+  "DAYS_REQUIRED_FOR_CREDIT_CARD_TYPE": "É necessário informar dia para fechamento e vencimento para cartão de crédito",
 
   "enAccountType_General": "Carteira",
   "enAccountType_Bank": "Banco",
