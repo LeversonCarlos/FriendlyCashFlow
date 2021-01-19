@@ -2,6 +2,9 @@
   "TITLE": "Categorias",
   "MENU": "Categorias",
 
+  "INCOME_CATEGORIES_LABEL": "Categorias para Receitas",
+  "EXPENSE_CATEGORIES_LABEL": "Categorias para Despesas",
+
   "INVALID_CATEGORYID_PARAMETER": "O valor informado para o identificador da categoria é inválido",
   "INVALID_TEXT_PARAMETER": "O texto da categoria precisa ser informado e ter no máximo 100 caracteres",
   "INVALID_INSERT_PARAMETER": "O valor informado para o parâmetro da função é inválido",
