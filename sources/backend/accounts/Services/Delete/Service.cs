@@ -38,7 +38,7 @@ namespace Elesse.Accounts
 
    partial struct WARNINGS
    {
-      internal const string INVALID_DELETE_PARAMETER = "WARNING_ACCOUNTS_INVALID_DELETE_PARAMETER";
+      internal const string INVALID_DELETE_PARAMETER = "INVALID_ACCOUNTID_PARAMETER";
    }
 
 }

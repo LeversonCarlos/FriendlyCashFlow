@@ -52,8 +52,8 @@ namespace Elesse.Accounts
 
    partial struct WARNINGS
    {
-      internal const string INVALID_UPDATE_PARAMETER = "WARNING_ACCOUNTS_INVALID_UPDATE_PARAMETER";
-      internal const string ACCOUNT_NOT_FOUND = "WARNING_ACCOUNTS_ACCOUNT_NOT_FOUND";
+      internal const string INVALID_UPDATE_PARAMETER = "INVALID_UPDATE_PARAMETER";
+      internal const string ACCOUNT_NOT_FOUND = "ACCOUNT_NOT_FOUND";
    }
 
 }

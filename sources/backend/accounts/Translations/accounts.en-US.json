@@ -20,6 +20,9 @@
   "ACCOUNT_TEXT_ALREADY_USED": "There is already another account with this text",
   "DAYS_ONLY_VALID_FOR_CREDIT_CARD_TYPE": "The entered data in closing and due day is only valid for credit card",
   "DAYS_REQUIRED_FOR_CREDIT_CARD_TYPE": "Credit card closing and due day are required",
+  "INVALID_UPDATE_PARAMETER": "The value entered for the function parameter is invalid",
+  "ACCOUNT_NOT_FOUND": "The entered account was not found",
+  "INVALID_CHANGESTATE_PARAMETER": "The value entered for the function parameter is invalid",
 
   "enAccountType_General": "General",
   "enAccountType_Bank": "Bank",
