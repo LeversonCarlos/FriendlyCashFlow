@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BusyService, StorageService } from '@elesse/shared';
+import { Observable } from 'rxjs';
 import { CategoryEntity, enCategoryType } from './categories.data';
 
 @Injectable({
@@ -44,5 +45,8 @@ export class CategoriesService {
       catch { /* error absorber */ }
       finally { this.busy.hide(); }
    }
+
+   public ObserveCategories = (type: enCategoryType): Observable<CategoryEntity[]> =>
+      this.Cache.GetObservable(type);
 
 }
