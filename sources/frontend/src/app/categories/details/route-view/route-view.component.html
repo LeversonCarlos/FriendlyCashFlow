@@ -1,1 +1,6 @@
-<pre>{{ TMP | json }}</pre>
+<shared-authenticated-container>
+   <div header-title>{{ "categories.TITLE" | translation | async }}</div>
+   <div content>
+      <pre>{{ TMP | json }}</pre>
+   </div>
+</shared-authenticated-container>
