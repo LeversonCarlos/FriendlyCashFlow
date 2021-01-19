@@ -4,6 +4,8 @@
 
   "INCOME_CATEGORIES_LABEL": "Income Categories",
   "EXPENSE_CATEGORIES_LABEL": "Expense Categories",
+  "TEXT_LABEL": "Description",
+  "TYPE_LABEL": "Type",
 
   "REMOVE_MENU": "Remove Category",
   "REMOVE_TEXT": "Do you want to remove this category (and its childs) ?",
