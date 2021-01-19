@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AccountsService {
 
-   constructor(private localization: LocalizationService, private messsage: MessageService, private busy: BusyService,
+   constructor(private localization: LocalizationService, private message: MessageService, private busy: BusyService,
       private http: HttpClient) {
       this.Cache = new StorageService<boolean, AccountEntity[]>("AccountsService");
       this.Cache.InitializeValues(false, true);
@@ -141,7 +141,7 @@ export class AccountsService {
          if (!account)
             return;
 
-         const confirm = await this.messsage.Confirm("accounts.REMOVE_TEXT", "shared.REMOVE_CONFIRM_COMMAND", "shared.REMOVE_CANCEL_COMMAND");
+         const confirm = await this.message.Confirm("accounts.REMOVE_TEXT", "shared.REMOVE_CONFIRM_COMMAND", "shared.REMOVE_CANCEL_COMMAND");
          if (!confirm)
             return
 
