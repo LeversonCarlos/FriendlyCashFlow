@@ -13,25 +13,25 @@ namespace Elesse.Categories
 
          // VALIDATE PARAMETERS
          if (updateVM == null)
-            return new BadRequestObjectResult(new string[] { WARNINGS.INVALID_UPDATE_PARAMETER });
+            return Shared.Results.Warning(WARNINGS.INVALID_UPDATE_PARAMETER);
 
          // VALIDATE PARENT
          if (updateVM.ParentID != null)
          {
             var parent = await _CategoryRepository.LoadCategoryAsync(updateVM.ParentID);
             if (parent == null)
-               return new BadRequestObjectResult(new string[] { WARNINGS.PARENT_CATEGORY_NOT_FOUND });
+               return Shared.Results.Warning(WARNINGS.PARENT_CATEGORY_NOT_FOUND);
          }
 
          // VALIDATE DUPLICITY
          var categoriesList = await _CategoryRepository.SearchCategoriesAsync(updateVM.Type, updateVM.ParentID, updateVM.Text);
          if (categoriesList.Any(x => x.CategoryID != updateVM.CategoryID))
-            return new BadRequestObjectResult(new string[] { WARNINGS.CATEGORY_TEXT_ALREADY_USED });
+            return Shared.Results.Warning(WARNINGS.CATEGORY_TEXT_ALREADY_USED);
 
          // LOCATE CATEGORY
          var category = (CategoryEntity)(await _CategoryRepository.LoadCategoryAsync(updateVM.CategoryID));
          if (category == null)
-            return new BadRequestObjectResult(new string[] { WARNINGS.CATEGORY_NOT_FOUND });
+            return Shared.Results.Warning(WARNINGS.CATEGORY_NOT_FOUND);
 
          // APPLY CHANGES
          category.Text = updateVM.Text;
@@ -42,7 +42,7 @@ namespace Elesse.Categories
          await _CategoryRepository.UpdateCategoryAsync(category);
 
          // RESULT
-         return new OkResult();
+         return Shared.Results.Ok();
       }
 
    }
