@@ -17,8 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\accounts\accounts.csproj" />
     <ProjectReference Include="..\identity\identity.csproj" />
+    <ProjectReference Include="..\accounts\accounts.csproj" />
+    <ProjectReference Include="..\categories\categories.csproj" />
   </ItemGroup>
 
 </Project>

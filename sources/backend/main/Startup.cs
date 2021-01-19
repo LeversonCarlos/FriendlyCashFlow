@@ -1,5 +1,6 @@
 using Elesse.Accounts;
 using Elesse.Identity.Helpers;
+using Elesse.Categories;
 using Elesse.Shared;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -42,7 +43,8 @@ namespace Elesse.FriendlyCashFlow
             .AddInsightsService(_Configuration)
             .AddIdentityService(_Configuration)
             .AddSharedService(_Configuration)
-            .AddAccountService(_Configuration);
+            .AddAccountService(_Configuration)
+            .AddCategoryService(_Configuration);
       }
 
       public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
