@@ -74,6 +74,25 @@ export class CategoriesService {
       finally { this.busy.hide(); }
    }
 
+   public async SaveCategory(category: CategoryEntity): Promise<boolean> {
+      try {
+         this.busy.show();
+
+         if (!category)
+            return false;
+
+         if (category.CategoryID == null)
+            await this.http.post("api/categories/insert", category).toPromise();
+         else
+            await this.http.put("api/categories/update", category).toPromise();
+
+         return true;
+
+      }
+      catch { return false; /* error absorber */ }
+      finally { this.busy.hide(); }
+   }
+
    public async RemoveCategory(category: CategoryEntity) {
       try {
 

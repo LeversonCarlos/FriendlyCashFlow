@@ -12,8 +12,7 @@ import { AccountsService } from '../../accounts.service';
 })
 export class DetailsRouteViewComponent implements OnInit {
 
-   constructor(private service: AccountsService,
-      private busy: BusyService, private msg: MessageService,
+   constructor(private service: AccountsService, private busy: BusyService, private msg: MessageService,
       private fb: FormBuilder, private activatedRoute: ActivatedRoute, private router: Router) { }
 
    public AccountTypes: AccountType[];
