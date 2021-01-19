@@ -12,7 +12,7 @@ namespace Elesse.Accounts
 
          // VALIDATE PARAMETERS
          if (!Shared.EntityID.TryParse(id, out var accountID))
-            return new BadRequestObjectResult(new string[] { WARNINGS.INVALID_LOAD_PARAMETER });
+            return Shared.Results.Warning("accounts", WARNINGS.INVALID_LOAD_PARAMETER);
 
          // LOAD ACCOUNT
          var account = await _AccountRepository.LoadAccountAsync(accountID);
@@ -30,7 +30,7 @@ namespace Elesse.Accounts
 
    partial struct WARNINGS
    {
-      internal const string INVALID_LOAD_PARAMETER = "WARNING_ACCOUNTS_INVALID_LOAD_PARAMETER";
+      internal const string INVALID_LOAD_PARAMETER = "INVALID_ACCOUNTID_PARAMETER";
    }
 
 }
