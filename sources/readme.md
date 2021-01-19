@@ -37,8 +37,14 @@
       })
       .compileComponents();
    });
-
    ```
+
+- Add class for data models with:
+   ``` shell
+   ng g class accounts/AccountsData
+   ```
+   Review the file name to `accounts.data.ts` and write enums and classes equivalent to backend ones.
+
 
 ## New front end Library
 - Create project with:  
