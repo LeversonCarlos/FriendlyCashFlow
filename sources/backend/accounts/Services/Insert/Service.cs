@@ -12,17 +12,17 @@ namespace Elesse.Accounts
 
          // VALIDATE PARAMETERS
          if (insertVM == null)
-            return new BadRequestObjectResult(new string[] { WARNINGS.INVALID_INSERT_PARAMETER });
+            return Shared.Results.Warning("accounts", WARNINGS.INVALID_INSERT_PARAMETER);
 
          // VALIDATE TYPE
          var validateType = await ValidateTypeAsync(insertVM.Type, insertVM.ClosingDay, insertVM.DueDay);
          if (validateType.Length > 0)
-            return new BadRequestObjectResult(validateType);
+            return Shared.Results.Warning("accounts", validateType);
 
          // VALIDATE DUPLICITY
          var accountsList = await _AccountRepository.SearchAccountsAsync(insertVM.Text);
          if (accountsList != null && accountsList.Length > 0)
-            return new BadRequestObjectResult(new string[] { WARNINGS.ACCOUNT_TEXT_ALREADY_USED });
+            return Shared.Results.Warning("accounts", WARNINGS.ACCOUNT_TEXT_ALREADY_USED);
 
          // ADD NEW ACCOUNT
          var account = new AccountEntity(insertVM.Text, insertVM.Type, insertVM.ClosingDay, insertVM.DueDay);
@@ -32,7 +32,7 @@ namespace Elesse.Accounts
          _InsightsService.TrackEvent("Account Service Insert");
 
          // RESULT
-         return new OkResult();
+         return Shared.Results.Ok();
       }
 
    }
@@ -44,8 +44,8 @@ namespace Elesse.Accounts
 
    partial struct WARNINGS
    {
-      internal const string INVALID_INSERT_PARAMETER = "WARNING_ACCOUNTS_INVALID_INSERT_PARAMETER";
-      internal const string ACCOUNT_TEXT_ALREADY_USED = "WARNING_ACCOUNTS_ACCOUNT_TEXT_ALREADY_USED";
+      internal const string INVALID_INSERT_PARAMETER = "INVALID_INSERT_PARAMETER";
+      internal const string ACCOUNT_TEXT_ALREADY_USED = "ACCOUNT_TEXT_ALREADY_USED";
    }
 
 }

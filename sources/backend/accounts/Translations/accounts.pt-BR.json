@@ -16,6 +16,8 @@
   "REMOVE_TEXT": "Deseja realmente remover essa conta ?",
 
   "INVALID_ACCOUNTID_PARAMETER": "O valor informado para o identificador da conta é inválido",
+  "INVALID_INSERT_PARAMETER": "O valor informado para o parâmetro da função é inválido",
+  "ACCOUNT_TEXT_ALREADY_USED": "Já existe uma outra conta com esse texto",
 
   "enAccountType_General": "Carteira",
   "enAccountType_Bank": "Banco",

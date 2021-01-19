@@ -16,6 +16,8 @@
   "REMOVE_TEXT": "Do you want to remove this account ?",
 
   "INVALID_ACCOUNTID_PARAMETER": "The value entered for the account identifier is invalid",
+  "INVALID_INSERT_PARAMETER": "The value entered for the function parameter is invalid",
+  "ACCOUNT_TEXT_ALREADY_USED": "There is already another account with this text",
 
   "enAccountType_General": "General",
   "enAccountType_Bank": "Bank",
