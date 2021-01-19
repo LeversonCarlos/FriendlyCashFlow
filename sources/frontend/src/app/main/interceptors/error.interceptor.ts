@@ -36,7 +36,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
                // SHOW API MESSAGE ON SCREEN
                if (error.error)
-                  this.injector.get<MessageService>(MessageService).ShowMessage(this.GetMessage(error.error));
+                  this.injector.get<MessageService>(MessageService).ShowMessages(this.GetMessage(error.error), true);
 
                // UNESPECTED RESULT FROM API
                if (!error.error) {

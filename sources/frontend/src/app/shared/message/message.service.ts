@@ -14,7 +14,7 @@ export class MessageService {
    constructor(private localization: LocalizationService, private snackBar: MatSnackBar, private dialog: MatDialog) { }
    // TODO: constructor(private injector: Injector) { }
 
-   ShowMessage(messageData: MessageData): void {
+   private ShowMessage(messageData: MessageData): void {
       this.snackBar.openFromComponent(MessageViewComponent, {
          panelClass: 'message-snack-panel',
          data: messageData,
@@ -22,6 +22,14 @@ export class MessageService {
          horizontalPosition: 'right',
          verticalPosition: 'top'
       });
+   }
+
+   public async ShowMessages(messageData: MessageData, translate: boolean): Promise<void> {
+      if (translate)
+         for (let index = 0; index < messageData.Messages.length; index++) {
+            messageData.Messages[index] = await this.localization.GetTranslation(messageData.Messages[index]);
+         }
+      this.ShowMessage(messageData);
    }
 
    public async ShowInfo(...messages: string[]): Promise<void> {
