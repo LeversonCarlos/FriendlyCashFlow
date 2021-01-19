@@ -31,11 +31,10 @@ namespace Elesse.Accounts
          private set
          {
             if (value == null)
-               throw new ArgumentException(WARNING_INVALID_ACCOUNTID);
+               throw new ArgumentException(WARNINGS.INVALID_ACCOUNTID);
             _AccountID = value;
          }
       }
-      internal const string WARNING_INVALID_ACCOUNTID = "WARNING_ACCOUNTS_INVALID_ACCOUNTID_PARAMETER";
 
       string _Text;
       public string Text
@@ -44,11 +43,10 @@ namespace Elesse.Accounts
          internal set
          {
             if (string.IsNullOrWhiteSpace(value) || value.Length > 100)
-               throw new ArgumentException(WARNING_INVALID_TEXT);
+               throw new ArgumentException(WARNINGS.INVALID_TEXT);
             _Text = value;
          }
       }
-      internal const string WARNING_INVALID_TEXT = "WARNING_ACCOUNTS_INVALID_TEXT_PARAMETER";
 
       enAccountType _Type;
       public enAccountType Type
@@ -56,12 +54,9 @@ namespace Elesse.Accounts
          get => _Type;
          internal set
          {
-            // if (value == null)
-            //    throw new ArgumentException(WARNING_INVALID_TYPE);
             _Type = value;
          }
       }
-      // internal const string WARNING_INVALID_TYPE = "WARNING_ACCOUNTS_INVALID_TYPE_PARAMETER";
 
       short? _ClosingDay;
       public short? ClosingDay
@@ -70,11 +65,10 @@ namespace Elesse.Accounts
          internal set
          {
             if (value.HasValue && (value.Value < 1 || value.Value > 31))
-               throw new ArgumentException(WARNING_INVALID_CLOSING_DAY);
+               throw new ArgumentException(WARNINGS.INVALID_CLOSING_DAY);
             _ClosingDay = value;
          }
       }
-      internal const string WARNING_INVALID_CLOSING_DAY = "WARNING_ACCOUNTS_INVALID_CLOSING_DAY_PARAMETER";
 
       short? _DueDay;
       public short? DueDay
@@ -83,11 +77,10 @@ namespace Elesse.Accounts
          internal set
          {
             if (value.HasValue && (value.Value < 1 || value.Value > 31))
-               throw new ArgumentException(WARNING_INVALID_DUE_DAY);
+               throw new ArgumentException(WARNINGS.INVALID_DUE_DAY);
             _DueDay = value;
          }
       }
-      internal const string WARNING_INVALID_DUE_DAY = "WARNING_ACCOUNTS_INVALID_DUE_DAY_PARAMETER";
 
       bool _Active;
       public bool Active
@@ -95,15 +88,20 @@ namespace Elesse.Accounts
          get => _Active;
          internal set
          {
-            // if (value == null)
-            //    throw new ArgumentException(WARNING_INVALID_ACTIVE);
             _Active = value;
          }
       }
-      // internal const string WARNING_INVALID_ACTIVE = "WARNING_ACCOUNTS_INVALID_ACCOUNT_PARAMETER";
 
       public bool RowStatus { get; set; }
 
+   }
+
+   partial struct WARNINGS
+   {
+      internal const string INVALID_ACCOUNTID = "INVALID_ACCOUNTID_PARAMETER";
+      internal const string INVALID_TEXT = "INVALID_TEXT_PARAMETER";
+      internal const string INVALID_CLOSING_DAY = "INVALID_CLOSING_DAY_PARAMETER";
+      internal const string INVALID_DUE_DAY = "INVALID_DUE_DAY_PARAMETER";
    }
 
 }
