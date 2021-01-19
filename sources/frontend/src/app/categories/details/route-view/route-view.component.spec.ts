@@ -1,22 +1,22 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TestsModule } from '@elesse/tests';
-import { RouterViewComponent } from './router-view.component';
+import { DetailsRouteViewComponent } from './route-view.component';
 
-describe('RouterViewComponent', () => {
+describe('DetailsRouteViewComponent', () => {
 
-   let component: RouterViewComponent;
-   let fixture: ComponentFixture<RouterViewComponent>;
+   let component: DetailsRouteViewComponent;
+   let fixture: ComponentFixture<DetailsRouteViewComponent>;
 
    beforeEach(async () => {
       await TestBed.configureTestingModule({
-         declarations: [RouterViewComponent],
+         declarations: [DetailsRouteViewComponent],
          imports: [TestsModule]
       })
          .compileComponents();
    });
 
    beforeEach(() => {
-      fixture = TestBed.createComponent(RouterViewComponent);
+      fixture = TestBed.createComponent(DetailsRouteViewComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
    });
