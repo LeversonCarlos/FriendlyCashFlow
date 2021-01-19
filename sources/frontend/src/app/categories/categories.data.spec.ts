@@ -1,7 +1,7 @@
-import { CategoriesData } from './categories.data';
+import { CategoryEntity } from './categories.data';
 
-describe('CategoriesData', () => {
+describe('CategoryEntity', () => {
    it('should create an instance', () => {
-      expect(new CategoriesData()).toBeTruthy();
+      expect(new CategoryEntity()).toBeTruthy();
    });
 });
