@@ -2,6 +2,9 @@
   "TITLE": "Categories",
   "MENU": "Categories",
 
+  "INCOME_CATEGORIES_LABEL": "Income Categories",
+  "EXPENSE_CATEGORIES_LABEL": "Expense Categories",
+
   "INVALID_CATEGORYID_PARAMETER": "The value entered for the category identifier is invalid",
   "INVALID_TEXT_PARAMETER": "The category text must be informed and have a maximum of 100 characters",
   "INVALID_INSERT_PARAMETER": "The value entered for the function parameter is invalid",

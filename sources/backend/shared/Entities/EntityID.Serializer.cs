@@ -9,10 +9,26 @@ namespace Elesse.Shared
 
    public class EntityIDMongoSerializer : SerializerBase<EntityID>
    {
-      public override EntityID Deserialize(BsonDeserializationContext context, BsonDeserializationArgs args) =>
-         EntityID.Parse(context.Reader.ReadString());
-      public override void Serialize(BsonSerializationContext context, BsonSerializationArgs args, EntityID value) =>
-         context.Writer.WriteString(value.ToString());
+      public override EntityID Deserialize(BsonDeserializationContext context, BsonDeserializationArgs args)
+      {
+         if (context.Reader.GetCurrentBsonType() == MongoDB.Bson.BsonType.Null)
+         {
+            context.Reader.ReadNull();
+            return null;
+         }
+         var readString = context.Reader.ReadString();
+         if (string.IsNullOrWhiteSpace(readString) || readString == "null")
+            return null;
+         else
+            return EntityID.Parse(readString); ;
+      }
+      public override void Serialize(BsonSerializationContext context, BsonSerializationArgs args, EntityID value)
+      {
+         if (value == null || value.ToString() == "null")
+            context.Writer.WriteNull();
+         else
+            context.Writer.WriteString(value.ToString());
+      }
    }
 
    public class EntityIDJsonConverter : JsonConverter<EntityID>
