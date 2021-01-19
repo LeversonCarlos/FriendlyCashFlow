@@ -35,8 +35,15 @@ export class ErrorInterceptor implements HttpInterceptor {
                }
 
                // SHOW API MESSAGE ON SCREEN
-               if (error.error)
-                  this.injector.get<MessageService>(MessageService).ShowMessages(Object.assign(new MessageData, error.error) /*this.GetMessage(error.error)*/, true);
+               if (error.error) {
+                  const IsMessageData = (obj: any): obj is MessageData => {
+                     return obj.Type !== undefined;
+                  }
+                  let messageData = Object.assign(new MessageData, error.error);
+                  if (!IsMessageData(error.error))
+                     messageData = Object.assign(new MessageData, { Type: MessageType.Exception, Details: error.error });
+                  this.injector.get<MessageService>(MessageService).ShowMessages(messageData, true);
+               }
 
                // UNESPECTED RESULT FROM API
                if (!error.error) {
