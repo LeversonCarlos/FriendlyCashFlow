@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Elesse.Shared
 {
 
-   public enum enResultType : short { Info = 0, Warning = 1, Exception = 2 }
+   public enum enResultType : short { Info = 0, Warning = 1, /*Error=2,*/ Exception = 3 }
 
    public partial class Results : ValueObject
    {

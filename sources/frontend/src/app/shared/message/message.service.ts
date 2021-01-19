@@ -16,7 +16,7 @@ export class MessageService {
 
    private ShowMessage(messageData: MessageData): void {
       this.snackBar.openFromComponent(MessageViewComponent, {
-         panelClass: 'message-snack-panel',
+         panelClass: messageData.Type == MessageType.Exception ? 'exception-snack-panel' : 'message-snack-panel',
          data: messageData,
          duration: messageData.Duration,
          horizontalPosition: 'right',
@@ -25,7 +25,7 @@ export class MessageService {
    }
 
    public async ShowMessages(messageData: MessageData, translate: boolean): Promise<void> {
-      if (translate)
+      if (translate && messageData.Messages?.length > 0)
          for (let index = 0; index < messageData.Messages.length; index++) {
             messageData.Messages[index] = await this.localization.GetTranslation(messageData.Messages[index]);
          }

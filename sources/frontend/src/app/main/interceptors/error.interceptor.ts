@@ -36,7 +36,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
                // SHOW API MESSAGE ON SCREEN
                if (error.error)
-                  this.injector.get<MessageService>(MessageService).ShowMessages(this.GetMessage(error.error), true);
+                  this.injector.get<MessageService>(MessageService).ShowMessages(Object.assign(new MessageData, error.error) /*this.GetMessage(error.error)*/, true);
 
                // UNESPECTED RESULT FROM API
                if (!error.error) {
@@ -49,30 +49,6 @@ export class ErrorInterceptor implements HttpInterceptor {
          );
    }
 
-   private GetMessage(backendMessageList: BackendMessage[]): MessageData {
-      let msg = new MessageData();
-      msg.Messages = [];
-      backendMessageList.forEach(backendMessage => {
-
-         if (backendMessage.Type == enBackendMessageType.Warning)
-            msg.Type = MessageType.Warning;
-         else if (backendMessage.Type == enBackendMessageType.Error)
-            // msg.Details = JSON.stringify(error);
-            msg.Type = MessageType.Error;
-         else
-            msg.Type = MessageType.Information;
-         msg.Messages.push(backendMessage.Text);
-
-      });
-      return msg;
-   }
-
-}
-
-enum enBackendMessageType { Info = 0, Warning = 1, Error = 2 };
-class BackendMessage {
-   Type: enBackendMessageType;
-   Text: string;
 }
 
 export const ErrorInterceptorProvider = {
