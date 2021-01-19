@@ -3,9 +3,10 @@ import { MaterialModule } from '../material/material.exports';
 import { SharedModule } from '../shared/shared.exports';
 
 import { CategoriesRouting } from './categories.routing';
+import { ListComponent } from './list/list.component';
 
 @NgModule({
-   declarations: [],
+   declarations: [ListComponent],
    imports: [
       MaterialModule, SharedModule,
       CategoriesRouting
