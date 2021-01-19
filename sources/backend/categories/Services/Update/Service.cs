@@ -13,25 +13,25 @@ namespace Elesse.Categories
 
          // VALIDATE PARAMETERS
          if (updateVM == null)
-            return Shared.Results.Warning("categories", WARNINGS.INVALID_UPDATE_PARAMETER);
+            return Warning(WARNINGS.INVALID_UPDATE_PARAMETER);
 
          // VALIDATE PARENT
          if (updateVM.ParentID != null)
          {
             var parent = await _CategoryRepository.LoadCategoryAsync(updateVM.ParentID);
             if (parent == null)
-               return Shared.Results.Warning("categories", WARNINGS.PARENT_CATEGORY_NOT_FOUND);
+               return Warning(WARNINGS.PARENT_CATEGORY_NOT_FOUND);
          }
 
          // VALIDATE DUPLICITY
          var categoriesList = await _CategoryRepository.SearchCategoriesAsync(updateVM.Type, updateVM.ParentID, updateVM.Text);
          if (categoriesList.Any(x => x.CategoryID != updateVM.CategoryID))
-            return Shared.Results.Warning("categories", WARNINGS.CATEGORY_TEXT_ALREADY_USED);
+            return Warning(WARNINGS.CATEGORY_TEXT_ALREADY_USED);
 
          // LOCATE CATEGORY
          var category = (CategoryEntity)(await _CategoryRepository.LoadCategoryAsync(updateVM.CategoryID));
          if (category == null)
-            return Shared.Results.Warning("categories", WARNINGS.CATEGORY_NOT_FOUND);
+            return Warning(WARNINGS.CATEGORY_NOT_FOUND);
 
          // APPLY CHANGES
          category.Text = updateVM.Text;

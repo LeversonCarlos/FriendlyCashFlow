@@ -1,19 +1,27 @@
-p {
-   white-space: pre-line;
-}
+.message-container {
+   display: flex;
+   flex-direction: row;
 
-pre {
-   max-height: 60vh;
-   overflow-x: hidden;
-   overflow-y: scroll;
-   white-space: unset !important;
-   background-color: transparent !important;
-   color: gray !important;
-   border: 0 !important;
-}
+   .message-content {
+      padding: 0 15px;
+      flex-grow: 1;
+   }
 
-.close {
-   position: absolute;
-   top: 0;
-   right: 0;
+   p {
+      white-space: pre-line;
+   }
+
+   pre {
+      max-height: 60vh;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      white-space: pre-wrap;
+      background-color: transparent !important;
+      color: gray !important;
+      border: 0 !important;
+   }
+
+   .message-close {
+      margin: -10px;
+   }
 }

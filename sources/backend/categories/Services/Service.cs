@@ -13,6 +13,9 @@ namespace Elesse.Categories
       readonly ICategoryRepository _CategoryRepository;
       readonly Shared.IInsightsService _InsightsService;
 
+      Microsoft.AspNetCore.Mvc.BadRequestObjectResult Warning(params string[] messageList) =>
+         Shared.Results.Warning("categories", messageList);
+
    }
 
    public partial interface ICategoryService { }

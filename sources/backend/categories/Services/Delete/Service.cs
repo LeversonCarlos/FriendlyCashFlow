@@ -12,12 +12,12 @@ namespace Elesse.Categories
 
          // VALIDATE PARAMETERS
          if (!Shared.EntityID.TryParse(id, out var categoryID))
-            return Shared.Results.Warning("categories", WARNINGS.INVALID_DELETE_PARAMETER);
+            return Warning(WARNINGS.INVALID_DELETE_PARAMETER);
 
          // LOCATE CATEGORY
          var category = (CategoryEntity)(await _CategoryRepository.LoadCategoryAsync(categoryID));
          if (category == null)
-            return Shared.Results.Warning("categories", WARNINGS.CATEGORY_NOT_FOUND);
+            return Warning(WARNINGS.CATEGORY_NOT_FOUND);
 
          // REMOVE CATEGORY
          await _CategoryRepository.DeleteCategoryAsync(categoryID);

@@ -34,38 +34,19 @@ export class ErrorInterceptor implements HttpInterceptor {
                   return;
                }
 
+               // SHOW API MESSAGE ON SCREEN
+               if (error.error)
+                  this.injector.get<MessageService>(MessageService).ShowMessages(Object.assign(new MessageData, error.error) /*this.GetMessage(error.error)*/, true);
+
                // UNESPECTED RESULT FROM API
-               this.injector.get<InsightsService>(InsightsService).TrackEvent('Result from Backend', { error: error });
                if (!error.error) {
-                  console.error(' UNESPECTED RESULT FROM API', error); return;
+                  this.injector.get<InsightsService>(InsightsService).TrackEvent('UNESPECTED RESULT FROM API', { error: error });
+                  console.error('UNESPECTED RESULT FROM API', error); return;
                }
 
-               // SHOW API MESSAGE ON SCREEN
-               this.injector.get<MessageService>(MessageService).ShowMessage(this.GetMessage(error.error));
                return throwError(error);
-
             })
          );
-   }
-
-   private GetMessage(errorList: string[]): MessageData {
-      let msg = new MessageData();
-      msg.Messages = [];
-      errorList.forEach(errorKey => {
-
-         if (errorKey.lastIndexOf("WARNING_", 0) == 0)
-            msg.Type = MessageType.Warning;
-         else if (errorKey.lastIndexOf("EXCEPTION_", 0) == 0)
-            // msg.Details = JSON.stringify(error);
-            msg.Type = MessageType.Error;
-         else if (errorKey.lastIndexOf("INNER_EXCEPTION_", 0) == 0)
-            msg.Type = MessageType.Error;
-         else
-            msg.Type = MessageType.Information;
-         msg.Messages.push(errorKey);
-
-      });
-      return msg;
    }
 
 }

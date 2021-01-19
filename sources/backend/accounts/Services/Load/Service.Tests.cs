@@ -15,7 +15,7 @@ namespace Elesse.Accounts.Tests
 
          Assert.NotNull(result);
          Assert.IsType<BadRequestObjectResult>(result.Result);
-         Assert.Equal(new string[] { WARNINGS.INVALID_LOAD_PARAMETER }, (result.Result as BadRequestObjectResult).Value);
+         Assert.Equal(Warning(WARNINGS.INVALID_LOAD_PARAMETER), (result.Result as BadRequestObjectResult).Value);
       }
 
       [Fact]

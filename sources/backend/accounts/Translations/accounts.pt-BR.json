@@ -1,6 +1,7 @@
 {
   "TITLE": "Contas",
   "MENU": "Contas",
+
   "ACTIVE_ACCOUNTS_LABEL": "Contas Ativas",
   "INACTIVE_ACCOUNTS_LABEL": "Contas Inativas",
   "TEXT_LABEL": "Descrição",
@@ -13,6 +14,18 @@
 
   "REMOVE_MENU": "Remover Conta",
   "REMOVE_TEXT": "Deseja realmente remover essa conta ?",
+
+  "INVALID_ACCOUNTID_PARAMETER": "O valor informado para o identificador da conta é inválido",
+  "INVALID_TEXT_PARAMETER": "O texto da conta precisa ser informado e ter no máximo 100 caracteres",
+  "INVALID_CLOSING_DAY_PARAMETER": "O valor informado em dia para fechamento é inválido",
+  "INVALID_DUE_DAY_PARAMETER": "O valor informado em dia para vencimento é inválido",
+  "INVALID_INSERT_PARAMETER": "O valor informado para o parâmetro da função é inválido",
+  "ACCOUNT_TEXT_ALREADY_USED": "Já existe uma outra conta com esse texto",
+  "DAYS_ONLY_VALID_FOR_CREDIT_CARD_TYPE": "O valor informado em dia para fechamento e vencimento só é válido para cartão de crédito",
+  "DAYS_REQUIRED_FOR_CREDIT_CARD_TYPE": "É necessário informar dia para fechamento e vencimento para cartão de crédito",
+  "INVALID_UPDATE_PARAMETER": "O valor informado para o parâmetro da função é inválido",
+  "ACCOUNT_NOT_FOUND": "A conta informada não foi encontrada",
+  "INVALID_CHANGESTATE_PARAMETER": "O valor informado para o parâmetro da função é inválido",
 
   "enAccountType_General": "Carteira",
   "enAccountType_Bank": "Banco",

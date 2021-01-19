@@ -13,12 +13,12 @@ namespace Elesse.Accounts
 
          // VALIDATE PARAMETERS
          if (changeStateVM == null)
-            return new BadRequestObjectResult(new string[] { WARNINGS.INVALID_CHANGESTATE_PARAMETER });
+            return Warning(WARNINGS.INVALID_CHANGESTATE_PARAMETER);
 
          // LOCATE ACCOUNT
          var account = (AccountEntity)(await _AccountRepository.LoadAccountAsync(changeStateVM.AccountID));
          if (account == null)
-            return new BadRequestObjectResult(new string[] { WARNINGS.ACCOUNT_NOT_FOUND });
+            return Warning(WARNINGS.ACCOUNT_NOT_FOUND);
 
          // APPLY CHANGES
          account.Active = changeStateVM.State;
@@ -39,7 +39,7 @@ namespace Elesse.Accounts
 
    partial struct WARNINGS
    {
-      internal const string INVALID_CHANGESTATE_PARAMETER = "WARNING_ACCOUNTS_INVALID_CHANGESTATE_PARAMETER";
+      internal const string INVALID_CHANGESTATE_PARAMETER = "INVALID_CHANGESTATE_PARAMETER";
    }
 
 }

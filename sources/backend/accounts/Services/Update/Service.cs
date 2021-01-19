@@ -13,22 +13,22 @@ namespace Elesse.Accounts
 
          // VALIDATE PARAMETERS
          if (updateVM == null)
-            return new BadRequestObjectResult(new string[] { WARNINGS.INVALID_UPDATE_PARAMETER });
+            return Warning(WARNINGS.INVALID_UPDATE_PARAMETER);
 
          // VALIDATE TYPE
          var validateType = await ValidateTypeAsync(updateVM.Type, updateVM.ClosingDay, updateVM.DueDay);
          if (validateType.Length > 0)
-            return new BadRequestObjectResult(validateType);
+            return Warning(validateType);
 
          // VALIDATE DUPLICITY
          var accountsList = await _AccountRepository.SearchAccountsAsync(updateVM.Text);
          if (accountsList.Any(x => x.AccountID != updateVM.AccountID))
-            return new BadRequestObjectResult(new string[] { WARNINGS.ACCOUNT_TEXT_ALREADY_USED });
+            return Warning(WARNINGS.ACCOUNT_TEXT_ALREADY_USED);
 
          // LOCATE ACCOUNT
          var account = (AccountEntity)(await _AccountRepository.LoadAccountAsync(updateVM.AccountID));
          if (account == null)
-            return new BadRequestObjectResult(new string[] { WARNINGS.ACCOUNT_NOT_FOUND });
+            return Warning(WARNINGS.ACCOUNT_NOT_FOUND);
 
          // APPLY CHANGES
          account.Text = updateVM.Text;
@@ -40,7 +40,7 @@ namespace Elesse.Accounts
          await _AccountRepository.UpdateAccountAsync(account);
 
          // RESULT
-         return new OkResult();
+         return Shared.Results.Ok();
       }
 
    }
@@ -52,8 +52,8 @@ namespace Elesse.Accounts
 
    partial struct WARNINGS
    {
-      internal const string INVALID_UPDATE_PARAMETER = "WARNING_ACCOUNTS_INVALID_UPDATE_PARAMETER";
-      internal const string ACCOUNT_NOT_FOUND = "WARNING_ACCOUNTS_ACCOUNT_NOT_FOUND";
+      internal const string INVALID_UPDATE_PARAMETER = "INVALID_UPDATE_PARAMETER";
+      internal const string ACCOUNT_NOT_FOUND = "ACCOUNT_NOT_FOUND";
    }
 
 }
