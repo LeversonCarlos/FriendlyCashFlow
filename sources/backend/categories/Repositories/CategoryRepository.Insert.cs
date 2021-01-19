@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using Elesse.Shared;
 
 namespace Elesse.Categories
 {
@@ -7,7 +6,9 @@ namespace Elesse.Categories
    {
 
       public Task InsertCategoryAsync(ICategoryEntity value) =>
-         throw new System.NotImplementedException();
+         _Collection
+            .InsertOneAsync(value as CategoryEntity);
+         // TODO: REVIEW HierarchyText
 
    }
 }

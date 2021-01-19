@@ -1,13 +1,14 @@
 using System.Threading.Tasks;
-using Elesse.Shared;
+using MongoDB.Driver;
 
 namespace Elesse.Categories
 {
    partial class CategoryRepository
    {
 
-      public Task DeleteCategoryAsync(EntityID categoryID) =>
-         throw new System.NotImplementedException();
+      public Task DeleteCategoryAsync(Shared.EntityID categoryID) =>
+         _Collection
+            .UpdateOneAsync(entity => entity.CategoryID == categoryID, Builders<CategoryEntity>.Update.Set(x => x.RowStatus, false));
 
    }
 }

@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using Elesse.Shared;
+using MongoDB.Driver;
 
 namespace Elesse.Categories
 {
@@ -7,7 +7,9 @@ namespace Elesse.Categories
    {
 
       public Task UpdateCategoryAsync(ICategoryEntity value) =>
-         throw new System.NotImplementedException();
+         _Collection
+            .ReplaceOneAsync(entity => entity.CategoryID == value.CategoryID, value as CategoryEntity);
+         // TODO: REVIEW HierarchyText
 
    }
 }
