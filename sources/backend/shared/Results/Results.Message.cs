@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Elesse.Shared
@@ -8,24 +9,22 @@ namespace Elesse.Shared
    {
 
       public static BadRequestObjectResult Info(params string[] messageList) =>
-         Message(enMessageType.Info, messageList);
+         new BadRequestObjectResult(Message(enMessageType.Info, messageList));
 
       public static BadRequestObjectResult Warning(params string[] messageList) =>
-         Message(enMessageType.Warning, messageList);
+         new BadRequestObjectResult(Message(enMessageType.Warning, messageList));
 
       public static BadRequestObjectResult Error(params string[] messageList) =>
-         Message(enMessageType.Error, messageList);
+         new BadRequestObjectResult(Message(enMessageType.Error, messageList));
 
-      static BadRequestObjectResult Message(enMessageType type, string[] messageList) =>
-         Message(messageList.Select(text => new Message(type, text)).ToArray());
-
-      static BadRequestObjectResult Message(Message[] messageList) =>
-         new BadRequestObjectResult(messageList);
+      internal static Message[] Message(enMessageType type, params string[] messageList) =>
+         messageList.Select(text => new Message(type, text)).ToArray();
 
    }
 
    public enum enMessageType : short { Info = 0, Warning = 1, Error = 2 }
-   public class Message
+
+   public class Message : ValueObject
    {
       internal Message(enMessageType type, string text)
       {
@@ -34,6 +33,11 @@ namespace Elesse.Shared
       }
       public enMessageType Type { get; }
       public string Text { get; }
+      protected override IEnumerable<object> GetAtomicValues()
+      {
+         yield return Type;
+         yield return Text;
+      }
    }
 
 }
