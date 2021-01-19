@@ -12,7 +12,7 @@ namespace Elesse.Categories
 
          // VALIDATE PARAMETERS
          if (!Shared.EntityID.TryParse(id, out var categoryID))
-            return new BadRequestObjectResult(new string[] { WARNINGS.INVALID_LOAD_PARAMETER });
+            return Shared.Results.Warning("categories", WARNINGS.INVALID_LOAD_PARAMETER);
 
          // LOAD CATEGORY
          var category = await _CategoryRepository.LoadCategoryAsync(categoryID);

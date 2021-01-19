@@ -8,17 +8,17 @@ namespace Elesse.Shared
    partial class Results
    {
 
-      public static BadRequestObjectResult Info(params string[] messageList) =>
-         new BadRequestObjectResult(Message(enMessageType.Info, messageList));
+      public static BadRequestObjectResult Info(string resource, params string[] messageList) =>
+         new BadRequestObjectResult(Message(resource, enMessageType.Info, messageList));
 
-      public static BadRequestObjectResult Warning(params string[] messageList) =>
-         new BadRequestObjectResult(Message(enMessageType.Warning, messageList));
+      public static BadRequestObjectResult Warning(string resource, params string[] messageList) =>
+         new BadRequestObjectResult(Message(resource, enMessageType.Warning, messageList));
 
-      public static BadRequestObjectResult Error(params string[] messageList) =>
-         new BadRequestObjectResult(Message(enMessageType.Error, messageList));
+      public static BadRequestObjectResult Error(string resource, params string[] messageList) =>
+         new BadRequestObjectResult(Message(resource, enMessageType.Error, messageList));
 
-      internal static Message[] Message(enMessageType type, params string[] messageList) =>
-         messageList.Select(text => new Message(type, text)).ToArray();
+      internal static Message[] Message(string resource, enMessageType type, params string[] messageList) =>
+         messageList.Select(text => new Message(type, $"{resource}.{text}")).ToArray();
 
    }
 

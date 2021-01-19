@@ -12,20 +12,20 @@ namespace Elesse.Categories
 
          // VALIDATE PARAMETERS
          if (insertVM == null)
-            return Shared.Results.Warning(WARNINGS.INVALID_INSERT_PARAMETER);
+            return Shared.Results.Warning("categories", WARNINGS.INVALID_INSERT_PARAMETER);
 
          // VALIDATE PARENT
          if (insertVM.ParentID != null)
          {
             var parent = await _CategoryRepository.LoadCategoryAsync(insertVM.ParentID);
             if (parent == null)
-               return Shared.Results.Warning(WARNINGS.PARENT_CATEGORY_NOT_FOUND);
+               return Shared.Results.Warning("categories", WARNINGS.PARENT_CATEGORY_NOT_FOUND);
          }
 
          // VALIDATE DUPLICITY
          var categoryList = await _CategoryRepository.SearchCategoriesAsync(insertVM.Type, insertVM.ParentID, insertVM.Text);
          if (categoryList != null && categoryList.Length > 0)
-            return Shared.Results.Warning(WARNINGS.CATEGORY_TEXT_ALREADY_USED);
+            return Shared.Results.Warning("categories", WARNINGS.CATEGORY_TEXT_ALREADY_USED);
 
          // ADD NEW CATEGORY
          var category = new CategoryEntity(insertVM.Text, insertVM.Type, insertVM.ParentID);

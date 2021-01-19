@@ -14,7 +14,7 @@ namespace Elesse.Categories.Tests
 
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(Shared.Results.Message(Shared.enMessageType.Warning, WARNINGS.INVALID_UPDATE_PARAMETER), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+         Assert.Equal(Shared.Results.Message("categories", Shared.enMessageType.Warning, WARNINGS.INVALID_UPDATE_PARAMETER), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
       [Fact]
@@ -30,7 +30,7 @@ namespace Elesse.Categories.Tests
          var result = await service.UpdateAsync(param);
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(Shared.Results.Message(Shared.enMessageType.Warning, WARNINGS.PARENT_CATEGORY_NOT_FOUND), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+         Assert.Equal(Shared.Results.Message("categories", Shared.enMessageType.Warning, WARNINGS.PARENT_CATEGORY_NOT_FOUND), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
       [Fact]
@@ -46,7 +46,7 @@ namespace Elesse.Categories.Tests
          var result = await service.UpdateAsync(param);
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(Shared.Results.Message(Shared.enMessageType.Warning, WARNINGS.CATEGORY_TEXT_ALREADY_USED), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+         Assert.Equal(Shared.Results.Message("categories", Shared.enMessageType.Warning, WARNINGS.CATEGORY_TEXT_ALREADY_USED), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
       [Fact]
@@ -63,7 +63,7 @@ namespace Elesse.Categories.Tests
          var result = await service.UpdateAsync(param);
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(Shared.Results.Message(Shared.enMessageType.Warning, WARNINGS.CATEGORY_NOT_FOUND), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+         Assert.Equal(Shared.Results.Message("categories", Shared.enMessageType.Warning, WARNINGS.CATEGORY_NOT_FOUND), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
       [Fact]
