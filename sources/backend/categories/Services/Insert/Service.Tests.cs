@@ -14,7 +14,7 @@ namespace Elesse.Categories.Tests
 
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(new string[] { WARNINGS.INVALID_INSERT_PARAMETER }, (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+         Assert.Equal(Shared.Results.Message(Shared.enMessageType.Info, WARNINGS.INVALID_INSERT_PARAMETER), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
       [Fact]
@@ -30,7 +30,7 @@ namespace Elesse.Categories.Tests
          var result = await service.InsertAsync(param);
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(new string[] { WARNINGS.PARENT_CATEGORY_NOT_FOUND }, (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+         Assert.Equal(Shared.Results.Message(Shared.enMessageType.Info, WARNINGS.PARENT_CATEGORY_NOT_FOUND), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
       [Fact]
@@ -50,7 +50,7 @@ namespace Elesse.Categories.Tests
          result = await service.InsertAsync(param);
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(new string[] { WARNINGS.CATEGORY_TEXT_ALREADY_USED }, (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+         Assert.Equal(Shared.Results.Message(Shared.enMessageType.Info, WARNINGS.CATEGORY_TEXT_ALREADY_USED), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
       [Fact]

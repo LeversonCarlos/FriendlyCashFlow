@@ -8,5 +8,8 @@ namespace Elesse.Shared
       public static OkObjectResult Ok<T>(T value) =>
          new OkObjectResult(value);
 
+      public static OkResult Ok() =>
+         new OkResult();
+
    }
 }

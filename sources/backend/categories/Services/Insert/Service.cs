@@ -12,20 +12,20 @@ namespace Elesse.Categories
 
          // VALIDATE PARAMETERS
          if (insertVM == null)
-            return new BadRequestObjectResult(new string[] { WARNINGS.INVALID_INSERT_PARAMETER });
+            return Shared.Results.Info(WARNINGS.INVALID_INSERT_PARAMETER);
 
          // VALIDATE PARENT
          if (insertVM.ParentID != null)
          {
             var parent = await _CategoryRepository.LoadCategoryAsync(insertVM.ParentID);
             if (parent == null)
-               return new BadRequestObjectResult(new string[] { WARNINGS.PARENT_CATEGORY_NOT_FOUND });
+               return Shared.Results.Info(WARNINGS.PARENT_CATEGORY_NOT_FOUND);
          }
 
          // VALIDATE DUPLICITY
          var categoryList = await _CategoryRepository.SearchCategoriesAsync(insertVM.Type, insertVM.ParentID, insertVM.Text);
          if (categoryList != null && categoryList.Length > 0)
-            return new BadRequestObjectResult(new string[] { WARNINGS.CATEGORY_TEXT_ALREADY_USED });
+            return Shared.Results.Info(WARNINGS.CATEGORY_TEXT_ALREADY_USED);
 
          // ADD NEW CATEGORY
          var category = new CategoryEntity(insertVM.Text, insertVM.Type, insertVM.ParentID);
@@ -35,7 +35,7 @@ namespace Elesse.Categories
          _InsightsService.TrackEvent("Category Service Insert");
 
          // RESULT
-         return new OkResult();
+         return Shared.Results.Ok();
       }
 
    }
