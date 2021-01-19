@@ -50,4 +50,28 @@ export class CategoriesService {
    public ObserveCategories = (type: enCategoryType): Observable<CategoryEntity[]> =>
       this.Cache.GetObservable(type);
 
+   public async LoadCategory(categoryID: string): Promise<CategoryEntity> {
+      try {
+         this.busy.show();
+
+         if (!categoryID)
+            return null;
+
+         if (categoryID == 'new-income')
+            return Object.assign(new CategoryEntity, { Type: enCategoryType.Income });
+         if (categoryID == 'new-expense')
+            return Object.assign(new CategoryEntity, { Type: enCategoryType.Expense });
+
+         let value = await this.http.get<CategoryEntity>(`api/categories/load/${categoryID}`).toPromise();
+         if (!value)
+            return null;
+
+         value = Object.assign(new CategoryEntity, value);
+         return value;
+
+      }
+      catch { /* error absorber */ }
+      finally { this.busy.hide(); }
+   }
+
 }
