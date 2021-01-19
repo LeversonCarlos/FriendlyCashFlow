@@ -4,6 +4,11 @@
 
   "INVALID_CATEGORYID_PARAMETER": "O valor informado para o identificador da categoria é inválido",
   "INVALID_TEXT_PARAMETER": "O texto da categoria precisa ser informado e ter no máximo 100 caracteres",
+  "INVALID_INSERT_PARAMETER": "O valor informado para o parâmetro da função é inválido",
+  "CATEGORY_TEXT_ALREADY_USED": "Já existe uma outra categoria com esse texto",
+  "PARENT_CATEGORY_NOT_FOUND": "A categoria pai informada não foi encontrada",
+  "INVALID_UPDATE_PARAMETER": "O valor informado para o parâmetro da função é inválido",
+  "CATEGORY_NOT_FOUND": "A categoria informada não foi encontrada",
 
   "enCategoryType_None": "<Selecione>",
   "enCategoryType_Expense": "Despesa",
