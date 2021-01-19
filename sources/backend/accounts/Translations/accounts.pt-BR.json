@@ -1,6 +1,7 @@
 {
   "TITLE": "Contas",
   "MENU": "Contas",
+
   "ACTIVE_ACCOUNTS_LABEL": "Contas Ativas",
   "INACTIVE_ACCOUNTS_LABEL": "Contas Inativas",
   "TEXT_LABEL": "Descrição",
@@ -13,6 +14,8 @@
 
   "REMOVE_MENU": "Remover Conta",
   "REMOVE_TEXT": "Deseja realmente remover essa conta ?",
+
+  "INVALID_ACCOUNTID_PARAMETER": "O valor informado para o identificador da conta é inválido",
 
   "enAccountType_General": "Carteira",
   "enAccountType_Bank": "Banco",

@@ -1,6 +1,7 @@
 {
   "TITLE": "Accounts",
   "MENU": "Accounts",
+
   "ACTIVE_ACCOUNTS_LABEL": "Active Accounts",
   "INACTIVE_ACCOUNTS_LABEL": "Inactive Accounts",
   "TEXT_LABEL": "Description",
@@ -13,6 +14,8 @@
 
   "REMOVE_MENU": "Remove Account",
   "REMOVE_TEXT": "Do you want to remove this account ?",
+
+  "INVALID_ACCOUNTID_PARAMETER": "The value entered for the account identifier is invalid",
 
   "enAccountType_General": "General",
   "enAccountType_Bank": "Bank",
