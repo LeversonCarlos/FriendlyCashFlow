@@ -1,16 +1,37 @@
 using System.Threading.Tasks;
-using Elesse.Shared;
+using MongoDB.Driver;
 
 namespace Elesse.Categories
 {
    partial class CategoryRepository
    {
 
-      public Task<ICategoryEntity[]> SearchCategoriesAsync(enCategoryType type, string searchText) =>
-         throw new System.NotImplementedException();
+      public async Task<ICategoryEntity[]> SearchCategoriesAsync(enCategoryType type, string searchText)
+      {
+         var list = await _Collection
+            // .Find(filter)
+            .Find(entity =>
+               entity.RowStatus == true &&
+               entity.Type == type &&
+               entity.Text.ToLower().Contains(searchText.ToLower())
+            )
+            .ToListAsync();
+         return list.ToArray();
+      }
 
-      public Task<ICategoryEntity[]> SearchCategoriesAsync(enCategoryType type, EntityID parentID, string searchText) =>
-         throw new System.NotImplementedException();
+      public async Task<ICategoryEntity[]> SearchCategoriesAsync(enCategoryType type, Shared.EntityID parentID, string searchText)
+      {
+         var list = await _Collection
+            // .Find(filter)
+            .Find(entity =>
+               entity.RowStatus == true &&
+               entity.Type == type &&
+               entity.ParentID == parentID &&
+               entity.Text.ToLower().Contains(searchText.ToLower())
+            )
+            .ToListAsync();
+         return list.ToArray();
+      }
 
    }
 }
