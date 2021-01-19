@@ -6,10 +6,10 @@ import { CategoriesRouting } from './categories.routing';
 import { CategoriesService } from './categories.service';
 import { ListComponent } from './list/list.component';
 import { ListBodyComponent } from './list/list-body/list-body.component';
-import { RouterViewComponent } from './details/router-view/router-view.component';
+import { DetailsRouteViewComponent } from './details/route-view/route-view.component';
 
 @NgModule({
-   declarations: [ListComponent, ListBodyComponent, RouterViewComponent],
+   declarations: [ListComponent, ListBodyComponent, DetailsRouteViewComponent],
    imports: [
       MaterialModule, SharedModule,
       CategoriesRouting
