@@ -1,43 +1,26 @@
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+using System;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Elesse.Shared
 {
-
    partial class Results
    {
 
       public static BadRequestObjectResult Info(string resource, params string[] messageList) =>
-         new BadRequestObjectResult(Message(resource, enMessageType.Info, messageList));
+         new BadRequestObjectResult(GetResults(resource, enResultType.Info, messageList));
 
       public static BadRequestObjectResult Warning(string resource, params string[] messageList) =>
-         new BadRequestObjectResult(Message(resource, enMessageType.Warning, messageList));
+         new BadRequestObjectResult(GetResults(resource, enResultType.Warning, messageList));
 
-      public static BadRequestObjectResult Error(string resource, params string[] messageList) =>
-         new BadRequestObjectResult(Message(resource, enMessageType.Error, messageList));
+      internal static Results GetResults(string resource, enResultType type, params string[] messageList) =>
+         new Results(type, GetResultsMessages(resource, messageList));
 
-      internal static Message[] Message(string resource, enMessageType type, params string[] messageList) =>
-         messageList.Select(text => new Message(type, $"{resource}.{text}")).ToArray();
+      internal static string[] GetResultsMessages(string resource, params string[] messageList) =>
+         messageList.Select(text => $"{resource}.{text}").ToArray();
+
+      public static BadRequestObjectResult Exception(Exception ex) =>
+         new BadRequestObjectResult(new Results(ex));
 
    }
-
-   public enum enMessageType : short { Info = 0, Warning = 1, Error = 2 }
-
-   public class Message : ValueObject
-   {
-      internal Message(enMessageType type, string text)
-      {
-         Type = type;
-         Text = text;
-      }
-      public enMessageType Type { get; }
-      public string Text { get; }
-      protected override IEnumerable<object> GetAtomicValues()
-      {
-         yield return Type;
-         yield return Text;
-      }
-   }
-
 }
