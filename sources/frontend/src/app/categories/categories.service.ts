@@ -37,6 +37,7 @@ export class CategoriesService {
          const keys = [enCategoryType.Income, enCategoryType.Expense];
          keys.forEach(key => {
             const value = values
+               .filter(x => x.Type == key)
                .sort(sorter)
             this.Cache.SetValue(key, value);
          });
