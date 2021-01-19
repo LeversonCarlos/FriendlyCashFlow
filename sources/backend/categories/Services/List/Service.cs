@@ -15,7 +15,7 @@ namespace Elesse.Categories
          var categoriesList = await _CategoryRepository.ListCategoriesAsync();
 
          // RESULT
-         return new OkObjectResult(categoriesList);
+         return Shared.Results.Ok(categoriesList);
       }
 
    }

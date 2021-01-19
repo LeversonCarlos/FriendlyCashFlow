@@ -12,10 +12,10 @@ namespace Elesse.Accounts
       {
 
          // SEARCH ACCOUNTS
-         var accountsList = (AccountEntity[])(await _AccountRepository.SearchAccountsAsync(searchText));
+         var accountsList = await _AccountRepository.SearchAccountsAsync(searchText);
 
          // RESULT
-         return new OkObjectResult(accountsList);
+         return Shared.Results.Ok(accountsList);
       }
 
    }
