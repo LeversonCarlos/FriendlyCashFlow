@@ -3,6 +3,7 @@ import { MaterialModule } from '../material/material.exports';
 import { SharedModule } from '../shared/shared.exports';
 
 import { CategoriesRouting } from './categories.routing';
+import { CategoriesService } from './categories.service';
 import { ListComponent } from './list/list.component';
 
 @NgModule({
@@ -10,6 +11,7 @@ import { ListComponent } from './list/list.component';
    imports: [
       MaterialModule, SharedModule,
       CategoriesRouting
-   ]
+   ],
+   providers: [CategoriesService]
 })
 export class CategoriesModule { }

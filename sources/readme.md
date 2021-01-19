@@ -45,6 +45,12 @@
    ```
    Review the file name to `accounts.data.ts` and write enums and classes equivalent to backend ones.
 
+- Add the module service with:
+   ``` shell
+   ng g s accounts/Accounts
+   ```
+   Review the tests file importing `TestsModule`
+
 
 ## New front end Library
 - Create project with:  
