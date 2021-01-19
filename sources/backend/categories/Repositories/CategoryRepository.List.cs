@@ -1,18 +1,19 @@
 using System.Threading.Tasks;
 using MongoDB.Driver;
 
-namespace Elesse.Accounts
+namespace Elesse.Categories
 {
-   partial class AccountRepository
+   partial class CategoryRepository
    {
 
-      public async Task<IAccountEntity[]> ListAccountsAsync()
+      public async Task<ICategoryEntity[]> ListCategoriesAsync()
       {
          var list = await _Collection
             .Find(entity => entity.RowStatus == true)
             .ToListAsync();
          return list.ToArray();
       }
+
 
    }
 }

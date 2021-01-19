@@ -8,7 +8,7 @@ namespace Elesse.Accounts
 
       public Task DeleteAccountAsync(Shared.EntityID accountID) =>
          _Collection
-            .UpdateOneAsync(account => account.AccountID == accountID, Builders<AccountEntity>.Update.Set(x => x.RowStatus, false));
+            .UpdateOneAsync(entity => entity.AccountID == accountID, Builders<AccountEntity>.Update.Set(x => x.RowStatus, false));
 
    }
 }

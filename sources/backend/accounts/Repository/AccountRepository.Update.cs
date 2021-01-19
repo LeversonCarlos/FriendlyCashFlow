@@ -8,7 +8,7 @@ namespace Elesse.Accounts
 
       public Task UpdateAccountAsync(IAccountEntity value) =>
          _Collection
-            .ReplaceOneAsync(account => account.AccountID == value.AccountID, value as AccountEntity);
+            .ReplaceOneAsync(entity => entity.AccountID == value.AccountID, value as AccountEntity);
 
    }
 }
