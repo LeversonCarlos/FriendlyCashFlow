@@ -15,7 +15,7 @@ namespace Elesse.Categories
             return Warning(WARNINGS.INVALID_DELETE_PARAMETER);
 
          // LOCATE CATEGORY
-         var category = (CategoryEntity)(await _CategoryRepository.LoadCategoryAsync(categoryID));
+         var category = await _CategoryRepository.LoadCategoryAsync(categoryID);
          if (category == null)
             return Warning(WARNINGS.CATEGORY_NOT_FOUND);
 
