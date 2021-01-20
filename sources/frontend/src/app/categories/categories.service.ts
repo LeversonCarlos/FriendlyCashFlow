@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BusyService, LocalizationService, MessageService, StorageService } from '@elesse/shared';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { CategoryEntity, CategoryType, enCategoryType } from './categories.data';
 
 @Injectable({
@@ -26,12 +27,10 @@ export class CategoriesService {
 
          const sorter = (a: CategoryEntity, b: CategoryEntity): number => {
             let result = 0;
-            if (a.Type > b.Type) result += 100;
-            if (a.Type < b.Type) result -= 100;
-            if (a.ParentID > b.ParentID) result += 10;
-            if (a.ParentID < b.ParentID) result -= 10;
-            if (a.Text > b.Text) result += 1;
-            if (a.Text < b.Text) result -= 1;
+            if (a.Type > b.Type) result += 10;
+            if (a.Type < b.Type) result -= 10;
+            if (a.HierarchyText > b.HierarchyText) result += 1;
+            if (a.HierarchyText < b.HierarchyText) result -= 1;
             return result;
          }
 
@@ -39,7 +38,8 @@ export class CategoriesService {
          keys.forEach(key => {
             const value = values
                .filter(x => x.Type == key)
-               .sort(sorter)
+               .map(x => Object.assign(new CategoryEntity, x))
+               .sort(sorter);
             this.Cache.SetValue(key, value);
          });
 

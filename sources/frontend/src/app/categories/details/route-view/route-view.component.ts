@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BusyService, MessageService, RelatedData } from '@elesse/shared';
 import { CategoryEntity } from '../../categories.data';
@@ -35,7 +35,7 @@ export class DetailsRouteViewComponent implements OnInit {
          .filter(entity => entity.CategoryID != data.CategoryID)
          .map(entity => Object.assign(new RelatedData, {
             id: entity.CategoryID,
-            description: entity.Text,
+            description: entity.HierarchyText,
             value: entity
          }));
 
@@ -63,7 +63,8 @@ export class DetailsRouteViewComponent implements OnInit {
    public ParentFiltered: RelatedData<CategoryEntity>[] = [];
    public async OnParentChanging(val: string) {
       this.ParentFiltered = this.ParentOptions
-         .filter(entity => entity.value.Text.search(new RegExp(val, 'i')) != -1)
+         .filter(entity => entity.value.HierarchyText.search(new RegExp(val, 'i')) != -1)
+         .sort((a, b) => a.description > b.description ? 1 : -1)
    }
 
    public async OnCancelClick() {

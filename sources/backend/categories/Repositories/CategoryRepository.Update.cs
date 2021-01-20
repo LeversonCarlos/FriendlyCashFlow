@@ -6,10 +6,16 @@ namespace Elesse.Categories
    partial class CategoryRepository
    {
 
-      public Task UpdateCategoryAsync(ICategoryEntity value) =>
-         _Collection
-            .ReplaceOneAsync(entity => entity.CategoryID == value.CategoryID, value as CategoryEntity);
-         // TODO: REVIEW HierarchyText
+      public async Task UpdateCategoryAsync(ICategoryEntity value)
+      {
+
+         // COMPOSE HierarchyText BASED ON PARENT TEXT
+         var categoryEntity = value as CategoryEntity;
+         categoryEntity.HierarchyText = $"{await GetParentText(value.ParentID)}{categoryEntity.Text}";
+
+         await _Collection
+            .ReplaceOneAsync(entity => entity.CategoryID == categoryEntity.CategoryID, categoryEntity);
+      }
 
    }
 }
