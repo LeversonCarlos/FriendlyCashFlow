@@ -1,13 +1,13 @@
 <shared-authenticated-container>
    <div header-title>{{ "categories.TITLE" | translation | async}}</div>
    <div header-toolbar>
-      <button mat-icon-button routerLink="../details/new-{{CurrentCategoryType}}">
+      <button mat-icon-button routerLink="../details/new">
          <mat-icon>add_circle</mat-icon>
       </button>
    </div>
    <div content>
 
-      <mat-tab-group dynamicHeight="false" (selectedIndexChange)="OnTabChanged($event)">
+      <mat-tab-group dynamicHeight="false" [selectedIndex]="SelectedCategoryTab" (selectedIndexChange)="OnTabChanged($event)">
 
          <mat-tab [label]="'categories.INCOME_CATEGORIES_LABEL' | translation | async">
             <div class="tab-contents">

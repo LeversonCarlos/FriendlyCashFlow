@@ -16,6 +16,7 @@ export class CategoriesService {
    }
 
    private Cache: StorageService<enCategoryType, CategoryEntity[]>;
+   public SelectedCategoryType: enCategoryType = enCategoryType.Income;
 
    public async RefreshCache(): Promise<void> {
       try {
@@ -60,10 +61,8 @@ export class CategoriesService {
          if (!categoryID)
             return null;
 
-         if (categoryID == 'new-income')
-            return Object.assign(new CategoryEntity, { Type: enCategoryType.Income });
-         if (categoryID == 'new-expense')
-            return Object.assign(new CategoryEntity, { Type: enCategoryType.Expense });
+         if (categoryID == 'new')
+            return Object.assign(new CategoryEntity, { Type: this.SelectedCategoryType });
 
          let value = await this.http.get<CategoryEntity>(`api/categories/load/${categoryID}`).toPromise();
          if (!value)
