@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BusyService, LocalizationService, MessageService, StorageService } from '@elesse/shared';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { CategoryEntity, CategoryType, enCategoryType } from './categories.data';
 
 @Injectable({
@@ -37,7 +38,7 @@ export class CategoriesService {
          keys.forEach(key => {
             const value = values
                .filter(x => x.Type == key)
-               .sort(sorter)
+               .sort(sorter);
             this.Cache.SetValue(key, value);
          });
 
@@ -46,7 +47,27 @@ export class CategoriesService {
       finally { this.busy.hide(); }
    }
 
-   public ObserveCategories = (type: enCategoryType): Observable<CategoryEntity[]> =>
+   public ObserveCategories(type: enCategoryType): Observable<CategoryEntity[]> {
+      const GetChildren = (all: CategoryEntity[], parentID: string): CategoryEntity[] => {
+
+         const items = all.filter(entity => entity.ParentID == parentID)
+         if (items.length == 0)
+            return [];
+
+         for (let index = 0; index < items.length; index++) {
+            const item = items[index];
+            item.Children = GetChildren(all, item.CategoryID);
+         }
+
+         return items;
+      }
+      return this.Cache.GetObservable(type)
+         .pipe(
+            map(all => GetChildren(all, null))
+         );
+   }
+
+   public ObserveCategories_old = (type: enCategoryType): Observable<CategoryEntity[]> =>
       this.Cache.GetObservable(type);
 
    public GetCategories = (type: enCategoryType): CategoryEntity[] =>

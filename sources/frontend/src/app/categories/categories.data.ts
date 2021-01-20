@@ -10,4 +10,5 @@ export class CategoryEntity {
    Type: enCategoryType;
    ParentID: string;
    HierarchyText: string;
+   Children: CategoryEntity[];
 }
