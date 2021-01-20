@@ -15,20 +15,14 @@ describe('DetailsRouteViewComponent', () => {
       .compileComponents();
    });
 
-   // TODO: I DONT KNOW HOW TO MAKE THIS SIMPLE TEST WORK
-
-   /*
    beforeEach(() => {
       fixture = TestBed.createComponent(DetailsRouteViewComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
    });
-   */
 
-   /*
    it('should create', () => {
       expect(component).toBeTruthy();
    });
-   */
 
 });

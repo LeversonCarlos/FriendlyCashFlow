@@ -9,7 +9,7 @@
   "PARENTID_LABEL": "Categoria Pai",
 
   "REMOVE_MENU": "Remover Categoria",
-  "REMOVE_TEXT": "Deseja realmente remover essa categoria (e seus filhos) ?",
+  "REMOVE_TEXT": "Deseja realmente remover essa categoria ?",
 
 
   "INVALID_CATEGORYID_PARAMETER": "O valor informado para o identificador da categoria é inválido",
@@ -19,6 +19,7 @@
   "PARENT_CATEGORY_NOT_FOUND": "A categoria pai informada não foi encontrada",
   "INVALID_UPDATE_PARAMETER": "O valor informado para o parâmetro da função é inválido",
   "CATEGORY_NOT_FOUND": "A categoria informada não foi encontrada",
+  "STILL_HAS_CHILDREN_CANT_REMOVE": "Esse registro ainda possui filhos e por isso não pode ser removido",
 
   "enCategoryType_None": "<Selecione>",
   "enCategoryType_Expense": "Despesa",
