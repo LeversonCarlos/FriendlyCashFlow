@@ -17,6 +17,7 @@ export class DetailsRouteViewComponent implements OnInit {
 
    public inputForm: FormGroup;
    public get IsBusy(): boolean { return this.busy.IsBusy; }
+   public CategoryTypeDescription: string;
 
    public async ngOnInit(): Promise<void> {
       const paramID = this.activatedRoute.snapshot.params.id;
@@ -24,6 +25,11 @@ export class DetailsRouteViewComponent implements OnInit {
       const data = await this.service.LoadCategory(paramID);
       if (!data)
          this.router.navigate(["/categories/list"])
+
+      this.CategoryTypeDescription = (await this.service.GetAccountTypes())
+         .filter(cat => cat.Value == data.Type)
+         .map(cat => cat.Text)
+         .reduce((a, b) => b, '');
 
       this.ParentOptions = this.service.GetCategories(data.Type)
          .map(entity => Object.assign(new RelatedData, {

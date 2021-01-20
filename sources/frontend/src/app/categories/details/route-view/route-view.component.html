@@ -12,9 +12,9 @@
                </mat-form-field>
                <mat-form-field class="row">
                   <mat-label>{{ "categories.TYPE_LABEL" | translation | async }}</mat-label>
-                  <input type="text" matInput formControlName="Type">
+                  <input type="text" matInput disabled [value]="CategoryTypeDescription">
                </mat-form-field>
-               <elesse-relatedbox [placeholder]="'categories.PARENT_LABEL' | translation | async"
+               <elesse-relatedbox [placeholder]="'categories.PARENTID_LABEL' | translation | async"
                   minSize="0" [options]="ParentFiltered" formControlName="ParentRow"
                   (optionsChanging)="OnParentChanging($event)">
                </elesse-relatedbox>

@@ -1,15 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BusyService, MessageService, StorageService } from '@elesse/shared';
+import { BusyService, LocalizationService, MessageService, StorageService } from '@elesse/shared';
 import { Observable } from 'rxjs';
-import { CategoryEntity, enCategoryType } from './categories.data';
+import { CategoryEntity, CategoryType, enCategoryType } from './categories.data';
 
 @Injectable({
    providedIn: 'root'
 })
 export class CategoriesService {
 
-   constructor(private message: MessageService, private busy: BusyService,
+   constructor(private localization: LocalizationService, private message: MessageService, private busy: BusyService,
       private http: HttpClient) {
       this.Cache = new StorageService<enCategoryType, CategoryEntity[]>("CategoriesService");
       this.Cache.InitializeValues(enCategoryType.Income, enCategoryType.Expense);
@@ -115,6 +115,14 @@ export class CategoriesService {
       }
       catch { /* error absorber */ }
       finally { this.busy.hide(); }
+   }
+
+   public async GetAccountTypes(): Promise<CategoryType[]> {
+      const accountTypes: CategoryType[] = [
+         { Value: enCategoryType.Income, Text: await this.localization.GetTranslation(`categories.enCategoryType_Income`) },
+         { Value: enCategoryType.Expense, Text: await this.localization.GetTranslation(`categories.enCategoryType_Expense`) }
+      ];
+      return accountTypes;
    }
 
 }
