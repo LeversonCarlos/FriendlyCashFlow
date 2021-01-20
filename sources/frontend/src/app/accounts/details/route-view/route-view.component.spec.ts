@@ -12,7 +12,7 @@ describe('DetailsRouteViewComponent', () => {
          declarations: [DetailsRouteViewComponent],
          imports: [TestsModule]
       })
-         .compileComponents();
+      .compileComponents();
    });
 
    beforeEach(() => {
