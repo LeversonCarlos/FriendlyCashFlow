@@ -7,6 +7,9 @@
   "ROLLBACK_CONFIRM_COMMAND": "Confirmar Reversão",
   "ROLLBACK_ABORT_COMMAND": "Continuar Editando",
 
+  "EMPTY_LIST_TITLE": "Nenhum registro para exibir",
+  "EMPTY_LIST_MESSAGE": "Utilize outros filtros ou insira novos registros",
+
   "REMOVE_CONFIRM_COMMAND": "Remover",
   "REMOVE_CANCEL_COMMAND": "Cancelar"
 }
