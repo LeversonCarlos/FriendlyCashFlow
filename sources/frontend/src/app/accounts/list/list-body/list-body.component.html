@@ -1,4 +1,5 @@
-<mat-nav-list>
+<shared-empty-list *ngIf="!(Accounts | async)?.length"></shared-empty-list>
+<mat-nav-list *ngIf="(Accounts | async)?.length">
    <mat-list-item *ngFor="let account of Accounts | async">
       <mat-icon matListIcon>{{ GetAccountIcon(account.Type) }}</mat-icon>
       <a matLine routerLink="../details/{{account.AccountID}}">
