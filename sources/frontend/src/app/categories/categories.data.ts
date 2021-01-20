@@ -10,5 +10,7 @@ export class CategoryEntity {
    Type: enCategoryType;
    ParentID: string;
    HierarchyText: string;
-   Children: CategoryEntity[];
+   get SplitedText(): string[] {
+      return this.HierarchyText.split(" / ");
+   };
 }

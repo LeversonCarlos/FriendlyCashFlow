@@ -38,6 +38,7 @@ export class CategoriesService {
          keys.forEach(key => {
             const value = values
                .filter(x => x.Type == key)
+               .map(x => Object.assign(new CategoryEntity, x))
                .sort(sorter);
             this.Cache.SetValue(key, value);
          });
@@ -47,6 +48,7 @@ export class CategoriesService {
       finally { this.busy.hide(); }
    }
 
+   /*
    public ObserveCategories(type: enCategoryType): Observable<CategoryEntity[]> {
       const GetChildren = (all: CategoryEntity[], parentID: string): CategoryEntity[] => {
 
@@ -66,8 +68,9 @@ export class CategoriesService {
             map(all => GetChildren(all, null))
          );
    }
+   */
 
-   public ObserveCategories_old = (type: enCategoryType): Observable<CategoryEntity[]> =>
+   public ObserveCategories = (type: enCategoryType): Observable<CategoryEntity[]> =>
       this.Cache.GetObservable(type);
 
    public GetCategories = (type: enCategoryType): CategoryEntity[] =>
