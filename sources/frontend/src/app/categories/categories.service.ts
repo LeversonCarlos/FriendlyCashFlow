@@ -48,28 +48,6 @@ export class CategoriesService {
       finally { this.busy.hide(); }
    }
 
-   /*
-   public ObserveCategories(type: enCategoryType): Observable<CategoryEntity[]> {
-      const GetChildren = (all: CategoryEntity[], parentID: string): CategoryEntity[] => {
-
-         const items = all.filter(entity => entity.ParentID == parentID)
-         if (items.length == 0)
-            return [];
-
-         for (let index = 0; index < items.length; index++) {
-            const item = items[index];
-            item.Children = GetChildren(all, item.CategoryID);
-         }
-
-         return items;
-      }
-      return this.Cache.GetObservable(type)
-         .pipe(
-            map(all => GetChildren(all, null))
-         );
-   }
-   */
-
    public ObserveCategories = (type: enCategoryType): Observable<CategoryEntity[]> =>
       this.Cache.GetObservable(type);
 
