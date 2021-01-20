@@ -6,6 +6,7 @@
   "EXPENSE_CATEGORIES_LABEL": "Categorias para Despesas",
   "TEXT_LABEL": "Descrição",
   "TYPE_LABEL": "Tipo",
+  "PARENTID_LABEL": "Categoria Pai",
 
   "REMOVE_MENU": "Remover Categoria",
   "REMOVE_TEXT": "Deseja realmente remover essa categoria (e seus filhos) ?",
