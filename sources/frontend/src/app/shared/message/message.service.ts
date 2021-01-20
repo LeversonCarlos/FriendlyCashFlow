@@ -12,7 +12,6 @@ import { ConfirmData, MessageData, MessageType } from './message.models';
 export class MessageService {
 
    constructor(private localization: LocalizationService, private snackBar: MatSnackBar, private dialog: MatDialog) { }
-   // TODO: constructor(private injector: Injector) { }
 
    private ShowMessage(messageData: MessageData): void {
       this.snackBar.openFromComponent(MessageViewComponent, {
