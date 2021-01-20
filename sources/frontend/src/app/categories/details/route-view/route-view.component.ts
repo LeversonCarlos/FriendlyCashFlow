@@ -32,6 +32,7 @@ export class DetailsRouteViewComponent implements OnInit {
          .reduce((a, b) => b, '');
 
       this.ParentOptions = this.service.GetCategories(data.Type)
+         .filter(entity => entity.CategoryID != data.CategoryID)
          .map(entity => Object.assign(new RelatedData, {
             id: entity.CategoryID,
             description: entity.Text,
