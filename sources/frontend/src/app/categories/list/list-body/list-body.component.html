@@ -1,5 +1,8 @@
 <mat-nav-list>
-   <mat-list-item *ngFor="let category of Categories | async">
+   <mat-list-item *ngFor="let category of Categories | async" >
+      <mat-icon
+         [style.margin-left.px]="(category?.SplitedText?.length-1) * 16"
+         matListIcon>chevron_right</mat-icon>
       <a matLine routerLink="../details/{{category.CategoryID}}">
          <span>{{ category.Text }}</span>
       </a>
