@@ -50,6 +50,9 @@ export class CategoriesService {
    public ObserveCategories = (type: enCategoryType): Observable<CategoryEntity[]> =>
       this.Cache.GetObservable(type);
 
+   public GetCategories = (type: enCategoryType): CategoryEntity[] =>
+      this.Cache.GetValue(type);
+
    public async LoadCategory(categoryID: string): Promise<CategoryEntity> {
       try {
          this.busy.show();

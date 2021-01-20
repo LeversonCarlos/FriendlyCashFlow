@@ -14,6 +14,10 @@
                   <mat-label>{{ "categories.TYPE_LABEL" | translation | async }}</mat-label>
                   <input type="text" matInput formControlName="Type">
                </mat-form-field>
+               <elesse-relatedbox [placeholder]="'categories.PARENT_LABEL' | translation | async"
+                  minSize="0" [options]="ParentFiltered" formControlName="ParentRow"
+                  (optionsChanging)="OnParentChanging($event)">
+               </elesse-relatedbox>
             </mat-card-content>
 
             <mat-card-actions>
