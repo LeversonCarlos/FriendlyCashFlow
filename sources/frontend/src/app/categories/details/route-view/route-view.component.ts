@@ -47,9 +47,9 @@ export class DetailsRouteViewComponent implements OnInit {
 
    private OnFormCreate(data: CategoryEntity) {
       this.inputForm = this.fb.group({
-         CategoryID: [data?.CategoryID],
+         CategoryID: [data.CategoryID],
          Text: [data.Text, Validators.required],
-         Type: new FormControl({ value: data.Type, disabled: true }),
+         Type: [data.Type],
          ParentID: [data?.ParentID],
          ParentRow: [this.ParentFiltered?.length == 1 ? this.ParentFiltered[0] : null]
       });
