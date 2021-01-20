@@ -7,9 +7,10 @@ import { CategoriesService } from './categories.service';
 import { ListComponent } from './list/list.component';
 import { ListBodyComponent } from './list/list-body/list-body.component';
 import { DetailsRouteViewComponent } from './details/route-view/route-view.component';
+import { ListLevelComponent } from './list/list-level/list-level.component';
 
 @NgModule({
-   declarations: [ListComponent, ListBodyComponent, DetailsRouteViewComponent],
+   declarations: [ListComponent, ListBodyComponent, DetailsRouteViewComponent, ListLevelComponent],
    imports: [
       MaterialModule, SharedModule,
       CategoriesRouting

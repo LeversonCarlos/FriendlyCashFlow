@@ -1,24 +1,22 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TestsModule } from '@elesse/tests';
-import { ListBodyComponent } from './list-body/list-body.component';
-import { ListLevelComponent } from './list-level/list-level.component';
-import { ListComponent } from './list.component';
+import { ListLevelComponent } from './list-level.component';
 
-describe('ListComponent', () => {
+describe('ListLevelComponent', () => {
 
-   let component: ListComponent;
-   let fixture: ComponentFixture<ListComponent>;
+   let component: ListLevelComponent;
+   let fixture: ComponentFixture<ListLevelComponent>;
 
    beforeEach(async () => {
       await TestBed.configureTestingModule({
-         declarations: [ListComponent, ListBodyComponent, ListLevelComponent],
+         declarations: [ListLevelComponent],
          imports: [TestsModule]
       })
       .compileComponents();
    });
 
    beforeEach(() => {
-      fixture = TestBed.createComponent(ListComponent);
+      fixture = TestBed.createComponent(ListLevelComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
    });
