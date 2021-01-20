@@ -13,6 +13,7 @@ import { ConfirmViewComponent } from './message/confirm-view/confirm-view.compon
 import { VersionComponent } from './version/version.component';
 import { TranslationPipe } from './localization/translation.pipe';
 import { RelatedboxComponent } from './relatedbox/relatedbox.component';
+import { EmptyListComponent } from './empty-list/empty-list.component';
 
 @NgModule({
    entryComponents: [MessageViewComponent],
@@ -20,7 +21,7 @@ import { RelatedboxComponent } from './relatedbox/relatedbox.component';
       BusyComponent,
       AnonymousContainerComponent, AuthenticatedContainerComponent, LinksComponent,
       MessageViewComponent, ConfirmViewComponent, VersionComponent,
-      TranslationPipe, RelatedboxComponent
+      TranslationPipe, RelatedboxComponent, EmptyListComponent
    ],
    imports: [
       CommonModule, RouterModule, FormsModule, ReactiveFormsModule,
@@ -30,7 +31,7 @@ import { RelatedboxComponent } from './relatedbox/relatedbox.component';
       CommonModule, RouterModule, FormsModule, ReactiveFormsModule,
       BusyComponent,
       AnonymousContainerComponent, AuthenticatedContainerComponent,
-      TranslationPipe, RelatedboxComponent
+      TranslationPipe, RelatedboxComponent, EmptyListComponent
    ]
 })
 export class SharedModule { }

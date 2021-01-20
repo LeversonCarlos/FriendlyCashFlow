@@ -1,4 +1,5 @@
-<mat-nav-list>
+<shared-empty-list *ngIf="!(Categories | async)?.length"></shared-empty-list>
+<mat-nav-list *ngIf="(Categories | async)?.length">
    <mat-list-item *ngFor="let category of Categories | async" >
       <mat-icon
          [style.margin-left.px]="(category?.SplitedText?.length-1) * 16"

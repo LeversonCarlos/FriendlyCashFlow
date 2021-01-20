@@ -7,6 +7,9 @@
   "ROLLBACK_CONFIRM_COMMAND": "Confirm Rollback",
   "ROLLBACK_ABORT_COMMAND": "Continue Editing",
 
+  "EMPTY_LIST_TITLE": "No records to display",
+  "EMPTY_LIST_MESSAGE": "Use other filters or insert new records",
+
   "REMOVE_CONFIRM_COMMAND": "Remove",
   "REMOVE_CANCEL_COMMAND": "Cancel"
 }
