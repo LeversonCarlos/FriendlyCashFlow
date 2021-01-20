@@ -26,12 +26,10 @@ export class CategoriesService {
 
          const sorter = (a: CategoryEntity, b: CategoryEntity): number => {
             let result = 0;
-            if (a.Type > b.Type) result += 100;
-            if (a.Type < b.Type) result -= 100;
-            if (a.ParentID > b.ParentID) result += 10;
-            if (a.ParentID < b.ParentID) result -= 10;
-            if (a.Text > b.Text) result += 1;
-            if (a.Text < b.Text) result -= 1;
+            if (a.Type > b.Type) result += 10;
+            if (a.Type < b.Type) result -= 10;
+            if (a.HierarchyText > b.HierarchyText) result += 1;
+            if (a.HierarchyText < b.HierarchyText) result -= 1;
             return result;
          }
 

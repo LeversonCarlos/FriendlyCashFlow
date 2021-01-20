@@ -9,5 +9,5 @@ export class CategoryEntity {
    Text: string;
    Type: enCategoryType;
    ParentID: string;
-   // HierarchyText: string;
+   HierarchyText: string;
 }
