@@ -13,7 +13,7 @@ namespace Elesse.Categories
             .Find(entity =>
                entity.RowStatus == true &&
                entity.Type == type &&
-               entity.Text.ToLower().Contains(searchText.ToLower())
+               (string.IsNullOrWhiteSpace(searchText) || entity.Text.ToLower().Contains(searchText.ToLower()))
             )
             .ToListAsync();
          return list.ToArray();
@@ -27,7 +27,7 @@ namespace Elesse.Categories
                entity.RowStatus == true &&
                entity.Type == type &&
                entity.ParentID == parentID &&
-               entity.Text.ToLower().Contains(searchText.ToLower())
+               (string.IsNullOrWhiteSpace(searchText) || entity.Text.ToLower().Contains(searchText.ToLower()))
             )
             .ToListAsync();
          return list.ToArray();
