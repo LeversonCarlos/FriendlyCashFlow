@@ -1,6 +1,6 @@
 export class RelatedData<T> {
    value: T
-   id: number
+   id: string
    description: string
    badgeText: string
 }

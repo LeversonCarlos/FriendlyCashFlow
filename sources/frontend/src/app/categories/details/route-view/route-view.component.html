@@ -1,0 +1,36 @@
+<shared-authenticated-container>
+   <div header-title>{{ "categories.TITLE" | translation | async }}</div>
+   <div content>
+
+      <form *ngIf="inputForm" [formGroup]="inputForm" (ngSubmit)="OnSaveClick()">
+         <mat-card>
+
+            <mat-card-content>
+               <mat-form-field class="row">
+                  <mat-label>{{ "categories.TEXT_LABEL" | translation | async }}</mat-label>
+                  <input type="text" matInput autofocus formControlName="Text">
+               </mat-form-field>
+               <mat-form-field class="row">
+                  <mat-label>{{ "categories.TYPE_LABEL" | translation | async }}</mat-label>
+                  <input type="text" matInput disabled [value]="CategoryTypeDescription">
+               </mat-form-field>
+               <elesse-relatedbox [placeholder]="'categories.PARENTID_LABEL' | translation | async"
+                  minSize="0" [options]="ParentFiltered" formControlName="ParentRow"
+                  (optionsChanging)="OnParentChanging($event)">
+               </elesse-relatedbox>
+            </mat-card-content>
+
+            <mat-card-actions>
+               <button type="button" mat-button (click)="OnCancelClick()"
+                  [matTooltip]="'shared.CANCEL_COMMAND_TOOLTIP' | translation | async" [disabled]="IsBusy">{{
+                  "shared.CANCEL_COMMAND" | translation | async }}</button>
+               <button type="submit" mat-button color="primary"
+                  [matTooltip]="'shared.SAVE_COMMAND_TOOLTIP' | translation | async"
+                  [disabled]="!inputForm?.valid || IsBusy">{{ "shared.SAVE_COMMAND" | translation | async }}</button>
+            </mat-card-actions>
+
+         </mat-card>
+      </form>
+
+   </div>
+</shared-authenticated-container>

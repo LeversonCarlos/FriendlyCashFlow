@@ -4,6 +4,12 @@
 
   "INCOME_CATEGORIES_LABEL": "Income Categories",
   "EXPENSE_CATEGORIES_LABEL": "Expense Categories",
+  "TEXT_LABEL": "Description",
+  "TYPE_LABEL": "Type",
+  "PARENTID_LABEL": "Parent Category",
+
+  "REMOVE_MENU": "Remove Category",
+  "REMOVE_TEXT": "Do you want to remove this category (and its childs) ?",
 
   "INVALID_CATEGORYID_PARAMETER": "The value entered for the category identifier is invalid",
   "INVALID_TEXT_PARAMETER": "The category text must be informed and have a maximum of 100 characters",

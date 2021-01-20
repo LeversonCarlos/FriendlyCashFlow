@@ -14,9 +14,19 @@ export class ListComponent implements OnInit {
 
    public get IncomeCategories(): Observable<CategoryEntity[]> { return this.service.ObserveCategories(enCategoryType.Income); }
    public get ExpenseCategories(): Observable<CategoryEntity[]> { return this.service.ObserveCategories(enCategoryType.Expense); }
+   public get SelectedCategoryTab(): number {
+      return this.service.SelectedCategoryType == enCategoryType.Expense ? 1 : 0;
+   }
 
-   ngOnInit(): void {
+   public async ngOnInit() {
       this.service.RefreshCache();
+   }
+
+   public OnTabChanged(tabIndex: number) {
+      if (tabIndex == 0)
+         this.service.SelectedCategoryType = enCategoryType.Income
+      if (tabIndex == 1)
+         this.service.SelectedCategoryType = enCategoryType.Expense
    }
 
 }

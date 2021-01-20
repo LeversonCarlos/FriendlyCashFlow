@@ -4,6 +4,13 @@
 
   "INCOME_CATEGORIES_LABEL": "Categorias para Receitas",
   "EXPENSE_CATEGORIES_LABEL": "Categorias para Despesas",
+  "TEXT_LABEL": "Descrição",
+  "TYPE_LABEL": "Tipo",
+  "PARENTID_LABEL": "Categoria Pai",
+
+  "REMOVE_MENU": "Remover Categoria",
+  "REMOVE_TEXT": "Deseja realmente remover essa categoria (e seus filhos) ?",
+
 
   "INVALID_CATEGORYID_PARAMETER": "O valor informado para o identificador da categoria é inválido",
   "INVALID_TEXT_PARAMETER": "O texto da categoria precisa ser informado e ter no máximo 100 caracteres",

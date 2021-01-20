@@ -66,7 +66,7 @@ export class RelatedboxComponent implements OnInit, OnDestroy, ControlValueAcces
       this.autoComplete.openPanel();
    }
 
-   /* VALUE ACCESSOR  */
+   /* VALUE ACCESSOR */
    writeValue(val: RelatedData<any>): void {
       if (val) { this.inputValue = val.description; }
       this.value = val
