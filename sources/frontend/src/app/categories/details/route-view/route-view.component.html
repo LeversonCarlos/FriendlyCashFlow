@@ -18,8 +18,8 @@
 
             <mat-card-actions>
                <button type="button" mat-button (click)="OnCancelClick()"
-                  [matTooltip]="'shared.CANCEL_COMMAND_TOOLTIP' | translation | async"
-                  [disabled]="IsBusy">{{ "shared.CANCEL_COMMAND" | translation | async }}</button>
+                  [matTooltip]="'shared.CANCEL_COMMAND_TOOLTIP' | translation | async" [disabled]="IsBusy">{{
+                  "shared.CANCEL_COMMAND" | translation | async }}</button>
                <button type="submit" mat-button color="primary"
                   [matTooltip]="'shared.SAVE_COMMAND_TOOLTIP' | translation | async"
                   [disabled]="!inputForm?.valid || IsBusy">{{ "shared.SAVE_COMMAND" | translation | async }}</button>
