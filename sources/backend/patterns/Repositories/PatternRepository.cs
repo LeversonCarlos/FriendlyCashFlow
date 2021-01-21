@@ -16,8 +16,8 @@ namespace Elesse.Patterns
       readonly IMongoDatabase _MongoDatabase;
 
       readonly string _CollectionName = null;
-      IMongoCollection<PatternCollection> _Collection =>
-         _MongoDatabase.GetCollection<PatternCollection>(_CollectionName);
+      IMongoCollection<PatternEntity> _Collection =>
+         _MongoDatabase.GetCollection<PatternEntity>(_CollectionName);
 
       public Task<IPatternEntity> LoadPatternAsync(EntityID patternID) =>
          throw new System.NotImplementedException();
