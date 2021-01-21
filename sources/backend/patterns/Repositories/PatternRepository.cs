@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+using Elesse.Shared;
 using MongoDB.Driver;
 
 namespace Elesse.Patterns
@@ -16,6 +18,24 @@ namespace Elesse.Patterns
       readonly string _CollectionName = null;
       IMongoCollection<PatternCollection> _Collection =>
          _MongoDatabase.GetCollection<PatternCollection>(_CollectionName);
+
+      public Task<IPatternEntity[]> ListPatternsAsync() =>
+         throw new System.NotImplementedException();
+
+      public Task<IPatternEntity> LoadPatternAsync(EntityID patternID) =>
+         throw new System.NotImplementedException();
+
+      public Task<IPatternEntity> LoadPatternAsync(enPatternType type, EntityID categoryID, string text) =>
+         throw new System.NotImplementedException();
+
+      public Task InsertAsync(IPatternEntity value) =>
+         throw new System.NotImplementedException();
+
+      public Task UpdateAsync(IPatternEntity value) =>
+         throw new System.NotImplementedException();
+
+      public Task DeleteAsync(EntityID patternID) =>
+         throw new System.NotImplementedException();
 
    }
 }
