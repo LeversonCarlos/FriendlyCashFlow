@@ -2,10 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Elesse.Shared
 {
-   internal abstract partial class SharedService
+   internal abstract partial class BaseService
    {
 
-      protected SharedService(string translationsResource, Shared.IInsightsService insightsService)
+      protected BaseService(string translationsResource, Shared.IInsightsService insightsService)
       {
          _TranslationsResource = translationsResource;
          _InsightsService = insightsService;

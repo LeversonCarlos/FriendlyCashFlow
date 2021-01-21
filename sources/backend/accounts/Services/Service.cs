@@ -1,7 +1,7 @@
 namespace Elesse.Accounts
 {
 
-   internal partial class AccountService : Shared.SharedService, IAccountService
+   internal partial class AccountService : Shared.BaseService, IAccountService
    {
 
       public AccountService(IAccountRepository accountRepository, Shared.IInsightsService insightsService)

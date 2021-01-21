@@ -1,7 +1,7 @@
 namespace Elesse.Patterns
 {
 
-   internal partial class PatternService : Shared.SharedService, IPatternService
+   internal partial class PatternService : Shared.BaseService, IPatternService
    {
 
       public PatternService(IPatternRepository patternRepository, Shared.IInsightsService insightsService)
