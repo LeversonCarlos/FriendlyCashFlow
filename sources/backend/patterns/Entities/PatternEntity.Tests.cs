@@ -44,5 +44,19 @@ namespace Elesse.Patterns.Tests
             new object[] { WARNINGS.INVALID_TEXT, Shared.EntityID.NewID(), enPatternType.Income, Shared.EntityID.NewID(), new string('0', 101)}
          };
 
+      [Fact]
+      public void TwoInstances_WithSameProperties_MustHaveSameHash()
+      {
+         var patternID = Shared.EntityID.NewID();
+         var categoryID = Shared.EntityID.NewID();
+         var text = "My Pattern Description";
+         var first = new PatternEntity(patternID, enPatternType.Income, categoryID, text);
+         var second = new PatternEntity(patternID, enPatternType.Income, categoryID, text);
+
+         var result = first == second;
+
+         Assert.True(result);
+      }
+
    }
 }
