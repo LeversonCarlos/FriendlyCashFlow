@@ -4,3 +4,4 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("identity")]
 [assembly: InternalsVisibleTo("accounts")]
 [assembly: InternalsVisibleTo("categories")]
+[assembly: InternalsVisibleTo("patterns")]
