@@ -49,6 +49,11 @@ namespace Elesse.Patterns.Tests
             _Mock.InSequence(seq)
                .Setup(m => m.LoadPatternAsync(It.IsAny<Shared.EntityID>()))
                .ReturnsAsync(result);
+         var seq2 = new MockSequence();
+         foreach (var result in results)
+            _Mock.InSequence(seq2)
+               .Setup(m => m.LoadPatternAsync(It.IsAny<enPatternType>(), It.IsAny<Shared.EntityID>(), It.IsAny<string>()))
+               .ReturnsAsync(result);
          return this;
       }
 

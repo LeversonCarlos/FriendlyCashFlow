@@ -18,59 +18,45 @@ namespace Elesse.Patterns.Tests
          Assert.Equal(Warning(WARNINGS.INVALID_ADD_PARAMETER), (result.Result as BadRequestObjectResult).Value);
       }
 
-      /*
       [Fact]
-      public async void Insert_WithInexistingParentCategory_MustReturnBadRequest()
+      public async void Insert_WithExistingPattern_MustUpdateRowsAndDate_AndReturnPatternID()
       {
-         var repository = CategoryRepositoryMocker
+         var entity = new PatternEntity(enPatternType.Expense, Shared.EntityID.NewID(), "Pattern Text");
+         var repository = PatternRepositoryMocker
             .Create()
-            .WithLoadCategory()
+            .WithLoadPattern(new IPatternEntity[] { entity })
             .Build();
-         var service = CategoryService.Create(repository);
-         var param = new InsertVM { Text = "Category Text", Type = enCategoryType.Income, ParentID = Shared.EntityID.NewID() };
+         var service = PatternService.Create(repository);
+         var param = new PatternVM(entity.Type, entity.CategoryID, entity.Text);
 
-         var result = await service.InsertAsync(param);
+         var result = await service.AddAsync(param);
+
          Assert.NotNull(result);
-         Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(Warning(WARNINGS.PARENT_CATEGORY_NOT_FOUND), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+         Assert.IsType<OkObjectResult>(result.Result);
+         Assert.IsType<Shared.EntityID>((result.Result as OkObjectResult).Value);
+         var resultValue = (Shared.EntityID)((result.Result as OkObjectResult).Value);
+         Assert.NotNull(resultValue);
+         Assert.Equal(entity.PatternID, resultValue);
       }
 
       [Fact]
-      public async void Insert_WithExistingText_MustReturnBadRequest()
+      public async void Insert_WithNonExistingPattern_MustCreateRecord_AndReturnPatternID()
       {
-         var repository = CategoryRepositoryMocker
+         var param = new PatternVM(enPatternType.Expense, Shared.EntityID.NewID(), "Pattern Text");
+         var repository = PatternRepositoryMocker
             .Create()
-            .WithSearchCategories(null, new CategoryEntity[] { new CategoryEntity("Category Text", enCategoryType.Income, null) })
+            .WithLoadPattern()
             .Build();
-         var service = CategoryService.Create(repository);
-         var param = new InsertVM { Text = "Category Text", Type = enCategoryType.Income };
+         var service = PatternService.Create(repository);
 
-         var result = await service.InsertAsync(param);
-         Assert.NotNull(result);
-         Assert.IsType<Microsoft.AspNetCore.Mvc.OkResult>(result);
+         var result = await service.AddAsync(param);
 
-         result = await service.InsertAsync(param);
          Assert.NotNull(result);
-         Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(Warning(WARNINGS.CATEGORY_TEXT_ALREADY_USED), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+         Assert.IsType<OkObjectResult>(result.Result);
+         Assert.IsType<Shared.EntityID>((result.Result as OkObjectResult).Value);
+         var resultValue = (Shared.EntityID)((result.Result as OkObjectResult).Value);
+         Assert.NotNull(resultValue);
       }
-
-      [Fact]
-      public async void Insert_WithValidParameters_MustReturnOkResult()
-      {
-         var repository = CategoryRepositoryMocker
-            .Create()
-            .WithSearchCategories()
-            .Build();
-         var service = CategoryService.Create(repository);
-
-         var param = new InsertVM { Text = "Category Text", Type = enCategoryType.Income };
-         var result = await service.InsertAsync(param);
-
-         Assert.NotNull(result);
-         Assert.IsType<Microsoft.AspNetCore.Mvc.OkResult>(result);
-      }
-      */
 
    }
 }
