@@ -5,13 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 namespace Elesse.Shared
 {
 
-   partial class SharedController
+   public abstract class BaseController : Controller
    {
 
       [HttpGet("translations")]
       [AllowAnonymous]
-      public Task<ActionResult<Shared.Translations>> TranslationsAsync() =>
-         Shared.Translations.CreateAsync(this.HttpContext);
+      public Task<ActionResult<Translations>> TranslationsAsync() =>
+         Translations.CreateAsync(this.HttpContext);
 
    }
 

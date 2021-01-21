@@ -4,7 +4,7 @@ namespace Elesse.Identity
 {
 
    [Route("api/identity")]
-   public partial class IdentityController : Controller
+   public partial class IdentityController : Shared.BaseController
    {
 
       internal readonly IIdentityService _IdentityService;
