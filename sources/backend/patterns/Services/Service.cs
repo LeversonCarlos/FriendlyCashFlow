@@ -1,20 +1,16 @@
 namespace Elesse.Patterns
 {
 
-   internal partial class PatternService : IPatternService
+   internal partial class PatternService : Shared.SharedService, IPatternService
    {
 
       public PatternService(IPatternRepository patternRepository, Shared.IInsightsService insightsService)
+         : base("patterns", insightsService)
       {
          _PatternRepository = patternRepository;
-         _InsightsService = insightsService;
       }
 
       readonly IPatternRepository _PatternRepository;
-      readonly Shared.IInsightsService _InsightsService;
-
-      Microsoft.AspNetCore.Mvc.BadRequestObjectResult Warning(params string[] messageList) =>
-         Shared.Results.Warning("patterns", messageList);
 
    }
 

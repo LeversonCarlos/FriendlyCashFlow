@@ -34,7 +34,7 @@ namespace Elesse.Patterns
          }
 
          // RESULT
-         return Shared.Results.Ok(pattern.PatternID);
+         return Ok(pattern.PatternID);
       }
 
    }
