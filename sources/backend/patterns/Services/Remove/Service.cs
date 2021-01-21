@@ -18,23 +18,24 @@ namespace Elesse.Patterns
          // LOAD PATTERN
          var pattern = (PatternEntity)(await _PatternRepository.LoadPatternAsync(patternVM.Type, patternVM.CategoryID, patternVM.Text));
 
-         // INCREMENT PATTERN COUNT
-         if (pattern != null)
-         {
-            pattern.RowsCount++;
-            pattern.RowsDate = DateTime.UtcNow;
-            await _PatternRepository.UpdateAsync(pattern);
-         }
-
-         // ADD NEW PATTERN
+         // IF HADNT FOUND, DO NOTHING
          if (pattern == null)
-         {
-            pattern = new PatternEntity(patternVM.Type, patternVM.CategoryID, patternVM.Text);
-            await _PatternRepository.InsertAsync(pattern);
-         }
+            return Ok();
+
+         // DECREMENT PATTERN COUNT
+         pattern.RowsCount--;
+         pattern.RowsDate = DateTime.UtcNow;
+
+         // REMOVE PATTERN OF COUNT REACHS ZERO
+         if (pattern.RowsCount <= 0)
+            await _PatternRepository.DeleteAsync(pattern.PatternID);
+
+         // SAVE CHANGED PATTERN
+         if (pattern.RowsCount > 0)
+            await _PatternRepository.UpdateAsync(pattern);
 
          // RESULT
-         return Ok(pattern.PatternID);
+         return Ok();
       }
 
    }
