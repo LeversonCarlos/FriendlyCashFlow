@@ -37,6 +37,8 @@ jobs:
           dotnet clean --configuration Release
           cd ../categories
           dotnet clean --configuration Release
+          cd ../patterns
+          dotnet clean --configuration Release
           cd ../main
           dotnet clean --configuration Release
 
@@ -60,6 +62,10 @@ jobs:
 
       - name: Build Categories
         working-directory: 'sources/backend/categories'
+        run: dotnet build --configuration Release
+
+      - name: Build Patterns
+        working-directory: 'sources/backend/patterns'
         run: dotnet build --configuration Release
 
       - name: Build Main

@@ -13,17 +13,9 @@ jobs:
       - name: Checkout Source
         uses: actions/checkout@v2
 
-      - name: Shared - Restore
-        working-directory: 'sources/backend/shared/'
-        run: dotnet restore
-
-      - name: Shared - Build
-        working-directory: 'sources/backend/shared/'
-        run: dotnet build --no-restore
-
       - name: Shared - Run Tests
         working-directory: 'sources/backend/shared/'
-        run: dotnet test --no-build /p:CoverletOutputFormat=lcov
+        run: dotnet test /p:CoverletOutputFormat=lcov
 
       - name: Shared - Store Tests
         uses: actions/upload-artifact@v2
@@ -31,17 +23,9 @@ jobs:
           name: shared-tests
           path: ./sources/backend/shared/coverage.info
 
-      - name: Identity - Restore
-        working-directory: 'sources/backend/identity/'
-        run: dotnet restore
-
-      - name: Identity - Build
-        working-directory: 'sources/backend/identity/'
-        run: dotnet build --no-restore
-
       - name: Identity - Run Tests
         working-directory: 'sources/backend/identity/'
-        run: dotnet test --no-build /p:CoverletOutputFormat=lcov
+        run: dotnet test /p:CoverletOutputFormat=lcov
 
       - name: Identity - Store Tests
         uses: actions/upload-artifact@v2
@@ -49,17 +33,9 @@ jobs:
           name: identity-tests
           path: ./sources/backend/identity/coverage.info
 
-      - name: Accounts - Restore
-        working-directory: 'sources/backend/accounts/'
-        run: dotnet restore
-
-      - name: Accounts - Build
-        working-directory: 'sources/backend/accounts/'
-        run: dotnet build --no-restore
-
       - name: Accounts - Run Tests
         working-directory: 'sources/backend/accounts/'
-        run: dotnet test --no-build /p:CoverletOutputFormat=lcov
+        run: dotnet test /p:CoverletOutputFormat=lcov
 
       - name: Accounts - Store Tests
         uses: actions/upload-artifact@v2
@@ -67,17 +43,9 @@ jobs:
           name: accounts-tests
           path: ./sources/backend/accounts/coverage.info
 
-      - name: Categories - Restore
-        working-directory: 'sources/backend/categories/'
-        run: dotnet restore
-
-      - name: Categories - Build
-        working-directory: 'sources/backend/categories/'
-        run: dotnet build --no-restore
-
       - name: Categories - Run Tests
         working-directory: 'sources/backend/categories/'
-        run: dotnet test --no-build /p:CoverletOutputFormat=lcov
+        run: dotnet test /p:CoverletOutputFormat=lcov
 
       - name: Categories - Store Tests
         uses: actions/upload-artifact@v2
@@ -85,13 +53,19 @@ jobs:
           name: categories-tests
           path: ./sources/backend/categories/coverage.info
 
-      - name: Application - Restore
-        working-directory: 'sources/backend/main/'
-        run: dotnet restore
+      - name: Patterns - Run Tests
+        working-directory: 'sources/backend/patterns/'
+        run: dotnet test /p:CoverletOutputFormat=lcov
+
+      - name: Patterns - Store Tests
+        uses: actions/upload-artifact@v2
+        with:
+          name: patterns-tests
+          path: ./sources/backend/patterns/coverage.info
 
       - name: Application - Build
         working-directory: 'sources/backend/main/'
-        run: dotnet build --no-restore
+        run: dotnet build
 
   frontend:
     name: Test Frontend
@@ -131,9 +105,6 @@ jobs:
     needs: [backend,frontend]
 
     steps:
-
-      # - name: Checkout Source
-      #   uses: actions/checkout@v2
 
       - name: Retrieve Reports
         uses: actions/download-artifact@v2
