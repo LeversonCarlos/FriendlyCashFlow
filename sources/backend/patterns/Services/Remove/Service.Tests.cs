@@ -1,0 +1,64 @@
+using Microsoft.AspNetCore.Mvc;
+using Xunit;
+
+namespace Elesse.Patterns.Tests
+{
+   partial class PatternServiceTests
+   {
+
+      /*
+      [Fact]
+      public async void Insert_WithNullParameter_MustReturnBadResult()
+      {
+         var service = PatternService.Create(null);
+
+         var result = await service.AddAsync(null);
+
+         Assert.NotNull(result);
+         Assert.IsType<BadRequestObjectResult>(result.Result);
+         Assert.Equal(Warning(WARNINGS.INVALID_ADD_PARAMETER), (result.Result as BadRequestObjectResult).Value);
+      }
+
+      [Fact]
+      public async void Insert_WithExistingPattern_MustUpdateRowsAndDate_AndReturnPatternID()
+      {
+         var entity = new PatternEntity(enPatternType.Expense, Shared.EntityID.NewID(), "Pattern Text");
+         var repository = PatternRepositoryMocker
+            .Create()
+            .WithLoadPattern(new IPatternEntity[] { entity })
+            .Build();
+         var service = PatternService.Create(repository);
+         var param = new PatternVM(entity.Type, entity.CategoryID, entity.Text);
+
+         var result = await service.AddAsync(param);
+
+         Assert.NotNull(result);
+         Assert.IsType<OkObjectResult>(result.Result);
+         Assert.IsType<Shared.EntityID>((result.Result as OkObjectResult).Value);
+         var resultValue = (Shared.EntityID)((result.Result as OkObjectResult).Value);
+         Assert.NotNull(resultValue);
+         Assert.Equal(entity.PatternID, resultValue);
+      }
+
+      [Fact]
+      public async void Insert_WithNonExistingPattern_MustCreateRecord_AndReturnPatternID()
+      {
+         var param = new PatternVM(enPatternType.Expense, Shared.EntityID.NewID(), "Pattern Text");
+         var repository = PatternRepositoryMocker
+            .Create()
+            .WithLoadPattern()
+            .Build();
+         var service = PatternService.Create(repository);
+
+         var result = await service.AddAsync(param);
+
+         Assert.NotNull(result);
+         Assert.IsType<OkObjectResult>(result.Result);
+         Assert.IsType<Shared.EntityID>((result.Result as OkObjectResult).Value);
+         var resultValue = (Shared.EntityID)((result.Result as OkObjectResult).Value);
+         Assert.NotNull(resultValue);
+      }
+      */
+
+   }
+}
