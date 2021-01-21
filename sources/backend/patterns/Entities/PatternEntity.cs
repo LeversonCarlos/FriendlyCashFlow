@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Generic;
+using Elesse.Shared;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace Elesse.Patterns
 {
 
-   internal class PatternEntity : IPatternEntity
+   internal class PatternEntity : ValueObject, IPatternEntity
    {
 
       public PatternEntity(enPatternType type, Shared.EntityID categoryID, string text)
@@ -69,24 +71,15 @@ namespace Elesse.Patterns
          }
       }
 
-      short _RowsCount;
-      public short RowsCount
-      {
-         get => _RowsCount;
-         internal set
-         {
-            _RowsCount = value;
-         }
-      }
+      internal short RowsCount { get; set; }
+      internal DateTime RowsDate { get; set; }
 
-      DateTime _RowsDate;
-      public DateTime RowsDate
+      protected override IEnumerable<object> GetAtomicValues()
       {
-         get => _RowsDate;
-         internal set
-         {
-            _RowsDate = value;
-         }
+         yield return PatternID;
+         yield return Type;
+         yield return CategoryID;
+         yield return Text;
       }
 
    }

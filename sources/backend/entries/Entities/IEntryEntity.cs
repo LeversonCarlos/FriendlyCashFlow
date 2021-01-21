@@ -8,14 +8,11 @@ namespace Elesse.Entries
    public interface IEntryEntity
    {
       Shared.EntityID EntryID { get; }
-      enEntryType Type { get; }
 
       Shared.EntityID AccountID { get; }
       // public DateTime SearchDate { get; set; }
 
-      string Text { get; }
-      Shared.EntityID CategoryID { get; }
-      Shared.EntityID PatternID { get; }
+      Patterns.IPatternEntity Pattern { get; }
 
       DateTime DueDate { get; }
       decimal EntryValue { get; }
@@ -30,7 +27,6 @@ namespace Elesse.Entries
       Shared.EntityID TransferID { get; }
 
       decimal Sorting { get; }
-
    }
 
 }

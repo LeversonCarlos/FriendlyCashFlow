@@ -8,7 +8,7 @@ namespace Elesse.Patterns
    partial class PatternService
    {
 
-      public async Task<ActionResult<Shared.EntityID>> AddAsync(PatternVM patternVM)
+      public async Task<ActionResult<Shared.EntityID>> AddAsync(IPatternEntity patternVM)
       {
 
          // VALIDATE PARAMETERS
@@ -41,7 +41,7 @@ namespace Elesse.Patterns
 
    partial interface IPatternService
    {
-      Task<ActionResult<Shared.EntityID>> AddAsync(PatternVM patternVM);
+      Task<ActionResult<Shared.EntityID>> AddAsync(IPatternEntity patternVM);
    }
 
    partial struct WARNINGS

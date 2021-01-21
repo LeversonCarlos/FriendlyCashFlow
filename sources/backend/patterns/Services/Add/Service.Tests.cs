@@ -21,13 +21,12 @@ namespace Elesse.Patterns.Tests
       [Fact]
       public async void Insert_WithExistingPattern_MustUpdateRowsAndDate_AndReturnPatternID()
       {
-         var entity = new PatternEntity(enPatternType.Expense, Shared.EntityID.NewID(), "Pattern Text");
+         var param = new PatternEntity(enPatternType.Expense, Shared.EntityID.NewID(), "Pattern Text");
          var repository = PatternRepositoryMocker
             .Create()
-            .WithLoadPattern(new IPatternEntity[] { entity })
+            .WithLoadPattern(new IPatternEntity[] { param })
             .Build();
          var service = PatternService.Create(repository);
-         var param = new PatternVM(entity.Type, entity.CategoryID, entity.Text);
 
          var result = await service.AddAsync(param);
 
@@ -36,13 +35,13 @@ namespace Elesse.Patterns.Tests
          Assert.IsType<Shared.EntityID>((result.Result as OkObjectResult).Value);
          var resultValue = (Shared.EntityID)((result.Result as OkObjectResult).Value);
          Assert.NotNull(resultValue);
-         Assert.Equal(entity.PatternID, resultValue);
+         Assert.Equal(param.PatternID, resultValue);
       }
 
       [Fact]
       public async void Insert_WithNonExistingPattern_MustCreateRecord_AndReturnPatternID()
       {
-         var param = new PatternVM(enPatternType.Expense, Shared.EntityID.NewID(), "Pattern Text");
+         var param = new PatternEntity(enPatternType.Expense, Shared.EntityID.NewID(), "Pattern Text");
          var repository = PatternRepositoryMocker
             .Create()
             .WithLoadPattern()

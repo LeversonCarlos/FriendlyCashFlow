@@ -8,7 +8,7 @@ namespace Elesse.Patterns
    partial class PatternService
    {
 
-      public async Task<IActionResult> RemoveAsync(PatternVM patternVM)
+      public async Task<IActionResult> RemoveAsync(IPatternEntity patternVM)
       {
 
          // VALIDATE PARAMETERS
@@ -42,7 +42,7 @@ namespace Elesse.Patterns
 
    partial interface IPatternService
    {
-      Task<IActionResult> RemoveAsync(PatternVM patternVM);
+      Task<IActionResult> RemoveAsync(IPatternEntity patternVM);
    }
 
    partial struct WARNINGS
