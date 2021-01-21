@@ -9,7 +9,10 @@ namespace Elesse.Patterns
 
       public PatternEntity(enPatternType type, Shared.EntityID categoryID, string text)
          : this(Shared.EntityID.NewID(), type, categoryID, text)
-      { }
+      {
+         RowsCount = 1;
+         RowsDate = DateTime.UtcNow;
+      }
 
       public PatternEntity(Shared.EntityID patternID, enPatternType type, Shared.EntityID categoryID, string text)
       {
