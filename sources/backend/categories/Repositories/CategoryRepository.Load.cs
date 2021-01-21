@@ -11,6 +11,5 @@ namespace Elesse.Categories
             .Find(entity => entity.CategoryID == categoryID)
             .SingleOrDefaultAsync();
 
-
    }
 }
