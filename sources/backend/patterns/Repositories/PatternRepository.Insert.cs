@@ -1,6 +1,4 @@
-using System;
 using System.Threading.Tasks;
-using MongoDB.Driver;
 
 namespace Elesse.Patterns
 {
@@ -8,7 +6,8 @@ namespace Elesse.Patterns
    {
 
       public Task InsertAsync(IPatternEntity value) =>
-         throw new System.NotImplementedException();
+         _Collection
+            .InsertOneAsync(value as PatternEntity);
 
    }
 }

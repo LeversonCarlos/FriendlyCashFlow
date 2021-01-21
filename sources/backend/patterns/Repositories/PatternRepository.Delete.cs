@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 
@@ -8,7 +7,8 @@ namespace Elesse.Patterns
    {
 
       public Task DeleteAsync(Shared.EntityID patternID) =>
-         throw new System.NotImplementedException();
+         _Collection
+            .DeleteOneAsync(entity => entity.PatternID == patternID);
 
    }
 }
