@@ -27,7 +27,7 @@ namespace Elesse.Accounts
          await _AccountRepository.UpdateAccountAsync(account);
 
          // RESULT
-         return new OkResult();
+         return Ok();
       }
 
    }

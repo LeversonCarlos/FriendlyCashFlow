@@ -1,6 +1,5 @@
-using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Elesse.Accounts
 {
@@ -15,7 +14,7 @@ namespace Elesse.Accounts
          var accountsList = await _AccountRepository.ListAccountsAsync();
 
          // RESULT
-         return Shared.Results.Ok(accountsList);
+         return Ok(accountsList);
       }
 
    }
