@@ -18,7 +18,7 @@ namespace Elesse.Accounts
          var account = await _AccountRepository.LoadAccountAsync(accountID);
 
          // RESULT
-         return Shared.Results.Ok(account);
+         return Ok(account);
       }
 
    }

@@ -42,7 +42,7 @@ namespace Elesse.Categories
          await _CategoryRepository.UpdateCategoryAsync(category);
 
          // RESULT
-         return Shared.Results.Ok();
+         return Ok();
       }
 
    }

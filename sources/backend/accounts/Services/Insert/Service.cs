@@ -32,7 +32,7 @@ namespace Elesse.Accounts
          _InsightsService.TrackEvent("Account Service Insert");
 
          // RESULT
-         return Shared.Results.Ok();
+         return Ok();
       }
 
    }

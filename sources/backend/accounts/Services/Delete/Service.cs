@@ -26,7 +26,7 @@ namespace Elesse.Accounts
          _InsightsService.TrackEvent("Account Service Delete");
 
          // RESULT
-         return new OkResult();
+         return Ok();
       }
 
    }

@@ -6,7 +6,7 @@ namespace Elesse.Shared
 
    [Route("api/shared")]
    [Authorize]
-   public partial class SharedController : Controller
+   public partial class SharedController : BaseController
    {
 
       // internal readonly IAccountService _AccountService;
