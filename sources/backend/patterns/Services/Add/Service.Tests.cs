@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Xunit;
 
 namespace Elesse.Patterns.Tests
@@ -5,19 +6,19 @@ namespace Elesse.Patterns.Tests
    partial class PatternServiceTests
    {
 
-      /*
       [Fact]
       public async void Insert_WithNullParameter_MustReturnBadResult()
       {
-         var service = CategoryService.Create(null);
+         var service = PatternService.Create(null);
 
-         var result = await service.InsertAsync(null);
+         var result = await service.AddAsync(null);
 
          Assert.NotNull(result);
-         Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(Warning(WARNINGS.INVALID_INSERT_PARAMETER), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+         Assert.IsType<BadRequestObjectResult>(result.Result);
+         Assert.Equal(Warning(WARNINGS.INVALID_ADD_PARAMETER), (result.Result as BadRequestObjectResult).Value);
       }
 
+      /*
       [Fact]
       public async void Insert_WithInexistingParentCategory_MustReturnBadRequest()
       {
