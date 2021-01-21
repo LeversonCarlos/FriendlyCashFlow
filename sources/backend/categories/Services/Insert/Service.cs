@@ -35,7 +35,7 @@ namespace Elesse.Categories
          _InsightsService.TrackEvent("Category Service Insert");
 
          // RESULT
-         return Shared.Results.Ok();
+         return Ok();
       }
 
    }

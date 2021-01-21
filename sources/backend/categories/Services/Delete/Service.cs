@@ -31,7 +31,7 @@ namespace Elesse.Categories
          _InsightsService.TrackEvent("Category Service Delete");
 
          // RESULT
-         return Shared.Results.Ok();
+         return Ok();
       }
 
    }
