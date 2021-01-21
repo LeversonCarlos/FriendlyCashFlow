@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "accounts", "accounts\accoun
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "categories", "categories\categories.csproj", "{639B257E-E4CA-42B7-86C0-17E0510A5F8F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "patterns", "patterns\patterns.csproj", "{251C7192-8EA1-48BB-947B-0A6B39199FB6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{639B257E-E4CA-42B7-86C0-17E0510A5F8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{639B257E-E4CA-42B7-86C0-17E0510A5F8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{639B257E-E4CA-42B7-86C0-17E0510A5F8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{251C7192-8EA1-48BB-947B-0A6B39199FB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{251C7192-8EA1-48BB-947B-0A6B39199FB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{251C7192-8EA1-48BB-947B-0A6B39199FB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{251C7192-8EA1-48BB-947B-0A6B39199FB6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
