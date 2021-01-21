@@ -1,0 +1,55 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Elesse.Entries</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <CollectCoverage>true</CollectCoverage>
+    <CoverletOutputFormat>lcov</CoverletOutputFormat>
+    <IncludeTestAssembly>true</IncludeTestAssembly>
+    <ExcludeByFile>**\*.Mockers.cs,**\*.Tests.cs,**\*.Builders.cs,**\microsoft.net.test.sdk\**</ExcludeByFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="MongoDB.Driver" Version="2.11.2" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)' == 'Release'">
+    <Compile Remove="**\*.Tests.cs" />
+    <Compile Remove="**\*.Mockers.cs" />
+    <Compile Remove="**\*.Builders.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.8" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+    <PackageReference Include="xunit" Version="2.4.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
+    <PackageReference Include="coverlet.collector" Version="1.2.0" />
+    <PackageReference Include="coverlet.msbuild" Version="2.9.0" />
+    <PackageReference Include="Moq" Version="4.14.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\shared\shared.csproj" />
+  </ItemGroup>
+
+  <!--
+  <ItemGroup>
+    <None Remove="Translations\entries.en-US.json" />
+    <None Remove="Translations\entries.pt-BR.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Translations\entries.en-US.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Translations\entries.pt-BR.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  -->
+
+</Project>
