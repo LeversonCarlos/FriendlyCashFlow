@@ -21,7 +21,7 @@ namespace Elesse.Patterns.Tests
       [Fact]
       public async void Remove_WithNonExistingPattern_MustDoNothingAndReturnOkResult()
       {
-         var param = new PatternVM(enPatternType.Expense, Shared.EntityID.NewID(), "Pattern Text");
+         var param = new PatternEntity(enPatternType.Expense, Shared.EntityID.NewID(), "Pattern Text");
          var repository = PatternRepositoryMocker
             .Create()
             .WithLoadPattern()
@@ -37,14 +37,13 @@ namespace Elesse.Patterns.Tests
       [Fact]
       public async void Remove_WithRemainingRowsCountOnPattern_MustUpdateRowsAndDate_AndReturnOk()
       {
-         var entity = new PatternEntity(enPatternType.Expense, Shared.EntityID.NewID(), "Pattern Text");
-         entity.RowsCount = 5;
+         var param = new PatternEntity(enPatternType.Expense, Shared.EntityID.NewID(), "Pattern Text");
+         param.RowsCount = 5;
          var repository = PatternRepositoryMocker
             .Create()
-            .WithLoadPattern(new IPatternEntity[] { entity })
+            .WithLoadPattern(new IPatternEntity[] { param })
             .Build();
          var service = PatternService.Create(repository);
-         var param = new PatternVM(entity.Type, entity.CategoryID, entity.Text);
 
          var result = await service.RemoveAsync(param);
 
@@ -55,14 +54,13 @@ namespace Elesse.Patterns.Tests
       [Fact]
       public async void Remove_WithNoRemainingRowsCountOnPattern_MustDeletePattern_AndReturnOk()
       {
-         var entity = new PatternEntity(enPatternType.Expense, Shared.EntityID.NewID(), "Pattern Text");
-         entity.RowsCount = 1;
+         var param = new PatternEntity(enPatternType.Expense, Shared.EntityID.NewID(), "Pattern Text");
+         param.RowsCount = 1;
          var repository = PatternRepositoryMocker
             .Create()
-            .WithLoadPattern(new IPatternEntity[] { entity })
+            .WithLoadPattern(new IPatternEntity[] { param })
             .Build();
          var service = PatternService.Create(repository);
-         var param = new PatternVM(entity.Type, entity.CategoryID, entity.Text);
 
          var result = await service.RemoveAsync(param);
 

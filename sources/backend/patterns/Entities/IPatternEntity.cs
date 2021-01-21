@@ -8,13 +8,9 @@ namespace Elesse.Patterns
    public interface IPatternEntity
    {
       Shared.EntityID PatternID { get; }
-
       enPatternType Type { get; }
       Shared.EntityID CategoryID { get; }
       string Text { get; }
-
-      short RowsCount { get; }
-      DateTime RowsDate { get; }
    }
 
 }
