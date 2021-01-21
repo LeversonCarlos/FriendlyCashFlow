@@ -19,14 +19,5 @@ namespace Elesse.Patterns
       IMongoCollection<PatternEntity> _Collection =>
          _MongoDatabase.GetCollection<PatternEntity>(_CollectionName);
 
-      public Task InsertAsync(IPatternEntity value) =>
-         throw new System.NotImplementedException();
-
-      public Task UpdateAsync(IPatternEntity value) =>
-         throw new System.NotImplementedException();
-
-      public Task DeleteAsync(EntityID patternID) =>
-         throw new System.NotImplementedException();
-
    }
 }
