@@ -13,8 +13,8 @@ namespace Elesse.Patterns
       Shared.EntityID CategoryID { get; }
       string Text { get; }
 
-      DateTime RowDate { get; }
-      short Count { get; }
+      short RowsCount { get; }
+      DateTime RowsDate { get; }
    }
 
 }
