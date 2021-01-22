@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace Elesse.Entries.Tests
@@ -19,6 +20,26 @@ namespace Elesse.Entries.Tests
          Assert.False(entity.Paid);
          Assert.Null(entity.PayDate);
       }
+
+      [Theory]
+      [MemberData(nameof(Constructor_WithInvalidParameters_MustThrowException_Data))]
+      public void Constructor_WithInvalidParameters_MustThrowException(string exceptionText, Shared.EntityID entryID, Patterns.IPatternEntity pattern, Shared.EntityID accountID, DateTime dueDate, decimal entryValue)
+      {
+         var exception = Assert.Throws<ArgumentException>(() => new EntryEntity(entryID, pattern, accountID, dueDate, entryValue));
+
+         Assert.NotNull(exception);
+         Assert.Equal(exceptionText, exception.Message);
+      }
+      public static IEnumerable<object[]> Constructor_WithInvalidParameters_MustThrowException_Data() =>
+         new[] {
+            new object[] { WARNINGS.INVALID_ENTRYID, null, null, null, DateTime.MinValue, null}
+            /*
+            new object[] { WARNINGS.INVALID_TEXT, Shared.EntityID.NewID(), (string)null, enCategoryType.Income, null},
+            new object[] { WARNINGS.INVALID_TEXT, Shared.EntityID.NewID(), "", enCategoryType.Income, null},
+            new object[] { WARNINGS.INVALID_TEXT, Shared.EntityID.NewID(), " ", enCategoryType.Income, null},
+            new object[] { WARNINGS.INVALID_TEXT, Shared.EntityID.NewID(), new string('0', 101), enCategoryType.Income, null}
+            */
+         };
 
    }
 }
