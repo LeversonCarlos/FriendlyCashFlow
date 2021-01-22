@@ -40,13 +40,19 @@ namespace Elesse.Entries.Tests
             new object[] { WARNINGS.INVALID_ENTRYVALUE, Shared.EntityID.NewID(), new Patterns.PatternEntity(Patterns.enPatternType.Income, Shared.EntityID.NewID(), "My Pattern"), Shared.EntityID.NewID(), DateTime.UtcNow, null},
             new object[] { WARNINGS.INVALID_ENTRYVALUE, Shared.EntityID.NewID(), new Patterns.PatternEntity(Patterns.enPatternType.Income, Shared.EntityID.NewID(), "My Pattern"), Shared.EntityID.NewID(), DateTime.UtcNow, 0},
             new object[] { WARNINGS.INVALID_ENTRYVALUE, Shared.EntityID.NewID(), new Patterns.PatternEntity(Patterns.enPatternType.Income, Shared.EntityID.NewID(), "My Pattern"), Shared.EntityID.NewID(), DateTime.UtcNow, -0.01}
-            /*
-            new object[] { WARNINGS.INVALID_TEXT, Shared.EntityID.NewID(), (string)null, enCategoryType.Income, null},
-            new object[] { WARNINGS.INVALID_TEXT, Shared.EntityID.NewID(), "", enCategoryType.Income, null},
-            new object[] { WARNINGS.INVALID_TEXT, Shared.EntityID.NewID(), " ", enCategoryType.Income, null},
-            new object[] { WARNINGS.INVALID_TEXT, Shared.EntityID.NewID(), new string('0', 101), enCategoryType.Income, null}
-            */
          };
+
+      [Fact]
+      public void ValidInstance_SettingInvalidProperties_MustThrowException()
+      {
+         var pattern = new Patterns.PatternEntity(Patterns.enPatternType.Income, Shared.EntityID.NewID(), "My Pattern");
+         var entity = new EntryEntity(pattern, Shared.EntityID.NewID(), DateTime.UtcNow, (decimal)23.45);
+
+         var exception = Assert.Throws<ArgumentException>(() => entity.PayDate = DateTime.MinValue);
+
+         Assert.NotNull(exception);
+         Assert.Equal(WARNINGS.INVALID_PAYDATE, exception.Message);
+      }
 
    }
 }
