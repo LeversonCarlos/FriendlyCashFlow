@@ -21,13 +21,17 @@ namespace Elesse.Entries.Tests
       [Fact]
       public async void Insert_WithInvalidPattern_MustReturnBadResult()
       {
-         var service = EntryService.Mock();
+         var patternService = Patterns.Tests.PatternServiceMocker
+            .Create()
+            .WithAdd(new ArgumentException(Patterns.WARNINGS.INVALID_ADD_PARAMETER))
+            .Build();
+         var service = EntryService.Mock(patternService);
 
          var result = await service.InsertAsync(new InsertVM { });
 
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(Warning(WARNINGS.INVALID_PATTERN), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+         Assert.Equal(Warning(Patterns.WARNINGS.INVALID_ADD_PARAMETER), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
       [Fact]
