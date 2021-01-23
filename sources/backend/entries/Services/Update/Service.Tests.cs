@@ -66,58 +66,31 @@ namespace Elesse.Entries.Tests
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
          Assert.Equal(Warning(WARNINGS.INVALID_ACCOUNTID), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
-      /*
-      [Fact]
-      public async void Insert_WithInvalidPattern_MustReturnBadResult()
-      {
-         var patternService = Patterns.Tests.PatternServiceMocker
-            .Create()
-            .WithIncrease(new ArgumentException(Patterns.WARNINGS.INVALID_INCREASE_PARAMETER))
-            .Build();
-         var service = EntryService.Mock(patternService);
-
-         var result = await service.InsertAsync(new InsertVM { });
-
-         Assert.NotNull(result);
-         Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(Warning(Patterns.WARNINGS.INVALID_INCREASE_PARAMETER), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
-      }
 
       [Fact]
-      public async void Insert_WithInvaidAccount_MustReturnBadResult()
+      public async void Update_WithValidDataAndEmptyPayment_MustReturnOkRequest()
       {
-         var pattern = Patterns.PatternEntity.Mock();
-         var patternService = Patterns.Tests.PatternServiceMocker
+         var entity = EntryEntity.Mock();
+         entity.SetPayment(DateTime.Now, entity.EntryValue);
+         var repository = EntryRepositoryMocker
             .Create()
-            .WithIncrease(pattern)
+            .WithLoad(entity)
             .Build();
-         var service = EntryService.Mock(patternService);
+         var service = EntryService.Mock(repository);
 
-         var param = new InsertVM { Pattern = pattern, AccountID = null };
-         var result = await service.InsertAsync(param);
-
-         Assert.NotNull(result);
-         Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(Warning(WARNINGS.INVALID_ACCOUNTID), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
-      }
-
-      [Fact]
-      public async void Insert_WithValidParameters_MustReturnOkResult()
-      {
-         var pattern = Patterns.PatternEntity.Mock();
-         var patternService = Patterns.Tests.PatternServiceMocker
-            .Create()
-            .WithIncrease(pattern)
-            .Build();
-         var service = EntryService.Mock(patternService);
-
-         var param = new InsertVM { Pattern = pattern, AccountID = Shared.EntityID.NewID(), DueDate = DateTime.Now.AddDays(1), EntryValue = (decimal)12.34 };
-         var result = await service.InsertAsync(param);
+         var updateVM = new UpdateVM
+         {
+            EntryID = Shared.EntityID.NewID(),
+            Pattern = entity.Pattern,
+            AccountID = entity.AccountID,
+            DueDate = entity.DueDate,
+            EntryValue = entity.EntryValue
+         };
+         var result = await service.UpdateAsync(updateVM);
 
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.OkResult>(result);
       }
-      */
 
    }
 }
