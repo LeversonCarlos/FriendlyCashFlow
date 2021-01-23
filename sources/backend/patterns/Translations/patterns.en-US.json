@@ -2,5 +2,6 @@
   "INVALID_PATTERNID_PARAMETER": "The value entered for the pattern identifier is invalid",
   "INVALID_CATEGORYID_PARAMETER": "The pattern's category is invalid",
   "INVALID_TEXT_PARAMETER": "The pattern's text is invalid (maximum of 100 characters)",
-  "INVALID_ADD_PARAMETER": "The value entered for the 'add pattern' function is invalid"
+  "INVALID_ADD_PARAMETER": "The value entered for the 'add pattern' function is invalid",
+  "INVALID_DECREASE_PARAMETER": "The value entered for the 'decrease pattern' function is invalid"
 }

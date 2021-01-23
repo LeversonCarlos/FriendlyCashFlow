@@ -7,12 +7,12 @@ namespace Elesse.Patterns
    partial class PatternService
    {
 
-      public async Task<IPatternEntity> RemoveAsync(IPatternEntity patternVM)
+      public async Task<IPatternEntity> DecreaseAsync(IPatternEntity patternVM)
       {
 
          // VALIDATE PARAMETERS
          if (patternVM == null)
-            throw new ArgumentException(WARNINGS.INVALID_REMOVE_PARAMETER);
+            throw new ArgumentException(WARNINGS.INVALID_DECREASE_PARAMETER);
 
          // LOAD PATTERN
          var pattern = (PatternEntity)(await _PatternRepository.LoadPatternAsync(patternVM.Type, patternVM.CategoryID, patternVM.Text));
@@ -41,12 +41,12 @@ namespace Elesse.Patterns
 
    partial interface IPatternService
    {
-      Task<IPatternEntity> RemoveAsync(IPatternEntity patternVM);
+      Task<IPatternEntity> DecreaseAsync(IPatternEntity patternVM);
    }
 
    partial struct WARNINGS
    {
-      internal const string INVALID_REMOVE_PARAMETER = "INVALID_REMOVE_PARAMETER";
+      internal const string INVALID_DECREASE_PARAMETER = "INVALID_DECREASE_PARAMETER";
    }
 
 }

@@ -43,7 +43,7 @@ namespace Elesse.Entries.Tests
             .Build();
          var patternService = Patterns.Tests.PatternServiceMocker
             .Create()
-            .WithRemove(new ArgumentException(Patterns.WARNINGS.INVALID_REMOVE_PARAMETER))
+            .WithDecrease(new ArgumentException(Patterns.WARNINGS.INVALID_DECREASE_PARAMETER))
             .Build();
          var service = EntryService.Mock(repository, patternService);
 
@@ -51,7 +51,7 @@ namespace Elesse.Entries.Tests
 
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(Warning(Patterns.WARNINGS.INVALID_REMOVE_PARAMETER), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+         Assert.Equal(Warning(Patterns.WARNINGS.INVALID_DECREASE_PARAMETER), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
       [Fact]

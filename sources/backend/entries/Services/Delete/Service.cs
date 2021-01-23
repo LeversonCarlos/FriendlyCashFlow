@@ -20,8 +20,8 @@ namespace Elesse.Entries
          if (entry == null)
             return Warning(WARNINGS.ENTRY_NOT_FOUND);
 
-         // DECREMENT PATTERN
-         try { await _PatternService.RemoveAsync(entry.Pattern); }
+         // DECREASE PATTERN
+         try { await _PatternService.DecreaseAsync(entry.Pattern); }
          catch (Exception valEx) { return Warning(valEx.Message); }
 
          // REMOVE ENTRY

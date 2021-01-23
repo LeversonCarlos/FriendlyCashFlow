@@ -44,14 +44,14 @@ namespace Elesse.Patterns.Tests
       }
       */
 
-      public PatternServiceMocker WithRemove(IPatternEntity result)
+      public PatternServiceMocker WithDecrease(IPatternEntity result)
       {
-         _Mock.Setup(m => m.RemoveAsync(It.IsAny<IPatternEntity>())).ReturnsAsync(result);
+         _Mock.Setup(m => m.DecreaseAsync(It.IsAny<IPatternEntity>())).ReturnsAsync(result);
          return this;
       }
-      public PatternServiceMocker WithRemove(Exception ex)
+      public PatternServiceMocker WithDecrease(Exception ex)
       {
-         _Mock.Setup(m => m.RemoveAsync(It.IsAny<IPatternEntity>())).ThrowsAsync(ex);
+         _Mock.Setup(m => m.DecreaseAsync(It.IsAny<IPatternEntity>())).ThrowsAsync(ex);
          return this;
       }
 
