@@ -8,7 +8,7 @@ namespace Elesse.Entries.Tests
       [Fact]
       public async void Insert_WithNullParameter_MustReturnBadResult()
       {
-         var service = EntryService.Mock(null);
+         var service = EntryService.Mock();
 
          var result = await service.InsertAsync(null);
 
@@ -16,6 +16,35 @@ namespace Elesse.Entries.Tests
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
          Assert.Equal(Warning(WARNINGS.INVALID_INSERT_PARAMETER), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
+
+      [Fact]
+      public async void Insert_WithInvalidPattern_MustReturnBadResult()
+      {
+         var service = EntryService.Mock();
+
+         var result = await service.InsertAsync(new InsertVM { });
+
+         Assert.NotNull(result);
+         Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
+         Assert.Equal(Warning(WARNINGS.INVALID_PATTERN), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+      }
+
+      /*
+      [Fact]
+      public async void Insert_WithNullParameter_MustReturnBadResult()
+      {
+         var patternService = Patterns.Tests.PatternServiceMocker
+            .Create()
+            .Build();
+         var service = EntryService.Mock(patternService);
+
+         var result = await service.InsertAsync(null);
+
+         Assert.NotNull(result);
+         Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
+         Assert.Equal(Warning(WARNINGS.INVALID_INSERT_PARAMETER), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+      }
+      */
 
       /*
       [Fact]

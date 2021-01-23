@@ -10,7 +10,7 @@ namespace Elesse.Entries.Tests
       [Fact]
       public async void Load_WithNullParameter_MustReturnBadResult()
       {
-         var service = EntryService.Mock(null);
+         var service = EntryService.Mock();
 
          var result = await service.LoadAsync(null);
 
