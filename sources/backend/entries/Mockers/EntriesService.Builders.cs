@@ -3,15 +3,28 @@ namespace Elesse.Entries
    partial class EntryService
    {
 
-      internal static EntryService Create() =>
-         new EntryService(
+      internal static EntryService Mock() =>
+         Mock(
             Tests.EntryRepositoryMocker.Create().Build(),
-            Shared.Tests.InsightsServiceMocker.Create().Build()
-            );
+            Patterns.Tests.PatternServiceMocker.Create().Build()
+         );
 
-      internal static EntryService Create(IEntryRepository entryRepository) =>
+      internal static EntryService Mock(IEntryRepository entryRepository) =>
+         Mock(
+            entryRepository,
+            Patterns.Tests.PatternServiceMocker.Create().Build()
+         );
+
+      internal static EntryService Mock(Patterns.IPatternService patternService) =>
+         Mock(
+            Tests.EntryRepositoryMocker.Create().Build(),
+            patternService
+         );
+
+      internal static EntryService Mock(IEntryRepository entryRepository, Patterns.IPatternService patternService) =>
          new EntryService(
             entryRepository,
+            patternService,
             Shared.Tests.InsightsServiceMocker.Create().Build()
          );
 

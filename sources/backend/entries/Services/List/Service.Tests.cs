@@ -17,7 +17,7 @@ namespace Elesse.Entries.Tests
             .Create()
             .WithList(new EntryEntity[] { entry })
             .Build();
-         var service = EntryService.Create(repository);
+         var service = EntryService.Mock(repository);
 
          var result = await service.ListAsync(dueDate.Year, dueDate.Month);
 

@@ -86,9 +86,9 @@ namespace Elesse.Patterns
 
    partial struct WARNINGS
    {
-      internal const string INVALID_PATTERNID = "INVALID_PATTERNID_PARAMETER";
-      internal const string INVALID_CATEGORYID = "INVALID_CATEGORYID_PARAMETER";
-      internal const string INVALID_TEXT = "INVALID_TEXT_PARAMETER";
+      internal const string INVALID_PATTERNID = "INVALID_PATTERNID";
+      internal const string INVALID_CATEGORYID = "INVALID_CATEGORYID";
+      internal const string INVALID_TEXT = "INVALID_TEXT";
    }
 
 }

@@ -38,7 +38,6 @@
     <ProjectReference Include="..\patterns\patterns.csproj" />
   </ItemGroup>
 
-  <!--
   <ItemGroup>
     <None Remove="Translations\entries.en-US.json" />
     <None Remove="Translations\entries.pt-BR.json" />
@@ -51,6 +50,5 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  -->
 
 </Project>

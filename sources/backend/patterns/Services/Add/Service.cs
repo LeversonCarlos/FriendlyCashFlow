@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Elesse.Patterns
 {
@@ -8,15 +7,19 @@ namespace Elesse.Patterns
    partial class PatternService
    {
 
-      public async Task<ActionResult<Shared.EntityID>> AddAsync(IPatternEntity patternVM)
+      public async Task<IPatternEntity> AddAsync(IPatternEntity param)
       {
 
          // VALIDATE PARAMETERS
-         if (patternVM == null)
-            return Warning(WARNINGS.INVALID_ADD_PARAMETER);
+         if (param == null)
+            throw new ArgumentException(WARNINGS.INVALID_ADD_PARAMETER);
+         if (param.CategoryID == null)
+            throw new ArgumentException(WARNINGS.INVALID_CATEGORYID);
+         if (string.IsNullOrWhiteSpace(param.Text))
+            throw new ArgumentException(WARNINGS.INVALID_TEXT);
 
          // LOAD PATTERN
-         var pattern = (PatternEntity)(await _PatternRepository.LoadPatternAsync(patternVM.Type, patternVM.CategoryID, patternVM.Text));
+         var pattern = ((PatternEntity)await _PatternRepository.LoadPatternAsync(param.Type, param.CategoryID, param.Text));
 
          // INCREMENT PATTERN COUNT
          if (pattern != null)
@@ -29,19 +32,19 @@ namespace Elesse.Patterns
          // ADD NEW PATTERN
          if (pattern == null)
          {
-            pattern = new PatternEntity(patternVM.Type, patternVM.CategoryID, patternVM.Text);
+            pattern = new PatternEntity(param.Type, param.CategoryID, param.Text);
             await _PatternRepository.InsertAsync(pattern);
          }
 
          // RESULT
-         return Ok(pattern.PatternID);
+         return pattern;
       }
 
    }
 
    partial interface IPatternService
    {
-      Task<ActionResult<Shared.EntityID>> AddAsync(IPatternEntity patternVM);
+      Task<IPatternEntity> AddAsync(IPatternEntity param);
    }
 
    partial struct WARNINGS

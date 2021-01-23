@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
 using Xunit;
 
 namespace Elesse.Patterns.Tests
@@ -7,15 +6,14 @@ namespace Elesse.Patterns.Tests
    {
 
       [Fact]
-      public async void Insert_WithNullParameter_MustReturnBadResult()
+      public async void Insert_WithNullParameters_MustThrowException()
       {
-         var service = PatternService.Create(null);
+         var service = PatternService.Mock(null);
 
-         var result = await service.AddAsync(null);
+         var exception = await Assert.ThrowsAsync<System.ArgumentException>(() => service.AddAsync(null));
 
-         Assert.NotNull(result);
-         Assert.IsType<BadRequestObjectResult>(result.Result);
-         Assert.Equal(Warning(WARNINGS.INVALID_ADD_PARAMETER), (result.Result as BadRequestObjectResult).Value);
+         Assert.NotNull(exception);
+         Assert.Equal(WARNINGS.INVALID_ADD_PARAMETER, exception.Message);
       }
 
       [Fact]
@@ -26,16 +24,13 @@ namespace Elesse.Patterns.Tests
             .Create()
             .WithLoadPattern(new IPatternEntity[] { param })
             .Build();
-         var service = PatternService.Create(repository);
+         var service = PatternService.Mock(repository);
 
          var result = await service.AddAsync(param);
 
          Assert.NotNull(result);
-         Assert.IsType<OkObjectResult>(result.Result);
-         Assert.IsType<Shared.EntityID>((result.Result as OkObjectResult).Value);
-         var resultValue = (Shared.EntityID)((result.Result as OkObjectResult).Value);
-         Assert.NotNull(resultValue);
-         Assert.Equal(param.PatternID, resultValue);
+         Assert.IsAssignableFrom<IPatternEntity>(result);
+         Assert.Equal(param.PatternID, result.PatternID);
       }
 
       [Fact]
@@ -46,15 +41,12 @@ namespace Elesse.Patterns.Tests
             .Create()
             .WithLoadPattern()
             .Build();
-         var service = PatternService.Create(repository);
+         var service = PatternService.Mock(repository);
 
          var result = await service.AddAsync(param);
 
          Assert.NotNull(result);
-         Assert.IsType<OkObjectResult>(result.Result);
-         Assert.IsType<Shared.EntityID>((result.Result as OkObjectResult).Value);
-         var resultValue = (Shared.EntityID)((result.Result as OkObjectResult).Value);
-         Assert.NotNull(resultValue);
+         Assert.IsAssignableFrom<IPatternEntity>(result);
       }
 
    }
