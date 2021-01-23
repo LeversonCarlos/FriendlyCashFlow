@@ -4,30 +4,8 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace Elesse.Entries
 {
 
-   internal class EntryEntity : IEntryEntity
+   internal partial class EntryEntity : IEntryEntity
    {
-
-      public EntryEntity(Patterns.IPatternEntity pattern, Shared.EntityID accountID,
-         DateTime dueDate, decimal entryValue)
-         : this(Shared.EntityID.NewID(), pattern, accountID, dueDate, entryValue)
-      { }
-
-      public EntryEntity(Shared.EntityID entryID, Patterns.IPatternEntity pattern, Shared.EntityID accountID,
-         DateTime dueDate, decimal entryValue)
-      : this(entryID, pattern, accountID, dueDate, entryValue, false, null)
-      { }
-
-      public EntryEntity(Shared.EntityID entryID, Patterns.IPatternEntity pattern, Shared.EntityID accountID,
-         DateTime dueDate, decimal entryValue, bool paid, DateTime? payDate)
-      {
-         EntryID = entryID;
-         Pattern = pattern;
-         AccountID = accountID;
-         DueDate = dueDate;
-         EntryValue = entryValue;
-         Paid = paid;
-         PayDate = payDate;
-      }
 
       Shared.EntityID _EntryID;
       [BsonId]
@@ -46,7 +24,7 @@ namespace Elesse.Entries
       public Patterns.IPatternEntity Pattern
       {
          get => _Pattern;
-         internal set
+         private set
          {
             if (value == null)
                throw new ArgumentException(WARNINGS.INVALID_PATTERN);
@@ -58,7 +36,7 @@ namespace Elesse.Entries
       public Shared.EntityID AccountID
       {
          get => _AccountID;
-         internal set
+         private set
          {
             if (value == null)
                throw new ArgumentException(WARNINGS.INVALID_ACCOUNTID);
@@ -70,7 +48,7 @@ namespace Elesse.Entries
       public DateTime DueDate
       {
          get => _DueDate;
-         internal set
+         private set
          {
             if (value == null || value == DateTime.MinValue)
                throw new ArgumentException(WARNINGS.INVALID_DUEDATE);
@@ -82,7 +60,7 @@ namespace Elesse.Entries
       public decimal EntryValue
       {
          get => _EntryValue;
-         internal set
+         private set
          {
             if (value <= 0)
                throw new ArgumentException(WARNINGS.INVALID_ENTRYVALUE);
@@ -94,7 +72,7 @@ namespace Elesse.Entries
       public bool Paid
       {
          get => _Paid;
-         internal set
+         private set
          {
             _Paid = value;
          }
@@ -104,7 +82,7 @@ namespace Elesse.Entries
       public DateTime? PayDate
       {
          get => _PayDate;
-         internal set
+         private set
          {
             if (value == DateTime.MinValue)
                throw new ArgumentException(WARNINGS.INVALID_PAYDATE);

@@ -6,7 +6,7 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace Elesse.Patterns
 {
 
-   internal class PatternEntity : ValueObject, IPatternEntity
+   internal partial class PatternEntity : ValueObject, IPatternEntity
    {
 
       public PatternEntity(enPatternType type, Shared.EntityID categoryID, string text)

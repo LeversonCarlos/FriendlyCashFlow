@@ -34,6 +34,21 @@ namespace Elesse.Shared
          catch { outputID = null; return false; }
       }
 
+      public long ToLong()
+      {
+
+         var bytes = Value.ToByteArray();
+         Array.Resize(ref bytes, 17);
+
+         var bigInt = new System.Numerics.BigInteger(bytes);
+
+         var logValue = System.Numerics.BigInteger.Log10(bigInt);
+         var doubleValue = logValue * Math.Pow(10, 15);
+         var intValue = Math.Round(doubleValue, 0);
+
+         return (long)intValue;
+      }
+
       // implicit
       public static explicit operator string(EntityID id) => id.Value.ToString();
       public static explicit operator EntityID(string id) => EntityID.Parse(id);
