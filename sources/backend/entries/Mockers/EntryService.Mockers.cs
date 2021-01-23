@@ -10,21 +10,17 @@ namespace Elesse.Entries.Tests
       public EntryServiceMocker() => _Mock = new Mock<IEntryService>();
       public static EntryServiceMocker Create() => new EntryServiceMocker();
 
-      /*
       public EntryServiceMocker WithList(ActionResult<IEntryEntity[]> result)
       {
-         _Mock.Setup(m => m.ListAsync()).ReturnsAsync(result);
+         _Mock.Setup(m => m.ListAsync(It.IsAny<int>(), It.IsAny<int>())).ReturnsAsync(result);
          return this;
       }
-      */
 
-      /*
-      public EntryServiceMocker WithLoad(string categoryID, ActionResult<IEntryEntity> result)
+      public EntryServiceMocker WithLoad(string entryID, ActionResult<IEntryEntity> result)
       {
-         _Mock.Setup(m => m.LoadAsync(categoryID)).ReturnsAsync(result);
+         _Mock.Setup(m => m.LoadAsync(entryID)).ReturnsAsync(result);
          return this;
       }
-      */
 
       /*
       public EntryServiceMocker WithInsert(InsertVM param, IActionResult result)
