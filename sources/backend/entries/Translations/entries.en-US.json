@@ -1,4 +1,7 @@
 {
+
+  "ENTRY_NOT_FOUND": "The entry was not found",
+
   "INVALID_INSERT_PARAMETER": "The value entered for the 'insert entry' function is invalid",
   "INVALID_DELETE_PARAMETER": "The value entered for the 'delete entry' function is invalid"
 }

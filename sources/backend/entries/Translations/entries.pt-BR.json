@@ -1,4 +1,6 @@
 {
+  "entry_NOT_FOUND": "O lançamento não foi encontrado",
+
   "INVALID_INSERT_PARAMETER": "O valor informado para a função 'insert entry' é inválido",
   "INVALID_DELETE_PARAMETER": "O valor informado para a função 'delete entry' é inválido"
 }

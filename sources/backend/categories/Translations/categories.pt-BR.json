@@ -18,7 +18,7 @@
   "CATEGORY_TEXT_ALREADY_USED": "Já existe uma outra categoria com esse texto",
   "PARENT_CATEGORY_NOT_FOUND": "A categoria pai informada não foi encontrada",
   "INVALID_UPDATE_PARAMETER": "O valor informado para o parâmetro da função é inválido",
-  "CATEGORY_NOT_FOUND": "A categoria informada não foi encontrada",
+  "CATEGORY_NOT_FOUND": "A categoria não foi encontrada",
   "STILL_HAS_CHILDREN_CANT_REMOVE": "Esse registro ainda possui filhos e por isso não pode ser removido",
 
   "enCategoryType_None": "<Selecione>",
