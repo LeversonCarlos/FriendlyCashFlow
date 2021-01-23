@@ -58,8 +58,8 @@ namespace Elesse.Entries
          await _PatternService.DecreaseAsync(oldPattern);
 
          // INCREASE PATTERN
-         Patterns.IPatternEntity pattern = new Patterns.PatternEntity(newPattern.Type, newPattern.CategoryID, newPattern.Text);
-         pattern = await _PatternService.IncreaseAsync(pattern);
+         Patterns.IPatternEntity pattern = null;
+         pattern = await _PatternService.IncreaseAsync(newPattern);
 
          return pattern;
       }

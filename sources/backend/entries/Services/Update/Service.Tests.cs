@@ -34,6 +34,22 @@ namespace Elesse.Entries.Tests
          Assert.Equal(Warning(WARNINGS.ENTRY_NOT_FOUND), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
+      [Fact]
+      public async void Update_WithExceptionWhenChangingPattern_MustReturnBadRequest()
+      {
+         var repository = EntryRepositoryMocker
+            .Create()
+            .WithLoad(EntryEntity.Mock())
+            .Build();
+         var service = EntryService.Mock(repository);
+
+         var result = await service.UpdateAsync(new UpdateVM { EntryID = Shared.EntityID.NewID() });
+
+         Assert.NotNull(result);
+         Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
+         Assert.Equal(Warning(Patterns.WARNINGS.INVALID_INCREASE_PARAMETER), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+      }
+
       /*
       [Fact]
       public async void Insert_WithInvalidPattern_MustReturnBadResult()
