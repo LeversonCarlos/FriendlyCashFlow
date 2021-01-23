@@ -9,7 +9,7 @@ namespace Elesse.Patterns.Tests
       [Fact]
       public async void Insert_WithNullParameters_MustReturnBadResult()
       {
-         var service = PatternService.Create(null);
+         var service = PatternService.Mock(null);
 
          var result = await service.AddAsync(null);
 
@@ -24,7 +24,7 @@ namespace Elesse.Patterns.Tests
             .Create()
             .WithLoadPattern(new IPatternEntity[] { param })
             .Build();
-         var service = PatternService.Create(repository);
+         var service = PatternService.Mock(repository);
 
          var result = await service.AddAsync(param);
 
@@ -41,7 +41,7 @@ namespace Elesse.Patterns.Tests
             .Create()
             .WithLoadPattern()
             .Build();
-         var service = PatternService.Create(repository);
+         var service = PatternService.Mock(repository);
 
          var result = await service.AddAsync(param);
 

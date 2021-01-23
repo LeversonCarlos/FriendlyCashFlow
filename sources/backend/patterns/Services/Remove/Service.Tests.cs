@@ -9,7 +9,7 @@ namespace Elesse.Patterns.Tests
       [Fact]
       public async void Remove_WithNullParameter_MustReturnBadResult()
       {
-         var service = PatternService.Create(null);
+         var service = PatternService.Mock(null);
 
          var result = await service.RemoveAsync(null);
 
@@ -26,7 +26,7 @@ namespace Elesse.Patterns.Tests
             .Create()
             .WithLoadPattern()
             .Build();
-         var service = PatternService.Create(repository);
+         var service = PatternService.Mock(repository);
 
          var result = await service.RemoveAsync(param);
 
@@ -43,7 +43,7 @@ namespace Elesse.Patterns.Tests
             .Create()
             .WithLoadPattern(new IPatternEntity[] { param })
             .Build();
-         var service = PatternService.Create(repository);
+         var service = PatternService.Mock(repository);
 
          var result = await service.RemoveAsync(param);
 
@@ -60,7 +60,7 @@ namespace Elesse.Patterns.Tests
             .Create()
             .WithLoadPattern(new IPatternEntity[] { param })
             .Build();
-         var service = PatternService.Create(repository);
+         var service = PatternService.Mock(repository);
 
          var result = await service.RemoveAsync(param);
 

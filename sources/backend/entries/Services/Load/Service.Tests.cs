@@ -10,7 +10,7 @@ namespace Elesse.Entries.Tests
       [Fact]
       public async void Load_WithNullParameter_MustReturnBadResult()
       {
-         var service = EntryService.Create(null);
+         var service = EntryService.Mock(null);
 
          var result = await service.LoadAsync(null);
 
@@ -27,7 +27,7 @@ namespace Elesse.Entries.Tests
             .Create()
             .WithLoad(entity)
             .Build();
-         var service = EntryService.Create(repository);
+         var service = EntryService.Mock(repository);
 
          var result = await service.LoadAsync((string)entity.EntryID);
 
