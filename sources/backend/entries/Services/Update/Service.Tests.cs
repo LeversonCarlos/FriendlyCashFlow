@@ -11,11 +11,27 @@ namespace Elesse.Entries.Tests
       {
          var service = EntryService.Mock();
 
-         var result = await service.InsertAsync(null);
+         var result = await service.UpdateAsync(null);
 
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(Warning(WARNINGS.INVALID_INSERT_PARAMETER), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+         Assert.Equal(Warning(WARNINGS.INVALID_UPDATE_PARAMETER), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+      }
+
+      [Fact]
+      public async void Update_WithInexistingEntry_MustReturnBadRequest()
+      {
+         var repository = EntryRepositoryMocker
+            .Create()
+            .WithLoad()
+            .Build();
+         var service = EntryService.Mock(repository);
+
+         var result = await service.UpdateAsync(new UpdateVM { EntryID = Shared.EntityID.NewID() });
+
+         Assert.NotNull(result);
+         Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
+         Assert.Equal(Warning(WARNINGS.ENTRY_NOT_FOUND), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
       /*
