@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
 using Xunit;
 
 namespace Elesse.Patterns.Tests
@@ -7,15 +6,14 @@ namespace Elesse.Patterns.Tests
    {
 
       [Fact]
-      public async void Insert_WithNullParameters_MustReturnBadResult()
+      public async void Insert_WithNullParameters_MustThrowException()
       {
          var service = PatternService.Mock(null);
 
-         var result = await service.AddAsync(null);
+         var exception = await Assert.ThrowsAsync<System.ArgumentException>(() => service.AddAsync(null));
 
-         Assert.NotNull(result);
-         Assert.IsType<BadRequestObjectResult>(result);
-         Assert.Equal(Warning(WARNINGS.INVALID_REMOVE_PARAMETER), (result as BadRequestObjectResult).Value);
+         Assert.NotNull(exception);
+         Assert.Equal(WARNINGS.INVALID_ADD_PARAMETER, exception.Message);
       }
 
       [Fact]
