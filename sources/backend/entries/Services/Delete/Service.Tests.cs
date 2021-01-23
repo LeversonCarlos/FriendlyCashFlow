@@ -19,7 +19,7 @@ namespace Elesse.Entries.Tests
       }
 
       [Fact]
-      public async void Delete_WithInexistingCategory_MustReturnBadRequest()
+      public async void Delete_WithInexistingEntry_MustReturnBadRequest()
       {
          var repository = EntryRepositoryMocker
             .Create()
