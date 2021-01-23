@@ -7,22 +7,6 @@ namespace Elesse.Entries
    internal partial class EntryEntity : IEntryEntity
    {
 
-      internal EntryEntity()
-      {
-         this.SearchDate = DateTime.MinValue;
-         this.Sorting = 0;
-      }
-
-      public EntryEntity(Patterns.IPatternEntity pattern, Shared.EntityID accountID,
-         DateTime dueDate, decimal entryValue)
-      {
-         EntryID = Shared.EntityID.NewID();
-         Pattern = pattern;
-         AccountID = accountID;
-         DueDate = dueDate;
-         EntryValue = entryValue;
-      }
-
       Shared.EntityID _EntryID;
       [BsonId]
       public Shared.EntityID EntryID

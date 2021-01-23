@@ -12,7 +12,7 @@ namespace Elesse.Entries.Tests
       {
          var dueDate = DateTime.Now.AddDays(1);
          var pattern = new Patterns.PatternEntity(Shared.EntityID.NewID(), Patterns.enPatternType.Income, Shared.EntityID.NewID(), "Pattern Text");
-         var entry = new EntryEntity(pattern, Shared.EntityID.NewID(), dueDate, (decimal)23.45);
+         var entry = EntryEntity.Create(pattern, Shared.EntityID.NewID(), dueDate, (decimal)23.45);
          var repository = EntryRepositoryMocker
             .Create()
             .WithList(new EntryEntity[] { entry })
