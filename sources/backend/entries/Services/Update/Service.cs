@@ -38,7 +38,7 @@ namespace Elesse.Entries
                entry.ClearPayment();
 
             // REFRESH SORTING
-            entry.SetSorting();
+            entry.RefreshSorting();
 
             // SAVE ENTRY
             await _EntryRepository.UpdateAsync(entry);

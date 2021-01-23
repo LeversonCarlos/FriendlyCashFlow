@@ -53,7 +53,7 @@ namespace Elesse.Entries.Tests
       }
 
       [Fact]
-      public async void Insert_WithValidParameters_MustReturnOkResult()
+      public async void Insert_WithValidParametersAndWithoutPayment_MustReturnOkResult()
       {
          var pattern = Patterns.PatternEntity.Mock();
          var patternService = Patterns.Tests.PatternServiceMocker
@@ -68,6 +68,32 @@ namespace Elesse.Entries.Tests
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.OkResult>(result);
       }
+
+      [Fact]
+      public async void Insert_WithValidParametersAndWithPayment_MustReturnOkResult()
+      {
+         var pattern = Patterns.PatternEntity.Mock();
+         var patternService = Patterns.Tests.PatternServiceMocker
+            .Create()
+            .WithIncrease(pattern)
+            .Build();
+         var service = EntryService.Mock(patternService);
+
+         var param = new InsertVM
+         {
+            Pattern = pattern,
+            AccountID = Shared.EntityID.NewID(),
+            DueDate = DateTime.Now.AddDays(1),
+            EntryValue = (decimal)12.34,
+            Paid = true,
+            PayDate = DateTime.Now
+         };
+         var result = await service.InsertAsync(param);
+
+         Assert.NotNull(result);
+         Assert.IsType<Microsoft.AspNetCore.Mvc.OkResult>(result);
+      }
+
 
    }
 }
