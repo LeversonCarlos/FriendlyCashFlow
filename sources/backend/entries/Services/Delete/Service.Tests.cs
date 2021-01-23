@@ -33,41 +33,22 @@ namespace Elesse.Entries.Tests
          Assert.Equal(Warning(WARNINGS.ENTRY_NOT_FOUND), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
-      /*
-      [Fact]
-      public async void Delete_WithRemainingChildren_MustReturnBadRequest()
-      {
-         var categoryID = Shared.EntityID.NewID();
-         var repository = CategoryRepositoryMocker
-            .Create()
-            .WithLoadCategory(new CategoryEntity(categoryID, "Category Text", enCategoryType.Income, null))
-            .WithSearchCategories(new ICategoryEntity[] { new CategoryEntity(Shared.EntityID.NewID(), "Category Child Text", enCategoryType.Income, categoryID) })
-            .Build();
-         var service = CategoryService.Create(repository);
-
-         var result = await service.DeleteAsync((string)categoryID);
-
-         Assert.NotNull(result);
-         Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(Warning(WARNINGS.STILL_HAS_CHILDREN_CANT_REMOVE), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
-      }
-
       [Fact]
       public async void Delete_WithValidParameters_MustReturnOkResult()
       {
-         var categoryID = Shared.EntityID.NewID();
-         var repository = CategoryRepositoryMocker
+         var pattern = Patterns.PatternEntity.Mock();
+         var accountID = Shared.EntityID.NewID();
+         var repository = EntryRepositoryMocker
             .Create()
-            .WithLoadCategory(new CategoryEntity(categoryID, "Category Text", enCategoryType.Income, null))
+            .WithLoad(EntryEntity.Create(pattern, accountID, System.DateTime.Now, (decimal)12.34))
             .Build();
-         var service = CategoryService.Create(repository);
+         var service = EntryService.Mock(repository);
 
-         var result = await service.DeleteAsync((string)categoryID);
+         var result = await service.DeleteAsync((string)Shared.EntityID.NewID());
 
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.OkResult>(result);
       }
-      */
 
    }
 }
