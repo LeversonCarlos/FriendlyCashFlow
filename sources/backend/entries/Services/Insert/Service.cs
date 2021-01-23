@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace Elesse.Entries
@@ -9,27 +10,31 @@ namespace Elesse.Entries
 
       public async Task<IActionResult> InsertAsync(InsertVM insertVM)
       {
+         try
+         {
 
-         // VALIDATE PARAMETERS
-         if (insertVM == null)
-            return Warning(WARNINGS.INVALID_INSERT_PARAMETER);
+            // VALIDATE PARAMETERS
+            if (insertVM == null)
+               return Warning(WARNINGS.INVALID_INSERT_PARAMETER);
 
-         // RETRIEVE PATTERN
-         var pattern = await _PatternService.AddAsync(insertVM.Pattern);
-         if (pattern == null)
-            return Warning(WARNINGS.INVALID_PATTERN);
+            // RETRIEVE PATTERN
+            var pattern = await _PatternService.AddAsync(insertVM.Pattern);
+            if (pattern == null)
+               return Warning(WARNINGS.INVALID_PATTERN);
 
-         // CREATE INSTANCE
-         var entry = EntryEntity.Create(pattern, insertVM.AccountID, insertVM.DueDate, insertVM.EntryValue);
+            // CREATE INSTANCE
+            var entry = EntryEntity.Create(pattern, insertVM.AccountID, insertVM.DueDate, insertVM.EntryValue);
 
-         // SAVE ENTRY
-         await _EntryRepository.InsertAsync(entry);
+            // SAVE ENTRY
+            await _EntryRepository.InsertAsync(entry);
 
-         // TRACK EVENT
-         _InsightsService.TrackEvent("Category Service Insert");
+            // TRACK EVENT
+            _InsightsService.TrackEvent("Category Service Insert");
 
-         // RESULT
-         return Ok();
+            // RESULT
+            return Ok();
+         }
+         catch (Exception ex) { return Shared.Results.Exception(ex); }
       }
 
    }

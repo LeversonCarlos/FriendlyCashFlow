@@ -7,7 +7,6 @@ namespace Elesse.Entries
    public class InsertVM
    {
 
-      public EntityID EntryID { get; set; }
       public IPatternEntity Pattern { get; set; }
 
       public EntityID AccountID { get; set; }

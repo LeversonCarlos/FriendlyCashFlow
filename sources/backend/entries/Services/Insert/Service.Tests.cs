@@ -1,3 +1,4 @@
+using System;
 using Xunit;
 
 namespace Elesse.Entries.Tests
@@ -29,22 +30,22 @@ namespace Elesse.Entries.Tests
          Assert.Equal(Warning(WARNINGS.INVALID_PATTERN), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
-      /*
       [Fact]
-      public async void Insert_WithNullParameter_MustReturnBadResult()
+      public async void Insert_WithValidParameters_MustReturnOkResult()
       {
+         var pattern = Patterns.PatternEntity.Mock();
          var patternService = Patterns.Tests.PatternServiceMocker
             .Create()
+            .WithAdd(pattern)
             .Build();
          var service = EntryService.Mock(patternService);
 
-         var result = await service.InsertAsync(null);
+         var param = new InsertVM { Pattern = pattern, AccountID = Shared.EntityID.NewID(), DueDate = DateTime.Now.AddDays(1), EntryValue = (decimal)12.34 };
+         var result = await service.InsertAsync(param);
 
          Assert.NotNull(result);
-         Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(Warning(WARNINGS.INVALID_INSERT_PARAMETER), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+         Assert.IsType<Microsoft.AspNetCore.Mvc.OkResult>(result);
       }
-      */
 
       /*
       [Fact]
