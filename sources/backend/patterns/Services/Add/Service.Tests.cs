@@ -13,7 +13,9 @@ namespace Elesse.Patterns.Tests
 
          var result = await service.AddAsync(null);
 
-         Assert.Null(result);
+         Assert.NotNull(result);
+         Assert.IsType<BadRequestObjectResult>(result);
+         Assert.Equal(Warning(WARNINGS.INVALID_REMOVE_PARAMETER), (result as BadRequestObjectResult).Value);
       }
 
       [Fact]

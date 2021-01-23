@@ -11,8 +11,12 @@ namespace Elesse.Patterns
       {
 
          // VALIDATE PARAMETERS
-         if (param == null || param.CategoryID == null || string.IsNullOrWhiteSpace(param.Text))
-            return null;
+         if (param == null)
+            throw new ArgumentException(WARNINGS.INVALID_ADD_PARAMETER);
+         if (param.CategoryID == null)
+            throw new ArgumentException(WARNINGS.INVALID_CATEGORYID);
+         if (string.IsNullOrWhiteSpace(param.Text))
+            throw new ArgumentException(WARNINGS.INVALID_TEXT);
 
          // LOAD PATTERN
          var pattern = ((PatternEntity)await _PatternRepository.LoadPatternAsync(param.Type, param.CategoryID, param.Text));
@@ -41,6 +45,11 @@ namespace Elesse.Patterns
    partial interface IPatternService
    {
       Task<IPatternEntity> AddAsync(IPatternEntity param);
+   }
+
+   partial struct WARNINGS
+   {
+      internal const string INVALID_ADD_PARAMETER = "INVALID_ADD_PARAMETER";
    }
 
 }

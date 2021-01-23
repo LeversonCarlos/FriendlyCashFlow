@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 
@@ -27,6 +28,11 @@ namespace Elesse.Patterns.Tests
       public PatternServiceMocker WithAdd(IPatternEntity result)
       {
          _Mock.Setup(m => m.AddAsync(It.IsAny<IPatternEntity>())).ReturnsAsync(result);
+         return this;
+      }
+      public PatternServiceMocker WithAdd(Exception ex)
+      {
+         _Mock.Setup(m => m.AddAsync(It.IsAny<IPatternEntity>())).ThrowsAsync(ex);
          return this;
       }
 
