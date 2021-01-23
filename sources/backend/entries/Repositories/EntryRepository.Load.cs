@@ -1,12 +1,15 @@
 using System.Threading.Tasks;
+using MongoDB.Driver;
 
 namespace Elesse.Entries
 {
    partial class EntryRepository
    {
 
-      public Task<IEntryEntity> LoadAsync(EntityID entryID) =>
-         throw new System.NotImplementedException();
+      public async Task<IEntryEntity> LoadAsync(Shared.EntityID entryID) =>
+         await _Collection
+            .Find(entity => entity.EntryID == entryID)
+            .SingleOrDefaultAsync();
 
    }
 }
