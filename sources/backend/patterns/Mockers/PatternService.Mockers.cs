@@ -25,14 +25,14 @@ namespace Elesse.Patterns.Tests
       }
       */
 
-      public PatternServiceMocker WithAdd(IPatternEntity result)
+      public PatternServiceMocker WithIncrease(IPatternEntity result)
       {
-         _Mock.Setup(m => m.AddAsync(It.IsAny<IPatternEntity>())).ReturnsAsync(result);
+         _Mock.Setup(m => m.IncreaseAsync(It.IsAny<IPatternEntity>())).ReturnsAsync(result);
          return this;
       }
-      public PatternServiceMocker WithAdd(Exception ex)
+      public PatternServiceMocker WithIncrease(Exception ex)
       {
-         _Mock.Setup(m => m.AddAsync(It.IsAny<IPatternEntity>())).ThrowsAsync(ex);
+         _Mock.Setup(m => m.IncreaseAsync(It.IsAny<IPatternEntity>())).ThrowsAsync(ex);
          return this;
       }
 
@@ -44,13 +44,16 @@ namespace Elesse.Patterns.Tests
       }
       */
 
-      /*
-      public PatternServiceMocker WithDelete(string categoryID, IActionResult result)
+      public PatternServiceMocker WithDecrease(IPatternEntity result)
       {
-         _Mock.Setup(m => m.DeleteAsync(categoryID)).ReturnsAsync(result);
+         _Mock.Setup(m => m.DecreaseAsync(It.IsAny<IPatternEntity>())).ReturnsAsync(result);
          return this;
       }
-      */
+      public PatternServiceMocker WithDecrease(Exception ex)
+      {
+         _Mock.Setup(m => m.DecreaseAsync(It.IsAny<IPatternEntity>())).ThrowsAsync(ex);
+         return this;
+      }
 
       public IPatternService Build() => _Mock.Object;
    }

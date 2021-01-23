@@ -23,7 +23,7 @@ namespace Elesse.Entries.Tests
       {
          var patternService = Patterns.Tests.PatternServiceMocker
             .Create()
-            .WithAdd(new ArgumentException(Patterns.WARNINGS.INVALID_ADD_PARAMETER))
+            .WithIncrease(new ArgumentException(Patterns.WARNINGS.INVALID_INCREASE_PARAMETER))
             .Build();
          var service = EntryService.Mock(patternService);
 
@@ -31,7 +31,7 @@ namespace Elesse.Entries.Tests
 
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(Warning(Patterns.WARNINGS.INVALID_ADD_PARAMETER), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+         Assert.Equal(Warning(Patterns.WARNINGS.INVALID_INCREASE_PARAMETER), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
       [Fact]
@@ -40,7 +40,7 @@ namespace Elesse.Entries.Tests
          var pattern = Patterns.PatternEntity.Mock();
          var patternService = Patterns.Tests.PatternServiceMocker
             .Create()
-            .WithAdd(pattern)
+            .WithIncrease(pattern)
             .Build();
          var service = EntryService.Mock(patternService);
 
@@ -58,7 +58,7 @@ namespace Elesse.Entries.Tests
          var pattern = Patterns.PatternEntity.Mock();
          var patternService = Patterns.Tests.PatternServiceMocker
             .Create()
-            .WithAdd(pattern)
+            .WithIncrease(pattern)
             .Build();
          var service = EntryService.Mock(patternService);
 

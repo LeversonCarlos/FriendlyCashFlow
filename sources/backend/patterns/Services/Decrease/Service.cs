@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Elesse.Patterns
 {
@@ -8,21 +7,21 @@ namespace Elesse.Patterns
    partial class PatternService
    {
 
-      public async Task<IActionResult> RemoveAsync(IPatternEntity patternVM)
+      public async Task<IPatternEntity> DecreaseAsync(IPatternEntity patternVM)
       {
 
          // VALIDATE PARAMETERS
          if (patternVM == null)
-            return Warning(WARNINGS.INVALID_REMOVE_PARAMETER);
+            throw new ArgumentException(WARNINGS.INVALID_DECREASE_PARAMETER);
 
          // LOAD PATTERN
          var pattern = (PatternEntity)(await _PatternRepository.LoadPatternAsync(patternVM.Type, patternVM.CategoryID, patternVM.Text));
 
          // IF HADNT FOUND, DO NOTHING
          if (pattern == null)
-            return Ok();
+            return null;
 
-         // DECREMENT PATTERN COUNT
+         // DECREASE PATTERN COUNT
          pattern.RowsCount--;
          pattern.RowsDate = DateTime.UtcNow;
 
@@ -35,19 +34,19 @@ namespace Elesse.Patterns
             await _PatternRepository.UpdateAsync(pattern);
 
          // RESULT
-         return Ok();
+         return pattern;
       }
 
    }
 
    partial interface IPatternService
    {
-      Task<IActionResult> RemoveAsync(IPatternEntity patternVM);
+      Task<IPatternEntity> DecreaseAsync(IPatternEntity patternVM);
    }
 
    partial struct WARNINGS
    {
-      internal const string INVALID_REMOVE_PARAMETER = "INVALID_REMOVE_PARAMETER";
+      internal const string INVALID_DECREASE_PARAMETER = "INVALID_DECREASE_PARAMETER";
    }
 
 }

@@ -36,13 +36,11 @@ namespace Elesse.Entries.Tests
       }
       */
 
-      /*
-      public EntryServiceMocker WithDelete(string categoryID, IActionResult result)
+      public EntryServiceMocker WithDelete(string entryID, IActionResult result)
       {
-         _Mock.Setup(m => m.DeleteAsync(categoryID)).ReturnsAsync(result);
+         _Mock.Setup(m => m.DeleteAsync(entryID)).ReturnsAsync(result);
          return this;
       }
-      */
 
       public IEntryService Build() => _Mock.Object;
    }

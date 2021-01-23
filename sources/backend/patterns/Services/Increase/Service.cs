@@ -7,12 +7,12 @@ namespace Elesse.Patterns
    partial class PatternService
    {
 
-      public async Task<IPatternEntity> AddAsync(IPatternEntity param)
+      public async Task<IPatternEntity> IncreaseAsync(IPatternEntity param)
       {
 
          // VALIDATE PARAMETERS
          if (param == null)
-            throw new ArgumentException(WARNINGS.INVALID_ADD_PARAMETER);
+            throw new ArgumentException(WARNINGS.INVALID_INCREASE_PARAMETER);
          if (param.CategoryID == null)
             throw new ArgumentException(WARNINGS.INVALID_CATEGORYID);
          if (string.IsNullOrWhiteSpace(param.Text))
@@ -21,7 +21,7 @@ namespace Elesse.Patterns
          // LOAD PATTERN
          var pattern = ((PatternEntity)await _PatternRepository.LoadPatternAsync(param.Type, param.CategoryID, param.Text));
 
-         // INCREMENT PATTERN COUNT
+         // INCREASE PATTERN COUNT
          if (pattern != null)
          {
             pattern.RowsCount++;
@@ -44,12 +44,12 @@ namespace Elesse.Patterns
 
    partial interface IPatternService
    {
-      Task<IPatternEntity> AddAsync(IPatternEntity param);
+      Task<IPatternEntity> IncreaseAsync(IPatternEntity param);
    }
 
    partial struct WARNINGS
    {
-      internal const string INVALID_ADD_PARAMETER = "INVALID_ADD_PARAMETER";
+      internal const string INVALID_INCREASE_PARAMETER = "INVALID_INCREASE_PARAMETER";
    }
 
 }
