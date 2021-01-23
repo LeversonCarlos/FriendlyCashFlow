@@ -23,7 +23,10 @@ namespace Elesse.Entries
                return Warning(WARNINGS.INVALID_PATTERN);
 
             // CREATE INSTANCE
-            var entry = EntryEntity.Create(pattern, insertVM.AccountID, insertVM.DueDate, insertVM.EntryValue);
+            EntryEntity entry = null;
+            try
+            { entry = EntryEntity.Create(pattern, insertVM.AccountID, insertVM.DueDate, insertVM.EntryValue); }
+            catch (Exception valEx) { return Warning(valEx.Message); }
 
             // SAVE ENTRY
             await _EntryRepository.InsertAsync(entry);
