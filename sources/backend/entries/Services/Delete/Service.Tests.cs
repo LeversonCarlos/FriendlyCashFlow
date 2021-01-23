@@ -17,23 +17,23 @@ namespace Elesse.Entries.Tests
          Assert.Equal(Warning(WARNINGS.INVALID_DELETE_PARAMETER), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
-      /*
       [Fact]
       public async void Delete_WithInexistingCategory_MustReturnBadRequest()
       {
-         var repository = CategoryRepositoryMocker
+         var repository = EntryRepositoryMocker
             .Create()
-            .WithLoadCategory()
+            .WithLoad()
             .Build();
-         var service = CategoryService.Create(repository);
+         var service = EntryService.Mock(repository);
 
          var result = await service.DeleteAsync((string)Shared.EntityID.NewID());
 
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(Warning(WARNINGS.CATEGORY_NOT_FOUND), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+         Assert.Equal(Warning(WARNINGS.ENTRY_NOT_FOUND), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
+      /*
       [Fact]
       public async void Delete_WithRemainingChildren_MustReturnBadRequest()
       {
