@@ -92,5 +92,31 @@ namespace Elesse.Entries.Tests
          Assert.IsType<Microsoft.AspNetCore.Mvc.OkResult>(result);
       }
 
+      [Fact]
+      public async void Update_WithValidDataAndWithPayment_MustReturnOkRequest()
+      {
+         var entity = EntryEntity.Mock();
+         var repository = EntryRepositoryMocker
+            .Create()
+            .WithLoad(entity)
+            .Build();
+         var service = EntryService.Mock(repository);
+
+         var updateVM = new UpdateVM
+         {
+            EntryID = Shared.EntityID.NewID(),
+            Pattern = entity.Pattern,
+            AccountID = entity.AccountID,
+            DueDate = entity.DueDate,
+            EntryValue = entity.EntryValue,
+            Paid = true,
+            PayDate = DateTime.Now.AddDays(3)
+         };
+         var result = await service.UpdateAsync(updateVM);
+
+         Assert.NotNull(result);
+         Assert.IsType<Microsoft.AspNetCore.Mvc.OkResult>(result);
+      }
+
    }
 }
