@@ -52,27 +52,39 @@ jobs:
 
       - name: Build Shared
         working-directory: 'sources/backend/shared'
-        run: dotnet build --configuration Release
+        run: |
+          dotnet build --configuration Release
+          dotnet test /p:CoverletOutputFormat=opencover
 
       - name: Build Identity
         working-directory: 'sources/backend/identity'
-        run: dotnet build --configuration Release
+        run: |
+          dotnet build --configuration Release
+          dotnet test /p:CoverletOutputFormat=opencover
 
       - name: Build Accounts
         working-directory: 'sources/backend/accounts'
-        run: dotnet build --configuration Release
+        run: |
+          dotnet build --configuration Release
+          dotnet test /p:CoverletOutputFormat=opencover
 
       - name: Build Categories
         working-directory: 'sources/backend/categories'
-        run: dotnet build --configuration Release
+        run: |
+          dotnet build --configuration Release
+          dotnet test /p:CoverletOutputFormat=opencover
 
       - name: Build Patterns
         working-directory: 'sources/backend/patterns'
-        run: dotnet build --configuration Release
+        run: |
+          dotnet build --configuration Release
+          dotnet test /p:CoverletOutputFormat=opencover
 
       - name: Build Entries
         working-directory: 'sources/backend/entries'
-        run: dotnet build --configuration Release
+        run: |
+          dotnet build --configuration Release
+          dotnet test /p:CoverletOutputFormat=opencover
 
       - name: Build Main
         working-directory: 'sources/backend/main'
@@ -81,6 +93,12 @@ jobs:
       - name: Publish
         working-directory: 'sources/backend/main/'
         run: dotnet publish --no-build --no-restore --configuration Release --output ./publish
+
+      - name: Store Coverage
+        uses: actions/upload-artifact@v2
+        with:
+          name: backend-coverage
+          path: ./sources/backend/**/coverage.opencover.xml
 
       - name: Store Packages
         uses: actions/upload-artifact@v2
