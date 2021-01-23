@@ -28,13 +28,11 @@ namespace Elesse.Entries.Tests
          return this;
       }
 
-      /*
       public EntryServiceMocker WithUpdate(UpdateVM param, IActionResult result)
       {
          _Mock.Setup(m => m.UpdateAsync(param)).ReturnsAsync(result);
          return this;
       }
-      */
 
       public EntryServiceMocker WithDelete(string entryID, IActionResult result)
       {

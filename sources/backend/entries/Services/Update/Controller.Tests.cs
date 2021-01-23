@@ -6,15 +6,14 @@ namespace Elesse.Entries.Tests
    partial class EntryControllerTests
    {
 
-      /*
       [Fact]
       public async void Update_WithInvalidParameters_MustReturnBadResult()
       {
-         var service = CategoryServiceMocker
+         var service = EntryServiceMocker
             .Create()
             .WithUpdate(null, new BadRequestObjectResult(new string[] { WARNINGS.INVALID_UPDATE_PARAMETER }))
             .Build();
-         var controller = new CategoryController(service);
+         var controller = new EntryController(service);
 
          var result = await controller.UpdateAsync(null);
 
@@ -22,7 +21,6 @@ namespace Elesse.Entries.Tests
          Assert.IsType<BadRequestObjectResult>(result);
          Assert.Equal(new string[] { WARNINGS.INVALID_UPDATE_PARAMETER }, (result as BadRequestObjectResult).Value);
       }
-      */
 
    }
 }
