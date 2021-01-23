@@ -7,15 +7,13 @@ namespace Elesse.Patterns.Tests
    {
 
       [Fact]
-      public async void Insert_WithNullParameter_MustReturnBadResult()
+      public async void Insert_WithNullParameters_MustReturnBadResult()
       {
          var service = PatternService.Create(null);
 
          var result = await service.AddAsync(null);
 
-         Assert.NotNull(result);
-         Assert.IsType<BadRequestObjectResult>(result.Result);
-         Assert.Equal(Warning(WARNINGS.INVALID_ADD_PARAMETER), (result.Result as BadRequestObjectResult).Value);
+         Assert.Null(result);
       }
 
       [Fact]
@@ -31,11 +29,8 @@ namespace Elesse.Patterns.Tests
          var result = await service.AddAsync(param);
 
          Assert.NotNull(result);
-         Assert.IsType<OkObjectResult>(result.Result);
-         Assert.IsType<Shared.EntityID>((result.Result as OkObjectResult).Value);
-         var resultValue = (Shared.EntityID)((result.Result as OkObjectResult).Value);
-         Assert.NotNull(resultValue);
-         Assert.Equal(param.PatternID, resultValue);
+         Assert.IsAssignableFrom<IPatternEntity>(result);
+         Assert.Equal(param.PatternID, result.PatternID);
       }
 
       [Fact]
@@ -51,10 +46,7 @@ namespace Elesse.Patterns.Tests
          var result = await service.AddAsync(param);
 
          Assert.NotNull(result);
-         Assert.IsType<OkObjectResult>(result.Result);
-         Assert.IsType<Shared.EntityID>((result.Result as OkObjectResult).Value);
-         var resultValue = (Shared.EntityID)((result.Result as OkObjectResult).Value);
-         Assert.NotNull(resultValue);
+         Assert.IsAssignableFrom<IPatternEntity>(result);
       }
 
    }
