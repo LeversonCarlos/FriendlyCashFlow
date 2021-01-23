@@ -9,7 +9,6 @@ namespace Elesse.Entries.Tests
       public EntryRepositoryMocker() => _Mock = new Mock<IEntryRepository>();
       public static EntryRepositoryMocker Create() => new EntryRepositoryMocker();
 
-      /*
       public EntryRepositoryMocker WithList() =>
          WithList(new IEntryEntity[] { });
       public EntryRepositoryMocker WithList(params IEntryEntity[][] results)
@@ -17,11 +16,10 @@ namespace Elesse.Entries.Tests
          var seq = new MockSequence();
          foreach (var result in results)
             _Mock.InSequence(seq)
-               .Setup(m => m.ListPatternsAsync())
+               .Setup(m => m.ListAsync(It.IsAny<int>(), It.IsAny<int>()))
                .ReturnsAsync(result);
          return this;
       }
-      */
 
       /*
       public EntryRepositoryMocker WithLoadPattern() =>
