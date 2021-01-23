@@ -63,6 +63,16 @@ jobs:
           name: patterns-tests
           path: ./sources/backend/patterns/coverage.info
 
+      - name: Entries - Run Tests
+        working-directory: 'sources/backend/entries/'
+        run: dotnet test /p:CoverletOutputFormat=lcov
+
+      - name: Entries - Store Tests
+        uses: actions/upload-artifact@v2
+        with:
+          name: entries-tests
+          path: ./sources/backend/entries/coverage.info
+
       - name: Application - Build
         working-directory: 'sources/backend/main/'
         run: dotnet build
