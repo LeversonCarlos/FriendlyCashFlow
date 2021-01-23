@@ -6,7 +6,7 @@ namespace Elesse.Entries
    partial class EntryEntity
    {
 
-      public void SetSorting()
+      public void RefreshSorting()
       {
          SearchDate = DueDate;
          if (Paid && PayDate.HasValue)

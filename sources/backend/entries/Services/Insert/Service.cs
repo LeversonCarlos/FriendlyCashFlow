@@ -32,7 +32,7 @@ namespace Elesse.Entries
                entry.SetPayment(insertVM.PayDate.Value, insertVM.EntryValue);
 
             // REFRESH SORTING
-            entry.SetSorting();
+            entry.RefreshSorting();
 
             // SAVE ENTRY
             await _EntryRepository.InsertAsync(entry);
