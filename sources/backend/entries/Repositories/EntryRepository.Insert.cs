@@ -6,7 +6,8 @@ namespace Elesse.Entries
    {
 
       public Task InsertAsync(IEntryEntity value) =>
-         throw new System.NotImplementedException();
+         _Collection
+            .InsertOneAsync(value as EntryEntity);
 
    }
 }

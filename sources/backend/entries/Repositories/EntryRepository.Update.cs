@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using MongoDB.Driver;
 
 namespace Elesse.Entries
 {
@@ -6,7 +7,8 @@ namespace Elesse.Entries
    {
 
       public Task UpdateAsync(IEntryEntity value) =>
-         throw new System.NotImplementedException();
+         _Collection
+            .ReplaceOneAsync(entity => entity.EntryID == value.EntryID, value as EntryEntity);
 
    }
 }

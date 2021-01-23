@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using MongoDB.Driver;
 
 namespace Elesse.Entries
 {
@@ -6,7 +7,8 @@ namespace Elesse.Entries
    {
 
       public Task DeleteAsync(Shared.EntityID entryID) =>
-         throw new System.NotImplementedException();
+         _Collection
+            .DeleteOneAsync(entity => entity.EntryID == entryID);
 
    }
 }
