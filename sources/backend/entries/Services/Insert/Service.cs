@@ -24,9 +24,15 @@ namespace Elesse.Entries
 
             // CREATE INSTANCE
             EntryEntity entry = null;
-            try
-            { entry = EntryEntity.Create(pattern, insertVM.AccountID, insertVM.DueDate, insertVM.EntryValue); }
+            try { entry = EntryEntity.Create(pattern, insertVM.AccountID, insertVM.DueDate, insertVM.EntryValue); }
             catch (Exception valEx) { return Warning(valEx.Message); }
+
+            // APPLY PAYMENT
+            if (insertVM.Paid && insertVM.PayDate.HasValue)
+               entry.SetPayment(insertVM.PayDate.Value, insertVM.EntryValue);
+
+            // REFRESH SORTING
+            entry.SetSorting();
 
             // SAVE ENTRY
             await _EntryRepository.InsertAsync(entry);
