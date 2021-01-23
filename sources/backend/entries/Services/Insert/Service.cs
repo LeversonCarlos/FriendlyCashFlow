@@ -17,7 +17,7 @@ namespace Elesse.Entries
             if (insertVM == null)
                return Warning(WARNINGS.INVALID_INSERT_PARAMETER);
 
-            // RETRIEVE PATTERN
+            // INCREMENT PATTERN
             Patterns.IPatternEntity pattern = null;
             try { pattern = await _PatternService.AddAsync(insertVM.Pattern); }
             catch (Exception valEx) { return Warning(valEx.Message); }

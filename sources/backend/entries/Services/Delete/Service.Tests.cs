@@ -1,3 +1,4 @@
+using System;
 using Xunit;
 
 namespace Elesse.Entries.Tests
@@ -31,6 +32,26 @@ namespace Elesse.Entries.Tests
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
          Assert.Equal(Warning(WARNINGS.ENTRY_NOT_FOUND), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+      }
+
+      [Fact]
+      public async void Delete_WithInvalidPattern_MustReturnBadResult()
+      {
+         var repository = EntryRepositoryMocker
+            .Create()
+            .WithLoad(EntryEntity.Create(Patterns.PatternEntity.Mock(), Shared.EntityID.NewID(), DateTime.Now, (decimal)12.34))
+            .Build();
+         var patternService = Patterns.Tests.PatternServiceMocker
+            .Create()
+            .WithRemove(new ArgumentException(Patterns.WARNINGS.INVALID_REMOVE_PARAMETER))
+            .Build();
+         var service = EntryService.Mock(repository, patternService);
+
+         var result = await service.DeleteAsync((string)Shared.EntityID.NewID());
+
+         Assert.NotNull(result);
+         Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
+         Assert.Equal(Warning(Patterns.WARNINGS.INVALID_REMOVE_PARAMETER), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
       [Fact]

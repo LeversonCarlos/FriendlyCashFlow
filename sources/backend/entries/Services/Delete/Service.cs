@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,6 +19,10 @@ namespace Elesse.Entries
          var entry = await _EntryRepository.LoadAsync(entryID);
          if (entry == null)
             return Warning(WARNINGS.ENTRY_NOT_FOUND);
+
+         // DECREMENT PATTERN
+         try { await _PatternService.RemoveAsync(entry.Pattern); }
+         catch (Exception valEx) { return Warning(valEx.Message); }
 
          // REMOVE ENTRY
          await _EntryRepository.DeleteAsync(entryID);
