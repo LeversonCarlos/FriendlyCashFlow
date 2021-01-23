@@ -6,18 +6,18 @@ namespace Elesse.Patterns.Tests
    {
 
       [Fact]
-      public async void Insert_WithNullParameters_MustThrowException()
+      public async void Increase_WithNullParameters_MustThrowException()
       {
          var service = PatternService.Mock(null);
 
-         var exception = await Assert.ThrowsAsync<System.ArgumentException>(() => service.AddAsync(null));
+         var exception = await Assert.ThrowsAsync<System.ArgumentException>(() => service.IncreaseAsync(null));
 
          Assert.NotNull(exception);
-         Assert.Equal(WARNINGS.INVALID_ADD_PARAMETER, exception.Message);
+         Assert.Equal(WARNINGS.INVALID_INCREASE_PARAMETER, exception.Message);
       }
 
       [Fact]
-      public async void Insert_WithExistingPattern_MustUpdateRowsAndDate_AndReturnPatternID()
+      public async void Increase_WithExistingPattern_MustUpdateRowsAndDate_AndReturnPatternID()
       {
          var param = new PatternEntity(enPatternType.Expense, Shared.EntityID.NewID(), "Pattern Text");
          var repository = PatternRepositoryMocker
@@ -26,7 +26,7 @@ namespace Elesse.Patterns.Tests
             .Build();
          var service = PatternService.Mock(repository);
 
-         var result = await service.AddAsync(param);
+         var result = await service.IncreaseAsync(param);
 
          Assert.NotNull(result);
          Assert.IsAssignableFrom<IPatternEntity>(result);
@@ -34,7 +34,7 @@ namespace Elesse.Patterns.Tests
       }
 
       [Fact]
-      public async void Insert_WithNonExistingPattern_MustCreateRecord_AndReturnPatternID()
+      public async void Increase_WithNonExistingPattern_MustCreateRecord_AndReturnPatternID()
       {
          var param = new PatternEntity(enPatternType.Expense, Shared.EntityID.NewID(), "Pattern Text");
          var repository = PatternRepositoryMocker
@@ -43,7 +43,7 @@ namespace Elesse.Patterns.Tests
             .Build();
          var service = PatternService.Mock(repository);
 
-         var result = await service.AddAsync(param);
+         var result = await service.IncreaseAsync(param);
 
          Assert.NotNull(result);
          Assert.IsAssignableFrom<IPatternEntity>(result);

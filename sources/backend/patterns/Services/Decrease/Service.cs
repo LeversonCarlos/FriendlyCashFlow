@@ -21,7 +21,7 @@ namespace Elesse.Patterns
          if (pattern == null)
             return null;
 
-         // DECREMENT PATTERN COUNT
+         // DECREASE PATTERN COUNT
          pattern.RowsCount--;
          pattern.RowsDate = DateTime.UtcNow;
 

@@ -2,6 +2,6 @@
   "INVALID_PATTERNID": "O valor informado para o identificador do pattern é inválido",
   "INVALID_CATEGORYID": "A categoria do pattern é inválida",
   "INVALID_TEXT": "O texto do pattern é inválido (máximo 100 caracteres)",
-  "INVALID_ADD_PARAMETER": "O valor informado para a função 'add pattern' é inválido",
+  "INVALID_INCREASE_PARAMETER": "O valor informado para a função 'increase pattern' é inválido",
   "INVALID_DECREASE_PARAMETER": "O valor informado para a função 'decrease pattern' é inválido"
 }
