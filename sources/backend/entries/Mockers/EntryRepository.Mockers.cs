@@ -21,24 +21,17 @@ namespace Elesse.Entries.Tests
          return this;
       }
 
-      /*
-      public EntryRepositoryMocker WithLoadPattern() =>
-         WithLoadPattern(new IEntryEntity[] { });
-      public EntryRepositoryMocker WithLoadPattern(params IEntryEntity[] results)
+      public EntryRepositoryMocker WithLoad() =>
+         WithLoad(new IEntryEntity[] { });
+      public EntryRepositoryMocker WithLoad(params IEntryEntity[] results)
       {
          var seq = new MockSequence();
          foreach (var result in results)
             _Mock.InSequence(seq)
-               .Setup(m => m.LoadPatternAsync(It.IsAny<Shared.EntityID>()))
-               .ReturnsAsync(result);
-         var seq2 = new MockSequence();
-         foreach (var result in results)
-            _Mock.InSequence(seq2)
-               .Setup(m => m.LoadPatternAsync(It.IsAny<enPatternType>(), It.IsAny<Shared.EntityID>(), It.IsAny<string>()))
+               .Setup(m => m.LoadAsync(It.IsAny<Shared.EntityID>()))
                .ReturnsAsync(result);
          return this;
       }
-      */
 
       public IEntryRepository Build() => _Mock.Object;
    }
