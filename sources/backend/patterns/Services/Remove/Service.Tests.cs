@@ -11,15 +11,14 @@ namespace Elesse.Patterns.Tests
       {
          var service = PatternService.Mock(null);
 
-         var result = await service.RemoveAsync(null);
+         var exception = await Assert.ThrowsAsync<System.ArgumentException>(() => service.RemoveAsync(null));
 
-         Assert.NotNull(result);
-         Assert.IsType<BadRequestObjectResult>(result);
-         Assert.Equal(Warning(WARNINGS.INVALID_REMOVE_PARAMETER), (result as BadRequestObjectResult).Value);
+         Assert.NotNull(exception);
+         Assert.Equal(WARNINGS.INVALID_REMOVE_PARAMETER, exception.Message);
       }
 
       [Fact]
-      public async void Remove_WithNonExistingPattern_MustDoNothingAndReturnOkResult()
+      public async void Remove_WithNonExistingPattern_MustDoNothingAndReturnNull()
       {
          var param = new PatternEntity(enPatternType.Expense, Shared.EntityID.NewID(), "Pattern Text");
          var repository = PatternRepositoryMocker
@@ -29,9 +28,7 @@ namespace Elesse.Patterns.Tests
          var service = PatternService.Mock(repository);
 
          var result = await service.RemoveAsync(param);
-
-         Assert.NotNull(result);
-         Assert.IsType<OkResult>(result);
+         Assert.Null(result);
       }
 
       [Fact]
@@ -48,7 +45,7 @@ namespace Elesse.Patterns.Tests
          var result = await service.RemoveAsync(param);
 
          Assert.NotNull(result);
-         Assert.IsType<OkResult>(result);
+         Assert.Equal(param.PatternID, result.PatternID);
       }
 
       [Fact]
@@ -65,7 +62,7 @@ namespace Elesse.Patterns.Tests
          var result = await service.RemoveAsync(param);
 
          Assert.NotNull(result);
-         Assert.IsType<OkResult>(result);
+         Assert.Equal(param.PatternID, result.PatternID);
       }
 
    }
