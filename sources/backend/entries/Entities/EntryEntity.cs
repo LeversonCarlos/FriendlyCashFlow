@@ -4,8 +4,14 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace Elesse.Entries
 {
 
-   internal class EntryEntity : IEntryEntity
+   internal partial class EntryEntity : IEntryEntity
    {
+
+      internal EntryEntity()
+      {
+         this.SearchDate = DateTime.MinValue;
+         this.Sorting = 0;
+      }
 
       public EntryEntity(Patterns.IPatternEntity pattern, Shared.EntityID accountID,
          DateTime dueDate, decimal entryValue)
@@ -14,19 +20,12 @@ namespace Elesse.Entries
 
       public EntryEntity(Shared.EntityID entryID, Patterns.IPatternEntity pattern, Shared.EntityID accountID,
          DateTime dueDate, decimal entryValue)
-      : this(entryID, pattern, accountID, dueDate, entryValue, false, null)
-      { }
-
-      public EntryEntity(Shared.EntityID entryID, Patterns.IPatternEntity pattern, Shared.EntityID accountID,
-         DateTime dueDate, decimal entryValue, bool paid, DateTime? payDate)
       {
          EntryID = entryID;
          Pattern = pattern;
          AccountID = accountID;
          DueDate = dueDate;
          EntryValue = entryValue;
-         Paid = paid;
-         PayDate = payDate;
       }
 
       Shared.EntityID _EntryID;

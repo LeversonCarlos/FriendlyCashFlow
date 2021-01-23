@@ -4,7 +4,7 @@ using Xunit;
 
 namespace Elesse.Entries.Tests
 {
-   public class EntryEntityTests
+   public partial class EntryEntityTests
    {
 
       [Fact]
