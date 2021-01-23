@@ -5,3 +5,4 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("accounts")]
 [assembly: InternalsVisibleTo("categories")]
 [assembly: InternalsVisibleTo("patterns")]
+[assembly: InternalsVisibleTo("entries")]
