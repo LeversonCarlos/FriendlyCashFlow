@@ -27,12 +27,17 @@ namespace Elesse.Entries
             try { pattern = await UpdateAsync_GetNewPattern(entry.Pattern, updateVM.Pattern); }
             catch (Exception valEx) { return Warning(valEx.Message); }
 
-            // APPLY CHANGES
-            entry.Change(pattern, updateVM.AccountID, updateVM.DueDate, updateVM.EntryValue);
+            // APPLY COMMOM CHANGES
+            try { entry.Change(pattern, updateVM.AccountID, updateVM.DueDate, updateVM.EntryValue); }
+            catch (Exception valEx) { return Warning(valEx.Message); }
+
+            // APPLY PAYMENT
             if (updateVM.Paid && updateVM.PayDate.HasValue)
                entry.SetPayment(updateVM.PayDate.Value, updateVM.EntryValue);
             else
                entry.ClearPayment();
+
+            // REFRESH SORTING
             entry.SetSorting();
 
             // SAVE ENTRY
@@ -52,7 +57,7 @@ namespace Elesse.Entries
 
          // PATTERN HASNT CHANGED
          if (newPattern as Patterns.PatternEntity == oldPattern as Patterns.PatternEntity)
-            return null;
+            return oldPattern;
 
          // DECREASE PATTERN
          await _PatternService.DecreaseAsync(oldPattern);

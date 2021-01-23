@@ -50,6 +50,22 @@ namespace Elesse.Entries.Tests
          Assert.Equal(Warning(Patterns.WARNINGS.INVALID_INCREASE_PARAMETER), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
+      [Fact]
+      public async void Update_WithInvalidAccount_MustReturnBadRequest()
+      {
+         var entity = EntryEntity.Mock();
+         var repository = EntryRepositoryMocker
+            .Create()
+            .WithLoad(entity)
+            .Build();
+         var service = EntryService.Mock(repository);
+
+         var result = await service.UpdateAsync(new UpdateVM { EntryID = Shared.EntityID.NewID(), Pattern = entity.Pattern });
+
+         Assert.NotNull(result);
+         Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
+         Assert.Equal(Warning(WARNINGS.INVALID_ACCOUNTID), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+      }
       /*
       [Fact]
       public async void Insert_WithInvalidPattern_MustReturnBadResult()
