@@ -27,27 +27,6 @@ namespace Elesse.Entries.Tests
          Assert.Null(entity.PayDate);
       }
 
-      [Theory]
-      [MemberData(nameof(Constructor_WithInvalidParameters_MustThrowException_Data))]
-      public void Constructor_WithInvalidParameters_MustThrowException(string exceptionText, Shared.EntityID entryID, Patterns.IPatternEntity pattern, Shared.EntityID accountID, DateTime dueDate, decimal entryValue)
-      {
-         var exception = Assert.Throws<ArgumentException>(() => new EntryEntity(entryID, pattern, accountID, dueDate, entryValue));
-
-         Assert.NotNull(exception);
-         Assert.Equal(exceptionText, exception.Message);
-      }
-      public static IEnumerable<object[]> Constructor_WithInvalidParameters_MustThrowException_Data() =>
-         new[] {
-            new object[] { WARNINGS.INVALID_ENTRYID, null, null, null, null, null},
-            new object[] { WARNINGS.INVALID_PATTERN, Shared.EntityID.NewID(), null, null, null, null},
-            new object[] { WARNINGS.INVALID_ACCOUNTID, Shared.EntityID.NewID(), new Patterns.PatternEntity(Patterns.enPatternType.Income, Shared.EntityID.NewID(), "My Pattern"), null, null, null},
-            new object[] { WARNINGS.INVALID_DUEDATE, Shared.EntityID.NewID(), new Patterns.PatternEntity(Patterns.enPatternType.Income, Shared.EntityID.NewID(), "My Pattern"), Shared.EntityID.NewID(), null, null},
-            new object[] { WARNINGS.INVALID_DUEDATE, Shared.EntityID.NewID(), new Patterns.PatternEntity(Patterns.enPatternType.Income, Shared.EntityID.NewID(), "My Pattern"), Shared.EntityID.NewID(), DateTime.MinValue, null},
-            new object[] { WARNINGS.INVALID_ENTRYVALUE, Shared.EntityID.NewID(), new Patterns.PatternEntity(Patterns.enPatternType.Income, Shared.EntityID.NewID(), "My Pattern"), Shared.EntityID.NewID(), DateTime.UtcNow, null},
-            new object[] { WARNINGS.INVALID_ENTRYVALUE, Shared.EntityID.NewID(), new Patterns.PatternEntity(Patterns.enPatternType.Income, Shared.EntityID.NewID(), "My Pattern"), Shared.EntityID.NewID(), DateTime.UtcNow, 0},
-            new object[] { WARNINGS.INVALID_ENTRYVALUE, Shared.EntityID.NewID(), new Patterns.PatternEntity(Patterns.enPatternType.Income, Shared.EntityID.NewID(), "My Pattern"), Shared.EntityID.NewID(), DateTime.UtcNow, -0.01}
-         };
-
       [Fact]
       public void ValidInstance_SettingInvalidProperties_MustThrowException()
       {

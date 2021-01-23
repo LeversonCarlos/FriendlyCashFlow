@@ -25,7 +25,8 @@ namespace Elesse.Entries.Tests
             new object[] { WARNINGS.INVALID_DUEDATE, Shared.EntityID.NewID(), new Patterns.PatternEntity(Patterns.enPatternType.Income, Shared.EntityID.NewID(), "My Pattern"), Shared.EntityID.NewID(), DateTime.MinValue, null, null, null},
             new object[] { WARNINGS.INVALID_ENTRYVALUE, Shared.EntityID.NewID(), new Patterns.PatternEntity(Patterns.enPatternType.Income, Shared.EntityID.NewID(), "My Pattern"), Shared.EntityID.NewID(), DateTime.UtcNow, null, null, null},
             new object[] { WARNINGS.INVALID_ENTRYVALUE, Shared.EntityID.NewID(), new Patterns.PatternEntity(Patterns.enPatternType.Income, Shared.EntityID.NewID(), "My Pattern"), Shared.EntityID.NewID(), DateTime.UtcNow, 0, null, null},
-            new object[] { WARNINGS.INVALID_ENTRYVALUE, Shared.EntityID.NewID(), new Patterns.PatternEntity(Patterns.enPatternType.Income, Shared.EntityID.NewID(), "My Pattern"), Shared.EntityID.NewID(), DateTime.UtcNow, -0.01, null, null }
+            new object[] { WARNINGS.INVALID_ENTRYVALUE, Shared.EntityID.NewID(), new Patterns.PatternEntity(Patterns.enPatternType.Income, Shared.EntityID.NewID(), "My Pattern"), Shared.EntityID.NewID(), DateTime.UtcNow, -0.01, null, null },
+            new object[] { WARNINGS.INVALID_PAYDATE, Shared.EntityID.NewID(), new Patterns.PatternEntity(Patterns.enPatternType.Income, Shared.EntityID.NewID(), "My Pattern"), Shared.EntityID.NewID(), DateTime.UtcNow, 1, true, DateTime.MinValue }
          };
 
    }

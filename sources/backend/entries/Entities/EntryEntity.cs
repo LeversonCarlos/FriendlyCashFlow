@@ -15,13 +15,8 @@ namespace Elesse.Entries
 
       public EntryEntity(Patterns.IPatternEntity pattern, Shared.EntityID accountID,
          DateTime dueDate, decimal entryValue)
-         : this(Shared.EntityID.NewID(), pattern, accountID, dueDate, entryValue)
-      { }
-
-      public EntryEntity(Shared.EntityID entryID, Patterns.IPatternEntity pattern, Shared.EntityID accountID,
-         DateTime dueDate, decimal entryValue)
       {
-         EntryID = entryID;
+         EntryID = Shared.EntityID.NewID();
          Pattern = pattern;
          AccountID = accountID;
          DueDate = dueDate;
