@@ -32,7 +32,7 @@ namespace Elesse.Entries
             await _EntryRepository.InsertAsync(entry);
 
             // TRACK EVENT
-            _InsightsService.TrackEvent("Category Service Insert");
+            _InsightsService.TrackEvent("Entry Service Insert");
 
             // RESULT
             return Ok();
