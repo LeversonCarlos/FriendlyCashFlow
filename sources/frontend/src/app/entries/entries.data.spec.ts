@@ -7,15 +7,43 @@ describe('EntryEntity', () => {
    });
 
    it('should parse anonymous type and materialize properties', () => {
-      const entryID = "my entry id";
-      const Pattern = PatternEntityMocker.Create().Build();
+      const patternID = "my pattern id";
+      const type = enPatternType.Income;
+      const categoryID = "my category id";
+      const text = "my pattern text";
+      const pattern = PatternEntityMocker
+         .Create()
+         .WithPatternID(patternID)
+         .WithType(type)
+         .WithCategoryID(categoryID)
+         .WithText(text)
+         .Build();
 
+      const entryID = "my entry id";
+      const accountID = "my account id";
+      const dueDate = new Date("2021-01-23");
+      const entryValue = 12.34;
+      const payDate = new Date("2021-01-24");
       const entry = EntryEntityMocker
          .Create()
          .WithEntryID(entryID)
+         .WithPattern(pattern)
+         .WithAccountID(accountID)
+         .WithDueDate(dueDate)
+         .WithEntryValue(entryValue)
+         .WithPayDate(payDate)
          .Build();
 
       expect(entry.EntryID).toEqual(entryID);
+      expect(entry.Pattern.PatternID).toEqual(patternID);
+      expect(entry.Pattern.Type).toEqual(type);
+      expect(entry.Pattern.CategoryID).toEqual(categoryID);
+      expect(entry.Pattern.Text).toEqual(text);
+      expect(entry.AccountID).toEqual(accountID);
+      expect(entry.DueDate).toEqual(dueDate);
+      expect(entry.EntryValue).toEqual(entryValue);
+      expect(entry.PayDate).toEqual(payDate);
+      expect(entry.Paid).toEqual(true);
    });
 
 });
@@ -28,7 +56,7 @@ export class EntryEntityMocker {
       Pattern: PatternEntityMocker.Create().Build(),
       AccountID: 'AccountID',
       DueDate: new Date(),
-      EntryValue: 0.01
+      EntryValue: 1234.56
    });
 
    public WithEntryID(entryID: string): EntryEntityMocker {
