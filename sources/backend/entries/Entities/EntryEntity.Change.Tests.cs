@@ -13,7 +13,7 @@ namespace Elesse.Entries.Tests
          var accountID = Shared.EntityID.NewID();
          var dueDate = DateTime.Now.AddDays(1);
          var entryValue = (decimal)23.45;
-         var entity = EntryEntity.Create(Patterns.PatternEntity.Builder().Build(), Shared.EntityID.NewID(), DateTime.Now.AddDays(10), (decimal)54.32);
+         var entity = EntryEntity.Builder().Build();
 
          entity.Change(pattern, accountID, dueDate, entryValue);
 

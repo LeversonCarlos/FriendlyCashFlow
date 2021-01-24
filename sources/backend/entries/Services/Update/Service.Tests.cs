@@ -39,7 +39,7 @@ namespace Elesse.Entries.Tests
       {
          var repository = EntryRepositoryMocker
             .Create()
-            .WithLoad(EntryEntity.Mock())
+            .WithLoad(EntryEntity.Builder().Build())
             .Build();
          var service = EntryService.Mock(repository);
 
@@ -53,7 +53,7 @@ namespace Elesse.Entries.Tests
       [Fact]
       public async void Update_WithInvalidAccount_MustReturnBadRequest()
       {
-         var entity = EntryEntity.Mock();
+         var entity = EntryEntity.Builder().Build();
          var repository = EntryRepositoryMocker
             .Create()
             .WithLoad(entity)
@@ -70,7 +70,7 @@ namespace Elesse.Entries.Tests
       [Fact]
       public async void Update_WithValidDataAndEmptyPayment_MustReturnOkRequest()
       {
-         var entity = EntryEntity.Mock();
+         var entity = EntryEntity.Builder().Build();
          entity.SetPayment(DateTime.Now, entity.EntryValue);
          var repository = EntryRepositoryMocker
             .Create()
@@ -95,7 +95,7 @@ namespace Elesse.Entries.Tests
       [Fact]
       public async void Update_WithValidDataAndWithPayment_MustReturnOkRequest()
       {
-         var entity = EntryEntity.Mock();
+         var entity = EntryEntity.Builder().Build();
          var repository = EntryRepositoryMocker
             .Create()
             .WithLoad(entity)
@@ -121,7 +121,7 @@ namespace Elesse.Entries.Tests
       [Fact]
       public async void Update_WithValidDataAndWithChangedPattern_MustReturnOkRequest()
       {
-         var entity = EntryEntity.Mock();
+         var entity = EntryEntity.Builder().Build();
          var repository = EntryRepositoryMocker
             .Create()
             .WithLoad(entity)

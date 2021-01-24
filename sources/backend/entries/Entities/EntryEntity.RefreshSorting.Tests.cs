@@ -9,7 +9,7 @@ namespace Elesse.Entries.Tests
       [Fact]
       public void RefreshSorting_WithoutPayment_MustReflectChangesBasedOnDueDate()
       {
-         var entity = EntryEntity.Create(Patterns.PatternEntity.Builder().Build(), Shared.EntityID.NewID(), DateTime.Now.AddDays(1), (decimal)54.32);
+         var entity = EntryEntity.Builder().Build();
 
          entity.RefreshSorting();
 
@@ -20,8 +20,7 @@ namespace Elesse.Entries.Tests
       [Fact]
       public void RefreshSorting_WithPayment_MustReflectChangesBasedOnPayDate()
       {
-         var entity = EntryEntity.Create(Patterns.PatternEntity.Builder().Build(), Shared.EntityID.NewID(), DateTime.Now.AddDays(1), (decimal)54.32);
-         entity.SetPayment(DateTime.Now.AddDays(2), entity.EntryValue);
+         var entity = EntryEntity.Builder().WithPayDate(Shared.Faker.GetFaker().Date.Soon()).Build();
 
          entity.RefreshSorting();
 
