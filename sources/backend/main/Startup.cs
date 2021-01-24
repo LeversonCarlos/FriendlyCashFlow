@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MongoDB.Driver;
+using Elesse.Entries;
 
 namespace Elesse.FriendlyCashFlow
 {
@@ -44,7 +45,8 @@ namespace Elesse.FriendlyCashFlow
             .AddIdentityService(_Configuration)
             .AddSharedService(_Configuration)
             .AddAccountService(_Configuration)
-            .AddCategoryService(_Configuration);
+            .AddCategoryService(_Configuration)
+            .AddEntryService(_Configuration);
       }
 
       public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
