@@ -39,7 +39,7 @@ namespace Elesse.Entries.Tests
       {
          var repository = EntryRepositoryMocker
             .Create()
-            .WithLoad(EntryEntity.Create(Patterns.PatternEntity.Mock(), Shared.EntityID.NewID(), DateTime.Now, (decimal)12.34))
+            .WithLoad(EntryEntity.Create(Patterns.PatternEntity.Builder().Build(), Shared.EntityID.NewID(), DateTime.Now, (decimal)12.34))
             .Build();
          var patternService = Patterns.Tests.PatternServiceMocker
             .Create()
@@ -57,7 +57,7 @@ namespace Elesse.Entries.Tests
       [Fact]
       public async void Delete_WithValidParameters_MustReturnOkResult()
       {
-         var pattern = Patterns.PatternEntity.Mock();
+         var pattern = Patterns.PatternEntity.Builder().Build();
          var accountID = Shared.EntityID.NewID();
          var repository = EntryRepositoryMocker
             .Create()

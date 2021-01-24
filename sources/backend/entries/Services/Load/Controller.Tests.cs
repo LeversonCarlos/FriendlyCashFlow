@@ -10,7 +10,7 @@ namespace Elesse.Entries.Tests
       [Fact]
       public async void Load_MustReturnOkResult_WithDataList()
       {
-         var entity = EntryEntity.Create(Patterns.PatternEntity.Mock(), Shared.EntityID.NewID(), DateTime.Now.AddDays(10), (decimal)54.32);
+         var entity = EntryEntity.Create(Patterns.PatternEntity.Builder().Build(), Shared.EntityID.NewID(), DateTime.Now.AddDays(10), (decimal)54.32);
          var service = EntryServiceMocker
             .Create()
             .WithLoad((string)entity.EntryID, new OkObjectResult(entity))

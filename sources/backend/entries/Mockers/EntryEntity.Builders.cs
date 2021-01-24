@@ -6,7 +6,7 @@ namespace Elesse.Entries
    {
 
       internal static EntryEntity Mock() =>
-         EntryEntity.Create(Patterns.PatternEntity.Mock(), Shared.EntityID.NewID(), DateTime.Now, (decimal)12.34);
+         EntryEntity.Create(Patterns.PatternEntity.Builder().Build(), Shared.EntityID.NewID(), DateTime.Now, (decimal)12.34);
 
    }
 }

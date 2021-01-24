@@ -22,7 +22,7 @@ namespace Elesse.Entries.Tests
       [Fact]
       public async void Load_WithValidData_MustReturnOkResultWithData()
       {
-         var entity = EntryEntity.Create(Patterns.PatternEntity.Mock(), Shared.EntityID.NewID(), DateTime.Now.AddDays(10), (decimal)54.32);
+         var entity = EntryEntity.Create(Patterns.PatternEntity.Builder().Build(), Shared.EntityID.NewID(), DateTime.Now.AddDays(10), (decimal)54.32);
          var repository = EntryRepositoryMocker
             .Create()
             .WithLoad(entity)

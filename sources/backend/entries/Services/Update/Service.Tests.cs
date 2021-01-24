@@ -131,7 +131,7 @@ namespace Elesse.Entries.Tests
          var updateVM = new UpdateVM
          {
             EntryID = Shared.EntityID.NewID(),
-            Pattern = Patterns.PatternEntity.Mock(),
+            Pattern = Patterns.PatternEntity.Builder().Build(),
             AccountID = entity.AccountID,
             DueDate = entity.DueDate,
             EntryValue = entity.EntryValue,

@@ -9,7 +9,7 @@ namespace Elesse.Entries.Tests
       [Fact]
       public void Create_WithValidParameters_MustResultInstance()
       {
-         var pattern = Patterns.PatternEntity.Mock();
+         var pattern = Patterns.PatternEntity.Builder().Build();
          var accountID = Shared.EntityID.NewID();
          var dueDate = DateTime.Now.AddDays(1);
          var entryValue = (decimal)23.45;

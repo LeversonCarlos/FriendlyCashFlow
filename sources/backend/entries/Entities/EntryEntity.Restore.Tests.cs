@@ -20,20 +20,20 @@ namespace Elesse.Entries.Tests
          new[] {
             new object[] { WARNINGS.INVALID_ENTRYID, null, null, null, null, null, null, null},
             new object[] { WARNINGS.INVALID_PATTERN, Shared.EntityID.NewID(), null, null, null, null, null, null},
-            new object[] { WARNINGS.INVALID_ACCOUNTID, Shared.EntityID.NewID(), Patterns.PatternEntity.Mock(), null, null, null, null, null},
-            new object[] { WARNINGS.INVALID_DUEDATE, Shared.EntityID.NewID(), Patterns.PatternEntity.Mock(), Shared.EntityID.NewID(), null, null, null, null},
-            new object[] { WARNINGS.INVALID_DUEDATE, Shared.EntityID.NewID(), Patterns.PatternEntity.Mock(), Shared.EntityID.NewID(), DateTime.MinValue, null, null, null},
-            new object[] { WARNINGS.INVALID_ENTRYVALUE, Shared.EntityID.NewID(), Patterns.PatternEntity.Mock(), Shared.EntityID.NewID(), DateTime.UtcNow, null, null, null},
-            new object[] { WARNINGS.INVALID_ENTRYVALUE, Shared.EntityID.NewID(), Patterns.PatternEntity.Mock(), Shared.EntityID.NewID(), DateTime.UtcNow, 0, null, null},
-            new object[] { WARNINGS.INVALID_ENTRYVALUE, Shared.EntityID.NewID(), Patterns.PatternEntity.Mock(), Shared.EntityID.NewID(), DateTime.UtcNow, -0.01, null, null },
-            new object[] { WARNINGS.INVALID_PAYDATE, Shared.EntityID.NewID(), Patterns.PatternEntity.Mock(), Shared.EntityID.NewID(), DateTime.UtcNow, 1, true, DateTime.MinValue }
+            new object[] { WARNINGS.INVALID_ACCOUNTID, Shared.EntityID.NewID(), Patterns.PatternEntity.Builder().Build(), null, null, null, null, null},
+            new object[] { WARNINGS.INVALID_DUEDATE, Shared.EntityID.NewID(), Patterns.PatternEntity.Builder().Build(), Shared.EntityID.NewID(), null, null, null, null},
+            new object[] { WARNINGS.INVALID_DUEDATE, Shared.EntityID.NewID(), Patterns.PatternEntity.Builder().Build(), Shared.EntityID.NewID(), DateTime.MinValue, null, null, null},
+            new object[] { WARNINGS.INVALID_ENTRYVALUE, Shared.EntityID.NewID(), Patterns.PatternEntity.Builder().Build(), Shared.EntityID.NewID(), DateTime.UtcNow, null, null, null},
+            new object[] { WARNINGS.INVALID_ENTRYVALUE, Shared.EntityID.NewID(), Patterns.PatternEntity.Builder().Build(), Shared.EntityID.NewID(), DateTime.UtcNow, 0, null, null},
+            new object[] { WARNINGS.INVALID_ENTRYVALUE, Shared.EntityID.NewID(), Patterns.PatternEntity.Builder().Build(), Shared.EntityID.NewID(), DateTime.UtcNow, -0.01, null, null },
+            new object[] { WARNINGS.INVALID_PAYDATE, Shared.EntityID.NewID(), Patterns.PatternEntity.Builder().Build(), Shared.EntityID.NewID(), DateTime.UtcNow, 1, true, DateTime.MinValue }
          };
 
       [Fact]
       public void Restore_WithValidParameters_MustResultInstance()
       {
          var entryID = Shared.EntityID.NewID();
-         var pattern = Patterns.PatternEntity.Mock();
+         var pattern = Patterns.PatternEntity.Builder().Build();
          var accountID = Shared.EntityID.NewID();
          var dueDate = DateTime.Now.AddDays(1);
          var entryValue = (decimal)23.45;

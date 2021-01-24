@@ -9,11 +9,11 @@ namespace Elesse.Entries.Tests
       [Fact]
       public void Change_WithValidParameters_MustReflectChanges()
       {
-         var pattern = Patterns.PatternEntity.Mock();
+         var pattern = Patterns.PatternEntity.Builder().Build();
          var accountID = Shared.EntityID.NewID();
          var dueDate = DateTime.Now.AddDays(1);
          var entryValue = (decimal)23.45;
-         var entity = EntryEntity.Create(Patterns.PatternEntity.Mock(), Shared.EntityID.NewID(), DateTime.Now.AddDays(10), (decimal)54.32);
+         var entity = EntryEntity.Create(Patterns.PatternEntity.Builder().Build(), Shared.EntityID.NewID(), DateTime.Now.AddDays(10), (decimal)54.32);
 
          entity.Change(pattern, accountID, dueDate, entryValue);
 
