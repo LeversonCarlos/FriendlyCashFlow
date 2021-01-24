@@ -29,7 +29,7 @@ namespace Elesse.Accounts.Tests
       }
 
       [Fact]
-      internal void AddIdentityService_UserRepository_MustNotBeNull()
+      internal void AddAccountService_InjectedRepository_MustNotBeNull()
       {
          var configs = new ConfigurationBuilder()
             .Build();
