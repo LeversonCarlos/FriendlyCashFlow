@@ -20,7 +20,7 @@ namespace Elesse.Patterns.Tests
       [Fact]
       public async void Decrease_WithNonExistingPattern_MustDoNothingAndReturnNull()
       {
-         var param = new PatternEntity(enPatternType.Expense, Shared.EntityID.NewID(), "Pattern Text");
+         var param = PatternEntity.Builder().Build();
          var repository = PatternRepositoryMocker
             .Create()
             .WithLoadPattern()
@@ -34,7 +34,7 @@ namespace Elesse.Patterns.Tests
       [Fact]
       public async void Decrease_WithRemainingRowsCountOnPattern_MustUpdateRowsAndDate_AndReturnOk()
       {
-         var param = new PatternEntity(enPatternType.Expense, Shared.EntityID.NewID(), "Pattern Text");
+         var param = PatternEntity.Builder().Build();
          param.RowsCount = 5;
          var repository = PatternRepositoryMocker
             .Create()
@@ -51,7 +51,7 @@ namespace Elesse.Patterns.Tests
       [Fact]
       public async void Decrease_WithNoRemainingRowsCountOnPattern_MustDeletePattern_AndReturnOk()
       {
-         var param = new PatternEntity(enPatternType.Expense, Shared.EntityID.NewID(), "Pattern Text");
+         var param = PatternEntity.Builder().Build();
          param.RowsCount = 1;
          var repository = PatternRepositoryMocker
             .Create()

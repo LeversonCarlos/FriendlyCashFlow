@@ -19,7 +19,7 @@ namespace Elesse.Patterns.Tests
       [Fact]
       public async void Increase_WithExistingPattern_MustUpdateRowsAndDate_AndReturnPatternID()
       {
-         var param = new PatternEntity(enPatternType.Expense, Shared.EntityID.NewID(), "Pattern Text");
+         var param = PatternEntity.Builder().Build();
          var repository = PatternRepositoryMocker
             .Create()
             .WithLoadPattern(new IPatternEntity[] { param })
@@ -36,7 +36,7 @@ namespace Elesse.Patterns.Tests
       [Fact]
       public async void Increase_WithNonExistingPattern_MustCreateRecord_AndReturnPatternID()
       {
-         var param = new PatternEntity(enPatternType.Expense, Shared.EntityID.NewID(), "Pattern Text");
+         var param = PatternEntity.Builder().Build();
          var repository = PatternRepositoryMocker
             .Create()
             .WithLoadPattern()
