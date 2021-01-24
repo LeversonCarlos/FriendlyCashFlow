@@ -21,7 +21,7 @@ export class EntriesService {
    public get SelectedMonth(): MonthService { return this._SelectedMonth; }
    public set SelectedMonth(value: MonthService) {
       this._SelectedMonth = value;
-      this.Cache.InitializeValue(this._SelectedMonth.ToCode());
+      this.Cache.InitializeValue(value.ToCode());
    }
 
    private Cache: EntriesCacheService;
@@ -32,7 +32,7 @@ export class EntriesService {
       try {
          this.busy.show();
 
-         const url = `api/entries/list/${this._SelectedMonth.Year}/${this._SelectedMonth.Month}`;
+         const url = `api/entries/list/${this.SelectedMonth.Year}/${this.SelectedMonth.Month}`;
          const values = await this.http.get<EntryEntity[]>(url).toPromise();
          if (!values)
             return;
