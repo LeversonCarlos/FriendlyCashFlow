@@ -9,7 +9,7 @@ namespace Elesse.Entries.Tests
       [Fact]
       public async void Insert_WithNullParameter_MustReturnBadResult()
       {
-         var service = EntryService.Mock();
+         var service = EntryService.Builder().Build();
 
          var result = await service.InsertAsync(null);
 
@@ -37,7 +37,7 @@ namespace Elesse.Entries.Tests
       [Fact]
       public async void Insert_WithInvaidAccount_MustReturnBadResult()
       {
-         var pattern = Patterns.PatternEntity.Mock();
+         var pattern = Patterns.PatternEntity.Builder().Build();
          var patternService = Patterns.Tests.PatternServiceMocker
             .Create()
             .WithIncrease(pattern)
@@ -55,7 +55,7 @@ namespace Elesse.Entries.Tests
       [Fact]
       public async void Insert_WithValidParametersAndWithoutPayment_MustReturnOkResult()
       {
-         var pattern = Patterns.PatternEntity.Mock();
+         var pattern = Patterns.PatternEntity.Builder().Build();
          var patternService = Patterns.Tests.PatternServiceMocker
             .Create()
             .WithIncrease(pattern)
@@ -72,7 +72,7 @@ namespace Elesse.Entries.Tests
       [Fact]
       public async void Insert_WithValidParametersAndWithPayment_MustReturnOkResult()
       {
-         var pattern = Patterns.PatternEntity.Mock();
+         var pattern = Patterns.PatternEntity.Builder().Build();
          var patternService = Patterns.Tests.PatternServiceMocker
             .Create()
             .WithIncrease(pattern)

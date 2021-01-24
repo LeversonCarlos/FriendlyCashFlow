@@ -2,18 +2,7 @@ namespace Elesse.Entries
 {
    partial class EntryService
    {
-
-      internal static EntryService Mock() =>
-         Mock(
-            Tests.EntryRepositoryMocker.Create().Build(),
-            Patterns.Tests.PatternServiceMocker.Create().Build()
-         );
-
-      internal static EntryService Mock(IEntryRepository entryRepository) =>
-         Mock(
-            entryRepository,
-            Patterns.PatternService.Mock()
-         );
+      public static Tests.EntryServiceBuilder Builder() => new Tests.EntryServiceBuilder();
 
       internal static EntryService Mock(Patterns.IPatternService patternService) =>
          Mock(
@@ -27,6 +16,37 @@ namespace Elesse.Entries
             patternService,
             Shared.Tests.InsightsServiceMocker.Create().Build()
          );
+
+   }
+}
+namespace Elesse.Entries.Tests
+{
+   internal class EntryServiceBuilder
+   {
+
+      IEntryRepository _EntryRepository = Tests.EntryRepositoryMocker.Create().Build();
+      public EntryServiceBuilder With(IEntryRepository entryRepository)
+      {
+         _EntryRepository = entryRepository;
+         return this;
+      }
+
+      Patterns.IPatternService _PatternService = Patterns.Tests.PatternServiceMocker.Create().Build();
+      public EntryServiceBuilder With(Patterns.IPatternService patternService)
+      {
+         _PatternService = patternService;
+         return this;
+      }
+
+      Shared.IInsightsService _InsightsService = Shared.Tests.InsightsServiceMocker.Create().Build();
+      public EntryServiceBuilder With(Shared.IInsightsService insightsService)
+      {
+         _InsightsService = insightsService;
+         return this;
+      }
+
+      public EntryService Build() =>
+         new EntryService(_EntryRepository, _PatternService, _InsightsService);
 
    }
 }

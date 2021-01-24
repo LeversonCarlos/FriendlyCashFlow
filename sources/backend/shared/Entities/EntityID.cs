@@ -8,7 +8,7 @@ namespace Elesse.Shared
 
    [JsonConverter(typeof(EntityIDJsonConverter))]
    [BsonSerializer(typeof(EntityIDMongoSerializer)) /*, BsonRepresentation(BsonType.String)*/]
-   public class EntityID : EntityID<Guid>
+   public partial class EntityID : EntityID<Guid>
    {
 
       public EntityID(Guid guid) : base(guid) { }

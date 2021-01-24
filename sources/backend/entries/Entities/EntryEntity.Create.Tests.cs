@@ -9,10 +9,10 @@ namespace Elesse.Entries.Tests
       [Fact]
       public void Create_WithValidParameters_MustResultInstance()
       {
-         var pattern = Patterns.PatternEntity.Mock();
-         var accountID = Shared.EntityID.NewID();
-         var dueDate = DateTime.Now.AddDays(1);
-         var entryValue = (decimal)23.45;
+         var pattern = Patterns.PatternEntity.Builder().Build();
+         var accountID = Shared.EntityID.MockerID();
+         var dueDate = Shared.Faker.GetFaker().Date.Soon();
+         var entryValue = Shared.Faker.GetFaker().Random.Decimal(0, 10000);
 
          var result = EntryEntity.Create(pattern, accountID, dueDate, entryValue);
 

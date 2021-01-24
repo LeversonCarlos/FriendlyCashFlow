@@ -9,7 +9,7 @@ namespace Elesse.Entries.Tests
       [Fact]
       public async void Update_WithNullParameter_MustReturnBadResult()
       {
-         var service = EntryService.Mock();
+         var service = EntryService.Builder().Build();
 
          var result = await service.UpdateAsync(null);
 
@@ -25,7 +25,7 @@ namespace Elesse.Entries.Tests
             .Create()
             .WithLoad()
             .Build();
-         var service = EntryService.Mock(repository);
+         var service = EntryService.Builder().With(repository).Build();
 
          var result = await service.UpdateAsync(new UpdateVM { EntryID = Shared.EntityID.NewID() });
 
@@ -39,9 +39,13 @@ namespace Elesse.Entries.Tests
       {
          var repository = EntryRepositoryMocker
             .Create()
-            .WithLoad(EntryEntity.Mock())
+            .WithLoad(EntryEntity.Builder().Build())
             .Build();
-         var service = EntryService.Mock(repository);
+         var patternService = Patterns.Tests.PatternServiceMocker
+            .Create()
+            .WithIncrease(new ArgumentException(Patterns.WARNINGS.INVALID_INCREASE_PARAMETER))
+            .Build();
+         var service = EntryService.Builder().With(repository).With(patternService).Build();
 
          var result = await service.UpdateAsync(new UpdateVM { EntryID = Shared.EntityID.NewID() });
 
@@ -53,12 +57,12 @@ namespace Elesse.Entries.Tests
       [Fact]
       public async void Update_WithInvalidAccount_MustReturnBadRequest()
       {
-         var entity = EntryEntity.Mock();
+         var entity = EntryEntity.Builder().Build();
          var repository = EntryRepositoryMocker
             .Create()
             .WithLoad(entity)
             .Build();
-         var service = EntryService.Mock(repository);
+         var service = EntryService.Builder().With(repository).Build();
 
          var result = await service.UpdateAsync(new UpdateVM { EntryID = Shared.EntityID.NewID(), Pattern = entity.Pattern });
 
@@ -70,13 +74,13 @@ namespace Elesse.Entries.Tests
       [Fact]
       public async void Update_WithValidDataAndEmptyPayment_MustReturnOkRequest()
       {
-         var entity = EntryEntity.Mock();
+         var entity = EntryEntity.Builder().Build();
          entity.SetPayment(DateTime.Now, entity.EntryValue);
          var repository = EntryRepositoryMocker
             .Create()
             .WithLoad(entity)
             .Build();
-         var service = EntryService.Mock(repository);
+         var service = EntryService.Builder().With(repository).Build();
 
          var updateVM = new UpdateVM
          {
@@ -95,12 +99,12 @@ namespace Elesse.Entries.Tests
       [Fact]
       public async void Update_WithValidDataAndWithPayment_MustReturnOkRequest()
       {
-         var entity = EntryEntity.Mock();
+         var entity = EntryEntity.Builder().Build();
          var repository = EntryRepositoryMocker
             .Create()
             .WithLoad(entity)
             .Build();
-         var service = EntryService.Mock(repository);
+         var service = EntryService.Builder().With(repository).Build();
 
          var updateVM = new UpdateVM
          {
@@ -121,17 +125,22 @@ namespace Elesse.Entries.Tests
       [Fact]
       public async void Update_WithValidDataAndWithChangedPattern_MustReturnOkRequest()
       {
-         var entity = EntryEntity.Mock();
+         var entity = EntryEntity.Builder().Build();
          var repository = EntryRepositoryMocker
             .Create()
             .WithLoad(entity)
             .Build();
-         var service = EntryService.Mock(repository);
+         var pattern = Patterns.PatternEntity.Builder().Build();
+         var patternService = Patterns.Tests.PatternServiceMocker
+            .Create()
+            .WithIncrease(pattern)
+            .Build();
+         var service = EntryService.Builder().With(repository).With(patternService).Build();
 
          var updateVM = new UpdateVM
          {
             EntryID = Shared.EntityID.NewID(),
-            Pattern = Patterns.PatternEntity.Mock(),
+            Pattern = Patterns.PatternEntity.Builder().Build(),
             AccountID = entity.AccountID,
             DueDate = entity.DueDate,
             EntryValue = entity.EntryValue,

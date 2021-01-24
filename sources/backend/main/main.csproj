@@ -20,6 +20,7 @@
     <ProjectReference Include="..\identity\identity.csproj" />
     <ProjectReference Include="..\accounts\accounts.csproj" />
     <ProjectReference Include="..\categories\categories.csproj" />
+    <ProjectReference Include="..\entries\entries.csproj" />
   </ItemGroup>
 
 </Project>

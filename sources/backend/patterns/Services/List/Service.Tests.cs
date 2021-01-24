@@ -9,13 +9,12 @@ namespace Elesse.Patterns.Tests
       [Fact]
       public async void List_WithValidData_MustReturnOkResultWithData()
       {
-         var entity = new PatternEntity(Shared.EntityID.NewID(), enPatternType.Income, Shared.EntityID.NewID(), "Pattern Text");
-         var entityList = new PatternEntity[] { entity };
+         var entity = PatternEntity.Builder().Build();
          var repository = PatternRepositoryMocker
             .Create()
-            .WithList(entityList)
+            .WithList(new PatternEntity[] { entity })
             .Build();
-         var service = PatternService.Mock(repository);
+         var service = PatternService.Builder().With(repository).Build();
 
          var result = await service.ListAsync();
 

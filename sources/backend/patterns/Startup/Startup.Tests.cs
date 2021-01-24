@@ -4,32 +4,32 @@ using MongoDB.Driver;
 using Moq;
 using Xunit;
 
-namespace Elesse.Accounts.Tests
+namespace Elesse.Patterns.Tests
 {
    public class StartupExtentionsTests
    {
 
       [Fact]
-      internal void AddAccountService_InjectedService_MustNotBeNull()
+      internal void AddPatternService_InjectedService_MustNotBeNull()
       {
          var configs = new ConfigurationBuilder()
             .Build();
          var services = new ServiceCollection()
             .AddSingleton<IMongoDatabase>(x => null)
-            .AddSingleton<Shared.IInsightsService>(x => Shared.Tests.InsightsServiceMocker.Create().Build())
+            .AddSingleton(x => Shared.Tests.InsightsServiceMocker.Create().Build())
             .AddScoped(x => new Mock<Identity.IUser>().Object)
             .AddControllers()
-            .AddAccountService(configs)
+            .AddPatternService(configs)
             .Services
             .BuildServiceProvider();
 
-         var service = services.GetService<IAccountService>();
+         var service = services.GetService<IPatternService>();
 
          Assert.NotNull(service);
       }
 
       [Fact]
-      internal void AddAccountService_InjectedRepository_MustNotBeNull()
+      internal void AddEntryService_InjectedRepository_MustNotBeNull()
       {
          var configs = new ConfigurationBuilder()
             .Build();
@@ -37,11 +37,11 @@ namespace Elesse.Accounts.Tests
             .AddSingleton<IMongoDatabase>(x => null)
             .AddScoped(x => new Mock<Identity.IUser>().Object)
             .AddControllers()
-            .AddAccountService(configs)
+            .AddPatternService(configs)
             .Services
             .BuildServiceProvider();
 
-         var repository = services.GetService<IAccountRepository>();
+         var repository = services.GetService<IPatternRepository>();
 
          Assert.NotNull(repository);
       }

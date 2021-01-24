@@ -9,9 +9,7 @@ namespace Elesse.Entries.Tests
       [Fact]
       public void ClearPayment_MustSetPaidToFalse_AndClearPayDate()
       {
-         var pattern = new Patterns.PatternEntity(Patterns.enPatternType.Income, Shared.EntityID.NewID(), "My Pattern");
-         var entity = EntryEntity.Create(pattern, Shared.EntityID.NewID(), DateTime.UtcNow, (decimal)23.45);
-         entity.SetPayment(DateTime.Now.AddDays(2), entity.EntryValue);
+         var entity = EntryEntity.Builder().WithPayDate(Shared.Faker.GetFaker().Date.Soon()).Build();
 
          entity.ClearPayment();
 
@@ -22,8 +20,7 @@ namespace Elesse.Entries.Tests
       [Fact]
       public void SetPayment_WithInvalidDate_MustThrowException()
       {
-         var pattern = new Patterns.PatternEntity(Patterns.enPatternType.Income, Shared.EntityID.NewID(), "My Pattern");
-         var entity = EntryEntity.Create(pattern, Shared.EntityID.NewID(), DateTime.UtcNow, (decimal)23.45);
+         var entity = EntryEntity.Builder().Build();
 
          var exception = Assert.Throws<ArgumentException>(() => entity.SetPayment(DateTime.MinValue, entity.EntryValue));
 

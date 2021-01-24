@@ -10,7 +10,7 @@ namespace Elesse.Entries.Tests
       [Fact]
       public async void Load_WithNullParameter_MustReturnBadResult()
       {
-         var service = EntryService.Mock();
+         var service = EntryService.Builder().Build();
 
          var result = await service.LoadAsync(null);
 
@@ -22,12 +22,12 @@ namespace Elesse.Entries.Tests
       [Fact]
       public async void Load_WithValidData_MustReturnOkResultWithData()
       {
-         var entity = EntryEntity.Create(Patterns.PatternEntity.Mock(), Shared.EntityID.NewID(), DateTime.Now.AddDays(10), (decimal)54.32);
+         var entity = EntryEntity.Builder().Build();
          var repository = EntryRepositoryMocker
             .Create()
             .WithLoad(entity)
             .Build();
-         var service = EntryService.Mock(repository);
+         var service = EntryService.Builder().With(repository).Build();
 
          var result = await service.LoadAsync((string)entity.EntryID);
 

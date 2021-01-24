@@ -73,5 +73,16 @@ namespace Elesse.Shared.Tests
          Assert.Equal((string)first, (string)second);
       }
 
+      [Fact]
+      internal void ToLong_MustReduceToExpectedLong()
+      {
+         var entity = EntityID.Parse("f7a3e0a8-6b74-4c7e-90c3-522e1dc10b02");
+         long expected = 36434487158610448;
+
+         var result = entity.ToLong();
+
+         Assert.Equal(expected, result);
+      }
+
    }
 }

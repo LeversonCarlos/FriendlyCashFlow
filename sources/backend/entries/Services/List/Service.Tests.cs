@@ -10,14 +10,13 @@ namespace Elesse.Entries.Tests
       [Fact]
       public async void List_WithValidData_MustReturnOkResultWithData()
       {
-         var dueDate = DateTime.Now.AddDays(1);
-         var pattern = new Patterns.PatternEntity(Shared.EntityID.NewID(), Patterns.enPatternType.Income, Shared.EntityID.NewID(), "Pattern Text");
-         var entry = EntryEntity.Create(pattern, Shared.EntityID.NewID(), dueDate, (decimal)23.45);
+         var dueDate = Shared.Faker.GetFaker().Date.Soon();
+         var entry = EntryEntity.Builder().WithDueDate(dueDate).Build();
          var repository = EntryRepositoryMocker
             .Create()
             .WithList(new EntryEntity[] { entry })
             .Build();
-         var service = EntryService.Mock(repository);
+         var service = EntryService.Builder().With(repository).Build();
 
          var result = await service.ListAsync(dueDate.Year, dueDate.Month);
 

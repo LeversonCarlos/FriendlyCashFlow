@@ -29,7 +29,7 @@ namespace Elesse.Categories.Tests
       }
 
       [Fact]
-      internal void AddIdentityService_UserRepository_MustNotBeNull()
+      internal void AddCategoryService_InjectedRepository_MustNotBeNull()
       {
          var configs = new ConfigurationBuilder()
             .Build();
