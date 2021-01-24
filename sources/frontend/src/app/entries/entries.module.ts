@@ -9,7 +9,7 @@ import { ListComponent } from './list/list.component';
 @NgModule({
    declarations: [ListComponent],
    imports: [
-      MaterialModule, SharedModule, ,
+      MaterialModule, SharedModule,
       EntriesRouting
    ],
    providers: [EntriesService]
