@@ -17,6 +17,13 @@ describe('MonthService', () => {
       expect(service).toBeTruthy();
    });
 
+   it('year and month properties must reflect current date', () => {
+      const now = new MonthService(new Date("2021-12-10"));
+
+      expect(now.Year).toEqual(2021);
+      expect(now.Month).toEqual(12);
+   });
+
    it('next month should instantiate a month in the future', () => {
       const now = new MonthService(new Date("2021-12-10"));
 

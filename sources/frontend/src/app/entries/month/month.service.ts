@@ -27,9 +27,12 @@ export class MonthService {
    }
 
    public ToCode(): string {
-      const iSOString=this._Date.toISOString();
+      const iSOString = this._Date.toISOString();
       return `${iSOString.substring(0, 4)}${iSOString.substring(5, 7)}`;
    }
+
+   public get Year(): number { return this._Date.getFullYear(); }
+   public get Month(): number { return this._Date.getMonth() + 1; }
 
 }
 
