@@ -9,7 +9,7 @@ namespace Elesse.Entries.Tests
       [Fact]
       public async void Insert_WithNullParameter_MustReturnBadResult()
       {
-         var service = EntryService.Mock();
+         var service = EntryService.Builder().Build();
 
          var result = await service.InsertAsync(null);
 

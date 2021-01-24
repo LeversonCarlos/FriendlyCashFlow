@@ -9,7 +9,7 @@ namespace Elesse.Entries.Tests
       [Fact]
       public async void Delete_WithNullParameter_MustReturnBadResult()
       {
-         var service = EntryService.Mock();
+         var service = EntryService.Builder().Build();
 
          var result = await service.DeleteAsync(null);
 
@@ -25,7 +25,7 @@ namespace Elesse.Entries.Tests
             .Create()
             .WithLoad()
             .Build();
-         var service = EntryService.Mock(repository);
+         var service = EntryService.Builder().With(repository).Build();
 
          var result = await service.DeleteAsync((string)Shared.EntityID.NewID());
 
@@ -61,7 +61,7 @@ namespace Elesse.Entries.Tests
             .Create()
             .WithLoad(EntryEntity.Builder().Build())
             .Build();
-         var service = EntryService.Mock(repository);
+         var service = EntryService.Builder().With(repository).Build();
 
          var result = await service.DeleteAsync((string)Shared.EntityID.NewID());
 
