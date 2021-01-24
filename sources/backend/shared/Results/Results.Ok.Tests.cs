@@ -3,7 +3,7 @@ using Xunit;
 
 namespace Elesse.Shared.Tests
 {
-   public partial class ResultsTests
+   partial class ResultsTests
    {
 
       [Fact]
