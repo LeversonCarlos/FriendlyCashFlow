@@ -336,3 +336,4 @@ coverage.json
 coverage.cobertura.xml
 coverage.info
 coverage.opencover.xml
+cobertura-coverage.xml
