@@ -8,7 +8,7 @@ namespace Elesse.Patterns.Tests
       [Fact]
       public async void Increase_WithNullParameters_MustThrowException()
       {
-         var service = PatternService.Mock(null);
+         var service = PatternService.Builder().Build();
 
          var exception = await Assert.ThrowsAsync<System.ArgumentException>(() => service.IncreaseAsync(null));
 
@@ -24,7 +24,7 @@ namespace Elesse.Patterns.Tests
             .Create()
             .WithLoadPattern(new IPatternEntity[] { param })
             .Build();
-         var service = PatternService.Mock(repository);
+         var service = PatternService.Builder().With(repository).Build();
 
          var result = await service.IncreaseAsync(param);
 
@@ -41,7 +41,7 @@ namespace Elesse.Patterns.Tests
             .Create()
             .WithLoadPattern()
             .Build();
-         var service = PatternService.Mock(repository);
+         var service = PatternService.Builder().With(repository).Build();
 
          var result = await service.IncreaseAsync(param);
 

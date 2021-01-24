@@ -12,7 +12,7 @@ namespace Elesse.Entries
       internal static EntryService Mock(IEntryRepository entryRepository) =>
          Mock(
             entryRepository,
-            Patterns.PatternService.Mock()
+            Patterns.PatternService.Builder().Build()
          );
 
       internal static EntryService Mock(Patterns.IPatternService patternService) =>

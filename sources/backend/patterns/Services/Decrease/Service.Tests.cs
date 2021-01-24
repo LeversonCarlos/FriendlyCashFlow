@@ -9,7 +9,7 @@ namespace Elesse.Patterns.Tests
       [Fact]
       public async void Decrease_WithNullParameter_MustReturnBadResult()
       {
-         var service = PatternService.Mock(null);
+         var service = PatternService.Builder().Build();
 
          var exception = await Assert.ThrowsAsync<System.ArgumentException>(() => service.DecreaseAsync(null));
 
@@ -25,7 +25,7 @@ namespace Elesse.Patterns.Tests
             .Create()
             .WithLoadPattern()
             .Build();
-         var service = PatternService.Mock(repository);
+         var service = PatternService.Builder().With(repository).Build();
 
          var result = await service.DecreaseAsync(param);
          Assert.Null(result);
@@ -40,7 +40,7 @@ namespace Elesse.Patterns.Tests
             .Create()
             .WithLoadPattern(new IPatternEntity[] { param })
             .Build();
-         var service = PatternService.Mock(repository);
+         var service = PatternService.Builder().With(repository).Build();
 
          var result = await service.DecreaseAsync(param);
 
@@ -57,7 +57,7 @@ namespace Elesse.Patterns.Tests
             .Create()
             .WithLoadPattern(new IPatternEntity[] { param })
             .Build();
-         var service = PatternService.Mock(repository);
+         var service = PatternService.Builder().With(repository).Build();
 
          var result = await service.DecreaseAsync(param);
 

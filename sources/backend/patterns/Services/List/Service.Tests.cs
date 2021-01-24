@@ -15,7 +15,7 @@ namespace Elesse.Patterns.Tests
             .Create()
             .WithList(entityList)
             .Build();
-         var service = PatternService.Mock(repository);
+         var service = PatternService.Builder().With(repository).Build();
 
          var result = await service.ListAsync();
 

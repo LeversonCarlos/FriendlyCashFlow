@@ -2,18 +2,30 @@ namespace Elesse.Patterns
 {
    partial class PatternService
    {
+      public static Tests.PatternServiceBuilder Builder() => new Tests.PatternServiceBuilder();
+   }
+}
+namespace Elesse.Patterns.Tests
+{
+   internal class PatternServiceBuilder
+   {
 
-      internal static PatternService Mock() =>
-         new PatternService(
-            Tests.PatternRepositoryMocker.Create().Build(),
-            Shared.Tests.InsightsServiceMocker.Create().Build()
-            );
+      IPatternRepository _PatternRepository = PatternRepositoryMocker.Create().Build();
+      public PatternServiceBuilder With(IPatternRepository patternRepository)
+      {
+         _PatternRepository = patternRepository;
+         return this;
+      }
 
-      internal static PatternService Mock(IPatternRepository patternRepository) =>
-         new PatternService(
-            patternRepository,
-            Shared.Tests.InsightsServiceMocker.Create().Build()
-         );
+      Shared.IInsightsService _InsightsService = Shared.Tests.InsightsServiceMocker.Create().Build();
+      public PatternServiceBuilder With(Shared.IInsightsService insightsService)
+      {
+         _InsightsService = insightsService;
+         return this;
+      }
+
+      public PatternService Build() =>
+         new PatternService(_PatternRepository, _InsightsService);
 
    }
 }
