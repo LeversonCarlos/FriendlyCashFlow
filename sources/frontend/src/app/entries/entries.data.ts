@@ -9,10 +9,23 @@ export class EntryEntity {
    Paid: boolean;
    PayDate?: Date;
 
+   Balance: BalanceEntity = new BalanceEntity();
+   Sorting: number;
+
    static Parse(value: any): EntryEntity {
       return Object.assign(new EntryEntity, value);
    }
 
+}
+
+export class BalanceEntity {
+   Account: BalanceItemEntity = new BalanceItemEntity();
+   Total: BalanceItemEntity = new BalanceItemEntity();
+}
+
+export class BalanceItemEntity {
+   ExpectedBalance: number = 0.00;
+   RealizedBalance: number = 0.00;
 }
 
 export enum enPatternType { Expense = 1, Income = 2 }
