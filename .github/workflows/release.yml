@@ -145,7 +145,7 @@ jobs:
         working-directory: 'sources/frontend/'
         run: |
           sed -i 's|SF:src/|SF:${{ github.workspace }}/sources/frontend/src/|' coverage.info
-          sed -i 's| filename="src\| filename="${{ github.workspace }}/sources/frontend/src/|' cobertura-coverage.xml
+          sed -i 's| filename="src| filename="${{ github.workspace }}/sources/frontend/src|' cobertura-coverage.xml
 
       - name: Store Packages
         uses: actions/upload-artifact@v2
