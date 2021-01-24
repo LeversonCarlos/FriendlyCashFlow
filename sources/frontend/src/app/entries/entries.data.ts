@@ -8,6 +8,11 @@ export class EntryEntity {
 
    Paid: boolean;
    PayDate?: Date;
+
+   static Parse(value: any): EntryEntity {
+      return Object.assign(new EntryEntity, value);
+   }
+
 }
 
 export enum enPatternType { Expense = 1, Income = 2 }
@@ -17,4 +22,9 @@ export class PatternEntity {
    Type: enPatternType;
    CategoryID: string;
    Text: string;
+
+   static Parse(value: any): PatternEntity {
+      return Object.assign(new PatternEntity, value);
+   }
+
 }
