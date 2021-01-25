@@ -1,5 +1,8 @@
 {
-  "entry_NOT_FOUND": "O lançamento não foi encontrado",
+  "TITLE": "Lançamentos",
+  "MENU": "Lançamentos",
+
+  "ENTRY_NOT_FOUND": "O lançamento não foi encontrado",
 
   "INVALID_INSERT_PARAMETER": "O valor informado para a função 'insert entry' é inválido",
   "INVALID_UPDATE_PARAMETER": "O valor informado para a função 'update entry' é inválido",

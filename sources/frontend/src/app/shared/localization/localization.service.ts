@@ -16,7 +16,7 @@ export class LocalizationService {
       this.Resources.InitializeValues(...this.ResourceKeys);
    }
 
-   private ResourceKeys: string[] = ["shared", "identity", "accounts", "categories"];
+   private ResourceKeys: string[] = ["shared", "identity", "accounts", "categories", "entries"];
    private Resources: StorageService<string, TranslationValues>;
 
    public async GetTranslation(value: string): Promise<string> {

@@ -1,0 +1,28 @@
+<shared-authenticated-container>
+   <div header-title>{{ "entries.TITLE" | translation | async}}</div>
+   <div header-toolbar>
+      <button mat-icon-button routerLink="../details/new">
+         <mat-icon>add_circle</mat-icon>
+      </button>
+   </div>
+   <div content>
+
+      <shared-empty-list *ngIf="!(Entries | async)?.length"></shared-empty-list>
+      <mat-nav-list *ngIf="(Entries | async)?.length">
+         <mat-list-item *ngFor="let entry of Entries | async">
+            <a matLine routerLink="../details/{{entry.EntryID}}">
+               <span>{{ entry?.Pattern?.Text }}</span>
+            </a>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+               <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+               <button mat-menu-item class="danger" (click)="OnRemoveEntry(entry)">
+                  <span>{{ 'entries.REMOVE_MENU' | translation | async }}</span>
+               </button>
+            </mat-menu>
+         </mat-list-item>
+      </mat-nav-list>
+
+   </div>
+</shared-authenticated-container>

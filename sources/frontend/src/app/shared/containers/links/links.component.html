@@ -7,8 +7,8 @@
          <span>DASHBOARD_MENU</span>
          <mat-icon matListIcon>dashboard</mat-icon>
       </a>
-      <a mat-list-item routerLink="/entries" disabled>
-         <span>ENTRIES_MENU</span>
+      <a mat-list-item routerLink="/entries">
+         <span>{{ "entries.MENU" | translation | async }}</span>
          <mat-icon matListIcon>receipt</mat-icon>
       </a>
       <a mat-list-item routerLink="/accounts">

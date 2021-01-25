@@ -9,6 +9,7 @@ const routes: Routes = [
    { path: 'identity', loadChildren: () => import('./identity/identity.module').then(m => m.IdentityModule) },
    { path: 'accounts', canActivate: [AuthGuard], loadChildren: () => import('./accounts/accounts.module').then(m => m.AccountsModule) },
    { path: 'categories', canActivate: [AuthGuard], loadChildren: () => import('./categories/categories.module').then(m => m.CategoriesModule) },
+   { path: 'entries', canActivate: [AuthGuard], loadChildren: () => import('./entries/entries.module').then(m => m.EntriesModule) },
    { path: '**', component: HomeComponent }
 ];
 

@@ -22,18 +22,24 @@ export class StorageService<KEY, VALUE> {
    public InitializeValues(...keys: KEY[]) {
       this._Keys = keys ?? [];
       this._Keys.forEach(key => {
-         this._Data[`${key}`] = new BehaviorSubject<VALUE>(null)
-         if (this.PersistentStorage)
-            try {
-               const valueString = localStorage.getItem(this.GetKey(key));
-               if (valueString) {
-                  const value: VALUE = JSON.parse(valueString);
-                  if (value)
-                     this._Data[`${key}`].next(value);
-               }
-            }
-            catch { }
+         this.InitializeValue(key);
       });
+   }
+
+   public InitializeValue(key: KEY) {
+      if (!this._Keys.includes(key))
+         this._Keys.push(key);
+      this._Data[`${key}`] = new BehaviorSubject<VALUE>(null)
+      if (this.PersistentStorage)
+         try {
+            const valueString = localStorage.getItem(this.GetKey(key));
+            if (valueString) {
+               const value: VALUE = JSON.parse(valueString);
+               if (value)
+                  this._Data[`${key}`].next(value);
+            }
+         }
+         catch { }
    }
 
    public GetObservable(key: KEY): Observable<VALUE> {
