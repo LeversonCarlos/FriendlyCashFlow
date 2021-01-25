@@ -71,8 +71,8 @@ namespace Elesse.Patterns
          }
       }
 
-      internal short RowsCount { get; set; }
-      internal DateTime RowsDate { get; set; }
+      public short RowsCount { get; set; }
+      public DateTime RowsDate { get; set; }
 
       protected override IEnumerable<object> GetAtomicValues()
       {
