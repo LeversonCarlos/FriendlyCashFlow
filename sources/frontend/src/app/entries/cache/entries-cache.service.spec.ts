@@ -18,7 +18,7 @@ describe('EntriesCacheService', () => {
       expect(service).toBeTruthy();
    });
 
-   it('ObserveAccounts InitialValue MustResult Null', (done) => {
+   it('SetEntries parses and sorts list and retrieve result balance as expected', (done) => {
       const entries: EntryEntity[] = [
          EntryEntity.Parse({ AccountID: "account", EntryValue: 1000, Paid: true,Sorting: 10 }),
          EntryEntity.Parse({ AccountID: "account", EntryValue: -100, Paid: true, Sorting: 30 }),
@@ -26,20 +26,21 @@ describe('EntriesCacheService', () => {
          EntryEntity.Parse({ AccountID: "account", EntryValue: 0.50, Paid: true, Sorting: 40 }),
          EntryEntity.Parse({ AccountID: "account", EntryValue: -888, Sorting: 20 })
       ];
-      const month = "202101";
+      const month = "201001";
 
       service.InitializeValue(month);
       service.GetObservable(month).subscribe(resultEntries => {
+         if (resultEntries != null){
          expect(resultEntries).not.toBeNull();
          expect(resultEntries.length).toBe(5)
          expect(resultEntries[4].Balance.Total.ExpectedBalance).toBe(-188)
          expect(resultEntries[4].Balance.Total.RealizedBalance).toBe(700)
          expect(resultEntries[4].EntryValue).toBe(-200.50)
          done();
+         }
       });
 
       service.SetEntries(month, entries)
-
    });
 
 });
