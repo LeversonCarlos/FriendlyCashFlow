@@ -93,7 +93,7 @@ namespace Elesse.Patterns
             Text = text
          };
 
-      [BsonFactoryMethod]
+      // [BsonFactoryMethod]
       public static PatternEntity Restore(EntityID patternID, enPatternType type, EntityID categoryID, string text) =>
          new PatternEntity
          {
