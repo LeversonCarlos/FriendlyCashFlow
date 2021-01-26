@@ -15,6 +15,7 @@ namespace Elesse.Entries
             .Find(entity => entity.SearchDate >= limitDate)
             .ToListAsync();
          return list.ToArray();
+
       }
 
    }

@@ -9,6 +9,8 @@ namespace Elesse.Patterns
    internal partial class PatternEntity : ValueObject, IPatternEntity
    {
 
+      public PatternEntity() { }
+
       public PatternEntity(enPatternType type, Shared.EntityID categoryID, string text)
          : this(Shared.EntityID.NewID(), type, categoryID, text)
       {
@@ -81,6 +83,25 @@ namespace Elesse.Patterns
          yield return CategoryID;
          yield return Text;
       }
+
+      public static PatternEntity Create(enPatternType type, EntityID categoryID, string text) =>
+         new PatternEntity
+         {
+            PatternID = EntityID.NewID(),
+            Type = type,
+            CategoryID = categoryID,
+            Text = text
+         };
+
+      [BsonFactoryMethod]
+      public static PatternEntity Restore(EntityID patternID, enPatternType type, EntityID categoryID, string text) =>
+         new PatternEntity
+         {
+            PatternID = patternID,
+            Type = type,
+            CategoryID = categoryID,
+            Text = text
+         };
 
    }
 
