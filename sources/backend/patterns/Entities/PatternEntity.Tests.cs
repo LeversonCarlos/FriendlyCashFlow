@@ -14,7 +14,7 @@ namespace Elesse.Patterns.Tests
       public void Constructor_WithValidParameters_MustResultValidInstance(enPatternType type, string categoryStringID, string text)
       {
          Shared.EntityID categoryID = (Shared.EntityID)categoryStringID;
-         var entity = new PatternEntity(type, categoryID, text);
+         var entity = PatternEntity.Create(type, categoryID, text);
 
          Assert.NotNull(entity);
          Assert.NotNull(entity.PatternID);
@@ -29,7 +29,7 @@ namespace Elesse.Patterns.Tests
       [MemberData(nameof(Constructor_WithInvalidParameters_MustThrowException_Data))]
       public void Constructor_WithInvalidParameters_MustThrowException(string exceptionText, Shared.EntityID patternID, enPatternType type, Shared.EntityID categoryID, string text)
       {
-         var exception = Assert.Throws<ArgumentException>(() => new PatternEntity(patternID, type, categoryID, text));
+         var exception = Assert.Throws<ArgumentException>(() => PatternEntity.Restore(patternID, type, categoryID, text));
 
          Assert.NotNull(exception);
          Assert.Equal(exceptionText, exception.Message);
@@ -50,8 +50,8 @@ namespace Elesse.Patterns.Tests
          var patternID = Shared.EntityID.NewID();
          var categoryID = Shared.EntityID.NewID();
          var text = "My Pattern Description";
-         var first = new PatternEntity(patternID, enPatternType.Income, categoryID, text);
-         var second = new PatternEntity(patternID, enPatternType.Income, categoryID, text);
+         var first = PatternEntity.Restore(patternID, enPatternType.Income, categoryID, text);
+         var second = PatternEntity.Restore(patternID, enPatternType.Income, categoryID, text);
 
          var result = first == second;
 

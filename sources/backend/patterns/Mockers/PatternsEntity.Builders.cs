@@ -39,7 +39,7 @@ namespace Elesse.Patterns.Tests
       }
 
       public PatternEntity Build() =>
-         new PatternEntity(_PatternID, _Type, _CategoryID, _Text);
+         PatternEntity.Restore(_PatternID, _Type, _CategoryID, _Text);
 
    }
 }
