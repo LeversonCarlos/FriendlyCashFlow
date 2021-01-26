@@ -2,7 +2,7 @@ namespace Elesse.Patterns
 {
    partial class PatternEntity
    {
-      public static Tests.PatternEntityBuilder Builder() => new Tests.PatternEntityBuilder();
+      internal static Tests.PatternEntityBuilder Builder() => new Tests.PatternEntityBuilder();
    }
 }
 namespace Elesse.Patterns.Tests

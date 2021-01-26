@@ -14,6 +14,7 @@ namespace Elesse.Patterns
          services
             .AddScoped<IPatternRepository, PatternRepository>()
             .AddScoped<IPatternService, PatternService>();
+         MongoDB.Bson.Serialization.BsonClassMap.RegisterClassMap<PatternEntity>();
          return mvcBuilder;
       }
 
