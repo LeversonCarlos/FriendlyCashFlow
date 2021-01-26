@@ -6,9 +6,10 @@ using Elesse.Shared;
 namespace Elesse.Patterns
 {
 
-   // partial interface IPatternEntity { }
+   [JsonInterfaceConverter(typeof(PatternEntityConverter))]
+   partial interface IPatternEntity { }
 
-   public class PatternEntityDTO : IPatternEntity
+   internal class PatternEntityDTO : IPatternEntity
    {
       public EntityID PatternID { get; set; }
       public enPatternType Type { get; set; }
@@ -16,7 +17,7 @@ namespace Elesse.Patterns
       public string Text { get; set; }
    }
 
-   public class PatternEntityConverter : JsonConverter<IPatternEntity>
+   internal class PatternEntityConverter : JsonConverter<IPatternEntity>
    {
 
       public override IPatternEntity Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
