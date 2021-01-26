@@ -11,9 +11,9 @@ namespace Elesse.Patterns
 
       private PatternEntity() { }
 
-      Shared.EntityID _PatternID;
+      EntityID _PatternID;
       [BsonId]
-      public Shared.EntityID PatternID
+      public EntityID PatternID
       {
          get => _PatternID;
          private set
@@ -34,8 +34,8 @@ namespace Elesse.Patterns
          }
       }
 
-      Shared.EntityID _CategoryID;
-      public Shared.EntityID CategoryID
+      EntityID _CategoryID;
+      public EntityID CategoryID
       {
          get => _CategoryID;
          private set
@@ -68,27 +68,6 @@ namespace Elesse.Patterns
          yield return CategoryID;
          yield return Text;
       }
-
-      public static PatternEntity Create(enPatternType type, EntityID categoryID, string text) =>
-         new PatternEntity
-         {
-            PatternID = EntityID.NewID(),
-            Type = type,
-            CategoryID = categoryID,
-            Text = text,
-            RowsDate = DateTime.UtcNow,
-            RowsCount = 1
-         };
-
-      // [BsonFactoryMethod]
-      public static PatternEntity Restore(EntityID patternID, enPatternType type, EntityID categoryID, string text) =>
-         new PatternEntity
-         {
-            PatternID = patternID,
-            Type = type,
-            CategoryID = categoryID,
-            Text = text
-         };
 
    }
 
