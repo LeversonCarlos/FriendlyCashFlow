@@ -8,7 +8,7 @@ namespace Elesse.Patterns
 
       public Task UpdateAsync(IPatternEntity value) =>
          _Collection
-            .ReplaceOneAsync(entity => entity.CategoryID == value.CategoryID, value as PatternEntity);
+            .ReplaceOneAsync(entity => entity.PatternID == value.PatternID, value as PatternEntity);
 
    }
 }
