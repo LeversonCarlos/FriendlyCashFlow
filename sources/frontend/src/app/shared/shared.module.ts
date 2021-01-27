@@ -14,6 +14,7 @@ import { VersionComponent } from './version/version.component';
 import { TranslationPipe } from './localization/translation.pipe';
 import { RelatedboxComponent } from './relatedbox/relatedbox.component';
 import { EmptyListComponent } from './empty-list/empty-list.component';
+import { LocaleService, LocaleServiceProvider } from './localization/locale.service';
 
 @NgModule({
    entryComponents: [MessageViewComponent],
@@ -32,6 +33,7 @@ import { EmptyListComponent } from './empty-list/empty-list.component';
       BusyComponent,
       AnonymousContainerComponent, AuthenticatedContainerComponent,
       TranslationPipe, RelatedboxComponent, EmptyListComponent
-   ]
+   ],
+   providers: [LocaleService, LocaleServiceProvider]
 })
 export class SharedModule { }

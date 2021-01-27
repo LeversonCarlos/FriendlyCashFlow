@@ -14,6 +14,7 @@ import { IdentityModule, TokenService } from '@elesse/identity';
 
 import { AppRouting } from './app.routing';
 import { UrlInterceptorProvider } from './main/interceptors/url.interceptor';
+import { LangInterceptorProvider } from './main/interceptors/lang.interceptor';
 import { ErrorInterceptorProvider } from './main/interceptors/error.interceptor';
 import { RequestAuthInterceptorProvider, ResponseAuthInterceptorProvider } from './main/interceptors/auth.interceptor';
 
@@ -38,7 +39,7 @@ import { environment } from '../environments/environment';
       SettingsService, BusyService, InsightsService, MessageService,
       ResponsiveService, LocalizationService,
       TokenService,
-      UrlInterceptorProvider, ErrorInterceptorProvider, RequestAuthInterceptorProvider, ResponseAuthInterceptorProvider
+      UrlInterceptorProvider, LangInterceptorProvider, ErrorInterceptorProvider, RequestAuthInterceptorProvider, ResponseAuthInterceptorProvider
    ],
    bootstrap: [MainComponent]
 })
