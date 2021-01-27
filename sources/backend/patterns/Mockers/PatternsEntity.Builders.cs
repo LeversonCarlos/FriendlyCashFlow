@@ -2,7 +2,7 @@ namespace Elesse.Patterns
 {
    partial class PatternEntity
    {
-      public static Tests.PatternEntityBuilder Builder() => new Tests.PatternEntityBuilder();
+      internal static Tests.PatternEntityBuilder Builder() => new Tests.PatternEntityBuilder();
    }
 }
 namespace Elesse.Patterns.Tests
@@ -39,7 +39,7 @@ namespace Elesse.Patterns.Tests
       }
 
       public PatternEntity Build() =>
-         new PatternEntity(_PatternID, _Type, _CategoryID, _Text);
+         PatternEntity.Restore(_PatternID, _Type, _CategoryID, _Text);
 
    }
 }

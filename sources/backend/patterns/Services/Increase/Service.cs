@@ -32,7 +32,7 @@ namespace Elesse.Patterns
          // ADD NEW PATTERN
          if (pattern == null)
          {
-            pattern = new PatternEntity(param.Type, param.CategoryID, param.Text);
+            pattern = PatternEntity.Create(param.Type, param.CategoryID, param.Text);
             await _PatternRepository.InsertAsync(pattern);
          }
 

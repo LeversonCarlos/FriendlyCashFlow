@@ -1,5 +1,3 @@
-using System.Threading.Tasks;
-using Elesse.Shared;
 using MongoDB.Driver;
 
 namespace Elesse.Patterns
@@ -10,7 +8,7 @@ namespace Elesse.Patterns
       public PatternRepository(IMongoDatabase mongoDatabase, Identity.IUser currentUser)
       {
          _MongoDatabase = mongoDatabase;
-         _CollectionName = $"{currentUser.UserID}-data";
+         _CollectionName = $"{currentUser.UserID}-patterns";
       }
 
       readonly IMongoDatabase _MongoDatabase;

@@ -9,24 +9,11 @@ namespace Elesse.Patterns
    internal partial class PatternEntity : ValueObject, IPatternEntity
    {
 
-      public PatternEntity(enPatternType type, Shared.EntityID categoryID, string text)
-         : this(Shared.EntityID.NewID(), type, categoryID, text)
-      {
-         RowsCount = 1;
-         RowsDate = DateTime.UtcNow;
-      }
+      private PatternEntity() { }
 
-      public PatternEntity(Shared.EntityID patternID, enPatternType type, Shared.EntityID categoryID, string text)
-      {
-         PatternID = patternID;
-         Type = type;
-         CategoryID = categoryID;
-         Text = text;
-      }
-
-      Shared.EntityID _PatternID;
+      EntityID _PatternID;
       [BsonId]
-      public Shared.EntityID PatternID
+      public EntityID PatternID
       {
          get => _PatternID;
          private set
@@ -47,8 +34,8 @@ namespace Elesse.Patterns
          }
       }
 
-      Shared.EntityID _CategoryID;
-      public Shared.EntityID CategoryID
+      EntityID _CategoryID;
+      public EntityID CategoryID
       {
          get => _CategoryID;
          private set
@@ -71,8 +58,8 @@ namespace Elesse.Patterns
          }
       }
 
-      internal short RowsCount { get; set; }
-      internal DateTime RowsDate { get; set; }
+      public short RowsCount { get; set; }
+      public DateTime RowsDate { get; set; }
 
       protected override IEnumerable<object> GetAtomicValues()
       {

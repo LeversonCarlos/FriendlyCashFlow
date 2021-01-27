@@ -90,8 +90,8 @@ namespace Elesse.Entries
          }
       }
 
-      internal DateTime SearchDate { get; set; }
-      internal decimal Sorting { get; set; }
+      public DateTime SearchDate { get; set; }
+      public decimal Sorting { get; set; }
 
    }
 
