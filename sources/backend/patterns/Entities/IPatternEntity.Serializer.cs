@@ -23,12 +23,17 @@ namespace Elesse.Patterns
       public override IPatternEntity Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
       {
          var dto = (PatternEntityDTO)JsonSerializer.Deserialize(ref reader, typeof(PatternEntityDTO), options);
-         var entity = PatternEntity.Restore(dto.PatternID, dto.Type, dto.CategoryID, dto.Text);
+         PatternEntity entity;
+         if (dto.PatternID != null)
+            entity = PatternEntity.Restore(dto.PatternID, dto.Type, dto.CategoryID, dto.Text);
+         else
+            entity = PatternEntity.Create(dto.Type, dto.CategoryID, dto.Text);
          return entity;
       }
 
       public override void Write(Utf8JsonWriter writer, IPatternEntity value, JsonSerializerOptions options)
       {
+         // options.IgnoreNullValues = true;
          JsonSerializer.Serialize(writer, value, typeof(PatternEntity), options);
       }
 

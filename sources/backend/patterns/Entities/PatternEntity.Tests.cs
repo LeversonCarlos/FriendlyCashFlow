@@ -7,7 +7,6 @@ namespace Elesse.Patterns.Tests
    public class PatternEntityTests
    {
 
-
       [Theory]
       [InlineData(enPatternType.Expense, "10fb4762-e6b2-45e5-be0f-d81a9289a493", "Expense Text")]
       [InlineData(enPatternType.Income, "10fb4762-e6b2-45e5-be0f-d81a9289a493", "Income Text")]
