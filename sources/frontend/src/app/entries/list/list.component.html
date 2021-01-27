@@ -10,13 +10,19 @@
       <shared-empty-list *ngIf="!(Entries | async)?.length"></shared-empty-list>
       <mat-nav-list *ngIf="(Entries | async)?.length">
          <mat-list-item *ngFor="let entry of Entries | async">
-            <a matLine routerLink="../details/{{entry.EntryID}}">
-               <span>{{ entry?.DueDate | date:'shortDate' }}</span>
-               <span> | </span>
-               <span>{{ entry?.Pattern?.Text }}</span>
+            <mat-icon matListIcon>{{ entry.Paid ? 'check_box' : 'check_box_outline_blank' }}</mat-icon>
+            <span matLine routerLink="../details/{{entry.EntryID}}">{{ entry?.Pattern?.Text }}</span>
+            <span matLine routerLink="../details/{{entry.EntryID}}">
+               <span>{{ entry?.DueDate | date:'dd' }}</span>
                <span> | </span>
                <span>{{ entry?.EntryValue | number:'1.2-2' }}</span>
-            </a>
+            </span>
+            <small matLine routerLink="../details/{{entry.EntryID}}">
+               <span>{{ entry?.Pattern?.CategoryID }}</span>
+            </small>
+            <small matLine routerLink="../details/{{entry.EntryID}}">
+               <span>{{ entry?.AccountID }}</span>
+            </small>
             <button mat-icon-button [matMenuTriggerFor]="menu">
                <mat-icon>more_vert</mat-icon>
             </button>
