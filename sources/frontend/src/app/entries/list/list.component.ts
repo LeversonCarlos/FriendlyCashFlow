@@ -32,9 +32,8 @@ export class ListComponent implements OnInit {
 
    private ToGroups(entries: EntryEntity[]): EntryGroupEntity[] {
       const groups = entries
-         .filter(entry => entry.SearchDate)
          .reduce((acc, cur) => {
-            const day = (new Date(cur.SearchDate).getDate()).toString().padStart(2, "0");
+            const day = (new Date(cur.SearchDate)).toISOString().substring(0, 10);
             acc[day] = acc[day] || [];
             acc[day].push(cur);
             return acc;
@@ -47,6 +46,10 @@ export class ListComponent implements OnInit {
          .map(day => Object.assign(new EntryGroupEntity, { Day: day.Day, Entries: day.Entries, Balance: day.Entries[day.Entries.length - 1].Balance }));
       console.log(result.length)
       return result;
+   }
+
+   public OnPaidClick(entry: EntryEntity) {
+      entry.Paid = !entry.Paid
    }
 
 }

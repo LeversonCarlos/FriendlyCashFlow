@@ -1,5 +1,5 @@
 export class EntryGroupEntity {
-   Day: number;
+   Day: Date;
    Entries: EntryEntity[] = []
    Balance: BalanceEntity
 }

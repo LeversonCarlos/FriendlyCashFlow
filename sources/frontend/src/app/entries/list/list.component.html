@@ -15,20 +15,26 @@
                <mat-nav-list *ngIf="entriesGroups.length>0" [attr.dense]="IsMobile?true:null">
                   <ng-container *ngFor="let day of entriesGroups">
 
-                     <div>{{ day.Day }}</div>
+                     <small class="mat-small forecolor-accent">
+                        <span>{{ day.Day | date:'dd' }}</span>
+                        <span> : </span>
+                        <span>{{ day.Day | date:'EEEE' }}</span>
+                     </small>
 
                      <mat-list-item *ngFor="let entry of day.Entries">
-                        <mat-icon matListIcon>{{ entry.Paid ? 'check_box' : 'check_box_outline_blank' }}</mat-icon>
+
+                        <mat-icon matListIcon (click)="OnPaidClick(entry)">{{ entry.Paid ? 'check_box' : 'check_box_outline_blank' }}</mat-icon>
+
                         <span matLine routerLink="../details/{{entry.EntryID}}">
                            <span class="row">
-                              <span class="col mat-body-strong truncate">{{ entry?.Pattern?.Text }}{{ entry?.Pattern?.Text }}</span>
-                              <span class="col mat-body-strong" style="flex-grow: 0;">{{ entry?.EntryValue | number:'1.2-2' }}</span>
+                              <span class="col mat-body-strong truncate">{{ entry?.Pattern?.Text }}{{
+                                 entry?.Pattern?.Text }}</span>
+                              <span class="col mat-body-strong" style="flex-grow: 0;">{{ entry?.EntryValue |
+                                 number:'1.2-2' }}</span>
                            </span>
                         </span>
                         <small matLine routerLink="../details/{{entry.EntryID}}">
-                           <span>{{ entry?.Pattern?.CategoryID }}</span>
-                           <span>|</span>
-                           <span>{{ entry?.AccountID }}</span>
+                           <small class="mat-small">{{ entry?.Pattern?.CategoryID }}</small>
                         </small>
                         <button mat-icon-button [matMenuTriggerFor]="menu">
                            <mat-icon>more_vert</mat-icon>
@@ -40,7 +46,11 @@
                         </mat-menu>
                      </mat-list-item>
 
-                     <div>{{ day.Balance.Total.ExpectedBalance | number:'1.2-2' }}</div>
+                     <!--
+                     <div style="text-align: right;">
+                        <span>{{ day.Balance.Total.ExpectedBalance | number:'1.2-2' }}</span>
+                     </div>
+                     -->
 
                   </ng-container>
                </mat-nav-list>
