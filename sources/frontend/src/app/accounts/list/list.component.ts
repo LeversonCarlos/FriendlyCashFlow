@@ -12,10 +12,12 @@ export class ListComponent implements OnInit {
 
    constructor(private service: AccountsService) { }
 
-   public get ActiveAccounts(): Observable<AccountEntity[]> { return this.service.ObserveAccounts(true); }
-   public get InactiveAccounts(): Observable<AccountEntity[]> { return this.service.ObserveAccounts(false); }
+   public ActiveAccounts: Observable<AccountEntity[]>;
+   public InactiveAccounts: Observable<AccountEntity[]>;
 
    ngOnInit(): void {
+      this.ActiveAccounts = this.service.ObserveAccounts(true);
+      this.InactiveAccounts = this.service.ObserveAccounts(false);
       this.service.RefreshCache();
    }
 

@@ -1,0 +1,51 @@
+@import "src/styles/variables.scss";
+
+div[content] {
+   height: $section-height;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   @media (max-width: $max-width-xs) {
+      display: block;
+   }
+}
+
+.main-card {
+   width: 1024px;
+
+   .mat-card-content {
+      height: calc(#{$section-height} - 64px);
+      overflow-y: scroll;
+      .mat-nav-list {
+         padding: 0;
+      }
+   }
+
+   @media (max-width: $max-width-xs) {
+      width: 100vw;
+      padding: 0;
+      .mat-card-content {
+         height: $section-height;
+         width: 100vw;
+
+         .mat-list-item-content {
+            padding: 0;
+         }
+      }
+   }
+}
+
+span[matLine] {
+   .col {
+      margin-bottom: 0;
+   }
+}
+.truncate {
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   width: 85%;
+   @media (max-width: $max-width-xs) {
+      width: 60%;
+   }
+}

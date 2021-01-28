@@ -12,11 +12,13 @@ export class ListComponent implements OnInit {
 
    constructor(private service: CategoriesService) { }
 
-   public get IncomeCategories(): Observable<CategoryEntity[]> { return this.service.ObserveCategories(enCategoryType.Income); }
-   public get ExpenseCategories(): Observable<CategoryEntity[]> { return this.service.ObserveCategories(enCategoryType.Expense); }
+   public IncomeCategories: Observable<CategoryEntity[]>;
+   public ExpenseCategories: Observable<CategoryEntity[]>;
    public get SelectedCategoryTab(): number { return this.service.SelectedCategoryType == enCategoryType.Expense ? 1 : 0; }
 
    public async ngOnInit() {
+      this.IncomeCategories = this.service.ObserveCategories(enCategoryType.Income);
+      this.ExpenseCategories = this.service.ObserveCategories(enCategoryType.Expense);
       this.service.RefreshCache();
    }
 

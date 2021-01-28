@@ -1,3 +1,9 @@
+export class EntryGroupEntity {
+   Day: Date;
+   Entries: EntryEntity[] = []
+   Balance: BalanceEntity
+}
+
 export class EntryEntity {
    EntryID: string;
    Pattern: PatternEntity;
@@ -11,6 +17,7 @@ export class EntryEntity {
 
    Balance: BalanceEntity = new BalanceEntity();
    Sorting: number;
+   SearchDate: Date
 
    static Parse(value: any): EntryEntity {
       return Object.assign(new EntryEntity, value);
