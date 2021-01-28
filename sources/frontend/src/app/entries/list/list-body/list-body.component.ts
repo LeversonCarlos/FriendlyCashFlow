@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ResponsiveService } from '@elesse/shared';
 import { AccountEntries, EntryEntity } from '../../entries.data';
 
 @Component({
@@ -8,10 +9,11 @@ import { AccountEntries, EntryEntity } from '../../entries.data';
 })
 export class ListBodyComponent implements OnInit {
 
-   constructor() { }
+   constructor(private responsive: ResponsiveService) { }
 
    @Input()
    public AccountEntries: AccountEntries;
+   public get IsMobile(): boolean { return this.responsive && this.responsive.IsMobile; }
 
    ngOnInit(): void {
    }

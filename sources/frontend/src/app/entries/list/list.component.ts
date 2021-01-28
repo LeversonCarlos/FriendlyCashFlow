@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ResponsiveService } from '@elesse/shared';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AccountEntries } from '../entries.data';
@@ -13,9 +12,8 @@ import { ListService } from './list.service';
 })
 export class ListComponent implements OnInit {
 
-   constructor(private service: EntriesService, private responsive: ResponsiveService) { }
+   constructor(private service: EntriesService) { }
 
-   public get IsMobile(): boolean { return this.responsive && this.responsive.IsMobile; }
    public AccountsEntries: Observable<AccountEntries[]>;
    public HasData: Observable<number>;
 
