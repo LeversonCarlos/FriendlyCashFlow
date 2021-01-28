@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { TestsModule } from '@elesse/tests';
 import { EntryEntity } from '../entries.data';
-import { ConvertService } from './convert.service';
+import { ConvertService } from './list.service';
 
 describe('ConvertService', () => {
    let service: ConvertService;
