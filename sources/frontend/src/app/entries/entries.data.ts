@@ -1,7 +1,5 @@
-import { AccountEntity } from "../accounts/accounts.data";
-
 export class AccountEntries {
-   Account: AccountEntity;
+   AccountID: string;
    Balance: BalanceItemEntity;
    Days: DayEntries[] = []
 }
