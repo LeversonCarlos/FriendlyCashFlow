@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ResponsiveService } from '@elesse/shared';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { EntryEntity, EntryGroupEntity } from '../entries.data';
@@ -11,16 +12,16 @@ import { EntriesService } from '../entries.service';
 })
 export class ListComponent implements OnInit {
 
-   constructor(private service: EntriesService) { }
+   constructor(private service: EntriesService, private responsive: ResponsiveService) { }
 
+   public get IsMobile(): boolean { return this.responsive && this.responsive.IsMobile; }
    public EntriesGroups: Observable<EntryGroupEntity[]>;
    public HasData: Observable<number>;
 
    ngOnInit() {
       this.HasData = this.service.ObserveEntries()
          .pipe(
-            map(entries => entries.length),
-            tap(console.log)
+            map(entries => entries.length)
          );
       this.EntriesGroups = this.service.ObserveEntries()
          .pipe(
