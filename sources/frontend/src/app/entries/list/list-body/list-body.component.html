@@ -1,4 +1,16 @@
-<pre>{{ AccountEntries | json }}</pre>
+<mat-nav-list [attr.dense]="IsMobile?true:null">
+   <ng-container *ngFor="let day of AccountEntries?.Days">
+
+      <small class="mat-small forecolor-accent">
+         <span>{{ day.Day | date:'dd' }}</span>
+         <span> : </span>
+         <span>{{ day.Day | date:'EEEE' }}</span>
+      </small>
+
+      <pre>{{ day | json }}</pre>
+
+   </ng-container>
+</mat-nav-list>
 
       <!--
       <mat-card class="main-card" [class.mat-elevation-z0]="IsMobile">
