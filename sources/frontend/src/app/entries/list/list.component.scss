@@ -1,0 +1,6 @@
+@import 'src/styles/variables.scss';
+
+div[content] {
+   height: #{$section-height};
+   overflow-y: scroll;
+}
