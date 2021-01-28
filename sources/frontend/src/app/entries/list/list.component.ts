@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ResponsiveService } from '@elesse/shared';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { EntryEntity, EntryGroupEntity } from '../entries.data';
 import { EntriesService } from '../entries.service';
 
@@ -31,7 +31,7 @@ export class ListComponent implements OnInit {
    }
 
    private ToGroups(entries: EntryEntity[]): EntryGroupEntity[] {
-      if (!entries)
+      if (entries == null || entries.length == 0)
          return [];
       const groups = entries
          .reduce((acc, cur) => {
