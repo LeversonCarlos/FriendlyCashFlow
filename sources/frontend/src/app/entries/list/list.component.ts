@@ -31,6 +31,8 @@ export class ListComponent implements OnInit {
    }
 
    private ToGroups(entries: EntryEntity[]): EntryGroupEntity[] {
+      if (!entries)
+         return [];
       const groups = entries
          .reduce((acc, cur) => {
             const day = (new Date(cur.SearchDate)).toISOString().substring(0, 10);
