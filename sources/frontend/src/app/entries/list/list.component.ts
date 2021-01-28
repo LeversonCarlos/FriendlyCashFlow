@@ -16,6 +16,19 @@ export class ListComponent implements OnInit {
    public EntriesGroups: Observable<EntryGroupEntity[]>;
    public HasData: Observable<number>;
 
+   ngOnInit() {
+      this.HasData = this.service.ObserveEntries()
+         .pipe(
+            map(entries => entries.length),
+            tap(console.log)
+         );
+      this.EntriesGroups = this.service.ObserveEntries()
+         .pipe(
+            map(this.ToGroups)
+         );
+      this.service.RefreshCache();
+   }
+
    private ToGroups(entries: EntryEntity[]): EntryGroupEntity[] {
       const groups = entries
          .filter(entry => entry.SearchDate)
@@ -33,19 +46,6 @@ export class ListComponent implements OnInit {
          .map(day => Object.assign(new EntryGroupEntity, { Day: day.Day, Entries: day.Entries, Balance: day.Entries[day.Entries.length - 1].Balance }));
       console.log(result.length)
       return result;
-   }
-
-   ngOnInit() {
-      this.HasData = this.service.ObserveEntries()
-         .pipe(
-            map(entries => entries.length),
-            tap(console.log)
-         );
-      this.EntriesGroups = this.service.ObserveEntries()
-         .pipe(
-            map(this.ToGroups)
-         );
-      this.service.RefreshCache();
    }
 
 }
