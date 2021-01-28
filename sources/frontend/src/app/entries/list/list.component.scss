@@ -1,5 +1,10 @@
 @import "src/styles/variables.scss";
 
+.tab-contents {
+   height: calc(#{$section-height} - 48px);
+}
+
+/*
 div[content] {
    height: $section-height;
    display: flex;
@@ -9,6 +14,7 @@ div[content] {
       display: block;
    }
 }
+*/
 
 .main-card {
    width: 1024px;
