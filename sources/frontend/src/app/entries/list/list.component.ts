@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { EntryEntity, EntryGroupEntity } from '../entries.data';
 import { EntriesService } from '../entries.service';
 
@@ -13,13 +13,8 @@ export class ListComponent implements OnInit {
 
    constructor(private service: EntriesService) { }
 
-   public get Entries(): Observable<EntryEntity[]> { return this.service.ObserveEntries(); }
-   public get EntriesGroups(): Observable<EntryGroupEntity[]> {
-      return this.service.ObserveEntries()
-         .pipe(
-            map(this.ToGroups)
-         );
-   }
+   public EntriesGroups: Observable<EntryGroupEntity[]>;
+   public HasData: Observable<number>;
 
    private ToGroups(entries: EntryEntity[]): EntryGroupEntity[] {
       const groups = entries
@@ -36,10 +31,20 @@ export class ListComponent implements OnInit {
       const result = days
          .map(day => { return { Day: day, Entries: groups[day].sort((p, n) => p.Sorting < n.Sorting ? -1 : 1) }; })
          .map(day => Object.assign(new EntryGroupEntity, { Day: day.Day, Entries: day.Entries, Balance: day.Entries[day.Entries.length - 1].Balance }));
+      console.log(result.length)
       return result;
    }
 
    ngOnInit() {
+      this.HasData = this.service.ObserveEntries()
+         .pipe(
+            map(entries => entries.length),
+            tap(console.log)
+         );
+      this.EntriesGroups = this.service.ObserveEntries()
+         .pipe(
+            map(this.ToGroups)
+         );
       this.service.RefreshCache();
    }
 
