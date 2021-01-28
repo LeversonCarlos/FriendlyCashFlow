@@ -7,69 +7,19 @@
    </div>
    <div content>
 
-      <mat-tab-group dynamicHeight="false">
+      <!--
+      <ng-container *ngIf="(EntriesGroups | async) as entriesGroups">
+         <shared-empty-list *ngIf="entriesGroups.length==0"></shared-empty-list>
+      </ng-container>
+      -->
 
+      <mat-tab-group dynamicHeight="false">
          <mat-tab *ngFor="let account of AccountsEntries | async" [label]="account.AccountID">
             <div class="tab-contents">
-               <pre>{{ account.Days | json }}</pre>
+               <entries-list-body [AccountEntries]="account"></entries-list-body>
             </div>
          </mat-tab>
-
       </mat-tab-group>
-
-      <!--
-      <mat-card class="main-card" [class.mat-elevation-z0]="IsMobile">
-         <mat-card-content>
-
-            <ng-container *ngIf="(EntriesGroups | async) as entriesGroups">
-               <shared-empty-list *ngIf="entriesGroups.length==0"></shared-empty-list>
-               <mat-nav-list *ngIf="entriesGroups.length>0" [attr.dense]="IsMobile?true:null">
-                  <ng-container *ngFor="let day of entriesGroups">
-
-                     <small class="mat-small forecolor-accent">
-                        <span>{{ day.Day | date:'dd' }}</span>
-                        <span> : </span>
-                        <span>{{ day.Day | date:'EEEE' }}</span>
-                     </small>
-
-                     <mat-list-item *ngFor="let entry of day.Entries">
-
-                        <mat-icon matListIcon (click)="OnPaidClick(entry)">{{ entry.Paid ? 'check_box' : 'check_box_outline_blank' }}</mat-icon>
-
-                        <span matLine routerLink="../details/{{entry.EntryID}}">
-                           <span class="row">
-                              <span class="col mat-body-strong truncate">{{ entry?.Pattern?.Text }}{{
-                                 entry?.Pattern?.Text }}</span>
-                              <span class="col mat-body-strong" style="flex-grow: 0;">{{ entry?.EntryValue |
-                                 number:'1.2-2' }}</span>
-                           </span>
-                        </span>
-                        <small matLine routerLink="../details/{{entry.EntryID}}">
-                           <small class="mat-small">{{ entry?.Pattern?.CategoryID }}</small>
-                        </small>
-                        <button mat-icon-button [matMenuTriggerFor]="menu">
-                           <mat-icon>more_vert</mat-icon>
-                        </button>
-                        <mat-menu #menu="matMenu">
-                           <button mat-menu-item class="danger" (click)="OnRemoveEntry(entry)">
-                              <span>{{ 'entries.REMOVE_MENU' | translation | async }}</span>
-                           </button>
-                        </mat-menu>
-                     </mat-list-item>
-
-                     < !--
-                     <div style="text-align: right;">
-                        <span>{{ day.Balance.Total.ExpectedBalance | number:'1.2-2' }}</span>
-                     </div>
-                     -- >
-
-                  </ng-container>
-               </mat-nav-list>
-            </ng-container>
-
-         </mat-card-content>
-      </mat-card>
-      -->
 
    </div>
 </shared-authenticated-container>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ResponsiveService } from '@elesse/shared';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AccountEntries, EntryEntity } from '../entries.data';
+import { AccountEntries } from '../entries.data';
 import { EntriesService } from '../entries.service';
 import { ListService } from './list.service';
 
@@ -29,10 +29,6 @@ export class ListComponent implements OnInit {
             map(ListService.GetEntriesAccounts)
          );
       this.service.RefreshCache();
-   }
-
-   public OnPaidClick(entry: EntryEntity) {
-      entry.Paid = !entry.Paid
    }
 
 }
