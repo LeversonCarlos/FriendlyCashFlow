@@ -9,15 +9,18 @@
 
       <mat-list-item *ngFor="let entry of day.Entries">
 
-         <mat-icon matListIcon (click)="OnPaidClick(entry)">{{ entry.Paid ? 'check_box' : 'check_box_outline_blank' }}
+         <mat-icon matListIcon (click)="OnPaidClick(entry)">
+            {{ entry.Paid ? 'check_box' : 'check_box_outline_blank' }}
          </mat-icon>
 
          <span matLine routerLink="../details/{{entry.EntryID}}">
             <span class="row">
-               <span class="col mat-body-strong truncate">{{ entry?.Pattern?.Text }}{{
-                  entry?.Pattern?.Text }}</span>
-               <span class="col mat-body-strong" style="flex-grow: 0;">{{ entry?.EntryValue |
-                  number:'1.2-2' }}</span>
+               <span class="col mat-body-strong truncate">
+                  {{ entry?.Pattern?.Text }}{{ entry?.Pattern?.Text }}
+               </span>
+               <span class="col mat-body-strong" style="flex-grow: 0;">
+                  {{ entry?.EntryValue | number:'1.2-2' }}
+               </span>
             </span>
          </span>
          <small matLine routerLink="../details/{{entry.EntryID}}">
