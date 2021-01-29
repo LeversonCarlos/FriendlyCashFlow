@@ -10,7 +10,7 @@
       <ng-container *ngIf="(AccountsEntries | async) as accountsEntries">
          <shared-empty-list *ngIf="accountsEntries.length==0"></shared-empty-list>
          <mat-tab-group dynamicHeight="false" *ngIf="accountsEntries.length>0">
-            <mat-tab *ngFor="let account of accountsEntries" [label]="account.AccountID">
+            <mat-tab *ngFor="let account of accountsEntries" [label]="account.Account.Text">
                <div class="tab-contents">
                   <entries-list-body [AccountEntries]="account"></entries-list-body>
                </div>

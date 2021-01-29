@@ -1,34 +1,25 @@
+import { AccountEntity } from '@elesse/accounts';
 import { AccountEntries, DayEntries, EntryEntity } from '../entries.data';
 
 export class ListService {
 
-   public static GetEntriesAccounts(entries: EntryEntity[]): AccountEntries[] {
+   public static GetEntriesAccounts(accounts: AccountEntity[], entries: EntryEntity[]): AccountEntries[] {
+      if (accounts == null || accounts.length == 0)
+         return [];
       if (entries == null || entries.length == 0)
          return [];
 
-      const accountGroups = entries
-         .reduce((acc, cur) => {
-            const key = cur.AccountID;
-            acc[key] = acc[key] || [];
-            acc[key].push(cur);
-            return acc;
-         }, {});
-
-      const accountIDs = Object
-         .keys(accountGroups)
-         .sort((p, n) => p < n ? -1 : 1)
-
-      const accountResults = accountIDs
-         .map(accountID => {
+      const accountResults = accounts
+         .map(account => {
             return {
-               accountID,
-               Days: ListService.GetEntriesDays(accountGroups[accountID])
+               account,
+               Days: ListService.GetEntriesDays(entries.filter(entry => entry.AccountID == account.AccountID))
             };
          })
          .map(account => Object.assign(new AccountEntries, {
-            AccountID: account.accountID,
+            Account: account.account,
             Days: account.Days,
-            Balance: account.Days[account.Days.length - 1].Balance
+            Balance: account.Days[account.Days.length - 1]?.Balance
          }));
 
       return accountResults;

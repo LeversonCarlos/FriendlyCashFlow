@@ -1,5 +1,7 @@
+import { AccountEntity } from "@elesse/accounts";
+
 export class AccountEntries {
-   AccountID: string;
+   Account: AccountEntity;
    Balance: BalanceItemEntity;
    Days: DayEntries[] = []
 }

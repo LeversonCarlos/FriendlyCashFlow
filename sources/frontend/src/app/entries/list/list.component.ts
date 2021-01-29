@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { AccountsService } from '@elesse/accounts';
 import { AccountEntries } from '../entries.data';
 import { EntriesService } from '../entries.service';
 import { ListService } from './list.service';
@@ -12,7 +13,7 @@ import { ListService } from './list.service';
 })
 export class ListComponent implements OnInit {
 
-   constructor(private service: EntriesService) { }
+   constructor(private service: EntriesService, private accountsService: AccountsService) { }
 
    public AccountsEntries: Observable<AccountEntries[]>;
    public HasData: Observable<number>;
@@ -22,9 +23,9 @@ export class ListComponent implements OnInit {
          .pipe(
             map(entries => entries.length)
          );
-      this.AccountsEntries = this.service.ObserveEntries()
+      this.AccountsEntries = combineLatest([this.accountsService.ObserveAccounts(), this.service.ObserveEntries()])
          .pipe(
-            map(ListService.GetEntriesAccounts)
+            map(([accounts, entries]) => ListService.GetEntriesAccounts(accounts, entries))
          );
       this.service.RefreshCache();
    }
