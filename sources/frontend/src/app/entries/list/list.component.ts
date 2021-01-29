@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AccountsService } from '@elesse/accounts';
+import { AccountsService, enAccountType } from '@elesse/accounts';
 import { AccountEntries } from '../entries.data';
 import { EntriesService } from '../entries.service';
 import { ListService } from './list.service';
@@ -29,5 +29,7 @@ export class ListComponent implements OnInit {
          );
       this.service.RefreshCache();
    }
+
+   public GetAccountIcon(type: enAccountType): string { return this.accountsService.GetAccountIcon(type); }
 
 }
