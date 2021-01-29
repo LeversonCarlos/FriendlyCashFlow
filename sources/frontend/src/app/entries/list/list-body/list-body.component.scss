@@ -1,0 +1,21 @@
+@import "src/styles/variables.scss";
+
+.mat-nav-list {
+   padding: 0;
+}
+
+span[matLine] {
+   .col {
+      margin-bottom: 0;
+   }
+}
+
+.truncate {
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   width: 85%;
+   @media (max-width: $max-width-xs) {
+      width: 60%;
+   }
+}

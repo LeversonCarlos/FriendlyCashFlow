@@ -1,22 +1,22 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TestsModule } from '@elesse/tests';
-import { ListComponent } from './list.component';
+import { ListBodyComponent } from './list-body.component';
 
-describe('ListComponent', () => {
+describe('ListBodyComponent', () => {
 
-   let component: ListComponent;
-   let fixture: ComponentFixture<ListComponent>;
+   let component: ListBodyComponent;
+   let fixture: ComponentFixture<ListBodyComponent>;
 
    beforeEach(async () => {
       await TestBed.configureTestingModule({
-         declarations: [ListComponent],
+         declarations: [ListBodyComponent],
          imports: [TestsModule]
       })
-         .compileComponents();
+      .compileComponents();
    });
 
    beforeEach(() => {
-      fixture = TestBed.createComponent(ListComponent);
+      fixture = TestBed.createComponent(ListBodyComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
    });

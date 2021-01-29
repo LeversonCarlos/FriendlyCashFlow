@@ -30,6 +30,9 @@
       "@elesse/identity": [
         "src/app/identity/identity.exports.ts"
       ],
+      "@elesse/accounts": [
+        "src/app/accounts/accounts.exports.ts"
+      ],
     }
   }
 }

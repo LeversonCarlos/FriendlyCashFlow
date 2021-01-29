@@ -1,3 +1,17 @@
+import { AccountEntity } from "@elesse/accounts";
+
+export class AccountEntries {
+   Account: AccountEntity;
+   Balance: BalanceItemEntity;
+   Days: DayEntries[] = []
+}
+
+export class DayEntries {
+   Day: Date;
+   Balance: BalanceItemEntity
+   Entries: EntryEntity[] = []
+}
+
 export class EntryGroupEntity {
    Day: Date;
    Entries: EntryEntity[] = []

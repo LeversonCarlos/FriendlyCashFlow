@@ -5,9 +5,10 @@ import { SharedModule } from '../shared/shared.exports';
 import { EntriesRouting } from './entries.routing';
 import { EntriesService } from './entries.service';
 import { ListComponent } from './list/list.component';
+import { ListBodyComponent } from './list/list-body/list-body.component';
 
 @NgModule({
-   declarations: [ListComponent],
+   declarations: [ListComponent, ListBodyComponent],
    imports: [
       MaterialModule, SharedModule,
       EntriesRouting
