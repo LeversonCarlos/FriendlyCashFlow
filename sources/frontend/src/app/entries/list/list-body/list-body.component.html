@@ -1,4 +1,5 @@
-<mat-nav-list [attr.dense]="IsMobile?true:null">
+<shared-empty-list *ngIf="AccountEntries?.Days.length==0"></shared-empty-list>
+<mat-nav-list *ngIf="AccountEntries?.Days.length>0" [attr.dense]="IsMobile?true:null">
    <ng-container *ngFor="let day of AccountEntries?.Days">
 
       <small class="mat-small forecolor-accent">
