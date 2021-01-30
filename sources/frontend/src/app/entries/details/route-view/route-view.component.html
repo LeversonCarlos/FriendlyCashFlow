@@ -1,1 +1,8 @@
-<p>route-view works!</p>
+<shared-authenticated-container>
+   <div header-title>{{ "entries.TITLE" | translation | async }}</div>
+   <div content>
+
+      <pre style="height: 60vh; overflow-y: scroll;">{{ data | json }}</pre>
+
+   </div>
+</shared-authenticated-container>
