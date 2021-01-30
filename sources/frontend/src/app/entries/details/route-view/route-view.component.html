@@ -2,7 +2,7 @@
    <div header-title>{{ "entries.TITLE" | translation | async }}</div>
    <div content>
 
-      <pre style="height: 60vh; overflow-y: scroll;">{{ data | json }}</pre>
+      <pre style="height: 60vh; overflow-y: scroll;">{{ inputForm?.value | json }}</pre>
 
    </div>
 </shared-authenticated-container>
