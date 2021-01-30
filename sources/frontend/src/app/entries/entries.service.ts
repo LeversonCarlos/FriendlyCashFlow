@@ -51,7 +51,7 @@ export class EntriesService {
             return null;
 
          if (entryID == 'new')
-            return Object.assign(new EntryEntity, { });
+            return Object.assign(new EntryEntity, {});
 
          let value = await this.http.get<EntryEntity>(`api/entries/load/${entryID}`).toPromise();
          if (!value)
@@ -62,6 +62,28 @@ export class EntriesService {
 
       }
       catch { /* error absorber */ }
+      finally { this.busy.hide(); }
+   }
+
+   public async SaveEntry(entry: EntryEntity): Promise<boolean> {
+      try {
+         this.busy.show();
+
+         if (!entry)
+            return false;
+
+         console.log(entry);
+         /*
+         if (entry.EntryID == null)
+            await this.http.post("api/entries/insert", entry).toPromise();
+         else
+            await this.http.put("api/entries/update", entry).toPromise();
+         */
+
+         return true;
+
+      }
+      catch { return false; /* error absorber */ }
       finally { this.busy.hide(); }
    }
 
