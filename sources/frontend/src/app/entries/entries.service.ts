@@ -43,4 +43,26 @@ export class EntriesService {
       finally { this.busy.hide(); }
    }
 
+   public async LoadEntry(entryID: string): Promise<EntryEntity> {
+      try {
+         this.busy.show();
+
+         if (!entryID)
+            return null;
+
+         if (entryID == 'new')
+            return Object.assign(new EntryEntity, { });
+
+         let value = await this.http.get<EntryEntity>(`api/entries/load/${entryID}`).toPromise();
+         if (!value)
+            return null;
+
+         value = Object.assign(new EntryEntity, value);
+         return value;
+
+      }
+      catch { /* error absorber */ }
+      finally { this.busy.hide(); }
+   }
+
 }
