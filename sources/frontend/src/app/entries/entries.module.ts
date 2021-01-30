@@ -6,9 +6,10 @@ import { EntriesRouting } from './entries.routing';
 import { EntriesService } from './entries.service';
 import { ListComponent } from './list/list.component';
 import { ListBodyComponent } from './list/list-body/list-body.component';
+import { RouteViewComponent } from './details/route-view/route-view.component';
 
 @NgModule({
-   declarations: [ListComponent, ListBodyComponent],
+   declarations: [ListComponent, ListBodyComponent, RouteViewComponent],
    imports: [
       MaterialModule, SharedModule,
       EntriesRouting
