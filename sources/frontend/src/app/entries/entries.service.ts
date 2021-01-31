@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { enCategoryType } from '../categories/categories.data';
+import { enCategoryType } from '@elesse/categories';
 import { BusyService } from '../shared/busy/busy.service';
 import { EntriesCacheService } from './cache/entries-cache.service';
 import { EntryEntity } from './entries.data';
