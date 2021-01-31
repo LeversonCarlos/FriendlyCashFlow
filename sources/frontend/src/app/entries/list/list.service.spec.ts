@@ -1,5 +1,5 @@
 import { AccountEntity } from '@elesse/accounts';
-import { EntryEntity } from '../entries.data';
+import { EntryEntity } from '../model/entries.model';
 import { ListService } from './list.service';
 
 describe('ListService', () => {

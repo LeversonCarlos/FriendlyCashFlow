@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { StorageService } from '@elesse/shared';
-import { BalanceItemEntity, EntryEntity } from '../entries.data';
+import { BalanceItemEntity, EntryEntity } from '../model/entries.model';
 
 @Injectable({
    providedIn: 'root'
 })
-export class EntriesCacheService extends StorageService<string, EntryEntity[]> {
+export class EntriesCache extends StorageService<string, EntryEntity[]> {
 
    constructor() {
       super("EntriesCache");

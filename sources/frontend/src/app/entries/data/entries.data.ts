@@ -2,19 +2,19 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { enCategoryType } from '@elesse/categories';
-import { BusyService } from '../shared/busy/busy.service';
-import { EntriesCacheService } from './cache/entries-cache.service';
-import { EntryEntity } from './entries.data';
-import { MonthService } from './month/month.service';
+import { BusyService } from '../../shared/busy/busy.service';
+import { EntriesCache } from '../cache/cache.service';
+import { EntryEntity } from '../model/entries.model';
+import { MonthService } from '../month/month.service';
 
 @Injectable({
    providedIn: 'root'
 })
-export class EntriesService {
+export class EntriesData {
 
    constructor(private busy: BusyService,
       private http: HttpClient) {
-      this.Cache = new EntriesCacheService();
+      this.Cache = new EntriesCache();
       this.SelectedMonth = MonthService.Now();
    }
 
@@ -25,7 +25,7 @@ export class EntriesService {
       this.Cache.InitializeValue(value.ToCode());
    }
 
-   private Cache: EntriesCacheService;
+   private Cache: EntriesCache;
    public ObserveEntries = (): Observable<EntryEntity[]> =>
       this.Cache.GetObservable(this.SelectedMonth.ToCode());
 
