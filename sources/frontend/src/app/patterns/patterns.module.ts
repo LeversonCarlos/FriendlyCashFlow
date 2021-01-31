@@ -6,6 +6,7 @@ import { SharedModule } from '../shared/shared.exports';
    declarations: [],
    imports: [
       MaterialModule, SharedModule
-   ]
+   ],
+   providers: []
 })
 export class PatternsModule { }
