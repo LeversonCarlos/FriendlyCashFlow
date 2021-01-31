@@ -16,6 +16,9 @@ const dummyRoutes = [
    { path: 'categories', component: BlankComponent },
    { path: 'categories/list', component: BlankComponent },
    { path: 'categories/details/:id', component: BlankComponent },
+   { path: 'entries', component: BlankComponent },
+   { path: 'entries/list', component: BlankComponent },
+   { path: 'entries/details/:id', component: BlankComponent },
 ];
 
 @NgModule({

@@ -33,6 +33,12 @@
       "@elesse/accounts": [
         "src/app/accounts/accounts.exports.ts"
       ],
+      "@elesse/categories": [
+        "src/app/categories/categories.exports.ts"
+      ],
+      "@elesse/patterns": [
+        "src/app/patterns/patterns.exports.ts"
+      ],
     }
   }
 }

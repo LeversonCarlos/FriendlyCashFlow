@@ -1,5 +1,5 @@
 import { AccountEntity } from "@elesse/accounts";
-import { enCategoryType } from "../categories/categories.data";
+import { PatternEntity } from "@elesse/patterns";
 
 export class AccountEntries {
    Account: AccountEntity;
@@ -48,16 +48,4 @@ export class BalanceEntity {
 export class BalanceItemEntity {
    ExpectedBalance: number = 0.00;
    RealizedBalance: number = 0.00;
-}
-
-export class PatternEntity {
-   PatternID: string;
-   Type: enCategoryType;
-   CategoryID: string;
-   Text: string;
-
-   static Parse(value: any): PatternEntity {
-      return Object.assign(new PatternEntity, value);
-   }
-
 }

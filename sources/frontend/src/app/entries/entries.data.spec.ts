@@ -1,5 +1,6 @@
-import { enCategoryType } from '../categories/categories.data';
-import { EntryEntity, PatternEntity } from './entries.data';
+import { enCategoryType } from '@elesse/categories';
+import { PatternEntity } from '@elesse/patterns';
+import { EntryEntity } from './entries.data';
 
 describe('EntryEntity', () => {
 
