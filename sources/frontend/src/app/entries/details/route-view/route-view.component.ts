@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BusyService, MessageService } from '@elesse/shared';
+import { CategoriesService } from 'src/app/categories/categories.service';
 import { EntryEntity } from '../../entries.data';
 import { EntriesService } from '../../entries.service';
 
@@ -12,11 +13,13 @@ import { EntriesService } from '../../entries.service';
 })
 export class DetailsRouteViewComponent implements OnInit {
 
-   constructor(private service: EntriesService, private msg: MessageService, private busy: BusyService,
+   constructor(private service: EntriesService, private categoryService: CategoriesService,
+      private msg: MessageService, private busy: BusyService,
       private activatedRoute: ActivatedRoute, private router: Router, private fb: FormBuilder) { }
 
    public inputForm: FormGroup;
    public get IsBusy(): boolean { return this.busy.IsBusy; }
+   public TypeDescription: string;
 
    public async ngOnInit(): Promise<void> {
       const paramID = this.activatedRoute.snapshot.params.id;
@@ -24,6 +27,11 @@ export class DetailsRouteViewComponent implements OnInit {
       const data = await this.service.LoadEntry(paramID);
       if (!data)
          this.router.navigate(["/entries/list"])
+
+      this.TypeDescription = (await this.categoryService.GetAccountTypes())
+         .filter(cat => cat.Value == data.Pattern.Type)
+         .map(cat => cat.Text)
+         .reduce((a, b) => b, '');
 
       this.OnFormCreate(data);
    }

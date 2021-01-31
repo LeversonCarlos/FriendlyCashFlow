@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
+import { enCategoryType } from '../categories/categories.data';
 import { BusyService } from '../shared/busy/busy.service';
 import { EntriesCacheService } from './cache/entries-cache.service';
 import { EntryEntity } from './entries.data';
@@ -50,8 +51,10 @@ export class EntriesService {
          if (!entryID)
             return null;
 
-         if (entryID == 'new')
-            return Object.assign(new EntryEntity, {});
+         if (entryID == 'new-income')
+            return Object.assign(new EntryEntity, { Pattern: { Type: enCategoryType.Income } });
+         else if (entryID == 'new-expense')
+            return Object.assign(new EntryEntity, { Pattern: { Type: enCategoryType.Expense } });
 
          let value = await this.http.get<EntryEntity>(`api/entries/load/${entryID}`).toPromise();
          if (!value)

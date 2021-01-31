@@ -1,4 +1,5 @@
 import { AccountEntity } from "@elesse/accounts";
+import { enCategoryType } from "../categories/categories.data";
 
 export class AccountEntries {
    Account: AccountEntity;
@@ -49,11 +50,9 @@ export class BalanceItemEntity {
    RealizedBalance: number = 0.00;
 }
 
-export enum enPatternType { Expense = 1, Income = 2 }
-
 export class PatternEntity {
    PatternID: string;
-   Type: enPatternType;
+   Type: enCategoryType;
    CategoryID: string;
    Text: string;
 

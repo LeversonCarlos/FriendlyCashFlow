@@ -1,9 +1,25 @@
 <shared-authenticated-container>
    <div header-title>{{ "entries.TITLE" | translation | async}}</div>
    <div header-toolbar>
-      <button mat-icon-button routerLink="../details/new">
+
+      <button mat-icon-button [matMenuTriggerFor]="addMenu">
          <mat-icon>add_circle</mat-icon>
       </button>
+      <mat-menu #addMenu="matMenu">
+         <button mat-menu-item routerLink="../details/new-income">
+            <mat-icon>add</mat-icon>
+            <span>{{ 'entries.ADD_INCOME_MENU' | translation | async }}</span>
+         </button>
+         <button mat-menu-item routerLink="../details/new-expense">
+            <mat-icon>remove</mat-icon>
+            <span>{{ 'entries.ADD_EXPENSE_MENU' | translation | async }}</span>
+         </button>
+         <button mat-menu-item routerLink="../details/new-transfer" disable>
+            <mat-icon>shuffle</mat-icon>
+            <span>{{ 'entries.ADD_TRANSFER_MENU' | translation | async }}</span>
+         </button>
+      </mat-menu>
+
    </div>
    <div content>
 

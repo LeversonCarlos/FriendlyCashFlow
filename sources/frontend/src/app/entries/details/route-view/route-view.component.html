@@ -6,7 +6,16 @@
          <mat-card>
 
             <mat-card-content>
-               <pre style="height: 60vh; overflow-y: scroll;">{{ inputForm?.value | json }}</pre>
+               <mat-form-field class="row">
+                  <mat-label>{{ "entries.TEXT_LABEL" | translation | async }}</mat-label>
+                  <input type="text" matInput autofocus formControlName="Text">
+               </mat-form-field>
+               <mat-form-field class="row">
+                  <mat-label>{{ "categories.TYPE_LABEL" | translation | async }}</mat-label>
+                  <input type="text" matInput disabled [value]="TypeDescription">
+               </mat-form-field>
+
+               <pre style="max-height: 30vh; overflow-y: scroll;">{{ inputForm?.value | json }}</pre>
             </mat-card-content>
 
             <mat-card-actions>
