@@ -1,16 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 import { TestsModule } from '@elesse/tests';
-import { EntriesService } from './entries.service';
-import { MonthService } from './month/month.service';
+import { EntriesData } from './entries.data';
+import { MonthService } from '../month/month.service';
 
-describe('EntriesService', () => {
-   let service: EntriesService;
+describe('EntriesData', () => {
+   let service: EntriesData;
 
    beforeEach(() => {
       TestBed.configureTestingModule({
          imports: [TestsModule]
       });
-      service = TestBed.inject(EntriesService);
+      service = TestBed.inject(EntriesData);
    });
 
    it('should be created', () => {

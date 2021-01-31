@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BusyService, MessageService } from '@elesse/shared';
 import { CategoriesService } from 'src/app/categories/categories.service';
 import { EntryEntity } from '../../model/entries.model';
-import { EntriesService } from '../../entries.service';
+import { EntriesData } from '../../data/entries.data';
 
 @Component({
    selector: 'entries-details-route-view',
@@ -13,7 +13,7 @@ import { EntriesService } from '../../entries.service';
 })
 export class DetailsRouteViewComponent implements OnInit {
 
-   constructor(private service: EntriesService, private categoryService: CategoriesService,
+   constructor(private entriesData: EntriesData, private categoryService: CategoriesService,
       private msg: MessageService, private busy: BusyService,
       private activatedRoute: ActivatedRoute, private router: Router, private fb: FormBuilder) { }
 
@@ -24,7 +24,7 @@ export class DetailsRouteViewComponent implements OnInit {
    public async ngOnInit(): Promise<void> {
       const paramID = this.activatedRoute.snapshot.params.id;
 
-      const data = await this.service.LoadEntry(paramID);
+      const data = await this.entriesData.LoadEntry(paramID);
       if (!data)
          this.router.navigate(["/entries/list"])
 
@@ -60,7 +60,7 @@ export class DetailsRouteViewComponent implements OnInit {
       if (!this.inputForm.valid)
          return;
       const data: EntryEntity = Object.assign(new EntryEntity, this.inputForm.value);
-      if (!await this.service.SaveEntry(data))
+      if (!await this.entriesData.SaveEntry(data))
          return;
       this.router.navigate(["/entries/list"])
    }
