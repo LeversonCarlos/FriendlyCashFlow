@@ -1,15 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 import { TestsModule } from '@elesse/tests';
-import { PatternsCacheService } from './patterns-cache.service';
+import { PatternsCache } from './cache.service';
 
-describe('PatternsCacheService', () => {
-   let service: PatternsCacheService;
+describe('PatternsCache', () => {
+   let service: PatternsCache;
 
    beforeEach(() => {
       TestBed.configureTestingModule({
          imports: [TestsModule]
       });
-      service = TestBed.inject(PatternsCacheService);
+      service = TestBed.inject(PatternsCache);
    });
 
    it('should be created', () => {

@@ -6,7 +6,7 @@ import { PatternEntity } from '../model/patterns.model';
 @Injectable({
    providedIn: 'root'
 })
-export class PatternsCacheService extends StorageService<enCategoryType, PatternEntity[]> {
+export class PatternsCache extends StorageService<enCategoryType, PatternEntity[]> {
 
    constructor() {
       super("PatternsCache");
