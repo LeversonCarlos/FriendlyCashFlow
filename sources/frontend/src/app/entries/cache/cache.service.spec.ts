@@ -1,16 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 import { TestsModule } from '@elesse/tests';
 import { EntryEntity } from '../model/entries.model';
-import { EntriesCacheService } from './entries-cache.service';
+import { EntriesCache } from './cache.service';
 
-describe('EntriesCacheService', () => {
-   let service: EntriesCacheService;
+describe('EntriesCache', () => {
+   let service: EntriesCache;
 
    beforeEach(() => {
       TestBed.configureTestingModule({
          imports: [TestsModule]
       });
-      service = TestBed.inject(EntriesCacheService);
+      service = TestBed.inject(EntriesCache);
    });
 
    it('should be created', () => {

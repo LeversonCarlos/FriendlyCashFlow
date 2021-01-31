@@ -5,7 +5,7 @@ import { BalanceItemEntity, EntryEntity } from '../model/entries.model';
 @Injectable({
    providedIn: 'root'
 })
-export class EntriesCacheService extends StorageService<string, EntryEntity[]> {
+export class EntriesCache extends StorageService<string, EntryEntity[]> {
 
    constructor() {
       super("EntriesCache");
