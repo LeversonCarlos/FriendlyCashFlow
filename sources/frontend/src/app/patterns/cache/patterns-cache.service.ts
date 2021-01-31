@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { enCategoryType } from '@elesse/categories';
 import { StorageService } from '@elesse/shared';
-import { PatternEntity } from '../data/patterns.data';
+import { PatternEntity } from '../model/patterns.model';
 
 @Injectable({
    providedIn: 'root'

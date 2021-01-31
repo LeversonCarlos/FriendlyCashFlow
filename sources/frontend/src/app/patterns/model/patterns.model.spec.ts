@@ -1,4 +1,4 @@
-import { PatternsData } from './patterns.data';
+import { PatternsData } from './patterns.model';
 
 describe('PatternsData', () => {
 
