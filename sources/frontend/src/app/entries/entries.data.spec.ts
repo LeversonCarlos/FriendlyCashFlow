@@ -1,4 +1,5 @@
-import { enPatternType, EntryEntity, PatternEntity } from './entries.data';
+import { enCategoryType } from '../categories/categories.data';
+import { EntryEntity, PatternEntity } from './entries.data';
 
 describe('EntryEntity', () => {
 
@@ -8,7 +9,7 @@ describe('EntryEntity', () => {
 
    it('should parse anonymous type and materialize properties', () => {
       const patternID = "my pattern id";
-      const type = enPatternType.Income;
+      const type = enCategoryType.Income;
       const categoryID = "my category id";
       const text = "my pattern text";
       const pattern = PatternEntityMocker
@@ -98,7 +99,7 @@ export class PatternEntityMocker {
 
    private _PatternEntity: PatternEntity = PatternEntity.Parse({
       PatternID: 'PatternID',
-      Type: enPatternType.Income,
+      Type: enCategoryType.Income,
       CategoryID: 'CategoryID',
       Text: 'Some Pattern Text'
    });
@@ -108,7 +109,7 @@ export class PatternEntityMocker {
       return this;
    }
 
-   public WithType(type: enPatternType): PatternEntityMocker {
+   public WithType(type: enCategoryType): PatternEntityMocker {
       this._PatternEntity.Type = type;
       return this;
    }
