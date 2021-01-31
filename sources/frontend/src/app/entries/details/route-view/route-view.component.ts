@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BusyService, MessageService } from '@elesse/shared';
 import { CategoriesService } from 'src/app/categories/categories.service';
-import { EntryEntity } from '../../entries.data';
+import { EntryEntity } from '../../model/entries.model';
 import { EntriesService } from '../../entries.service';
 
 @Component({

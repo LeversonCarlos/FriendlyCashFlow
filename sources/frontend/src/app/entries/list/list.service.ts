@@ -1,5 +1,5 @@
 import { AccountEntity } from '@elesse/accounts';
-import { AccountEntries, DayEntries, EntryEntity } from '../entries.data';
+import { AccountEntries, DayEntries, EntryEntity } from '../model/entries.model';
 
 export class ListService {
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AccountsService, enAccountType } from '@elesse/accounts';
-import { AccountEntries } from '../entries.data';
+import { AccountEntries } from '../model/entries.model';
 import { EntriesService } from '../entries.service';
 import { ListService } from './list.service';
 

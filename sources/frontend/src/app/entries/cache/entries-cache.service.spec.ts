@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { TestsModule } from '@elesse/tests';
-import { EntryEntity } from '../entries.data';
-import { EntryEntityMocker } from '../entries.data.spec';
+import { EntryEntity } from '../model/entries.model';
 import { EntriesCacheService } from './entries-cache.service';
 
 describe('EntriesCacheService', () => {

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ResponsiveService } from '@elesse/shared';
-import { AccountEntries, EntryEntity } from '../../entries.data';
+import { AccountEntries, EntryEntity } from '../../model/entries.model';
 
 @Component({
    selector: 'entries-list-body',
