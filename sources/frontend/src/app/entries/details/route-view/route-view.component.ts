@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BusyService, MessageService } from '@elesse/shared';
-import { CategoriesService } from 'src/app/categories/categories.service';
+import { BusyService, MessageService, RelatedData } from '@elesse/shared';
+import { CategoriesData, CategoryEntity } from '@elesse/categories';
 import { EntryEntity } from '../../model/entries.model';
 import { EntriesData } from '../../data/entries.data';
 
@@ -13,7 +13,7 @@ import { EntriesData } from '../../data/entries.data';
 })
 export class DetailsRouteViewComponent implements OnInit {
 
-   constructor(private entriesData: EntriesData, private categoryService: CategoriesService,
+   constructor(private entriesData: EntriesData, private categoriesData: CategoriesData,
       private msg: MessageService, private busy: BusyService,
       private activatedRoute: ActivatedRoute, private router: Router, private fb: FormBuilder) { }
 
@@ -28,25 +28,51 @@ export class DetailsRouteViewComponent implements OnInit {
       if (!data)
          this.router.navigate(["/entries/list"])
 
-      this.TypeDescription = (await this.categoryService.GetAccountTypes())
+      this.TypeDescription = (await this.categoriesData.GetCategoryTypes())
          .filter(cat => cat.Value == data.Pattern.Type)
          .map(cat => cat.Text)
          .reduce((a, b) => b, '');
+
+      this.CategoryOptions = this.categoriesData.GetCategories(data.Pattern.Type)
+         .map(entity => Object.assign(new RelatedData, {
+            id: entity.CategoryID,
+            description: entity.HierarchyText,
+            value: entity
+         }));
+
+      if (data.Pattern.CategoryID)
+         this.CategoryFiltered = this.CategoryOptions
+            .filter(entity => entity.value.CategoryID == data.Pattern.CategoryID)
 
       this.OnFormCreate(data);
    }
 
    private OnFormCreate(data: EntryEntity) {
       this.inputForm = this.fb.group({
-         PatternID: [data.Pattern.CategoryID],
-         Text: [data.Pattern.Text, Validators.required],
-         Type: [data.Pattern.Type],
+         PatternID: [data.Pattern.PatternID],
+         Pattern: this.fb.group({
+            Type: [data.Pattern.Type],
+            CategoryID: [data.Pattern.CategoryID],
+            CategoryRow: [this.CategoryFiltered?.length == 1 ? this.CategoryFiltered[0] : null, Validators.required],
+            Text: [data.Pattern.Text, Validators.required]
+         }),
          AccountID: [data.AccountID, Validators.required],
          DueDate: [data.DueDate, Validators.required],
          EntryValue: [data.EntryValue, [Validators.required, Validators.min(0.01)]],
          Paid: [data.Paid],
          PayDate: [data.PayDate],
       });
+      this.inputForm.get("Pattern").get("CategoryRow").valueChanges.subscribe((row: RelatedData<CategoryEntity>) => {
+         this.inputForm.get("Pattern").get("CategoryID").setValue(row?.value?.CategoryID ?? null);
+      });
+   }
+
+   public CategoryOptions: RelatedData<CategoryEntity>[] = [];
+   public CategoryFiltered: RelatedData<CategoryEntity>[] = [];
+   public async OnCategoryChanging(val: string) {
+      this.CategoryFiltered = this.CategoryOptions
+         .filter(entity => entity.value.HierarchyText.search(new RegExp(val, 'i')) != -1)
+         .sort((a, b) => a.description > b.description ? 1 : -1)
    }
 
    public async OnCancelClick() {

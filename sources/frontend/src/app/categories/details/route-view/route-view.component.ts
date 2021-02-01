@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BusyService, MessageService, RelatedData } from '@elesse/shared';
-import { CategoryEntity } from '../../categories.data';
-import { CategoriesService } from '../../categories.service';
+import { CategoryEntity } from '../../model/categories.model';
+import { CategoriesData } from '../../data/categories.data';
 
 @Component({
    selector: 'categories-details-route-view',
@@ -12,7 +12,7 @@ import { CategoriesService } from '../../categories.service';
 })
 export class DetailsRouteViewComponent implements OnInit {
 
-   constructor(private service: CategoriesService, private busy: BusyService, private msg: MessageService,
+   constructor(private categoriesData: CategoriesData, private busy: BusyService, private msg: MessageService,
       private fb: FormBuilder, private activatedRoute: ActivatedRoute, private router: Router) { }
 
    public inputForm: FormGroup;
@@ -22,16 +22,16 @@ export class DetailsRouteViewComponent implements OnInit {
    public async ngOnInit(): Promise<void> {
       const paramID = this.activatedRoute.snapshot.params.id;
 
-      const data = await this.service.LoadCategory(paramID);
+      const data = await this.categoriesData.LoadCategory(paramID);
       if (!data)
          this.router.navigate(["/categories/list"])
 
-      this.CategoryTypeDescription = (await this.service.GetAccountTypes())
+      this.CategoryTypeDescription = (await this.categoriesData.GetCategoryTypes())
          .filter(cat => cat.Value == data.Type)
          .map(cat => cat.Text)
          .reduce((a, b) => b, '');
 
-      this.ParentOptions = this.service.GetCategories(data.Type)
+      this.ParentOptions = this.categoriesData.GetCategories(data.Type)
          .filter(entity => entity.CategoryID != data.CategoryID)
          .map(entity => Object.assign(new RelatedData, {
             id: entity.CategoryID,
@@ -78,7 +78,7 @@ export class DetailsRouteViewComponent implements OnInit {
       if (!this.inputForm.valid)
          return;
       const data: CategoryEntity = Object.assign(new CategoryEntity, this.inputForm.value);
-      if (!await this.service.SaveCategory(data))
+      if (!await this.categoriesData.SaveCategory(data))
          return;
       this.router.navigate(["/categories/list"])
    }

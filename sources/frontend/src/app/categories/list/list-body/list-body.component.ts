@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CategoryEntity } from '../../categories.data';
-import { CategoriesService } from '../../categories.service';
+import { CategoryEntity } from '../../model/categories.model';
+import { CategoriesData } from '../../data/categories.data';
 
 @Component({
    selector: 'categories-list-body',
@@ -10,7 +10,7 @@ import { CategoriesService } from '../../categories.service';
 })
 export class ListBodyComponent implements OnInit {
 
-   constructor(private service: CategoriesService) { }
+   constructor(private categoriesData: CategoriesData) { }
 
    @Input()
    public Categories: Observable<CategoryEntity[]>
@@ -19,7 +19,7 @@ export class ListBodyComponent implements OnInit {
    }
 
    public OnRemoveCategory(category: CategoryEntity) {
-      this.service.RemoveCategory(category);
+      this.categoriesData.RemoveCategory(category);
    }
 
 }

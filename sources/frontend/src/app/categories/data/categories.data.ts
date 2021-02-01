@@ -2,46 +2,32 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BusyService, LocalizationService, MessageService, StorageService } from '@elesse/shared';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { CategoryEntity, CategoryType, enCategoryType } from './categories.data';
+import { CategoriesCache } from '../cache/cache.service';
+import { CategoryEntity, CategoryType, enCategoryType } from '../model/categories.model';
 
 @Injectable({
    providedIn: 'root'
 })
-export class CategoriesService {
+export class CategoriesData {
 
    constructor(private localization: LocalizationService, private message: MessageService, private busy: BusyService,
       private http: HttpClient) {
-      this.Cache = new StorageService<enCategoryType, CategoryEntity[]>("CategoriesService");
-      this.Cache.InitializeValues(enCategoryType.Income, enCategoryType.Expense);
+      this.Cache = new CategoriesCache();
    }
 
-   private Cache: StorageService<enCategoryType, CategoryEntity[]>;
-   public SelectedCategoryType: enCategoryType = enCategoryType.Income;
+   private Cache: CategoriesCache;
+   public SelectedType: enCategoryType = enCategoryType.Income;
 
-   public async RefreshCache(): Promise<void> {
+   public async RefreshCategories(): Promise<void> {
       try {
          this.busy.show();
-         const values = await this.http.get<CategoryEntity[]>(`api/categories/list`).toPromise();
-         if (!values) return;
 
-         const sorter = (a: CategoryEntity, b: CategoryEntity): number => {
-            let result = 0;
-            if (a.Type > b.Type) result += 10;
-            if (a.Type < b.Type) result -= 10;
-            if (a.HierarchyText > b.HierarchyText) result += 1;
-            if (a.HierarchyText < b.HierarchyText) result -= 1;
-            return result;
-         }
+         const url = `api/categories/list`;
+         const values = await this.http.get<CategoryEntity[]>(url).toPromise();
+         if (!values)
+            return;
 
-         const keys = [enCategoryType.Income, enCategoryType.Expense];
-         keys.forEach(key => {
-            const value = values
-               .filter(x => x.Type == key)
-               .map(x => Object.assign(new CategoryEntity, x))
-               .sort(sorter);
-            this.Cache.SetValue(key, value);
-         });
+         this.Cache.SetCategories(values);
 
       }
       catch { /* error absorber */ }
@@ -62,7 +48,7 @@ export class CategoriesService {
             return null;
 
          if (categoryID == 'new')
-            return Object.assign(new CategoryEntity, { Type: this.SelectedCategoryType });
+            return Object.assign(new CategoryEntity, { Type: this.SelectedType });
 
          let value = await this.http.get<CategoryEntity>(`api/categories/load/${categoryID}`).toPromise();
          if (!value)
@@ -88,6 +74,8 @@ export class CategoriesService {
          else
             await this.http.put("api/categories/update", category).toPromise();
 
+         await this.RefreshCategories();
+
          return true;
 
       }
@@ -109,19 +97,19 @@ export class CategoriesService {
 
          await this.http.delete(`api/categories/delete/${category.CategoryID}`).toPromise();
 
-         await this.RefreshCache();
+         await this.RefreshCategories();
 
       }
       catch { /* error absorber */ }
       finally { this.busy.hide(); }
    }
 
-   public async GetAccountTypes(): Promise<CategoryType[]> {
-      const accountTypes: CategoryType[] = [
+   public async GetCategoryTypes(): Promise<CategoryType[]> {
+      const categoryTypes: CategoryType[] = [
          { Value: enCategoryType.Income, Text: await this.localization.GetTranslation(`categories.enCategoryType_Income`) },
          { Value: enCategoryType.Expense, Text: await this.localization.GetTranslation(`categories.enCategoryType_Expense`) }
       ];
-      return accountTypes;
+      return categoryTypes;
    }
 
 }
