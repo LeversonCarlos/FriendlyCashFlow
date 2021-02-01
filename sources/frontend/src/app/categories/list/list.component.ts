@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CategoryEntity, enCategoryType } from '../model/categories.model';
-import { CategoriesService } from '../categories.service';
+import { CategoriesData } from '../data/categories.data';
 
 @Component({
    selector: 'categories-list',
@@ -10,23 +10,23 @@ import { CategoriesService } from '../categories.service';
 })
 export class ListComponent implements OnInit {
 
-   constructor(private service: CategoriesService) { }
+   constructor(private categoriesData: CategoriesData) { }
 
    public IncomeCategories: Observable<CategoryEntity[]>;
    public ExpenseCategories: Observable<CategoryEntity[]>;
-   public get SelectedCategoryTab(): number { return this.service.SelectedType == enCategoryType.Expense ? 1 : 0; }
+   public get SelectedCategoryTab(): number { return this.categoriesData.SelectedType == enCategoryType.Expense ? 1 : 0; }
 
    public async ngOnInit() {
-      this.IncomeCategories = this.service.ObserveCategories(enCategoryType.Income);
-      this.ExpenseCategories = this.service.ObserveCategories(enCategoryType.Expense);
-      this.service.RefreshCategories();
+      this.IncomeCategories = this.categoriesData.ObserveCategories(enCategoryType.Income);
+      this.ExpenseCategories = this.categoriesData.ObserveCategories(enCategoryType.Expense);
+      this.categoriesData.RefreshCategories();
    }
 
    public OnTabChanged(tabIndex: number) {
       if (tabIndex == 0)
-         this.service.SelectedType = enCategoryType.Income
+         this.categoriesData.SelectedType = enCategoryType.Income
       if (tabIndex == 1)
-         this.service.SelectedType = enCategoryType.Expense
+         this.categoriesData.SelectedType = enCategoryType.Expense
    }
 
 }

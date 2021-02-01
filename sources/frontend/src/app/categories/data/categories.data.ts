@@ -2,13 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BusyService, LocalizationService, MessageService, StorageService } from '@elesse/shared';
 import { Observable } from 'rxjs';
-import { CategoriesCache } from './cache/cache.service';
-import { CategoryEntity, CategoryType, enCategoryType } from './model/categories.model';
+import { CategoriesCache } from '../cache/cache.service';
+import { CategoryEntity, CategoryType, enCategoryType } from '../model/categories.model';
 
 @Injectable({
    providedIn: 'root'
 })
-export class CategoriesService {
+export class CategoriesData {
 
    constructor(private localization: LocalizationService, private message: MessageService, private busy: BusyService,
       private http: HttpClient) {
@@ -104,12 +104,12 @@ export class CategoriesService {
       finally { this.busy.hide(); }
    }
 
-   public async GetAccountTypes(): Promise<CategoryType[]> {
-      const accountTypes: CategoryType[] = [
+   public async GetCategoryTypes(): Promise<CategoryType[]> {
+      const categoryTypes: CategoryType[] = [
          { Value: enCategoryType.Income, Text: await this.localization.GetTranslation(`categories.enCategoryType_Income`) },
          { Value: enCategoryType.Expense, Text: await this.localization.GetTranslation(`categories.enCategoryType_Expense`) }
       ];
-      return accountTypes;
+      return categoryTypes;
    }
 
 }
