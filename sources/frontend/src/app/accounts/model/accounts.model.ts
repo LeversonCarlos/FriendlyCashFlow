@@ -11,4 +11,9 @@ export class AccountEntity {
    ClosingDay?: number;
    DueDay?: number;
    Active: boolean;
+
+   static Parse(value: any): AccountEntity {
+      return Object.assign(new AccountEntity, value);
+   }
+
 }

@@ -18,7 +18,7 @@ export class ListComponent implements OnInit {
    ngOnInit(): void {
       this.ActiveAccounts = this.service.ObserveAccounts(true);
       this.InactiveAccounts = this.service.ObserveAccounts(false);
-      this.service.RefreshCache();
+      this.service.RefreshAccounts();
    }
 
 }
