@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AccountEntity } from '../model/accounts.model';
-import { AccountsService } from '../accounts.service';
+import { AccountsData } from '../data/accounts.data';
 
 @Component({
    selector: 'accounts-list',
@@ -10,15 +10,15 @@ import { AccountsService } from '../accounts.service';
 })
 export class ListComponent implements OnInit {
 
-   constructor(private service: AccountsService) { }
+   constructor(private accountsData: AccountsData) { }
 
    public ActiveAccounts: Observable<AccountEntity[]>;
    public InactiveAccounts: Observable<AccountEntity[]>;
 
    ngOnInit(): void {
-      this.ActiveAccounts = this.service.ObserveAccounts(true);
-      this.InactiveAccounts = this.service.ObserveAccounts(false);
-      this.service.RefreshAccounts();
+      this.ActiveAccounts = this.accountsData.ObserveAccounts(true);
+      this.InactiveAccounts = this.accountsData.ObserveAccounts(false);
+      this.accountsData.RefreshAccounts();
    }
 
 }

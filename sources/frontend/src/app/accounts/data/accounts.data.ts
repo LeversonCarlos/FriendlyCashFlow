@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { AccountEntity, AccountType, enAccountType } from './model/accounts.model';
+import { AccountEntity, AccountType, enAccountType } from '../model/accounts.model';
 import { Observable } from 'rxjs';
 import { BusyService, LocalizationService, MessageService, StorageService } from '@elesse/shared';
 import { HttpClient } from '@angular/common/http';
-import { AccountsCache } from './cache/cache.service';
+import { AccountsCache } from '../cache/cache.service';
 
 @Injectable({
    providedIn: 'root'
 })
-export class AccountsService {
+export class AccountsData {
 
    constructor(private localization: LocalizationService, private message: MessageService, private busy: BusyService,
       private http: HttpClient) {

@@ -1,17 +1,17 @@
 import { TestBed } from '@angular/core/testing';
 import { TestsModule } from '@elesse/tests';
-import { AccountEntity } from './model/accounts.model';
-import { AccountsService } from './accounts.service';
+import { AccountEntity } from '../model/accounts.model';
+import { AccountsData } from './accounts.data';
 
-describe('AccountsService', () => {
+describe('AccountsData', () => {
 
-   let service: AccountsService;
+   let service: AccountsData;
 
    beforeEach(() => {
       TestBed.configureTestingModule({
          imports: [TestsModule]
       });
-      service = TestBed.inject(AccountsService);
+      service = TestBed.inject(AccountsData);
    });
 
    it('should be created', () => {

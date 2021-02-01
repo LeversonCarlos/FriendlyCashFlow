@@ -3,7 +3,7 @@ import { MaterialModule } from '../material/material.exports';
 import { SharedModule } from '../shared/shared.exports';
 
 import { AccountsRouting } from './accounts.routing';
-import { AccountsService } from './accounts.service';
+import { AccountsData } from './data/accounts.data';
 import { ListComponent } from './list/list.component';
 import { DetailsRouteViewComponent } from './details/route-view/route-view.component';
 import { ListBodyComponent } from './list/list-body/list-body.component';
@@ -15,7 +15,7 @@ import { ListBodyComponent } from './list/list-body/list-body.component';
       AccountsRouting
    ],
    providers: [
-      AccountsService
+      AccountsData
    ]
 })
 export class AccountsModule { }
