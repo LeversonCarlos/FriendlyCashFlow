@@ -19,7 +19,7 @@ export class ListComponent implements OnInit {
    public async ngOnInit() {
       this.IncomeCategories = this.service.ObserveCategories(enCategoryType.Income);
       this.ExpenseCategories = this.service.ObserveCategories(enCategoryType.Expense);
-      this.service.RefreshCache();
+      this.service.RefreshCategories();
    }
 
    public OnTabChanged(tabIndex: number) {
