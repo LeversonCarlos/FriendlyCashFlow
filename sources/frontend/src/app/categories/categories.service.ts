@@ -16,7 +16,7 @@ export class CategoriesService {
    }
 
    private Cache: CategoriesCache;
-   public SelectedCategoryType: enCategoryType = enCategoryType.Income;
+   public SelectedType: enCategoryType = enCategoryType.Income;
 
    public async RefreshCategories(): Promise<void> {
       try {
@@ -48,7 +48,7 @@ export class CategoriesService {
             return null;
 
          if (categoryID == 'new')
-            return Object.assign(new CategoryEntity, { Type: this.SelectedCategoryType });
+            return Object.assign(new CategoryEntity, { Type: this.SelectedType });
 
          let value = await this.http.get<CategoryEntity>(`api/categories/load/${categoryID}`).toPromise();
          if (!value)
