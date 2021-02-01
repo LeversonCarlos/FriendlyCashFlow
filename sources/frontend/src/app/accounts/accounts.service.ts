@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AccountEntity, AccountType, enAccountType } from './accounts.data';
+import { AccountEntity, AccountType, enAccountType } from './model/accounts.model';
 import { Observable } from 'rxjs';
 import { BusyService, LocalizationService, MessageService, StorageService } from '@elesse/shared';
 import { HttpClient } from '@angular/common/http';

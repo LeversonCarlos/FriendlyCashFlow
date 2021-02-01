@@ -1,4 +1,4 @@
-import { AccountEntity } from './accounts.data';
+import { AccountEntity } from './accounts.model';
 
 describe('AccountEntity', () => {
 

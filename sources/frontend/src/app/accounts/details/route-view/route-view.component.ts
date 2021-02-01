@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BusyService, MessageService } from '@elesse/shared';
-import { AccountEntity, AccountType, enAccountType } from '../../accounts.data';
+import { AccountEntity, AccountType, enAccountType } from '../../model/accounts.model';
 import { AccountsService } from '../../accounts.service';
 
 @Component({
