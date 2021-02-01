@@ -10,7 +10,13 @@ export class CategoryEntity {
    Type: enCategoryType;
    ParentID: string;
    HierarchyText: string;
+
    get SplitedText(): string[] {
       return this.HierarchyText.split(" / ");
    };
+
+   static Parse(value: any): CategoryEntity {
+      return Object.assign(new CategoryEntity, value);
+   }
+
 }
