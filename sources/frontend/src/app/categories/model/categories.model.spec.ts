@@ -1,4 +1,4 @@
-import { CategoryEntity } from './categories.data';
+import { CategoryEntity } from './categories.model';
 
 describe('CategoryEntity', () => {
    it('should create an instance', () => {

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BusyService, LocalizationService, MessageService, StorageService } from '@elesse/shared';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { CategoryEntity, CategoryType, enCategoryType } from './categories.data';
+import { CategoryEntity, CategoryType, enCategoryType } from './model/categories.model';
 
 @Injectable({
    providedIn: 'root'

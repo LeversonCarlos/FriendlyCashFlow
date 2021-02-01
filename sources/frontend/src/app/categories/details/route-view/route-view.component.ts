@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BusyService, MessageService, RelatedData } from '@elesse/shared';
-import { CategoryEntity } from '../../categories.data';
+import { CategoryEntity } from '../../model/categories.model';
 import { CategoriesService } from '../../categories.service';
 
 @Component({
