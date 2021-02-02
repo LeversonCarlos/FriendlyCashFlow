@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AccountEntity, enAccountType } from '../../accounts.data';
-import { AccountsService } from '../../accounts.service';
+import { AccountEntity, enAccountType } from '../../model/accounts.model';
+import { AccountsData } from '../../data/accounts.data';
 
 @Component({
    selector: 'accounts-list-body',
@@ -10,26 +10,26 @@ import { AccountsService } from '../../accounts.service';
 })
 export class ListBodyComponent implements OnInit {
 
-   constructor(private service: AccountsService) { }
+   constructor(private accountsData: AccountsData) { }
 
    @Input()
    public Accounts: Observable<AccountEntity[]>
 
-   public GetAccountIcon(type: enAccountType): string { return this.service.GetAccountIcon(type); }
+   public GetAccountIcon(type: enAccountType): string { return this.accountsData.GetAccountIcon(type); }
 
    ngOnInit(): void {
    }
 
    public OnEnableAccount(account: AccountEntity) {
-      this.service.ChangeAccountState(account, true);
+      this.accountsData.ChangeAccountState(account, true);
    }
 
    public OnDisableAccount(account: AccountEntity) {
-      this.service.ChangeAccountState(account, false);
+      this.accountsData.ChangeAccountState(account, false);
    }
 
    public OnRemoveAccount(account: AccountEntity) {
-      this.service.RemoveAccount(account);
+      this.accountsData.RemoveAccount(account);
    }
 
 }

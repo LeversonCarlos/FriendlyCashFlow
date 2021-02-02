@@ -1,44 +1,32 @@
 import { Injectable } from '@angular/core';
-import { AccountEntity, AccountType, enAccountType } from './accounts.data';
+import { AccountEntity, AccountType, enAccountType } from '../model/accounts.model';
 import { Observable } from 'rxjs';
 import { BusyService, LocalizationService, MessageService, StorageService } from '@elesse/shared';
 import { HttpClient } from '@angular/common/http';
+import { AccountsCache } from '../cache/cache.service';
 
 @Injectable({
    providedIn: 'root'
 })
-export class AccountsService {
+export class AccountsData {
 
    constructor(private localization: LocalizationService, private message: MessageService, private busy: BusyService,
       private http: HttpClient) {
-      this.Cache = new StorageService<boolean, AccountEntity[]>("AccountsService");
-      this.Cache.InitializeValues(false, true);
+      this.Cache = new AccountsCache();
    }
 
-   private Cache: StorageService<boolean, AccountEntity[]>;
+   private Cache: AccountsCache;
 
-   public async RefreshCache(): Promise<void> {
+   public async RefreshAccounts(): Promise<void> {
       try {
          this.busy.show();
-         const values = await this.http.get<AccountEntity[]>(`api/accounts/list`).toPromise();
-         if (!values) return;
 
-         const sorter = (a: AccountEntity, b: AccountEntity): number => {
-            let result = 0;
-            if (a.Type > b.Type) result += 10;
-            if (a.Type < b.Type) result -= 10;
-            if (a.Text > b.Text) result += 1;
-            if (a.Text < b.Text) result -= 1;
-            return result;
-         }
+         const url = `api/accounts/list`;
+         const values = await this.http.get<AccountEntity[]>(url).toPromise();
+         if (!values)
+            return;
 
-         const keys = [false, true];
-         keys.forEach(key => {
-            const value = values
-               .filter(x => x.Active == key)
-               .sort(sorter)
-            this.Cache.SetValue(key, value);
-         });
+         this.Cache.SetAccounts(values);
 
       }
       catch { /* error absorber */ }
@@ -47,6 +35,9 @@ export class AccountsService {
 
    public ObserveAccounts = (state: boolean = true): Observable<AccountEntity[]> =>
       this.Cache.GetObservable(state);
+
+   public GetAccounts = (state: boolean = true): AccountEntity[] =>
+      this.Cache.GetValue(state);
 
    public async GetAccountTypes(): Promise<AccountType[]> {
       const accountTypes: AccountType[] = [
@@ -108,6 +99,8 @@ export class AccountsService {
          else
             await this.http.put("api/accounts/update", account).toPromise();
 
+         this.RefreshAccounts();
+
          return true;
 
       }
@@ -128,7 +121,7 @@ export class AccountsService {
          };
          await this.http.put("api/accounts/change-state", changeStateVM).toPromise();
 
-         await this.RefreshCache();
+         await this.RefreshAccounts();
 
       }
       catch { /* error absorber */ }
@@ -149,7 +142,7 @@ export class AccountsService {
 
          await this.http.delete(`api/accounts/delete/${account.AccountID}`).toPromise();
 
-         await this.RefreshCache();
+         await this.RefreshAccounts();
 
       }
       catch { /* error absorber */ }

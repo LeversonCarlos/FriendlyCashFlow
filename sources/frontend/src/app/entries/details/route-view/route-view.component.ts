@@ -5,6 +5,7 @@ import { BusyService, MessageService, RelatedData } from '@elesse/shared';
 import { CategoriesData, CategoryEntity } from '@elesse/categories';
 import { EntryEntity } from '../../model/entries.model';
 import { EntriesData } from '../../data/entries.data';
+import { AccountEntity, AccountsData } from '@elesse/accounts';
 
 @Component({
    selector: 'entries-details-route-view',
@@ -13,7 +14,8 @@ import { EntriesData } from '../../data/entries.data';
 })
 export class DetailsRouteViewComponent implements OnInit {
 
-   constructor(private entriesData: EntriesData, private categoriesData: CategoriesData,
+   constructor(private entriesData: EntriesData,
+      private categoriesData: CategoriesData, private accountsData: AccountsData,
       private msg: MessageService, private busy: BusyService,
       private activatedRoute: ActivatedRoute, private router: Router, private fb: FormBuilder) { }
 
@@ -39,10 +41,19 @@ export class DetailsRouteViewComponent implements OnInit {
             description: entity.HierarchyText,
             value: entity
          }));
-
       if (data.Pattern.CategoryID)
          this.CategoryFiltered = this.CategoryOptions
             .filter(entity => entity.value.CategoryID == data.Pattern.CategoryID)
+
+      this.AccountOptions = this.accountsData.GetAccounts(true)
+         .map(entity => Object.assign(new RelatedData, {
+            id: entity.AccountID,
+            description: entity.Text,
+            value: entity
+         }));
+      if (data.AccountID)
+         this.AccountFiltered = this.AccountOptions
+            .filter(entity => entity.value.AccountID == data.AccountID)
 
       this.OnFormCreate(data);
    }
@@ -56,7 +67,8 @@ export class DetailsRouteViewComponent implements OnInit {
             CategoryRow: [this.CategoryFiltered?.length == 1 ? this.CategoryFiltered[0] : null, Validators.required],
             Text: [data.Pattern.Text, Validators.required]
          }),
-         AccountID: [data.AccountID, Validators.required],
+         AccountID: [data.AccountID],
+         AccountRow: [this.AccountFiltered?.length == 1 ? this.AccountFiltered[0] : null, Validators.required],
          DueDate: [data.DueDate, Validators.required],
          EntryValue: [data.EntryValue, [Validators.required, Validators.min(0.01)]],
          Paid: [data.Paid],
@@ -65,6 +77,9 @@ export class DetailsRouteViewComponent implements OnInit {
       this.inputForm.get("Pattern").get("CategoryRow").valueChanges.subscribe((row: RelatedData<CategoryEntity>) => {
          this.inputForm.get("Pattern").get("CategoryID").setValue(row?.value?.CategoryID ?? null);
       });
+      this.inputForm.get("AccountRow").valueChanges.subscribe((row: RelatedData<AccountEntity>) => {
+         this.inputForm.get("AccountID").setValue(row?.value?.AccountID ?? null);
+      });
    }
 
    public CategoryOptions: RelatedData<CategoryEntity>[] = [];
@@ -72,6 +87,14 @@ export class DetailsRouteViewComponent implements OnInit {
    public async OnCategoryChanging(val: string) {
       this.CategoryFiltered = this.CategoryOptions
          .filter(entity => entity.value.HierarchyText.search(new RegExp(val, 'i')) != -1)
+         .sort((a, b) => a.description > b.description ? 1 : -1)
+   }
+
+   public AccountOptions: RelatedData<AccountEntity>[] = [];
+   public AccountFiltered: RelatedData<AccountEntity>[] = [];
+   public async OnAccountChanging(val: string) {
+      this.AccountFiltered = this.AccountOptions
+         .filter(entity => entity.value.Text.search(new RegExp(val, 'i')) != -1)
          .sort((a, b) => a.description > b.description ? 1 : -1)
    }
 

@@ -1,4 +1,4 @@
 export { AccountsModule } from './accounts.module';
 
-export { AccountEntity, enAccountType, AccountType } from './accounts.data';
-export { AccountsService } from './accounts.service';
+export { AccountEntity, enAccountType, AccountType } from './model/accounts.model';
+export { AccountsData } from './data/accounts.data';
