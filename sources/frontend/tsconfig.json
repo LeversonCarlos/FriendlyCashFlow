@@ -39,6 +39,9 @@
       "@elesse/patterns": [
         "src/app/patterns/patterns.exports.ts"
       ],
+      "@elesse/entries": [
+        "src/app/entries/entries.exports.ts"
+      ],
     }
   }
 }
