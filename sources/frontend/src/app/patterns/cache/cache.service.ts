@@ -36,7 +36,6 @@ export class PatternsCache extends StorageService<enCategoryType, PatternEntity[
          // FILTER, SORT AND PARSE OBJECTS
          const value = patterns
             .filter(pattern => pattern.Type == categoryType)
-            .map(pattern => PatternEntity.Parse(pattern))
             .sort(sorter);
 
          // SET VALUE

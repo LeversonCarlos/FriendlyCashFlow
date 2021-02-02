@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BusyService, MessageService, RelatedData } from '@elesse/shared';
-import { CategoryEntity } from '../../model/categories.model';
+import { CategoryEntity, enCategoryType } from '../../model/categories.model';
 import { CategoriesData } from '../../data/categories.data';
 
 @Component({
@@ -17,19 +17,20 @@ export class DetailsRouteViewComponent implements OnInit {
 
    public inputForm: FormGroup;
    public get IsBusy(): boolean { return this.busy.IsBusy; }
-   public CategoryTypeDescription: string;
+   public Type: enCategoryType;
+   public get IsIncome(): boolean { return this.Type == enCategoryType.Income; }
+   public get IsExpense(): boolean { return this.Type == enCategoryType.Expense; }
 
    public async ngOnInit(): Promise<void> {
       const paramID = this.activatedRoute.snapshot.params.id;
 
       const data = await this.categoriesData.LoadCategory(paramID);
-      if (!data)
-         this.router.navigate(["/categories/list"])
+      if (!data) {
+         this.router.navigate(["/categories/list"]);
+         return;
+      }
 
-      this.CategoryTypeDescription = (await this.categoriesData.GetCategoryTypes())
-         .filter(cat => cat.Value == data.Type)
-         .map(cat => cat.Text)
-         .reduce((a, b) => b, '');
+      this.Type = data.Type;
 
       this.ParentOptions = this.categoriesData.GetCategories(data.Type)
          .filter(entity => entity.CategoryID != data.CategoryID)

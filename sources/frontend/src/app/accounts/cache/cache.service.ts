@@ -37,7 +37,6 @@ export class AccountsCache extends StorageService<boolean, AccountEntity[]> {
          // FILTER, SORT AND PARSE OBJECTS
          const value = accounts
             .filter(account => account.Active == accountState)
-            .map(account => AccountEntity.Parse(account))
             .sort(sorter);
 
          // SET VALUE

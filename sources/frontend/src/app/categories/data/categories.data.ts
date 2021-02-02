@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BusyService, LocalizationService, MessageService, StorageService } from '@elesse/shared';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { CategoriesCache } from '../cache/cache.service';
 import { CategoryEntity, CategoryType, enCategoryType } from '../model/categories.model';
 
@@ -35,7 +36,10 @@ export class CategoriesData {
    }
 
    public ObserveCategories = (type: enCategoryType): Observable<CategoryEntity[]> =>
-      this.Cache.GetObservable(type);
+      this.Cache.GetObservable(type)
+         .pipe(
+            map(entries => entries?.map(entry => CategoryEntity.Parse(entry)) ?? null)
+         );
 
    public GetCategories = (type: enCategoryType): CategoryEntity[] =>
       this.Cache.GetValue(type);

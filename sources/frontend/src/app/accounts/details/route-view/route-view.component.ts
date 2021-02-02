@@ -23,8 +23,10 @@ export class DetailsRouteViewComponent implements OnInit {
       const paramID = this.activatedRoute.snapshot.params.id;
 
       const data = await this.accountsData.LoadAccount(paramID);
-      if (!data)
-         this.router.navigate(["/accounts/list"])
+      if (!data) {
+         this.router.navigate(["/accounts/list"]);
+         return;
+      }
 
       this.AccountTypes = await this.accountsData.GetAccountTypes();
 
