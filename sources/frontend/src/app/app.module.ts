@@ -24,6 +24,7 @@ import { AnonymousHomeComponent } from './main/home/anonymous-home/anonymous-hom
 import { AuthenticatedHomeComponent } from './main/home/authenticated-home/authenticated-home.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { MainData } from './main/data/data.service';
 
 @NgModule({
    declarations: [
@@ -39,7 +40,8 @@ import { environment } from '../environments/environment';
       SettingsService, BusyService, InsightsService, MessageService,
       ResponsiveService, LocalizationService,
       TokenService,
-      UrlInterceptorProvider, LangInterceptorProvider, ErrorInterceptorProvider, RequestAuthInterceptorProvider, ResponseAuthInterceptorProvider
+      UrlInterceptorProvider, LangInterceptorProvider, ErrorInterceptorProvider, RequestAuthInterceptorProvider, ResponseAuthInterceptorProvider,
+      MainData
    ],
    bootstrap: [MainComponent]
 })

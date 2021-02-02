@@ -29,7 +29,7 @@ export class EntriesData {
    public ObserveEntries = (): Observable<EntryEntity[]> =>
       this.Cache.GetObservable(this.SelectedMonth.ToCode());
 
-   public async RefreshCache(): Promise<void> {
+   public async RefreshEntries(): Promise<void> {
       try {
          this.busy.show();
 
