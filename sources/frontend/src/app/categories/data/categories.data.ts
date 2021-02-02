@@ -38,7 +38,7 @@ export class CategoriesData {
    public ObserveCategories = (type: enCategoryType): Observable<CategoryEntity[]> =>
       this.Cache.GetObservable(type)
          .pipe(
-            map(entries => entries.map(entry => CategoryEntity.Parse(entry)))
+            map(entries => entries?.map(entry => CategoryEntity.Parse(entry)) ?? null)
          );
 
    public GetCategories = (type: enCategoryType): CategoryEntity[] =>

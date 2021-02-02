@@ -37,7 +37,7 @@ export class PatternsData {
    public ObservePatterns = (type: enCategoryType): Observable<PatternEntity[]> =>
       this.Cache.GetObservable(type)
          .pipe(
-            map(entries => entries.map(entry => PatternEntity.Parse(entry)))
+            map(entries => entries?.map(entry => PatternEntity.Parse(entry)) ?? null)
          );
 
    public GetPatterns = (type: enCategoryType): PatternEntity[] =>

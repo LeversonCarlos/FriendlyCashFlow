@@ -37,7 +37,7 @@ export class AccountsData {
    public ObserveAccounts = (state: boolean = true): Observable<AccountEntity[]> =>
       this.Cache.GetObservable(state)
          .pipe(
-            map(entries => entries.map(entry => AccountEntity.Parse(entry)))
+            map(entries => entries?.map(entry => AccountEntity.Parse(entry)) ?? null)
          );
 
    public GetAccounts = (state: boolean = true): AccountEntity[] =>
