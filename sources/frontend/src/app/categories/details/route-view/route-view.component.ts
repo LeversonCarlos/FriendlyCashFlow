@@ -25,8 +25,10 @@ export class DetailsRouteViewComponent implements OnInit {
       const paramID = this.activatedRoute.snapshot.params.id;
 
       const data = await this.categoriesData.LoadCategory(paramID);
-      if (!data)
-         this.router.navigate(["/categories/list"])
+      if (!data) {
+         this.router.navigate(["/categories/list"]);
+         return;
+      }
 
       this.Type = data.Type;
 

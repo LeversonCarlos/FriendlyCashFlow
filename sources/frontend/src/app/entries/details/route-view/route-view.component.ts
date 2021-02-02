@@ -31,8 +31,10 @@ export class DetailsRouteViewComponent implements OnInit {
       const paramID = this.activatedRoute.snapshot.params.id;
 
       const data = await this.entriesData.LoadEntry(paramID);
-      if (!data)
-         this.router.navigate(["/entries/list"])
+      if (!data) {
+         this.router.navigate(["/entries/list"]);
+         return;
+      }
 
       this.Type = data.Pattern.Type;
 
