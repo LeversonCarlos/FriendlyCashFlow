@@ -36,6 +36,9 @@ export class AccountsData {
    public ObserveAccounts = (state: boolean = true): Observable<AccountEntity[]> =>
       this.Cache.GetObservable(state);
 
+   public GetAccounts = (state: boolean = true): AccountEntity[] =>
+      this.Cache.GetValue(state);
+
    public async GetAccountTypes(): Promise<AccountType[]> {
       const accountTypes: AccountType[] = [
          { Value: enAccountType.General, Text: await this.localization.GetTranslation(`accounts.enAccountType_General`) },

@@ -21,6 +21,11 @@
                   </elesse-relatedbox>
                </ng-container>
 
+               <elesse-relatedbox [placeholder]="'entries.ACCOUNTID_LABEL' | translation | async" minSize="0"
+                  [options]="AccountFiltered" formControlName="AccountRow"
+                  (optionsChanging)="OnAccountChanging($event)">
+               </elesse-relatedbox>
+
                <pre style="max-height: 30vh; overflow-y: scroll;">{{ inputForm?.value | json }}</pre>
             </mat-card-content>
 
