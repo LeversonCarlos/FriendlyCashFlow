@@ -8,6 +8,12 @@ import { EntriesData } from '@elesse/entries';
 })
 export class MainData {
 
-   constructor(private accounts: AccountsData, categories: CategoriesData, entries: EntriesData) { }
+   constructor(private accounts: AccountsData, private categories: CategoriesData, private entries: EntriesData) { }
+
+   public RefreshAll() {
+      this.accounts.RefreshAccounts();
+      this.categories.RefreshCategories();
+      this.entries.RefreshEntries();
+   }
 
 }

@@ -27,7 +27,7 @@ export class ListComponent implements OnInit {
          .pipe(
             map(([accounts, entries]) => ListService.GetEntriesAccounts(accounts, entries))
          );
-      this.entriesData.RefreshCache();
+      this.entriesData.RefreshEntries();
    }
 
    public GetAccountIcon(type: enAccountType): string { return this.accountsData.GetAccountIcon(type); }
