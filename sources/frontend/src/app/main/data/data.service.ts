@@ -2,6 +2,7 @@ import { Injectable, Injector } from '@angular/core';
 import { AccountsData } from '@elesse/accounts';
 import { CategoriesData } from '@elesse/categories';
 import { EntriesData } from '@elesse/entries';
+import { PatternsData } from '@elesse/patterns';
 
 @Injectable({
    providedIn: 'root'
@@ -15,6 +16,7 @@ export class MainData {
       this.injector.get<AccountsData>(AccountsData).RefreshAccounts();
       this.injector.get<CategoriesData>(CategoriesData).RefreshCategories();
       this.injector.get<EntriesData>(EntriesData).RefreshEntries();
+      this.injector.get<PatternsData>(PatternsData).RefreshPatterns();
    }
 
 }
