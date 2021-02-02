@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { BusyService, LocalizationService, MessageService, StorageService } from '@elesse/shared';
 import { HttpClient } from '@angular/common/http';
 import { AccountsCache } from '../cache/cache.service';
+import { map } from 'rxjs/operators';
 
 @Injectable({
    providedIn: 'root'
@@ -34,7 +35,10 @@ export class AccountsData {
    }
 
    public ObserveAccounts = (state: boolean = true): Observable<AccountEntity[]> =>
-      this.Cache.GetObservable(state);
+      this.Cache.GetObservable(state)
+         .pipe(
+            map(entries => entries.map(entry => AccountEntity.Parse(entry)))
+         );
 
    public GetAccounts = (state: boolean = true): AccountEntity[] =>
       this.Cache.GetValue(state);
