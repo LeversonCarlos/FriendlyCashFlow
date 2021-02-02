@@ -35,7 +35,6 @@ export class CategoriesCache extends StorageService<enCategoryType, CategoryEnti
          // FILTER, SORT AND PARSE OBJECTS
          const value = categories
             .filter(category => category.Type == categoryType)
-            .map(category => CategoryEntity.Parse(category))
             .sort(sorter);
 
          // SET VALUE
