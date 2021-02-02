@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BusyService, MessageService, RelatedData } from '@elesse/shared';
-import { CategoriesData, CategoryEntity } from '@elesse/categories';
+import { CategoriesData, CategoryEntity, enCategoryType } from '@elesse/categories';
 import { EntryEntity } from '../../model/entries.model';
 import { EntriesData } from '../../data/entries.data';
 import { AccountEntity, AccountsData } from '@elesse/accounts';
@@ -22,7 +22,10 @@ export class DetailsRouteViewComponent implements OnInit {
 
    public inputForm: FormGroup;
    public get IsBusy(): boolean { return this.busy.IsBusy; }
-   public TypeDescription: string;
+
+   private Type: enCategoryType;
+   public get IsIncome(): boolean { return this.Type == enCategoryType.Income; }
+   public get IsExpense(): boolean { return this.Type == enCategoryType.Expense; }
 
    public async ngOnInit(): Promise<void> {
       const paramID = this.activatedRoute.snapshot.params.id;
@@ -31,10 +34,7 @@ export class DetailsRouteViewComponent implements OnInit {
       if (!data)
          this.router.navigate(["/entries/list"])
 
-      this.TypeDescription = (await this.categoriesData.GetCategoryTypes())
-         .filter(cat => cat.Value == data.Pattern.Type)
-         .map(cat => cat.Text)
-         .reduce((a, b) => b, '');
+      this.Type = data.Pattern.Type;
 
       this.PatternOptions = this.patternsData.GetPatterns(data.Pattern.Type)
          .map(entity => Object.assign(new RelatedData, {

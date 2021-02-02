@@ -3,7 +3,7 @@
    <div content>
 
       <form *ngIf="inputForm" [formGroup]="inputForm" (ngSubmit)="OnSaveClick()">
-         <mat-card>
+         <mat-card [class.income]="IsIncome" [class.expense]="IsExpense">
 
             <mat-card-content>
                <!--
@@ -19,14 +19,6 @@
                      (optionsChanging)="OnPatternChanging($event)">
                   </elesse-relatedbox>
                </ng-container>
-               <mat-form-field class="row" formGroupName="Pattern">
-                  <mat-label>{{ "entries.TEXT_LABEL" | translation | async }}</mat-label>
-                  <input type="text" matInput autofocus formControlName="Text">
-               </mat-form-field>
-               <mat-form-field class="row" formGroupName="Pattern">
-                  <mat-label>{{ "categories.TYPE_LABEL" | translation | async }}</mat-label>
-                  <input type="text" matInput disabled [value]="TypeDescription">
-               </mat-form-field>
                <ng-container formGroupName="Pattern">
                   <elesse-relatedbox [placeholder]="'entries.CATEGORYID_LABEL' | translation | async" minSize="0"
                      [options]="CategoryFiltered" formControlName="CategoryRow"
