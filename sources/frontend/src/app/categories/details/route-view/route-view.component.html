@@ -3,16 +3,12 @@
    <div content>
 
       <form *ngIf="inputForm" [formGroup]="inputForm" (ngSubmit)="OnSaveClick()">
-         <mat-card>
+         <mat-card [class.income]="IsIncome" [class.expense]="IsExpense">
 
             <mat-card-content>
                <mat-form-field class="row">
                   <mat-label>{{ "categories.TEXT_LABEL" | translation | async }}</mat-label>
                   <input type="text" matInput autofocus formControlName="Text">
-               </mat-form-field>
-               <mat-form-field class="row">
-                  <mat-label>{{ "categories.TYPE_LABEL" | translation | async }}</mat-label>
-                  <input type="text" matInput disabled [value]="CategoryTypeDescription">
                </mat-form-field>
                <elesse-relatedbox [placeholder]="'categories.PARENTID_LABEL' | translation | async"
                   minSize="0" [options]="ParentFiltered" formControlName="ParentRow"
