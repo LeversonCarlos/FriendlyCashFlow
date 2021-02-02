@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { AccountsData } from '@elesse/accounts';
 import { CategoriesData } from '@elesse/categories';
 import { EntriesData } from '@elesse/entries';
@@ -8,12 +8,13 @@ import { EntriesData } from '@elesse/entries';
 })
 export class MainData {
 
-   constructor(private accounts: AccountsData, private categories: CategoriesData, private entries: EntriesData) { }
+   constructor(private injector: Injector) { }
 
    public RefreshAll() {
-      this.accounts.RefreshAccounts();
-      this.categories.RefreshCategories();
-      this.entries.RefreshEntries();
+      console.log("RefreshAll")
+      this.injector.get<AccountsData>(AccountsData).RefreshAccounts();
+      this.injector.get<CategoriesData>(CategoriesData).RefreshCategories();
+      this.injector.get<EntriesData>(EntriesData).RefreshEntries();
    }
 
 }
