@@ -7,12 +7,7 @@
 
             <mat-card-content>
                <entries-details-pattern [data]="data" [form]="inputForm"></entries-details-pattern>
-               <ng-container formGroupName="Pattern">
-                  <elesse-relatedbox [placeholder]="'entries.CATEGORYID_LABEL' | translation | async" minSize="0"
-                     [options]="CategoryFiltered" formControlName="CategoryRow"
-                     (optionsChanging)="OnCategoryChanging($event)">
-                  </elesse-relatedbox>
-               </ng-container>
+               <entries-details-category [data]="data" [form]="inputForm"></entries-details-category>
 
                <elesse-relatedbox [placeholder]="'entries.ACCOUNTID_LABEL' | translation | async" minSize="0"
                   [options]="AccountFiltered" formControlName="AccountRow"
