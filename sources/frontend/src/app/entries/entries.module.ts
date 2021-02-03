@@ -7,9 +7,12 @@ import { EntriesData } from './data/entries.data';
 import { ListComponent } from './list/list.component';
 import { ListBodyComponent } from './list/list-body/list-body.component';
 import { DetailsRouteViewComponent } from './details/route-view/route-view.component';
+import { PatternViewComponent } from './details/pattern-view/pattern-view.component';
+import { CategoryViewComponent } from './details/category-view/category-view.component';
 
 @NgModule({
-   declarations: [ListComponent, ListBodyComponent, DetailsRouteViewComponent],
+   declarations: [ListComponent, ListBodyComponent, DetailsRouteViewComponent,
+      PatternViewComponent, CategoryViewComponent],
    imports: [
       MaterialModule, SharedModule,
       EntriesRouting

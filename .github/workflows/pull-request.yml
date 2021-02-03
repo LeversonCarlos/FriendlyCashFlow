@@ -150,8 +150,8 @@ jobs:
           name: merged-tests
           path: mergedReports
 
-      - name: Publish Test Reports
-        uses: romeovs/lcov-reporter-action@v0.2.16
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          lcov-file: ./mergedReports/lcov.info
+      # - name: Publish Test Reports
+      #   uses: romeovs/lcov-reporter-action@v0.2.16
+      #   with:
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      #     lcov-file: ./mergedReports/lcov.info
