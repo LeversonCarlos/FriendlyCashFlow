@@ -9,7 +9,10 @@
                <entries-details-pattern [data]="data" [form]="inputForm"></entries-details-pattern>
                <entries-details-category [data]="data" [form]="inputForm"></entries-details-category>
                <entries-details-account [data]="data" [form]="inputForm"></entries-details-account>
-               <pre style="max-height: 30vh; overflow-y: scroll;">{{ inputForm?.value | json }}</pre>
+               <div class="row">
+                  <entries-details-due-date class="col" [data]="data" [form]="inputForm"></entries-details-due-date>
+               </div>
+               <pre style="max-height: 15vh; overflow-y: scroll;">{{ inputForm?.value | json }}</pre>
             </mat-card-content>
 
             <mat-card-actions>

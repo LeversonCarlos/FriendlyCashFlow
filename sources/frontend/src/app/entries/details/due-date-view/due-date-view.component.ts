@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { EntryEntity } from '../../model/entries.model';
 
 @Component({
@@ -27,6 +27,12 @@ export class DueDateViewComponent implements OnInit {
    private OnFormInit() {
       if (!this.form)
          return;
+      this.form.addControl("DueDate", new FormControl(this.data?.DueDate ?? null, Validators.required));
+      this.form.get("DueDate").valueChanges.subscribe((val: string) => {
+         let dueDate = new Date(val);
+         dueDate = new Date(dueDate.getFullYear(), dueDate.getMonth(), dueDate.getDate(), 12);
+         this.form.get("DueDate").setValue(dueDate);
+      });
    }
 
 }
