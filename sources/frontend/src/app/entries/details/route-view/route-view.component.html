@@ -6,19 +6,7 @@
          <mat-card [class.income]="IsIncome" [class.expense]="IsExpense">
 
             <mat-card-content>
-               <!--
-               <related-box [style.fontSize.px]="20" placeholder="ENTRIES_PATTERN_LABEL" minSize="0"
-                  [options]="PatternOptions" formControlName="PatternRow"
-                  [textSuffix]="(Data?.RecurrencyItem ? Data?.RecurrencyItem +'/'+ Data?.RecurrencyTotal : '')"
-                  (optionsChanging)="OnPatternChanging($event)">
-               </related-box>
-               -->
-               <ng-container formGroupName="Pattern">
-                  <elesse-relatedbox [placeholder]="'entries.TEXT_LABEL' | translation | async" minSize="0"
-                     [options]="PatternFiltered" formControlName="PatternRow"
-                     (optionsChanging)="OnPatternChanging($event)">
-                  </elesse-relatedbox>
-               </ng-container>
+               <entries-details-pattern [data]="data" [form]="inputForm"></entries-details-pattern>
                <ng-container formGroupName="Pattern">
                   <elesse-relatedbox [placeholder]="'entries.CATEGORYID_LABEL' | translation | async" minSize="0"
                      [options]="CategoryFiltered" formControlName="CategoryRow"
