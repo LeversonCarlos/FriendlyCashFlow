@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CategoriesData } from '@elesse/categories';
 import { TestsModule } from '@elesse/tests';
-
 import { CategoryViewComponent } from './category-view.component';
 
 describe('CategoryViewComponent', () => {

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AccountsData } from '@elesse/accounts';
 import { TestsModule } from '@elesse/tests';
 import { AccountViewComponent } from './account-view.component';
 
@@ -9,7 +10,8 @@ describe('AccountViewComponent', () => {
    beforeEach(async () => {
       await TestBed.configureTestingModule({
          declarations: [AccountViewComponent],
-         imports: [TestsModule]
+         imports: [TestsModule],
+         providers: [AccountsData]
       })
       .compileComponents();
    });
