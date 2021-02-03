@@ -21,7 +21,7 @@ export class DetailsRouteViewComponent implements OnInit {
    public inputForm: FormGroup;
    public get IsBusy(): boolean { return this.busy.IsBusy; }
 
-   private Type: enCategoryType;
+   private get Type(): enCategoryType { return this.data?.Pattern?.Type; }
    public get IsIncome(): boolean { return this.Type == enCategoryType.Income; }
    public get IsExpense(): boolean { return this.Type == enCategoryType.Expense; }
 
@@ -33,8 +33,6 @@ export class DetailsRouteViewComponent implements OnInit {
          this.router.navigate(["/entries/list"]);
          return;
       }
-
-      this.Type = this.data.Pattern.Type;
 
       this.OnFormCreate(this.data);
    }
