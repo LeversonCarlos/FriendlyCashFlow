@@ -1,1 +1,5 @@
-<p>account-view works!</p>
+<ng-container *ngIf="form" [formGroup]="form">
+   <elesse-relatedbox [placeholder]="'entries.ACCOUNTID_LABEL' | translation | async" minSize="0"
+      [options]="AccountFiltered" formControlName="AccountRow" (optionsChanging)="OnAccountChanging($event)">
+   </elesse-relatedbox>
+</ng-container>

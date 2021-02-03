@@ -8,12 +8,7 @@
             <mat-card-content>
                <entries-details-pattern [data]="data" [form]="inputForm"></entries-details-pattern>
                <entries-details-category [data]="data" [form]="inputForm"></entries-details-category>
-
-               <elesse-relatedbox [placeholder]="'entries.ACCOUNTID_LABEL' | translation | async" minSize="0"
-                  [options]="AccountFiltered" formControlName="AccountRow"
-                  (optionsChanging)="OnAccountChanging($event)">
-               </elesse-relatedbox>
-
+               <entries-details-account [data]="data" [form]="inputForm"></entries-details-account>
                <pre style="max-height: 30vh; overflow-y: scroll;">{{ inputForm?.value | json }}</pre>
             </mat-card-content>
 

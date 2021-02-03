@@ -5,7 +5,6 @@ import { BusyService, MessageService, RelatedData } from '@elesse/shared';
 import { enCategoryType } from '@elesse/categories';
 import { EntryEntity } from '../../model/entries.model';
 import { EntriesData } from '../../data/entries.data';
-import { AccountEntity, AccountsData } from '@elesse/accounts';
 
 @Component({
    selector: 'entries-details-route-view',
@@ -15,7 +14,6 @@ import { AccountEntity, AccountsData } from '@elesse/accounts';
 export class DetailsRouteViewComponent implements OnInit {
 
    constructor(private entriesData: EntriesData,
-      private accountsData: AccountsData,
       private msg: MessageService, private busy: BusyService,
       private activatedRoute: ActivatedRoute, private router: Router, private fb: FormBuilder) { }
 
@@ -38,16 +36,6 @@ export class DetailsRouteViewComponent implements OnInit {
 
       this.Type = this.data.Pattern.Type;
 
-      this.AccountOptions = this.accountsData.GetAccounts(true)
-         .map(entity => Object.assign(new RelatedData, {
-            id: entity.AccountID,
-            description: entity.Text,
-            value: entity
-         }));
-      if (this.data.AccountID)
-         this.AccountFiltered = this.AccountOptions
-            .filter(entity => entity.value.AccountID == this.data.AccountID)
-
       this.OnFormCreate(this.data);
    }
 
@@ -57,24 +45,11 @@ export class DetailsRouteViewComponent implements OnInit {
             Type: [data.Pattern.Type],
             Text: [data.Pattern.Text, Validators.required]
          }),
-         AccountID: [data.AccountID],
-         AccountRow: [this.AccountFiltered?.length == 1 ? this.AccountFiltered[0] : null, Validators.required],
          DueDate: [data.DueDate, Validators.required],
          EntryValue: [data.EntryValue, [Validators.required, Validators.min(0.01)]],
          Paid: [data.Paid],
          PayDate: [data.PayDate],
       });
-      this.inputForm.get("AccountRow").valueChanges.subscribe((row: RelatedData<AccountEntity>) => {
-         this.inputForm.get("AccountID").setValue(row?.value?.AccountID ?? null);
-      });
-   }
-
-   public AccountOptions: RelatedData<AccountEntity>[] = [];
-   public AccountFiltered: RelatedData<AccountEntity>[] = [];
-   public async OnAccountChanging(val: string) {
-      this.AccountFiltered = this.AccountOptions
-         .filter(entity => entity.value.Text.search(new RegExp(val, 'i')) != -1)
-         .sort((a, b) => a.description > b.description ? 1 : -1)
    }
 
    public async OnCancelClick() {
