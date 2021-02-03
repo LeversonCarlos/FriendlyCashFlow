@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PatternEntity, PatternsData } from '@elesse/patterns';
 import { RelatedData } from '@elesse/shared';
 import { EntryEntity } from '../../model/entries.model';
@@ -21,7 +21,6 @@ export class PatternViewComponent implements OnInit {
 
    @Input() data: EntryEntity;
    @Input() form: FormGroup;
-   public formSection: FormGroup;
    public PatternOptions: RelatedData<PatternEntity>[] = [];
    public PatternFiltered: RelatedData<PatternEntity>[] = [];
 
@@ -38,16 +37,14 @@ export class PatternViewComponent implements OnInit {
    }
 
    private OnFormInit() {
-      this.formSection = this.fb.group({
-         PatternID: [this.data.Pattern.PatternID],
-         PatternRow: [this.PatternFiltered?.length == 1 ? this.PatternFiltered[0] : null, Validators.required],
+      const formSection = this.form.get("Pattern") as FormGroup;
+      formSection.addControl("PatternID", new FormControl(this.data.Pattern.PatternID));
+      formSection.addControl("PatternRow", new FormControl(this.PatternFiltered?.length == 1 ? this.PatternFiltered[0] : null, Validators.required));
+      this.form.get("Pattern.PatternRow").valueChanges.subscribe((row: RelatedData<PatternEntity>) => {
+         this.form.get("Pattern.PatternID").setValue(row?.value?.PatternID ?? null);
+         this.form.get("Pattern.Text").setValue(row?.value?.Text ?? null);
+         this.form.get("Pattern.CategoryID").setValue(row?.value?.CategoryID ?? null);
       });
-      this.formSection.get("PatternRow").valueChanges.subscribe((row: RelatedData<PatternEntity>) => {
-         this.formSection.get("PatternID").setValue(row?.value?.PatternID ?? null);
-         this.formSection.get("Text").setValue(row?.value?.Text ?? null);
-         this.formSection.get("CategoryID").setValue(row?.value?.CategoryID ?? null);
-      });
-      this.form.registerControl("Patterns", this.formSection);
    }
 
    public async OnPatternChanging(val: string) {

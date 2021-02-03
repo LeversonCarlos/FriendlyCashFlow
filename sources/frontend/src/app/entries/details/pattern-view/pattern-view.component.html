@@ -6,7 +6,7 @@
 </related-box>
 -->
 <ng-container [formGroup]="form">
-   <ng-container formGroupName="Patterns">
+   <ng-container formGroupName="Pattern">
       <elesse-relatedbox [placeholder]="'entries.TEXT_LABEL' | translation | async" minSize="0"
          [options]="PatternFiltered" formControlName="PatternRow" (optionsChanging)="OnPatternChanging($event)">
       </elesse-relatedbox>
