@@ -16,6 +16,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 @NgModule({
    declarations: [],
@@ -25,14 +27,14 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
       MatCardModule, MatButtonModule,
       MatFormFieldModule, MatInputModule, MatSelectModule, MatAutocompleteModule,
       MatSidenavModule, MatToolbarModule, MatListModule, MatTabsModule,
-      MatIconModule,
+      MatIconModule, MatDatepickerModule, MatMomentDateModule,
    ],
    exports: [
       MatSnackBarModule, MatDialogModule, MatTooltipModule, MatMenuModule, MatProgressBarModule,
       MatCardModule, MatButtonModule,
       MatFormFieldModule, MatInputModule, MatSelectModule, MatAutocompleteModule,
       MatSidenavModule, MatToolbarModule, MatListModule, MatTabsModule,
-      MatIconModule,
+      MatIconModule, MatDatepickerModule, MatMomentDateModule,
    ]
 })
 export class MaterialModule { }
