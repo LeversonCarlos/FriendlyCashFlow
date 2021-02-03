@@ -44,7 +44,7 @@ export class CategoryViewComponent implements OnInit {
       formSection.addControl("CategoryID", new FormControl(this.data?.Pattern?.CategoryID ?? null));
       formSection.addControl("CategoryRow", new FormControl(this.GetFirstCategory(), Validators.required));
       this.form.get("Pattern.CategoryRow").valueChanges.subscribe((row: RelatedData<CategoryEntity>) => {
-         this.form.get("Pattern.CategoryID").setValue(row?.value?.CategoryID ?? null);
+         this.data.Pattern.CategoryID = row?.value?.CategoryID ?? null;
       });
       this.form.get("Pattern.CategoryID").valueChanges.subscribe((categoryID: string) => {
          this.CategoryFiltered = this.CategoryOptions

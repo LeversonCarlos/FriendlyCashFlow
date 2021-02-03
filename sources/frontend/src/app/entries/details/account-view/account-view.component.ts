@@ -43,7 +43,7 @@ export class AccountViewComponent implements OnInit {
       this.form.addControl("AccountID", new FormControl(this.data?.AccountID ?? null));
       this.form.addControl("AccountRow", new FormControl(this.GetFirstAccount(), Validators.required));
       this.form.get("AccountRow").valueChanges.subscribe((row: RelatedData<AccountEntity>) => {
-         this.form.get("AccountID").setValue(row?.value?.AccountID ?? null);
+         this.data.AccountID = row?.value?.AccountID ?? null;
       });
    }
 

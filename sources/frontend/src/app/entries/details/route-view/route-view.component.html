@@ -12,7 +12,7 @@
                <div class="row">
                   <entries-details-due-date class="col" [data]="data" [form]="inputForm"></entries-details-due-date>
                </div>
-               <pre style="max-height: 15vh; overflow-y: scroll;">{{ inputForm?.value | json }}</pre>
+               <pre style="max-height: 15vh; overflow-y: scroll;">{{ data | json }}</pre>
             </mat-card-content>
 
             <mat-card-actions>

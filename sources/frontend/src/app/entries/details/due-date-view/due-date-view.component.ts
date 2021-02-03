@@ -31,7 +31,7 @@ export class DueDateViewComponent implements OnInit {
       this.form.get("DueDate").valueChanges.subscribe((val: string) => {
          let dueDate = new Date(val);
          dueDate = new Date(dueDate.getFullYear(), dueDate.getMonth(), dueDate.getDate(), 12);
-         this.form.get("DueDate").setValue(dueDate);
+         this.data.DueDate = dueDate;
       });
    }
 
