@@ -25,6 +25,8 @@ export class PatternViewComponent implements OnInit {
    public PatternFiltered: RelatedData<PatternEntity>[] = [];
 
    private OnDataInit() {
+      if (!this.data)
+         return;
       this.PatternOptions = this.patternsData.GetPatterns(this.data.Pattern.Type)
          .map(entity => Object.assign(new RelatedData, {
             id: entity.PatternID,
@@ -37,8 +39,10 @@ export class PatternViewComponent implements OnInit {
    }
 
    private OnFormInit() {
+      if (!this.form)
+         return;
       const formSection = this.form.get("Pattern") as FormGroup;
-      formSection.addControl("PatternID", new FormControl(this.data.Pattern.PatternID));
+      formSection.addControl("PatternID", new FormControl(this.data?.Pattern?.PatternID ?? null));
       formSection.addControl("PatternRow", new FormControl(this.PatternFiltered?.length == 1 ? this.PatternFiltered[0] : null, Validators.required));
       this.form.get("Pattern.PatternRow").valueChanges.subscribe((row: RelatedData<PatternEntity>) => {
          this.form.get("Pattern.PatternID").setValue(row?.value?.PatternID ?? null);

@@ -24,6 +24,8 @@ export class CategoryViewComponent implements OnInit {
    public CategoryFiltered: RelatedData<CategoryEntity>[] = [];
 
    private OnDataInit() {
+      if (!this.data)
+         return;
       this.CategoryOptions = this.categoriesData.GetCategories(this.data.Pattern.Type)
          .map(entity => Object.assign(new RelatedData, {
             id: entity.CategoryID,
@@ -36,8 +38,10 @@ export class CategoryViewComponent implements OnInit {
    }
 
    private OnFormInit() {
+      if (!this.form)
+         return;
       const formSection = this.form.get("Pattern") as FormGroup;
-      formSection.addControl("CategoryID", new FormControl(this.data.Pattern.CategoryID));
+      formSection.addControl("CategoryID", new FormControl(this.data?.Pattern?.CategoryID ?? null));
       formSection.addControl("CategoryRow", new FormControl(this.CategoryFiltered?.length == 1 ? this.CategoryFiltered[0] : null, Validators.required));
       this.form.get("Pattern.CategoryRow").valueChanges.subscribe((row: RelatedData<CategoryEntity>) => {
          this.form.get("Pattern.CategoryID").setValue(row?.value?.CategoryID ?? null);

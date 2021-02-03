@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CategoriesData } from '@elesse/categories';
 import { TestsModule } from '@elesse/tests';
 
 import { CategoryViewComponent } from './category-view.component';
@@ -10,7 +11,8 @@ describe('CategoryViewComponent', () => {
    beforeEach(async () => {
       await TestBed.configureTestingModule({
          declarations: [CategoryViewComponent],
-         imports: [TestsModule]
+         imports: [TestsModule],
+         providers: [CategoriesData]
       })
       .compileComponents();
    });
