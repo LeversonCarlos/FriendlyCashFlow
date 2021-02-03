@@ -42,14 +42,14 @@ export class CategoryViewComponent implements OnInit {
          return;
       const formSection = this.form.get("Pattern") as FormGroup;
       formSection.addControl("CategoryID", new FormControl(this.data?.Pattern?.CategoryID ?? null));
-      formSection.addControl("CategoryRow", new FormControl(this.CategoryFiltered?.length == 1 ? this.CategoryFiltered[0] : null, Validators.required));
+      formSection.addControl("CategoryRow", new FormControl(this.GetFirstCategory(), Validators.required));
       this.form.get("Pattern.CategoryRow").valueChanges.subscribe((row: RelatedData<CategoryEntity>) => {
          this.form.get("Pattern.CategoryID").setValue(row?.value?.CategoryID ?? null);
       });
       this.form.get("Pattern.CategoryID").valueChanges.subscribe((categoryID: string) => {
          this.CategoryFiltered = this.CategoryOptions
             .filter(entity => entity.value.CategoryID == categoryID);
-         const categoryRow = this.CategoryFiltered?.length == 1 ? this.CategoryFiltered[0] : null;
+         const categoryRow = this.GetFirstCategory();
          if (this.form.get("Pattern.CategoryRow").value != categoryRow)
             this.form.get("Pattern.CategoryRow").setValue(categoryRow);
       });
@@ -59,6 +59,10 @@ export class CategoryViewComponent implements OnInit {
       this.CategoryFiltered = this.CategoryOptions
          .filter(entity => entity.value.HierarchyText.search(new RegExp(val, 'i')) != -1)
          .sort((a, b) => a.description > b.description ? 1 : -1)
+   }
+
+   private GetFirstCategory(): RelatedData<CategoryEntity> {
+      return this.CategoryFiltered?.length == 1 ? this.CategoryFiltered[0] : null;
    }
 
 }

@@ -41,7 +41,7 @@ export class AccountViewComponent implements OnInit {
       if (!this.form)
          return;
       this.form.addControl("AccountID", new FormControl(this.data?.AccountID ?? null));
-      this.form.addControl("AccountRow", new FormControl(this.AccountFiltered?.length == 1 ? this.AccountFiltered[0] : null, Validators.required));
+      this.form.addControl("AccountRow", new FormControl(this.GetFirstAccount(), Validators.required));
       this.form.get("AccountRow").valueChanges.subscribe((row: RelatedData<AccountEntity>) => {
          this.form.get("AccountID").setValue(row?.value?.AccountID ?? null);
       });
@@ -51,6 +51,10 @@ export class AccountViewComponent implements OnInit {
       this.AccountFiltered = this.AccountOptions
          .filter(entity => entity.value.Text.search(new RegExp(val, 'i')) != -1)
          .sort((a, b) => a.description > b.description ? 1 : -1)
+   }
+
+   private GetFirstAccount(): RelatedData<AccountEntity> {
+      return this.AccountFiltered?.length == 1 ? this.AccountFiltered[0] : null;
    }
 
 }
