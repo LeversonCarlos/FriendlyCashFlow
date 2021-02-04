@@ -22,8 +22,14 @@ export class EntriesData {
    public get SelectedMonth(): MonthService { return this._SelectedMonth; }
    public set SelectedMonth(value: MonthService) {
       this._SelectedMonth = value;
+      const today = new Date();
+      if (value.Year == today.getFullYear() && value.Month == today.getMonth() + 1)
+         this.DefaultDueDate = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate(), 12);
+      else
+         this.DefaultDueDate = new Date(value.Year, (value.Month - 1), 1, 12);
       this.Cache.InitializeValue(value.ToCode());
    }
+   public DefaultDueDate: Date;
 
    private Cache: EntriesCache;
    public ObserveEntries = (): Observable<EntryEntity[]> =>
@@ -52,9 +58,9 @@ export class EntriesData {
             return null;
 
          if (entryID == 'new-income')
-            return Object.assign(new EntryEntity, { Pattern: { Type: enCategoryType.Income } });
+            return Object.assign(new EntryEntity, { Pattern: { Type: enCategoryType.Income, DueDate: this.DefaultDueDate } });
          else if (entryID == 'new-expense')
-            return Object.assign(new EntryEntity, { Pattern: { Type: enCategoryType.Expense } });
+            return Object.assign(new EntryEntity, { Pattern: { Type: enCategoryType.Expense, DueDate: this.DefaultDueDate } });
 
          let value = await this.http.get<EntryEntity>(`api/entries/load/${entryID}`).toPromise();
          if (!value)

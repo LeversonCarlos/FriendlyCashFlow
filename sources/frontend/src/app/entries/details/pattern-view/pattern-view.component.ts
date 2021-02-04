@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PatternEntity, PatternsData } from '@elesse/patterns';
 import { RelatedData } from '@elesse/shared';
 import { EntryEntity } from '../../model/entries.model';
@@ -11,8 +11,7 @@ import { EntryEntity } from '../../model/entries.model';
 })
 export class PatternViewComponent implements OnInit {
 
-   constructor(private patternsData: PatternsData,
-      private fb: FormBuilder) { }
+   constructor(private patternsData: PatternsData) { }
 
    public ngOnInit(): void {
       this.OnDataInit();
@@ -43,10 +42,10 @@ export class PatternViewComponent implements OnInit {
          return;
       const formSection = this.form.get("Pattern") as FormGroup;
       formSection.addControl("PatternID", new FormControl(this.data?.Pattern?.PatternID ?? null));
-      formSection.addControl("PatternRow", new FormControl(this.PatternFiltered?.length == 1 ? this.PatternFiltered[0] : null, Validators.required));
+      formSection.addControl("PatternRow", new FormControl(this.GetFirstPattern(), Validators.required));
       this.form.get("Pattern.PatternRow").valueChanges.subscribe((row: RelatedData<PatternEntity>) => {
-         this.form.get("Pattern.PatternID").setValue(row?.value?.PatternID ?? null);
-         this.form.get("Pattern.Text").setValue(row?.value?.Text ?? null);
+         this.data.Pattern.PatternID = row?.value?.PatternID ?? null;
+         this.data.Pattern.Text = row?.value?.Text ?? null;
          this.form.get("Pattern.CategoryID").setValue(row?.value?.CategoryID ?? null);
       });
    }
@@ -55,6 +54,10 @@ export class PatternViewComponent implements OnInit {
       this.PatternFiltered = this.PatternOptions
          .filter(entity => entity.value.Text.search(new RegExp(val, 'i')) != -1)
          .sort((a, b) => a.description > b.description ? 1 : -1)
+   }
+
+   private GetFirstPattern(): RelatedData<PatternEntity> {
+      return this.PatternFiltered?.length == 1 ? this.PatternFiltered[0] : null
    }
 
 }

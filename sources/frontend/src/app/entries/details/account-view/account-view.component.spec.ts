@@ -1,23 +1,23 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CategoriesData } from '@elesse/categories';
+import { AccountsData } from '@elesse/accounts';
 import { TestsModule } from '@elesse/tests';
-import { CategoryViewComponent } from './category-view.component';
+import { AccountViewComponent } from './account-view.component';
 
-describe('CategoryViewComponent', () => {
-   let component: CategoryViewComponent;
-   let fixture: ComponentFixture<CategoryViewComponent>;
+describe('AccountViewComponent', () => {
+   let component: AccountViewComponent;
+   let fixture: ComponentFixture<AccountViewComponent>;
 
    beforeEach(async () => {
       await TestBed.configureTestingModule({
-         declarations: [CategoryViewComponent],
+         declarations: [AccountViewComponent],
          imports: [TestsModule],
-         providers: [CategoriesData]
+         providers: [AccountsData]
       })
       .compileComponents();
    });
 
    beforeEach(() => {
-      fixture = TestBed.createComponent(CategoryViewComponent);
+      fixture = TestBed.createComponent(AccountViewComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
    });
