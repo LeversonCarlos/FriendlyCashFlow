@@ -1,1 +1,4 @@
-<p>entry-value-view works!</p>
+<mat-form-field *ngIf="form" [formGroup]="form">
+   <mat-label>{{ "entries.ENTRYVALUE_LABEL" | translation | async }}</mat-label>
+   <input type="number" step="0.01" matInput formControlName="EntryValue">
+</mat-form-field>

@@ -43,7 +43,6 @@ export class DetailsRouteViewComponent implements OnInit {
             Type: [data.Pattern.Type],
             Text: [data.Pattern.Text, Validators.required]
          }),
-         EntryValue: [data.EntryValue, [Validators.required, Validators.min(0.01)]],
          Paid: [data.Paid],
          PayDate: [data.PayDate],
       });
