@@ -19,5 +19,7 @@ div[content] {
 }
 
 .col {
-   flex-grow: 1;
+   &.grow {
+      flex-grow: 1;
+   }
 }
