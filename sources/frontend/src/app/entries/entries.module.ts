@@ -12,11 +12,13 @@ import { CategoryViewComponent } from './details/category-view/category-view.com
 import { AccountViewComponent } from './details/account-view/account-view.component';
 import { DueDateViewComponent } from './details/due-date-view/due-date-view.component';
 import { EntryValueViewComponent } from './details/entry-value-view/entry-value-view.component';
+import { PayDateViewComponent } from './details/pay-date-view/pay-date-view.component';
+import { PaidViewComponent } from './details/paid-view/paid-view.component';
 
 @NgModule({
    declarations: [ListComponent, ListBodyComponent, DetailsRouteViewComponent,
       PatternViewComponent, CategoryViewComponent, AccountViewComponent,
-      DueDateViewComponent, EntryValueViewComponent
+      DueDateViewComponent, EntryValueViewComponent, PayDateViewComponent, PaidViewComponent
    ],
    imports: [
       MaterialModule, SharedModule,

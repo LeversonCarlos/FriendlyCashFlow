@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BusyService, MessageService, RelatedData } from '@elesse/shared';
+import { BusyService, MessageService } from '@elesse/shared';
 import { enCategoryType } from '@elesse/categories';
 import { EntryEntity } from '../../model/entries.model';
 import { EntriesData } from '../../data/entries.data';
@@ -43,8 +43,6 @@ export class DetailsRouteViewComponent implements OnInit {
             Type: [data.Pattern.Type],
             Text: [data.Pattern.Text, Validators.required]
          }),
-         Paid: [data.Paid],
-         PayDate: [data.PayDate],
       });
    }
 

@@ -1,0 +1,10 @@
+.paid {
+   height: 50px;
+   flex-grow: unset;
+   align-self: center;
+   place-self: flex-start;
+   display: flex;
+   .mat-slide-toggle {
+      align-self: center;
+   }
+}

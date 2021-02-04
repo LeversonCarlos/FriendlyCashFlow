@@ -10,8 +10,12 @@
                <entries-details-category [data]="data" [form]="inputForm"></entries-details-category>
                <entries-details-account [data]="data" [form]="inputForm"></entries-details-account>
                <div class="row">
-                  <entries-details-entry-value class="col col-6" [data]="data" [form]="inputForm"></entries-details-entry-value>
-                  <entries-details-due-date class="col col-6" [data]="data" [form]="inputForm"></entries-details-due-date>
+                  <entries-details-entry-value class="col grow" [data]="data" [form]="inputForm"></entries-details-entry-value>
+                  <entries-details-due-date class="col grow" [data]="data" [form]="inputForm"></entries-details-due-date>
+               </div>
+               <div class="row">
+                  <entries-details-paid class="col" [data]="data" [form]="inputForm"></entries-details-paid>
+                  <entries-details-pay-date class="col grow" [data]="data" [form]="inputForm"></entries-details-pay-date>
                </div>
                <pre style="max-height: 15vh; overflow-y: scroll;">{{ data | json }}</pre>
             </mat-card-content>

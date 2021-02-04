@@ -17,3 +17,9 @@ div[content] {
       border: solid 1px lighten($color: $color-red, $amount: 10);
    }
 }
+
+.col {
+   &.grow {
+      flex-grow: 1;
+   }
+}
