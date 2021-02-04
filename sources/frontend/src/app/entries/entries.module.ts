@@ -11,10 +11,13 @@ import { PatternViewComponent } from './details/pattern-view/pattern-view.compon
 import { CategoryViewComponent } from './details/category-view/category-view.component';
 import { AccountViewComponent } from './details/account-view/account-view.component';
 import { DueDateViewComponent } from './details/due-date-view/due-date-view.component';
+import { EntryValueViewComponent } from './details/entry-value-view/entry-value-view.component';
 
 @NgModule({
    declarations: [ListComponent, ListBodyComponent, DetailsRouteViewComponent,
-      PatternViewComponent, CategoryViewComponent, AccountViewComponent, DueDateViewComponent],
+      PatternViewComponent, CategoryViewComponent, AccountViewComponent,
+      DueDateViewComponent, EntryValueViewComponent
+   ],
    imports: [
       MaterialModule, SharedModule,
       EntriesRouting
