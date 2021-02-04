@@ -17,7 +17,7 @@
          <span matLine routerLink="../details/{{entry.EntryID}}">
             <span class="row">
                <span class="col mat-body-strong truncate">
-                  {{ entry?.Pattern?.Text }}{{ entry?.Pattern?.Text }}
+                  {{ entry?.Pattern?.Text }}
                </span>
                <span class="col mat-body-strong" style="flex-grow: 0;">
                   {{ entry?.EntryValue | number:'1.2-2' }}
@@ -25,7 +25,7 @@
             </span>
          </span>
          <small matLine routerLink="../details/{{entry.EntryID}}">
-            <small class="mat-small">{{ entry?.Pattern?.CategoryID }}</small>
+            <small class="mat-small">{{ GetCategoryText(entry?.Pattern?.Type, entry?.Pattern?.CategoryID) }}</small>
          </small>
 
          <button mat-icon-button [matMenuTriggerFor]="menu">
