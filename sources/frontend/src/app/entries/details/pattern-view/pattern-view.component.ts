@@ -51,6 +51,7 @@ export class PatternViewComponent implements OnInit {
    }
 
    public async OnPatternChanging(val: string) {
+      this.data.Pattern.Text = val;
       this.PatternFiltered = this.PatternOptions
          .filter(entity => entity.value.Text.search(new RegExp(val, 'i')) != -1)
          .sort((a, b) => a.description > b.description ? 1 : -1)
