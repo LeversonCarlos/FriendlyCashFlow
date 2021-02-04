@@ -81,14 +81,12 @@ export class EntriesData {
          if (!entry)
             return false;
 
-         console.log(entry);
-         /*
          if (entry.EntryID == null)
             await this.http.post("api/entries/insert", entry).toPromise();
          else
             await this.http.put("api/entries/update", entry).toPromise();
-         */
 
+         await this.RefreshEntries();
          return true;
 
       }

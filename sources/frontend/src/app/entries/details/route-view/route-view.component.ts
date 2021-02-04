@@ -41,7 +41,7 @@ export class DetailsRouteViewComponent implements OnInit {
       this.inputForm = this.fb.group({
          Pattern: this.fb.group({
             Type: [data.Pattern.Type],
-            Text: [data.Pattern.Text, Validators.required]
+            Text: [data.Pattern.Text]
          }),
       });
    }
@@ -56,8 +56,7 @@ export class DetailsRouteViewComponent implements OnInit {
    public async OnSaveClick() {
       if (!this.inputForm.valid)
          return;
-      const data: EntryEntity = Object.assign(new EntryEntity, this.inputForm.value);
-      if (!await this.entriesData.SaveEntry(data))
+      if (!await this.entriesData.SaveEntry(this.data))
          return;
       this.router.navigate(["/entries/list"])
    }
