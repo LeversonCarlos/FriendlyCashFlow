@@ -40,6 +40,8 @@ namespace Elesse.Transfers
          {
             if (value == null)
                throw new ArgumentException(WARNINGS.INVALID_INCOMEACCOUNTID);
+            if (value == _ExpenseAccountID)
+               throw new ArgumentException(WARNINGS.INVALID_EQUAL_EXPENSE_AND_INCOME_ACCOUNTS);
             _IncomeAccountID = value;
          }
       }
@@ -75,6 +77,7 @@ namespace Elesse.Transfers
       internal const string INVALID_TRANSFERID = "INVALID_TRANSFERID";
       internal const string INVALID_EXPENSEACCOUNTID = "INVALID_EXPENSEACCOUNTID";
       internal const string INVALID_INCOMEACCOUNTID = "INVALID_INCOMEACCOUNTID";
+      internal const string INVALID_EQUAL_EXPENSE_AND_INCOME_ACCOUNTS = "INVALID_EQUAL_EXPENSE_AND_INCOME_ACCOUNTS";
       internal const string INVALID_DATE = "INVALID_DATE";
       internal const string INVALID_VALUE = "INVALID_VALUE";
    }
