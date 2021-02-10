@@ -26,29 +26,26 @@ namespace Elesse.Transfers.Tests
          Assert.Equal(value, result.Value);
       }
 
-      /*
       [Theory]
       [MemberData(nameof(Restore_WithInvalidParameters_MustThrowException_Data))]
-      public void Restore_WithInvalidParameters_MustThrowException(string exceptionText, Shared.EntityID entryID, Patterns.IPatternEntity pattern, Shared.EntityID accountID, DateTime dueDate, decimal entryValue, bool paid, DateTime? payDate)
+      public void Restore_WithInvalidParameters_MustThrowException(string exceptionText, Shared.EntityID transferID, Shared.EntityID expenseAccountID, Shared.EntityID incomeAccountID, DateTime date, decimal value)
       {
-         var exception = Assert.Throws<ArgumentException>(() => EntryEntity.Restore(entryID, pattern, accountID, dueDate, entryValue, paid, payDate));
+         var exception = Assert.Throws<ArgumentException>(() => TransferEntity.Restore(transferID, expenseAccountID, incomeAccountID, date, value));
 
          Assert.NotNull(exception);
          Assert.Equal(exceptionText, exception.Message);
       }
       public static IEnumerable<object[]> Restore_WithInvalidParameters_MustThrowException_Data() =>
          new[] {
-            new object[] { WARNINGS.INVALID_ENTRYID, null, null, null, null, null, null, null},
-            new object[] { WARNINGS.INVALID_PATTERN, Shared.EntityID.NewID(), null, null, null, null, null, null},
-            new object[] { WARNINGS.INVALID_ACCOUNTID, Shared.EntityID.NewID(), Patterns.PatternEntity.Builder().Build(), null, null, null, null, null},
-            new object[] { WARNINGS.INVALID_DUEDATE, Shared.EntityID.NewID(), Patterns.PatternEntity.Builder().Build(), Shared.EntityID.NewID(), null, null, null, null},
-            new object[] { WARNINGS.INVALID_DUEDATE, Shared.EntityID.NewID(), Patterns.PatternEntity.Builder().Build(), Shared.EntityID.NewID(), DateTime.MinValue, null, null, null},
-            new object[] { WARNINGS.INVALID_ENTRYVALUE, Shared.EntityID.NewID(), Patterns.PatternEntity.Builder().Build(), Shared.EntityID.NewID(), DateTime.UtcNow, null, null, null},
-            new object[] { WARNINGS.INVALID_ENTRYVALUE, Shared.EntityID.NewID(), Patterns.PatternEntity.Builder().Build(), Shared.EntityID.NewID(), DateTime.UtcNow, 0, null, null},
-            new object[] { WARNINGS.INVALID_ENTRYVALUE, Shared.EntityID.NewID(), Patterns.PatternEntity.Builder().Build(), Shared.EntityID.NewID(), DateTime.UtcNow, -0.01, null, null },
-            new object[] { WARNINGS.INVALID_PAYDATE, Shared.EntityID.NewID(), Patterns.PatternEntity.Builder().Build(), Shared.EntityID.NewID(), DateTime.UtcNow, 1, true, DateTime.MinValue }
+            new object[] { WARNINGS.INVALID_TRANSFERID, null, null, null, null, null},
+            new object[] { WARNINGS.INVALID_EXPENSEACCOUNTID, Shared.EntityID.NewID(), null, null, null, null},
+            new object[] { WARNINGS.INVALID_INCOMEACCOUNTID, Shared.EntityID.NewID(), Shared.EntityID.NewID(), null, null, null},
+            new object[] { WARNINGS.INVALID_DATE, Shared.EntityID.NewID(), Shared.EntityID.NewID(), Shared.EntityID.NewID(), null, null},
+            new object[] { WARNINGS.INVALID_DATE, Shared.EntityID.NewID(), Shared.EntityID.NewID(), Shared.EntityID.NewID(), DateTime.MinValue, null},
+            new object[] { WARNINGS.INVALID_VALUE, Shared.EntityID.NewID(), Shared.EntityID.NewID(), Shared.EntityID.NewID(), DateTime.UtcNow, null},
+            new object[] { WARNINGS.INVALID_VALUE, Shared.EntityID.NewID(), Shared.EntityID.NewID(), Shared.EntityID.NewID(), DateTime.UtcNow, 0},
+            new object[] { WARNINGS.INVALID_VALUE, Shared.EntityID.NewID(), Shared.EntityID.NewID(), Shared.EntityID.NewID(), DateTime.UtcNow, -0.01}
          };
-      */
 
    }
 }
