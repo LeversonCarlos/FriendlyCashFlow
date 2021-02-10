@@ -41,6 +41,8 @@ jobs:
           dotnet clean --configuration Release
           cd ../entries
           dotnet clean --configuration Release
+          cd ../transfers
+          dotnet clean --configuration Release
           cd ../main
           dotnet clean --configuration Release
 
@@ -82,6 +84,12 @@ jobs:
 
       - name: Build Entries
         working-directory: 'sources/backend/entries'
+        run: |
+          dotnet build --configuration Release
+          dotnet test /p:CoverletOutputFormat=opencover
+
+      - name: Build Transfers
+        working-directory: 'sources/backend/transfers'
         run: |
           dotnet build --configuration Release
           dotnet test /p:CoverletOutputFormat=opencover
