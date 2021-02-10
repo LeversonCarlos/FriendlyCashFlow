@@ -38,7 +38,6 @@
     <ProjectReference Include="..\shared\shared.csproj" />
   </ItemGroup>
 
-  <!--
   <ItemGroup>
     <None Remove="Translations\transfers.en-US.json" />
     <None Remove="Translations\transfers.pt-BR.json" />
@@ -51,6 +50,5 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  -->
 
 </Project>
