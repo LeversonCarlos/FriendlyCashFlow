@@ -1,9 +1,17 @@
 {
   "TITLE": "Transfers",
 
+  "INVALID_TRANSFERID_PROPERTY": "Invalid id property",
+  "INVALID_EXPENSEACCOUNTID_PROPERTY": "Invalid expense account property",
+  "INVALID_INCOMEACCOUNTID_PROPERTY": "Invalid income account property",
+  "INVALID_EXPENSE_AND_INCOME_PROPERTIES": "Invalid expense and income properties",
+  "INVALID_DATE_PROPERTY": "Invalid date property",
+  "INVALID_VALUE_PROPERTY": "Invalid value property",
+
   "RECORD_NOT_FOUND": "The transfer was not found",
 
-  "INVALID_INSERT_PARAMETER": "The value entered for the 'insert entry' function is invalid",
-  "INVALID_UPDATE_PARAMETER": "The value entered for the 'update entry' function is invalid",
-  "INVALID_DELETE_PARAMETER": "The value entered for the 'delete entry' function is invalid"
+  "INVALID_LOAD_PARAMETER": "The value entered for the 'transfer.load ' function is invalid",
+  "INVALID_INSERT_PARAMETER": "The value entered for the 'transfer.insert' function is invalid",
+  "INVALID_UPDATE_PARAMETER": "The value entered for the 'transfer.update' function is invalid",
+  "INVALID_DELETE_PARAMETER": "The value entered for the 'transfer.delete' function is invalid"
 }

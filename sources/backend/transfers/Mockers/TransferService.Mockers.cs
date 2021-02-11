@@ -16,13 +16,11 @@ namespace Elesse.Transfers.Tests
          return this;
       }
 
-      /*
       public TransferServiceMocker WithLoad(string id, ActionResult<ITransferEntity> result)
       {
          _Mock.Setup(m => m.LoadAsync(id)).ReturnsAsync(result);
          return this;
       }
-      */
 
       /*
       public TransferServiceMocker WithInsert(InsertVM param, IActionResult result)
