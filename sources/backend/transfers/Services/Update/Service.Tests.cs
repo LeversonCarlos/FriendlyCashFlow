@@ -18,142 +18,91 @@ namespace Elesse.Transfers.Tests
          Assert.Equal(Warning(WARNINGS.INVALID_UPDATE_PARAMETER), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
-      /*
       [Fact]
-      public async void Update_WithInexistingEntry_MustReturnBadRequest()
+      public async void Update_WithInexistingTransfer_MustReturnBadRequest()
       {
-         var repository = EntryRepositoryMocker
+         var repository = TransferRepositoryMocker
             .Create()
             .WithLoad()
             .Build();
-         var service = EntryService.Builder().With(repository).Build();
+         var service = TransferService.Builder().With(repository).Build();
 
-         var result = await service.UpdateAsync(new UpdateVM { EntryID = Shared.EntityID.NewID() });
-
-         Assert.NotNull(result);
-         Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(Warning(WARNINGS.ENTRY_NOT_FOUND), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
-      }
-
-      [Fact]
-      public async void Update_WithExceptionWhenChangingPattern_MustReturnBadRequest()
-      {
-         var repository = EntryRepositoryMocker
-            .Create()
-            .WithLoad(EntryEntity.Builder().Build())
-            .Build();
-         var patternService = Patterns.Tests.PatternServiceMocker
-            .Create()
-            .WithIncrease(new ArgumentException(Patterns.WARNINGS.INVALID_INCREASE_PARAMETER))
-            .Build();
-         var service = EntryService.Builder().With(repository).With(patternService).Build();
-
-         var result = await service.UpdateAsync(new UpdateVM { EntryID = Shared.EntityID.NewID() });
+         var param = new UpdateVM { TransferID = Shared.EntityID.MockerID() };
+         var result = await service.UpdateAsync(param);
 
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(Warning(Patterns.WARNINGS.INVALID_INCREASE_PARAMETER), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+         Assert.Equal(Warning(WARNINGS.TRANSFER_NOT_FOUND), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
       [Fact]
-      public async void Update_WithInvalidAccount_MustReturnBadRequest()
+      public async void Update_WithInvalidData_MustReturnBadRequest()
       {
-         var entity = EntryEntity.Builder().Build();
-         var repository = EntryRepositoryMocker
+         var entity = TransferEntity.Builder().Build();
+         var repository = TransferRepositoryMocker
             .Create()
             .WithLoad(entity)
             .Build();
-         var service = EntryService.Builder().With(repository).Build();
+         var service = TransferService.Builder().With(repository).Build();
 
-         var result = await service.UpdateAsync(new UpdateVM { EntryID = Shared.EntityID.NewID(), Pattern = entity.Pattern });
+         var param = new UpdateVM { TransferID = Shared.EntityID.MockerID() };
+         var result = await service.UpdateAsync(param);
 
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(Warning(WARNINGS.INVALID_ACCOUNTID), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+         Assert.Equal(Warning(WARNINGS.INVALID_EXPENSEACCOUNTID), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
       [Fact]
-      public async void Update_WithValidDataAndEmptyPayment_MustReturnOkRequest()
+      public async void Update_WithExceptionOnRepository_MustReturnBadResult()
       {
-         var entity = EntryEntity.Builder().Build();
-         entity.SetPayment(DateTime.Now, entity.EntryValue);
-         var repository = EntryRepositoryMocker
+         var repositoryException = new Exception(Shared.Faker.GetFaker().Lorem.Sentence(5));
+         var entity = TransferEntity.Builder().Build();
+         var repository = TransferRepositoryMocker
             .Create()
             .WithLoad(entity)
+            .WithUpdate(repositoryException)
             .Build();
-         var service = EntryService.Builder().With(repository).Build();
+         var service = TransferService.Builder().With(repository).Build();
 
-         var updateVM = new UpdateVM
+         var param = new UpdateVM
          {
-            EntryID = Shared.EntityID.NewID(),
-            Pattern = entity.Pattern,
-            AccountID = entity.AccountID,
-            DueDate = entity.DueDate,
-            EntryValue = entity.EntryValue
+            TransferID = entity.TransferID,
+            ExpenseAccountID = Shared.EntityID.MockerID(),
+            IncomeAccountID = Shared.EntityID.MockerID(),
+            Date = entity.Date,
+            Value = entity.Value
          };
-         var result = await service.UpdateAsync(updateVM);
+         var result = await service.UpdateAsync(param);
+
+         Assert.NotNull(result);
+         Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
+         Assert.Equal(new Shared.Results(repositoryException), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+      }
+
+      [Fact]
+      public async void Update_WithValidData_MustReturnOkRequest()
+      {
+         var entity = TransferEntity.Builder().Build();
+         var repository = TransferRepositoryMocker
+            .Create()
+            .WithLoad(entity)
+            .Build();
+         var service = TransferService.Builder().With(repository).Build();
+
+         var param = new UpdateVM
+         {
+            TransferID = entity.TransferID,
+            ExpenseAccountID = Shared.EntityID.MockerID(),
+            IncomeAccountID = Shared.EntityID.MockerID(),
+            Date = entity.Date,
+            Value = entity.Value
+         };
+         var result = await service.UpdateAsync(param);
 
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.OkResult>(result);
       }
-
-      [Fact]
-      public async void Update_WithValidDataAndWithPayment_MustReturnOkRequest()
-      {
-         var entity = EntryEntity.Builder().Build();
-         var repository = EntryRepositoryMocker
-            .Create()
-            .WithLoad(entity)
-            .Build();
-         var service = EntryService.Builder().With(repository).Build();
-
-         var updateVM = new UpdateVM
-         {
-            EntryID = Shared.EntityID.NewID(),
-            Pattern = entity.Pattern,
-            AccountID = entity.AccountID,
-            DueDate = entity.DueDate,
-            EntryValue = entity.EntryValue,
-            Paid = true,
-            PayDate = DateTime.Now.AddDays(3)
-         };
-         var result = await service.UpdateAsync(updateVM);
-
-         Assert.NotNull(result);
-         Assert.IsType<Microsoft.AspNetCore.Mvc.OkResult>(result);
-      }
-
-      [Fact]
-      public async void Update_WithValidDataAndWithChangedPattern_MustReturnOkRequest()
-      {
-         var entity = EntryEntity.Builder().Build();
-         var repository = EntryRepositoryMocker
-            .Create()
-            .WithLoad(entity)
-            .Build();
-         var pattern = Patterns.PatternEntity.Builder().Build();
-         var patternService = Patterns.Tests.PatternServiceMocker
-            .Create()
-            .WithIncrease(pattern)
-            .Build();
-         var service = EntryService.Builder().With(repository).With(patternService).Build();
-
-         var updateVM = new UpdateVM
-         {
-            EntryID = Shared.EntityID.NewID(),
-            Pattern = Patterns.PatternEntity.Builder().Build(),
-            AccountID = entity.AccountID,
-            DueDate = entity.DueDate,
-            EntryValue = entity.EntryValue,
-            Paid = true,
-            PayDate = DateTime.Now.AddDays(3)
-         };
-         var result = await service.UpdateAsync(updateVM);
-
-         Assert.NotNull(result);
-         Assert.IsType<Microsoft.AspNetCore.Mvc.OkResult>(result);
-      }
-      */
 
    }
 }
