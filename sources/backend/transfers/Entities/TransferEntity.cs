@@ -82,13 +82,4 @@ namespace Elesse.Transfers
       internal const string INVALID_VALUE = "INVALID_VALUE_PROPERTY";
    }
 
-   /*
-  "INVALID_TRANSFERID_PROPERTY": "Propriedade id inválida",
-  "INVALID_EXPENSEACCOUNTID_PROPERTY": "Propriedade conta de saída inválida",
-  "INVALID_INCOMEACCOUNTID_PROPERTY": "Propriedade conta de entrada inválida",
-  "INVALID_EXPENSE_AND_INCOME_PROPERTIES": "Propriedades conta de saída e entrada inválidas",
-  "INVALID_DATE_PROPERTY": "Propriedade data inválida",
-  "INVALID_VALUE_PROPERTY": "Propriedade valor inválida",
-   */
-
 }
