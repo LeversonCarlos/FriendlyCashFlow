@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "patterns", "patterns\patter
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "entries", "entries\entries.csproj", "{5FCB07B1-2A73-4648-8C83-70DD395544C0}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "transfers", "transfers\transfers.csproj", "{76B3C7BE-A186-4AE7-ADDB-CA2934BED9A7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{5FCB07B1-2A73-4648-8C83-70DD395544C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5FCB07B1-2A73-4648-8C83-70DD395544C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5FCB07B1-2A73-4648-8C83-70DD395544C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76B3C7BE-A186-4AE7-ADDB-CA2934BED9A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76B3C7BE-A186-4AE7-ADDB-CA2934BED9A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76B3C7BE-A186-4AE7-ADDB-CA2934BED9A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76B3C7BE-A186-4AE7-ADDB-CA2934BED9A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
