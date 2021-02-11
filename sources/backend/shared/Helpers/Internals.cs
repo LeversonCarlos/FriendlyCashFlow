@@ -6,3 +6,4 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("categories")]
 [assembly: InternalsVisibleTo("patterns")]
 [assembly: InternalsVisibleTo("entries")]
+[assembly: InternalsVisibleTo("transfers")]
