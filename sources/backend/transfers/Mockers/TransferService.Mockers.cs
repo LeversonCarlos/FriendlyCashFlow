@@ -10,13 +10,11 @@ namespace Elesse.Transfers.Tests
       public TransferServiceMocker() => _Mock = new Mock<ITransferService>();
       public static TransferServiceMocker Create() => new TransferServiceMocker();
 
-      /*
       public TransferServiceMocker WithList(ActionResult<ITransferEntity[]> result)
       {
          _Mock.Setup(m => m.ListAsync(It.IsAny<int>(), It.IsAny<int>())).ReturnsAsync(result);
          return this;
       }
-      */
 
       /*
       public TransferServiceMocker WithLoad(string id, ActionResult<ITransferEntity> result)

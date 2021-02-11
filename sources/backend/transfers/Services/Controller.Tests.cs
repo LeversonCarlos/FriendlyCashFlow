@@ -1,6 +1,6 @@
-namespace Elesse.Entries.Tests
+namespace Elesse.Transfers.Tests
 {
-   public partial class EntryControllerTests
+   public partial class TransferControllerTests
    {
 
    }
