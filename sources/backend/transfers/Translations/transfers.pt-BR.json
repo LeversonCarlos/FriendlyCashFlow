@@ -8,7 +8,7 @@
   "INVALID_DATE_PROPERTY": "Propriedade data inválida",
   "INVALID_VALUE_PROPERTY": "Propriedade valor inválida",
 
-  "RECORD_NOT_FOUND": "A transferência não foi encontrada",
+  "TRANSFER_NOT_FOUND": "A transferência não foi encontrada",
 
   "INVALID_LOAD_PARAMETER": "O valor informado para a função 'transfer.insert' é inválido",
   "INVALID_INSERT_PARAMETER": "O valor informado para a função 'transfer.insert' é inválido",

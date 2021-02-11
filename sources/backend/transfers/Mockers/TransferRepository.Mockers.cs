@@ -42,6 +42,14 @@ namespace Elesse.Transfers.Tests
          return this;
       }
 
+      public TransferRepositoryMocker WithUpdate(Exception ex)
+      {
+         _Mock
+            .Setup(m => m.UpdateAsync(It.IsAny<ITransferEntity>()))
+            .ThrowsAsync(ex);
+         return this;
+      }
+
       public ITransferRepository Build() => _Mock.Object;
    }
 }
