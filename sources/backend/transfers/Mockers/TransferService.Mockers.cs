@@ -22,13 +22,11 @@ namespace Elesse.Transfers.Tests
          return this;
       }
 
-      /*
       public TransferServiceMocker WithInsert(InsertVM param, IActionResult result)
       {
          _Mock.Setup(m => m.InsertAsync(param)).ReturnsAsync(result);
          return this;
       }
-      */
 
       /*
       public TransferServiceMocker WithUpdate(UpdateVM param, IActionResult result)
