@@ -41,7 +41,7 @@ namespace Elesse.Transfers
             if (value == null)
                throw new ArgumentException(WARNINGS.INVALID_INCOMEACCOUNTID);
             if (value == _ExpenseAccountID)
-               throw new ArgumentException(WARNINGS.INVALID_EQUAL_EXPENSE_AND_INCOME_ACCOUNTS);
+               throw new ArgumentException(WARNINGS.INVALID_EXPENSE_AND_INCOME);
             _IncomeAccountID = value;
          }
       }
@@ -74,12 +74,21 @@ namespace Elesse.Transfers
 
    partial struct WARNINGS
    {
-      internal const string INVALID_TRANSFERID = "INVALID_TRANSFERID";
-      internal const string INVALID_EXPENSEACCOUNTID = "INVALID_EXPENSEACCOUNTID";
-      internal const string INVALID_INCOMEACCOUNTID = "INVALID_INCOMEACCOUNTID";
-      internal const string INVALID_EQUAL_EXPENSE_AND_INCOME_ACCOUNTS = "INVALID_EQUAL_EXPENSE_AND_INCOME_ACCOUNTS";
-      internal const string INVALID_DATE = "INVALID_DATE";
-      internal const string INVALID_VALUE = "INVALID_VALUE";
+      internal const string INVALID_TRANSFERID = "INVALID_TRANSFERID_PROPERTY";
+      internal const string INVALID_EXPENSEACCOUNTID = "INVALID_EXPENSEACCOUNTID_PROPERTY";
+      internal const string INVALID_INCOMEACCOUNTID = "INVALID_INCOMEACCOUNTID_PROPERTY";
+      internal const string INVALID_EXPENSE_AND_INCOME = "INVALID_EXPENSE_AND_INCOME_PROPERTIES";
+      internal const string INVALID_DATE = "INVALID_DATE_PROPERTY";
+      internal const string INVALID_VALUE = "INVALID_VALUE_PROPERTY";
    }
+
+   /*
+  "INVALID_TRANSFERID_PROPERTY": "Propriedade id inválida",
+  "INVALID_EXPENSEACCOUNTID_PROPERTY": "Propriedade conta de saída inválida",
+  "INVALID_INCOMEACCOUNTID_PROPERTY": "Propriedade conta de entrada inválida",
+  "INVALID_EXPENSE_AND_INCOME_PROPERTIES": "Propriedades conta de saída e entrada inválidas",
+  "INVALID_DATE_PROPERTY": "Propriedade data inválida",
+  "INVALID_VALUE_PROPERTY": "Propriedade valor inválida",
+   */
 
 }
