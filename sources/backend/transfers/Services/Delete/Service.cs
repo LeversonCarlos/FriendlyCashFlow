@@ -10,24 +10,28 @@ namespace Elesse.Transfers
 
       public async Task<IActionResult> DeleteAsync(string id)
       {
+         try
+         {
 
-         // VALIDATE PARAMETERS
-         if (!Shared.EntityID.TryParse(id, out var transferID))
-            return Warning(WARNINGS.INVALID_DELETE_PARAMETER);
+            // VALIDATE PARAMETERS
+            if (!Shared.EntityID.TryParse(id, out var transferID))
+               return Warning(WARNINGS.INVALID_DELETE_PARAMETER);
 
-         // LOCATE TRANSFER
-         var transfer = await _TransferRepository.LoadAsync(transferID);
-         if (transfer == null)
-            return Warning(WARNINGS.TRANSFER_NOT_FOUND);
+            // LOCATE TRANSFER
+            var transfer = await _TransferRepository.LoadAsync(transferID);
+            if (transfer == null)
+               return Warning(WARNINGS.TRANSFER_NOT_FOUND);
 
-         // REMOVE TRANSFER
-         await _TransferRepository.DeleteAsync(transferID);
+            // REMOVE TRANSFER
+            await _TransferRepository.DeleteAsync(transferID);
 
-         // TRACK EVENT
-         _InsightsService.TrackEvent("Transfer Service Delete");
+            // TRACK EVENT
+            _InsightsService.TrackEvent("Transfer Service Delete");
 
-         // RESULT
-         return Ok();
+            // RESULT
+            return Ok();
+         }
+         catch (Exception ex) { return Shared.Results.Exception(ex); }
       }
 
    }

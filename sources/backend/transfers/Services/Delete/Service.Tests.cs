@@ -18,58 +18,56 @@ namespace Elesse.Transfers.Tests
          Assert.Equal(Warning(WARNINGS.INVALID_DELETE_PARAMETER), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
-      /*
       [Fact]
-      public async void Delete_WithInexistingEntry_MustReturnBadRequest()
+      public async void Delete_WithInexistingTransfer_MustReturnBadRequest()
       {
-         var repository = EntryRepositoryMocker
+         var repository = TransferRepositoryMocker
             .Create()
             .WithLoad()
             .Build();
-         var service = EntryService.Builder().With(repository).Build();
+         var service = TransferService.Builder().With(repository).Build();
 
-         var result = await service.DeleteAsync((string)Shared.EntityID.NewID());
+         var result = await service.DeleteAsync((string)Shared.EntityID.MockerID());
 
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(Warning(WARNINGS.ENTRY_NOT_FOUND), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+         Assert.Equal(Warning(WARNINGS.TRANSFER_NOT_FOUND), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
       [Fact]
-      public async void Delete_WithInvalidPattern_MustReturnBadResult()
+      public async void Delete_WithExceptionOnRepository_MustReturnBadResult()
       {
-         var repository = EntryRepositoryMocker
+         var repositoryException = new Exception(Shared.Faker.GetFaker().Lorem.Sentence(5));
+         var entity = TransferEntity.Builder().Build();
+         var repository = TransferRepositoryMocker
             .Create()
-            .WithLoad(EntryEntity.Builder().Build())
+            .WithLoad(entity)
+            .WithDelete(repositoryException)
             .Build();
-         var patternService = Patterns.Tests.PatternServiceMocker
-            .Create()
-            .WithDecrease(new ArgumentException(Patterns.WARNINGS.INVALID_DECREASE_PARAMETER))
-            .Build();
-         var service = EntryService.Mock(repository, patternService);
+         var service = TransferService.Builder().With(repository).Build();
 
-         var result = await service.DeleteAsync((string)Shared.EntityID.NewID());
+         var result = await service.DeleteAsync((string)Shared.EntityID.MockerID());
 
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
-         Assert.Equal(Warning(Patterns.WARNINGS.INVALID_DECREASE_PARAMETER), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+         Assert.Equal(new Shared.Results(repositoryException), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
       [Fact]
       public async void Delete_WithValidParameters_MustReturnOkResult()
       {
-         var repository = EntryRepositoryMocker
+         var entity = TransferEntity.Builder().Build();
+         var repository = TransferRepositoryMocker
             .Create()
-            .WithLoad(EntryEntity.Builder().Build())
+            .WithLoad(entity)
             .Build();
-         var service = EntryService.Builder().With(repository).Build();
+         var service = TransferService.Builder().With(repository).Build();
 
-         var result = await service.DeleteAsync((string)Shared.EntityID.NewID());
+         var result = await service.DeleteAsync((string)Shared.EntityID.MockerID());
 
          Assert.NotNull(result);
          Assert.IsType<Microsoft.AspNetCore.Mvc.OkResult>(result);
       }
-      */
 
    }
 }
