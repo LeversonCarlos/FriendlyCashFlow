@@ -34,13 +34,11 @@ namespace Elesse.Transfers.Tests
          return this;
       }
 
-      /*
       public TransferServiceMocker WithDelete(string id, IActionResult result)
       {
          _Mock.Setup(m => m.DeleteAsync(id)).ReturnsAsync(result);
          return this;
       }
-      */
 
       public ITransferService Build() => _Mock.Object;
    }

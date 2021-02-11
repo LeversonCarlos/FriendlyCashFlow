@@ -50,6 +50,14 @@ namespace Elesse.Transfers.Tests
          return this;
       }
 
+      public TransferRepositoryMocker WithDelete(Exception ex)
+      {
+         _Mock
+            .Setup(m => m.DeleteAsync(It.IsAny<Shared.EntityID>()))
+            .ThrowsAsync(ex);
+         return this;
+      }
+
       public ITransferRepository Build() => _Mock.Object;
    }
 }
