@@ -29,6 +29,7 @@ where
    and SearchDate <= @entriesFinal
    and Type = @typeExpense
    and TransferID is null
+   and not CategoryID is null
 group by PatternID
 order by sum(EntryValue) desc;
 

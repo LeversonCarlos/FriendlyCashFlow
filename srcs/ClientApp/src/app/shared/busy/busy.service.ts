@@ -1,5 +1,6 @@
-import { Injectable, Output, Input, EventEmitter } from '@angular/core';
+import { Injectable, Output, Input, EventEmitter, Directive } from '@angular/core';
 
+@Directive()
 @Injectable({
    providedIn: 'root'
 })

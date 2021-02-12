@@ -71,8 +71,11 @@ namespace FriendlyCashFlow.API.Entries
             await this.dbContext.SaveChangesAsync();
             this.TrackMetric("Apply Sorting to new Entry", Math.Round(DateTime.Now.Subtract(startTime).TotalMilliseconds, 0));
 
-            // BALANCE
+            // ADD BALANCE
             await this.GetService<Balances.BalancesService>().AddAsync(data);
+
+            // FIX BALANCE
+            await this.GetService<Balances.BalancesService>().FixAsync(data);
 
             // RECURRENCY
             if (data.RecurrencyID.HasValue && data.RecurrencyID > 0)

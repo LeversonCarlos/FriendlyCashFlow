@@ -18,7 +18,7 @@ export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAcces
          this.ngControl.valueAccessor = this;
       }
    }
-   @ViewChild(MatAutocompleteTrigger, { read: MatAutocompleteTrigger, static: false }) autoComplete: MatAutocompleteTrigger;
+   @ViewChild(MatAutocompleteTrigger, { read: MatAutocompleteTrigger }) autoComplete: MatAutocompleteTrigger;
 
    public ngOnInit() {
       this.inputValue = this.value && this.value.description;

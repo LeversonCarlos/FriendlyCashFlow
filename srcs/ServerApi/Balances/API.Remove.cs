@@ -32,6 +32,10 @@ namespace FriendlyCashFlow.API.Balances
                if (date.Year != value.DueDate.Year || date.Month != value.DueDate.Month)
                {
                   data.TotalValue += entryValue;
+                  this.TrackEvent("Remove Balance in diff Month", $"AccountID:{value.AccountID}",
+                     $"SearchDate:{value.SearchDate.ToString("yyyy-MM")}", $"DueDate:{value.DueDate.ToString("yyyy-MM")}",
+                     $"EntryValue:{entryValue}", $"Paid:{value.Paid}",
+                     $"TotalValue:{data.TotalValue}", $"PaidValue:{data.PaidValue}");
                }
 
             }

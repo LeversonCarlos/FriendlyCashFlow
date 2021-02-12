@@ -57,6 +57,9 @@ namespace FriendlyCashFlow.API.Entries
             // ADD BALANCE
             await this.GetService<Balances.BalancesService>().AddAsync(data);
 
+            // FIX BALANCE
+            await this.GetService<Balances.BalancesService>().FixAsync(data);
+
             // EDIT FUTURE RECURRENCIES
             if (data.RecurrencyID.HasValue && data.RecurrencyID.Value > 0)
             {
