@@ -15,6 +15,7 @@ import { TranslationPipe } from './localization/translation.pipe';
 import { RelatedboxComponent } from './relatedbox/relatedbox.component';
 import { EmptyListComponent } from './empty-list/empty-list.component';
 import { LocaleService, LocaleServiceProvider } from './localization/locale.service';
+import { MonthSelectorComponent } from './month-selector/month-selector.component';
 
 @NgModule({
    entryComponents: [MessageViewComponent],
@@ -22,7 +23,7 @@ import { LocaleService, LocaleServiceProvider } from './localization/locale.serv
       BusyComponent,
       AnonymousContainerComponent, AuthenticatedContainerComponent, LinksComponent,
       MessageViewComponent, ConfirmViewComponent, VersionComponent,
-      TranslationPipe, RelatedboxComponent, EmptyListComponent
+      TranslationPipe, RelatedboxComponent, EmptyListComponent, MonthSelectorComponent
    ],
    imports: [
       CommonModule, RouterModule, FormsModule, ReactiveFormsModule,
