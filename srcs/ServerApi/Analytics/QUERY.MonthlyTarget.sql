@@ -32,6 +32,7 @@ where
    and SearchDate >= @entriesInitial
    and SearchDate <= @entriesFinal
    and TransferID is null
+   and not CategoryID is null
 group by year(SearchDate), month(SearchDate), Type;
 
 /* STANDARD DEVIATION */
