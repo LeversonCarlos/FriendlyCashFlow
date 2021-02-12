@@ -1,0 +1,35 @@
+{
+  "TITLE": "Accounts",
+  "MENU": "Accounts",
+
+  "ACTIVE_ACCOUNTS_LABEL": "Active Accounts",
+  "INACTIVE_ACCOUNTS_LABEL": "Inactive Accounts",
+  "TEXT_LABEL": "Description",
+  "TYPE_LABEL": "Type",
+  "CLOSINGDAY_LABEL": "ClosingDay",
+  "DUEDAY_LABEL": "DueDay",
+
+  "ENABLE_MENU": "Enable Account",
+  "DISABLE_MENU": "Disable Account",
+
+  "REMOVE_MENU": "Remove Account",
+  "REMOVE_TEXT": "Do you want to remove this account ?",
+
+  "INVALID_ACCOUNTID_PARAMETER": "The value entered for the account identifier is invalid",
+  "INVALID_TEXT_PARAMETER": "The account text must be informed and have a maximum of 100 characters",
+  "INVALID_CLOSING_DAY_PARAMETER": "The value entered for closing day is invalid",
+  "INVALID_DUE_DAY_PARAMETER": "The value entered for due day is invalid",
+  "INVALID_INSERT_PARAMETER": "The value entered for the function parameter is invalid",
+  "ACCOUNT_TEXT_ALREADY_USED": "There is already another account with this text",
+  "DAYS_ONLY_VALID_FOR_CREDIT_CARD_TYPE": "The entered data in closing and due day is only valid for credit card",
+  "DAYS_REQUIRED_FOR_CREDIT_CARD_TYPE": "Credit card closing and due day are required",
+  "INVALID_UPDATE_PARAMETER": "The value entered for the function parameter is invalid",
+  "ACCOUNT_NOT_FOUND": "The entered account was not found",
+  "INVALID_CHANGESTATE_PARAMETER": "The value entered for the function parameter is invalid",
+
+  "enAccountType_General": "General",
+  "enAccountType_Bank": "Bank",
+  "enAccountType_CreditCard": "CreditCard",
+  "enAccountType_Investment": "Investment",
+  "enAccountType_Service": "Service"
+}

@@ -1,0 +1,28 @@
+.message-container {
+   display: flex;
+   flex-direction: row;
+
+   .message-content {
+      padding: 0 15px;
+      flex-grow: 1;
+   }
+
+   p {
+      white-space: pre-line;
+   }
+
+   pre {
+      max-height: 60vh;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      white-space: pre-wrap;
+      word-break: break-word;
+      background-color: transparent !important;
+      color: gray !important;
+      border: 0 !important;
+   }
+
+   .message-close {
+      margin: -10px;
+   }
+}

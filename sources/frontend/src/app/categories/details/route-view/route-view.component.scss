@@ -1,0 +1,19 @@
+@import "variables.scss";
+@import "colors.scss";
+
+div[content] {
+   height: $section-height;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+.mat-card {
+   &.income {
+      border: solid 1px lighten($color: $color-green, $amount: 10);
+   }
+   &.expense {
+      border: solid 1px lighten($color: $color-red, $amount: 10);
+   }
+}

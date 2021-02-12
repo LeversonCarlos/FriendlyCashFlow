@@ -1,0 +1,15 @@
+{
+  "CANCEL_COMMAND": "Cancelar",
+  "CANCEL_COMMAND_TOOLTIP": "Clique para cancelar e descartar qualquer alteração",
+  "SAVE_COMMAND": "Gravar",
+  "SAVE_COMMAND_TOOLTIP": "Clique para gravar as alterações",
+  "ROLLBACK_TEXT": "Você deseja reverter descartando as alterações?",
+  "ROLLBACK_CONFIRM_COMMAND": "Confirmar Reversão",
+  "ROLLBACK_ABORT_COMMAND": "Continuar Editando",
+
+  "EMPTY_LIST_TITLE": "Nenhum registro para exibir",
+  "EMPTY_LIST_MESSAGE": "Utilize outros filtros ou insira novos registros",
+
+  "REMOVE_CONFIRM_COMMAND": "Remover",
+  "REMOVE_CANCEL_COMMAND": "Cancelar"
+}

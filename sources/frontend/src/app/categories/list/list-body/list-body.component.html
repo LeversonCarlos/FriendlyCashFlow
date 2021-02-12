@@ -1,0 +1,19 @@
+<shared-empty-list *ngIf="!(Categories | async)?.length"></shared-empty-list>
+<mat-nav-list *ngIf="(Categories | async)?.length">
+   <mat-list-item *ngFor="let category of Categories | async" >
+      <mat-icon
+         [style.margin-left.px]="(category?.SplitedText?.length-1) * 16"
+         matListIcon>chevron_right</mat-icon>
+      <a matLine routerLink="../details/{{category.CategoryID}}">
+         <span>{{ category.Text }}</span>
+      </a>
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+         <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+         <button mat-menu-item class="danger" (click)="OnRemoveCategory(category)">
+            <span>{{ 'categories.REMOVE_MENU' | translation | async }}</span>
+         </button>
+      </mat-menu>
+   </mat-list-item>
+</mat-nav-list>

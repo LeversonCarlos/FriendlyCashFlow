@@ -1,0 +1,54 @@
+@import "~@angular/material/theming";
+
+/* PRIMARY */
+$palette-primary: mat-palette($mat-teal);
+$color-primary: mat-color($palette-primary, default);
+.forecolor-primary { color: $color-primary; }
+.backcolor-primary { background-color: $color-primary; }
+
+/* ACCENT */
+$palette-accent: mat-palette($mat-indigo);
+$color-accent: mat-color($palette-accent, default);
+.forecolor-accent { color: $color-accent; }
+.backcolor-accent { background-color: $color-accent; }
+
+/* WARN */
+$palette-warn: mat-palette($mat-deep-orange);
+$color-warn: mat-color($palette-warn, default);
+.forecolor-warn { color: $color-warn; }
+.backcolor-warn { background-color: $color-warn; }
+
+/* RED */
+$color-red: mat-color($mat-red, 700);
+.forecolor-red { color: $color-red; }
+.backcolor-red { background-color: $color-red; }
+
+/* GREEN */
+$color-green: mat-color($mat-green, 700);
+.forecolor-green { color: $color-green; }
+.backcolor-green { background-color: $color-green; }
+
+/* YELLOW */
+$color-yellow: mat-color($mat-yellow, 700);
+.forecolor-yellow { color: $color-yellow; }
+.backcolor-yellow { background-color: $color-yellow; }
+
+/* BLACK */
+$color-black: mat-color($mat-grey, 900);
+.forecolor-black { color: $color-black; }
+.backcolor-black { background-color: $color-black; }
+
+/* GREY */
+$color-grey: mat-color($mat-grey, 700);
+.forecolor-grey { color: $color-grey; }
+.backcolor-grey { background-color: $color-grey; }
+
+/* SILVER */
+$color-silver: mat-color($mat-grey, 500);
+.forecolor-silver { color: $color-silver; }
+.backcolor-silver { background-color: $color-silver; }
+
+/* WHITE */
+$color-white: #ffffff;
+.forecolor-white { color: $color-white; }
+.backcolor-white { background-color: $color-white; }

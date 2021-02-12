@@ -1,0 +1,20 @@
+@import "variables.scss";
+
+.container {
+   height: 100vh;
+}
+
+header {
+   mat-toolbar {
+      justify-content: space-between;
+      .title {
+         display: flex;
+         align-items: center;
+      }
+   }
+}
+
+section {
+   height: $section-height;
+   overflow: hidden;
+}

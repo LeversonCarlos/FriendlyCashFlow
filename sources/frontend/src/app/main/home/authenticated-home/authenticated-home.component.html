@@ -1,0 +1,7 @@
+<shared-authenticated-container>
+   <div header-title>Friendly Cash Flow</div>
+   <div content>
+      <button mat-button *ngIf="!IsBusy" (click)="SetBusy(true)">Set Busy</button>
+      <button mat-button *ngIf="IsBusy" (click)="SetBusy(false)">Set Not Busy</button>
+   </div>
+</shared-authenticated-container>

@@ -1,0 +1,17 @@
+{
+  "TITLE": "Transferências",
+
+  "INVALID_TRANSFERID_PROPERTY": "Propriedade id inválida",
+  "INVALID_EXPENSEACCOUNTID_PROPERTY": "Propriedade conta de saída inválida",
+  "INVALID_INCOMEACCOUNTID_PROPERTY": "Propriedade conta de entrada inválida",
+  "INVALID_EXPENSE_AND_INCOME_PROPERTIES": "Propriedades conta de saída e entrada inválidas",
+  "INVALID_DATE_PROPERTY": "Propriedade data inválida",
+  "INVALID_VALUE_PROPERTY": "Propriedade valor inválida",
+
+  "TRANSFER_NOT_FOUND": "A transferência não foi encontrada",
+
+  "INVALID_LOAD_PARAMETER": "O valor informado para a função 'transfer.insert' é inválido",
+  "INVALID_INSERT_PARAMETER": "O valor informado para a função 'transfer.insert' é inválido",
+  "INVALID_UPDATE_PARAMETER": "O valor informado para a função 'transfer.update' é inválido",
+  "INVALID_DELETE_PARAMETER": "O valor informado para a função 'transfer.delete' é inválido"
+}

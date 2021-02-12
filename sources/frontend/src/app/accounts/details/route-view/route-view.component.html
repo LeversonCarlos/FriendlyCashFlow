@@ -1,0 +1,46 @@
+<shared-authenticated-container>
+   <div header-title>{{ "accounts.TITLE" | translation | async }}</div>
+   <div content>
+
+      <form *ngIf="inputForm" [formGroup]="inputForm" (ngSubmit)="OnSaveClick()">
+         <mat-card>
+
+            <mat-card-content>
+               <mat-form-field class="row">
+                  <mat-label>{{ "accounts.TEXT_LABEL" | translation | async }}</mat-label>
+                  <input type="text" matInput autofocus formControlName="Text">
+               </mat-form-field>
+               <mat-form-field class="row">
+                  <mat-label>{{ "accounts.TYPE_LABEL" | translation | async }}</mat-label>
+                  <mat-select formControlName="Type">
+                     <mat-option *ngFor="let item of AccountTypes" [value]="item.Value">
+                        {{ item.Text }}
+                     </mat-option>
+                  </mat-select>
+               </mat-form-field>
+               <div class="row">
+                  <mat-form-field class="col">
+                     <mat-label>{{ "accounts.CLOSINGDAY_LABEL" | translation | async }}</mat-label>
+                     <input type="number" matInput autofocus formControlName="ClosingDay">
+                  </mat-form-field>
+                  <mat-form-field class="col">
+                     <mat-label>{{ "accounts.DUEDAY_LABEL" | translation | async }}</mat-label>
+                     <input type="number" matInput autofocus formControlName="DueDay">
+                  </mat-form-field>
+               </div>
+            </mat-card-content>
+
+            <mat-card-actions>
+               <button type="button" mat-button (click)="OnCancelClick()"
+                  [matTooltip]="'shared.CANCEL_COMMAND_TOOLTIP' | translation | async"
+                  [disabled]="IsBusy">{{ "shared.CANCEL_COMMAND" | translation | async }}</button>
+               <button type="submit" mat-button color="primary"
+                  [matTooltip]="'shared.SAVE_COMMAND_TOOLTIP' | translation | async"
+                  [disabled]="!inputForm?.valid || IsBusy">{{ "shared.SAVE_COMMAND" | translation | async }}</button>
+            </mat-card-actions>
+
+         </mat-card>
+      </form>
+
+   </div>
+</shared-authenticated-container>

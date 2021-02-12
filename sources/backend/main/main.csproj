@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Elesse.FriendlyCashFlow</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Version>1.0.0</Version>
+    <Authors>Leverson Carlos</Authors>
+    <Product>Friendly Cash Flow</Product>
+    <Company>Friendship</Company>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MongoDB.Driver" Version="2.11.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\identity\identity.csproj" />
+    <ProjectReference Include="..\accounts\accounts.csproj" />
+    <ProjectReference Include="..\categories\categories.csproj" />
+    <ProjectReference Include="..\entries\entries.csproj" />
+  </ItemGroup>
+
+</Project>

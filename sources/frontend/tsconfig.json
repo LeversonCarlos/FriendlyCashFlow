@@ -1,0 +1,47 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "es2020",
+    "lib": [
+      "es2018",
+      "dom"
+    ],
+    "resolveJsonModule": true,
+    "paths": {
+      "@elesse/shared": [
+        "src/app/shared/shared.exports.ts"
+      ],
+      "@elesse/material": [
+        "src/app/material/material.exports.ts"
+      ],
+      "@elesse/tests": [
+        "src/app/tests/tests.module.ts"
+      ],
+      "@elesse/identity": [
+        "src/app/identity/identity.exports.ts"
+      ],
+      "@elesse/accounts": [
+        "src/app/accounts/accounts.exports.ts"
+      ],
+      "@elesse/categories": [
+        "src/app/categories/categories.exports.ts"
+      ],
+      "@elesse/patterns": [
+        "src/app/patterns/patterns.exports.ts"
+      ],
+      "@elesse/entries": [
+        "src/app/entries/entries.exports.ts"
+      ],
+    }
+  }
+}

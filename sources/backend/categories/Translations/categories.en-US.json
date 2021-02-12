@@ -1,0 +1,26 @@
+{
+  "TITLE": "Categories",
+  "MENU": "Categories",
+
+  "INCOME_CATEGORIES_LABEL": "Income Categories",
+  "EXPENSE_CATEGORIES_LABEL": "Expense Categories",
+  "TEXT_LABEL": "Description",
+  "TYPE_LABEL": "Type",
+  "PARENTID_LABEL": "Parent Category",
+
+  "REMOVE_MENU": "Remove Category",
+  "REMOVE_TEXT": "Do you want to remove this category ?",
+
+  "INVALID_CATEGORYID_PARAMETER": "The value entered for the category identifier is invalid",
+  "INVALID_TEXT_PARAMETER": "The category text must be informed and have a maximum of 100 characters",
+  "INVALID_INSERT_PARAMETER": "The value entered for the function parameter is invalid",
+  "CATEGORY_TEXT_ALREADY_USED": "There is already another category with this text",
+  "PARENT_CATEGORY_NOT_FOUND": "The parent category entered was not found",
+  "INVALID_UPDATE_PARAMETER": "The value entered for the function parameter is invalid",
+  "CATEGORY_NOT_FOUND": "The category was not found",
+  "STILL_HAS_CHILDREN_CANT_REMOVE": "This record still has children and therefore cannot be removed",
+
+  "enCategoryType_None": "<Select>",
+  "enCategoryType_Expense": "Expense",
+  "enCategoryType_Income": "Income"
+}

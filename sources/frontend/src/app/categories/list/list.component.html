@@ -1,0 +1,27 @@
+<shared-authenticated-container>
+   <div header-title>{{ "categories.TITLE" | translation | async}}</div>
+   <div header-toolbar>
+      <button mat-icon-button routerLink="../details/new">
+         <mat-icon>add_circle</mat-icon>
+      </button>
+   </div>
+   <div content>
+
+      <mat-tab-group dynamicHeight="false" [selectedIndex]="SelectedCategoryTab" (selectedIndexChange)="OnTabChanged($event)">
+
+         <mat-tab [label]="'categories.INCOME_CATEGORIES_LABEL' | translation | async">
+            <div class="tab-contents">
+               <categories-list-body [Categories]="IncomeCategories"></categories-list-body>
+            </div>
+         </mat-tab>
+
+         <mat-tab [label]="'categories.EXPENSE_CATEGORIES_LABEL' | translation | async">
+            <div class="tab-contents">
+               <categories-list-body [Categories]="ExpenseCategories"></categories-list-body>
+            </div>
+         </mat-tab>
+
+      </mat-tab-group>
+
+   </div>
+</shared-authenticated-container>

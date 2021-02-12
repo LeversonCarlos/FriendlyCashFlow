@@ -1,0 +1,167 @@
+name: Pull Request
+
+on: [pull_request]
+
+jobs:
+
+  backend:
+    name: Test Backend
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Source
+        uses: actions/checkout@v2
+
+      - name: Shared - Run Tests
+        working-directory: 'sources/backend/shared/'
+        run: dotnet test /p:CoverletOutputFormat=lcov
+
+      - name: Shared - Store Tests
+        uses: actions/upload-artifact@v2
+        with:
+          name: shared-tests
+          path: ./sources/backend/shared/coverage.info
+
+      - name: Identity - Run Tests
+        working-directory: 'sources/backend/identity/'
+        run: dotnet test /p:CoverletOutputFormat=lcov
+
+      - name: Identity - Store Tests
+        uses: actions/upload-artifact@v2
+        with:
+          name: identity-tests
+          path: ./sources/backend/identity/coverage.info
+
+      - name: Accounts - Run Tests
+        working-directory: 'sources/backend/accounts/'
+        run: dotnet test /p:CoverletOutputFormat=lcov
+
+      - name: Accounts - Store Tests
+        uses: actions/upload-artifact@v2
+        with:
+          name: accounts-tests
+          path: ./sources/backend/accounts/coverage.info
+
+      - name: Categories - Run Tests
+        working-directory: 'sources/backend/categories/'
+        run: dotnet test /p:CoverletOutputFormat=lcov
+
+      - name: Categories - Store Tests
+        uses: actions/upload-artifact@v2
+        with:
+          name: categories-tests
+          path: ./sources/backend/categories/coverage.info
+
+      - name: Patterns - Run Tests
+        working-directory: 'sources/backend/patterns/'
+        run: dotnet test /p:CoverletOutputFormat=lcov
+
+      - name: Patterns - Store Tests
+        uses: actions/upload-artifact@v2
+        with:
+          name: patterns-tests
+          path: ./sources/backend/patterns/coverage.info
+
+      - name: Entries - Run Tests
+        working-directory: 'sources/backend/entries/'
+        run: dotnet test /p:CoverletOutputFormat=lcov
+
+      - name: Entries - Store Tests
+        uses: actions/upload-artifact@v2
+        with:
+          name: entries-tests
+          path: ./sources/backend/entries/coverage.info
+
+      - name: Transfers - Run Tests
+        working-directory: 'sources/backend/transfers/'
+        run: dotnet test /p:CoverletOutputFormat=lcov
+
+      - name: Transfers - Store Tests
+        uses: actions/upload-artifact@v2
+        with:
+          name: transfers-tests
+          path: ./sources/backend/transfers/coverage.info
+
+      - name: Application - Build
+        working-directory: 'sources/backend/main/'
+        run: dotnet build
+
+  frontend:
+    name: Test Frontend
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Source
+        uses: actions/checkout@v2
+
+      - name: Restore
+        working-directory: 'sources/frontend/'
+        run: npm install
+
+      - name: Build
+        working-directory: 'sources/frontend/'
+        run: npm run build
+
+      - name: Run Tests
+        working-directory: 'sources/frontend/'
+        run: npm run test
+
+      - name: Fix Tests Paths
+        working-directory: 'sources/frontend/'
+        run: |
+          sed -i 's|SF:src/|SF:${{ github.workspace }}/sources/frontend/src/|' coverage.info
+          sed -i 's| filename="src| filename="${{ github.workspace }}/sources/frontend/src|' cobertura-coverage.xml
+
+      - name: Store Tests
+        uses: actions/upload-artifact@v2
+        with:
+          name: frontend-tests
+          path: ./sources/frontend/coverage.info
+
+  testReports:
+    name: Test Reports
+    runs-on: ubuntu-latest
+    needs: [backend,frontend]
+
+    steps:
+
+      - name: Retrieve Reports
+        uses: actions/download-artifact@v2
+        with:
+          path: testReports
+
+      # - name: Setup .NET Core
+      #   uses: actions/setup-dotnet@v1
+      #   with:
+      #     dotnet-version: 5.0.101
+
+      - name: Merge Reports
+        uses: danielpalme/ReportGenerator-GitHub-Action@4.8.4
+        with:
+          reports: 'testReports/**/coverage.info' # REQUIRED # The coverage reports that should be parsed (separated by semicolon). Globbing is supported.
+          targetdir: 'mergedReports' # REQUIRED # The directory where the generated report should be saved.
+          reporttypes: 'lcov;Cobertura' # The output formats and scope (separated by semicolon) Values: Badges, Clover, Cobertura, CsvSummary, Html, HtmlChart, HtmlInline, HtmlInline_AzurePipelines, HtmlInline_AzurePipelines_Dark, HtmlSummary, JsonSummary, Latex, LatexSummary, lcov, MHtml, PngChart, SonarQube, TeamCitySummary, TextSummary, Xml, XmlSummary
+          sourcedirs: '' # Optional directories which contain the corresponding source code (separated by semicolon). The source directories are used if coverage report contains classes without path information.
+          historydir: '' # Optional directory for storing persistent coverage information. Can be used in future reports to show coverage evolution.
+          plugins: '' # Optional plugin files for custom reports or custom history storage (separated by semicolon).
+          assemblyfilters: '+*' # Optional list of assemblies that should be included or excluded in the report. Exclusion filters take precedence over inclusion filters. Wildcards are allowed.
+          classfilters: '+*' # Optional list of classes that should be included or excluded in the report. Exclusion filters take precedence over inclusion filters. Wildcards are allowed.
+          filefilters: '+*' # Optional list of files that should be included or excluded in the report. Exclusion filters take precedence over inclusion filters. Wildcards are allowed.
+          verbosity: 'Info' # The verbosity level of the log messages. Values: Verbose, Info, Warning, Error, Off
+          title: '' # Optional title.
+          tag: '${{ github.run_number }}_${{ github.run_id }}' # Optional tag or build version.
+          customSettings: '' # Optional custom settings (separated by semicolon). See: https://github.com/danielpalme/ReportGenerator/wiki/Settings.
+
+      - name: Store Tests
+        uses: actions/upload-artifact@v2
+        with:
+          name: merged-tests
+          path: mergedReports
+
+      # - name: Publish Test Reports
+      #   uses: romeovs/lcov-reporter-action@v0.2.16
+      #   with:
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      #     lcov-file: ./mergedReports/lcov.info

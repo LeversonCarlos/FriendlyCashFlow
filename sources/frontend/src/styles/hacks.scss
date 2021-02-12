@@ -1,0 +1,16 @@
+mat-card {
+   max-width: 85vw;
+   min-width: 300px;
+   mat-card-actions {
+      text-align: right;
+   }
+}
+
+mat-form-field {
+   width: 100%;
+}
+
+.exception-snack-panel {
+   min-width: 75vw !important;
+   max-width: 90vw !important;
+}

@@ -1,0 +1,6 @@
+<mat-form-field *ngIf="form" [formGroup]="form">
+   <mat-label>{{ "entries.DUEDATE_LABEL" | translation | async }}</mat-label>
+   <input type="text" matInput [matDatepicker]="dueDatePicker" formControlName="DueDate">
+   <mat-datepicker-toggle matSuffix [for]="dueDatePicker"></mat-datepicker-toggle>
+   <mat-datepicker #dueDatePicker></mat-datepicker>
+</mat-form-field>

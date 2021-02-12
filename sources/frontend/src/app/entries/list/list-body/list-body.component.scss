@@ -1,0 +1,38 @@
+@import "src/styles/variables.scss";
+
+.day-header {
+   padding: 0 16px;
+}
+
+.day-footer {
+   padding: 0 calc(16px + 40px);
+   text-align: right;
+   .mat-small {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      .expected {
+         margin-right: 3px;
+      }
+   }
+}
+
+.mat-nav-list {
+   padding: 0;
+}
+
+span[matLine] {
+   .col {
+      margin-bottom: 0;
+   }
+}
+
+.truncate {
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   width: 85%;
+   @media (max-width: $max-width-xs) {
+      width: 60%;
+   }
+}

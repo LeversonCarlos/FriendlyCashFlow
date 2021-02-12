@@ -1,0 +1,63 @@
+<shared-empty-list *ngIf="AccountEntries?.Days.length==0"></shared-empty-list>
+<mat-nav-list *ngIf="AccountEntries?.Days.length>0" [attr.dense]="IsMobile?true:null">
+   <ng-container *ngFor="let day of AccountEntries?.Days">
+
+      <div class="day-header">
+         <small class="mat-small forecolor-accent">
+            <span>{{ day.Day | date:'dd' }}</span>
+            <span> : </span>
+            <span>{{ day.Day | date:'EEEE' }}</span>
+         </small>
+      </div>
+
+      <mat-list-item *ngFor="let entry of day.Entries">
+
+         <mat-icon matListIcon (click)="OnPaidClick(entry)">
+            {{ entry.Paid ? 'check_box' : 'check_box_outline_blank' }}
+         </mat-icon>
+
+         <span matLine routerLink="../details/{{entry.EntryID}}">
+            <span class="row">
+               <span class="col mat-body-strong truncate">
+                  {{ entry?.Pattern?.Text }}
+               </span>
+               <span class="col mat-body-strong" style="flex-grow: 0;">
+                  {{ entry?.EntryValue | number:'1.2-2' }}
+               </span>
+            </span>
+         </span>
+         <small matLine routerLink="../details/{{entry.EntryID}}">
+            <small class="mat-small">{{ GetCategoryText(entry?.Pattern?.Type, entry?.Pattern?.CategoryID) }}</small>
+         </small>
+
+         <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+         </button>
+         <mat-menu #menu="matMenu">
+            <button mat-menu-item class="danger" (click)="OnRemoveEntry(entry)">
+               <span>{{ 'entries.REMOVE_MENU' | translation | async }}</span>
+            </button>
+         </mat-menu>
+
+      </mat-list-item>
+
+      <div class="day-footer">
+         <span class="mat-small">
+            <small class="expected"
+               *ngIf="day.Balance.ExpectedBalance != day.Balance.RealizedBalance"
+               [class.forecolor-green]="day.Balance.RealizedBalance >= 0"
+               [class.forecolor-red]="day.Balance.RealizedBalance < 0">
+               ({{ day.Balance.ExpectedBalance | number:'1.2-2' }})
+            </small>
+            <span
+               [class.forecolor-green]="day.Balance.RealizedBalance>=0"
+               [class.forecolor-red]="day.Balance.RealizedBalance<0" >
+                  {{ day.Balance.RealizedBalance | number:'1.2-2' }}
+            </span>
+         </span>
+      </div>
+
+      <mat-divider></mat-divider>
+
+   </ng-container>
+</mat-nav-list>

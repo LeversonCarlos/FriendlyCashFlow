@@ -1,0 +1,29 @@
+<div class="container">
+
+   <mat-sidenav-container autosize (backdropClick)="snav.close()">
+      <mat-sidenav #snav fixedInViewport="true" [mode]="IsMobile ? 'over' : 'side'" [opened]="!IsMobile"
+         (keydown.escape)="snav.close()">
+         <elesse-links></elesse-links>
+         <elesse-version></elesse-version>
+      </mat-sidenav>
+      <mat-sidenav-content>
+         <header>
+            <mat-toolbar color="primary">
+               <div class="title">
+                  <button mat-icon-button (click)="snav.toggle()" *ngIf="IsMobile">
+                     <mat-icon>menu</mat-icon>
+                  </button>
+                  <ng-content select="[header-title]"></ng-content>
+               </div>
+               <ng-content select="[header-toolbar]"></ng-content>
+            </mat-toolbar>
+            <ng-content select="[header]"></ng-content>
+         </header>
+         <section>
+            <ng-content select="[content]"></ng-content>
+         </section>
+      </mat-sidenav-content>
+   </mat-sidenav-container>
+
+</div>
+<shared-busy></shared-busy>

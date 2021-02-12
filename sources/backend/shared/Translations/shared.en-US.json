@@ -1,0 +1,15 @@
+{
+  "CANCEL_COMMAND": "Cancel",
+  "CANCEL_COMMAND_TOOLTIP": "Click to cancel and discard any changes",
+  "SAVE_COMMAND": "Save",
+  "SAVE_COMMAND_TOOLTIP": "Click to save changes",
+  "ROLLBACK_TEXT": "Do you want to rollback and lose changes ?",
+  "ROLLBACK_CONFIRM_COMMAND": "Confirm Rollback",
+  "ROLLBACK_ABORT_COMMAND": "Continue Editing",
+
+  "EMPTY_LIST_TITLE": "No records to display",
+  "EMPTY_LIST_MESSAGE": "Use other filters or insert new records",
+
+  "REMOVE_CONFIRM_COMMAND": "Remove",
+  "REMOVE_CANCEL_COMMAND": "Cancel"
+}
