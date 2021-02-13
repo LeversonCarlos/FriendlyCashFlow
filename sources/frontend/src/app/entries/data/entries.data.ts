@@ -5,7 +5,6 @@ import { enCategoryType } from '@elesse/categories';
 import { BusyService } from '../../shared/busy/busy.service';
 import { EntriesCache } from '../cache/cache.service';
 import { EntryEntity } from '../model/entries.model';
-import { MonthService } from '../month/month.service';
 import { Month, MonthSelectorService } from '@elesse/shared';
 
 @Injectable({
@@ -34,7 +33,7 @@ export class EntriesData {
    }
 
    public ObserveEntries = (): Observable<EntryEntity[]> =>
-      this.Cache.GetObservable(this.CurrentMonth.ToCode());
+      this.Cache.Observe;
 
    public async RefreshEntries(): Promise<void> {
       try {

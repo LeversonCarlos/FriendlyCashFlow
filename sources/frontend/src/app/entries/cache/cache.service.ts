@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StorageService } from '@elesse/shared';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { BalanceItemEntity, EntryEntity } from '../model/entries.model';
 
 @Injectable({
@@ -9,7 +10,25 @@ export class EntriesCache extends StorageService<string, EntryEntity[]> {
 
    constructor() {
       super("EntriesCache");
+      this.Subject = new BehaviorSubject<EntryEntity[]>(null);
+      this.Observe = this.Subject.asObservable();
+      this.InitializeValue
    }
+
+   public InitializeValue(key: string) {
+      super.InitializeValue(key);
+      if (this.Subs) {
+         if (this.SubsKey == key)
+            return;
+         this.Subs.unsubscribe();
+      }
+      this.GetObservable(key).subscribe(values => this.Subject.next(values));
+   }
+
+   private SubsKey: string;
+   private Subs: Subscription;
+   private Subject: BehaviorSubject<EntryEntity[]>;
+   public Observe: Observable<EntryEntity[]>;
 
    public SetEntries(key: string, value: EntryEntity[]) {
 
