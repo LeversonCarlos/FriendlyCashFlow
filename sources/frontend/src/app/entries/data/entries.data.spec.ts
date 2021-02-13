@@ -17,9 +17,4 @@ describe('EntriesData', () => {
       expect(service).toBeTruthy();
    });
 
-   it('initial value for selected month should be current date', () => {
-      const now = MonthService.Now();
-      expect(service.SelectedMonth.ToCode()).toEqual(now.ToCode());
-   });
-
 });
