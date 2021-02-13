@@ -13,9 +13,10 @@ import { Month, MonthSelectorService } from '@elesse/shared';
 })
 export class EntriesData {
 
-   constructor(private busy: BusyService, private monthSelector: MonthSelectorService,
+   constructor(private busy: BusyService,
+      private Cache: EntriesCache,
+      private monthSelector: MonthSelectorService,
       private http: HttpClient) {
-      this.Cache = new EntriesCache();
       this.monthSelector.OnChange.subscribe(month => this.OnMonthChange(month));
       this.OnMonthChange(this.CurrentMonth);
    }
@@ -24,7 +25,6 @@ export class EntriesData {
    public DefaultDueDate: Date;
 
    private OnMonthChange(value: Month) {
-      // console.log(value.ToCode());
       const today = new Date();
       if (value.Year == today.getFullYear() && value.Month == today.getMonth() + 1)
          this.DefaultDueDate = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate(), 12);
@@ -33,7 +33,6 @@ export class EntriesData {
       this.Cache.InitializeValue(value.ToCode());
    }
 
-   private Cache: EntriesCache;
    public ObserveEntries = (): Observable<EntryEntity[]> =>
       this.Cache.GetObservable(this.CurrentMonth.ToCode());
 
