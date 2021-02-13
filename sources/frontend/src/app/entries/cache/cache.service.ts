@@ -22,7 +22,8 @@ export class EntriesCache extends StorageService<string, EntryEntity[]> {
             return;
          this.Subs.unsubscribe();
       }
-      this.GetObservable(key).subscribe(values => this.Subject.next(values));
+      this.Subs = this.GetObservable(key).subscribe(values => this.Subject.next(values));
+      this.SubsKey = key;
    }
 
    private SubsKey: string;
