@@ -24,7 +24,8 @@ import { MonthSelectorService } from './month-selector/month-selector.service';
       BusyComponent,
       AnonymousContainerComponent, AuthenticatedContainerComponent, LinksComponent,
       MessageViewComponent, ConfirmViewComponent, VersionComponent,
-      TranslationPipe, RelatedboxComponent, EmptyListComponent, MonthSelectorComponent
+      TranslationPipe, RelatedboxComponent, EmptyListComponent,
+      MonthSelectorComponent
    ],
    imports: [
       CommonModule, RouterModule, FormsModule, ReactiveFormsModule,
@@ -34,7 +35,8 @@ import { MonthSelectorService } from './month-selector/month-selector.service';
       CommonModule, RouterModule, FormsModule, ReactiveFormsModule,
       BusyComponent,
       AnonymousContainerComponent, AuthenticatedContainerComponent,
-      TranslationPipe, RelatedboxComponent, EmptyListComponent
+      TranslationPipe, RelatedboxComponent, EmptyListComponent,
+      MonthSelectorComponent
    ],
    providers: [MonthSelectorService, LocaleService, LocaleServiceProvider]
 })
