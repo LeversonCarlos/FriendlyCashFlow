@@ -5,7 +5,7 @@ import { enCategoryType } from '@elesse/categories';
 import { BusyService } from '../../shared/busy/busy.service';
 import { EntriesCache } from '../cache/cache.service';
 import { EntryEntity } from '../model/entries.model';
-import { MonthService } from '../month/month.service';
+import { Month, MonthSelectorService } from '@elesse/shared';
 
 @Injectable({
    providedIn: 'root'
@@ -13,15 +13,17 @@ import { MonthService } from '../month/month.service';
 export class EntriesData {
 
    constructor(private busy: BusyService,
+      private Cache: EntriesCache,
+      private monthSelector: MonthSelectorService,
       private http: HttpClient) {
-      this.Cache = new EntriesCache();
-      this.SelectedMonth = MonthService.Now();
+      this.monthSelector.OnChange.subscribe(month => this.OnMonthChange(month));
+      this.OnMonthChange(this.CurrentMonth);
    }
 
-   private _SelectedMonth: MonthService;
-   public get SelectedMonth(): MonthService { return this._SelectedMonth; }
-   public set SelectedMonth(value: MonthService) {
-      this._SelectedMonth = value;
+   private get CurrentMonth(): Month { return this.monthSelector.CurrentMonth; }
+   public DefaultDueDate: Date;
+
+   private OnMonthChange(value: Month) {
       const today = new Date();
       if (value.Year == today.getFullYear() && value.Month == today.getMonth() + 1)
          this.DefaultDueDate = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate(), 12);
@@ -29,22 +31,20 @@ export class EntriesData {
          this.DefaultDueDate = new Date(value.Year, (value.Month - 1), 1, 12);
       this.Cache.InitializeValue(value.ToCode());
    }
-   public DefaultDueDate: Date;
 
-   private Cache: EntriesCache;
    public ObserveEntries = (): Observable<EntryEntity[]> =>
-      this.Cache.GetObservable(this.SelectedMonth.ToCode());
+      this.Cache.Observe;
 
    public async RefreshEntries(): Promise<void> {
       try {
          this.busy.show();
 
-         const url = `api/entries/list/${this.SelectedMonth.Year}/${this.SelectedMonth.Month}`;
+         const url = `api/entries/list/${this.CurrentMonth.Year}/${this.CurrentMonth.Month}`;
          const values = await this.http.get<EntryEntity[]>(url).toPromise();
          if (!values)
             return;
 
-         this.Cache.SetEntries(this.SelectedMonth.ToCode(), values);
+         this.Cache.SetEntries(this.CurrentMonth.ToCode(), values);
       }
       catch { /* error absorber */ }
       finally { this.busy.hide(); }

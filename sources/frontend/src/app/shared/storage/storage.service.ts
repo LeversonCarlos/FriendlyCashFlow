@@ -29,6 +29,8 @@ export class StorageService<KEY, VALUE> {
    public InitializeValue(key: KEY) {
       if (!this._Keys.includes(key))
          this._Keys.push(key);
+      if (this._Data[`${key}`])
+         return;
       this._Data[`${key}`] = new BehaviorSubject<VALUE>(null)
       if (this.PersistentStorage)
          try {

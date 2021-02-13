@@ -15,6 +15,8 @@ import { TranslationPipe } from './localization/translation.pipe';
 import { RelatedboxComponent } from './relatedbox/relatedbox.component';
 import { EmptyListComponent } from './empty-list/empty-list.component';
 import { LocaleService, LocaleServiceProvider } from './localization/locale.service';
+import { MonthSelectorComponent } from './month-selector/month-selector.component';
+import { MonthSelectorService } from './month-selector/month-selector.service';
 
 @NgModule({
    entryComponents: [MessageViewComponent],
@@ -22,7 +24,8 @@ import { LocaleService, LocaleServiceProvider } from './localization/locale.serv
       BusyComponent,
       AnonymousContainerComponent, AuthenticatedContainerComponent, LinksComponent,
       MessageViewComponent, ConfirmViewComponent, VersionComponent,
-      TranslationPipe, RelatedboxComponent, EmptyListComponent
+      TranslationPipe, RelatedboxComponent, EmptyListComponent,
+      MonthSelectorComponent
    ],
    imports: [
       CommonModule, RouterModule, FormsModule, ReactiveFormsModule,
@@ -32,8 +35,9 @@ import { LocaleService, LocaleServiceProvider } from './localization/locale.serv
       CommonModule, RouterModule, FormsModule, ReactiveFormsModule,
       BusyComponent,
       AnonymousContainerComponent, AuthenticatedContainerComponent,
-      TranslationPipe, RelatedboxComponent, EmptyListComponent
+      TranslationPipe, RelatedboxComponent, EmptyListComponent,
+      MonthSelectorComponent
    ],
-   providers: [LocaleService, LocaleServiceProvider]
+   providers: [MonthSelectorService, LocaleService, LocaleServiceProvider]
 })
 export class SharedModule { }

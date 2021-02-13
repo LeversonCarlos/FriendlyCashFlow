@@ -14,6 +14,7 @@ import { DueDateViewComponent } from './details/due-date-view/due-date-view.comp
 import { EntryValueViewComponent } from './details/entry-value-view/entry-value-view.component';
 import { PayDateViewComponent } from './details/pay-date-view/pay-date-view.component';
 import { PaidViewComponent } from './details/paid-view/paid-view.component';
+import { EntriesCache } from './cache/cache.service';
 
 @NgModule({
    declarations: [ListComponent, ListBodyComponent, DetailsRouteViewComponent,
@@ -24,6 +25,6 @@ import { PaidViewComponent } from './details/paid-view/paid-view.component';
       MaterialModule, SharedModule,
       EntriesRouting
    ],
-   providers: [EntriesData]
+   providers: [EntriesData, EntriesCache]
 })
 export class EntriesModule { }

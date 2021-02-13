@@ -18,7 +18,7 @@ export class MainData {
       console.log("RefreshAll")
       this.injector.get<AccountsData>(AccountsData).RefreshAccounts();
       this.injector.get<CategoriesData>(CategoriesData).RefreshCategories();
-      this.injector.get<EntriesData>(EntriesData).RefreshEntries();
+      // this.injector.get<EntriesData>(EntriesData).RefreshEntries();
       this.injector.get<PatternsData>(PatternsData).RefreshPatterns();
    }
 
