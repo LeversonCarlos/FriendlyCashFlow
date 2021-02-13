@@ -16,6 +16,8 @@ export class MonthSelectorService {
    private _CurrentMonth: Month;
    public get CurrentMonth(): Month { return this._CurrentMonth; }
    public set CurrentMonth(value: Month) {
+      if (this._CurrentMonth == value)
+         return;
       this._CurrentMonth = value;
       this.OnChange.emit(value);
    }
