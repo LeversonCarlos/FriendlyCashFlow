@@ -12,7 +12,6 @@ export class EntriesCache extends StorageService<string, EntryEntity[]> {
       super("EntriesCache");
       this.Subject = new BehaviorSubject<EntryEntity[]>(null);
       this.Observe = this.Subject.asObservable();
-      this.InitializeValue
    }
 
    public InitializeValue(key: string) {
