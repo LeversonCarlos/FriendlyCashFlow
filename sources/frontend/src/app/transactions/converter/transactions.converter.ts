@@ -11,37 +11,10 @@ export class TransactionsConverter {
          return [];
 
       // PREPARE THE ACCOUNTS DICTIONARY
-      const accountsDict = TransactionsConverter.Convert_GetAccountsDictionary(accountsParam);
+      const accountsDict = TransactionsConverter.GetAccountsDictionary(accountsParam);
 
-      // LOOP THROUGH THE ENTRIES LIST
-      if (entriesParam?.length > 0) {
-         for (let entryIndex = 0; entryIndex < entriesParam.length; entryIndex++) {
-
-            // PARSE ENTRY INTO TRANSATION
-            const entry = entriesParam[entryIndex];
-            const transaction = TransactionEntry.Parse(entry);
-
-            // LOCATE ACCOUNT ON DICTIONARY
-            const accountDict = accountsDict[entry.AccountID];
-
-            // SUM TRANSACTION VALUE INTO ACCOUNT GENERAL BALANCE
-            accountDict.Balance.Expected += transaction.Value;
-            if (transaction.Paid)
-               accountDict.Balance.Realized += transaction.Value;
-
-            // LOCATE DAY ON DICTIONARY
-            const dayDict = accountDict.GetDay(transaction.Date);
-
-            // SUM TRANSACTION VALUE INTO DAY BALANCE
-            dayDict.Balance.Expected += transaction.Value;
-            if (transaction.Paid)
-               dayDict.Balance.Realized += transaction.Value;
-
-            // PUSH TRANSACTION INTO DAY TRANSACTIONS
-            dayDict.Transactions.push(transaction);
-
-         }
-      }
+      // DISTRIBUTE ENTRIES THROUGH ACCOUNTS
+      TransactionsConverter.DistributeEntriesThroughAccounts(accountsDict, entriesParam);
 
       // LOOP THROUGH ALREADY SORTED ACCOUNTS
       let accountsResult: TransactionAccount[] = [];
@@ -89,13 +62,47 @@ export class TransactionsConverter {
       return accountsResult;
    }
 
-   private static Convert_GetAccountsDictionary(accountsParam: AccountEntity[]) {
+   private static GetAccountsDictionary(accountsParam: AccountEntity[]) {
       let accountsDict: Record<string, AccountDict> = {};
       for (let accountIndex = 0; accountIndex < accountsParam.length; accountIndex++) {
          const account = accountsParam[accountIndex];
          accountsDict[account.AccountID] = Object.assign(new AccountDict, { Account: account });
       }
       return accountsDict;
+   }
+
+   private static DistributeEntriesThroughAccounts(accountsDict: Record<string, AccountDict>, entriesParam: EntryEntity[]) {
+
+      // LOOP THROUGH THE ENTRIES LIST
+      if (entriesParam?.length > 0) {
+         for (let entryIndex = 0; entryIndex < entriesParam.length; entryIndex++) {
+
+            // PARSE ENTRY INTO TRANSATION
+            const entry = entriesParam[entryIndex];
+            const transaction = TransactionEntry.Parse(entry);
+
+            // LOCATE ACCOUNT ON DICTIONARY
+            const accountDict = accountsDict[entry.AccountID];
+
+            // SUM TRANSACTION VALUE INTO ACCOUNT GENERAL BALANCE
+            accountDict.Balance.Expected += transaction.Value;
+            if (transaction.Paid)
+               accountDict.Balance.Realized += transaction.Value;
+
+            // LOCATE DAY ON DICTIONARY
+            const dayDict = accountDict.GetDay(transaction.Date);
+
+            // SUM TRANSACTION VALUE INTO DAY BALANCE
+            dayDict.Balance.Expected += transaction.Value;
+            if (transaction.Paid)
+               dayDict.Balance.Realized += transaction.Value;
+
+            // PUSH TRANSACTION INTO DAY TRANSACTIONS
+            dayDict.Transactions.push(transaction);
+
+         }
+      }
+
    }
 
 }
