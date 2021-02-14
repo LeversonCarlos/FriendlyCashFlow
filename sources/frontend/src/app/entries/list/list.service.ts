@@ -6,14 +6,12 @@ export class ListService {
    public static GetEntriesAccounts(accounts: AccountEntity[], entries: EntryEntity[]): AccountEntries[] {
       if (accounts == null || accounts.length == 0)
          return [];
-      if (entries == null || entries.length == 0)
-         return [];
 
       const accountResults = accounts
          .map(account => {
             return {
                account,
-               Days: ListService.GetEntriesDays(entries.filter(entry => entry.AccountID == account.AccountID))
+               Days: ListService.GetEntriesDays(entries?.filter(entry => entry.AccountID == account.AccountID))
             };
          })
          .map(account => Object.assign(new AccountEntries, {

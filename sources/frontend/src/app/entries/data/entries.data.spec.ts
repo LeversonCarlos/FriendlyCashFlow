@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { TestsModule } from '@elesse/tests';
 import { EntriesData } from './entries.data';
-import { MonthService } from '../month/month.service';
 
 describe('EntriesData', () => {
    let service: EntriesData;
