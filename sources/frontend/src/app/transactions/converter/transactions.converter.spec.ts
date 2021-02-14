@@ -13,8 +13,8 @@ describe('TransactionsParser', () => {
 
    it('with some accounts list should result parsed list', () => {
       const accounts: AccountEntity[] = [
-         AccountEntity.Parse({ Text: 'my account text' }),
-         AccountEntity.Parse({ Text: 'my other account text' })
+         AccountEntity.Parse({ AccountID:'ID1', Text: 'my account text' }),
+         AccountEntity.Parse({ AccountID:'ID2', Text: 'my other account text' })
       ];
       const transactionAccounts = TransactionsConverter.Convert(accounts, null);
       expect(transactionAccounts).toBeTruthy();
