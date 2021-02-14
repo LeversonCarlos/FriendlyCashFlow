@@ -2,9 +2,9 @@ import { AccountEntity } from "@elesse/accounts";
 import { EntryEntity } from "@elesse/entries";
 import { TransactionAccount } from "../model/transactions.model";
 
-export class TransactionsParser {
+export class TransactionsConverter {
 
-   public static ParseAccounts(accountsParam: AccountEntity[], entriesParam: EntryEntity[]): TransactionAccount[] {
+   public static Convert(accountsParam: AccountEntity[], entriesParam: EntryEntity[]): TransactionAccount[] {
       if (accountsParam == null || accountsParam.length == 0)
          return [];
 
