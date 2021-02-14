@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TransactionsRouting } from './transactions.routing';
+import { ListComponent } from './list/list.component';
 
 @NgModule({
-   declarations: [],
+   declarations: [ListComponent],
    imports: [
       CommonModule,
       TransactionsRouting
