@@ -5,15 +5,13 @@ import { Balance, TransactionAccount, TransactionBase, TransactionDay, Transacti
 export class TransactionsConverter {
 
    public static Convert(accountsParam: AccountEntity[], entriesParam: EntryEntity[]): TransactionAccount[] {
+
+      // WITHOUT ACCOUNTS, WE CAN DO MUCH
       if (accountsParam == null || accountsParam.length == 0)
          return [];
 
-      // PREPARE THE ACCOUNT DICTIONARY
-      let mainDict = new MainDict();
-      for (let accountIndex = 0; accountIndex < accountsParam.length; accountIndex++) {
-         const account = accountsParam[accountIndex];
-         mainDict.Accounts[account.AccountID] = Object.assign(new AccountDict, { Account: account });
-      }
+      // PREPARE THE ACCOUNTS DICTIONARY
+      const accountsDict = TransactionsConverter.Convert_GetAccountsDictionary(accountsParam);
 
       // LOOP THROUGH THE ENTRIES LIST
       if (entriesParam?.length > 0) {
@@ -24,7 +22,7 @@ export class TransactionsConverter {
             const transaction = TransactionEntry.Parse(entry);
 
             // LOCATE ACCOUNT ON DICTIONARY
-            const accountDict = mainDict.Accounts[entry.AccountID];
+            const accountDict = accountsDict[entry.AccountID];
 
             // SUM TRANSACTION VALUE INTO ACCOUNT GENERAL BALANCE
             accountDict.Balance.Expected += transaction.Value;
@@ -54,7 +52,7 @@ export class TransactionsConverter {
          const transactionAccount = TransactionAccount.Parse(account);
 
          // RETRIEVE ACCOUNT FROM DICTIONARY
-         const accountDict = mainDict.Accounts[account.AccountID];
+         const accountDict = accountsDict[account.AccountID];
 
          // APPLY ACCOUNT BALANCE
          transactionAccount.Balance.Expected = accountDict.Balance.Expected;
@@ -89,6 +87,15 @@ export class TransactionsConverter {
 
       // MAIN RESULT
       return accountsResult;
+   }
+
+   private static Convert_GetAccountsDictionary(accountsParam: AccountEntity[]) {
+      let accountsDict: Record<string, AccountDict> = {};
+      for (let accountIndex = 0; accountIndex < accountsParam.length; accountIndex++) {
+         const account = accountsParam[accountIndex];
+         accountsDict[account.AccountID] = Object.assign(new AccountDict, { Account: account });
+      }
+      return accountsDict;
    }
 
 }
