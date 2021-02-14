@@ -1,3 +1,4 @@
+import { enCategoryType } from '@elesse/categories';
 import { EntryEntity } from '@elesse/entries';
 import { Balance, TransactionAccount, TransactionDay, TransactionEntry } from './transactions.model';
 
@@ -46,13 +47,13 @@ describe('TransactionEntry', () => {
       const dueDate = new Date('2021-02-14');
       const value = 43.21;
       const paid = false;
-      const entry = EntryEntity.Parse({ Pattern: { Text: text }, DueDate: dueDate, EntryValue: value, Paid: paid });
+      const entry = EntryEntity.Parse({ Pattern: { Text: text, Type: enCategoryType.Expense }, DueDate: dueDate, EntryValue: value, Paid: paid });
 
       const transaction = TransactionEntry.Parse(entry);
 
       expect(transaction.Text).toEqual(text);
       expect(transaction.Date).toEqual(dueDate);
-      expect(transaction.Value).toEqual(value);
+      expect(transaction.Value).toEqual(value * -1);
       expect(transaction.Entry.Pattern.Text).toEqual(text);
    });
 

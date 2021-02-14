@@ -40,7 +40,7 @@ export class TransactionEntry extends TransactionBase {
       return Object.assign(new TransactionEntry, {
          Text: value.Pattern?.Text ?? '',
          Date: (value.Paid && value.PayDate ? value.PayDate : value.DueDate),
-         Value: value.EntryValue * (value.Pattern?.Type ?? enCategoryType.Income == enCategoryType.Income ? 1 : -1),
+         Value: value.EntryValue * ((value.Pattern?.Type ?? enCategoryType.Income) == enCategoryType.Income ? 1 : -1),
          Paid: value.Paid,
          Entry: value
       });
