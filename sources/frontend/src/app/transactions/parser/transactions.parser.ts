@@ -4,7 +4,7 @@ import { TransactionAccount } from "../model/transactions.model";
 
 export class TransactionsParser {
 
-   public static Parse(accountsParam: AccountEntity[], entriesParam: EntryEntity[]): TransactionAccount[] {
+   public static ParseAccounts(accountsParam: AccountEntity[], entriesParam: EntryEntity[]): TransactionAccount[] {
       if (accountsParam == null || accountsParam.length == 0)
          return [];
 
