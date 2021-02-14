@@ -12,7 +12,7 @@ export class TransactionsConverter {
       let mainDict = new MainDict();
       for (let accountIndex = 0; accountIndex < accountsParam.length; accountIndex++) {
          const account = accountsParam[accountIndex];
-         mainDict[account.AccountID] = Object.assign(new AccountDict, { Account: account });
+         mainDict.Accounts[account.AccountID] = Object.assign(new AccountDict, { Account: account });
       }
 
       // LOOP THROUGH THE ENTRIES LIST
@@ -52,6 +52,13 @@ export class TransactionsConverter {
          // PARSE ACCOUNT INTO TRANSACTION
          const account = accountsParam[accountIndex];
          const transactionAccount = TransactionAccount.Parse(account);
+
+         // RETRIEVE ACCOUNT FROM DICTIONARY
+         const accountDict = mainDict.Accounts[account.AccountID];
+
+         // APPLY ACCOUNT BALANCE
+         transactionAccount.Balance.Expected = accountDict.Balance.Expected;
+         transactionAccount.Balance.Realized = accountDict.Balance.Realized;
 
          // PUSH ACCOUNT INTO RESULT
          accountsResult.push(transactionAccount);
