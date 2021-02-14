@@ -1,6 +1,6 @@
 import { AccountEntity } from "@elesse/accounts";
 import { EntryEntity } from "@elesse/entries";
-import { Balance, TransactionAccount, TransactionBase, TransactionEntry } from "../model/transactions.model";
+import { Balance, TransactionAccount, TransactionBase, TransactionDay, TransactionEntry } from "../model/transactions.model";
 
 export class TransactionsConverter {
 
@@ -60,6 +60,29 @@ export class TransactionsConverter {
          transactionAccount.Balance.Expected = accountDict.Balance.Expected;
          transactionAccount.Balance.Realized = accountDict.Balance.Realized;
 
+         // LOOP THROUGH DICTIONARY DAYS
+         let accumulatedExpectedBalance = 0.00;
+         let accumulatedRealizedBalance = 0.00;
+         for (const day in accountDict.Days) {
+
+            // PARSE DAY INTO TRANSACTION DAY
+            const dayDict = accountDict.Days[day];
+            const transactionDay = Object.assign(new TransactionDay, { Day: dayDict.Date });
+
+            // APPLY DAY BALANCE
+            accumulatedExpectedBalance += dayDict.Balance.Expected;
+            accumulatedRealizedBalance += dayDict.Balance.Realized;
+            transactionDay.Balance.Expected = accumulatedExpectedBalance;
+            transactionDay.Balance.Realized = accumulatedRealizedBalance;
+
+            // PUSH SORTED TRANSACTIONS INTO DAY
+            transactionDay.Transactions = dayDict.Transactions
+               .sort((p, n) => p.Sorting < n.Sorting ? -1 : 1);
+
+            // PUSH DAY INTO RESULT
+            transactionAccount.Days.push(transactionDay);
+         }
+
          // PUSH ACCOUNT INTO RESULT
          accountsResult.push(transactionAccount);
       }
@@ -82,7 +105,7 @@ class AccountDict {
    GetDay(date: Date) {
       const day = date.getDate();
       if (this.Days[day] == null)
-         this.Days[day] = Object.assign(new DayDict, { Day: day });
+         this.Days[day] = Object.assign(new DayDict, { Day: day, Date: date });
       return this.Days[day];
    }
 
@@ -90,6 +113,7 @@ class AccountDict {
 
 class DayDict {
    Day: number;
+   Date: Date;
    Balance: Balance = new Balance();
    Transactions: TransactionBase[] = [];
 }

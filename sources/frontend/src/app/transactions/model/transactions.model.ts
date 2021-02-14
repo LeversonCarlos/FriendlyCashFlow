@@ -15,7 +15,7 @@ export class TransactionAccount {
 
 export class TransactionDay {
    Day: Date;
-   Balance: Balance
+   Balance: Balance = new Balance();
    Transactions: TransactionBase[] = []
 }
 
@@ -29,6 +29,7 @@ export abstract class TransactionBase {
    Date: Date;
    Value: number;
    Paid: boolean;
+   Sorting: number;
    Balance: Balance = new Balance();
 }
 
@@ -42,6 +43,7 @@ export class TransactionEntry extends TransactionBase {
          Date: (value.Paid && value.PayDate ? value.PayDate : value.DueDate),
          Value: value.EntryValue * ((value.Pattern?.Type ?? enCategoryType.Income) == enCategoryType.Income ? 1 : -1),
          Paid: value.Paid,
+         Sorting: value.Sorting,
          Entry: value
       });
    }
