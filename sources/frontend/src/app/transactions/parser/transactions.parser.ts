@@ -1,6 +1,5 @@
 import { AccountEntity } from "@elesse/accounts";
 import { EntryEntity } from "@elesse/entries";
-import { Observable } from "rxjs";
 import { TransactionAccount } from "../model/transactions.model";
 
 export class TransactionsParser {
@@ -9,7 +8,14 @@ export class TransactionsParser {
       if (accountsParam == null || accountsParam.length == 0)
          return [];
 
-      return null;
+      let accountsResult: TransactionAccount[] = [];
+      for (let accountIndex = 0; accountIndex < accountsParam.length; accountIndex++) {
+         const account = accountsParam[accountIndex];
+         const accountResult = TransactionAccount.Parse(account);
+         accountsResult.push(accountResult);
+      }
+
+      return accountsResult;
    }
 
 }

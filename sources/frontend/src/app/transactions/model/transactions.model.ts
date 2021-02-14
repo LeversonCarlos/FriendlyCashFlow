@@ -3,8 +3,13 @@ import { EntryEntity } from "@elesse/entries";
 
 export class TransactionAccount {
    Account: AccountEntity;
-   Balance: Balance;
+   Balance: Balance = new Balance();
    Days: TransactionDay[] = []
+   public static Parse(value: AccountEntity): TransactionAccount {
+      return Object.assign(new TransactionAccount, {
+         Account: value
+      });
+   }
 }
 
 export class TransactionDay {
