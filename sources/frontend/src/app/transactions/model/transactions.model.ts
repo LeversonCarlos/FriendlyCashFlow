@@ -1,4 +1,5 @@
 import { AccountEntity } from "@elesse/accounts";
+import { enCategoryType } from "@elesse/categories";
 import { EntryEntity } from "@elesse/entries";
 
 export class TransactionAccount {
@@ -39,7 +40,7 @@ export class TransactionEntry extends TransactionBase {
       return Object.assign(new TransactionEntry, {
          Text: value.Pattern?.Text ?? '',
          Date: (value.Paid && value.PayDate ? value.PayDate : value.DueDate),
-         Value: value.EntryValue,
+         Value: value.EntryValue * (value.Pattern?.Type ?? enCategoryType.Income == enCategoryType.Income ? 1 : -1),
          Paid: value.Paid,
          Entry: value
       });
