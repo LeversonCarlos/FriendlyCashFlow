@@ -23,9 +23,18 @@ export abstract class TransactionBase {
    Date: Date;
    Value: number;
    Paid: boolean;
-   Balance: Balance;
+   Balance: Balance = new Balance();
 }
 
 export class TransactionEntry extends TransactionBase {
    Entry: EntryEntity;
+   static Parse(value: EntryEntity): TransactionEntry {
+      return Object.assign(new TransactionEntry, {
+         Text: value?.Pattern?.Text,
+         Date: (value?.Paid && value?.PayDate ? value?.PayDate : value?.DueDate),
+         Value: value?.EntryValue,
+         Paid: value?.Paid,
+         Entry: value
+      });
+   }
 }
