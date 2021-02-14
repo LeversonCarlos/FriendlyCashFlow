@@ -105,10 +105,6 @@ export class TransactionsConverter {
 
 }
 
-class MainDict {
-   Accounts: Record<string, AccountDict> = {};
-}
-
 class AccountDict {
    Account: AccountEntity;
    Balance: Balance = new Balance();
