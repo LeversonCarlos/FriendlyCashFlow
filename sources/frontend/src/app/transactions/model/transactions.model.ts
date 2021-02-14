@@ -29,11 +29,13 @@ export abstract class TransactionBase {
 export class TransactionEntry extends TransactionBase {
    Entry: EntryEntity;
    static Parse(value: EntryEntity): TransactionEntry {
+      if (!value)
+         return null;
       return Object.assign(new TransactionEntry, {
-         Text: value?.Pattern?.Text,
-         Date: (value?.Paid && value?.PayDate ? value?.PayDate : value?.DueDate),
-         Value: value?.EntryValue,
-         Paid: value?.Paid,
+         Text: value.Pattern?.Text ?? '',
+         Date: (value.Paid && value.PayDate ? value.PayDate : value.DueDate),
+         Value: value.EntryValue,
+         Paid: value.Paid,
          Entry: value
       });
    }

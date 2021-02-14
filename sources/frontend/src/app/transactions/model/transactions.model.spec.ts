@@ -56,4 +56,16 @@ describe('TransactionEntry', () => {
       expect(transaction.Entry.Pattern.Text).toEqual(text);
    });
 
+   it('should parse without errors even with a null pattern', () => {
+      const dueDate = new Date('2021-02-14');
+      const value = 43.21;
+      const entry = EntryEntity.Parse({ DueDate: dueDate, EntryValue: value });
+
+      const transaction = TransactionEntry.Parse(entry);
+
+      expect(transaction.Text).toEqual('');
+      expect(transaction.Date).toEqual(dueDate);
+      expect(transaction.Value).toEqual(value);
+   });
+
 });
