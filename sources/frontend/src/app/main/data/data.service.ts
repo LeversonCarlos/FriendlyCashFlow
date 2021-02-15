@@ -16,8 +16,8 @@ export class MainData {
       if (!this.injector.get<TokenService>(TokenService).HasToken)
          return;
       console.log("RefreshAll")
-      this.injector.get<AccountsData>(AccountsData).RefreshAccounts();
-      this.injector.get<CategoriesData>(CategoriesData).RefreshCategories();
+      // this.injector.get<AccountsData>(AccountsData).RefreshAccounts();
+      // this.injector.get<CategoriesData>(CategoriesData).RefreshCategories();
       // this.injector.get<EntriesData>(EntriesData).RefreshEntries();
       this.injector.get<PatternsData>(PatternsData).RefreshPatterns();
    }

@@ -11,12 +11,13 @@ import { CategoryEntity, CategoryType, enCategoryType } from '../model/categorie
 })
 export class CategoriesData {
 
-   constructor(private localization: LocalizationService, private message: MessageService, private busy: BusyService,
+   constructor(private Cache: CategoriesCache,
+      private localization: LocalizationService, private message: MessageService,
+      private busy: BusyService,
       private http: HttpClient) {
-      this.Cache = new CategoriesCache();
+      this.RefreshCategories();
    }
 
-   private Cache: CategoriesCache;
    public SelectedType: enCategoryType = enCategoryType.Income;
 
    public async RefreshCategories(): Promise<void> {
