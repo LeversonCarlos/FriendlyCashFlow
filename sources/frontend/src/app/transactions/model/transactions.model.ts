@@ -26,8 +26,9 @@ export class Balance {
 }
 
 export abstract class TransactionBase {
-   Text: string
    Date: Date;
+   Text: string
+   Details: string
    Value: number;
    Paid: boolean;
    Sorting: number;
@@ -40,8 +41,9 @@ export class TransactionEntry extends TransactionBase {
       if (!value)
          return null;
       return Object.assign(new TransactionEntry, {
-         Text: value.Pattern?.Text ?? '',
          Date: new Date(value.Paid && value.PayDate ? value.PayDate : value.DueDate),
+         Text: value.Pattern?.Text ?? '',
+         Details: value.Pattern?.CategoryID ?? '',
          Value: value.EntryValue * ((value.Pattern?.Type ?? enCategoryType.Income) == enCategoryType.Income ? 1 : -1),
          Paid: value.Paid,
          Sorting: value.Sorting,
