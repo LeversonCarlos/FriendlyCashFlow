@@ -16,7 +16,6 @@ import { RelatedboxComponent } from './relatedbox/relatedbox.component';
 import { EmptyListComponent } from './empty-list/empty-list.component';
 import { LocaleService, LocaleServiceProvider } from './localization/locale.service';
 import { MonthSelectorComponent } from './month-selector/month-selector.component';
-import { MonthSelectorService } from './month-selector/month-selector.service';
 
 @NgModule({
    entryComponents: [MessageViewComponent],
@@ -38,6 +37,6 @@ import { MonthSelectorService } from './month-selector/month-selector.service';
       TranslationPipe, RelatedboxComponent, EmptyListComponent,
       MonthSelectorComponent
    ],
-   providers: [MonthSelectorService, LocaleService, LocaleServiceProvider]
+   providers: [LocaleService, LocaleServiceProvider]
 })
 export class SharedModule { }
