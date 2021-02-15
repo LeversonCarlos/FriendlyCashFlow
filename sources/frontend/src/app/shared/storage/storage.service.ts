@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { version } from 'package.json'
 
 @Injectable({
    providedIn: 'root'
@@ -15,7 +16,7 @@ export class StorageService<KEY, VALUE> {
    private _Data: { [id: string]: BehaviorSubject<VALUE>; } = {};
 
    private _Keys: KEY[];
-   private GetKey = (key: KEY): string => `StorageService.${this._Name}.${key}`;
+   private GetKey = (key: KEY): string => `Storage.${this._Name}.${version}.${key}`;
 
    public PersistentStorage: boolean = true;
 
