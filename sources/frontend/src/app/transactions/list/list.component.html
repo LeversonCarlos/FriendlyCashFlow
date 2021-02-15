@@ -1,1 +1,44 @@
-<p>list works!</p>
+<shared-authenticated-container>
+   <div header-title>{{ "transactions.TITLE" | translation | async}}</div>
+   <div header-toolbar>
+
+      <shared-month-selector></shared-month-selector>
+      <button mat-icon-button [matMenuTriggerFor]="addMenu">
+         <mat-icon>add_circle</mat-icon>
+      </button>
+      <mat-menu #addMenu="matMenu">
+         <button mat-menu-item routerLink="../details/new-income">
+            <mat-icon>add</mat-icon>
+            <span>{{ 'transactions.ADD_INCOME_MENU' | translation | async }}</span>
+         </button>
+         <button mat-menu-item routerLink="../details/new-expense">
+            <mat-icon>remove</mat-icon>
+            <span>{{ 'transactions.ADD_EXPENSE_MENU' | translation | async }}</span>
+         </button>
+         <button mat-menu-item routerLink="../details/new-transfer" disable>
+            <mat-icon>shuffle</mat-icon>
+            <span>{{ 'transactions.ADD_TRANSFER_MENU' | translation | async }}</span>
+         </button>
+      </mat-menu>
+
+   </div>
+   <div content>
+
+      <ng-container *ngIf="(TransactionAccounts | async) as transactionAccounts">
+         <shared-empty-list *ngIf="transactionAccounts.length==0"></shared-empty-list>
+         <mat-tab-group dynamicHeight="false" *ngIf="transactionAccounts.length>0">
+            <mat-tab *ngFor="let account of transactionAccounts">
+               <ng-template mat-tab-label>
+                  <mat-icon>{{ account.AccountIcon }}</mat-icon>
+                  <span>{{ account.Account.Text }}</span>
+               </ng-template>
+               <div class="tab-contents">
+                  <!-- <entries-list-body [AccountEntries]="account"></entries-list-body> -->
+                  <pre style="height: 60vh; overflow-y: scroll;">{{ account | json }}</pre>
+               </div>
+            </mat-tab>
+         </mat-tab-group>
+      </ng-container>
+
+   </div>
+</shared-authenticated-container>

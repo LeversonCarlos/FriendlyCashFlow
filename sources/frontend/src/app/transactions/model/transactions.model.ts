@@ -41,7 +41,7 @@ export class TransactionEntry extends TransactionBase {
          return null;
       return Object.assign(new TransactionEntry, {
          Text: value.Pattern?.Text ?? '',
-         Date: (value.Paid && value.PayDate ? value.PayDate : value.DueDate),
+         Date: new Date(value.Paid && value.PayDate ? value.PayDate : value.DueDate),
          Value: value.EntryValue * ((value.Pattern?.Type ?? enCategoryType.Income) == enCategoryType.Income ? 1 : -1),
          Paid: value.Paid,
          Sorting: value.Sorting,
