@@ -3,8 +3,6 @@ import { MaterialModule } from '../material/material.exports';
 import { SharedModule } from '../shared/shared.exports';
 
 import { EntriesRouting } from './entries.routing';
-import { ListComponent } from './list/list.component';
-import { ListBodyComponent } from './list/list-body/list-body.component';
 import { DetailsRouteViewComponent } from './details/route-view/route-view.component';
 import { PatternViewComponent } from './details/pattern-view/pattern-view.component';
 import { CategoryViewComponent } from './details/category-view/category-view.component';
@@ -15,7 +13,7 @@ import { PayDateViewComponent } from './details/pay-date-view/pay-date-view.comp
 import { PaidViewComponent } from './details/paid-view/paid-view.component';
 
 @NgModule({
-   declarations: [ListComponent, ListBodyComponent, DetailsRouteViewComponent,
+   declarations: [DetailsRouteViewComponent,
       PatternViewComponent, CategoryViewComponent, AccountViewComponent,
       DueDateViewComponent, EntryValueViewComponent, PayDateViewComponent, PaidViewComponent
    ],
