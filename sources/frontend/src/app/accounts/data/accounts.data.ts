@@ -11,12 +11,12 @@ import { map } from 'rxjs/operators';
 })
 export class AccountsData {
 
-   constructor(private localization: LocalizationService, private message: MessageService, private busy: BusyService,
+   constructor(private Cache: AccountsCache,
+      private localization: LocalizationService,
+      private message: MessageService, private busy: BusyService,
       private http: HttpClient) {
-      this.Cache = new AccountsCache();
+      this.RefreshAccounts();
    }
-
-   private Cache: AccountsCache;
 
    public async RefreshAccounts(): Promise<void> {
       try {
