@@ -25,7 +25,9 @@ import { AuthenticatedHomeComponent } from './main/home/authenticated-home/authe
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { MainData } from './main/data/data.service';
+import { AccountsProviders } from '@elesse/accounts';
 import { EntriesProviders } from '@elesse/entries';
+
 
 @NgModule({
    declarations: [
@@ -42,7 +44,7 @@ import { EntriesProviders } from '@elesse/entries';
       ResponsiveService, LocalizationService,
       TokenService,
       UrlInterceptorProvider, LangInterceptorProvider, ErrorInterceptorProvider, RequestAuthInterceptorProvider, ResponseAuthInterceptorProvider,
-      MainData, MonthSelectorService, EntriesProviders
+      MainData, MonthSelectorService, AccountsProviders, EntriesProviders
    ],
    bootstrap: [MainComponent]
 })
