@@ -32,8 +32,7 @@ export class EntriesData {
       this.Cache.InitializeValue(value.ToCode());
    }
 
-   public ObserveEntries = (): Observable<EntryEntity[]> =>
-      this.Cache.Observe;
+   public get ObserveEntries(): Observable<EntryEntity[]> { return this.Cache.Observe; }
 
    public async RefreshEntries(): Promise<void> {
       try {

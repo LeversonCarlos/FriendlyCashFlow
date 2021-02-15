@@ -20,7 +20,7 @@ export class ListComponent implements OnInit {
          this.accountsData.ObserveAccounts(),
          this.categoriesData.ObserveCategories(enCategoryType.Income),
          this.categoriesData.ObserveCategories(enCategoryType.Expense),
-         this.entriesData.ObserveEntries())
+         this.entriesData.ObserveEntries)
    }
 
    public TransactionAccounts: Observable<TransactionAccount[]>;

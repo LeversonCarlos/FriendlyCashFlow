@@ -18,7 +18,7 @@ export class ListComponent implements OnInit {
    public AccountsEntries: Observable<AccountEntries[]>;
 
    ngOnInit() {
-      this.AccountsEntries = combineLatest([this.accountsData.ObserveAccounts(), this.entriesData.ObserveEntries()])
+      this.AccountsEntries = combineLatest([this.accountsData.ObserveAccounts(), this.entriesData.ObserveEntries])
          .pipe(
             map(([accounts, entries]) => ListService.GetEntriesAccounts(accounts, entries))
          );
