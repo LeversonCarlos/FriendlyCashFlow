@@ -20,6 +20,10 @@ export class ItemComponent implements OnInit {
       console.log('OnPaidClick', 'TODO !')
    }
 
+   public OnRemoveClick() {
+      console.log('OnRemoveClick', 'TODO !')
+   }
+
    public get DetailsRouterLink(): string {
       if (this.Transaction instanceof TransactionEntry)
          return `/entries/details/${this.Transaction.Entry.EntryID}`;
