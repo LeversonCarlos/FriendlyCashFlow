@@ -24,6 +24,6 @@ export class ListComponent implements OnInit {
          );
    }
 
-   public GetAccountIcon(type: enAccountType): string { return this.accountsData.GetAccountIcon(type); }
+   public GetAccountIcon(type: enAccountType): string { return AccountsData.GetAccountIcon(type); }
 
 }

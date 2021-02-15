@@ -54,7 +54,7 @@ export class AccountsData {
       return accountTypes;
    }
 
-   public GetAccountIcon(type: enAccountType): string {
+   public static GetAccountIcon(type: enAccountType): string {
       switch (type) {
          case enAccountType.Bank:
             return 'account_balance';
