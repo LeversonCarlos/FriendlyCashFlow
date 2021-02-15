@@ -1,4 +1,4 @@
-<mat-list-item>
+<mat-list-item *ngIf="Transaction">
 
    <mat-icon matListIcon (click)="OnPaidClick()">
       {{ Transaction.Paid ? 'check_box' : 'check_box_outline_blank' }}

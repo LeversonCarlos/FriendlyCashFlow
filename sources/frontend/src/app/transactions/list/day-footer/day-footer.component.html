@@ -1,4 +1,4 @@
-<div class="day-footer">
+<div class="day-footer" *ngIf="Day">
    <span class="mat-small">
       <small class="expected" *ngIf="Day.Balance.Expected != Day.Balance.Realized"
          [class.forecolor-green]="Day.Balance.Realized >= 0"
