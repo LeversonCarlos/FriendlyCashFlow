@@ -20,6 +20,7 @@ export class PatternViewComponent implements OnInit {
 
    @Input() data: EntryEntity;
    @Input() form: FormGroup;
+   public formSection: FormGroup;
    public PatternOptions: RelatedData<PatternEntity>[] = [];
    public PatternFiltered: RelatedData<PatternEntity>[] = [];
 
@@ -40,9 +41,9 @@ export class PatternViewComponent implements OnInit {
    private OnFormInit() {
       if (!this.form)
          return;
-      const formSection = this.form.get("Pattern") as FormGroup;
-      formSection.addControl("PatternID", new FormControl(this.data?.Pattern?.PatternID ?? null));
-      formSection.addControl("PatternRow", new FormControl(this.GetFirstPattern(), Validators.required));
+      this.formSection = this.form.get("Pattern") as FormGroup;
+      this.formSection.addControl("PatternID", new FormControl(this.data?.Pattern?.PatternID ?? null));
+      this.formSection.addControl("PatternRow", new FormControl(this.GetFirstPattern(), Validators.required));
       this.form.get("Pattern.PatternRow").valueChanges.subscribe((row: RelatedData<PatternEntity>) => {
          this.data.Pattern.PatternID = row?.value?.PatternID ?? null;
          this.data.Pattern.Text = row?.value?.Text ?? null;
