@@ -4,8 +4,8 @@
    <ng-container *ngFor="let day of Days">
 
       <transactions-day-header [Day]="day"></transactions-day-header>
-
       <pre style="height: 40vh; overflow-y: scroll;">{{ day | json }}</pre>
+      <transactions-day-footer [Day]="day"></transactions-day-footer>
 
    </ng-container>
 </mat-nav-list>

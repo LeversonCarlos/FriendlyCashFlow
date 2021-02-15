@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { TransactionDay } from '../../model/transactions.model';
 
 @Component({
-   selector: 'elesse-day-footer',
+   selector: 'transactions-day-footer',
    templateUrl: './day-footer.component.html',
    styleUrls: ['./day-footer.component.scss']
 })
@@ -11,5 +12,7 @@ export class DayFooterComponent implements OnInit {
 
    ngOnInit(): void {
    }
+
+   @Input() Day: TransactionDay;
 
 }

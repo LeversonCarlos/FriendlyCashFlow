@@ -1,0 +1,12 @@
+.day-footer {
+   padding: 0 calc(16px + 40px);
+   text-align: right;
+   .mat-small {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      .expected {
+         margin-right: 3px;
+      }
+   }
+}
