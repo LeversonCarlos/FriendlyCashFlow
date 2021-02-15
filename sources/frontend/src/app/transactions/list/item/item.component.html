@@ -1,1 +1,5 @@
+<mat-icon matListIcon (click)="OnPaidClick()">
+   {{ Transaction.Paid ? 'check_box' : 'check_box_outline_blank' }}
+</mat-icon>
+
 <span>{{ Transaction.Text }}</span>

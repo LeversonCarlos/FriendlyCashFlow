@@ -15,4 +15,9 @@ export class ItemComponent implements OnInit {
 
    @Input() Transaction: TransactionBase
 
+   public OnPaidClick() {
+      this.Transaction.Paid = !this.Transaction.Paid
+      console.log('OnPaidClick', 'TODO !')
+   }
+
 }
