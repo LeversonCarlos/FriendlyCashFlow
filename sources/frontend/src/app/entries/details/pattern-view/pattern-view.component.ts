@@ -14,6 +14,8 @@ export class PatternViewComponent implements OnInit {
    constructor(private patternsData: PatternsData) { }
 
    public ngOnInit(): void {
+      if (!this.data)
+         return;
       this.OnDataInit();
       this.OnFormInit();
    }
@@ -25,8 +27,6 @@ export class PatternViewComponent implements OnInit {
    public PatternFiltered: RelatedData<PatternEntity>[] = [];
 
    private OnDataInit() {
-      if (!this.data)
-         return;
       this.PatternOptions = this.patternsData.GetPatterns(this.data.Pattern.Type)
          .map(entity => Object.assign(new RelatedData, {
             id: entity.PatternID,
