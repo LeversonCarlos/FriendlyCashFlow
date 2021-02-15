@@ -4,9 +4,10 @@ import { SharedModule } from '../shared/shared.exports';
 import { TransactionsRouting } from './transactions.routing';
 import { ListComponent } from './list/list.component';
 import { DaysComponent } from './list/days/days.component';
+import { DayHeaderComponent } from './list/day-header/day-header.component';
 
 @NgModule({
-   declarations: [ListComponent, DaysComponent],
+   declarations: [ListComponent, DaysComponent, DayHeaderComponent],
    imports: [
       MaterialModule, SharedModule,
       TransactionsRouting
