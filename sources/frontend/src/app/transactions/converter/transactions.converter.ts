@@ -53,19 +53,7 @@ export class TransactionsConverter {
 
             // PARSE ENTRY INTO TRANSATION
             const transaction = TransactionEntry.Parse(entriesParam[entryIndex]);
-            if (transaction?.Entry?.Pattern?.CategoryID && transaction?.Entry?.Pattern?.Type)
-               if (transaction?.Entry?.Pattern?.Type == enCategoryType.Income && incomeCategoriesList) {
-                  transaction.Details = incomeCategoriesList
-                     .filter(cat => cat.CategoryID == transaction.Entry.Pattern.CategoryID)
-                     .map(cat => cat.HierarchyText)
-                     .reduce((acc, cur) => cur, '');
-               }
-               else if (transaction?.Entry?.Pattern?.Type == enCategoryType.Expense && expenseCategoriesList) {
-                  transaction.Details = expenseCategoriesList
-                     .filter(cat => cat.CategoryID == transaction.Entry.Pattern.CategoryID)
-                     .map(cat => cat.HierarchyText)
-                     .reduce((acc, cur) => cur, '');
-               }
+            transaction.Details = TransactionsConverter.GetCategoryDescription(transaction.Entry, incomeCategoriesList, expenseCategoriesList);
 
             // LOCATE ACCOUNT ON DICTIONARY
             const accountDict = accountsDict[transaction.Entry.AccountID];
@@ -89,6 +77,26 @@ export class TransactionsConverter {
          }
       }
 
+   }
+
+   private static GetCategoryDescription(entry: EntryEntity,
+      incomeCategoriesList: CategoryEntity[],
+      expenseCategoriesList: CategoryEntity[]) {
+
+      if (entry?.Pattern?.CategoryID && entry?.Pattern?.Type) {
+         if (entry?.Pattern?.Type == enCategoryType.Income && incomeCategoriesList) {
+            return incomeCategoriesList
+               .filter(cat => cat.CategoryID == entry.Pattern.CategoryID)
+               .map(cat => cat.HierarchyText)
+               .reduce((acc, cur) => cur, '');
+         }
+         else if (entry?.Pattern?.Type == enCategoryType.Expense && expenseCategoriesList) {
+            return expenseCategoriesList
+               .filter(cat => cat.CategoryID == entry.Pattern.CategoryID)
+               .map(cat => cat.HierarchyText)
+               .reduce((acc, cur) => cur, '');
+         }
+      }
    }
 
    private static ParseDictionaryDataIntoTransactionData(accountsDict: Record<string, AccountDict>, accountsParam: AccountEntity[]): TransactionAccount[] {
