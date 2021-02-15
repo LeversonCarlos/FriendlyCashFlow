@@ -5,7 +5,14 @@
    </mat-icon>
 
    <span matLine [routerLink]="DetailsRouterLink">
-      <span>{{ Transaction.Text }}</span>
+      <span class="row mat-body-strong ">
+         <span class="col truncate"> {{ Transaction.Text }} </span>
+         <span class="col" style="flex-grow: 0;"
+            [class.forecolor-green]="Transaction.Value >= 0"
+            [class.forecolor-red]="Transaction.Value < 0">
+            {{ Transaction.Value | number:'1.2-2' }}
+         </span>
+      </span>
    </span>
 
 </mat-list-item>
