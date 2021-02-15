@@ -12,12 +12,11 @@ import { PatternEntity } from '../model/patterns.model';
 })
 export class PatternsData {
 
-   constructor(private busy: BusyService,
+   constructor(private Cache: PatternsCache,
+      private busy: BusyService,
       private http: HttpClient) {
-      this.Cache = new PatternsCache();
+      this.RefreshPatterns();
    }
-
-   private Cache: PatternsCache;
 
    public async RefreshPatterns(): Promise<void> {
       try {

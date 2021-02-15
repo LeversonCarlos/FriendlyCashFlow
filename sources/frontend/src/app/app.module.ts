@@ -28,6 +28,7 @@ import { MainData } from './main/data/data.service';
 import { AccountsProviders } from '@elesse/accounts';
 import { CategoriesProviders } from '@elesse/categories';
 import { EntriesProviders } from '@elesse/entries';
+import { PatternsProviders } from '@elesse/patterns';
 
 @NgModule({
    declarations: [
@@ -44,7 +45,8 @@ import { EntriesProviders } from '@elesse/entries';
       ResponsiveService, LocalizationService,
       TokenService,
       UrlInterceptorProvider, LangInterceptorProvider, ErrorInterceptorProvider, RequestAuthInterceptorProvider, ResponseAuthInterceptorProvider,
-      MainData, MonthSelectorService, AccountsProviders, CategoriesProviders, EntriesProviders
+      MainData, MonthSelectorService,
+      AccountsProviders, CategoriesProviders, PatternsProviders, EntriesProviders
    ],
    bootstrap: [MainComponent]
 })
