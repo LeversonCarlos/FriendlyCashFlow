@@ -1,4 +1,5 @@
 import { AccountEntity, AccountsData } from "@elesse/accounts";
+import { CategoryEntity, enCategoryType } from "@elesse/categories";
 import { EntryEntity } from "@elesse/entries";
 import { combineLatest, Observable } from "rxjs";
 import { map } from "rxjs/operators";
@@ -6,18 +7,26 @@ import { Balance, TransactionAccount, TransactionBase, TransactionDay, Transacti
 
 export class TransactionsConverter {
 
-   public static Merge = (accountsObservable: Observable<AccountEntity[]>, entriesObservable: Observable<EntryEntity[]>): Observable<TransactionAccount[]> =>
-      combineLatest([accountsObservable, entriesObservable])
+   public static Merge = (
+      accountsObservable: Observable<AccountEntity[]>,
+      incomeCategoriesObservable: Observable<CategoryEntity[]>,
+      expenseCategoriesObservable: Observable<CategoryEntity[]>,
+      entriesObservable: Observable<EntryEntity[]>): Observable<TransactionAccount[]> =>
+      combineLatest([accountsObservable, incomeCategoriesObservable, expenseCategoriesObservable, entriesObservable])
          .pipe(
-            map(([accounts, entries]) => TransactionsConverter.Convert(accounts, entries))
+            map(([accounts, incomeCategories, expenseCategories, entries]) => TransactionsConverter.Convert(accounts, incomeCategories, expenseCategories, entries))
          );
 
-   public static Convert(accountsParam: AccountEntity[], entriesParam: EntryEntity[]): TransactionAccount[] {
+   public static Convert(
+      accountsParam: AccountEntity[],
+      incomeCategoriesList: CategoryEntity[],
+      expenseCategoriesList: CategoryEntity[],
+      entriesParam: EntryEntity[]): TransactionAccount[] {
       if (accountsParam == null || accountsParam.length == 0)
          return [];
 
       const accountsDict = TransactionsConverter.GetAccountsDictionary(accountsParam);
-      TransactionsConverter.DistributeEntriesThroughAccounts(accountsDict, entriesParam);
+      TransactionsConverter.DistributeEntriesThroughAccounts(accountsDict, incomeCategoriesList, expenseCategoriesList, entriesParam);
       const accountsResult = TransactionsConverter.ParseDictionaryDataIntoTransactionData(accountsDict, accountsParam);
 
       return accountsResult;
@@ -32,7 +41,11 @@ export class TransactionsConverter {
       return accountsDict;
    }
 
-   private static DistributeEntriesThroughAccounts(accountsDict: Record<string, AccountDict>, entriesParam: EntryEntity[]) {
+   private static DistributeEntriesThroughAccounts(
+      accountsDict: Record<string, AccountDict>,
+      incomeCategoriesList: CategoryEntity[],
+      expenseCategoriesList: CategoryEntity[],
+      entriesParam: EntryEntity[]) {
 
       // LOOP THROUGH THE ENTRIES LIST
       if (entriesParam?.length > 0) {
@@ -40,6 +53,19 @@ export class TransactionsConverter {
 
             // PARSE ENTRY INTO TRANSATION
             const transaction = TransactionEntry.Parse(entriesParam[entryIndex]);
+            if (transaction?.Entry?.Pattern?.CategoryID && transaction?.Entry?.Pattern?.Type)
+               if (transaction?.Entry?.Pattern?.Type == enCategoryType.Income && incomeCategoriesList) {
+                  transaction.Details = incomeCategoriesList
+                     .filter(cat => cat.CategoryID == transaction.Entry.Pattern.CategoryID)
+                     .map(cat => cat.HierarchyText)
+                     .reduce((acc, cur) => cur, '');
+               }
+               else if (transaction?.Entry?.Pattern?.Type == enCategoryType.Expense && expenseCategoriesList) {
+                  transaction.Details = expenseCategoriesList
+                     .filter(cat => cat.CategoryID == transaction.Entry.Pattern.CategoryID)
+                     .map(cat => cat.HierarchyText)
+                     .reduce((acc, cur) => cur, '');
+               }
 
             // LOCATE ACCOUNT ON DICTIONARY
             const accountDict = accountsDict[transaction.Entry.AccountID];
