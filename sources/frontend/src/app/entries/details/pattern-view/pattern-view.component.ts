@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PatternEntity, PatternsData } from '@elesse/patterns';
 import { RelatedData } from '@elesse/shared';
+import { first } from 'rxjs/operators';
 import { EntryEntity } from '../../model/entries.model';
 
 @Component({
@@ -16,8 +17,12 @@ export class PatternViewComponent implements OnInit {
    public ngOnInit(): void {
       if (!this.data)
          return;
-      this.OnDataInit();
-      this.OnFormInit();
+      this.patternsData.ObservePatterns(this.data.Pattern.Type)
+         .pipe(first(entities => entities != null))
+         .subscribe(entities => {
+            this.OnDataInit();
+            this.OnFormInit();
+         });
    }
 
    @Input() data: EntryEntity;
