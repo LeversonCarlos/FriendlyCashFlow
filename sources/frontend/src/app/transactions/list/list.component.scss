@@ -1,0 +1,9 @@
+@import "variables.scss";
+
+div[header-toolbar] {
+   display: flex;
+}
+
+.tab-contents {
+   height: calc(#{$section-height} - 48px);
+}
