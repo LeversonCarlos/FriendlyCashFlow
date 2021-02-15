@@ -1,1 +1,9 @@
-<p>days works!</p>
+<shared-empty-list *ngIf="Days?.length==0"></shared-empty-list>
+
+<mat-nav-list *ngIf="Days?.length>0" [attr.dense]="IsMobile?true:null">
+   <ng-container *ngFor="let day of Days">
+
+      <pre style="height: 60vh; overflow-y: scroll;">{{ day | json }}</pre>
+
+   </ng-container>
+</mat-nav-list>

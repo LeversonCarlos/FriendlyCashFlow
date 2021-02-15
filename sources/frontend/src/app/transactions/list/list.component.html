@@ -33,8 +33,7 @@
                   <span>{{ account.Account.Text }}</span>
                </ng-template>
                <div class="tab-contents">
-                  <!-- <entries-list-body [AccountEntries]="account"></entries-list-body> -->
-                  <pre style="height: 60vh; overflow-y: scroll;">{{ account | json }}</pre>
+                  <transactions-days [Days]="account.Days"></transactions-days>
                </div>
             </mat-tab>
          </mat-tab-group>
