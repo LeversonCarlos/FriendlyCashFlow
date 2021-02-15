@@ -4,7 +4,9 @@
    <ng-container *ngFor="let day of Days">
 
       <transactions-day-header [Day]="day"></transactions-day-header>
-      <pre style="height: 40vh; overflow-y: scroll;">{{ day | json }}</pre>
+      <mat-list-item *ngFor="let transaction of day.Transactions">
+         <transactions-item [Transaction]="transaction"></transactions-item>
+      </mat-list-item>
       <transactions-day-footer [Day]="day"></transactions-day-footer>
 
    </ng-container>
