@@ -4,6 +4,7 @@ import { EntryEntity } from "@elesse/entries";
 
 export class TransactionAccount {
    Account: AccountEntity;
+   AccountIcon: string;
    Balance: Balance = new Balance();
    Days: TransactionDay[] = []
    public static Parse(value: AccountEntity): TransactionAccount {
@@ -25,8 +26,9 @@ export class Balance {
 }
 
 export abstract class TransactionBase {
-   Text: string
    Date: Date;
+   Text: string
+   Details: string
    Value: number;
    Paid: boolean;
    Sorting: number;
@@ -39,8 +41,8 @@ export class TransactionEntry extends TransactionBase {
       if (!value)
          return null;
       return Object.assign(new TransactionEntry, {
+         Date: new Date(value.Paid && value.PayDate ? value.PayDate : value.DueDate),
          Text: value.Pattern?.Text ?? '',
-         Date: (value.Paid && value.PayDate ? value.PayDate : value.DueDate),
          Value: value.EntryValue * ((value.Pattern?.Type ?? enCategoryType.Income) == enCategoryType.Income ? 1 : -1),
          Paid: value.Paid,
          Sorting: value.Sorting,

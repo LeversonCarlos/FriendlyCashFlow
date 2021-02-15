@@ -15,7 +15,7 @@ export class ListBodyComponent implements OnInit {
    @Input()
    public Accounts: Observable<AccountEntity[]>
 
-   public GetAccountIcon(type: enAccountType): string { return this.accountsData.GetAccountIcon(type); }
+   public GetAccountIcon(type: enAccountType): string { return AccountsData.GetAccountIcon(type); }
 
    ngOnInit(): void {
    }

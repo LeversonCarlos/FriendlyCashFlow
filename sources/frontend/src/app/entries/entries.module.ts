@@ -3,7 +3,6 @@ import { MaterialModule } from '../material/material.exports';
 import { SharedModule } from '../shared/shared.exports';
 
 import { EntriesRouting } from './entries.routing';
-import { EntriesData } from './data/entries.data';
 import { ListComponent } from './list/list.component';
 import { ListBodyComponent } from './list/list-body/list-body.component';
 import { DetailsRouteViewComponent } from './details/route-view/route-view.component';
@@ -14,7 +13,6 @@ import { DueDateViewComponent } from './details/due-date-view/due-date-view.comp
 import { EntryValueViewComponent } from './details/entry-value-view/entry-value-view.component';
 import { PayDateViewComponent } from './details/pay-date-view/pay-date-view.component';
 import { PaidViewComponent } from './details/paid-view/paid-view.component';
-import { EntriesCache } from './cache/cache.service';
 
 @NgModule({
    declarations: [ListComponent, ListBodyComponent, DetailsRouteViewComponent,
@@ -25,6 +23,6 @@ import { EntriesCache } from './cache/cache.service';
       MaterialModule, SharedModule,
       EntriesRouting
    ],
-   providers: [EntriesData, EntriesCache]
+   providers: []
 })
 export class EntriesModule { }

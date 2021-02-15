@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { AccountsData } from '@elesse/accounts';
+import { CategoriesData, enCategoryType } from '@elesse/categories';
+import { EntriesData } from '@elesse/entries';
+import { Observable } from 'rxjs';
+import { TransactionsConverter } from '../converter/transactions.converter';
+import { TransactionAccount } from '../model/transactions.model';
 
 @Component({
    selector: 'transactions-list',
@@ -7,9 +13,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListComponent implements OnInit {
 
-   constructor() { }
+   constructor(private accountsData: AccountsData, private categoriesData: CategoriesData, private entriesData: EntriesData) { }
 
-   ngOnInit(): void {
+   public ngOnInit(): void {
+      this.TransactionAccounts = TransactionsConverter.Merge(
+         this.accountsData.ObserveAccounts(),
+         this.categoriesData.ObserveCategories(enCategoryType.Income),
+         this.categoriesData.ObserveCategories(enCategoryType.Expense),
+         this.entriesData.ObserveEntries)
    }
+
+   public TransactionAccounts: Observable<TransactionAccount[]>;
 
 }

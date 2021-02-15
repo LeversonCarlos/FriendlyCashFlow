@@ -1,15 +1,32 @@
-import { AccountEntity } from "@elesse/accounts";
+import { AccountEntity, AccountsData } from "@elesse/accounts";
+import { CategoryEntity, enCategoryType } from "@elesse/categories";
 import { EntryEntity } from "@elesse/entries";
+import { combineLatest, Observable } from "rxjs";
+import { map } from "rxjs/operators";
 import { Balance, TransactionAccount, TransactionBase, TransactionDay, TransactionEntry } from "../model/transactions.model";
 
 export class TransactionsConverter {
 
-   public static Convert(accountsParam: AccountEntity[], entriesParam: EntryEntity[]): TransactionAccount[] {
+   public static Merge = (
+      accountsObservable: Observable<AccountEntity[]>,
+      incomeCategoriesObservable: Observable<CategoryEntity[]>,
+      expenseCategoriesObservable: Observable<CategoryEntity[]>,
+      entriesObservable: Observable<EntryEntity[]>): Observable<TransactionAccount[]> =>
+      combineLatest([accountsObservable, incomeCategoriesObservable, expenseCategoriesObservable, entriesObservable])
+         .pipe(
+            map(([accounts, incomeCategories, expenseCategories, entries]) => TransactionsConverter.Convert(accounts, incomeCategories, expenseCategories, entries))
+         );
+
+   public static Convert(
+      accountsParam: AccountEntity[],
+      incomeCategoriesList: CategoryEntity[],
+      expenseCategoriesList: CategoryEntity[],
+      entriesParam: EntryEntity[]): TransactionAccount[] {
       if (accountsParam == null || accountsParam.length == 0)
          return [];
 
       const accountsDict = TransactionsConverter.GetAccountsDictionary(accountsParam);
-      TransactionsConverter.DistributeEntriesThroughAccounts(accountsDict, entriesParam);
+      TransactionsConverter.DistributeEntriesThroughAccounts(accountsDict, incomeCategoriesList, expenseCategoriesList, entriesParam);
       const accountsResult = TransactionsConverter.ParseDictionaryDataIntoTransactionData(accountsDict, accountsParam);
 
       return accountsResult;
@@ -24,7 +41,11 @@ export class TransactionsConverter {
       return accountsDict;
    }
 
-   private static DistributeEntriesThroughAccounts(accountsDict: Record<string, AccountDict>, entriesParam: EntryEntity[]) {
+   private static DistributeEntriesThroughAccounts(
+      accountsDict: Record<string, AccountDict>,
+      incomeCategoriesList: CategoryEntity[],
+      expenseCategoriesList: CategoryEntity[],
+      entriesParam: EntryEntity[]) {
 
       // LOOP THROUGH THE ENTRIES LIST
       if (entriesParam?.length > 0) {
@@ -32,6 +53,7 @@ export class TransactionsConverter {
 
             // PARSE ENTRY INTO TRANSATION
             const transaction = TransactionEntry.Parse(entriesParam[entryIndex]);
+            transaction.Details = TransactionsConverter.GetCategoryDescription(transaction.Entry, incomeCategoriesList, expenseCategoriesList);
 
             // LOCATE ACCOUNT ON DICTIONARY
             const accountDict = accountsDict[transaction.Entry.AccountID];
@@ -57,6 +79,26 @@ export class TransactionsConverter {
 
    }
 
+   private static GetCategoryDescription(entry: EntryEntity,
+      incomeCategoriesList: CategoryEntity[],
+      expenseCategoriesList: CategoryEntity[]) {
+
+      if (entry?.Pattern?.CategoryID && entry?.Pattern?.Type) {
+         if (entry?.Pattern?.Type == enCategoryType.Income && incomeCategoriesList) {
+            return incomeCategoriesList
+               .filter(cat => cat.CategoryID == entry.Pattern.CategoryID)
+               .map(cat => cat.HierarchyText)
+               .reduce((acc, cur) => cur, '');
+         }
+         else if (entry?.Pattern?.Type == enCategoryType.Expense && expenseCategoriesList) {
+            return expenseCategoriesList
+               .filter(cat => cat.CategoryID == entry.Pattern.CategoryID)
+               .map(cat => cat.HierarchyText)
+               .reduce((acc, cur) => cur, '');
+         }
+      }
+   }
+
    private static ParseDictionaryDataIntoTransactionData(accountsDict: Record<string, AccountDict>, accountsParam: AccountEntity[]): TransactionAccount[] {
       let accountsResult: TransactionAccount[] = [];
 
@@ -65,6 +107,7 @@ export class TransactionsConverter {
 
          // PARSE ACCOUNT INTO TRANSACTION
          const transactionAccount = TransactionAccount.Parse(accountsParam[accountIndex]);
+         transactionAccount.AccountIcon = AccountsData.GetAccountIcon(transactionAccount.Account.Type);
 
          // RETRIEVE ACCOUNT FROM DICTIONARY
          const accountDict = accountsDict[transactionAccount.Account.AccountID];

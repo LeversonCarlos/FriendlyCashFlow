@@ -1,0 +1,30 @@
+<mat-list-item *ngIf="Transaction">
+
+   <mat-icon matListIcon (click)="OnPaidClick()">
+      {{ Transaction.Paid ? 'check_box' : 'check_box_outline_blank' }}
+   </mat-icon>
+
+   <span matLine [routerLink]="DetailsRouterLink">
+      <span class="row mat-body-strong ">
+         <span class="col truncate"> {{ Transaction.Text }} </span>
+         <span class="col" style="flex-grow: 0;"
+            [class.forecolor-green]="Transaction.Value >= 0"
+            [class.forecolor-red]="Transaction.Value < 0">
+            {{ Transaction.Value | number:'1.2-2' }}
+         </span>
+      </span>
+   </span>
+   <small matLine [routerLink]="DetailsRouterLink" *ngIf="Transaction.Details">
+      <small class="mat-small">{{ Transaction.Details }}</small>
+   </small>
+
+   <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+   </button>
+   <mat-menu #menu="matMenu">
+      <button mat-menu-item class="danger" (click)="OnRemoveClick()">
+         <span>{{ 'transactions.REMOVE_MENU' | translation | async }}</span>
+      </button>
+   </mat-menu>
+
+</mat-list-item>

@@ -7,7 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {
    SharedModule,
    SettingsService, BusyService, InsightsService, MessageService,
-   ResponsiveService, LocalizationService,
+   ResponsiveService, LocalizationService, MonthSelectorService,
 } from '@elesse/shared';
 import { MaterialModule } from '@elesse/material';
 import { IdentityModule, TokenService } from '@elesse/identity';
@@ -25,6 +25,7 @@ import { AuthenticatedHomeComponent } from './main/home/authenticated-home/authe
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { MainData } from './main/data/data.service';
+import { EntriesProviders } from '@elesse/entries';
 
 @NgModule({
    declarations: [
@@ -41,7 +42,7 @@ import { MainData } from './main/data/data.service';
       ResponsiveService, LocalizationService,
       TokenService,
       UrlInterceptorProvider, LangInterceptorProvider, ErrorInterceptorProvider, RequestAuthInterceptorProvider, ResponseAuthInterceptorProvider,
-      MainData
+      MainData, MonthSelectorService, EntriesProviders
    ],
    bootstrap: [MainComponent]
 })

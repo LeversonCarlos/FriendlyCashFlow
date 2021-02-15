@@ -1,0 +1,13 @@
+<div class="day-footer" *ngIf="Day">
+   <span class="mat-small">
+      <small class="expected" *ngIf="Day.Balance.Expected != Day.Balance.Realized"
+         [class.forecolor-green]="Day.Balance.Realized >= 0"
+         [class.forecolor-red]="Day.Balance.Realized < 0">
+         ({{ Day.Balance.Expected | number:'1.2-2' }})
+      </small>
+      <span [class.forecolor-green]="Day.Balance.Realized >= 0"
+         [class.forecolor-red]="Day.Balance.Realized < 0">
+         {{ Day.Balance.Realized | number:'1.2-2' }}
+      </span>
+   </span>
+</div>

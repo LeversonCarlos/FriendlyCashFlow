@@ -30,7 +30,7 @@ export class DetailsRouteViewComponent implements OnInit {
 
       this.data = await this.entriesData.LoadEntry(paramID);
       if (!this.data) {
-         this.router.navigate(["/entries/list"]);
+         this.router.navigate(["/transactions/list"]);
          return;
       }
 
@@ -50,7 +50,7 @@ export class DetailsRouteViewComponent implements OnInit {
       if (!this.inputForm.pristine)
          if (!await this.msg.Confirm('shared.ROLLBACK_TEXT', 'shared.ROLLBACK_CONFIRM_COMMAND', 'shared.ROLLBACK_ABORT_COMMAND'))
             return;
-      this.router.navigate(["/entries/list"])
+      this.router.navigate(["/transactions/list"])
    }
 
    public async OnSaveClick() {
@@ -58,7 +58,7 @@ export class DetailsRouteViewComponent implements OnInit {
          return;
       if (!await this.entriesData.SaveEntry(this.data))
          return;
-      this.router.navigate(["/entries/list"])
+      this.router.navigate(["/transactions/list"])
    }
 
 }
