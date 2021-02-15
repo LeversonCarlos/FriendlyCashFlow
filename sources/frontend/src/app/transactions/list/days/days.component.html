@@ -3,7 +3,9 @@
 <mat-nav-list *ngIf="Days?.length>0" [attr.dense]="IsMobile?true:null">
    <ng-container *ngFor="let day of Days">
 
-      <pre style="height: 60vh; overflow-y: scroll;">{{ day | json }}</pre>
+      <transactions-day-header [Day]="day"></transactions-day-header>
+
+      <pre style="height: 40vh; overflow-y: scroll;">{{ day | json }}</pre>
 
    </ng-container>
 </mat-nav-list>
