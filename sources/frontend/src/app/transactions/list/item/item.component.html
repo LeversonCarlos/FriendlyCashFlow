@@ -4,6 +4,8 @@
       {{ Transaction.Paid ? 'check_box' : 'check_box_outline_blank' }}
    </mat-icon>
 
-   <span matLine>{{ Transaction.Text }}</span>
+   <span matLine [routerLink]="DetailsRouterLink">
+      <span>{{ Transaction.Text }}</span>
+   </span>
 
 </mat-list-item>

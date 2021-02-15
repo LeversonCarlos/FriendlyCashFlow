@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { TransactionBase } from '../../model/transactions.model';
+import { TransactionBase, TransactionEntry } from '../../model/transactions.model';
 
 @Component({
    selector: 'transactions-item',
@@ -18,6 +18,13 @@ export class ItemComponent implements OnInit {
    public OnPaidClick() {
       this.Transaction.Paid = !this.Transaction.Paid
       console.log('OnPaidClick', 'TODO !')
+   }
+
+   public get DetailsRouterLink(): string {
+      if (this.Transaction instanceof TransactionEntry)
+         return `/entries/details/${this.Transaction.Entry.EntryID}`;
+      else
+         return null;
    }
 
 }
