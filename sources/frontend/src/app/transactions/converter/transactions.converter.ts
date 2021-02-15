@@ -1,8 +1,16 @@
-import { AccountEntity } from "@elesse/accounts";
+import { AccountEntity, AccountsData } from "@elesse/accounts";
 import { EntryEntity } from "@elesse/entries";
+import { combineLatest, Observable } from "rxjs";
+import { map } from "rxjs/operators";
 import { Balance, TransactionAccount, TransactionBase, TransactionDay, TransactionEntry } from "../model/transactions.model";
 
 export class TransactionsConverter {
+
+   public static Merge = (accountsObservable: Observable<AccountEntity[]>, entriesObservable: Observable<EntryEntity[]>): Observable<TransactionAccount[]> =>
+      combineLatest([accountsObservable, entriesObservable])
+         .pipe(
+            map(([accounts, entries]) => TransactionsConverter.Convert(accounts, entries))
+         );
 
    public static Convert(accountsParam: AccountEntity[], entriesParam: EntryEntity[]): TransactionAccount[] {
       if (accountsParam == null || accountsParam.length == 0)
@@ -65,6 +73,7 @@ export class TransactionsConverter {
 
          // PARSE ACCOUNT INTO TRANSACTION
          const transactionAccount = TransactionAccount.Parse(accountsParam[accountIndex]);
+         transactionAccount.AccountIcon = AccountsData.GetAccountIcon(transactionAccount.Account.Type);
 
          // RETRIEVE ACCOUNT FROM DICTIONARY
          const accountDict = accountsDict[transactionAccount.Account.AccountID];

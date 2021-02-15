@@ -4,6 +4,7 @@ import { EntryEntity } from "@elesse/entries";
 
 export class TransactionAccount {
    Account: AccountEntity;
+   AccountIcon: string;
    Balance: Balance = new Balance();
    Days: TransactionDay[] = []
    public static Parse(value: AccountEntity): TransactionAccount {
