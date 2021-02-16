@@ -14,8 +14,12 @@ export class AccountViewComponent implements OnInit {
    constructor(private accountsData: AccountsData) { }
 
    ngOnInit(): void {
-      this.OnDataInit();
-      this.OnFormInit();
+      if (!this.data)
+         return;
+      this.accountsData.OnObservableFirstPush(entities => {
+         this.OnDataInit();
+         this.OnFormInit();
+      });
    }
 
    @Input() data: EntryEntity;
@@ -24,8 +28,6 @@ export class AccountViewComponent implements OnInit {
    public AccountFiltered: RelatedData<AccountEntity>[] = [];
 
    private OnDataInit() {
-      if (!this.data)
-         return;
       this.AccountOptions = this.accountsData.GetAccounts(true)
          .map(entity => Object.assign(new RelatedData, {
             id: entity.AccountID,

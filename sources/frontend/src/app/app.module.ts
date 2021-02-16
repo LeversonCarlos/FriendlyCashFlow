@@ -24,8 +24,10 @@ import { AnonymousHomeComponent } from './main/home/anonymous-home/anonymous-hom
 import { AuthenticatedHomeComponent } from './main/home/authenticated-home/authenticated-home.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { MainData } from './main/data/data.service';
+import { AccountsProviders } from '@elesse/accounts';
+import { CategoriesProviders } from '@elesse/categories';
 import { EntriesProviders } from '@elesse/entries';
+import { PatternsProviders } from '@elesse/patterns';
 
 @NgModule({
    declarations: [
@@ -42,7 +44,8 @@ import { EntriesProviders } from '@elesse/entries';
       ResponsiveService, LocalizationService,
       TokenService,
       UrlInterceptorProvider, LangInterceptorProvider, ErrorInterceptorProvider, RequestAuthInterceptorProvider, ResponseAuthInterceptorProvider,
-      MainData, MonthSelectorService, EntriesProviders
+      MonthSelectorService,
+      AccountsProviders, CategoriesProviders, PatternsProviders, EntriesProviders
    ],
    bootstrap: [MainComponent]
 })

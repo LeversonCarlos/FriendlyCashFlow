@@ -1,4 +1,3 @@
-import { version } from 'package.json'
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -11,7 +10,7 @@ import { TranslationData, TranslationValues } from './translation.data';
 export class LocalizationService {
 
    constructor(private http: HttpClient) {
-      this.Resources = new StorageService<string, TranslationValues>(`LocalizationService.${version}`);
+      this.Resources = new StorageService<string, TranslationValues>('Localization');
       this.Resources.PersistentStorage = environment.production;
       this.Resources.InitializeValues(...this.ResourceKeys);
    }

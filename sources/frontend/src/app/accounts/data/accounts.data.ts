@@ -4,19 +4,19 @@ import { Observable } from 'rxjs';
 import { BusyService, LocalizationService, MessageService, StorageService } from '@elesse/shared';
 import { HttpClient } from '@angular/common/http';
 import { AccountsCache } from '../cache/cache.service';
-import { map } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 
 @Injectable({
    providedIn: 'root'
 })
 export class AccountsData {
 
-   constructor(private localization: LocalizationService, private message: MessageService, private busy: BusyService,
+   constructor(private Cache: AccountsCache,
+      private localization: LocalizationService,
+      private message: MessageService, private busy: BusyService,
       private http: HttpClient) {
-      this.Cache = new AccountsCache();
+      this.RefreshAccounts();
    }
-
-   private Cache: AccountsCache;
 
    public async RefreshAccounts(): Promise<void> {
       try {
@@ -32,6 +32,12 @@ export class AccountsData {
       }
       catch { /* error absorber */ }
       finally { this.busy.hide(); }
+   }
+
+   public OnObservableFirstPush(callback: (entities: AccountEntity[]) => void) {
+      this.ObserveAccounts(true)
+         .pipe(first(entities => entities != null))
+         .subscribe(entities => callback(entities));
    }
 
    public ObserveAccounts = (state: boolean = true): Observable<AccountEntity[]> =>

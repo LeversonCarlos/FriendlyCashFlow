@@ -30,6 +30,7 @@ export class EntriesData {
       else
          this.DefaultDueDate = new Date(value.Year, (value.Month - 1), 1, 12);
       this.Cache.InitializeValue(value.ToCode());
+      this.RefreshEntries();
    }
 
    public get ObserveEntries(): Observable<EntryEntity[]> { return this.Cache.Observe; }
