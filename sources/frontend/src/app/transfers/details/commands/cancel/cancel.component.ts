@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BusyService } from '@elesse/shared';
 
@@ -16,10 +16,5 @@ export class CancelComponent implements OnInit {
 
    @Input() form: FormGroup;
    public get IsBusy(): boolean { return this.busy.IsBusy; }
-
-   @Output() click: EventEmitter<void> = new EventEmitter<void>();
-   public OnClick() {
-      this.click.emit();
-   }
 
 }
