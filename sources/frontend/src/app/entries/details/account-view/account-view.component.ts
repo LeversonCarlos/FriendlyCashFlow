@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AccountEntity, AccountsData } from '@elesse/accounts';
 import { RelatedData } from '@elesse/shared';
+import { first } from 'rxjs/operators';
 import { EntryEntity } from '../../model/entries.model';
 
 @Component({
@@ -14,8 +15,12 @@ export class AccountViewComponent implements OnInit {
    constructor(private accountsData: AccountsData) { }
 
    ngOnInit(): void {
-      this.OnDataInit();
-      this.OnFormInit();
+      if (!this.data)
+         return;
+      this.OnObservableFirstPush(entities => {
+         this.OnDataInit();
+         this.OnFormInit();
+      });
    }
 
    @Input() data: EntryEntity;
@@ -23,9 +28,14 @@ export class AccountViewComponent implements OnInit {
    public AccountOptions: RelatedData<AccountEntity>[] = [];
    public AccountFiltered: RelatedData<AccountEntity>[] = [];
 
+   private OnObservableFirstPush(callback: (entities: AccountEntity[]) => void) {
+      this.accountsData
+         .ObserveAccounts(true)
+         .pipe(first(entities => entities != null))
+         .subscribe(entities => callback(entities));
+   }
+
    private OnDataInit() {
-      if (!this.data)
-         return;
       this.AccountOptions = this.accountsData.GetAccounts(true)
          .map(entity => Object.assign(new RelatedData, {
             id: entity.AccountID,
