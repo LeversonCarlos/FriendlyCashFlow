@@ -38,11 +38,12 @@ describe('TransfersData', () => {
       expect(result.TransferID).toBeNull();
    });
 
-   it('LoadTransfer with null return from httpClient must result null', () => {
+   it('LoadTransfer with error return from httpClient must result null', (done) => {
       const param: string = 'my-transfer-id';
 
       service.LoadTransfer(param).then(result => {
          expect(result).toBeNull();
+         done();
       });
 
       const httpRequest = httpMock.expectOne(() => true);
@@ -51,11 +52,12 @@ describe('TransfersData', () => {
       httpMock.verify()
    });
 
-   it('LoadTransfer with null return from httpClient must result null', () => {
+   it('LoadTransfer with null return from httpClient must result null', (done) => {
       const param: string = 'my-transfer-id';
 
       service.LoadTransfer(param).then(result => {
          expect(result).toBeNull();
+         done();
       });
 
       const httpRequest = httpMock.expectOne(() => true);
@@ -64,7 +66,7 @@ describe('TransfersData', () => {
       httpMock.verify()
    });
 
-   it('LoadTransfer with valid return from httpClient must result valid instance', () => {
+   it('LoadTransfer with valid return from httpClient must result valid instance', (done) => {
       const param: string = 'my-transfer-id';
 
       service.LoadTransfer(param).then(result => {
@@ -74,6 +76,7 @@ describe('TransfersData', () => {
          expect(result.IncomeAccountID).toEqual(expected.IncomeAccountID);
          expect(result.Date).toEqual(new Date(expected.Date));
          expect(result.Value).toEqual(expected.Value);
+         done();
       });
 
       const httpRequest = httpMock.expectOne(() => true);
