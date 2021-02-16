@@ -1,7 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { BusyService, MessageService } from '@elesse/shared';
+import { BusyService } from '@elesse/shared';
 
 @Component({
    selector: 'transfers-details-cancel',
@@ -10,9 +9,7 @@ import { BusyService, MessageService } from '@elesse/shared';
 })
 export class CancelComponent implements OnInit {
 
-   constructor(
-      private busy: BusyService, private msg: MessageService,
-      private router: Router) { }
+   constructor(private busy: BusyService) { }
 
    ngOnInit(): void {
    }
@@ -20,11 +17,9 @@ export class CancelComponent implements OnInit {
    @Input() form: FormGroup;
    public get IsBusy(): boolean { return this.busy.IsBusy; }
 
-   public async OnCancelClick() {
-      if (!this.form.pristine)
-         if (!await this.msg.Confirm('shared.ROLLBACK_TEXT', 'shared.ROLLBACK_CONFIRM_COMMAND', 'shared.ROLLBACK_ABORT_COMMAND'))
-            return;
-      this.router.navigate(["/transactions/list"])
+   @Output() click: EventEmitter<void> = new EventEmitter<void>();
+   public OnClick() {
+      this.click.emit();
    }
 
 }

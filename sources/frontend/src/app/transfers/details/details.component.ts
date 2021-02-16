@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BusyService } from '@elesse/shared';
+import { BusyService, MessageService } from '@elesse/shared';
 import { TransfersData } from '../data/transfers.data';
 import { TransferEntity } from '../model/transfers.model';
 
@@ -13,7 +13,7 @@ import { TransferEntity } from '../model/transfers.model';
 export class DetailsComponent implements OnInit {
 
    constructor(private transferData: TransfersData,
-      private busy: BusyService,
+      private busy: BusyService, private msg: MessageService,
       private activatedRoute: ActivatedRoute, private router: Router, private fb: FormBuilder) { }
 
    public async ngOnInit(): Promise<void> {
@@ -31,6 +31,13 @@ export class DetailsComponent implements OnInit {
    public data: TransferEntity;
    public form: FormGroup;
    public get IsBusy(): boolean { return this.busy.IsBusy; }
+
+   public async OnCancelClick() {
+      if (!this.form.pristine)
+         if (!await this.msg.Confirm('shared.ROLLBACK_TEXT', 'shared.ROLLBACK_CONFIRM_COMMAND', 'shared.ROLLBACK_ABORT_COMMAND'))
+            return;
+      this.router.navigate(["/transactions/list"])
+   }
 
    public async OnSaveClick() {
       if (!this.form.valid)
