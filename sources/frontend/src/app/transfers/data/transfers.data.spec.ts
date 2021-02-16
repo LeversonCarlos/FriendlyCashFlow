@@ -1,15 +1,18 @@
-import { TestBed } from '@angular/core/testing';
+import { HttpTestingController } from '@angular/common/http/testing';
+import { fakeAsync, TestBed } from '@angular/core/testing';
 import { TestsModule } from '@elesse/tests';
 import { TransfersData } from './transfers.data';
 
 describe('TransfersData', () => {
    let service: TransfersData;
+   let httpMock: HttpTestingController;
 
    beforeEach(() => {
       TestBed.configureTestingModule({
          imports: [TestsModule]
       });
       service = TestBed.inject(TransfersData);
+      httpMock = TestBed.inject(HttpTestingController);
    });
 
    it('should be created', () => {
@@ -34,5 +37,18 @@ describe('TransfersData', () => {
       expect(result).toBeTruthy();
       expect(result.TransferID).toBeNull();
    });
+
+   it('LoadTransfer with null return from httpClient must result null', fakeAsync(() => {
+      const param: string = 'my-transfer-id';
+
+      service.LoadTransfer(param).then(result => {
+         expect(result).toBeNull();
+      });
+
+      const httpRequest = httpMock.expectOne(() => true);
+      httpRequest.error(new ErrorEvent('any http error'))
+
+      httpMock.verify()
+   }));
 
 });
