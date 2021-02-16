@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { BusyService } from '@elesse/shared';
 
 @Component({
-   selector: 'transfers-details-cancel',
+   selector: 'transfers-details-commands-cancel',
    templateUrl: './cancel.component.html',
    styleUrls: ['./cancel.component.scss']
 })

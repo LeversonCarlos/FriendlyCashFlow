@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { BusyService } from '@elesse/shared';
 
 @Component({
-   selector: 'transfers-details-confirm',
+   selector: 'transfers-details-commands-confirm',
    templateUrl: './confirm.component.html',
    styleUrls: ['./confirm.component.scss']
 })
