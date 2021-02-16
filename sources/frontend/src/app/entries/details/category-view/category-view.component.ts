@@ -14,8 +14,12 @@ export class CategoryViewComponent implements OnInit {
    constructor(private categoriesData: CategoriesData) { }
 
    ngOnInit(): void {
-      this.OnDataInit();
-      this.OnFormInit();
+      if (!this.data)
+         return;
+      this.categoriesData.OnObservableFirstPush(this.data.Pattern.Type, entities => {
+         this.OnDataInit();
+         this.OnFormInit();
+      });
    }
 
    @Input() data: EntryEntity;
@@ -24,8 +28,6 @@ export class CategoryViewComponent implements OnInit {
    public CategoryFiltered: RelatedData<CategoryEntity>[] = [];
 
    private OnDataInit() {
-      if (!this.data)
-         return;
       this.CategoryOptions = this.categoriesData.GetCategories(this.data.Pattern.Type)
          .map(entity => Object.assign(new RelatedData, {
             id: entity.CategoryID,

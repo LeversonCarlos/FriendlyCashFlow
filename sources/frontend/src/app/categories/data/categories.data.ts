@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BusyService, LocalizationService, MessageService, StorageService } from '@elesse/shared';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 import { CategoriesCache } from '../cache/cache.service';
 import { CategoryEntity, CategoryType, enCategoryType } from '../model/categories.model';
 
@@ -34,6 +34,12 @@ export class CategoriesData {
       }
       catch { /* error absorber */ }
       finally { this.busy.hide(); }
+   }
+
+   public OnObservableFirstPush(type: enCategoryType, callback: (entities: CategoryEntity[]) => void) {
+      this.ObserveCategories(type)
+         .pipe(first(entities => entities != null))
+         .subscribe(entities => callback(entities));
    }
 
    public ObserveCategories = (type: enCategoryType): Observable<CategoryEntity[]> =>
