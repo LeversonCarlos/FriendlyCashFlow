@@ -41,7 +41,7 @@ export class ExpenseAccountComponent implements OnInit {
       if (!this.form)
          return;
       this.form.addControl("ExpenseAccountID", new FormControl(this.data.ExpenseAccountID ?? null));
-      this.form.addControl("ExpenseAccountRow", new FormControl(this.GetFirstAccount(), Validators.required));
+      this.form.addControl("ExpenseAccountRow", new FormControl(this.GetFirstAccount(), [Validators.required]));
       this.form.get("ExpenseAccountRow").valueChanges.subscribe((row: RelatedData<AccountEntity>) => {
          this.data.ExpenseAccountID = row?.value?.AccountID ?? null;
       });

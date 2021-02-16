@@ -1,1 +1,5 @@
-<p>income-account works!</p>
+<ng-container *ngIf="form" [formGroup]="form">
+   <elesse-relatedbox [placeholder]="'transfers.INCOMEACCOUNTID_LABEL' | translation | async" minSize="0"
+      [options]="AccountFiltered" formControlName="IncomeAccountRow" (optionsChanging)="OnAccountChanging($event)">
+   </elesse-relatedbox>
+</ng-container>
