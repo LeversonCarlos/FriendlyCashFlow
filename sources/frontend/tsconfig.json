@@ -42,6 +42,9 @@
       "@elesse/entries": [
         "src/app/entries/entries.exports.ts"
       ],
+      "@elesse/transfers": [
+        "src/app/transfers/transfers.exports.ts"
+      ],
     }
   }
 }

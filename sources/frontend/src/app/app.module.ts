@@ -26,8 +26,9 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AccountsProviders } from '@elesse/accounts';
 import { CategoriesProviders } from '@elesse/categories';
-import { EntriesProviders } from '@elesse/entries';
 import { PatternsProviders } from '@elesse/patterns';
+import { EntriesProviders } from '@elesse/entries';
+import { TransfersProviders } from '@elesse/transfers';
 
 @NgModule({
    declarations: [
@@ -45,7 +46,7 @@ import { PatternsProviders } from '@elesse/patterns';
       TokenService,
       UrlInterceptorProvider, LangInterceptorProvider, ErrorInterceptorProvider, RequestAuthInterceptorProvider, ResponseAuthInterceptorProvider,
       MonthSelectorService,
-      AccountsProviders, CategoriesProviders, PatternsProviders, EntriesProviders
+      AccountsProviders, CategoriesProviders, PatternsProviders, EntriesProviders, TransfersProviders
    ],
    bootstrap: [MainComponent]
 })
