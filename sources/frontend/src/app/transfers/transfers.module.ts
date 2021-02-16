@@ -7,11 +7,12 @@ import { CancelComponent } from './details/commands/cancel/cancel.component';
 import { ConfirmComponent } from './details/commands/confirm/confirm.component';
 import { ValueComponent } from './details/inputs/value/value.component';
 import { DateComponent } from './details/inputs/date/date.component';
+import { ExpenseAccountComponent } from './details/inputs/expense-account/expense-account.component';
 
 @NgModule({
    declarations: [DetailsComponent,
       CancelComponent, ConfirmComponent,
-      ValueComponent, DateComponent
+      ValueComponent, DateComponent, ExpenseAccountComponent
    ],
    imports: [
       MaterialModule, SharedModule,

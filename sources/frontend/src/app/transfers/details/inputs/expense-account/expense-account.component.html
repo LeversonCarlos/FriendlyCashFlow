@@ -1,0 +1,4 @@
+<mat-form-field *ngIf="form" [formGroup]="form">
+   <mat-label>{{ "transfers.EXPENSEACCOUNTID_LABEL" | translation | async }}</mat-label>
+   <input type="text" matInput formControlName="ExpenseAccountID">
+</mat-form-field>
