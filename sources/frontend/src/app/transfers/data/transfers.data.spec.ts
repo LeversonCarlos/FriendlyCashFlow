@@ -1,15 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 import { TestsModule } from '@elesse/tests';
-import { TransfersDataService } from './transfers.data';
+import { TransfersData } from './transfers.data';
 
-describe('TransfersDataService', () => {
-   let service: TransfersDataService;
+describe('TransfersData', () => {
+   let service: TransfersData;
 
    beforeEach(() => {
       TestBed.configureTestingModule({
          imports: [TestsModule]
       });
-      service = TestBed.inject(TransfersDataService);
+      service = TestBed.inject(TransfersData);
    });
 
    it('should be created', () => {
