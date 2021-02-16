@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { nameof } from '@elesse/shared';
 import { TransferEntity } from 'src/app/transfers/model/transfers.model';
 
 @Component({
@@ -13,6 +14,7 @@ export class ValueComponent implements OnInit {
 
    @Input() data: TransferEntity;
    @Input() form: FormGroup;
+   public get FormControlName(): string { return nameof<TransferEntity>(t => t.Value); }
 
    ngOnInit(): void {
       this.OnDataInit();
@@ -27,8 +29,8 @@ export class ValueComponent implements OnInit {
    private OnFormInit() {
       if (!this.form)
          return;
-      this.form.addControl("Value", new FormControl(this.data.Value ?? null, [Validators.required, Validators.min(0.01)]));
-      this.form.get("Value").valueChanges.subscribe((val: any) => {
+      this.form.addControl(this.FormControlName, new FormControl(this.data.Value ?? null, [Validators.required, Validators.min(0.01)]));
+      this.form.get(this.FormControlName).valueChanges.subscribe((val: any) => {
          this.data.Value = val;
       });
    }

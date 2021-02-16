@@ -17,7 +17,7 @@ export class ExpenseAccountComponent implements OnInit {
    @Input() form: FormGroup;
    public AccountOptions: RelatedData<AccountEntity>[] = [];
    public AccountFiltered: RelatedData<AccountEntity>[] = [];
-   private get FormControlID(): string { return this.data && nameof(this.data.ExpenseAccountID); }
+   private get FormControlID(): string { return nameof<TransferEntity>(t => t.ExpenseAccountID); }
    public get FormControlName(): string { return `${this.FormControlID}Row`; }
 
    ngOnInit(): void {

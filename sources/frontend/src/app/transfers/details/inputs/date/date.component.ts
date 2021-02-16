@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { nameof } from '@elesse/shared';
 import { TransferEntity } from 'src/app/transfers/model/transfers.model';
 
 @Component({
@@ -13,6 +14,7 @@ export class DateComponent implements OnInit {
 
    @Input() data: TransferEntity;
    @Input() form: FormGroup;
+   public get FormControlName(): string { return nameof<TransferEntity>(t => t.Date); }
 
    ngOnInit(): void {
       this.OnDataInit();
@@ -27,8 +29,8 @@ export class DateComponent implements OnInit {
    private OnFormInit() {
       if (!this.form)
          return;
-      this.form.addControl("Date", new FormControl(this.data.Date ?? null, Validators.required));
-      this.form.get("Date").valueChanges.subscribe((val: string) => {
+      this.form.addControl(this.FormControlName, new FormControl(this.data.Date ?? null, Validators.required));
+      this.form.get(this.FormControlName).valueChanges.subscribe((val: string) => {
          let date = new Date(val);
          date = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 12);
          this.data.Date = date;
