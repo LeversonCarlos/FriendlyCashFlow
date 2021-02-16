@@ -33,7 +33,6 @@ export class DetailsComponent implements OnInit {
    public get IsBusy(): boolean { return this.busy.IsBusy; }
 
    public async OnCancelClick() {
-      console.log('OnCancelClick');
       if (!this.form.pristine)
          if (!await this.msg.Confirm('shared.ROLLBACK_TEXT', 'shared.ROLLBACK_CONFIRM_COMMAND', 'shared.ROLLBACK_ABORT_COMMAND'))
             return;
