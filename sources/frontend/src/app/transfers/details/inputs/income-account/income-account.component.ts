@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AccountEntity, AccountsData } from '@elesse/accounts';
-import { RelatedData } from '@elesse/shared';
+import { nameof, RelatedData } from '@elesse/shared';
 import { TransferEntity } from 'src/app/transfers/model/transfers.model';
 
 @Component({
@@ -17,6 +17,8 @@ export class IncomeAccountComponent implements OnInit {
    @Input() form: FormGroup;
    public AccountOptions: RelatedData<AccountEntity>[] = [];
    public AccountFiltered: RelatedData<AccountEntity>[] = [];
+   private get FormControlID(): string { return this.data && nameof(this.data.IncomeAccountID); }
+   public get FormControlName(): string { return `${this.FormControlID}Row`; }
 
    ngOnInit(): void {
       this.OnDataInit();
@@ -40,9 +42,9 @@ export class IncomeAccountComponent implements OnInit {
    private OnFormInit() {
       if (!this.form)
          return;
-      this.form.addControl("IncomeAccountID", new FormControl(this.data.IncomeAccountID ?? null));
-      this.form.addControl("IncomeAccountRow", new FormControl(this.GetFirstAccount(), [Validators.required]));
-      this.form.get("IncomeAccountRow").valueChanges.subscribe((row: RelatedData<AccountEntity>) => {
+      this.form.addControl(this.FormControlID, new FormControl(this.data.IncomeAccountID ?? null));
+      this.form.addControl(this.FormControlName, new FormControl(this.GetFirstAccount(), [Validators.required]));
+      this.form.get(this.FormControlName).valueChanges.subscribe((row: RelatedData<AccountEntity>) => {
          this.data.IncomeAccountID = row?.value?.AccountID ?? null;
       });
    }
