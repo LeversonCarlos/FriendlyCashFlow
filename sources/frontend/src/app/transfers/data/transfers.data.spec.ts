@@ -51,6 +51,19 @@ describe('TransfersData', () => {
       httpMock.verify()
    });
 
+   it('LoadTransfer with null return from httpClient must result null', () => {
+      const param: string = 'my-transfer-id';
+
+      service.LoadTransfer(param).then(result => {
+         expect(result).toBeNull();
+      });
+
+      const httpRequest = httpMock.expectOne(() => true);
+      httpRequest.flush(null)
+
+      httpMock.verify()
+   });
+
    it('LoadTransfer with valid return from httpClient must result valid instance', () => {
       const param: string = 'my-transfer-id';
 
