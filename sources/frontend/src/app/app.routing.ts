@@ -11,6 +11,7 @@ const routes: Routes = [
    { path: 'categories', canActivate: [AuthGuard], loadChildren: () => import('./categories/categories.module').then(m => m.CategoriesModule) },
    { path: 'transactions', canActivate: [AuthGuard], loadChildren: () => import('./transactions/transactions.module').then(m => m.TransactionsModule) },
    { path: 'entries', canActivate: [AuthGuard], loadChildren: () => import('./entries/entries.module').then(m => m.EntriesModule) },
+   { path: 'transfers', canActivate: [AuthGuard], loadChildren: () => import('./transfers/transfers.module').then(m => m.TransfersModule) },
    { path: '**', component: HomeComponent }
 ];
 
