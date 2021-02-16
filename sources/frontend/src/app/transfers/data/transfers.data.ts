@@ -34,4 +34,28 @@ export class TransfersData {
       finally { this.busy.hide(); }
    }
 
+   public async SaveTransfer(entry: TransferEntity): Promise<boolean> {
+      /*
+      try {
+         this.busy.show();
+
+         if (!entry)
+            return false;
+
+         if (entry.EntryID == null)
+            await this.http.post("api/entries/insert", entry).toPromise();
+         else
+            await this.http.put("api/entries/update", entry).toPromise();
+
+         await this.RefreshEntries();
+         return true;
+
+      }
+      catch { return false; / * error absorber * / }
+      finally { this.busy.hide(); }
+      */
+      console.log('SaveTransfer', 'TODO !');
+      return false;
+   }
+
 }
