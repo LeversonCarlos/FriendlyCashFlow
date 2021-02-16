@@ -4,10 +4,11 @@ import { SharedModule } from '../shared/shared.exports';
 import { TransfersRouting } from './transfers.routing';
 import { DetailsComponent } from './details/details.component';
 import { CancelComponent } from './details/cancel/cancel.component';
+import { ConfirmComponent } from './details/confirm/confirm.component';
 
 @NgModule({
    declarations: [DetailsComponent,
-      CancelComponent],
+      CancelComponent, ConfirmComponent],
    imports: [
       MaterialModule, SharedModule,
       TransfersRouting

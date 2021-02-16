@@ -11,11 +11,7 @@
 
             <mat-card-actions>
                <transfers-details-cancel [form]="form"></transfers-details-cancel>
-               <button type="submit" mat-button color="primary"
-                  [matTooltip]="'shared.SAVE_COMMAND_TOOLTIP' | translation | async"
-                  [disabled]="!inputForm?.valid || IsBusy">
-                  {{ "shared.SAVE_COMMAND" | translation | async }}
-               </button>
+               <transfers-details-confirm [form]="form"></transfers-details-confirm>
             </mat-card-actions>
 
          </mat-card>
