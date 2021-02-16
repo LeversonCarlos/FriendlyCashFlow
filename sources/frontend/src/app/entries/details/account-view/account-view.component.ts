@@ -17,7 +17,7 @@ export class AccountViewComponent implements OnInit {
    ngOnInit(): void {
       if (!this.data)
          return;
-      this.OnObservableFirstPush(entities => {
+      this.accountsData.OnObservableFirstPush(entities => {
          this.OnDataInit();
          this.OnFormInit();
       });
@@ -27,13 +27,6 @@ export class AccountViewComponent implements OnInit {
    @Input() form: FormGroup;
    public AccountOptions: RelatedData<AccountEntity>[] = [];
    public AccountFiltered: RelatedData<AccountEntity>[] = [];
-
-   private OnObservableFirstPush(callback: (entities: AccountEntity[]) => void) {
-      this.accountsData
-         .ObserveAccounts(true)
-         .pipe(first(entities => entities != null))
-         .subscribe(entities => callback(entities));
-   }
 
    private OnDataInit() {
       this.AccountOptions = this.accountsData.GetAccounts(true)
