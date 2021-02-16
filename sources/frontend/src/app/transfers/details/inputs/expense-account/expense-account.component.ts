@@ -44,8 +44,22 @@ export class ExpenseAccountComponent implements OnInit {
          return;
       this.form.addControl(this.FormControlID, new FormControl(this.data.ExpenseAccountID ?? null));
       this.form.addControl(this.FormControlName, new FormControl(this.GetFirstAccount(), [Validators.required]));
-      this.form.get(this.FormControlName).valueChanges.subscribe((row: RelatedData<AccountEntity>) => {
+      const control = this.form.get(this.FormControlName);
+      control.valueChanges.subscribe((row: RelatedData<AccountEntity>) => {
          this.data.ExpenseAccountID = row?.value?.AccountID ?? null;
+         /*
+         if (!this.data.ExpenseAccountID)
+            return;
+         if (this.data.ExpenseAccountID == this.data.IncomeAccountID) {
+            control.setErrors({ sameAccount: true });
+            control.markAsDirty()
+         }
+         else {
+            control.setErrors(null);
+         }
+         console.log(control.errors)
+         // control.updateValueAndValidity();
+         */
       });
    }
 
