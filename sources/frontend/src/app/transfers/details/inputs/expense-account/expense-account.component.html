@@ -1,4 +1,5 @@
-<mat-form-field *ngIf="form" [formGroup]="form">
-   <mat-label>{{ "transfers.EXPENSEACCOUNTID_LABEL" | translation | async }}</mat-label>
-   <input type="text" matInput formControlName="ExpenseAccountID">
-</mat-form-field>
+<ng-container *ngIf="form" [formGroup]="form">
+   <elesse-relatedbox [placeholder]="'transfers.EXPENSEACCOUNTID_LABEL' | translation | async" minSize="0"
+      [options]="AccountFiltered" formControlName="ExpenseAccountRow" (optionsChanging)="OnAccountChanging($event)">
+   </elesse-relatedbox>
+</ng-container>
