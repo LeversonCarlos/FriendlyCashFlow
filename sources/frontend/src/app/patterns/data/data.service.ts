@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { enCategoryType } from '@elesse/categories';
 import { BusyService } from '@elesse/shared';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 import { PatternsCache } from '../cache/cache.service';
 import { PatternEntity } from '../model/patterns.model';
 
@@ -31,6 +31,12 @@ export class PatternsData {
       }
       catch { /* error absorber */ }
       finally { this.busy.hide(); }
+   }
+
+   public OnObservableFirstPush(type: enCategoryType, callback: (entities: PatternEntity[]) => void) {
+      this.ObservePatterns(type)
+         .pipe(first(entities => entities != null))
+         .subscribe(entities => callback(entities));
    }
 
    public ObservePatterns = (type: enCategoryType): Observable<PatternEntity[]> =>

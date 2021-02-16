@@ -17,7 +17,7 @@ export class PatternViewComponent implements OnInit {
    public ngOnInit(): void {
       if (!this.data)
          return;
-      this.OnFirstNotNullPatternsPush(entities => {
+      this.patternsData.OnObservableFirstPush(this.data.Pattern.Type, entities => {
          this.OnDataInit();
          this.OnFormInit();
       });
@@ -28,13 +28,6 @@ export class PatternViewComponent implements OnInit {
    public formSection: FormGroup;
    public PatternOptions: RelatedData<PatternEntity>[] = [];
    public PatternFiltered: RelatedData<PatternEntity>[] = [];
-
-   private OnFirstNotNullPatternsPush(callback: (entities: PatternEntity[]) => void) {
-      this.patternsData
-         .ObservePatterns(this.data.Pattern.Type)
-         .pipe(first(entities => entities != null))
-         .subscribe(entities => callback(entities));
-   }
 
    private OnDataInit() {
       this.PatternOptions = this.patternsData.GetPatterns(this.data.Pattern.Type)
