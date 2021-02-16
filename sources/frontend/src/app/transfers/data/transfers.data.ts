@@ -12,7 +12,7 @@ export class TransfersData {
       private busy: BusyService,
       private http: HttpClient) { }
 
-   public async LoadEntry(transferID: string): Promise<TransferEntity> {
+   public async LoadTransfer(transferID: string): Promise<TransferEntity> {
       try {
          this.busy.show();
 
@@ -30,7 +30,7 @@ export class TransfersData {
          return value;
 
       }
-      catch { /* error absorber */ }
+      catch { return null; /* error absorber */ }
       finally { this.busy.hide(); }
    }
 

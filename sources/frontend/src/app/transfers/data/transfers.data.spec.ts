@@ -16,4 +16,23 @@ describe('TransfersData', () => {
       expect(service).toBeTruthy();
    });
 
+   it('LoadTransfer with null parameter must result null', async () => {
+      const param: string = null;
+      const result = await service.LoadTransfer(param);
+      expect(result).toBeNull();
+   });
+
+   it('LoadTransfer with empty parameter must result null', async () => {
+      const param: string = '';
+      const result = await service.LoadTransfer(param);
+      expect(result).toBeNull();
+   });
+
+   it('LoadTransfer with "new" parameter must result new instance', async () => {
+      const param: string = 'new';
+      const result = await service.LoadTransfer(param);
+      expect(result).toBeTruthy();
+      expect(result.TransferID).toBeNull();
+   });
+
 });
