@@ -6,11 +6,12 @@ import { DetailsComponent } from './details/details.component';
 import { CancelComponent } from './details/commands/cancel/cancel.component';
 import { ConfirmComponent } from './details/commands/confirm/confirm.component';
 import { ValueComponent } from './details/inputs/value/value.component';
+import { DateComponent } from './details/inputs/date/date.component';
 
 @NgModule({
    declarations: [DetailsComponent,
       CancelComponent, ConfirmComponent,
-      ValueComponent
+      ValueComponent, DateComponent
    ],
    imports: [
       MaterialModule, SharedModule,
