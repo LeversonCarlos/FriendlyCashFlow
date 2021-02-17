@@ -1,14 +1,16 @@
+using Elesse.Shared;
 using Elesse.Accounts;
 using Elesse.Identity.Helpers;
 using Elesse.Categories;
-using Elesse.Shared;
+using Elesse.Entries;
+using Elesse.Transfers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MongoDB.Driver;
-using Elesse.Entries;
+
 
 namespace Elesse.FriendlyCashFlow
 {
@@ -46,7 +48,8 @@ namespace Elesse.FriendlyCashFlow
             .AddSharedService(_Configuration)
             .AddAccountService(_Configuration)
             .AddCategoryService(_Configuration)
-            .AddEntryService(_Configuration);
+            .AddEntryService(_Configuration)
+            .AddTransferService(_Configuration);
       }
 
       public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
