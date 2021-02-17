@@ -1,6 +1,7 @@
 <mat-form-field>
    <mat-label *ngIf="placeholder">{{ placeholder | translation | async }}</mat-label>
    <input class="relatedbox-input" matInput type="text" [disabled]="disabled" [(ngModel)]="inputValue"
+      [errorStateMatcher]="errorMatcher()"
       (focus)="OnFocus()" (blur)="OnBlur()" [matAutocomplete]="auto" />
    <span matSuffix *ngIf="textSuffix">{{ textSuffix }}</span>
    <button class="relatedbox-icon" mat-button matSuffix mat-icon-button disabled="true">

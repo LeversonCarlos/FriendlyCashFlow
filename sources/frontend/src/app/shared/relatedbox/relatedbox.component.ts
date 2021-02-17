@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Optional, Output, Self, ViewChild } from '@angular/core';
-import { ControlValueAccessor, NgControl } from '@angular/forms';
+import { ControlValueAccessor, FormControl, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { MatAutocompleteSelectedEvent, MatAutocompleteTrigger } from '@angular/material/autocomplete';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { fromEvent, Observable } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
 import { RelatedData } from './relatedbox.models';
@@ -89,6 +90,10 @@ export class RelatedboxComponent implements OnInit, OnDestroy, ControlValueAcces
       // throw new Error('Method not implemented.');
    }
 
+   errorMatcher() {
+      return new CustomErrorMatcher(this.ngControl)
+   }
+
    /* DESTROY */
    ngOnDestroy(): void {
       this.inputValueChanged = null;
@@ -96,4 +101,11 @@ export class RelatedboxComponent implements OnInit, OnDestroy, ControlValueAcces
       this.optionsChanging = null;
    }
 
+}
+
+class CustomErrorMatcher implements ErrorStateMatcher {
+   constructor(private customControl: NgControl) { }
+   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+      return this.customControl && this.customControl.touched && this.customControl.invalid;
+   }
 }
