@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { BusyService } from '@elesse/shared';
 import { TransferEntity } from '../model/transfers.model';
 
@@ -11,6 +11,8 @@ export class TransfersData {
    constructor(
       private busy: BusyService,
       private http: HttpClient) { }
+
+   @Output() OnDataChanged: EventEmitter<void> = new EventEmitter<void>();
 
    public async LoadTransfer(transferID: string): Promise<TransferEntity> {
       try {
@@ -34,28 +36,24 @@ export class TransfersData {
       finally { this.busy.hide(); }
    }
 
-   public async SaveTransfer(entry: TransferEntity): Promise<boolean> {
-      /*
+   public async SaveTransfer(transfer: TransferEntity): Promise<boolean> {
       try {
          this.busy.show();
 
-         if (!entry)
+         if (!transfer)
             return false;
 
-         if (entry.EntryID == null)
-            await this.http.post("api/entries/insert", entry).toPromise();
+         if (transfer.TransferID == null)
+            await this.http.post("api/transfers/insert", transfer).toPromise();
          else
-            await this.http.put("api/entries/update", entry).toPromise();
+            await this.http.put("api/transfers/update", transfer).toPromise();
 
-         await this.RefreshEntries();
+         this.OnDataChanged.emit();
          return true;
 
       }
-      catch { return false; / * error absorber * / }
+      catch { return false; /* error absorber */ }
       finally { this.busy.hide(); }
-      */
-      console.log('SaveTransfer', entry);
-      return false;
    }
 
 }
