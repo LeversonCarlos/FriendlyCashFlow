@@ -6,6 +6,7 @@ import { BusyService } from '../../shared/busy/busy.service';
 import { EntriesCache } from '../cache/cache.service';
 import { EntryEntity } from '../model/entries.model';
 import { Month, MonthSelectorService } from '@elesse/shared';
+import { PatternsData } from '@elesse/patterns';
 
 @Injectable({
    providedIn: 'root'
@@ -14,6 +15,7 @@ export class EntriesData {
 
    constructor(private busy: BusyService,
       private Cache: EntriesCache,
+      private patternsData: PatternsData,
       private monthSelector: MonthSelectorService,
       private http: HttpClient) {
       this.monthSelector.OnChange.subscribe(month => this.OnMonthChange(month));
@@ -87,6 +89,7 @@ export class EntriesData {
             await this.http.put("api/entries/update", entry).toPromise();
 
          await this.RefreshEntries();
+         await this.patternsData.RefreshPatterns();
          return true;
 
       }

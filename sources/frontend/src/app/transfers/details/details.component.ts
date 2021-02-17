@@ -32,6 +32,22 @@ export class DetailsComponent implements OnInit {
    public form: FormGroup;
    public get IsBusy(): boolean { return this.busy.IsBusy; }
 
+   public OnAccountsChange() {
+      const expenseAccount = this.form.get("ExpenseAccountIDRow");
+      const incomeAccount = this.form.get("IncomeAccountIDRow");
+      if (this.data.ExpenseAccountID && this.data.IncomeAccountID) {
+         if (this.data.ExpenseAccountID == this.data.IncomeAccountID) {
+            expenseAccount.setErrors({ sameAccount: true });
+            expenseAccount.markAsTouched();
+            incomeAccount.setErrors({ sameAccount: true });
+            incomeAccount.markAsTouched();
+            return;
+         }
+      }
+      expenseAccount.setErrors(null);
+      incomeAccount.setErrors(null);
+   }
+
    public async OnCancelClick() {
       if (!this.form.pristine)
          if (!await this.msg.Confirm('shared.ROLLBACK_TEXT', 'shared.ROLLBACK_CONFIRM_COMMAND', 'shared.ROLLBACK_ABORT_COMMAND'))

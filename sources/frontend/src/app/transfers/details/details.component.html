@@ -8,8 +8,10 @@
             <mat-card-content>
                <transfers-details-inputs-date [form]="form" [data]="data"></transfers-details-inputs-date>
                <transfers-details-inputs-value [form]="form" [data]="data"></transfers-details-inputs-value>
-               <transfers-details-inputs-expense-account [form]="form" [data]="data"></transfers-details-inputs-expense-account>
-               <transfers-details-inputs-income-account [form]="form" [data]="data"></transfers-details-inputs-income-account>
+               <transfers-details-inputs-expense-account [form]="form" [data]="data" (OnChange)="OnAccountsChange()">
+               </transfers-details-inputs-expense-account>
+               <transfers-details-inputs-income-account [form]="form" [data]="data" (OnChange)="OnAccountsChange()">
+               </transfers-details-inputs-income-account>
             </mat-card-content>
 
             <mat-card-actions>

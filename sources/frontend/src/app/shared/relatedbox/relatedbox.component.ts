@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Optional, Output, Self, ViewChild } from '@angular/core';
-import { ControlValueAccessor, NgControl } from '@angular/forms';
+import { ControlValueAccessor, FormControl, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { MatAutocompleteSelectedEvent, MatAutocompleteTrigger } from '@angular/material/autocomplete';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { fromEvent, Observable } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
 import { RelatedData } from './relatedbox.models';
@@ -65,6 +66,9 @@ export class RelatedboxComponent implements OnInit, OnDestroy, ControlValueAcces
       this.OnInputValueChanging(this.inputValue);
       this.autoComplete.openPanel();
    }
+   public OnBlur() {
+      this.onTouched();
+   }
 
    /* VALUE ACCESSOR */
    writeValue(val: RelatedData<any>): void {
@@ -72,15 +76,22 @@ export class RelatedboxComponent implements OnInit, OnDestroy, ControlValueAcces
       this.value = val
       this.onChange(val);
    }
+
    onChange = (val: RelatedData<any>) => { };
    registerOnChange(fn: any): void {
       this.onChange = fn;
    }
+
+   onTouched = () => { };
    registerOnTouched(fn: any): void {
-      // throw new Error('Method not implemented.');
+      this.onTouched = fn;
    }
    setDisabledState?(isDisabled: boolean): void {
       // throw new Error('Method not implemented.');
+   }
+
+   errorMatcher() {
+      return new CustomErrorMatcher(this.ngControl)
    }
 
    /* DESTROY */
@@ -90,4 +101,11 @@ export class RelatedboxComponent implements OnInit, OnDestroy, ControlValueAcces
       this.optionsChanging = null;
    }
 
+}
+
+class CustomErrorMatcher implements ErrorStateMatcher {
+   constructor(private customControl: NgControl) { }
+   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+      return this.customControl && this.customControl.touched && this.customControl.invalid;
+   }
 }

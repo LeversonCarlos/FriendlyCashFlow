@@ -1,7 +1,8 @@
+import { EventEmitter, Output } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AccountEntity, AccountsData } from '@elesse/accounts';
-import { nameof, RelatedData } from '@elesse/shared';
+import { RelatedData } from '@elesse/shared';
 import { TransferEntity } from 'src/app/transfers/model/transfers.model';
 
 @Component({
@@ -13,12 +14,13 @@ export class ExpenseAccountComponent implements OnInit {
 
    constructor(private accountsData: AccountsData) { }
 
+   @Output() OnChange: EventEmitter<void> = new EventEmitter<void>();
    @Input() data: TransferEntity;
    @Input() form: FormGroup;
    public AccountOptions: RelatedData<AccountEntity>[] = [];
    public AccountFiltered: RelatedData<AccountEntity>[] = [];
-   private get FormControlID(): string { return nameof<TransferEntity>(t => t.ExpenseAccountID); }
-   public get FormControlName(): string { return `${this.FormControlID}Row`; }
+   private FormControlID: string = "ExpenseAccountID";
+   public FormControlName: string = `${this.FormControlID}Row`;
 
    ngOnInit(): void {
       this.OnDataInit();
@@ -44,22 +46,9 @@ export class ExpenseAccountComponent implements OnInit {
          return;
       this.form.addControl(this.FormControlID, new FormControl(this.data.ExpenseAccountID ?? null));
       this.form.addControl(this.FormControlName, new FormControl(this.GetFirstAccount(), [Validators.required]));
-      const control = this.form.get(this.FormControlName);
-      control.valueChanges.subscribe((row: RelatedData<AccountEntity>) => {
+      this.form.get(this.FormControlName).valueChanges.subscribe((row: RelatedData<AccountEntity>) => {
          this.data.ExpenseAccountID = row?.value?.AccountID ?? null;
-         /*
-         if (!this.data.ExpenseAccountID)
-            return;
-         if (this.data.ExpenseAccountID == this.data.IncomeAccountID) {
-            control.setErrors({ sameAccount: true });
-            control.markAsDirty()
-         }
-         else {
-            control.setErrors(null);
-         }
-         console.log(control.errors)
-         // control.updateValueAndValidity();
-         */
+         this.OnChange.emit();
       });
    }
 
