@@ -48,8 +48,10 @@ export class PatternViewComponent implements OnInit {
       this.formSection.addControl("PatternRow", new FormControl(this.GetFirstPattern()));
       this.form.get("Pattern.PatternRow").valueChanges.subscribe((row: RelatedData<PatternEntity>) => {
          this.data.Pattern.PatternID = row?.value?.PatternID ?? null;
-         this.data.Pattern.Text = row?.value?.Text ?? null;
-         this.form.get("Pattern.CategoryID").setValue(row?.value?.CategoryID ?? null);
+         if (row?.value?.Text)
+            this.OnTextChanging(row.value.Text);
+         if (row?.value?.CategoryID)
+            this.form.get("Pattern.CategoryID").setValue(row.value.CategoryID);
       });
    }
 
