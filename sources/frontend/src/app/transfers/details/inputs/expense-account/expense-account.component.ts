@@ -2,7 +2,7 @@ import { EventEmitter, Output } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AccountEntity, AccountsData } from '@elesse/accounts';
-import { nameof, RelatedData } from '@elesse/shared';
+import { RelatedData } from '@elesse/shared';
 import { TransferEntity } from 'src/app/transfers/model/transfers.model';
 
 @Component({
@@ -19,8 +19,8 @@ export class ExpenseAccountComponent implements OnInit {
    @Input() form: FormGroup;
    public AccountOptions: RelatedData<AccountEntity>[] = [];
    public AccountFiltered: RelatedData<AccountEntity>[] = [];
-   private get FormControlID(): string { return nameof<TransferEntity>(t => t.ExpenseAccountID); }
-   public get FormControlName(): string { return `${this.FormControlID}Row`; }
+   private FormControlID: string = "ExpenseAccountID";
+   public FormControlName: string = `${this.FormControlID}Row`;
 
    ngOnInit(): void {
       this.OnDataInit();
