@@ -1,0 +1,75 @@
+import { Component, Input, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AccountEntity, AccountsData } from '@elesse/accounts';
+import { nameof, RelatedData } from '@elesse/shared';
+import { TransferEntity } from 'src/app/transfers/model/transfers.model';
+
+@Component({
+   selector: 'transfers-details-inputs-expense-account',
+   templateUrl: './expense-account.component.html',
+   styleUrls: ['./expense-account.component.scss']
+})
+export class ExpenseAccountComponent implements OnInit {
+
+   constructor(private accountsData: AccountsData) { }
+
+   @Input() data: TransferEntity;
+   @Input() form: FormGroup;
+   public AccountOptions: RelatedData<AccountEntity>[] = [];
+   public AccountFiltered: RelatedData<AccountEntity>[] = [];
+   private get FormControlID(): string { return nameof<TransferEntity>(t => t.ExpenseAccountID); }
+   public get FormControlName(): string { return `${this.FormControlID}Row`; }
+
+   ngOnInit(): void {
+      this.OnDataInit();
+      this.OnFormInit();
+   }
+
+   private OnDataInit() {
+      if (!this.data)
+         return;
+      this.AccountOptions = this.accountsData.GetAccounts(true)
+         .map(entity => Object.assign(new RelatedData, {
+            id: entity.AccountID,
+            description: entity.Text,
+            value: entity
+         }));
+      if (this.data.ExpenseAccountID)
+         this.AccountFiltered = this.AccountOptions
+            .filter(entity => entity.value.AccountID == this.data.ExpenseAccountID)
+   }
+
+   private OnFormInit() {
+      if (!this.form)
+         return;
+      this.form.addControl(this.FormControlID, new FormControl(this.data.ExpenseAccountID ?? null));
+      this.form.addControl(this.FormControlName, new FormControl(this.GetFirstAccount(), [Validators.required]));
+      const control = this.form.get(this.FormControlName);
+      control.valueChanges.subscribe((row: RelatedData<AccountEntity>) => {
+         this.data.ExpenseAccountID = row?.value?.AccountID ?? null;
+         /*
+         if (!this.data.ExpenseAccountID)
+            return;
+         if (this.data.ExpenseAccountID == this.data.IncomeAccountID) {
+            control.setErrors({ sameAccount: true });
+            control.markAsDirty()
+         }
+         else {
+            control.setErrors(null);
+         }
+         console.log(control.errors)
+         // control.updateValueAndValidity();
+         */
+      });
+   }
+
+   public OnAccountChanging(val: string) {
+      this.AccountFiltered = this.AccountOptions
+         .filter(entity => entity.value.Text.search(new RegExp(val, 'i')) != -1)
+         .sort((a, b) => a.description > b.description ? 1 : -1)
+   }
+
+   private GetFirstAccount = (): RelatedData<AccountEntity> =>
+      this.AccountFiltered?.length == 1 ? this.AccountFiltered[0] : null;
+
+}

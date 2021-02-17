@@ -21,3 +21,5 @@ export { LocalizationService } from './localization/localization.service';
 
 export { EnumData } from './enum-data/enum.data';
 export { RelatedData } from './relatedbox/relatedbox.models';
+
+export { nameof } from 'ts-simple-nameof'

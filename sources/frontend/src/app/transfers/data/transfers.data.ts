@@ -54,7 +54,7 @@ export class TransfersData {
       catch { return false; / * error absorber * / }
       finally { this.busy.hide(); }
       */
-      console.log('SaveTransfer', 'TODO !');
+      console.log('SaveTransfer', entry);
       return false;
    }
 

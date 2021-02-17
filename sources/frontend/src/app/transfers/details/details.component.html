@@ -6,19 +6,15 @@
          <mat-card>
 
             <mat-card-content>
-               <code>{{ data | json }}</code>
+               <transfers-details-inputs-date [form]="form" [data]="data"></transfers-details-inputs-date>
+               <transfers-details-inputs-value [form]="form" [data]="data"></transfers-details-inputs-value>
+               <transfers-details-inputs-expense-account [form]="form" [data]="data"></transfers-details-inputs-expense-account>
+               <transfers-details-inputs-income-account [form]="form" [data]="data"></transfers-details-inputs-income-account>
             </mat-card-content>
 
             <mat-card-actions>
-               <button type="button" mat-button (click)="OnCancelClick()"
-                  [matTooltip]="'shared.CANCEL_COMMAND_TOOLTIP' | translation | async" [disabled]="IsBusy">
-                  {{ "shared.CANCEL_COMMAND" | translation | async }}
-               </button>
-               <button type="submit" mat-button color="primary"
-                  [matTooltip]="'shared.SAVE_COMMAND_TOOLTIP' | translation | async"
-                  [disabled]="!inputForm?.valid || IsBusy">
-                  {{ "shared.SAVE_COMMAND" | translation | async }}
-               </button>
+               <transfers-details-commands-cancel [form]="form" (click)="OnCancelClick()"></transfers-details-commands-cancel>
+               <transfers-details-commands-confirm [form]="form"></transfers-details-commands-confirm>
             </mat-card-actions>
 
          </mat-card>
