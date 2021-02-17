@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AccountEntity, AccountsData } from '@elesse/accounts';
 import { nameof, RelatedData } from '@elesse/shared';
@@ -13,6 +13,7 @@ export class IncomeAccountComponent implements OnInit {
 
    constructor(private accountsData: AccountsData) { }
 
+   @Output() OnChange: EventEmitter<void> = new EventEmitter<void>();
    @Input() data: TransferEntity;
    @Input() form: FormGroup;
    public AccountOptions: RelatedData<AccountEntity>[] = [];
@@ -46,6 +47,7 @@ export class IncomeAccountComponent implements OnInit {
       this.form.addControl(this.FormControlName, new FormControl(this.GetFirstAccount(), [Validators.required]));
       this.form.get(this.FormControlName).valueChanges.subscribe((row: RelatedData<AccountEntity>) => {
          this.data.IncomeAccountID = row?.value?.AccountID ?? null;
+         this.OnChange.emit();
       });
    }
 
