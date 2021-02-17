@@ -65,6 +65,9 @@ export class RelatedboxComponent implements OnInit, OnDestroy, ControlValueAcces
       this.OnInputValueChanging(this.inputValue);
       this.autoComplete.openPanel();
    }
+   public OnBlur() {
+      this.onTouched();
+   }
 
    /* VALUE ACCESSOR */
    writeValue(val: RelatedData<any>): void {
@@ -72,12 +75,15 @@ export class RelatedboxComponent implements OnInit, OnDestroy, ControlValueAcces
       this.value = val
       this.onChange(val);
    }
+
    onChange = (val: RelatedData<any>) => { };
    registerOnChange(fn: any): void {
       this.onChange = fn;
    }
+
+   onTouched = () => { };
    registerOnTouched(fn: any): void {
-      // throw new Error('Method not implemented.');
+      this.onTouched = fn;
    }
    setDisabledState?(isDisabled: boolean): void {
       // throw new Error('Method not implemented.');
