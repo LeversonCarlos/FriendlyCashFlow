@@ -41,7 +41,7 @@ export class DetailsRouteViewComponent implements OnInit {
       this.inputForm = this.fb.group({
          Pattern: this.fb.group({
             Type: [data.Pattern.Type],
-            Text: [data.Pattern.Text]
+            Text: [data.Pattern.Text, Validators.required]
          }),
       });
    }
