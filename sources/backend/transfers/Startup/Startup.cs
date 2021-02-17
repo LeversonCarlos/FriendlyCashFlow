@@ -1,7 +1,6 @@
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Elesse.Patterns;
 
 namespace Elesse.Transfers
 {
@@ -17,7 +16,6 @@ namespace Elesse.Transfers
             .AddScoped<ITransferRepository, TransferRepository>()
             .AddScoped<ITransferService, TransferService>();
          mvcBuilder
-            .AddPatternService(configs)
             .AddApplicationPart(Assembly.GetAssembly(typeof(TransferController)));
          return mvcBuilder;
       }
