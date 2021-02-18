@@ -66,10 +66,8 @@ describe('TransfersData', () => {
          done();
       });
 
-      const httpRequest = httpMock.expectOne(() => true);
+      const httpRequest = httpMock.expectOne(x => x.url.startsWith("api/transfers/load"));
       httpRequest.error(new ErrorEvent('any http error'))
-
-      httpMock.verify()
    });
 
    it('LoadTransfer with "edit" snapshot.routeConfig.path parameter and null return from httpClient must result null', (done) => {
@@ -80,10 +78,8 @@ describe('TransfersData', () => {
          done();
       });
 
-      const httpRequest = httpMock.expectOne(() => true);
+      const httpRequest = httpMock.expectOne(x => x.url.startsWith("api/transfers/load"));
       httpRequest.flush(null)
-
-      httpMock.verify()
    });
 
    it('LoadTransfer with "edit" snapshot.routeConfig.path parameter and valid return from httpClient must result valid instance', (done) => {
@@ -99,7 +95,7 @@ describe('TransfersData', () => {
          done();
       });
 
-      const httpRequest = httpMock.expectOne(() => true);
+      const httpRequest = httpMock.expectOne(x => x.url.startsWith("api/transfers/load"));
       const expected = {
          TransferID: 'TransferID',
          ExpenseAccountID: 'ExpenseAccountID',
@@ -108,8 +104,6 @@ describe('TransfersData', () => {
          Value: 12.34
       };
       httpRequest.flush(expected)
-
-      httpMock.verify()
    });
 
 });
