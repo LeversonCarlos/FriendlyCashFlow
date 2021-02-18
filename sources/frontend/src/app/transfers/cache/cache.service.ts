@@ -19,4 +19,15 @@ export class TransfersCache extends StorageService<string, TransferEntity[]> {
    private Subject: BehaviorSubject<TransferEntity[]>;
    public Observe: Observable<TransferEntity[]>;
 
+   public InitializeValue(key: string) {
+      super.InitializeValue(key);
+      if (this.Subs) {
+         if (this.SubsKey == key)
+            return;
+         this.Subs.unsubscribe();
+      }
+      this.Subs = this.GetObservable(key).subscribe(values => this.Subject.next(values));
+      this.SubsKey = key;
+   }
+
 }
