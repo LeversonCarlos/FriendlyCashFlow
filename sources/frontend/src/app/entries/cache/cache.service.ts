@@ -14,6 +14,11 @@ export class EntriesCache extends StorageService<string, EntryEntity[]> {
       this.Observe = this.Subject.asObservable();
    }
 
+   private SubsKey: string;
+   private Subs: Subscription;
+   private Subject: BehaviorSubject<EntryEntity[]>;
+   public Observe: Observable<EntryEntity[]>;
+
    public InitializeValue(key: string) {
       super.InitializeValue(key);
       if (this.Subs) {
@@ -24,11 +29,6 @@ export class EntriesCache extends StorageService<string, EntryEntity[]> {
       this.Subs = this.GetObservable(key).subscribe(values => this.Subject.next(values));
       this.SubsKey = key;
    }
-
-   private SubsKey: string;
-   private Subs: Subscription;
-   private Subject: BehaviorSubject<EntryEntity[]>;
-   public Observe: Observable<EntryEntity[]>;
 
    public SetEntries(key: string, value: EntryEntity[]) {
 
