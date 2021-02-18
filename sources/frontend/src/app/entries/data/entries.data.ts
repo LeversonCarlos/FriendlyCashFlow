@@ -23,14 +23,8 @@ export class EntriesData {
    }
 
    private get CurrentMonth(): Month { return this.monthSelector.CurrentMonth; }
-   public DefaultDueDate: Date;
 
    private OnMonthChange(value: Month) {
-      const today = new Date();
-      if (value.Year == today.getFullYear() && value.Month == today.getMonth() + 1)
-         this.DefaultDueDate = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate(), 12);
-      else
-         this.DefaultDueDate = new Date(value.Year, (value.Month - 1), 1, 12);
       this.Cache.InitializeValue(value.ToCode());
       this.RefreshEntries();
    }
@@ -60,9 +54,9 @@ export class EntriesData {
             return null;
 
          if (entryID == 'new-income')
-            return Object.assign(new EntryEntity, { Pattern: { Type: enCategoryType.Income, DueDate: this.DefaultDueDate } });
+            return Object.assign(new EntryEntity, { Pattern: { Type: enCategoryType.Income, DueDate: this.monthSelector.DefaultDate } });
          else if (entryID == 'new-expense')
-            return Object.assign(new EntryEntity, { Pattern: { Type: enCategoryType.Expense, DueDate: this.DefaultDueDate } });
+            return Object.assign(new EntryEntity, { Pattern: { Type: enCategoryType.Expense, DueDate: this.monthSelector.DefaultDate } });
 
          let value = await this.http.get<EntryEntity>(`api/entries/load/${entryID}`).toPromise();
          if (!value)

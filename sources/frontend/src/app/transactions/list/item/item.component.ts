@@ -28,7 +28,7 @@ export class ItemComponent implements OnInit {
       if (this.Transaction instanceof TransactionEntry)
          return `/entries/details/${this.Transaction.Entry.EntryID}`;
       else
-         return null;
+         return null; //`/transfers/edit/${this.Transaction.Transfer.TransferID}`;
    }
 
 }

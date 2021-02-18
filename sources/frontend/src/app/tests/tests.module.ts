@@ -19,7 +19,8 @@ const dummyRoutes = [
    { path: 'transactions', component: BlankComponent },
    { path: 'transactions/list', component: BlankComponent },
    { path: 'entries/details/:id', component: BlankComponent },
-   { path: 'transfers/details/:id', component: BlankComponent },
+   { path: 'transfers/edit/:transfer', component: BlankComponent },
+   { path: 'transfers/new', component: BlankComponent },
 ];
 
 @NgModule({
