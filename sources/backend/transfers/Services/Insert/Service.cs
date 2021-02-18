@@ -22,6 +22,9 @@ namespace Elesse.Transfers
             try { transfer = TransferEntity.Create(insertVM.ExpenseAccountID, insertVM.IncomeAccountID, insertVM.Date, insertVM.Value); }
             catch (Exception valEx) { return Warning(valEx.Message); }
 
+            // REFRESH SORTING
+            transfer.RefreshSorting();
+
             // SAVE ENTITY
             await _TransferRepository.InsertAsync(transfer);
 

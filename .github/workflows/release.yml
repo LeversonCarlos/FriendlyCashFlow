@@ -43,6 +43,8 @@ jobs:
           dotnet clean --configuration Release
           cd ../transfers
           dotnet clean --configuration Release
+          cd ../transactions
+          dotnet clean --configuration Release
           cd ../main
           dotnet clean --configuration Release
 
@@ -90,6 +92,12 @@ jobs:
 
       - name: Build Transfers
         working-directory: 'sources/backend/transfers'
+        run: |
+          dotnet build --configuration Release
+          dotnet test /p:CoverletOutputFormat=opencover
+
+      - name: Build Transactions
+        working-directory: 'sources/backend/transactions'
         run: |
           dotnet build --configuration Release
           dotnet test /p:CoverletOutputFormat=opencover

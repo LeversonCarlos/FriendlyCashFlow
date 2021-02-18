@@ -26,6 +26,9 @@ namespace Elesse.Transfers
             try { transfer.Change(updateVM.ExpenseAccountID, updateVM.IncomeAccountID, updateVM.Date, updateVM.Value); }
             catch (Exception valEx) { return Warning(valEx.Message); }
 
+            // REFRESH SORTING
+            transfer.RefreshSorting();
+
             // SAVE TRANSFER
             await _TransferRepository.UpdateAsync(transfer);
 
