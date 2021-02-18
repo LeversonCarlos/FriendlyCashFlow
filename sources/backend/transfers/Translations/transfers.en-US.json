@@ -1,5 +1,5 @@
 {
-  "TITLE": "Transfers",
+  "TITLE": "Transfer",
 
   "INVALID_TRANSFERID_PROPERTY": "Invalid id property",
   "INVALID_EXPENSEACCOUNTID_PROPERTY": "Invalid expense account property",
@@ -13,5 +13,10 @@
   "INVALID_LOAD_PARAMETER": "The value entered for the 'transfer.load ' function is invalid",
   "INVALID_INSERT_PARAMETER": "The value entered for the 'transfer.insert' function is invalid",
   "INVALID_UPDATE_PARAMETER": "The value entered for the 'transfer.update' function is invalid",
-  "INVALID_DELETE_PARAMETER": "The value entered for the 'transfer.delete' function is invalid"
+  "INVALID_DELETE_PARAMETER": "The value entered for the 'transfer.delete' function is invalid",
+
+  "EXPENSEACCOUNTID_LABEL": "Expense Account",
+  "INCOMEACCOUNTID_LABEL": "Income Account",
+  "DATE_LABEL": "Date",
+  "VALUE_LABEL": "Value"
 }
