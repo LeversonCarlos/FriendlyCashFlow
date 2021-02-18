@@ -13,23 +13,21 @@ import { PatternsData } from '@elesse/patterns';
 })
 export class EntriesData {
 
-   constructor(private busy: BusyService,
-      private Cache: EntriesCache,
+   constructor(private Cache: EntriesCache,
+      private busy: BusyService, private monthSelector: MonthSelectorService,
       private patternsData: PatternsData,
-      private monthSelector: MonthSelectorService,
       private http: HttpClient) {
       this.monthSelector.OnChange.subscribe(month => this.OnMonthChange(month));
       this.OnMonthChange(this.CurrentMonth);
    }
 
    private get CurrentMonth(): Month { return this.monthSelector.CurrentMonth; }
+   public get ObserveEntries(): Observable<EntryEntity[]> { return this.Cache.Observe; }
 
    private OnMonthChange(value: Month) {
       this.Cache.InitializeValue(value.ToCode());
       this.RefreshEntries();
    }
-
-   public get ObserveEntries(): Observable<EntryEntity[]> { return this.Cache.Observe; }
 
    public async RefreshEntries(): Promise<void> {
       try {

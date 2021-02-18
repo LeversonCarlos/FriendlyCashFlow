@@ -30,4 +30,10 @@ export class TransfersCache extends StorageService<string, TransferEntity[]> {
       this.SubsKey = key;
    }
 
+   public SetTransfers(key: string, value: TransferEntity[]) {
+      const transfers = value
+         .map(transfer => TransferEntity.Parse(transfer));
+      this.SetValue(key, transfers);
+   }
+
 }

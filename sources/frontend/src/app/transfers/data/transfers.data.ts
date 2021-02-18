@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { ActivatedRouteSnapshot } from '@angular/router';
-import { BusyService, MonthSelectorService } from '@elesse/shared';
+import { BusyService, Month, MonthSelectorService } from '@elesse/shared';
+import { Observable } from 'rxjs';
+import { TransfersCache } from '../cache/cache.service';
 import { TransferEntity } from '../model/transfers.model';
 
 @Injectable({
@@ -9,11 +11,36 @@ import { TransferEntity } from '../model/transfers.model';
 })
 export class TransfersData {
 
-   constructor(
+   constructor(private Cache: TransfersCache,
       private busy: BusyService, private monthSelector: MonthSelectorService,
-      private http: HttpClient) { }
+      private http: HttpClient) {
+      this.monthSelector.OnChange.subscribe(month => this.OnMonthChange(month));
+      this.OnMonthChange(this.CurrentMonth);
+   }
 
    @Output() OnDataChanged: EventEmitter<void> = new EventEmitter<void>();
+   private get CurrentMonth(): Month { return this.monthSelector.CurrentMonth; }
+   public get ObserveTransfers(): Observable<TransferEntity[]> { return this.Cache.Observe; }
+
+   private OnMonthChange(value: Month) {
+      this.Cache.InitializeValue(value.ToCode());
+      this.RefreshTransfers();
+   }
+
+   public async RefreshTransfers(): Promise<void> {
+      try {
+         this.busy.show();
+
+         const url = `api/transfers/list/${this.CurrentMonth.Year}/${this.CurrentMonth.Month}`;
+         const values = await this.http.get<TransferEntity[]>(url).toPromise();
+         if (!values)
+            return;
+
+         this.Cache.SetTransfers(this.CurrentMonth.ToCode(), values);
+      }
+      catch { /* error absorber */ }
+      finally { this.busy.hide(); }
+   }
 
    public async LoadTransfer(snapshot: ActivatedRouteSnapshot): Promise<TransferEntity> {
       try {
