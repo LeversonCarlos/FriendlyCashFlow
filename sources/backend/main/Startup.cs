@@ -4,6 +4,7 @@ using Elesse.Identity.Helpers;
 using Elesse.Categories;
 using Elesse.Entries;
 using Elesse.Transfers;
+using Elesse.Transactions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -49,7 +50,8 @@ namespace Elesse.FriendlyCashFlow
             .AddAccountService(_Configuration)
             .AddCategoryService(_Configuration)
             .AddEntryService(_Configuration)
-            .AddTransferService(_Configuration);
+            .AddTransferService(_Configuration)
+            .AddTransactionService(_Configuration);
       }
 
       public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
