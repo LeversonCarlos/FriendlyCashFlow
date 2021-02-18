@@ -7,3 +7,4 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("patterns")]
 [assembly: InternalsVisibleTo("entries")]
 [assembly: InternalsVisibleTo("transfers")]
+[assembly: InternalsVisibleTo("transactions")]

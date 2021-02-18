@@ -1,0 +1,9 @@
+{
+  "TITLE": "Transactions",
+  "MENU": "Transactions",
+
+  "ADD_INCOME_MENU": "New Income",
+  "ADD_EXPENSE_MENU": "New Expense",
+  "ADD_TRANSFER_MENU": "New Transfer",
+  "REMOVE_MENU": "Remove"
+}

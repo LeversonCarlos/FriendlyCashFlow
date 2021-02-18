@@ -22,6 +22,7 @@
     <ProjectReference Include="..\categories\categories.csproj" />
     <ProjectReference Include="..\entries\entries.csproj" />
     <ProjectReference Include="..\transfers\transfers.csproj" />
+    <ProjectReference Include="..\transactions\transactions.csproj" />
   </ItemGroup>
 
 </Project>
