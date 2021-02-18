@@ -17,9 +17,9 @@ describe('EntriesCache', () => {
       expect(service).toBeTruthy();
    });
 
-   it('SetEntries parses and sorts list and retrieve result balance as expected', (done) => {
+   it('SetEntries parses and raises observable with list', (done) => {
       const entries: EntryEntity[] = [
-         EntryEntity.Parse({ AccountID: "account", EntryValue: 1000, Paid: true,Sorting: 10 }),
+         EntryEntity.Parse({ AccountID: "account", EntryValue: 1000, Paid: true, Sorting: 10 }),
          EntryEntity.Parse({ AccountID: "account", EntryValue: -100, Paid: true, Sorting: 30 }),
          EntryEntity.Parse({ AccountID: "account", EntryValue: -200.50, Paid: true, Sorting: 50 }),
          EntryEntity.Parse({ AccountID: "account", EntryValue: 0.50, Paid: true, Sorting: 40 }),
@@ -29,13 +29,9 @@ describe('EntriesCache', () => {
 
       service.InitializeValue(month);
       service.GetObservable(month).subscribe(resultEntries => {
-         if (resultEntries != null){
-         expect(resultEntries).not.toBeNull();
-         expect(resultEntries.length).toBe(5)
-         expect(resultEntries[4].Balance.Total.ExpectedBalance).toBe(-188)
-         expect(resultEntries[4].Balance.Total.RealizedBalance).toBe(700)
-         expect(resultEntries[4].EntryValue).toBe(-200.50)
-         done();
+         if (resultEntries != null) {
+            expect(resultEntries.length).toBe(5)
+            done();
          }
       });
 
