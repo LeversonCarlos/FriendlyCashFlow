@@ -1,6 +1,7 @@
 import { AccountEntity, AccountsData } from "@elesse/accounts";
 import { CategoryEntity, enCategoryType } from "@elesse/categories";
 import { EntryEntity } from "@elesse/entries";
+import { TransferEntity } from "@elesse/transfers";
 import { combineLatest, Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { Balance, TransactionAccount, TransactionBase, TransactionDay, TransactionEntry } from "../model/transactions.model";
@@ -11,17 +12,20 @@ export class TransactionsConverter {
       accountsObservable: Observable<AccountEntity[]>,
       incomeCategoriesObservable: Observable<CategoryEntity[]>,
       expenseCategoriesObservable: Observable<CategoryEntity[]>,
-      entriesObservable: Observable<EntryEntity[]>): Observable<TransactionAccount[]> =>
-      combineLatest([accountsObservable, incomeCategoriesObservable, expenseCategoriesObservable, entriesObservable])
+      entriesObservable: Observable<EntryEntity[]>, transfersObservable: Observable<TransferEntity[]>
+   ): Observable<TransactionAccount[]> =>
+      combineLatest([accountsObservable, incomeCategoriesObservable, expenseCategoriesObservable, entriesObservable, transfersObservable])
          .pipe(
-            map(([accounts, incomeCategories, expenseCategories, entries]) => TransactionsConverter.Convert(accounts, incomeCategories, expenseCategories, entries))
+            map(([accounts, incomeCategories, expenseCategories, entries, transfers]) => TransactionsConverter.Convert(accounts, incomeCategories, expenseCategories, entries, transfers))
          );
 
    public static Convert(
       accountsParam: AccountEntity[],
       incomeCategoriesList: CategoryEntity[],
       expenseCategoriesList: CategoryEntity[],
-      entriesParam: EntryEntity[]): TransactionAccount[] {
+      entriesParam: EntryEntity[],
+      transfersParam: TransferEntity[]
+   ): TransactionAccount[] {
       if (accountsParam == null || accountsParam.length == 0)
          return [];
 
