@@ -70,6 +70,8 @@ namespace Elesse.Transfers
          }
       }
 
+      public decimal Sorting { get; set; }
+
    }
 
    partial struct WARNINGS
