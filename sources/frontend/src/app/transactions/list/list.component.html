@@ -7,11 +7,11 @@
          <mat-icon>add_circle</mat-icon>
       </button>
       <mat-menu #addMenu="matMenu">
-         <button mat-menu-item routerLink="../details/new-income">
+         <button mat-menu-item routerLink="/entries/details/new-income">
             <mat-icon>add</mat-icon>
             <span>{{ 'transactions.ADD_INCOME_MENU' | translation | async }}</span>
          </button>
-         <button mat-menu-item routerLink="../details/new-expense">
+         <button mat-menu-item routerLink="/entries/details/new-expense">
             <mat-icon>remove</mat-icon>
             <span>{{ 'transactions.ADD_EXPENSE_MENU' | translation | async }}</span>
          </button>
