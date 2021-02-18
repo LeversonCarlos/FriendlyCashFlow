@@ -5,7 +5,7 @@ import { TransferEntity } from '../model/transfers.model';
 @Injectable({
    providedIn: 'root'
 })
-export class CacheService extends StorageService<string, TransferEntity[]> {
+export class TransfersCache extends StorageService<string, TransferEntity[]> {
 
    constructor() {
       super("TransfersCache");
