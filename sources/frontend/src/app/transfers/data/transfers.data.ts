@@ -23,20 +23,9 @@ export class TransfersData {
             return null;
 
          if (snapshot.routeConfig.path == "new")
-            return this.GetNewTransfer();
-         else
-            return this.GetTransfer(snapshot.params?.transfer);
+            return TransferEntity.Parse({ Date: this.monthSelector.DefaultDate });
 
-      }
-      finally { this.busy.hide(); }
-   }
-
-   private GetNewTransfer(): TransferEntity {
-      return TransferEntity.Parse({ Date: this.monthSelector.DefaultDate });
-   }
-
-   private async GetTransfer(transferID: string) {
-      try {
+         const transferID = snapshot.params?.transfer;
          if (!transferID)
             return null;
 
@@ -46,8 +35,10 @@ export class TransfersData {
 
          transfer = TransferEntity.Parse(transfer);
          return transfer;
+
       }
       catch { return null; /* error absorber */ }
+      finally { this.busy.hide(); }
    }
 
    public async SaveTransfer(transfer: TransferEntity): Promise<boolean> {
