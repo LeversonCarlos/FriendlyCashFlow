@@ -5,7 +5,7 @@ import { RelatedData } from '@elesse/shared';
 import { TransferEntity } from 'src/app/transfers/model/transfers.model';
 
 @Component({
-   selector: 'transfers-details-inputs-income-account',
+   selector: 'transfers-details-income-account',
    templateUrl: './income-account.component.html',
    styleUrls: ['./income-account.component.scss']
 })

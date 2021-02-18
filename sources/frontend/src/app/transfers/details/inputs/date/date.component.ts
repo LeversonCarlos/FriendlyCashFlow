@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TransferEntity } from 'src/app/transfers/model/transfers.model';
 
 @Component({
-   selector: 'transfers-details-inputs-date',
+   selector: 'transfers-details-date',
    templateUrl: './date.component.html',
    styleUrls: ['./date.component.scss']
 })
