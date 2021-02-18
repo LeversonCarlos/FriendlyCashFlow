@@ -2,6 +2,9 @@
   "TITLE": "Transactions",
   "MENU": "Transactions",
 
+  "TRANSFER_FROM_LABEL": "Transfer from {0}",
+  "TRANSFER_TO_LABEL": "Transfer to {0}",
+
   "ADD_INCOME_MENU": "New Income",
   "ADD_EXPENSE_MENU": "New Expense",
   "ADD_TRANSFER_MENU": "New Transfer",

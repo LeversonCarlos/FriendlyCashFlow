@@ -12,11 +12,13 @@ export class TransactionsConverter {
       accountsObservable: Observable<AccountEntity[]>,
       incomeCategoriesObservable: Observable<CategoryEntity[]>,
       expenseCategoriesObservable: Observable<CategoryEntity[]>,
-      entriesObservable: Observable<EntryEntity[]>, transfersObservable: Observable<TransferEntity[]>
-   ): Observable<TransactionAccount[]> =>
+      entriesObservable: Observable<EntryEntity[]>, transfersObservable: Observable<TransferEntity[]>,
+      transferTo: string, transferFrom: string): Observable<TransactionAccount[]> =>
       combineLatest([accountsObservable, incomeCategoriesObservable, expenseCategoriesObservable, entriesObservable, transfersObservable])
          .pipe(
-            map(([accounts, incomeCategories, expenseCategories, entries, transfers]) => TransactionsConverter.Convert(accounts, incomeCategories, expenseCategories, entries, transfers))
+            map(([accounts, incomeCategories, expenseCategories, entries, transfers]) =>
+               TransactionsConverter.Convert(accounts, incomeCategories, expenseCategories, entries, transfers, transferTo, transferFrom)
+            )
          );
 
    public static Convert(
@@ -24,14 +26,14 @@ export class TransactionsConverter {
       incomeCategoriesList: CategoryEntity[],
       expenseCategoriesList: CategoryEntity[],
       entriesParam: EntryEntity[],
-      transfersParam: TransferEntity[]
-   ): TransactionAccount[] {
+      transfersParam: TransferEntity[],
+      transferTo: string = null, transferFrom: string = null): TransactionAccount[] {
       if (accountsParam == null || accountsParam.length == 0)
          return [];
 
       const accountsDict = TransactionsConverter.GetAccountsDictionary(accountsParam);
       TransactionsConverter.DistributeEntriesThroughAccounts(accountsDict, incomeCategoriesList, expenseCategoriesList, entriesParam);
-      TransactionsConverter.DistributeTransfersThroughAccounts(accountsDict, transfersParam);
+      TransactionsConverter.DistributeTransfersThroughAccounts(accountsDict, transfersParam, transferTo, transferFrom);
       const accountsResult = TransactionsConverter.ParseDictionaryDataIntoTransactionData(accountsDict, accountsParam);
 
       return accountsResult;
@@ -86,7 +88,8 @@ export class TransactionsConverter {
 
    private static DistributeTransfersThroughAccounts(
       accountsDict: Record<string, AccountDict>,
-      transfersParam: TransferEntity[]) {
+      transfersParam: TransferEntity[],
+      transferTo: string, transferFrom: string) {
 
       // LOOP THROUGH THE ENTRIES LIST
       if (transfersParam?.length > 0) {
@@ -95,8 +98,8 @@ export class TransactionsConverter {
 
             // PREPARE BOTH ACCOUNTS CASE
             const transferAccounts = [
-               { AccountID: transfer.ExpenseAccountID, Type: enCategoryType.Expense },
-               { AccountID: transfer.IncomeAccountID, Type: enCategoryType.Income }
+               { AccountID: transfer.ExpenseAccountID, OtherAccountID: transfer.IncomeAccountID, Type: enCategoryType.Expense },
+               { AccountID: transfer.IncomeAccountID, OtherAccountID: transfer.ExpenseAccountID, Type: enCategoryType.Income }
             ];
             for (let transferAccountIndex = 0; transferAccountIndex < transferAccounts.length; transferAccountIndex++) {
                const transferAccount = transferAccounts[transferAccountIndex];
@@ -105,7 +108,12 @@ export class TransactionsConverter {
                const accountDict = accountsDict[transferAccount.AccountID];
 
                // PARSE ENTRY INTO TRANSATION
-               const transaction = TransactionTransfer.Parse(transfer, accountDict.Account.Text, transferAccount.Type);
+               let accountText = accountsDict[transferAccount.OtherAccountID].Account.Text;
+               if (transferAccount.Type == enCategoryType.Expense && transferTo && transferTo.includes('{0}'))
+                  accountText = transferTo.replace('{0}', accountText);
+               if (transferAccount.Type == enCategoryType.Income && transferFrom && transferFrom.includes('{0}'))
+                  accountText = transferFrom.replace('{0}', accountText);
+               const transaction = TransactionTransfer.Parse(transfer, accountText, transferAccount.Type);
 
                // SUM TRANSACTION VALUE INTO ACCOUNT GENERAL BALANCE
                accountDict.Balance.Expected += transaction.Value;
