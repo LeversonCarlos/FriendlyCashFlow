@@ -10,12 +10,17 @@
                </transfers-details-inputs-expense-account>
                <transfers-details-inputs-income-account [form]="form" [data]="data" (OnChange)="OnAccountsChange()">
                </transfers-details-inputs-income-account>
-               <transfers-details-inputs-date [form]="form" [data]="data"></transfers-details-inputs-date>
-               <transfers-details-inputs-value [form]="form" [data]="data"></transfers-details-inputs-value>
+               <div class="row">
+                  <transfers-details-inputs-date [form]="form" [data]="data">
+                  </transfers-details-inputs-date>
+                  <transfers-details-inputs-value [form]="form" [data]="data">
+                  </transfers-details-inputs-value>
+               </div>
             </mat-card-content>
 
             <mat-card-actions>
-               <transfers-details-commands-cancel [form]="form" (click)="OnCancelClick()"></transfers-details-commands-cancel>
+               <transfers-details-commands-cancel [form]="form" (click)="OnCancelClick()">
+               </transfers-details-commands-cancel>
                <transfers-details-commands-confirm [form]="form"></transfers-details-commands-confirm>
             </mat-card-actions>
 
