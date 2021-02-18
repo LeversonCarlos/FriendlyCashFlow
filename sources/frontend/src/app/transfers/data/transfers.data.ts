@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import { BusyService } from '@elesse/shared';
+import { ActivatedRouteSnapshot } from '@angular/router';
+import { BusyService, MonthSelectorService } from '@elesse/shared';
 import { TransferEntity } from '../model/transfers.model';
 
 @Injectable({
@@ -9,31 +10,44 @@ import { TransferEntity } from '../model/transfers.model';
 export class TransfersData {
 
    constructor(
-      private busy: BusyService,
+      private busy: BusyService, private monthSelector: MonthSelectorService,
       private http: HttpClient) { }
 
    @Output() OnDataChanged: EventEmitter<void> = new EventEmitter<void>();
 
-   public async LoadTransfer(transferID: string): Promise<TransferEntity> {
+   public async LoadTransfer(snapshot: ActivatedRouteSnapshot): Promise<TransferEntity> {
       try {
          this.busy.show();
 
+         if (!snapshot || !snapshot.routeConfig || !snapshot.routeConfig.path)
+            return null;
+
+         if (snapshot.routeConfig.path == "new")
+            return this.GetNewTransfer();
+         else
+            return this.GetTransfer(snapshot.params?.transfer);
+
+      }
+      finally { this.busy.hide(); }
+   }
+
+   private GetNewTransfer(): TransferEntity {
+      return TransferEntity.Parse({ Date: this.monthSelector.DefaultDate });
+   }
+
+   private async GetTransfer(transferID: string) {
+      try {
          if (!transferID)
             return null;
 
-         if (transferID == 'new')
-            return TransferEntity.Parse({});
-
-         let value = await this.http.get<TransferEntity>(`api/transfers/load/${transferID}`).toPromise();
-         if (!value)
+         let transfer = await this.http.get<TransferEntity>(`api/transfers/load/${transferID}`).toPromise();
+         if (!transfer)
             return null;
 
-         value = TransferEntity.Parse(value);
-         return value;
-
+         transfer = TransferEntity.Parse(transfer);
+         return transfer;
       }
       catch { return null; /* error absorber */ }
-      finally { this.busy.hide(); }
    }
 
    public async SaveTransfer(transfer: TransferEntity): Promise<boolean> {

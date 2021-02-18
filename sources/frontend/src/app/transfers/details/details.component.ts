@@ -17,14 +17,11 @@ export class DetailsComponent implements OnInit {
       private activatedRoute: ActivatedRoute, private router: Router, private fb: FormBuilder) { }
 
    public async ngOnInit(): Promise<void> {
-      const paramID = this.activatedRoute.snapshot.params.id;
-
-      this.data = await this.transferData.LoadTransfer(paramID);
+      this.data = await this.transferData.LoadTransfer(this.activatedRoute.snapshot);
       if (!this.data) {
          this.router.navigate(["/transactions/list"]);
          return;
       }
-
       this.form = this.fb.group({});
    }
 
