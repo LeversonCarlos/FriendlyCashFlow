@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { TransactionBase, TransactionEntry } from '../../model/transactions.model';
+import { TransactionBase, TransactionEntry, TransactionTransfer } from '../../model/transactions.model';
 
 @Component({
    selector: 'transactions-item',
@@ -27,6 +27,8 @@ export class ItemComponent implements OnInit {
    public get DetailsRouterLink(): string {
       if (this.Transaction instanceof TransactionEntry)
          return `/entries/details/${this.Transaction.Entry.EntryID}`;
+      else if (this.Transaction instanceof TransactionTransfer)
+         return `/transfers/edit/${this.Transaction.Transfer.TransferID}`;
       else
          return null;
    }

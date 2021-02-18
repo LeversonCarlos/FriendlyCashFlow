@@ -6,17 +6,19 @@
          <mat-card>
 
             <mat-card-content>
-               <transfers-details-inputs-expense-account [form]="form" [data]="data" (OnChange)="OnAccountsChange()">
-               </transfers-details-inputs-expense-account>
-               <transfers-details-inputs-income-account [form]="form" [data]="data" (OnChange)="OnAccountsChange()">
-               </transfers-details-inputs-income-account>
-               <transfers-details-inputs-date [form]="form" [data]="data"></transfers-details-inputs-date>
-               <transfers-details-inputs-value [form]="form" [data]="data"></transfers-details-inputs-value>
+               <transfers-details-expense-account [form]="form" [data]="data" (OnChange)="OnAccountsChange()">
+               </transfers-details-expense-account>
+               <transfers-details-income-account [form]="form" [data]="data" (OnChange)="OnAccountsChange()">
+               </transfers-details-income-account>
+               <div class="row">
+                  <transfers-details-date [form]="form" [data]="data"> </transfers-details-date>
+                  <transfers-details-value [form]="form" [data]="data"> </transfers-details-value>
+               </div>
             </mat-card-content>
 
             <mat-card-actions>
-               <transfers-details-commands-cancel [form]="form" (click)="OnCancelClick()"></transfers-details-commands-cancel>
-               <transfers-details-commands-confirm [form]="form"></transfers-details-commands-confirm>
+               <transfers-details-cancel [form]="form" (click)="OnCancelClick()"></transfers-details-cancel>
+               <transfers-details-confirm [form]="form"></transfers-details-confirm>
             </mat-card-actions>
 
          </mat-card>

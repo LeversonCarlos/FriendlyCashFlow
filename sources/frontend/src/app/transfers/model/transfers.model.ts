@@ -4,6 +4,7 @@ export class TransferEntity {
    IncomeAccountID: string;
    Date: Date;
    Value: number;
+   Sorting: number;
 
    static Parse(value: any): TransferEntity {
       return Object.assign(new TransferEntity, {
@@ -11,7 +12,8 @@ export class TransferEntity {
          ExpenseAccountID: value.ExpenseAccountID ?? null,
          IncomeAccountID: value.IncomeAccountID ?? null,
          Date: value.Date ? new Date(value.Date) : null,
-         Value: value.Value ?? null
+         Value: value.Value ?? null,
+         Sorting: value.Sorting ?? 0
       });
    }
 

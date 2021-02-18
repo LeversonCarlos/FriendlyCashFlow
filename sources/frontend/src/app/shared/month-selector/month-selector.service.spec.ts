@@ -37,4 +37,22 @@ describe('MonthSelectorService', () => {
       expect(spy).toHaveBeenCalledWith(month);
    });
 
+   it('changed to current month must define today as default date', () => {
+      const service = new MonthSelectorService();
+      const today = new Date();
+      service.CurrentMonth = new Month(today);
+      expect(service.DefaultDate.getFullYear()).toEqual(today.getFullYear());
+      expect(service.DefaultDate.getMonth()).toEqual(today.getMonth());
+      expect(service.DefaultDate.getDate()).toEqual(today.getDate());
+   });
+
+   it('changed to month different from current must define default date as first day on that month', () => {
+      const service = new MonthSelectorService();
+      const today = new Date("2010-07-25");
+      service.CurrentMonth = new Month(today);
+      expect(service.DefaultDate.getFullYear()).toEqual(2010);
+      expect(service.DefaultDate.getMonth() + 1).toEqual(7);
+      expect(service.DefaultDate.getDate()).toEqual(1);
+   });
+
 });

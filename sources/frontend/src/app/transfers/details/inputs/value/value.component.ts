@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TransferEntity } from 'src/app/transfers/model/transfers.model';
 
 @Component({
-   selector: 'transfers-details-inputs-value',
+   selector: 'transfers-details-value',
    templateUrl: './value.component.html',
    styleUrls: ['./value.component.scss']
 })

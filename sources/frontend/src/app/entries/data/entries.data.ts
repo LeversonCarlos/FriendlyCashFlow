@@ -13,29 +13,21 @@ import { PatternsData } from '@elesse/patterns';
 })
 export class EntriesData {
 
-   constructor(private busy: BusyService,
-      private Cache: EntriesCache,
+   constructor(private Cache: EntriesCache,
+      private busy: BusyService, private monthSelector: MonthSelectorService,
       private patternsData: PatternsData,
-      private monthSelector: MonthSelectorService,
       private http: HttpClient) {
       this.monthSelector.OnChange.subscribe(month => this.OnMonthChange(month));
       this.OnMonthChange(this.CurrentMonth);
    }
 
    private get CurrentMonth(): Month { return this.monthSelector.CurrentMonth; }
-   public DefaultDueDate: Date;
+   public get ObserveEntries(): Observable<EntryEntity[]> { return this.Cache.Observe; }
 
    private OnMonthChange(value: Month) {
-      const today = new Date();
-      if (value.Year == today.getFullYear() && value.Month == today.getMonth() + 1)
-         this.DefaultDueDate = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate(), 12);
-      else
-         this.DefaultDueDate = new Date(value.Year, (value.Month - 1), 1, 12);
       this.Cache.InitializeValue(value.ToCode());
       this.RefreshEntries();
    }
-
-   public get ObserveEntries(): Observable<EntryEntity[]> { return this.Cache.Observe; }
 
    public async RefreshEntries(): Promise<void> {
       try {
@@ -60,9 +52,9 @@ export class EntriesData {
             return null;
 
          if (entryID == 'new-income')
-            return Object.assign(new EntryEntity, { Pattern: { Type: enCategoryType.Income, DueDate: this.DefaultDueDate } });
+            return Object.assign(new EntryEntity, { Pattern: { Type: enCategoryType.Income, DueDate: this.monthSelector.DefaultDate } });
          else if (entryID == 'new-expense')
-            return Object.assign(new EntryEntity, { Pattern: { Type: enCategoryType.Expense, DueDate: this.DefaultDueDate } });
+            return Object.assign(new EntryEntity, { Pattern: { Type: enCategoryType.Expense, DueDate: this.monthSelector.DefaultDate } });
 
          let value = await this.http.get<EntryEntity>(`api/entries/load/${entryID}`).toPromise();
          if (!value)

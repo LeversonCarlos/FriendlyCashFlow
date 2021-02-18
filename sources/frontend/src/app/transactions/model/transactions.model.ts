@@ -1,6 +1,7 @@
 import { AccountEntity } from "@elesse/accounts";
 import { enCategoryType } from "@elesse/categories";
 import { EntryEntity } from "@elesse/entries";
+import { TransferEntity } from "@elesse/transfers";
 
 export class TransactionAccount {
    Account: AccountEntity;
@@ -47,6 +48,22 @@ export class TransactionEntry extends TransactionBase {
          Paid: value.Paid,
          Sorting: value.Sorting,
          Entry: value
+      });
+   }
+}
+
+export class TransactionTransfer extends TransactionBase {
+   Transfer: TransferEntity;
+   static Parse(value: TransferEntity, text: string, type: enCategoryType): TransactionTransfer {
+      if (!value)
+         return null;
+      return Object.assign(new TransactionTransfer, {
+         Date: new Date(value.Date),
+         Text: text,
+         Value: value.Value * ((type ?? enCategoryType.Income) == enCategoryType.Income ? 1 : -1),
+         Paid: true,
+         Sorting: value.Sorting,
+         Transfer: value
       });
    }
 }
