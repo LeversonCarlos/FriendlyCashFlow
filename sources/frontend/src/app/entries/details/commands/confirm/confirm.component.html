@@ -1,0 +1,4 @@
+<button type="submit" mat-button [matTooltip]="'shared.SAVE_COMMAND_TOOLTIP' | translation | async"
+   color="primary" [disabled]="!inputForm?.valid || IsBusy">
+   {{ "shared.SAVE_COMMAND" | translation | async }}
+</button>

@@ -21,9 +21,7 @@
 
             <mat-card-actions>
                <entries-details-cancel (click)="OnCancelClick()"></entries-details-cancel>
-               <button type="submit" mat-button color="primary"
-                  [matTooltip]="'shared.SAVE_COMMAND_TOOLTIP' | translation | async"
-                  [disabled]="!inputForm?.valid || IsBusy">{{ "shared.SAVE_COMMAND" | translation | async }}</button>
+               <entries-details-confirm [form]="form"></entries-details-confirm>
             </mat-card-actions>
 
          </mat-card>
