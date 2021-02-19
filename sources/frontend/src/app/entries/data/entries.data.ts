@@ -54,7 +54,7 @@ export class EntriesData {
 
          if (snapshot.routeConfig.path == "new/income")
             return EntryEntity.Parse({ Pattern: { Type: enCategoryType.Income }, DueDate: this.monthSelector.DefaultDate });
-         else if (snapshot.routeConfig.path == "new/expense")
+         if (snapshot.routeConfig.path == "new/expense")
             return EntryEntity.Parse({ Pattern: { Type: enCategoryType.Expense }, DueDate: this.monthSelector.DefaultDate });
 
          const entryID = snapshot.params?.entry;
