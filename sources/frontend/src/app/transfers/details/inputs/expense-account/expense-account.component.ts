@@ -23,13 +23,15 @@ export class ExpenseAccountComponent implements OnInit {
    public FormControlName: string = `${this.FormControlID}Row`;
 
    ngOnInit(): void {
-      this.OnDataInit();
-      this.OnFormInit();
+      if (!this.data)
+         return;
+      this.accountsData.OnObservableFirstPush(() => {
+         this.OnDataInit();
+         this.OnFormInit();
+      });
    }
 
    private OnDataInit() {
-      if (!this.data)
-         return;
       this.AccountOptions = this.accountsData.GetAccounts(true)
          .map(entity => Object.assign(new RelatedData, {
             id: entity.AccountID,

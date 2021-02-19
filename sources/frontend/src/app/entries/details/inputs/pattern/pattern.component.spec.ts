@@ -1,21 +1,23 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { PatternsData } from '@elesse/patterns';
 import { TestsModule } from '@elesse/tests';
-import { CancelComponent } from './cancel.component';
+import { PatternComponent } from './pattern.component';
 
-describe('CancelComponent', () => {
-   let component: CancelComponent;
-   let fixture: ComponentFixture<CancelComponent>;
+describe('PatternComponent', () => {
+   let component: PatternComponent;
+   let fixture: ComponentFixture<PatternComponent>;
 
    beforeEach(async () => {
       await TestBed.configureTestingModule({
-         declarations: [CancelComponent],
-         imports: [TestsModule]
+         declarations: [PatternComponent],
+         imports: [TestsModule],
+         providers: [PatternsData]
       })
       .compileComponents();
    });
 
    beforeEach(() => {
-      fixture = TestBed.createComponent(CancelComponent);
+      fixture = TestBed.createComponent(PatternComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
    });

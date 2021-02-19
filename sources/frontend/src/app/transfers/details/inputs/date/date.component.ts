@@ -26,7 +26,7 @@ export class DateComponent implements OnInit {
    }
 
    private OnFormInit() {
-      if (!this.form)
+      if (!this.form || !this.data)
          return;
       this.form.addControl(this.FormControlName, new FormControl(this.data.Date ?? null, Validators.required));
       this.form.get(this.FormControlName).valueChanges.subscribe((val: string) => {

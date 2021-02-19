@@ -1,0 +1,31 @@
+<shared-authenticated-container>
+   <div header-title>{{ "entries.TITLE" | translation | async }}</div>
+   <div content>
+
+      <form *ngIf="form" [formGroup]="form" (ngSubmit)="OnSaveClick()">
+         <mat-card [class.income]="IsIncome" [class.expense]="IsExpense">
+
+            <mat-card-content>
+               <entries-details-pattern [data]="data" [form]="form"></entries-details-pattern>
+               <entries-details-category [data]="data" [form]="form"></entries-details-category>
+               <entries-details-account [data]="data" [form]="form"></entries-details-account>
+               <div class="row">
+                  <entries-details-value class="col grow" [data]="data" [form]="form"></entries-details-value>
+                  <entries-details-due-date class="col grow" [data]="data" [form]="form"></entries-details-due-date>
+               </div>
+               <div class="row">
+                  <entries-details-paid class="col" [data]="data" [form]="form"></entries-details-paid>
+                  <entries-details-pay-date class="col grow" [data]="data" [form]="form"></entries-details-pay-date>
+               </div>
+            </mat-card-content>
+
+            <mat-card-actions>
+               <entries-details-cancel (click)="OnCancelClick()"></entries-details-cancel>
+               <entries-details-confirm [form]="form"></entries-details-confirm>
+            </mat-card-actions>
+
+         </mat-card>
+      </form>
+
+   </div>
+</shared-authenticated-container>

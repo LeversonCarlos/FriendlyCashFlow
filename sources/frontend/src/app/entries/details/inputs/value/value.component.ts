@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { TransferEntity } from 'src/app/transfers/model/transfers.model';
+import { EntryEntity } from '@elesse/entries';
 
 @Component({
-   selector: 'transfers-details-value',
+   selector: 'entries-details-value',
    templateUrl: './value.component.html',
    styleUrls: ['./value.component.scss']
 })
@@ -11,9 +11,9 @@ export class ValueComponent implements OnInit {
 
    constructor() { }
 
-   @Input() data: TransferEntity;
+   @Input() data: EntryEntity;
    @Input() form: FormGroup;
-   public FormControlName: string = "Value";
+   public FormControlName: string = "EntryValue";
 
    ngOnInit(): void {
       this.OnDataInit();
@@ -28,9 +28,9 @@ export class ValueComponent implements OnInit {
    private OnFormInit() {
       if (!this.form || !this.data)
          return;
-      this.form.addControl(this.FormControlName, new FormControl(this.data.Value ?? null, [Validators.required, Validators.min(0.01)]));
+      this.form.addControl(this.FormControlName, new FormControl(this.data.EntryValue ?? null, [Validators.required, Validators.min(0.01)]));
       this.form.get(this.FormControlName).valueChanges.subscribe((val: any) => {
-         this.data.Value = val;
+         this.data.EntryValue = val;
       });
    }
 

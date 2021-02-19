@@ -1,21 +1,23 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CategoriesData } from '@elesse/categories';
 import { TestsModule } from '@elesse/tests';
-import { CancelComponent } from './cancel.component';
+import { CategoryComponent } from './category.component';
 
-describe('CancelComponent', () => {
-   let component: CancelComponent;
-   let fixture: ComponentFixture<CancelComponent>;
+describe('CategoryComponent', () => {
+   let component: CategoryComponent;
+   let fixture: ComponentFixture<CategoryComponent>;
 
    beforeEach(async () => {
       await TestBed.configureTestingModule({
-         declarations: [CancelComponent],
-         imports: [TestsModule]
+         declarations: [CategoryComponent],
+         imports: [TestsModule],
+         providers: [CategoriesData]
       })
       .compileComponents();
    });
 
    beforeEach(() => {
-      fixture = TestBed.createComponent(CancelComponent);
+      fixture = TestBed.createComponent(CategoryComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
    });

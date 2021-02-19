@@ -1,0 +1,5 @@
+<div *ngIf="form" [formGroup]="form" class="paid">
+   <mat-slide-toggle [formControlName]="FormControlName">
+      {{ "entries.PAID_LABEL" | translation | async }}
+   </mat-slide-toggle>
+</div>
