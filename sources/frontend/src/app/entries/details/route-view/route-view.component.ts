@@ -26,22 +26,19 @@ export class DetailsRouteViewComponent implements OnInit {
    public get IsExpense(): boolean { return this.Type == enCategoryType.Expense; }
 
    public async ngOnInit(): Promise<void> {
-      const paramID = this.activatedRoute.snapshot.params.id;
-
-      this.data = await this.entriesData.LoadEntry(paramID);
+      this.data = await this.entriesData.LoadEntry(this.activatedRoute.snapshot);
       if (!this.data) {
          this.router.navigate(["/transactions/list"]);
          return;
       }
-
-      this.OnFormCreate(this.data);
+      this.OnFormCreate();
    }
 
-   private OnFormCreate(data: EntryEntity) {
+   private OnFormCreate() {
       this.inputForm = this.fb.group({
          Pattern: this.fb.group({
-            Type: [data.Pattern.Type],
-            Text: [data.Pattern.Text, Validators.required]
+            Type: [this.data.Pattern.Type],
+            Text: [this.data.Pattern.Text, Validators.required]
          }),
       });
    }
