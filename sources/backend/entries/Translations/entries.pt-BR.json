@@ -1,9 +1,26 @@
 {
-  "TITLE": "Lançamentos",
+  "TITLE": "Lançamento",
+
+  "INVALID_ENTRYID_PROPERTY": "Propriedade id inválida",
+  "INVALID_PATTERN_PARAMETER": "Propriedade pattern inválida",
+  "INVALID_ACCOUNTID_PARAMETER": "Propriedade conta inválida",
+  "INVALID_DUEDATE_PROPERTY": "Propriedade vencimento inválida",
+  "INVALID_VALUE_PROPERTY": "Propriedade valor inválida",
+  "INVALID_PAYDATE_PARAMETER": "Propriedade pagamento inválida",
 
   "ENTRY_NOT_FOUND": "O lançamento não foi encontrado",
 
-  "INVALID_INSERT_PARAMETER": "O valor informado para a função 'insert entry' é inválido",
-  "INVALID_UPDATE_PARAMETER": "O valor informado para a função 'update entry' é inválido",
-  "INVALID_DELETE_PARAMETER": "O valor informado para a função 'delete entry' é inválido"
+  "INVALID_LOAD_PARAMETER": "O valor informado para a função 'entry.load' é inválido",
+  "INVALID_INSERT_PARAMETER": "O valor informado para a função 'entry.insert' é inválido",
+  "INVALID_UPDATE_PARAMETER": "O valor informado para a função 'entry.update' é inválido",
+  "INVALID_DELETE_PARAMETER": "O valor informado para a função 'entry.delete' é inválido",
+
+  "TEXT_LABEL": "Descrição",
+  "CATEGORYID_LABEL": "Categoria",
+  "ACCOUNTID_LABEL": "Conta",
+  "DUEDATE_LABEL": "Vencimento",
+  "VALUE_LABEL": "Valor",
+  "PAID_LABEL": "Pago",
+  "PAYDATE_LABEL": "Pagamento"
+
 }
