@@ -3,7 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { DetailsRouteViewComponent } from './details/route-view/route-view.component';
 
 const routes: Routes = [
-   { path: 'details/:id', component: DetailsRouteViewComponent },
+   { path: 'edit/:entry', component: DetailsRouteViewComponent },
+   { path: 'new/income', component: DetailsRouteViewComponent },
+   { path: 'new/expense', component: DetailsRouteViewComponent },
 ];
 
 @NgModule({

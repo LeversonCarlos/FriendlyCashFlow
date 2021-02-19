@@ -26,7 +26,7 @@ export class ItemComponent implements OnInit {
 
    public get DetailsRouterLink(): string {
       if (this.Transaction instanceof TransactionEntry)
-         return `/entries/details/${this.Transaction.Entry.EntryID}`;
+         return `/entries/edit/${this.Transaction.Entry.EntryID}`;
       else if (this.Transaction instanceof TransactionTransfer)
          return `/transfers/edit/${this.Transaction.Transfer.TransferID}`;
       else

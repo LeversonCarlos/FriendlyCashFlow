@@ -18,7 +18,6 @@ export class TransfersData {
       this.OnMonthChange(this.CurrentMonth);
    }
 
-   @Output() OnDataChanged: EventEmitter<void> = new EventEmitter<void>();
    private get CurrentMonth(): Month { return this.monthSelector.CurrentMonth; }
    public get ObserveTransfers(): Observable<TransferEntity[]> { return this.Cache.Observe; }
 
@@ -80,7 +79,7 @@ export class TransfersData {
          else
             await this.http.put("api/transfers/update", transfer).toPromise();
 
-         this.OnDataChanged.emit();
+         await this.RefreshTransfers();
          return true;
 
       }

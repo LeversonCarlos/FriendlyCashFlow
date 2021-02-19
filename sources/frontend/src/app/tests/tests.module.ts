@@ -18,7 +18,9 @@ const dummyRoutes = [
    { path: 'categories/details/:id', component: BlankComponent },
    { path: 'transactions', component: BlankComponent },
    { path: 'transactions/list', component: BlankComponent },
-   { path: 'entries/details/:id', component: BlankComponent },
+   { path: 'entries/edit/:entry', component: BlankComponent },
+   { path: 'entries/new/income', component: BlankComponent },
+   { path: 'entries/new/expense', component: BlankComponent },
    { path: 'transfers/edit/:transfer', component: BlankComponent },
    { path: 'transfers/new', component: BlankComponent },
 ];

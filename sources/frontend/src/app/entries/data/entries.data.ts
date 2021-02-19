@@ -7,6 +7,7 @@ import { EntriesCache } from '../cache/cache.service';
 import { EntryEntity } from '../model/entries.model';
 import { Month, MonthSelectorService } from '@elesse/shared';
 import { PatternsData } from '@elesse/patterns';
+import { ActivatedRouteSnapshot } from '@angular/router';
 
 @Injectable({
    providedIn: 'root'
@@ -44,27 +45,31 @@ export class EntriesData {
       finally { this.busy.hide(); }
    }
 
-   public async LoadEntry(entryID: string): Promise<EntryEntity> {
+   public async LoadEntry(snapshot: ActivatedRouteSnapshot): Promise<EntryEntity> {
       try {
          this.busy.show();
 
+         if (!snapshot || !snapshot.routeConfig || !snapshot.routeConfig.path)
+            return null;
+
+         if (snapshot.routeConfig.path == "new/income")
+            return EntryEntity.Parse({ Pattern: { Type: enCategoryType.Income }, DueDate: this.monthSelector.DefaultDate });
+         if (snapshot.routeConfig.path == "new/expense")
+            return EntryEntity.Parse({ Pattern: { Type: enCategoryType.Expense }, DueDate: this.monthSelector.DefaultDate });
+
+         const entryID = snapshot.params?.entry;
          if (!entryID)
             return null;
 
-         if (entryID == 'new-income')
-            return Object.assign(new EntryEntity, { Pattern: { Type: enCategoryType.Income, DueDate: this.monthSelector.DefaultDate } });
-         else if (entryID == 'new-expense')
-            return Object.assign(new EntryEntity, { Pattern: { Type: enCategoryType.Expense, DueDate: this.monthSelector.DefaultDate } });
-
-         let value = await this.http.get<EntryEntity>(`api/entries/load/${entryID}`).toPromise();
-         if (!value)
+         let entry = await this.http.get<EntryEntity>(`api/entries/load/${entryID}`).toPromise();
+         if (!entry)
             return null;
 
-         value = Object.assign(new EntryEntity, value);
-         return value;
+         entry = EntryEntity.Parse(entry);
+         return entry;
 
       }
-      catch { /* error absorber */ }
+      catch { return null; /* error absorber */ }
       finally { this.busy.hide(); }
    }
 
