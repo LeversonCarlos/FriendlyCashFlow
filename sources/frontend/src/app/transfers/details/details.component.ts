@@ -16,6 +16,10 @@ export class DetailsComponent implements OnInit {
       private busy: BusyService, private msg: MessageService,
       private activatedRoute: ActivatedRoute, private router: Router, private fb: FormBuilder) { }
 
+   public data: TransferEntity;
+   public form: FormGroup;
+   public get IsBusy(): boolean { return this.busy.IsBusy; }
+
    public async ngOnInit(): Promise<void> {
       this.data = await this.transferData.LoadTransfer(this.activatedRoute.snapshot);
       if (!this.data) {
@@ -24,10 +28,6 @@ export class DetailsComponent implements OnInit {
       }
       this.form = this.fb.group({});
    }
-
-   public data: TransferEntity;
-   public form: FormGroup;
-   public get IsBusy(): boolean { return this.busy.IsBusy; }
 
    public OnAccountsChange() {
       const expenseAccount = this.form.get("ExpenseAccountIDRow");
