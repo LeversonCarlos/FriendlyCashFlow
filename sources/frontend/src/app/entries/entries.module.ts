@@ -11,11 +11,13 @@ import { DueDateViewComponent } from './details/due-date-view/due-date-view.comp
 import { EntryValueViewComponent } from './details/entry-value-view/entry-value-view.component';
 import { PayDateViewComponent } from './details/pay-date-view/pay-date-view.component';
 import { PaidViewComponent } from './details/paid-view/paid-view.component';
+import { CancelComponent } from './details/commands/cancel/cancel.component';
 
 @NgModule({
    declarations: [DetailsRouteViewComponent,
       PatternViewComponent, CategoryViewComponent, AccountViewComponent,
-      DueDateViewComponent, EntryValueViewComponent, PayDateViewComponent, PaidViewComponent
+      DueDateViewComponent, EntryValueViewComponent, PayDateViewComponent, PaidViewComponent,
+      CancelComponent
    ],
    imports: [
       MaterialModule, SharedModule,
