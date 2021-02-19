@@ -1,9 +1,25 @@
 {
-  "TITLE": "Entries",
+  "TITLE": "Entry",
+
+  "INVALID_ENTRYID_PROPERTY": "Invalid id property",
+  "INVALID_PATTERN_PARAMETER": "Invalid pattern property",
+  "INVALID_ACCOUNTID_PARAMETER": "Invalid account property",
+  "INVALID_DUEDATE_PROPERTY": "Invalid due date property",
+  "INVALID_VALUE_PROPERTY": "Invalid value property",
+  "INVALID_PAYDATE_PARAMETER": "Invalid pay date property",
 
   "ENTRY_NOT_FOUND": "The entry was not found",
 
-  "INVALID_INSERT_PARAMETER": "The value entered for the 'insert entry' function is invalid",
-  "INVALID_UPDATE_PARAMETER": "The value entered for the 'update entry' function is invalid",
-  "INVALID_DELETE_PARAMETER": "The value entered for the 'delete entry' function is invalid"
+  "INVALID_LOAD_PARAMETER": "The value entered for the 'entry.load' function is invalid",
+  "INVALID_INSERT_PARAMETER": "The value entered for the 'entry.insert' function is invalid",
+  "INVALID_UPDATE_PARAMETER": "The value entered for the 'entry.update' function is invalid",
+  "INVALID_DELETE_PARAMETER": "The value entered for the 'entry.delete' function is invalid",
+
+  "TEXT_LABEL": "Description",
+  "CATEGORYID_LABEL": "Category",
+  "ACCOUNTID_LABEL": "Account",
+  "DUEDATE_LABEL": "Due Date",
+  "VALUE_LABEL": "Value",
+  "PAID_LABEL": "Paid",
+  "PAYDATE_LABEL": "Pay Date"
 }
