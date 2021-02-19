@@ -1,6 +1,6 @@
 <mat-form-field *ngIf="form" [formGroup]="form">
    <mat-label>{{ "entries.PAYDATE_LABEL" | translation | async }}</mat-label>
-   <input type="text" matInput [matDatepicker]="payDatePicker" formControlName="PayDate">
+   <input type="text" matInput [matDatepicker]="payDatePicker" [formControlName]="FormControlName">
    <mat-datepicker-toggle matSuffix [for]="payDatePicker"></mat-datepicker-toggle>
    <mat-datepicker #payDatePicker></mat-datepicker>
 </mat-form-field>
