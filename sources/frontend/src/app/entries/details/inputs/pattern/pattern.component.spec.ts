@@ -1,15 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PatternsData } from '@elesse/patterns';
 import { TestsModule } from '@elesse/tests';
-import { PatternViewComponent } from './pattern-view.component';
+import { PatternComponent } from './pattern.component';
 
-describe('PatternViewComponent', () => {
-   let component: PatternViewComponent;
-   let fixture: ComponentFixture<PatternViewComponent>;
+describe('PatternComponent', () => {
+   let component: PatternComponent;
+   let fixture: ComponentFixture<PatternComponent>;
 
    beforeEach(async () => {
       await TestBed.configureTestingModule({
-         declarations: [PatternViewComponent],
+         declarations: [PatternComponent],
          imports: [TestsModule],
          providers: [PatternsData]
       })
@@ -17,7 +17,7 @@ describe('PatternViewComponent', () => {
    });
 
    beforeEach(() => {
-      fixture = TestBed.createComponent(PatternViewComponent);
+      fixture = TestBed.createComponent(PatternComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
    });

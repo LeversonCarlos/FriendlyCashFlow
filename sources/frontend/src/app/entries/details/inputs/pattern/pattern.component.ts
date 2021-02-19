@@ -1,32 +1,35 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
+import { EntryEntity } from '@elesse/entries';
 import { PatternEntity, PatternsData } from '@elesse/patterns';
 import { RelatedData } from '@elesse/shared';
-import { EntryEntity } from '../../model/entries.model';
 
 @Component({
    selector: 'entries-details-pattern',
-   templateUrl: './pattern-view.component.html',
-   styleUrls: ['./pattern-view.component.scss']
+   templateUrl: './pattern.component.html',
+   styleUrls: ['./pattern.component.scss']
 })
-export class PatternViewComponent implements OnInit {
+export class PatternComponent implements OnInit {
 
    constructor(private patternsData: PatternsData) { }
-
-   public ngOnInit(): void {
-      if (!this.data)
-         return;
-      this.patternsData.OnObservableFirstPush(this.data.Pattern.Type, entities => {
-         this.OnDataInit();
-         this.OnFormInit();
-      });
-   }
 
    @Input() data: EntryEntity;
    @Input() form: FormGroup;
    public formSection: FormGroup;
    public PatternOptions: RelatedData<PatternEntity>[] = [];
    public PatternFiltered: RelatedData<PatternEntity>[] = [];
+   private FormControlID: string = "PatternID";
+   public FormControlName: string = `${this.FormControlID}Row`;
+   public FormSectionName: string = 'Pattern';
+
+   ngOnInit(): void {
+      if (!this.data)
+         return;
+      this.patternsData.OnObservableFirstPush(this.data.Pattern.Type, () => {
+         this.OnDataInit();
+         this.OnFormInit();
+      });
+   }
 
    private OnDataInit() {
       this.PatternOptions = this.patternsData.GetPatterns(this.data.Pattern.Type)
@@ -43,15 +46,15 @@ export class PatternViewComponent implements OnInit {
    private OnFormInit() {
       if (!this.form)
          return;
-      this.formSection = this.form.get("Pattern") as FormGroup;
-      this.formSection.addControl("PatternID", new FormControl(this.data?.Pattern?.PatternID ?? null));
-      this.formSection.addControl("PatternRow", new FormControl(this.GetFirstPattern()));
-      this.form.get("Pattern.PatternRow").valueChanges.subscribe((row: RelatedData<PatternEntity>) => {
+      this.formSection = this.form.get(this.FormSectionName) as FormGroup;
+      this.formSection.addControl(this.FormControlID, new FormControl(this.data?.Pattern?.PatternID ?? null));
+      this.formSection.addControl(this.FormControlName, new FormControl(this.GetFirstPattern()));
+      this.formSection.get(this.FormControlName).valueChanges.subscribe((row: RelatedData<PatternEntity>) => {
          this.data.Pattern.PatternID = row?.value?.PatternID ?? null;
          if (row?.value?.Text)
             this.OnTextChanging(row.value.Text);
          if (row?.value?.CategoryID)
-            this.form.get("Pattern.CategoryID").setValue(row.value.CategoryID);
+            this.formSection.get(this.FormControlID).setValue(row.value.CategoryID);
       });
    }
 
@@ -63,7 +66,7 @@ export class PatternViewComponent implements OnInit {
    }
 
    private OnTextChanging(val: string) {
-      this.form.get("Pattern.Text").setValue(val);
+      this.formSection.get("Text").setValue(val);
       this.data.Pattern.Text = val;
    }
 
