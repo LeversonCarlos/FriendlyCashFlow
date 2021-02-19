@@ -1,31 +1,34 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CategoriesData, CategoryEntity } from '@elesse/categories';
+import { EntryEntity } from '@elesse/entries';
 import { RelatedData } from '@elesse/shared';
-import { EntryEntity } from '../../model/entries.model';
 
 @Component({
    selector: 'entries-details-category',
-   templateUrl: './category-view.component.html',
-   styleUrls: ['./category-view.component.scss']
+   templateUrl: './category.component.html',
+   styleUrls: ['./category.component.scss']
 })
-export class CategoryViewComponent implements OnInit {
+export class CategoryComponent implements OnInit {
 
    constructor(private categoriesData: CategoriesData) { }
-
-   ngOnInit(): void {
-      if (!this.data)
-         return;
-      this.categoriesData.OnObservableFirstPush(this.data.Pattern.Type, entities => {
-         this.OnDataInit();
-         this.OnFormInit();
-      });
-   }
 
    @Input() data: EntryEntity;
    @Input() form: FormGroup;
    public CategoryOptions: RelatedData<CategoryEntity>[] = [];
    public CategoryFiltered: RelatedData<CategoryEntity>[] = [];
+   private FormControlID: string = "CategoryID";
+   public FormControlName: string = `${this.FormControlID}Row`;
+   public FormSectionName: string = 'Pattern';
+
+   ngOnInit(): void {
+      if (!this.data)
+         return;
+      this.categoriesData.OnObservableFirstPush(this.data.Pattern.Type, () => {
+         this.OnDataInit();
+         this.OnFormInit();
+      });
+   }
 
    private OnDataInit() {
       this.CategoryOptions = this.categoriesData.GetCategories(this.data.Pattern.Type)
@@ -40,20 +43,20 @@ export class CategoryViewComponent implements OnInit {
    }
 
    private OnFormInit() {
-      if (!this.form)
+      if (!this.form || !this.data)
          return;
-      const formSection = this.form.get("Pattern") as FormGroup;
-      formSection.addControl("CategoryID", new FormControl(this.data?.Pattern?.CategoryID ?? null));
-      formSection.addControl("CategoryRow", new FormControl(this.GetFirstCategory(), Validators.required));
-      this.form.get("Pattern.CategoryRow").valueChanges.subscribe((row: RelatedData<CategoryEntity>) => {
+      const formSection = this.form.get(this.FormSectionName) as FormGroup;
+      formSection.addControl(this.FormControlID, new FormControl(this.data.Pattern?.CategoryID ?? null));
+      formSection.addControl(this.FormControlName, new FormControl(this.GetFirstCategory(), Validators.required));
+      formSection.get(this.FormControlName).valueChanges.subscribe((row: RelatedData<CategoryEntity>) => {
          this.data.Pattern.CategoryID = row?.value?.CategoryID ?? null;
       });
-      this.form.get("Pattern.CategoryID").valueChanges.subscribe((categoryID: string) => {
+      formSection.get(this.FormControlID).valueChanges.subscribe((categoryID: string) => {
          this.CategoryFiltered = this.CategoryOptions
             .filter(entity => entity.value.CategoryID == categoryID);
          const categoryRow = this.GetFirstCategory();
-         if (this.form.get("Pattern.CategoryRow").value != categoryRow)
-            this.form.get("Pattern.CategoryRow").setValue(categoryRow);
+         if (formSection.get(this.FormControlName).value != categoryRow)
+            formSection.get(this.FormControlName).setValue(categoryRow);
       });
    }
 

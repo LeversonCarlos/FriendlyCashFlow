@@ -1,7 +1,7 @@
 <ng-container *ngIf="form" [formGroup]="form">
-   <ng-container formGroupName="Pattern">
+   <ng-container [formGroupName]="FormSectionName">
       <elesse-relatedbox [placeholder]="'entries.CATEGORYID_LABEL' | translation | async" minSize="0"
-         [options]="CategoryFiltered" formControlName="CategoryRow" (optionsChanging)="OnCategoryChanging($event)">
+         [options]="CategoryFiltered" [formControlName]="FormControlName" (optionsChanging)="OnCategoryChanging($event)">
       </elesse-relatedbox>
    </ng-container>
 </ng-container>
