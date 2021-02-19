@@ -7,19 +7,19 @@ import { DetailsRouteViewComponent } from './details/route-view/route-view.compo
 import { PatternViewComponent } from './details/pattern-view/pattern-view.component';
 import { CategoryViewComponent } from './details/category-view/category-view.component';
 import { AccountViewComponent } from './details/account-view/account-view.component';
-import { EntryValueViewComponent } from './details/entry-value-view/entry-value-view.component';
 import { PayDateViewComponent } from './details/pay-date-view/pay-date-view.component';
 import { PaidViewComponent } from './details/paid-view/paid-view.component';
 import { CancelComponent } from './details/commands/cancel/cancel.component';
 import { ConfirmComponent } from './details/commands/confirm/confirm.component';
 import { DueDateComponent } from './details/inputs/due-date/due-date.component';
+import { ValueComponent } from './details/inputs/value/value.component';
 
 @NgModule({
    declarations: [DetailsRouteViewComponent,
       PatternViewComponent, CategoryViewComponent, AccountViewComponent,
-      EntryValueViewComponent, PayDateViewComponent, PaidViewComponent,
+      PayDateViewComponent, PaidViewComponent,
       CancelComponent, ConfirmComponent,
-      DueDateComponent
+      DueDateComponent, ValueComponent
    ],
    imports: [
       MaterialModule, SharedModule,

@@ -1,21 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TestsModule } from '@elesse/tests';
-import { EntryValueViewComponent } from './entry-value-view.component';
+import { ValueComponent } from './value.component';
 
-describe('EntryValueViewComponent', () => {
-   let component: EntryValueViewComponent;
-   let fixture: ComponentFixture<EntryValueViewComponent>;
+describe('ValueComponent', () => {
+   let component: ValueComponent;
+   let fixture: ComponentFixture<ValueComponent>;
 
    beforeEach(async () => {
       await TestBed.configureTestingModule({
-         declarations: [EntryValueViewComponent],
+         declarations: [ValueComponent],
          imports: [TestsModule]
       })
       .compileComponents();
    });
 
    beforeEach(() => {
-      fixture = TestBed.createComponent(EntryValueViewComponent);
+      fixture = TestBed.createComponent(ValueComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
    });
