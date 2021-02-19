@@ -25,6 +25,32 @@ describe('EntriesData', () => {
       expect(result).toBeNull();
    });
 
+   it('LoadEntry with null snapshot.routeConfig parameter must result null', async () => {
+      const snapshot = getSnapshot();
+      const result = await service.LoadEntry(snapshot);
+      expect(result).toBeNull();
+   });
+
+   it('LoadEntry with null snapshot.routeConfig.path parameter must result null', async () => {
+      const snapshot = getSnapshot('');
+      const result = await service.LoadEntry(snapshot);
+      expect(result).toBeNull();
+   });
+
+   it('LoadEntry with "new/income" snapshot.routeConfig.path parameter must result new instance', async () => {
+      const snapshot = getSnapshot('new/income');
+      const result = await service.LoadEntry(snapshot);
+      expect(result).toBeTruthy();
+      expect(result.EntryID).toBeNull();
+   });
+
+   it('LoadEntry with "new/expense" snapshot.routeConfig.path parameter must result new instance', async () => {
+      const snapshot = getSnapshot('new/expense');
+      const result = await service.LoadEntry(snapshot);
+      expect(result).toBeTruthy();
+      expect(result.EntryID).toBeNull();
+   });
+
 });
 
 function getSnapshot(path: string = null, params: Params = null): ActivatedRouteSnapshot {
