@@ -10,7 +10,7 @@
 
   "TRANSFER_NOT_FOUND": "A transferência não foi encontrada",
 
-  "INVALID_LOAD_PARAMETER": "O valor informado para a função 'transfer.insert' é inválido",
+  "INVALID_LOAD_PARAMETER": "O valor informado para a função 'transfer.load' é inválido",
   "INVALID_INSERT_PARAMETER": "O valor informado para a função 'transfer.insert' é inválido",
   "INVALID_UPDATE_PARAMETER": "O valor informado para a função 'transfer.update' é inválido",
   "INVALID_DELETE_PARAMETER": "O valor informado para a função 'transfer.delete' é inválido",
