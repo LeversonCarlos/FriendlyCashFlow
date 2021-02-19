@@ -1,21 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TestsModule } from '@elesse/tests';
-import { DueDateViewComponent } from './due-date-view.component';
+import { DueDateComponent } from './due-date.component';
 
-describe('DueDateViewComponent', () => {
-   let component: DueDateViewComponent;
-   let fixture: ComponentFixture<DueDateViewComponent>;
+describe('DueDateComponent', () => {
+   let component: DueDateComponent;
+   let fixture: ComponentFixture<DueDateComponent>;
 
    beforeEach(async () => {
       await TestBed.configureTestingModule({
-         declarations: [DueDateViewComponent],
-         imports:[TestsModule]
+         declarations: [DueDateComponent],
+         imports: [TestsModule]
       })
       .compileComponents();
    });
 
    beforeEach(() => {
-      fixture = TestBed.createComponent(DueDateViewComponent);
+      fixture = TestBed.createComponent(DueDateComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
    });
