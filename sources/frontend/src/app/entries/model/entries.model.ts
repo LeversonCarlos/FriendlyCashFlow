@@ -11,11 +11,21 @@ export class EntryEntity {
    Paid: boolean;
    PayDate?: Date;
 
+   SearchDate: Date;
    Sorting: number;
-   SearchDate: Date
 
    static Parse(value: any): EntryEntity {
-      return Object.assign(new EntryEntity, value);
+      return Object.assign(new EntryEntity, {
+         EntryID: value.EntryID ?? null,
+         Pattern: PatternEntity.Parse(value.Pattern),
+         AccountID: value.AccountID ?? null,
+         DueDate: value.DueDate ? new Date(value.DueDate) : null,
+         EntryValue: value.EntryValue ?? null,
+         Paid: value.Paid ?? false,
+         PayDate: value.PayDate ? new Date(value.PayDate) : null,
+         SearchDate: value.SearchDate ? new Date(value.SearchDate) : null,
+         Sorting: value.Sorting ?? 0
+      });
    }
 
 }
