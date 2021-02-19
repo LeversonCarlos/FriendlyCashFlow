@@ -10,12 +10,12 @@
                <entries-details-category [data]="data" [form]="form"></entries-details-category>
                <entries-details-account [data]="data" [form]="form"></entries-details-account>
                <div class="row">
-                  <entries-details-value [data]="data" [form]="form"></entries-details-value>
-                  <entries-details-due-date [data]="data" [form]="form"></entries-details-due-date>
+                  <entries-details-value class="col grow" [data]="data" [form]="form"></entries-details-value>
+                  <entries-details-due-date class="col grow" [data]="data" [form]="form"></entries-details-due-date>
                </div>
                <div class="row">
-                  <entries-details-paid [data]="data" [form]="form"></entries-details-paid>
-                  <entries-details-pay-date class="grow" [data]="data" [form]="form"></entries-details-pay-date>
+                  <entries-details-paid class="col" [data]="data" [form]="form"></entries-details-paid>
+                  <entries-details-pay-date class="col grow" [data]="data" [form]="form"></entries-details-pay-date>
                </div>
             </mat-card-content>
 
