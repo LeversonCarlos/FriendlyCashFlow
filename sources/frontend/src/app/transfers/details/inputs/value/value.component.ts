@@ -26,7 +26,7 @@ export class ValueComponent implements OnInit {
    }
 
    private OnFormInit() {
-      if (!this.form)
+      if (!this.form || !this.data)
          return;
       this.form.addControl(this.FormControlName, new FormControl(this.data.Value ?? null, [Validators.required, Validators.min(0.01)]));
       this.form.get(this.FormControlName).valueChanges.subscribe((val: any) => {
