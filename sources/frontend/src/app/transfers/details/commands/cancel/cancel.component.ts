@@ -1,5 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { BusyService } from '@elesse/shared';
 
 @Component({
@@ -14,7 +13,6 @@ export class CancelComponent implements OnInit {
    ngOnInit(): void {
    }
 
-   @Input() form: FormGroup;
    public get IsBusy(): boolean { return this.busy.IsBusy; }
 
 }

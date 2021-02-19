@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TestsModule } from '@elesse/tests';
-
 import { CancelComponent } from './cancel.component';
 
 describe('CancelComponent', () => {
