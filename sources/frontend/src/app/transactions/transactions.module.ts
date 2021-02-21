@@ -7,10 +7,12 @@ import { DaysComponent } from './list/days/days.component';
 import { DayHeaderComponent } from './list/day-header/day-header.component';
 import { DayFooterComponent } from './list/day-footer/day-footer.component';
 import { ItemComponent } from './list/item/item.component';
+import { RemoveComponent } from './list/remove/remove.component';
 
 @NgModule({
    declarations: [ListComponent,
-      DaysComponent, DayHeaderComponent, DayFooterComponent, ItemComponent],
+      DaysComponent, DayHeaderComponent, DayFooterComponent,
+      ItemComponent, RemoveComponent],
    imports: [
       MaterialModule, SharedModule,
       TransactionsRouting
