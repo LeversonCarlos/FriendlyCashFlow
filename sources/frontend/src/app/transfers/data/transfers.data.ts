@@ -80,6 +80,7 @@ export class TransfersData {
             await this.http.put("api/transfers/update", transfer).toPromise();
 
          await this.RefreshTransfers();
+
          return true;
 
       }
