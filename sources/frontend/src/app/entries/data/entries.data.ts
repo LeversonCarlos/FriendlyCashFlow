@@ -5,7 +5,7 @@ import { enCategoryType } from '@elesse/categories';
 import { BusyService } from '../../shared/busy/busy.service';
 import { EntriesCache } from '../cache/cache.service';
 import { EntryEntity } from '../model/entries.model';
-import { Month, MonthSelectorService } from '@elesse/shared';
+import { MessageService, Month, MonthSelectorService } from '@elesse/shared';
 import { PatternsData } from '@elesse/patterns';
 import { ActivatedRouteSnapshot } from '@angular/router';
 
@@ -15,7 +15,7 @@ import { ActivatedRouteSnapshot } from '@angular/router';
 export class EntriesData {
 
    constructor(private Cache: EntriesCache,
-      private busy: BusyService, private monthSelector: MonthSelectorService,
+      private busy: BusyService, private message: MessageService, private monthSelector: MonthSelectorService,
       private patternsData: PatternsData,
       private http: HttpClient) {
       this.monthSelector.OnChange.subscribe(month => this.OnMonthChange(month));
@@ -91,6 +91,28 @@ export class EntriesData {
 
       }
       catch { return false; /* error absorber */ }
+      finally { this.busy.hide(); }
+   }
+
+   public async RemoveEntry(entry: EntryEntity) {
+      try {
+
+         if (!entry)
+            return;
+
+         const confirm = await this.message.Confirm("entries.REMOVE_TEXT", "shared.REMOVE_CONFIRM_COMMAND", "shared.REMOVE_CANCEL_COMMAND");
+         if (!confirm)
+            return
+
+         this.busy.show();
+
+         await this.http.delete(`api/entries/delete/${entry.EntryID}`).toPromise();
+
+         await this.RefreshEntries();
+         await this.patternsData.RefreshPatterns();
+
+      }
+      catch { /* error absorber */ }
       finally { this.busy.hide(); }
    }
 
