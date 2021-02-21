@@ -75,7 +75,7 @@ namespace Elesse.Entries.Tests
       public async void Update_WithValidDataAndEmptyPayment_MustReturnOkRequest()
       {
          var entity = EntryEntity.Builder().Build();
-         entity.SetPayment(DateTime.Now, entity.EntryValue);
+         entity.SetPayment(DateTime.Now, entity.Value);
          var repository = EntryRepositoryMocker
             .Create()
             .WithLoad(entity)
@@ -88,7 +88,7 @@ namespace Elesse.Entries.Tests
             Pattern = entity.Pattern,
             AccountID = entity.AccountID,
             DueDate = entity.DueDate,
-            EntryValue = entity.EntryValue
+            Value = entity.Value
          };
          var result = await service.UpdateAsync(updateVM);
 
@@ -112,7 +112,7 @@ namespace Elesse.Entries.Tests
             Pattern = entity.Pattern,
             AccountID = entity.AccountID,
             DueDate = entity.DueDate,
-            EntryValue = entity.EntryValue,
+            Value = entity.Value,
             Paid = true,
             PayDate = DateTime.Now.AddDays(3)
          };
@@ -143,7 +143,7 @@ namespace Elesse.Entries.Tests
             Pattern = Patterns.PatternEntity.Builder().Build(),
             AccountID = entity.AccountID,
             DueDate = entity.DueDate,
-            EntryValue = entity.EntryValue,
+            Value = entity.Value,
             Paid = true,
             PayDate = DateTime.Now.AddDays(3)
          };

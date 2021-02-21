@@ -28,12 +28,12 @@ namespace Elesse.Entries
             catch (Exception valEx) { return Warning(valEx.Message); }
 
             // APPLY COMMOM CHANGES
-            try { entry.Change(pattern, updateVM.AccountID, updateVM.DueDate, updateVM.EntryValue); }
+            try { entry.Change(pattern, updateVM.AccountID, updateVM.DueDate, updateVM.Value); }
             catch (Exception valEx) { return Warning(valEx.Message); }
 
             // APPLY PAYMENT
             if (updateVM.Paid && updateVM.PayDate.HasValue)
-               entry.SetPayment(updateVM.PayDate.Value, updateVM.EntryValue);
+               entry.SetPayment(updateVM.PayDate.Value, updateVM.Value);
             else
                entry.ClearPayment();
 
