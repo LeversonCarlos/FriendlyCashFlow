@@ -7,14 +7,14 @@ namespace Elesse.Entries
    {
 
       public static EntryEntity Restore(Shared.EntityID entryID, Patterns.IPatternEntity pattern, Shared.EntityID accountID,
-         DateTime dueDate, decimal entryValue, bool paid, DateTime? payDate) =>
+         DateTime dueDate, decimal value, bool paid, DateTime? payDate) =>
          new EntryEntity
          {
             EntryID = entryID,
             Pattern = pattern,
             AccountID = accountID,
             DueDate = dueDate,
-            EntryValue = entryValue,
+            Value = value,
             Paid = paid,
             PayDate = payDate
          };

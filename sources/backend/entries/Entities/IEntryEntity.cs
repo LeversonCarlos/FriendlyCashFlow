@@ -10,7 +10,7 @@ namespace Elesse.Entries
 
       Shared.EntityID AccountID { get; }
       DateTime DueDate { get; }
-      decimal EntryValue { get; }
+      decimal Value { get; }
 
       bool Paid { get; }
       DateTime? PayDate { get; }
@@ -18,8 +18,6 @@ namespace Elesse.Entries
       // Shared.EntityID RecurrencyID { get; }
       // short? RecurrencyItem { get; }
       // short? RecurrencyTotal { get; }
-
-      // Shared.EntityID TransferID { get; }
 
    }
 }

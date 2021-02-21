@@ -22,7 +22,7 @@ namespace Elesse.Entries.Tests
       {
          var entity = EntryEntity.Builder().Build();
 
-         var exception = Assert.Throws<ArgumentException>(() => entity.SetPayment(DateTime.MinValue, entity.EntryValue));
+         var exception = Assert.Throws<ArgumentException>(() => entity.SetPayment(DateTime.MinValue, entity.Value));
 
          Assert.NotNull(exception);
          Assert.Equal(WARNINGS.INVALID_PAYDATE, exception.Message);

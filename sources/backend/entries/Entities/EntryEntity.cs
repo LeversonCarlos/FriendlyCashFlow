@@ -56,15 +56,15 @@ namespace Elesse.Entries
          }
       }
 
-      decimal _EntryValue;
-      public decimal EntryValue
+      decimal _Value;
+      public decimal Value
       {
-         get => _EntryValue;
+         get => _Value;
          private set
          {
             if (value <= 0)
                throw new ArgumentException(WARNINGS.INVALID_VALUE);
-            _EntryValue = value;
+            _Value = value;
          }
       }
 
