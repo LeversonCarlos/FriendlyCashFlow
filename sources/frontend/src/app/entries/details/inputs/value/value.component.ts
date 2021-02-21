@@ -13,7 +13,7 @@ export class ValueComponent implements OnInit {
 
    @Input() data: EntryEntity;
    @Input() form: FormGroup;
-   public FormControlName: string = "EntryValue";
+   public FormControlName: string = "Value";
 
    ngOnInit(): void {
       this.OnDataInit();
@@ -28,9 +28,9 @@ export class ValueComponent implements OnInit {
    private OnFormInit() {
       if (!this.form || !this.data)
          return;
-      this.form.addControl(this.FormControlName, new FormControl(this.data.EntryValue ?? null, [Validators.required, Validators.min(0.01)]));
+      this.form.addControl(this.FormControlName, new FormControl(this.data.Value ?? null, [Validators.required, Validators.min(0.01)]));
       this.form.get(this.FormControlName).valueChanges.subscribe((val: any) => {
-         this.data.EntryValue = val;
+         this.data.Value = val;
       });
    }
 

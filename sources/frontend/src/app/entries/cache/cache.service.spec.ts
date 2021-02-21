@@ -19,11 +19,11 @@ describe('EntriesCache', () => {
 
    it('SetEntries parses and raises observable with list', (done) => {
       const entries: EntryEntity[] = [
-         EntryEntity.Parse({ AccountID: "account", EntryValue: 1000, Paid: true, Sorting: 10 }),
-         EntryEntity.Parse({ AccountID: "account", EntryValue: -100, Paid: true, Sorting: 30 }),
-         EntryEntity.Parse({ AccountID: "account", EntryValue: -200.50, Paid: true, Sorting: 50 }),
-         EntryEntity.Parse({ AccountID: "account", EntryValue: 0.50, Paid: true, Sorting: 40 }),
-         EntryEntity.Parse({ AccountID: "account", EntryValue: -888, Sorting: 20 })
+         EntryEntity.Parse({ AccountID: "account", Value: 1000, Paid: true, Sorting: 10 }),
+         EntryEntity.Parse({ AccountID: "account", Value: -100, Paid: true, Sorting: 30 }),
+         EntryEntity.Parse({ AccountID: "account", Value: -200.50, Paid: true, Sorting: 50 }),
+         EntryEntity.Parse({ AccountID: "account", Value: 0.50, Paid: true, Sorting: 40 }),
+         EntryEntity.Parse({ AccountID: "account", Value: -888, Sorting: 20 })
       ];
       const month = "201001";
 
