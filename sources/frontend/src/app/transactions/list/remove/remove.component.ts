@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { EntriesData } from '@elesse/entries';
-import { TransactionBase, TransactionEntry } from '../../model/transactions.model';
+import { TransfersData } from '@elesse/transfers';
+import { TransactionBase, TransactionEntry, TransactionTransfer } from '../../model/transactions.model';
 
 @Component({
    selector: 'transactions-remove',
@@ -9,7 +10,7 @@ import { TransactionBase, TransactionEntry } from '../../model/transactions.mode
 })
 export class RemoveComponent implements OnInit {
 
-   constructor(private entriesData: EntriesData) { }
+   constructor(private entriesData: EntriesData, private transfersData: TransfersData) { }
 
    @Input() Transaction: TransactionBase
 
@@ -19,8 +20,12 @@ export class RemoveComponent implements OnInit {
    public OnRemoveClick() {
       if (!this.Transaction)
          return;
-      if (this.Transaction instanceof TransactionEntry)
+      if (this.Transaction instanceof TransactionEntry) {
          this.entriesData.RemoveEntry(this.Transaction.Entry);
+      }
+      if (this.Transaction instanceof TransactionTransfer) {
+         this.transfersData.RemoveTransfer(this.Transaction.Transfer);
+      }
    }
 
 }

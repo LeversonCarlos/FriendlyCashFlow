@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { ActivatedRouteSnapshot } from '@angular/router';
-import { BusyService, Month, MonthSelectorService } from '@elesse/shared';
+import { BusyService, MessageService, Month, MonthSelectorService } from '@elesse/shared';
 import { Observable } from 'rxjs';
 import { TransfersCache } from '../cache/cache.service';
 import { TransferEntity } from '../model/transfers.model';
@@ -12,7 +12,7 @@ import { TransferEntity } from '../model/transfers.model';
 export class TransfersData {
 
    constructor(private Cache: TransfersCache,
-      private busy: BusyService, private monthSelector: MonthSelectorService,
+      private busy: BusyService, private message: MessageService, private monthSelector: MonthSelectorService,
       private http: HttpClient) {
       this.monthSelector.OnChange.subscribe(month => this.OnMonthChange(month));
       this.OnMonthChange(this.CurrentMonth);
@@ -84,6 +84,27 @@ export class TransfersData {
 
       }
       catch { return false; /* error absorber */ }
+      finally { this.busy.hide(); }
+   }
+
+   public async RemoveTransfer(transfer: TransferEntity) {
+      try {
+
+         if (!transfer)
+            return;
+
+         const confirm = await this.message.Confirm("transfers.REMOVE_TEXT", "shared.REMOVE_CONFIRM_COMMAND", "shared.REMOVE_CANCEL_COMMAND");
+         if (!confirm)
+            return
+
+         this.busy.show();
+
+         await this.http.delete(`api/transfers/delete/${transfer.TransferID}`).toPromise();
+
+         await this.RefreshTransfers();
+
+      }
+      catch { /* error absorber */ }
       finally { this.busy.hide(); }
    }
 
