@@ -85,7 +85,7 @@ describe('EntriesData', () => {
          expect(result.EntryID).toEqual(expected.EntryID);
          expect(result.AccountID).toEqual(expected.AccountID);
          expect(result.DueDate).toEqual(new Date(expected.DueDate));
-         expect(result.EntryValue).toEqual(expected.EntryValue);
+         expect(result.Value).toEqual(expected.Value);
          done();
       });
 
@@ -94,7 +94,7 @@ describe('EntriesData', () => {
          EntryID: 'EntryID',
          AccountID: 'AccountID',
          DueDate: '2021-02-16',
-         EntryValue: 12.34
+         Value: 12.34
       };
       httpRequest.flush(expected)
    });

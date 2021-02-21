@@ -36,9 +36,9 @@ describe('TransactionsParser', () => {
          CategoryEntity.Parse({ CategoryID: 'CAT2', HierarchyText: 'my second expense category' })
       ];
       const entries: EntryEntity[] = [
-         EntryEntity.Parse({ AccountID: 'ID1', Pattern: { Text: 'my main income', Type: enCategoryType.Income, CategoryID: 'CAT1' }, EntryValue: 1500, DueDate: new Date(2021, 1, 2) }),
-         EntryEntity.Parse({ AccountID: 'ID1', Pattern: { Text: 'my second expense', Type: enCategoryType.Expense, CategoryID: 'CAT1' }, EntryValue: 123.45, DueDate: new Date(2021, 1, 3) }),
-         EntryEntity.Parse({ AccountID: 'ID1', Pattern: { Text: 'my first expense', Type: enCategoryType.Expense, CategoryID: 'CAT2' }, EntryValue: 300, DueDate: new Date(2021, 1, 4) }),
+         EntryEntity.Parse({ AccountID: 'ID1', Pattern: { Text: 'my main income', Type: enCategoryType.Income, CategoryID: 'CAT1' }, Value: 1500, DueDate: new Date(2021, 1, 2) }),
+         EntryEntity.Parse({ AccountID: 'ID1', Pattern: { Text: 'my second expense', Type: enCategoryType.Expense, CategoryID: 'CAT1' }, Value: 123.45, DueDate: new Date(2021, 1, 3) }),
+         EntryEntity.Parse({ AccountID: 'ID1', Pattern: { Text: 'my first expense', Type: enCategoryType.Expense, CategoryID: 'CAT2' }, Value: 300, DueDate: new Date(2021, 1, 4) }),
       ];
 
       const transactionAccounts = TransactionsConverter.Convert(accounts, incomeCategories, expenseCategories, entries, null);
@@ -56,10 +56,10 @@ describe('TransactionsParser', () => {
          AccountEntity.Parse({ AccountID: 'ID2', Text: 'my other account text' })
       ];
       const entries: EntryEntity[] = [
-         EntryEntity.Parse({ AccountID: 'ID1', Pattern: { Text: 'my main income', Type: enCategoryType.Income }, EntryValue: 1500, DueDate: new Date("2021-02-05"), Paid: true, PayDate: new Date("2021-02-01") }),
-         EntryEntity.Parse({ AccountID: 'ID1', Pattern: { Text: 'my second expense', Type: enCategoryType.Expense }, EntryValue: 123.45, DueDate: new Date("2021-02-15") }),
-         EntryEntity.Parse({ AccountID: 'ID2', Pattern: { Text: 'my other income', Type: enCategoryType.Income }, EntryValue: 1000, DueDate: new Date("2021-02-07") }),
-         EntryEntity.Parse({ AccountID: 'ID1', Pattern: { Text: 'my first expense', Type: enCategoryType.Expense }, EntryValue: 300, DueDate: new Date("2021-02-10"), Paid: true, PayDate: new Date("2021-02-15") }),
+         EntryEntity.Parse({ AccountID: 'ID1', Pattern: { Text: 'my main income', Type: enCategoryType.Income }, Value: 1500, DueDate: new Date("2021-02-05"), Paid: true, PayDate: new Date("2021-02-01") }),
+         EntryEntity.Parse({ AccountID: 'ID1', Pattern: { Text: 'my second expense', Type: enCategoryType.Expense }, Value: 123.45, DueDate: new Date("2021-02-15") }),
+         EntryEntity.Parse({ AccountID: 'ID2', Pattern: { Text: 'my other income', Type: enCategoryType.Income }, Value: 1000, DueDate: new Date("2021-02-07") }),
+         EntryEntity.Parse({ AccountID: 'ID1', Pattern: { Text: 'my first expense', Type: enCategoryType.Expense }, Value: 300, DueDate: new Date("2021-02-10"), Paid: true, PayDate: new Date("2021-02-15") }),
       ];
 
       const transactionAccounts = TransactionsConverter.Convert(accounts, null, null, entries, null);
@@ -77,10 +77,10 @@ describe('TransactionsParser', () => {
          AccountEntity.Parse({ AccountID: 'ID2', Text: 'my other account text' })
       ];
       const entries: EntryEntity[] = [
-         EntryEntity.Parse({ AccountID: 'ID1', Pattern: { Text: 'my main income', Type: enCategoryType.Income }, EntryValue: 1500, DueDate: new Date("2021-02-05"), Paid: true, PayDate: new Date("2021-02-02") }),
-         EntryEntity.Parse({ AccountID: 'ID1', Pattern: { Text: 'my second expense', Type: enCategoryType.Expense }, EntryValue: 123.45, DueDate: new Date("2021-02-15") }),
-         EntryEntity.Parse({ AccountID: 'ID2', Pattern: { Text: 'my other income', Type: enCategoryType.Income }, EntryValue: 1000, DueDate: new Date("2021-02-07") }),
-         EntryEntity.Parse({ AccountID: 'ID1', Pattern: { Text: 'my first expense', Type: enCategoryType.Expense }, EntryValue: 300, DueDate: new Date("2021-02-10"), Paid: true, PayDate: new Date("2021-02-15") }),
+         EntryEntity.Parse({ AccountID: 'ID1', Pattern: { Text: 'my main income', Type: enCategoryType.Income }, Value: 1500, DueDate: new Date("2021-02-05"), Paid: true, PayDate: new Date("2021-02-02") }),
+         EntryEntity.Parse({ AccountID: 'ID1', Pattern: { Text: 'my second expense', Type: enCategoryType.Expense }, Value: 123.45, DueDate: new Date("2021-02-15") }),
+         EntryEntity.Parse({ AccountID: 'ID2', Pattern: { Text: 'my other income', Type: enCategoryType.Income }, Value: 1000, DueDate: new Date("2021-02-07") }),
+         EntryEntity.Parse({ AccountID: 'ID1', Pattern: { Text: 'my first expense', Type: enCategoryType.Expense }, Value: 300, DueDate: new Date("2021-02-10"), Paid: true, PayDate: new Date("2021-02-15") }),
       ];
 
       const transactionAccounts = TransactionsConverter.Convert(accounts, null, null, entries, null);
@@ -100,10 +100,10 @@ describe('TransactionsParser', () => {
          AccountEntity.Parse({ AccountID: 'ID2', Text: 'my other account text' })
       ];
       const entries: EntryEntity[] = [
-         EntryEntity.Parse({ AccountID: 'ID1', Pattern: { Text: 'my main income', Type: enCategoryType.Income }, EntryValue: 1500, DueDate: new Date("2021-02-05"), Sorting: 0, Paid: true, PayDate: new Date("2021-02-02") }),
-         EntryEntity.Parse({ AccountID: 'ID1', Pattern: { Text: 'my second expense', Type: enCategoryType.Expense }, EntryValue: 123.45, DueDate: new Date("2021-02-15"), Sorting: 2 }),
-         EntryEntity.Parse({ AccountID: 'ID2', Pattern: { Text: 'my other income', Type: enCategoryType.Income }, EntryValue: 1000, DueDate: new Date("2021-02-07") }),
-         EntryEntity.Parse({ AccountID: 'ID1', Pattern: { Text: 'my first expense', Type: enCategoryType.Expense }, EntryValue: 300, DueDate: new Date("2021-02-10"), Sorting: 1, Paid: true, PayDate: new Date("2021-02-15") }),
+         EntryEntity.Parse({ AccountID: 'ID1', Pattern: { Text: 'my main income', Type: enCategoryType.Income }, Value: 1500, DueDate: new Date("2021-02-05"), Sorting: 0, Paid: true, PayDate: new Date("2021-02-02") }),
+         EntryEntity.Parse({ AccountID: 'ID1', Pattern: { Text: 'my second expense', Type: enCategoryType.Expense }, Value: 123.45, DueDate: new Date("2021-02-15"), Sorting: 2 }),
+         EntryEntity.Parse({ AccountID: 'ID2', Pattern: { Text: 'my other income', Type: enCategoryType.Income }, Value: 1000, DueDate: new Date("2021-02-07") }),
+         EntryEntity.Parse({ AccountID: 'ID1', Pattern: { Text: 'my first expense', Type: enCategoryType.Expense }, Value: 300, DueDate: new Date("2021-02-10"), Sorting: 1, Paid: true, PayDate: new Date("2021-02-15") }),
       ];
 
       const transactionAccounts = TransactionsConverter.Convert(accounts, null, null, entries, null);

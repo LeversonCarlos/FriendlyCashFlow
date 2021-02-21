@@ -12,9 +12,9 @@ namespace Elesse.Entries.Tests
          var pattern = Patterns.PatternEntity.Builder().Build();
          var accountID = Shared.EntityID.MockerID();
          var dueDate = Shared.Faker.GetFaker().Date.Soon();
-         var entryValue = Shared.Faker.GetFaker().Random.Decimal(0, 10000);
+         var value = Shared.Faker.GetFaker().Random.Decimal(0, 10000);
 
-         var result = EntryEntity.Create(pattern, accountID, dueDate, entryValue);
+         var result = EntryEntity.Create(pattern, accountID, dueDate, value);
 
          Assert.NotNull(result);
          Assert.NotNull(result.EntryID);
@@ -22,7 +22,7 @@ namespace Elesse.Entries.Tests
          Assert.Equal(pattern, result.Pattern);
          Assert.Equal(accountID, result.AccountID);
          Assert.Equal(dueDate, result.DueDate);
-         Assert.Equal(entryValue, result.EntryValue);
+         Assert.Equal(value, result.Value);
       }
 
    }

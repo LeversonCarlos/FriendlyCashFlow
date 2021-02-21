@@ -62,7 +62,7 @@ namespace Elesse.Entries.Tests
             .Build();
          var service = EntryService.Mock(patternService);
 
-         var param = new InsertVM { Pattern = pattern, AccountID = Shared.EntityID.NewID(), DueDate = DateTime.Now.AddDays(1), EntryValue = (decimal)12.34 };
+         var param = new InsertVM { Pattern = pattern, AccountID = Shared.EntityID.NewID(), DueDate = DateTime.Now.AddDays(1), Value = (decimal)12.34 };
          var result = await service.InsertAsync(param);
 
          Assert.NotNull(result);
@@ -84,7 +84,7 @@ namespace Elesse.Entries.Tests
             Pattern = pattern,
             AccountID = Shared.EntityID.NewID(),
             DueDate = DateTime.Now.AddDays(1),
-            EntryValue = (decimal)12.34,
+            Value = (decimal)12.34,
             Paid = true,
             PayDate = DateTime.Now
          };

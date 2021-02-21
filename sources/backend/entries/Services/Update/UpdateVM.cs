@@ -12,7 +12,7 @@ namespace Elesse.Entries
 
       public EntityID AccountID { get; set; }
       public DateTime DueDate { get; set; }
-      public decimal EntryValue { get; set; }
+      public decimal Value { get; set; }
 
       public bool Paid { get; set; }
       public DateTime? PayDate { get; set; }

@@ -6,7 +6,7 @@ export class EntryEntity {
 
    AccountID: string;
    DueDate: Date;
-   EntryValue: number;
+   Value: number;
 
    Paid: boolean;
    PayDate?: Date;
@@ -20,7 +20,7 @@ export class EntryEntity {
          Pattern: PatternEntity.Parse(value.Pattern),
          AccountID: value.AccountID ?? null,
          DueDate: value.DueDate ? new Date(value.DueDate) : null,
-         EntryValue: value.EntryValue ?? null,
+         Value: value.Value ?? null,
          Paid: value.Paid ?? false,
          PayDate: value.PayDate ? new Date(value.PayDate) : null,
          SearchDate: value.SearchDate ? new Date(value.SearchDate) : null,

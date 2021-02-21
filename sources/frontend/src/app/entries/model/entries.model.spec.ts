@@ -24,7 +24,7 @@ describe('EntryEntity', () => {
       const entryID = "my entry id";
       const accountID = "my account id";
       const dueDate = new Date("2021-01-23");
-      const entryValue = 12.34;
+      const value = 12.34;
       const payDate = new Date("2021-01-24");
       const entry = EntryEntityMocker
          .Create()
@@ -32,7 +32,7 @@ describe('EntryEntity', () => {
          .WithPattern(pattern)
          .WithAccountID(accountID)
          .WithDueDate(dueDate)
-         .WithEntryValue(entryValue)
+         .WithValue(value)
          .WithPayDate(payDate)
          .Build();
 
@@ -43,7 +43,7 @@ describe('EntryEntity', () => {
       expect(entry.Pattern.Text).toEqual(text);
       expect(entry.AccountID).toEqual(accountID);
       expect(entry.DueDate).toEqual(dueDate);
-      expect(entry.EntryValue).toEqual(entryValue);
+      expect(entry.Value).toEqual(value);
       expect(entry.PayDate).toEqual(payDate);
       expect(entry.Paid).toEqual(true);
    });
@@ -58,7 +58,7 @@ export class EntryEntityMocker {
       Pattern: PatternEntityMocker.Create().Build(),
       AccountID: 'AccountID',
       DueDate: new Date(),
-      EntryValue: 1234.56
+      Value: 1234.56
    });
 
    public WithEntryID(entryID: string): EntryEntityMocker {
@@ -81,8 +81,8 @@ export class EntryEntityMocker {
       return this;
    }
 
-   public WithEntryValue(entryValue: number): EntryEntityMocker {
-      this._EntryEntity.EntryValue = entryValue;
+   public WithValue(value: number): EntryEntityMocker {
+      this._EntryEntity.Value = value;
       return this;
    }
 

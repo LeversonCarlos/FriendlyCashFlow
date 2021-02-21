@@ -12,11 +12,11 @@ namespace Elesse.Entries
          PayDate = null;
       }
 
-      public void SetPayment(DateTime payDate, decimal entryValue)
+      public void SetPayment(DateTime payDate, decimal value)
       {
          Paid = true;
          PayDate = payDate;
-         EntryValue = entryValue;
+         Value = value;
       }
 
    }

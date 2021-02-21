@@ -32,7 +32,7 @@ describe('TransactionEntry', () => {
       const value = 12.34;
       const paid = true;
       const payDate = new Date('2021-02-10');
-      const entry = EntryEntity.Parse({ Pattern: { Text: text }, DueDate: dueDate, EntryValue: value, Paid: paid, PayDate: payDate });
+      const entry = EntryEntity.Parse({ Pattern: { Text: text }, DueDate: dueDate, Value: value, Paid: paid, PayDate: payDate });
 
       const transaction = TransactionEntry.Parse(entry);
 
@@ -47,7 +47,7 @@ describe('TransactionEntry', () => {
       const dueDate = new Date('2021-02-14');
       const value = 43.21;
       const paid = false;
-      const entry = EntryEntity.Parse({ Pattern: { Text: text, Type: enCategoryType.Expense }, DueDate: dueDate, EntryValue: value, Paid: paid });
+      const entry = EntryEntity.Parse({ Pattern: { Text: text, Type: enCategoryType.Expense }, DueDate: dueDate, Value: value, Paid: paid });
 
       const transaction = TransactionEntry.Parse(entry);
 
@@ -60,7 +60,7 @@ describe('TransactionEntry', () => {
    it('should parse without errors even with a null pattern', () => {
       const dueDate = new Date('2021-02-14');
       const value = 43.21;
-      const entry = EntryEntity.Parse({ DueDate: dueDate, EntryValue: value });
+      const entry = EntryEntity.Parse({ DueDate: dueDate, Value: value });
 
       const transaction = TransactionEntry.Parse(entry);
 

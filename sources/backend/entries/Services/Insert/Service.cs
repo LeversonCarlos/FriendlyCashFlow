@@ -24,12 +24,12 @@ namespace Elesse.Entries
 
             // CREATE INSTANCE
             EntryEntity entry = null;
-            try { entry = EntryEntity.Create(pattern, insertVM.AccountID, insertVM.DueDate, insertVM.EntryValue); }
+            try { entry = EntryEntity.Create(pattern, insertVM.AccountID, insertVM.DueDate, insertVM.Value); }
             catch (Exception valEx) { return Warning(valEx.Message); }
 
             // APPLY PAYMENT
             if (insertVM.Paid && insertVM.PayDate.HasValue)
-               entry.SetPayment(insertVM.PayDate.Value, insertVM.EntryValue);
+               entry.SetPayment(insertVM.PayDate.Value, insertVM.Value);
 
             // REFRESH SORTING
             entry.RefreshSorting();

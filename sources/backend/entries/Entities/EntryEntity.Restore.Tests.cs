@@ -9,9 +9,9 @@ namespace Elesse.Entries.Tests
 
       [Theory]
       [MemberData(nameof(Restore_WithInvalidParameters_MustThrowException_Data))]
-      public void Restore_WithInvalidParameters_MustThrowException(string exceptionText, Shared.EntityID entryID, Patterns.IPatternEntity pattern, Shared.EntityID accountID, DateTime dueDate, decimal entryValue, bool paid, DateTime? payDate)
+      public void Restore_WithInvalidParameters_MustThrowException(string exceptionText, Shared.EntityID entryID, Patterns.IPatternEntity pattern, Shared.EntityID accountID, DateTime dueDate, decimal value, bool paid, DateTime? payDate)
       {
-         var exception = Assert.Throws<ArgumentException>(() => EntryEntity.Restore(entryID, pattern, accountID, dueDate, entryValue, paid, payDate));
+         var exception = Assert.Throws<ArgumentException>(() => EntryEntity.Restore(entryID, pattern, accountID, dueDate, value, paid, payDate));
 
          Assert.NotNull(exception);
          Assert.Equal(exceptionText, exception.Message);
@@ -36,18 +36,18 @@ namespace Elesse.Entries.Tests
          var pattern = Patterns.PatternEntity.Builder().Build();
          var accountID = Shared.EntityID.NewID();
          var dueDate = DateTime.Now.AddDays(1);
-         var entryValue = (decimal)23.45;
+         var value = (decimal)23.45;
          var paid = true;
          var payDate = DateTime.Now.AddDays(1);
 
-         var result = EntryEntity.Restore(entryID, pattern, accountID, dueDate, entryValue, paid, payDate);
+         var result = EntryEntity.Restore(entryID, pattern, accountID, dueDate, value, paid, payDate);
 
          Assert.NotNull(result);
          Assert.Equal(entryID, result.EntryID);
          Assert.Equal(pattern, result.Pattern);
          Assert.Equal(accountID, result.AccountID);
          Assert.Equal(dueDate, result.DueDate);
-         Assert.Equal(entryValue, result.EntryValue);
+         Assert.Equal(value, result.Value);
          Assert.Equal(paid, result.Paid);
          Assert.Equal(payDate, result.PayDate);
       }
