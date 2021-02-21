@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { EventEmitter, Injectable, Output } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot } from '@angular/router';
 import { BusyService, Month, MonthSelectorService } from '@elesse/shared';
 import { Observable } from 'rxjs';
@@ -84,6 +84,22 @@ export class TransfersData {
 
       }
       catch { return false; /* error absorber */ }
+      finally { this.busy.hide(); }
+   }
+
+   public async RemoveTransfer(transfer: TransferEntity) {
+      try {
+         this.busy.show();
+
+         if (!transfer)
+            return;
+
+         await this.http.delete(`api/transfers/delete/${transfer.TransferID}`).toPromise();
+
+         await this.RefreshTransfers();
+
+      }
+      catch { /* error absorber */ }
       finally { this.busy.hide(); }
    }
 

@@ -18,13 +18,6 @@
       <small class="mat-small">{{ Transaction.Details }}</small>
    </small>
 
-   <button mat-icon-button [matMenuTriggerFor]="menu">
-      <mat-icon>more_vert</mat-icon>
-   </button>
-   <mat-menu #menu="matMenu">
-      <button mat-menu-item class="danger" (click)="OnRemoveClick()">
-         <span>{{ 'transactions.REMOVE_MENU' | translation | async }}</span>
-      </button>
-   </mat-menu>
+   <transactions-remove [Transaction]="Transaction"></transactions-remove>
 
 </mat-list-item>

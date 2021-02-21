@@ -94,4 +94,21 @@ export class EntriesData {
       finally { this.busy.hide(); }
    }
 
+   public async RemoveEntry(entry: EntryEntity) {
+      try {
+         this.busy.show();
+
+         if (!entry)
+            return;
+
+         await this.http.delete(`api/entries/delete/${entry.EntryID}`).toPromise();
+
+         await this.RefreshEntries();
+         await this.patternsData.RefreshPatterns();
+
+      }
+      catch { /* error absorber */ }
+      finally { this.busy.hide(); }
+   }
+
 }
