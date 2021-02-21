@@ -8,5 +8,7 @@
   "ADD_INCOME_MENU": "New Income",
   "ADD_EXPENSE_MENU": "New Expense",
   "ADD_TRANSFER_MENU": "New Transfer",
-  "REMOVE_MENU": "Remove"
+  "REMOVE_MENU": "Remove",
+  "REMOVE_CONFIRMATION_TEXT": "Do you really want to remove: {0}"
+
 }
