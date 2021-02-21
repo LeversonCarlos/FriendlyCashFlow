@@ -155,7 +155,7 @@ jobs:
 
       - name: Run Tests
         working-directory: 'sources/frontend/'
-        run: npm run test
+        run: npm run test-once
 
       - name: Fix Tests Paths
         working-directory: 'sources/frontend/'
