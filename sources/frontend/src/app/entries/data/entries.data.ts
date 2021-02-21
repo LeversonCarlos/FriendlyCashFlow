@@ -87,6 +87,7 @@ export class EntriesData {
 
          await this.RefreshEntries();
          await this.patternsData.RefreshPatterns();
+
          return true;
 
       }
