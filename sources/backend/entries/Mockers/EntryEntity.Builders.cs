@@ -40,10 +40,10 @@ namespace Elesse.Entries.Tests
          return this;
       }
 
-      decimal _EntryValue = Shared.Faker.GetFaker().Random.Decimal(0, 10000);
-      public EntryEntityBuilder WithEntryValue(decimal entryValue)
+      decimal _Value = Shared.Faker.GetFaker().Random.Decimal(0, 10000);
+      public EntryEntityBuilder WithValue(decimal value)
       {
-         _EntryValue = entryValue;
+         _Value = value;
          return this;
       }
 
@@ -57,7 +57,7 @@ namespace Elesse.Entries.Tests
       }
 
       public EntryEntity Build() =>
-         EntryEntity.Restore(_EntryID, _Pattern, _AccountID, _DueDate, _EntryValue, _Paid, _PayDate);
+         EntryEntity.Restore(_EntryID, _Pattern, _AccountID, _DueDate, _Value, _Paid, _PayDate);
 
    }
 }
