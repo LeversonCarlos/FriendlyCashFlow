@@ -54,7 +54,7 @@ export class PatternComponent implements OnInit {
          if (row?.value?.Text)
             this.OnTextChanging(row.value.Text);
          if (row?.value?.CategoryID)
-            this.formSection.get(this.FormControlID).setValue(row.value.CategoryID);
+            this.formSection.get("CategoryID").setValue(row.value.CategoryID);
       });
    }
 

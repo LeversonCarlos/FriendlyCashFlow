@@ -26,8 +26,9 @@
 
       <ng-container *ngIf="(TransactionAccounts | async) as transactionAccounts">
          <shared-empty-list *ngIf="transactionAccounts.length==0"></shared-empty-list>
-         <mat-tab-group *ngIf="transactionAccounts.length>0"
-            dynamicHeight="false" [selectedIndex]="TabIndex" (selectedIndexChange)="OnTabChanged($event, transactionAccounts[$event])">
+         <mat-tab-group dynamicHeight="false" animationDuration="0ms"
+            *ngIf="transactionAccounts.length>0"
+            [selectedIndex]="TabIndex" (selectedIndexChange)="OnTabChanged($event, transactionAccounts[$event])">
             <mat-tab *ngFor="let account of transactionAccounts">
                <ng-template mat-tab-label>
                   <mat-icon>{{ account.AccountIcon }}</mat-icon>
