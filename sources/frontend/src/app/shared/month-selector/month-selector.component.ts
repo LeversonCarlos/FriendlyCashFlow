@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MonthSelectorService } from './month-selector.service';
+import { IMonthSelectorService } from './month-selector.interface';
 
 @Component({
    selector: 'shared-month-selector',
@@ -8,7 +8,7 @@ import { MonthSelectorService } from './month-selector.service';
 })
 export class MonthSelectorComponent implements OnInit {
 
-   constructor(private service: MonthSelectorService) { }
+   constructor(private service: IMonthSelectorService) { }
 
    ngOnInit(): void {
    }
