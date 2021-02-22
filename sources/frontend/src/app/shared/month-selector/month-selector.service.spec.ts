@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { TestsModule } from '@elesse/tests';
 import { Month } from './month';
+import { IMonthSelectorService } from './month-selector.interface';
 import { MonthSelectorService } from './month-selector.service';
 
 describe('MonthSelectorService', () => {
@@ -14,6 +15,16 @@ describe('MonthSelectorService', () => {
    it('should be created', () => {
       const service = new MonthSelectorService();
       expect(service).toBeTruthy();
+   });
+
+   it('Provider must result instance of AccountSelectorService', () => {
+      const service = TestBed.inject(IMonthSelectorService);
+      /*
+      service.CurrentMonth = new Month(new Date("2021-01-12"));
+      expect(service.PreviousMonth.ToCode()).toEqual("202012");
+      expect(service.NextMonth.ToCode()).toEqual("202102");
+      */
+      expect(service).toBeInstanceOf(MonthSelectorService);
    });
 
    it('initial value for current month should be current date', () => {
