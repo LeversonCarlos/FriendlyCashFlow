@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot } from '@angular/router';
-import { AccountSelectorService, BusyService, Month, MonthSelectorService } from '@elesse/shared';
+import { BusyService, IAccountSelectorService, Month, MonthSelectorService } from '@elesse/shared';
 import { Observable } from 'rxjs';
 import { TransfersCache } from '../cache/cache.service';
 import { TransferEntity } from '../model/transfers.model';
@@ -13,7 +13,7 @@ export class TransfersData {
 
    constructor(private Cache: TransfersCache,
       private busy: BusyService,
-      private monthSelector: MonthSelectorService, private accountSelector: AccountSelectorService,
+      private monthSelector: MonthSelectorService, private accountSelector: IAccountSelectorService,
       private http: HttpClient) {
       this.monthSelector.OnChange.subscribe(month => this.OnMonthChange(month));
       this.OnMonthChange(this.CurrentMonth);

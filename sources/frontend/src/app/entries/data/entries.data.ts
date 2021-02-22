@@ -5,7 +5,7 @@ import { enCategoryType } from '@elesse/categories';
 import { BusyService } from '../../shared/busy/busy.service';
 import { EntriesCache } from '../cache/cache.service';
 import { EntryEntity } from '../model/entries.model';
-import { AccountSelectorService, Month, MonthSelectorService } from '@elesse/shared';
+import { IAccountSelectorService, Month, MonthSelectorService } from '@elesse/shared';
 import { PatternsData } from '@elesse/patterns';
 import { ActivatedRouteSnapshot } from '@angular/router';
 
@@ -16,7 +16,7 @@ export class EntriesData {
 
    constructor(private Cache: EntriesCache,
       private busy: BusyService,
-      private monthSelector: MonthSelectorService, private accountSelector: AccountSelectorService,
+      private monthSelector: MonthSelectorService, private accountSelector: IAccountSelectorService,
       private patternsData: PatternsData,
       private http: HttpClient) {
       this.monthSelector.OnChange.subscribe(month => this.OnMonthChange(month));

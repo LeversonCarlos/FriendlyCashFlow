@@ -13,7 +13,6 @@ export { MessageService } from './message/message.service';
 
 export { ResponsiveService } from './responsive/responsive.service';
 
-export { AccountSelectorService } from './account-selector/account-selector.service';
 export { MonthSelectorService } from './month-selector/month-selector.service';
 export { Month } from './month-selector/month';
 
@@ -22,3 +21,5 @@ export { LocalizationService } from './localization/localization.service';
 
 export { EnumData } from './enum-data/enum.data';
 export { RelatedData } from './relatedbox/relatedbox.models';
+
+export { IAccountSelectorService } from './account-selector/account-selector.interface'
