@@ -3,5 +3,5 @@ import { AccountSelectorService } from "./account-selector.service";
 
 export const AccountSelectorProvider = {
    provide: IAccountSelectorService,
-   useClass: AccountSelectorService
+   useExisting: AccountSelectorService
 };

@@ -3,5 +3,5 @@ import { MonthSelectorService } from "./month-selector.service";
 
 export const MonthSelectorProvider = {
    provide: IMonthSelectorService,
-   useClass: MonthSelectorService
+   useExisting: MonthSelectorService
 };
