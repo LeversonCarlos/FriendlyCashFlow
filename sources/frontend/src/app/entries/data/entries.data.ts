@@ -5,7 +5,7 @@ import { enCategoryType } from '@elesse/categories';
 import { BusyService } from '../../shared/busy/busy.service';
 import { EntriesCache } from '../cache/cache.service';
 import { EntryEntity } from '../model/entries.model';
-import { Month, MonthSelectorService } from '@elesse/shared';
+import { AccountSelectorService, Month, MonthSelectorService } from '@elesse/shared';
 import { PatternsData } from '@elesse/patterns';
 import { ActivatedRouteSnapshot } from '@angular/router';
 
@@ -16,7 +16,7 @@ export class EntriesData {
 
    constructor(private Cache: EntriesCache,
       private busy: BusyService, private monthSelector: MonthSelectorService,
-      private patternsData: PatternsData,
+      private patternsData: PatternsData, private accountSelector: AccountSelectorService,
       private http: HttpClient) {
       this.monthSelector.OnChange.subscribe(month => this.OnMonthChange(month));
       this.OnMonthChange(this.CurrentMonth);
@@ -53,9 +53,17 @@ export class EntriesData {
             return null;
 
          if (snapshot.routeConfig.path == "new/income")
-            return EntryEntity.Parse({ Pattern: { Type: enCategoryType.Income }, DueDate: this.monthSelector.DefaultDate });
+            return EntryEntity.Parse({
+               Pattern: { Type: enCategoryType.Income },
+               DueDate: this.monthSelector.DefaultDate,
+               AccountID: this.accountSelector.AccountID
+            });
          if (snapshot.routeConfig.path == "new/expense")
-            return EntryEntity.Parse({ Pattern: { Type: enCategoryType.Expense }, DueDate: this.monthSelector.DefaultDate });
+            return EntryEntity.Parse({
+               Pattern: { Type: enCategoryType.Expense },
+               DueDate: this.monthSelector.DefaultDate,
+               AccountID: this.accountSelector.AccountID
+            });
 
          const entryID = snapshot.params?.entry;
          if (!entryID)
