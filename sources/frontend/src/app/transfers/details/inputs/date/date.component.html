@@ -1,6 +1,6 @@
 <mat-form-field *ngIf="form" [formGroup]="form">
    <mat-label>{{ "transfers.DATE_LABEL" | translation | async }}</mat-label>
-   <input type="text" matInput [matDatepicker]="datePicker" [formControlName]="FormControlName">
+   <input type="text" matInput [matDatepicker]="datePicker" [formControlName]="formControlName">
    <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
    <mat-datepicker #datePicker></mat-datepicker>
 </mat-form-field>

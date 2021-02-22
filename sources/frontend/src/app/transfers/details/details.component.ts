@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BusyService, MessageService } from '@elesse/shared';
 import { TransfersData } from '../data/transfers.data';
 import { TransferEntity } from '../model/transfers.model';
+import { ControlNames } from './details.control-names';
 
 @Component({
    selector: 'transfers-details',
@@ -30,8 +31,8 @@ export class DetailsComponent implements OnInit {
    }
 
    public OnAccountsChange() {
-      const expenseAccount = this.form.get("ExpenseAccountIDRow");
-      const incomeAccount = this.form.get("IncomeAccountIDRow");
+      const expenseAccount = this.form.get(ControlNames.ExpenseAccountRow);
+      const incomeAccount = this.form.get(ControlNames.IncomeAccountRow);
       if (this.data.ExpenseAccountID && this.data.IncomeAccountID) {
          if (this.data.ExpenseAccountID == this.data.IncomeAccountID) {
             expenseAccount.setErrors({ sameAccount: true });

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TransferEntity } from 'src/app/transfers/model/transfers.model';
+import { ControlNames } from '../../details.control-names';
 
 @Component({
    selector: 'transfers-details-date',
@@ -13,7 +14,7 @@ export class DateComponent implements OnInit {
 
    @Input() data: TransferEntity;
    @Input() form: FormGroup;
-   public FormControlName: string = "Date";
+   public formControlName: string = ControlNames.Date;
 
    ngOnInit(): void {
       this.OnDataInit();
@@ -28,8 +29,8 @@ export class DateComponent implements OnInit {
    private OnFormInit() {
       if (!this.form || !this.data)
          return;
-      this.form.addControl(this.FormControlName, new FormControl(this.data.Date ?? null, Validators.required));
-      this.form.get(this.FormControlName).valueChanges.subscribe((val: string) => {
+      this.form.addControl(ControlNames.Date, new FormControl(this.data.Date ?? null, Validators.required));
+      this.form.get(ControlNames.Date).valueChanges.subscribe((val: string) => {
          let date = new Date(val);
          date = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 12);
          this.data.Date = date;
