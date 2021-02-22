@@ -15,12 +15,10 @@ export class PatternComponent implements OnInit {
 
    @Input() data: EntryEntity;
    @Input() form: FormGroup;
+   public formControlName: string = PatternControlNames.PatternRow;
    public formSection: FormGroup;
    public PatternOptions: RelatedData<PatternEntity>[] = [];
    public PatternFiltered: RelatedData<PatternEntity>[] = [];
-   private FormControlID: string = "PatternID";
-   public FormControlName: string = `${this.FormControlID}Row`;
-   public FormSectionName: string = 'Pattern';
 
    ngOnInit(): void {
       if (!this.data)
@@ -42,10 +40,10 @@ export class PatternComponent implements OnInit {
    private OnFormInit() {
       if (!this.form)
          return;
-      this.formSection = this.form.get(this.FormSectionName) as FormGroup;
-      this.formSection.addControl(this.FormControlID, new FormControl(this.data?.Pattern?.PatternID ?? null));
-      this.formSection.addControl(this.FormControlName, new FormControl(this.GetFirstPattern()));
-      this.formSection.get(this.FormControlName).valueChanges.subscribe((row: RelatedData<PatternEntity>) => {
+      this.formSection = this.form.get(PatternControlNames.Pattern) as FormGroup;
+      this.formSection.addControl(PatternControlNames.PatternID, new FormControl(this.data?.Pattern?.PatternID ?? null));
+      this.formSection.addControl(PatternControlNames.PatternRow, new FormControl(this.GetFirstPattern()));
+      this.formSection.get(PatternControlNames.PatternRow).valueChanges.subscribe((row: RelatedData<PatternEntity>) => {
          this.data.Pattern.PatternID = row?.value?.PatternID ?? null;
          if (row?.value?.Text)
             this.OnTextChanging(row.value.Text);
@@ -88,4 +86,10 @@ export class PatternComponent implements OnInit {
       return this.PatternFiltered?.length == 1 ? this.PatternFiltered[0] : null
    }
 
+}
+
+export const PatternControlNames = {
+   Pattern: 'Pattern',
+   PatternID: 'PatternID',
+   PatternRow: 'PatternRow'
 }

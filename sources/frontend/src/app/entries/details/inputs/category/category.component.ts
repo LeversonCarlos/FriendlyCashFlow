@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CategoriesData, CategoryEntity } from '@elesse/categories';
 import { EntryEntity } from '@elesse/entries';
 import { RelatedData } from '@elesse/shared';
+import { PatternControlNames } from '../pattern/pattern.component';
 
 @Component({
    selector: 'entries-details-category',
@@ -18,7 +19,6 @@ export class CategoryComponent implements OnInit {
    public formControlName: string = CategoryControlNames.CategoryRow;
    public CategoryOptions: RelatedData<CategoryEntity>[] = [];
    public CategoryFiltered: RelatedData<CategoryEntity>[] = [];
-   public FormSectionName: string = 'Pattern';
 
    ngOnInit(): void {
       if (!this.data)
@@ -44,7 +44,7 @@ export class CategoryComponent implements OnInit {
    private OnFormInit() {
       if (!this.form || !this.data)
          return;
-      const formSection = this.form.get(this.FormSectionName) as FormGroup;
+      const formSection = this.form.get(PatternControlNames.Pattern) as FormGroup;
       formSection.addControl(CategoryControlNames.CategoryID, new FormControl(this.data.Pattern?.CategoryID ?? null));
       formSection.addControl(CategoryControlNames.CategoryRow, new FormControl(this.GetFirstCategory(), Validators.required));
       formSection.get(CategoryControlNames.CategoryRow).valueChanges.subscribe((row: RelatedData<CategoryEntity>) => {
