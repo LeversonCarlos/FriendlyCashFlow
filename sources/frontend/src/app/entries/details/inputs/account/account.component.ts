@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AccountEntity, AccountsData } from '@elesse/accounts';
 import { EntryEntity } from '@elesse/entries';
 import { RelatedData } from '@elesse/shared';
+import { ControlNames } from '../../details.control-names';
 
 @Component({
    selector: 'entries-details-account',
@@ -15,10 +16,9 @@ export class AccountComponent implements OnInit {
 
    @Input() data: EntryEntity;
    @Input() form: FormGroup;
+   public formControlName: string = ControlNames.AccountRow;
    public AccountOptions: RelatedData<AccountEntity>[] = [];
    public AccountFiltered: RelatedData<AccountEntity>[] = [];
-   private FormControlID: string = "AccountID";
-   public FormControlName: string = `${this.FormControlID}Row`;
 
    ngOnInit(): void {
       if (!this.data)
@@ -31,11 +31,7 @@ export class AccountComponent implements OnInit {
 
    private OnDataInit() {
       this.AccountOptions = this.accountsData.GetAccounts(true)
-         .map(entity => Object.assign(new RelatedData, {
-            id: entity.AccountID,
-            description: entity.Text,
-            value: entity
-         }));
+         .map(entity => RelatedData.Parse(entity.AccountID, entity.Text, entity));
       if (this.data.AccountID)
          this.AccountFiltered = this.AccountOptions
             .filter(entity => entity.value.AccountID == this.data.AccountID)
@@ -44,9 +40,9 @@ export class AccountComponent implements OnInit {
    private OnFormInit() {
       if (!this.form)
          return;
-      this.form.addControl(this.FormControlID, new FormControl(this.data.AccountID ?? null));
-      this.form.addControl(this.FormControlName, new FormControl(this.GetFirstAccount(), Validators.required));
-      this.form.get(this.FormControlName).valueChanges.subscribe((row: RelatedData<AccountEntity>) => {
+      this.form.addControl(ControlNames.AccountID, new FormControl(this.data.AccountID ?? null));
+      this.form.addControl(ControlNames.AccountRow, new FormControl(this.GetFirstAccount(), Validators.required));
+      this.form.get(ControlNames.AccountRow).valueChanges.subscribe((row: RelatedData<AccountEntity>) => {
          this.data.AccountID = row?.value?.AccountID ?? null;
       });
    }

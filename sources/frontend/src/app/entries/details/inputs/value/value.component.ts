@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { EntryEntity } from '@elesse/entries';
+import { ControlNames } from '../../details.control-names';
 
 @Component({
    selector: 'entries-details-value',
@@ -13,7 +14,7 @@ export class ValueComponent implements OnInit {
 
    @Input() data: EntryEntity;
    @Input() form: FormGroup;
-   public FormControlName: string = "Value";
+   public formControlName: string = ControlNames.Value;
 
    ngOnInit(): void {
       this.OnDataInit();
@@ -28,8 +29,8 @@ export class ValueComponent implements OnInit {
    private OnFormInit() {
       if (!this.form || !this.data)
          return;
-      this.form.addControl(this.FormControlName, new FormControl(this.data.Value ?? null, [Validators.required, Validators.min(0.01)]));
-      this.form.get(this.FormControlName).valueChanges.subscribe((val: any) => {
+      this.form.addControl(ControlNames.Value, new FormControl(this.data.Value ?? null, [Validators.required, Validators.min(0.01)]));
+      this.form.get(ControlNames.Value).valueChanges.subscribe((val: any) => {
          this.data.Value = val;
       });
    }

@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CategoriesData, CategoryEntity } from '@elesse/categories';
 import { EntryEntity } from '@elesse/entries';
 import { RelatedData } from '@elesse/shared';
+import { ControlNames } from '../../details.control-names';
 
 @Component({
    selector: 'entries-details-category',
@@ -15,11 +16,9 @@ export class CategoryComponent implements OnInit {
 
    @Input() data: EntryEntity;
    @Input() form: FormGroup;
+   public formControlName: string = ControlNames.CategoryRow;
    public CategoryOptions: RelatedData<CategoryEntity>[] = [];
    public CategoryFiltered: RelatedData<CategoryEntity>[] = [];
-   private FormControlID: string = "CategoryID";
-   public FormControlName: string = `${this.FormControlID}Row`;
-   public FormSectionName: string = 'Pattern';
 
    ngOnInit(): void {
       if (!this.data)
@@ -45,18 +44,18 @@ export class CategoryComponent implements OnInit {
    private OnFormInit() {
       if (!this.form || !this.data)
          return;
-      const formSection = this.form.get(this.FormSectionName) as FormGroup;
-      formSection.addControl(this.FormControlID, new FormControl(this.data.Pattern?.CategoryID ?? null));
-      formSection.addControl(this.FormControlName, new FormControl(this.GetFirstCategory(), Validators.required));
-      formSection.get(this.FormControlName).valueChanges.subscribe((row: RelatedData<CategoryEntity>) => {
+      const formSection = this.form.get(ControlNames.Pattern) as FormGroup;
+      formSection.addControl(ControlNames.CategoryID, new FormControl(this.data.Pattern?.CategoryID ?? null));
+      formSection.addControl(ControlNames.CategoryRow, new FormControl(this.GetFirstCategory(), Validators.required));
+      formSection.get(ControlNames.CategoryRow).valueChanges.subscribe((row: RelatedData<CategoryEntity>) => {
          this.data.Pattern.CategoryID = row?.value?.CategoryID ?? null;
       });
-      formSection.get(this.FormControlID).valueChanges.subscribe((categoryID: string) => {
+      formSection.get(ControlNames.CategoryID).valueChanges.subscribe((categoryID: string) => {
          this.CategoryFiltered = this.CategoryOptions
             .filter(entity => entity.value.CategoryID == categoryID);
          const categoryRow = this.GetFirstCategory();
-         if (formSection.get(this.FormControlName).value != categoryRow)
-            formSection.get(this.FormControlName).setValue(categoryRow);
+         if (formSection.get(ControlNames.CategoryRow).value != categoryRow)
+            formSection.get(ControlNames.CategoryRow).setValue(categoryRow);
       });
    }
 

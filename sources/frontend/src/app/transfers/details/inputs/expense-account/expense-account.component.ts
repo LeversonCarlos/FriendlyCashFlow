@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AccountEntity, AccountsData } from '@elesse/accounts';
 import { RelatedData } from '@elesse/shared';
 import { TransferEntity } from 'src/app/transfers/model/transfers.model';
+import { ControlNames } from '../../details.control-names';
 
 @Component({
    selector: 'transfers-details-expense-account',
@@ -17,10 +18,9 @@ export class ExpenseAccountComponent implements OnInit {
    @Output() OnChange: EventEmitter<void> = new EventEmitter<void>();
    @Input() data: TransferEntity;
    @Input() form: FormGroup;
+   public formControlName: string = ControlNames.ExpenseAccountRow;
    public AccountOptions: RelatedData<AccountEntity>[] = [];
    public AccountFiltered: RelatedData<AccountEntity>[] = [];
-   private FormControlID: string = "ExpenseAccountID";
-   public FormControlName: string = `${this.FormControlID}Row`;
 
    ngOnInit(): void {
       if (!this.data)
@@ -46,9 +46,9 @@ export class ExpenseAccountComponent implements OnInit {
    private OnFormInit() {
       if (!this.form)
          return;
-      this.form.addControl(this.FormControlID, new FormControl(this.data.ExpenseAccountID ?? null));
-      this.form.addControl(this.FormControlName, new FormControl(this.GetFirstAccount(), [Validators.required]));
-      this.form.get(this.FormControlName).valueChanges.subscribe((row: RelatedData<AccountEntity>) => {
+      this.form.addControl(ControlNames.ExpenseAccountID, new FormControl(this.data.ExpenseAccountID ?? null));
+      this.form.addControl(ControlNames.ExpenseAccountRow, new FormControl(this.GetFirstAccount(), [Validators.required]));
+      this.form.get(ControlNames.ExpenseAccountRow).valueChanges.subscribe((row: RelatedData<AccountEntity>) => {
          this.data.ExpenseAccountID = row?.value?.AccountID ?? null;
          this.OnChange.emit();
       });
