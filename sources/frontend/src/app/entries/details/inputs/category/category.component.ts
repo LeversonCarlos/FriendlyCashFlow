@@ -15,10 +15,9 @@ export class CategoryComponent implements OnInit {
 
    @Input() data: EntryEntity;
    @Input() form: FormGroup;
+   public formControlName: string = CategoryControlNames.CategoryRow;
    public CategoryOptions: RelatedData<CategoryEntity>[] = [];
    public CategoryFiltered: RelatedData<CategoryEntity>[] = [];
-   private FormControlID: string = "CategoryID";
-   public FormControlName: string = `${this.FormControlID}Row`;
    public FormSectionName: string = 'Pattern';
 
    ngOnInit(): void {
@@ -46,17 +45,17 @@ export class CategoryComponent implements OnInit {
       if (!this.form || !this.data)
          return;
       const formSection = this.form.get(this.FormSectionName) as FormGroup;
-      formSection.addControl(this.FormControlID, new FormControl(this.data.Pattern?.CategoryID ?? null));
-      formSection.addControl(this.FormControlName, new FormControl(this.GetFirstCategory(), Validators.required));
-      formSection.get(this.FormControlName).valueChanges.subscribe((row: RelatedData<CategoryEntity>) => {
+      formSection.addControl(CategoryControlNames.CategoryID, new FormControl(this.data.Pattern?.CategoryID ?? null));
+      formSection.addControl(CategoryControlNames.CategoryRow, new FormControl(this.GetFirstCategory(), Validators.required));
+      formSection.get(CategoryControlNames.CategoryRow).valueChanges.subscribe((row: RelatedData<CategoryEntity>) => {
          this.data.Pattern.CategoryID = row?.value?.CategoryID ?? null;
       });
-      formSection.get(this.FormControlID).valueChanges.subscribe((categoryID: string) => {
+      formSection.get(CategoryControlNames.CategoryID).valueChanges.subscribe((categoryID: string) => {
          this.CategoryFiltered = this.CategoryOptions
             .filter(entity => entity.value.CategoryID == categoryID);
          const categoryRow = this.GetFirstCategory();
-         if (formSection.get(this.FormControlName).value != categoryRow)
-            formSection.get(this.FormControlName).setValue(categoryRow);
+         if (formSection.get(CategoryControlNames.CategoryRow).value != categoryRow)
+            formSection.get(CategoryControlNames.CategoryRow).setValue(categoryRow);
       });
    }
 
@@ -70,4 +69,9 @@ export class CategoryComponent implements OnInit {
       return this.CategoryFiltered?.length == 1 ? this.CategoryFiltered[0] : null;
    }
 
+}
+
+export const CategoryControlNames = {
+   CategoryID: 'CategoryID',
+   CategoryRow: 'CategoryRow'
 }
