@@ -7,7 +7,8 @@
    </div>
    <div content>
 
-      <mat-tab-group dynamicHeight="false" [selectedIndex]="SelectedCategoryTab" (selectedIndexChange)="OnTabChanged($event)">
+      <mat-tab-group dynamicHeight="false" animationDuration="0ms"
+         [selectedIndex]="SelectedCategoryTab" (selectedIndexChange)="OnTabChanged($event)">
 
          <mat-tab [label]="'categories.INCOME_CATEGORIES_LABEL' | translation | async">
             <div class="tab-contents">
