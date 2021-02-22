@@ -1,10 +1,11 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Month } from './month';
+import { IMonthSelectorService } from './month-selector.interface';
 
 @Injectable({
    providedIn: 'root'
 })
-export class MonthSelectorService {
+export class MonthSelectorService implements IMonthSelectorService {
 
    constructor() {
       this.CurrentMonth = Month.GetToday();

@@ -7,7 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {
    SharedModule,
    SettingsService, BusyService, InsightsService, MessageService,
-   ResponsiveService, LocalizationService, MonthSelectorService,
+   ResponsiveService, LocalizationService,
 } from '@elesse/shared';
 import { MaterialModule } from '@elesse/material';
 import { IdentityModule, TokenService } from '@elesse/identity';
@@ -45,7 +45,6 @@ import { TransfersProviders } from '@elesse/transfers';
       ResponsiveService, LocalizationService,
       TokenService,
       UrlInterceptorProvider, LangInterceptorProvider, ErrorInterceptorProvider, RequestAuthInterceptorProvider, ResponseAuthInterceptorProvider,
-      MonthSelectorService,
       AccountsProviders, CategoriesProviders, PatternsProviders, EntriesProviders, TransfersProviders
    ],
    bootstrap: [MainComponent]

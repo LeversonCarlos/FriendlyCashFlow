@@ -16,7 +16,8 @@ import { RelatedboxComponent } from './relatedbox/relatedbox.component';
 import { EmptyListComponent } from './empty-list/empty-list.component';
 import { LocaleService, LocaleServiceProvider } from './localization/locale.service';
 import { MonthSelectorComponent } from './month-selector/month-selector.component';
-import { AccountSelectorServiceProvider } from './account-selector/account-selector.provider';
+import { AccountSelectorProvider } from './account-selector/account-selector.provider';
+import { MonthSelectorProvider } from './month-selector/month-selector.provider';
 
 @NgModule({
    entryComponents: [MessageViewComponent],
@@ -39,7 +40,7 @@ import { AccountSelectorServiceProvider } from './account-selector/account-selec
       MonthSelectorComponent
    ],
    providers: [LocaleService, LocaleServiceProvider,
-      AccountSelectorServiceProvider
+      MonthSelectorProvider, AccountSelectorProvider
    ]
 })
 export class SharedModule { }
