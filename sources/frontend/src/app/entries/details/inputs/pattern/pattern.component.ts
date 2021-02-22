@@ -70,6 +70,15 @@ export class PatternComponent implements OnInit {
       this.data.Pattern.Text = val;
    }
 
+   private GetPatternBadge(entity: PatternEntity): string {
+      if (entity.RowsCount >= 1000000)
+         return `${Math.round(entity.RowsCount / 1000000)}m`
+      else if (entity.RowsCount >= 1000)
+         return `${Math.round(entity.RowsCount / 1000)}k`
+      else
+         return `${entity.RowsCount}`
+   }
+
    private GetFirstPattern(): RelatedData<PatternEntity> {
       return this.PatternFiltered?.length == 1 ? this.PatternFiltered[0] : null
    }
