@@ -15,8 +15,9 @@ import { ActivatedRouteSnapshot } from '@angular/router';
 export class EntriesData {
 
    constructor(private Cache: EntriesCache,
-      private busy: BusyService, private monthSelector: MonthSelectorService,
-      private patternsData: PatternsData, private accountSelector: AccountSelectorService,
+      private busy: BusyService,
+      private monthSelector: MonthSelectorService, private accountSelector: AccountSelectorService,
+      private patternsData: PatternsData,
       private http: HttpClient) {
       this.monthSelector.OnChange.subscribe(month => this.OnMonthChange(month));
       this.OnMonthChange(this.CurrentMonth);

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot } from '@angular/router';
-import { BusyService, Month, MonthSelectorService } from '@elesse/shared';
+import { AccountSelectorService, BusyService, Month, MonthSelectorService } from '@elesse/shared';
 import { Observable } from 'rxjs';
 import { TransfersCache } from '../cache/cache.service';
 import { TransferEntity } from '../model/transfers.model';
@@ -12,7 +12,8 @@ import { TransferEntity } from '../model/transfers.model';
 export class TransfersData {
 
    constructor(private Cache: TransfersCache,
-      private busy: BusyService, private monthSelector: MonthSelectorService,
+      private busy: BusyService,
+      private monthSelector: MonthSelectorService, private accountSelector: AccountSelectorService,
       private http: HttpClient) {
       this.monthSelector.OnChange.subscribe(month => this.OnMonthChange(month));
       this.OnMonthChange(this.CurrentMonth);
@@ -49,7 +50,10 @@ export class TransfersData {
             return null;
 
          if (snapshot.routeConfig.path == "new")
-            return TransferEntity.Parse({ Date: this.monthSelector.DefaultDate });
+            return TransferEntity.Parse({
+               ExpenseAccountID: this.accountSelector.AccountID,
+               Date: this.monthSelector.DefaultDate
+            });
 
          const transferID = snapshot.params?.transfer;
          if (!transferID)
