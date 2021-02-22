@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { EntryEntity } from '@elesse/entries';
+import { ControlNames } from '../../details.control-names';
 
 @Component({
    selector: 'entries-details-due-date',
@@ -13,7 +14,7 @@ export class DueDateComponent implements OnInit {
 
    @Input() data: EntryEntity;
    @Input() form: FormGroup;
-   public FormControlName: string = "DueDate";
+   public formControlName: string = ControlNames.DueDate;
 
    ngOnInit(): void {
       this.OnDataInit();
@@ -28,8 +29,8 @@ export class DueDateComponent implements OnInit {
    private OnFormInit() {
       if (!this.form || !this.data)
          return;
-      this.form.addControl(this.FormControlName, new FormControl(this.data.DueDate ?? null, Validators.required));
-      this.form.get(this.FormControlName).valueChanges.subscribe((val: string) => {
+      this.form.addControl(ControlNames.DueDate, new FormControl(this.data.DueDate ?? null, Validators.required));
+      this.form.get(ControlNames.DueDate).valueChanges.subscribe((val: string) => {
          let dueDate = new Date(val);
          dueDate = new Date(dueDate.getFullYear(), dueDate.getMonth(), dueDate.getDate(), 12);
          this.data.DueDate = dueDate;

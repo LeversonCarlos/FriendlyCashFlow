@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AccountEntity, AccountsData } from '@elesse/accounts';
 import { EntryEntity } from '@elesse/entries';
 import { RelatedData } from '@elesse/shared';
+import { ControlNames } from '../../details.control-names';
 
 @Component({
    selector: 'entries-details-account',
@@ -15,7 +16,7 @@ export class AccountComponent implements OnInit {
 
    @Input() data: EntryEntity;
    @Input() form: FormGroup;
-   public formControlName: string = AccountControlNames.AccountRow;
+   public formControlName: string = ControlNames.AccountRow;
    public AccountOptions: RelatedData<AccountEntity>[] = [];
    public AccountFiltered: RelatedData<AccountEntity>[] = [];
 
@@ -39,9 +40,9 @@ export class AccountComponent implements OnInit {
    private OnFormInit() {
       if (!this.form)
          return;
-      this.form.addControl(AccountControlNames.AccountID, new FormControl(this.data.AccountID ?? null));
-      this.form.addControl(AccountControlNames.AccountRow, new FormControl(this.GetFirstAccount(), Validators.required));
-      this.form.get(AccountControlNames.AccountRow).valueChanges.subscribe((row: RelatedData<AccountEntity>) => {
+      this.form.addControl(ControlNames.AccountID, new FormControl(this.data.AccountID ?? null));
+      this.form.addControl(ControlNames.AccountRow, new FormControl(this.GetFirstAccount(), Validators.required));
+      this.form.get(ControlNames.AccountRow).valueChanges.subscribe((row: RelatedData<AccountEntity>) => {
          this.data.AccountID = row?.value?.AccountID ?? null;
       });
    }
@@ -56,9 +57,4 @@ export class AccountComponent implements OnInit {
       return this.AccountFiltered?.length == 1 ? this.AccountFiltered[0] : null;
    }
 
-}
-
-export const AccountControlNames = {
-   AccountID: 'AccountID',
-   AccountRow: 'AccountRow'
 }

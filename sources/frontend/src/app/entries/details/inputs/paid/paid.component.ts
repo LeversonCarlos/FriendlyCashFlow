@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { EntryEntity } from 'src/app/entries/model/entries.model';
+import { ControlNames } from '../../details.control-names';
 
 @Component({
    selector: 'entries-details-paid',
@@ -13,7 +14,7 @@ export class PaidComponent implements OnInit {
 
    @Input() data: EntryEntity;
    @Input() form: FormGroup;
-   public FormControlName: string = "Paid";
+   public formControlName: string = ControlNames.Paid;
 
    ngOnInit(): void {
       this.OnDataInit();
@@ -28,7 +29,7 @@ export class PaidComponent implements OnInit {
    private OnFormInit() {
       if (!this.form || !this.data)
          return;
-      this.form.addControl(this.FormControlName, new FormControl(this.data.Paid ?? false));
+      this.form.addControl(ControlNames.Paid, new FormControl(this.data.Paid ?? false));
    }
 
 }

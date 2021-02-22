@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { EntryEntity } from '@elesse/entries';
 import { PatternEntity, PatternsData } from '@elesse/patterns';
 import { RelatedData } from '@elesse/shared';
+import { ControlNames } from '../../details.control-names';
 
 @Component({
    selector: 'entries-details-pattern',
@@ -15,7 +16,7 @@ export class PatternComponent implements OnInit {
 
    @Input() data: EntryEntity;
    @Input() form: FormGroup;
-   public formControlName: string = PatternControlNames.PatternRow;
+   public formControlName: string = ControlNames.PatternRow;
    public formSection: FormGroup;
    public PatternOptions: RelatedData<PatternEntity>[] = [];
    public PatternFiltered: RelatedData<PatternEntity>[] = [];
@@ -40,15 +41,15 @@ export class PatternComponent implements OnInit {
    private OnFormInit() {
       if (!this.form)
          return;
-      this.formSection = this.form.get(PatternControlNames.Pattern) as FormGroup;
-      this.formSection.addControl(PatternControlNames.PatternID, new FormControl(this.data?.Pattern?.PatternID ?? null));
-      this.formSection.addControl(PatternControlNames.PatternRow, new FormControl(this.GetFirstPattern()));
-      this.formSection.get(PatternControlNames.PatternRow).valueChanges.subscribe((row: RelatedData<PatternEntity>) => {
+      this.formSection = this.form.get(ControlNames.Pattern) as FormGroup;
+      this.formSection.addControl(ControlNames.PatternID, new FormControl(this.data?.Pattern?.PatternID ?? null));
+      this.formSection.addControl(ControlNames.PatternRow, new FormControl(this.GetFirstPattern()));
+      this.formSection.get(ControlNames.PatternRow).valueChanges.subscribe((row: RelatedData<PatternEntity>) => {
          this.data.Pattern.PatternID = row?.value?.PatternID ?? null;
          if (row?.value?.Text)
             this.OnTextChanging(row.value.Text);
          if (row?.value?.CategoryID)
-            this.formSection.get("CategoryID").setValue(row.value.CategoryID);
+            this.formSection.get(ControlNames.CategoryID).setValue(row.value.CategoryID);
       });
    }
 
@@ -60,7 +61,7 @@ export class PatternComponent implements OnInit {
    }
 
    private OnTextChanging(val: string) {
-      this.formSection.get("Text").setValue(val);
+      this.formSection.get(ControlNames.Text).setValue(val);
       this.data.Pattern.Text = val;
    }
 
@@ -86,10 +87,4 @@ export class PatternComponent implements OnInit {
       return this.PatternFiltered?.length == 1 ? this.PatternFiltered[0] : null
    }
 
-}
-
-export const PatternControlNames = {
-   Pattern: 'Pattern',
-   PatternID: 'PatternID',
-   PatternRow: 'PatternRow'
 }
