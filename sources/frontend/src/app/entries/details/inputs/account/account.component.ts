@@ -15,7 +15,7 @@ export class AccountComponent implements OnInit {
 
    @Input() data: EntryEntity;
    @Input() form: FormGroup;
-   public formControlName: string = AccoutFormControlNames.AccountRow;
+   public formControlName: string = AccountControlNames.AccountRow;
    public AccountOptions: RelatedData<AccountEntity>[] = [];
    public AccountFiltered: RelatedData<AccountEntity>[] = [];
 
@@ -39,9 +39,9 @@ export class AccountComponent implements OnInit {
    private OnFormInit() {
       if (!this.form)
          return;
-      this.form.addControl(AccoutFormControlNames.AccountID, new FormControl(this.data.AccountID ?? null));
-      this.form.addControl(AccoutFormControlNames.AccountRow, new FormControl(this.GetFirstAccount(), Validators.required));
-      this.form.get(AccoutFormControlNames.AccountRow).valueChanges.subscribe((row: RelatedData<AccountEntity>) => {
+      this.form.addControl(AccountControlNames.AccountID, new FormControl(this.data.AccountID ?? null));
+      this.form.addControl(AccountControlNames.AccountRow, new FormControl(this.GetFirstAccount(), Validators.required));
+      this.form.get(AccountControlNames.AccountRow).valueChanges.subscribe((row: RelatedData<AccountEntity>) => {
          this.data.AccountID = row?.value?.AccountID ?? null;
       });
    }
@@ -58,7 +58,7 @@ export class AccountComponent implements OnInit {
 
 }
 
-export const AccoutFormControlNames = {
+export const AccountControlNames = {
    AccountID: 'AccountID',
    AccountRow: 'AccountRow'
 }
