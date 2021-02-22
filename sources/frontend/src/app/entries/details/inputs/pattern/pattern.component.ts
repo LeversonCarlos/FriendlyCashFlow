@@ -33,11 +33,7 @@ export class PatternComponent implements OnInit {
 
    private OnDataInit() {
       this.PatternOptions = this.patternsData.GetPatterns(this.data.Pattern.Type)
-         .map(entity => Object.assign(new RelatedData, {
-            id: entity.PatternID,
-            description: entity.Text,
-            value: entity
-         }));
+         .map(entity => this.ConvertPatternIntoGetRelatedData(entity));
       if (this.data.Pattern.PatternID)
          this.PatternFiltered = this.PatternOptions
             .filter(entity => entity.value.PatternID == this.data.Pattern.PatternID)
@@ -68,6 +64,15 @@ export class PatternComponent implements OnInit {
    private OnTextChanging(val: string) {
       this.formSection.get("Text").setValue(val);
       this.data.Pattern.Text = val;
+   }
+
+   private ConvertPatternIntoGetRelatedData(entity: PatternEntity): RelatedData<PatternEntity> {
+      return Object.assign(new RelatedData, {
+         id: entity.PatternID,
+         description: entity.Text,
+         badgeText: this.GetPatternBadge(entity),
+         value: entity
+      });
    }
 
    private GetPatternBadge(entity: PatternEntity): string {
