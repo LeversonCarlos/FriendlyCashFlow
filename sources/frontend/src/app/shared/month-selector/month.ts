@@ -12,7 +12,8 @@ export class Month {
    }
 
    public static GetToday(): Month {
-      return new Month(new Date());
+      const today = new Date();
+      return new Month(new Date(today.getFullYear(), today.getMonth(), 1, 12));
    }
 
 }
