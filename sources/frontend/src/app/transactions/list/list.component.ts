@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AccountsData } from '@elesse/accounts';
 import { CategoriesData, enCategoryType } from '@elesse/categories';
 import { EntriesData } from '@elesse/entries';
-import { LocalizationService } from '@elesse/shared';
+import { AccountSelectorService, LocalizationService } from '@elesse/shared';
 import { TransfersData } from '@elesse/transfers';
 import { Observable } from 'rxjs';
 import { TransactionsConverter } from '../converter/transactions.converter';
@@ -18,7 +18,11 @@ export class ListComponent implements OnInit {
    constructor(
       private accountsData: AccountsData, private categoriesData: CategoriesData,
       private entriesData: EntriesData, private transfersData: TransfersData,
+      private accountSelector: AccountSelectorService,
       private localizationService: LocalizationService) { }
+
+   public TransactionAccounts: Observable<TransactionAccount[]>;
+   public get TabIndex(): number { return this.accountSelector.TabIndex; }
 
    public async ngOnInit(): Promise<void> {
       const transferTo = await this.localizationService.GetTranslation("transactions.TRANSFER_TO_LABEL");
@@ -31,6 +35,8 @@ export class ListComponent implements OnInit {
          transferTo, transferFrom)
    }
 
-   public TransactionAccounts: Observable<TransactionAccount[]>;
+   public OnTabChanged(tabIndex: number, transactionAccount: TransactionAccount) {
+      this.accountSelector.SetTab(tabIndex, transactionAccount.Account.AccountID);
+   }
 
 }
