@@ -8,3 +8,4 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("entries")]
 [assembly: InternalsVisibleTo("transfers")]
 [assembly: InternalsVisibleTo("transactions")]
+[assembly: InternalsVisibleTo("balances")]
