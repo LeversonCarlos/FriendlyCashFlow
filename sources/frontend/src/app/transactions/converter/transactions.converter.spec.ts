@@ -1,6 +1,7 @@
 import { AccountEntity } from '@elesse/accounts';
 import { CategoryEntity, enCategoryType } from '@elesse/categories';
 import { EntryEntity } from '@elesse/entries';
+import { TransferEntity } from '@elesse/transfers';
 import { TransactionsConverter } from './transactions.converter';
 
 describe('TransactionsParser', () => {
@@ -105,12 +106,20 @@ describe('TransactionsParser', () => {
          EntryEntity.Parse({ AccountID: 'ID2', Pattern: { Text: 'my other income', Type: enCategoryType.Income }, Value: 1000, DueDate: new Date("2021-02-07") }),
          EntryEntity.Parse({ AccountID: 'ID1', Pattern: { Text: 'my first expense', Type: enCategoryType.Expense }, Value: 300, DueDate: new Date("2021-02-10"), Sorting: 1, Paid: true, PayDate: new Date("2021-02-15") }),
       ];
+      const transfers: TransferEntity[] = [
+         TransferEntity.Parse({ ExpenseAccountID: 'ID1', IncomeAccountID: 'ID2', Date: new Date("2021-02-04"), Value: 54, Sorting: 3 })
+      ];
 
-      const transactionAccounts = TransactionsConverter.Convert(accounts, null, null, entries, null);
+      const transactionAccounts = TransactionsConverter.Convert(accounts, null, null, entries, transfers);
+
       expect(transactionAccounts).toBeTruthy();
       expect(transactionAccounts.length).toEqual(2);
-      expect(transactionAccounts[0].Days[1].Transactions[1].Value).toEqual(-123.45);
-      expect(transactionAccounts[1].Days[0].Transactions[0].Value).toEqual(1000);
+      expect(transactionAccounts[0].Days.length).toEqual(3);
+      expect(transactionAccounts[0].Days[0].Transactions[0].Value).toEqual(1500);
+      expect(transactionAccounts[0].Days[1].Transactions[0].Value).toEqual(-54);
+      expect(transactionAccounts[0].Days[2].Transactions[1].Value).toEqual(-123.45);
+      expect(transactionAccounts[1].Days[0].Transactions[0].Value).toEqual(54);
+      expect(transactionAccounts[1].Days[1].Transactions[0].Value).toEqual(1000);
    });
 
 });
