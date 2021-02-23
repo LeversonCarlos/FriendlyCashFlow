@@ -50,8 +50,6 @@ namespace Elesse.Balances
          get => _ExpectedValue;
          private set
          {
-            if (value <= 0)
-               throw new ArgumentException(WARNINGS.INVALID_EXPECTEDVALUE);
             _ExpectedValue = value;
          }
       }
@@ -62,8 +60,6 @@ namespace Elesse.Balances
          get => _RealizedValue;
          private set
          {
-            if (value <= 0)
-               throw new ArgumentException(WARNINGS.INVALID_REALIZEDVALUE);
             _RealizedValue = value;
          }
       }
@@ -75,8 +71,6 @@ namespace Elesse.Balances
       internal const string INVALID_BALANCEID = "INVALID_BALANCEID_PROPERTY";
       internal const string INVALID_ACCOUNTID = "INVALID_ACCOUNTID_PROPERTY";
       internal const string INVALID_DATE = "INVALID_DATE_PROPERTY";
-      internal const string INVALID_EXPECTEDVALUE = "INVALID_EXPECTEDVALUE_PROPERTY";
-      internal const string INVALID_REALIZEDVALUE = "INVALID_REALIZEDVALUE_PROPERTY";
    }
 
 }
