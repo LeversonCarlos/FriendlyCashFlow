@@ -27,26 +27,34 @@ namespace Elesse.Balances.Tests
          };
 
 
-      /*
-      [Fact]
-      public async void Increase_WithExistingPattern_MustUpdateRowsAndDate_AndReturnPatternID()
+      [Theory]
+      [InlineData(false)]
+      [InlineData(true)]
+      public async void Increase_WithExistingBalance_MustUpdate_AndReturnChangedBalance(bool paid)
       {
-         var param = PatternEntity.Builder().Build();
-         var repository = PatternRepositoryMocker
-            .Create()
-            .WithLoadPattern(new IPatternEntity[] { param })
+         var param = BalanceEntity.Builder().Build();
+         var repository = BalanceRepository
+            .Mocker()
+            .WithLoad(new IBalanceEntity[] { param })
             .Build();
-         var service = PatternService.Builder().With(repository).Build();
+         var service = BalanceService.Builder().With(repository).Build();
 
-         var result = await service.IncreaseAsync(param);
+         var value = Shared.Faker.GetFaker().Random.Decimal(-1000, 1000);
+         var expectedValue = param.ExpectedValue + value;
+         var realizedValue = param.RealizedValue + (paid ? value : 0);
+
+         var result = await service.IncreaseAsync(param.AccountID, param.Date, value, paid);
 
          Assert.NotNull(result);
-         Assert.IsAssignableFrom<IPatternEntity>(result);
-         Assert.Equal(param.PatternID, result.PatternID);
+         Assert.IsAssignableFrom<IBalanceEntity>(result);
+         Assert.Equal(param.BalanceID, result.BalanceID);
+         Assert.Equal(expectedValue, result.ExpectedValue);
+         Assert.Equal(realizedValue, result.RealizedValue);
       }
 
+      /*
       [Fact]
-      public async void Increase_WithNonExistingPattern_MustCreateRecord_AndReturnPatternID()
+      public async void Increase_WithNonExistingBalance_MustCreateRecord_AndReturnChangedBalance()
       {
          var param = PatternEntity.Builder().Build();
          var repository = PatternRepositoryMocker
