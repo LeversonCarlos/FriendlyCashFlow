@@ -32,10 +32,15 @@ namespace Elesse.Balances.Tests
          WithLoad(new IBalanceEntity[] { });
       public BalanceRepositoryMocker WithLoad(params IBalanceEntity[] results)
       {
-         var seq = new MockSequence();
+         var seq1 = new MockSequence();
          foreach (var result in results)
-            _Mock.InSequence(seq)
+            _Mock.InSequence(seq1)
                .Setup(m => m.LoadAsync(It.IsAny<Shared.EntityID>()))
+               .ReturnsAsync(result);
+         var seq2 = new MockSequence();
+         foreach (var result in results)
+            _Mock.InSequence(seq2)
+               .Setup(m => m.LoadAsync(It.IsAny<Shared.EntityID>(), It.IsAny<DateTime>()))
                .ReturnsAsync(result);
          return this;
       }
