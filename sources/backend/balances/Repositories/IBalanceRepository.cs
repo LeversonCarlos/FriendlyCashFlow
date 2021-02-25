@@ -8,10 +8,10 @@ namespace Elesse.Balances
 
       Task InsertAsync(IBalanceEntity value);
       Task UpdateAsync(IBalanceEntity value);
-      Task DeleteAsync(Shared.EntityID id);
+      // Task DeleteAsync(Shared.EntityID id);
 
       Task<IBalanceEntity[]> ListAsync(int year, int month);
-      Task<IBalanceEntity> LoadAsync(Shared.EntityID id);
+      // Task<IBalanceEntity> LoadAsync(Shared.EntityID id);
       Task<IBalanceEntity> LoadAsync(Shared.EntityID accountID, DateTime date);
 
    }

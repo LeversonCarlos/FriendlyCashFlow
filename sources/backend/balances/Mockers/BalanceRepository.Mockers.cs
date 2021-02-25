@@ -32,11 +32,6 @@ namespace Elesse.Balances.Tests
          WithLoad(new IBalanceEntity[] { });
       public BalanceRepositoryMocker WithLoad(params IBalanceEntity[] results)
       {
-         var seq1 = new MockSequence();
-         foreach (var result in results)
-            _Mock.InSequence(seq1)
-               .Setup(m => m.LoadAsync(It.IsAny<Shared.EntityID>()))
-               .ReturnsAsync(result);
          var seq2 = new MockSequence();
          foreach (var result in results)
             _Mock.InSequence(seq2)
@@ -57,14 +52,6 @@ namespace Elesse.Balances.Tests
       {
          _Mock
             .Setup(m => m.UpdateAsync(It.IsAny<IBalanceEntity>()))
-            .ThrowsAsync(ex);
-         return this;
-      }
-
-      public BalanceRepositoryMocker WithDelete(Exception ex)
-      {
-         _Mock
-            .Setup(m => m.DeleteAsync(It.IsAny<Shared.EntityID>()))
             .ThrowsAsync(ex);
          return this;
       }
