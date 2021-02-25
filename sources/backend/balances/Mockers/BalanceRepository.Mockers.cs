@@ -1,6 +1,13 @@
 using System;
 using Moq;
 
+namespace Elesse.Balances
+{
+   partial class BalanceRepository
+   {
+      internal static Tests.BalanceRepositoryMocker Mocker() => new Tests.BalanceRepositoryMocker();
+   }
+}
 namespace Elesse.Balances.Tests
 {
    internal class BalanceRepositoryMocker
@@ -8,7 +15,6 @@ namespace Elesse.Balances.Tests
 
       readonly Mock<IBalanceRepository> _Mock;
       public BalanceRepositoryMocker() => _Mock = new Mock<IBalanceRepository>();
-      public static BalanceRepositoryMocker Create() => new BalanceRepositoryMocker();
 
       public BalanceRepositoryMocker WithList() =>
          WithList(new IBalanceEntity[] { });
