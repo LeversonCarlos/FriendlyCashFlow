@@ -12,8 +12,8 @@ namespace Elesse.Balances.Tests
       {
          var date = Shared.Faker.GetFaker().Date.Soon();
          var entity = BalanceEntity.Builder().WithDate(date).Build();
-         var repository = BalanceRepositoryMocker
-            .Create()
+         var repository = BalanceRepository
+            .Mocker()
             .WithList(new BalanceEntity[] { entity })
             .Build();
          var service = BalanceService.Builder().With(repository).Build();

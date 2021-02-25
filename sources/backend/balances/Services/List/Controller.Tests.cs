@@ -9,8 +9,8 @@ namespace Elesse.Balances.Tests
       [Fact]
       public async void List_MustReturnOkResult_WithDataList()
       {
-         var service = BalanceServiceMocker
-            .Create()
+         var service = BalanceService
+            .Mocker()
             .WithList(new OkObjectResult(new BalanceEntity[] { }))
             .Build();
          var controller = new BalanceController(service);
