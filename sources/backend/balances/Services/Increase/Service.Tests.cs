@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Moq;
 using Xunit;
 
@@ -7,16 +8,24 @@ namespace Elesse.Balances.Tests
    partial class BalanceServiceTests
    {
 
-      [Fact]
-      public async void Increase_WithNullAccount_MustThrowException()
+      [Theory]
+      [MemberData(nameof(Increase_WithInvalidParameter_MustThrowException_Data))]
+      public async void Increase_WithInvalidParameter_MustThrowException(string exceptionText, Shared.EntityID accountID, DateTime date, decimal value, bool paid)
       {
          var service = BalanceService.Builder().Build();
 
-         var exception = await Assert.ThrowsAsync<System.ArgumentException>(() => service.IncreaseAsync(null, DateTime.MinValue, 0, false));
+         var exception = await Assert.ThrowsAsync<System.ArgumentException>(() => service.IncreaseAsync(accountID, date, value, paid));
 
          Assert.NotNull(exception);
-         Assert.Equal(WARNINGS.INVALID_ACCOUNTID, exception.Message);
+         Assert.Equal(exceptionText, exception.Message);
       }
+      public static IEnumerable<object[]> Increase_WithInvalidParameter_MustThrowException_Data() =>
+         new[] {
+            new object[] { WARNINGS.INVALID_ACCOUNTID, null, null, 0, false },
+            new object[] { WARNINGS.INVALID_DATE, Shared.EntityID.MockerID(), null, 0, false },
+            new object[] { WARNINGS.INVALID_DATE, Shared.EntityID.MockerID(), DateTime.MinValue, 0, false }
+         };
+
 
       /*
       [Fact]
