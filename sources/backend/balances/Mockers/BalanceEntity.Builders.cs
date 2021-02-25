@@ -1,3 +1,5 @@
+using System;
+
 namespace Elesse.Balances
 {
    partial class BalanceEntity
