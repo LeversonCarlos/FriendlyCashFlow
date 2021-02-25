@@ -29,32 +29,6 @@ namespace Elesse.Balances.Tests
 
       /*
       [Fact]
-      public async void Increase_WithNullCategory_MustThrowException()
-      {
-         var service = PatternService.Builder().Build();
-         var param = new Mock<IPatternEntity>().Object;
-
-         var exception = await Assert.ThrowsAsync<System.ArgumentException>(() => service.IncreaseAsync(param));
-
-         Assert.NotNull(exception);
-         Assert.Equal(WARNINGS.INVALID_CATEGORYID, exception.Message);
-      }
-
-      [Fact]
-      public async void Increase_WithNullText_MustThrowException()
-      {
-         var service = PatternService.Builder().Build();
-         var patternEntityMocker = new Mock<IPatternEntity>();
-         patternEntityMocker.SetupGet(x => x.CategoryID).Returns(Shared.EntityID.MockerID());
-         var param = patternEntityMocker.Object;
-
-         var exception = await Assert.ThrowsAsync<System.ArgumentException>(() => service.IncreaseAsync(param));
-
-         Assert.NotNull(exception);
-         Assert.Equal(WARNINGS.INVALID_TEXT, exception.Message);
-      }
-
-      [Fact]
       public async void Increase_WithExistingPattern_MustUpdateRowsAndDate_AndReturnPatternID()
       {
          var param = PatternEntity.Builder().Build();
