@@ -10,20 +10,20 @@ namespace Elesse.Balances.Tests
 
       [Theory]
       [MemberData(nameof(Increase_WithInvalidParameter_MustThrowException_Data))]
-      public async void Increase_WithInvalidParameter_MustThrowException(string exceptionText, Shared.EntityID accountID, DateTime date, decimal value, bool paid)
+      public async void Increase_WithInvalidParameter_MustThrowException(string exceptionText, Shared.EntityID accountID, DateTime date)
       {
          var service = BalanceService.Builder().Build();
 
-         var exception = await Assert.ThrowsAsync<System.ArgumentException>(() => service.IncreaseAsync(accountID, date, value, paid));
+         var exception = await Assert.ThrowsAsync<System.ArgumentException>(() => service.IncreaseAsync(accountID, date, 0, false));
 
          Assert.NotNull(exception);
          Assert.Equal(exceptionText, exception.Message);
       }
       public static IEnumerable<object[]> Increase_WithInvalidParameter_MustThrowException_Data() =>
          new[] {
-            new object[] { WARNINGS.INVALID_ACCOUNTID, null, null, 0, false },
-            new object[] { WARNINGS.INVALID_DATE, Shared.EntityID.MockerID(), null, 0, false },
-            new object[] { WARNINGS.INVALID_DATE, Shared.EntityID.MockerID(), DateTime.MinValue, 0, false }
+            new object[] { WARNINGS.INVALID_ACCOUNTID, null, null },
+            new object[] { WARNINGS.INVALID_DATE, Shared.EntityID.MockerID(), null },
+            new object[] { WARNINGS.INVALID_DATE, Shared.EntityID.MockerID(), DateTime.MinValue }
          };
 
 
