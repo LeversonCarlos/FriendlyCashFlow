@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 
 namespace Elesse.Balances
@@ -11,6 +12,7 @@ namespace Elesse.Balances
 
       Task<IBalanceEntity[]> ListAsync(int year, int month);
       Task<IBalanceEntity> LoadAsync(Shared.EntityID id);
+      Task<IBalanceEntity> LoadAsync(Shared.EntityID accountID, DateTime date);
 
    }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 
@@ -23,6 +24,7 @@ namespace Elesse.Balances
       public Task DeleteAsync(Shared.EntityID id) => null;
       public Task<IBalanceEntity[]> ListAsync(int year, int month) => null;
       public Task<IBalanceEntity> LoadAsync(Shared.EntityID id) => null;
+      public Task<IBalanceEntity> LoadAsync(Shared.EntityID accountID, DateTime date) => null;
 
    }
 }
