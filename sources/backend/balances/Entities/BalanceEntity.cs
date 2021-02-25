@@ -48,7 +48,7 @@ namespace Elesse.Balances
       public decimal ExpectedValue
       {
          get => _ExpectedValue;
-         private set
+         internal set
          {
             _ExpectedValue = value;
          }
@@ -58,7 +58,7 @@ namespace Elesse.Balances
       public decimal RealizedValue
       {
          get => _RealizedValue;
-         private set
+         internal set
          {
             _RealizedValue = value;
          }
