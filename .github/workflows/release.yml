@@ -39,6 +39,8 @@ jobs:
           dotnet clean --configuration Release
           cd ../patterns
           dotnet clean --configuration Release
+          cd ../balances
+          dotnet clean --configuration Release
           cd ../entries
           dotnet clean --configuration Release
           cd ../transfers
@@ -80,6 +82,12 @@ jobs:
 
       - name: Build Patterns
         working-directory: 'sources/backend/patterns'
+        run: |
+          dotnet build --configuration Release
+          dotnet test /p:CoverletOutputFormat=opencover
+
+      - name: Build Balances
+        working-directory: 'sources/backend/balances'
         run: |
           dotnet build --configuration Release
           dotnet test /p:CoverletOutputFormat=opencover
