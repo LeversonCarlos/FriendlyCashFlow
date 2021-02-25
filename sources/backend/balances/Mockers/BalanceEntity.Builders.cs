@@ -27,7 +27,7 @@ namespace Elesse.Balances.Tests
       }
 
       DateTime _Date = Shared.Faker.GetFaker().Date.Soon();
-      public BalanceEntityBuilder WithDueDate(DateTime date)
+      public BalanceEntityBuilder WithDate(DateTime date)
       {
          _Date = date;
          return this;
