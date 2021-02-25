@@ -52,23 +52,30 @@ namespace Elesse.Balances.Tests
          Assert.Equal(realizedValue, result.RealizedValue);
       }
 
-      /*
-      [Fact]
-      public async void Increase_WithNonExistingBalance_MustCreateRecord_AndReturnChangedBalance()
+      [Theory]
+      [InlineData(false)]
+      [InlineData(true)]
+      public async void Increase_WithNonExistingBalance_MustCreateRecord_AndReturnChangedBalance(bool paid)
       {
-         var param = PatternEntity.Builder().Build();
-         var repository = PatternRepositoryMocker
-            .Create()
-            .WithLoadPattern()
+         var repository = BalanceRepository
+            .Mocker()
+            .WithLoad()
             .Build();
-         var service = PatternService.Builder().With(repository).Build();
+         var service = BalanceService.Builder().With(repository).Build();
 
-         var result = await service.IncreaseAsync(param);
+         var accountID = Shared.EntityID.MockerID();
+         var date = Shared.Faker.GetFaker().Date.Soon();
+         var value = Shared.Faker.GetFaker().Random.Decimal(-1000, 1000);
+         var expectedValue = value;
+         var realizedValue = (paid ? value : 0);
+
+         var result = await service.IncreaseAsync(accountID, date, value, paid);
 
          Assert.NotNull(result);
-         Assert.IsAssignableFrom<IPatternEntity>(result);
+         Assert.IsAssignableFrom<IBalanceEntity>(result);
+         Assert.Equal(expectedValue, result.ExpectedValue);
+         Assert.Equal(realizedValue, result.RealizedValue);
       }
-      */
 
    }
 }
