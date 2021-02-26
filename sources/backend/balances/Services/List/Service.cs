@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 
 namespace Elesse.Balances
 {
-
    partial class BalanceService
    {
 
@@ -16,10 +15,4 @@ namespace Elesse.Balances
       }
 
    }
-
-   partial interface IBalanceService
-   {
-      Task<ActionResult<IBalanceEntity[]>> ListAsync(int year, int month);
-   }
-
 }

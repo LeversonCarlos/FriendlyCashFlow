@@ -14,8 +14,6 @@ namespace Elesse.Balances
 
    }
 
-   public partial interface IBalanceService { }
-
    internal partial struct WARNINGS { }
 
 }
