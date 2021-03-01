@@ -37,6 +37,9 @@ namespace Elesse.Entries
             // SAVE ENTRY
             await _EntryRepository.InsertAsync(entry);
 
+            // INCREASE BALANCE
+            await IncreaseBalanceAsync(entry);
+
             // TRACK EVENT
             _InsightsService.TrackEvent("Entry Service Insert");
 
@@ -44,6 +47,15 @@ namespace Elesse.Entries
             return Ok();
          }
          catch (Exception ex) { return Shared.Results.Exception(ex); }
+      }
+
+      private Task<Balances.IBalanceEntity> IncreaseBalanceAsync(EntryEntity entry)
+      {
+         var accountID = entry.AccountID;
+         var date = new DateTime(entry.SearchDate.Year, entry.SearchDate.Month, 1, 12, 0, 0);
+         var value = entry.Value * (entry.Pattern.Type == Patterns.enPatternType.Income ? 1 : -1);
+         var paid = entry.Paid;
+         return _BalanceService.IncreaseAsync(accountID, date, value, paid);
       }
 
    }

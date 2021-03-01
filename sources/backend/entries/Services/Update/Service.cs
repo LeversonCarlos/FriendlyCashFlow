@@ -22,6 +22,9 @@ namespace Elesse.Entries
             if (entry == null)
                return Warning(WARNINGS.ENTRY_NOT_FOUND);
 
+            // DECREASE BALANCE
+            await DecreaseBalanceAsync(entry);
+
             // CHECK PATTERN CHANGES
             Patterns.IPatternEntity pattern = null;
             try { pattern = await UpdateAsync_GetNewPattern(entry.Pattern, updateVM.Pattern); }
@@ -42,6 +45,9 @@ namespace Elesse.Entries
 
             // SAVE ENTRY
             await _EntryRepository.UpdateAsync(entry);
+
+            // INCREASE BALANCE
+            await IncreaseBalanceAsync(entry);
 
             // TRACK EVENT
             _InsightsService.TrackEvent("Entry Service Update");
