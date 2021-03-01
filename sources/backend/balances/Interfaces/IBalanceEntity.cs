@@ -2,7 +2,6 @@ using System;
 
 namespace Elesse.Balances
 {
-
    public partial interface IBalanceEntity
    {
       Shared.EntityID BalanceID { get; }
@@ -13,5 +12,4 @@ namespace Elesse.Balances
       decimal ExpectedValue { get; }
       decimal RealizedValue { get; }
    }
-
 }

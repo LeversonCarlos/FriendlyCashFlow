@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 
 namespace Elesse.Balances
 {
-
    partial class BalanceService
    {
 
@@ -41,10 +40,4 @@ namespace Elesse.Balances
       }
 
    }
-
-   partial interface IBalanceService
-   {
-      Task<IBalanceEntity> IncreaseAsync(Shared.EntityID accountID, DateTime date, decimal value, bool paid);
-   }
-
 }
