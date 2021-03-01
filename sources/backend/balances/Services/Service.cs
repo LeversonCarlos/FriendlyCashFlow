@@ -14,6 +14,4 @@ namespace Elesse.Balances
 
    }
 
-   internal partial struct WARNINGS { }
-
 }
