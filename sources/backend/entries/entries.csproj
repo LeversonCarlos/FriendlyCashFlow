@@ -37,6 +37,7 @@
   <ItemGroup>
     <ProjectReference Include="..\shared\shared.csproj" />
     <ProjectReference Include="..\patterns\patterns.csproj" />
+    <ProjectReference Include="..\balances\balances.csproj" />
   </ItemGroup>
 
   <ItemGroup>
