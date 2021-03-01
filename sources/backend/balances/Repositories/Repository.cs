@@ -1,5 +1,3 @@
-using System;
-using System.Threading.Tasks;
 using MongoDB.Driver;
 
 namespace Elesse.Balances
@@ -18,9 +16,6 @@ namespace Elesse.Balances
       readonly string _CollectionName = null;
       IMongoCollection<BalanceEntity> _Collection =>
          _MongoDatabase.GetCollection<BalanceEntity>(_CollectionName);
-
-      public Task InsertAsync(IBalanceEntity value) => null;
-      public Task UpdateAsync(IBalanceEntity value) => null;
 
    }
 }
