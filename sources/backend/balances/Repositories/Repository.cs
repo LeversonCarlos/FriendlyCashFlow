@@ -21,7 +21,6 @@ namespace Elesse.Balances
 
       public Task InsertAsync(IBalanceEntity value) => null;
       public Task UpdateAsync(IBalanceEntity value) => null;
-      public Task<IBalanceEntity> LoadAsync(Shared.EntityID accountID, DateTime date) => null;
 
    }
 }
