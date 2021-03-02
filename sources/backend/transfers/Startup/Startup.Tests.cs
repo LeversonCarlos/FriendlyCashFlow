@@ -1,3 +1,4 @@
+using Elesse.Balances;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
@@ -19,6 +20,7 @@ namespace Elesse.Transfers.Tests
             .AddSingleton(x => Shared.Tests.InsightsServiceMocker.Create().Build())
             .AddScoped(x => new Mock<Identity.IUser>().Object)
             .AddControllers()
+            .AddBalanceService(configs)
             .AddTransferService(configs)
             .Services
             .BuildServiceProvider();
@@ -37,6 +39,7 @@ namespace Elesse.Transfers.Tests
             .AddSingleton<IMongoDatabase>(x => null)
             .AddScoped(x => new Mock<Identity.IUser>().Object)
             .AddControllers()
+            .AddBalanceService(configs)
             .AddTransferService(configs)
             .Services
             .BuildServiceProvider();

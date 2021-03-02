@@ -17,6 +17,13 @@ namespace Elesse.Transfers.Tests
          return this;
       }
 
+      Balances.IBalanceService _BalanceService = Balances.BalanceService.Mocker().Build();
+      public TransferServiceBuilder With(Balances.IBalanceService balanceService)
+      {
+         _BalanceService = balanceService;
+         return this;
+      }
+
       Shared.IInsightsService _InsightsService = Shared.Tests.InsightsServiceMocker.Create().Build();
       public TransferServiceBuilder With(Shared.IInsightsService insightsService)
       {
@@ -25,7 +32,7 @@ namespace Elesse.Transfers.Tests
       }
 
       public TransferService Build() =>
-         new TransferService(_TransferRepository, _InsightsService);
+         new TransferService(_TransferRepository, _BalanceService, _InsightsService);
 
    }
 }
