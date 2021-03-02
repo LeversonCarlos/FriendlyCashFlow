@@ -35,10 +35,8 @@ export class DetailsComponent implements OnInit {
 
    private OnFormInit() {
       this.form = this.fb.group({
-         Pattern: this.fb.group({
-            Type: [this.data.Pattern.Type],
-            Text: [this.data.Pattern.Text, Validators.required]
-         }),
+         Type: [this.data.Pattern.Type],
+         Text: [this.data.Pattern.Text, Validators.required]
       });
    }
 

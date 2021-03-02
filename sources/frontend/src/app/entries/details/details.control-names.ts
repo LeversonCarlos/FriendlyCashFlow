@@ -1,5 +1,4 @@
 export const ControlNames = {
-   Pattern: 'Pattern',
    PatternID: 'PatternID',
    PatternRow: 'PatternRow',
 

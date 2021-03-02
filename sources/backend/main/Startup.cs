@@ -2,6 +2,7 @@ using Elesse.Shared;
 using Elesse.Accounts;
 using Elesse.Identity.Helpers;
 using Elesse.Categories;
+using Elesse.Balances;
 using Elesse.Entries;
 using Elesse.Transfers;
 using Elesse.Transactions;
@@ -49,6 +50,7 @@ namespace Elesse.FriendlyCashFlow
             .AddSharedService(_Configuration)
             .AddAccountService(_Configuration)
             .AddCategoryService(_Configuration)
+            .AddBalanceService(_Configuration)
             .AddEntryService(_Configuration)
             .AddTransferService(_Configuration)
             .AddTransactionService(_Configuration);

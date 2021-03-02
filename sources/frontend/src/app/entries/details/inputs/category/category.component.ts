@@ -44,18 +44,17 @@ export class CategoryComponent implements OnInit {
    private OnFormInit() {
       if (!this.form || !this.data)
          return;
-      const formSection = this.form.get(ControlNames.Pattern) as FormGroup;
-      formSection.addControl(ControlNames.CategoryID, new FormControl(this.data.Pattern?.CategoryID ?? null));
-      formSection.addControl(ControlNames.CategoryRow, new FormControl(this.GetFirstCategory(), Validators.required));
-      formSection.get(ControlNames.CategoryRow).valueChanges.subscribe((row: RelatedData<CategoryEntity>) => {
+      this.form.addControl(ControlNames.CategoryID, new FormControl(this.data.Pattern?.CategoryID ?? null));
+      this.form.addControl(ControlNames.CategoryRow, new FormControl(this.GetFirstCategory(), Validators.required));
+      this.form.get(ControlNames.CategoryRow).valueChanges.subscribe((row: RelatedData<CategoryEntity>) => {
          this.data.Pattern.CategoryID = row?.value?.CategoryID ?? null;
       });
-      formSection.get(ControlNames.CategoryID).valueChanges.subscribe((categoryID: string) => {
+      this.form.get(ControlNames.CategoryID).valueChanges.subscribe((categoryID: string) => {
          this.CategoryFiltered = this.CategoryOptions
             .filter(entity => entity.value.CategoryID == categoryID);
          const categoryRow = this.GetFirstCategory();
-         if (formSection.get(ControlNames.CategoryRow).value != categoryRow)
-            formSection.get(ControlNames.CategoryRow).setValue(categoryRow);
+         if (this.form.get(ControlNames.CategoryRow).value != categoryRow)
+            this.form.get(ControlNames.CategoryRow).setValue(categoryRow);
       });
    }
 

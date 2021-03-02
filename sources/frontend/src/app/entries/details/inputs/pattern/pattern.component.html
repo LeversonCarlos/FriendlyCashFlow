@@ -1,7 +1,7 @@
-<ng-container *ngIf="formSection" [formGroup]="form">
-   <ng-container [formGroupName]="formControlName">
+<ng-container *ngIf="form" [formGroup]="form">
+   <ng-container>
       <elesse-relatedbox [placeholder]="'entries.TEXT_LABEL' | translation | async" minSize="0"
-         [style.fontSize.px]="20" [formControlName]="FormControlName"
+         [style.fontSize.px]="20" [formControlName]="formControlName"
          [options]="PatternFiltered" (optionsChanging)="OnPatternChanging($event)">
       </elesse-relatedbox>
    </ng-container>

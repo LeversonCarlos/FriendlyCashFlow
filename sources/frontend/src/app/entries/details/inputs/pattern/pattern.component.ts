@@ -17,7 +17,6 @@ export class PatternComponent implements OnInit {
    @Input() data: EntryEntity;
    @Input() form: FormGroup;
    public formControlName: string = ControlNames.PatternRow;
-   public formSection: FormGroup;
    public PatternOptions: RelatedData<PatternEntity>[] = [];
    public PatternFiltered: RelatedData<PatternEntity>[] = [];
 
@@ -41,15 +40,14 @@ export class PatternComponent implements OnInit {
    private OnFormInit() {
       if (!this.form)
          return;
-      this.formSection = this.form.get(ControlNames.Pattern) as FormGroup;
-      this.formSection.addControl(ControlNames.PatternID, new FormControl(this.data?.Pattern?.PatternID ?? null));
-      this.formSection.addControl(ControlNames.PatternRow, new FormControl(this.GetFirstPattern()));
-      this.formSection.get(ControlNames.PatternRow).valueChanges.subscribe((row: RelatedData<PatternEntity>) => {
+      this.form.addControl(ControlNames.PatternID, new FormControl(this.data?.Pattern?.PatternID ?? null));
+      this.form.addControl(ControlNames.PatternRow, new FormControl(this.GetFirstPattern()));
+      this.form.get(ControlNames.PatternRow).valueChanges.subscribe((row: RelatedData<PatternEntity>) => {
          this.data.Pattern.PatternID = row?.value?.PatternID ?? null;
          if (row?.value?.Text)
             this.OnTextChanging(row.value.Text);
          if (row?.value?.CategoryID)
-            this.formSection.get(ControlNames.CategoryID).setValue(row.value.CategoryID);
+            this.form.get(ControlNames.CategoryID).setValue(row.value.CategoryID);
       });
    }
 
@@ -61,7 +59,7 @@ export class PatternComponent implements OnInit {
    }
 
    private OnTextChanging(val: string) {
-      this.formSection.get(ControlNames.Text).setValue(val);
+      this.form.get(ControlNames.Text).setValue(val);
       this.data.Pattern.Text = val;
    }
 

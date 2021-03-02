@@ -2,7 +2,6 @@ using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Elesse.Patterns;
-using Elesse.Balances;
 
 namespace Elesse.Entries
 {
@@ -19,7 +18,6 @@ namespace Elesse.Entries
             .AddScoped<IEntryService, EntryService>();
          mvcBuilder
             .AddPatternService(configs)
-            .AddBalanceService(configs)
             .AddApplicationPart(Assembly.GetAssembly(typeof(EntryController)));
          return mvcBuilder;
       }
