@@ -36,6 +36,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\shared\shared.csproj" />
+    <ProjectReference Include="..\balances\balances.csproj" />
   </ItemGroup>
 
   <ItemGroup>
