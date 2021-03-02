@@ -22,6 +22,9 @@ namespace Elesse.Transfers
             if (transfer == null)
                return Warning(WARNINGS.TRANSFER_NOT_FOUND);
 
+            // DECREASE BALANCE
+            await DecreaseBalanceAsync(transfer);
+
             // APPLY CHANGES
             try { transfer.Change(updateVM.ExpenseAccountID, updateVM.IncomeAccountID, updateVM.Date, updateVM.Value); }
             catch (Exception valEx) { return Warning(valEx.Message); }
@@ -31,6 +34,9 @@ namespace Elesse.Transfers
 
             // SAVE TRANSFER
             await _TransferRepository.UpdateAsync(transfer);
+
+            // INCREASE BALANCE
+            await IncreaseBalanceAsync(transfer);
 
             // TRACK EVENT
             _InsightsService.TrackEvent("Transfer Service Update");
