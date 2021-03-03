@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { BalanceData } from './balances.data';
+import { BalanceData } from './data.service';
 
 describe('BalanceData', () => {
    let service: BalanceData;
