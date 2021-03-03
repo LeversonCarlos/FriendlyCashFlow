@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
-import { EntriesData } from './entries.data';
+import { BalanceData } from './balances.data';
 
-describe('EntriesData', () => {
-   let service: EntriesData;
+describe('BalanceData', () => {
+   let service: BalanceData;
 
    beforeEach(() => {
       TestBed.configureTestingModule({});
-      service = TestBed.inject(EntriesData);
+      service = TestBed.inject(BalanceData);
    });
 
    it('should be created', () => {
