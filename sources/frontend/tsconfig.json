@@ -45,6 +45,9 @@
       "@elesse/transfers": [
         "src/app/transfers/transfers.exports.ts"
       ],
+      "@elesse/balances": [
+        "src/app/balances/balances.exports.ts"
+      ],
     }
   }
 }
