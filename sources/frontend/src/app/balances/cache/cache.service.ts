@@ -10,6 +10,8 @@ export class BalanceCache extends StorageService<string, BalanceEntity[]> {
 
    constructor() {
       super("BalanceCache");
+      this.Subject = new BehaviorSubject<BalanceEntity[]>(null);
+      this.Observe = this.Subject.asObservable();
    }
 
    private SubsKey: string;
