@@ -168,7 +168,8 @@ export class TransactionsConverter {
                TransactionBalance.Parse(balance.Date, initialBalanceText, initialBalanceValue, -2)
             ];
             if (overdueBalanceValue != 0)
-               transactionsList.push(TransactionBalance.Parse(balance.Date, overdueBalanceText, initialBalanceValue, -1));
+               transactionsList.push(TransactionBalance.Parse(balance.Date, overdueBalanceText, overdueBalanceValue, -1));
+
             for (let transactionsListIndex = 0; transactionsListIndex < transactionsList.length; transactionsListIndex++) {
                const transaction = transactionsList[transactionsListIndex];
 

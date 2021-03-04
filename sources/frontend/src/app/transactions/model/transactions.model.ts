@@ -70,8 +70,6 @@ export class TransactionTransfer extends TransactionBase {
 
 export class TransactionBalance extends TransactionBase {
    static Parse(date: Date, text: string, value: number, sorting: number): TransactionBalance {
-      if (!value)
-         return null;
       return Object.assign(new TransactionBalance, {
          Date: new Date(date),
          Text: text,
