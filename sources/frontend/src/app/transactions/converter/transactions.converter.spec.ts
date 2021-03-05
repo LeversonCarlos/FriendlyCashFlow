@@ -7,11 +7,11 @@ import { TransactionsConverter } from './transactions.converter';
 describe('TransactionsParser', () => {
 
    it('with null accounts list should result empty list', () => {
-      expect(TransactionsConverter.Convert(null, null, null, null, null)).toEqual([]);
+      expect(TransactionsConverter.Convert(null, null, null, null, null, null)).toEqual([]);
    });
 
    it('with empty accounts list should result empty list', () => {
-      expect(TransactionsConverter.Convert([], null, null, null, null)).toEqual([]);
+      expect(TransactionsConverter.Convert([], null, null, null, null, null)).toEqual([]);
    });
 
    it('with some accounts list should result parsed list', () => {
@@ -19,7 +19,7 @@ describe('TransactionsParser', () => {
          AccountEntity.Parse({ AccountID: 'ID1', Text: 'my account text' }),
          AccountEntity.Parse({ AccountID: 'ID2', Text: 'my other account text' })
       ];
-      const transactionAccounts = TransactionsConverter.Convert(accounts, null, null, null, null);
+      const transactionAccounts = TransactionsConverter.Convert(accounts, null, null, null, null, null);
       expect(transactionAccounts).toBeTruthy();
       expect(transactionAccounts.length).toEqual(2);
       expect(transactionAccounts[1].Account.Text).toEqual('my other account text');
@@ -42,7 +42,7 @@ describe('TransactionsParser', () => {
          EntryEntity.Parse({ AccountID: 'ID1', Pattern: { Text: 'my first expense', Type: enCategoryType.Expense, CategoryID: 'CAT2' }, Value: 300, DueDate: new Date(2021, 1, 4) }),
       ];
 
-      const transactionAccounts = TransactionsConverter.Convert(accounts, incomeCategories, expenseCategories, entries, null);
+      const transactionAccounts = TransactionsConverter.Convert(accounts, incomeCategories, expenseCategories, entries, null, null);
       expect(transactionAccounts).toBeTruthy();
       expect(transactionAccounts.length).toEqual(1);
       expect(transactionAccounts[0].Days.length).toEqual(3);
@@ -63,7 +63,7 @@ describe('TransactionsParser', () => {
          EntryEntity.Parse({ AccountID: 'ID1', Pattern: { Text: 'my first expense', Type: enCategoryType.Expense }, Value: 300, DueDate: new Date("2021-02-10"), Paid: true, PayDate: new Date("2021-02-15") }),
       ];
 
-      const transactionAccounts = TransactionsConverter.Convert(accounts, null, null, entries, null);
+      const transactionAccounts = TransactionsConverter.Convert(accounts, null, null, entries, null, null);
       expect(transactionAccounts).toBeTruthy();
       expect(transactionAccounts.length).toEqual(2);
       expect(transactionAccounts[0].Balance.Realized).toEqual(1200);
@@ -84,7 +84,7 @@ describe('TransactionsParser', () => {
          EntryEntity.Parse({ AccountID: 'ID1', Pattern: { Text: 'my first expense', Type: enCategoryType.Expense }, Value: 300, DueDate: new Date("2021-02-10"), Paid: true, PayDate: new Date("2021-02-15") }),
       ];
 
-      const transactionAccounts = TransactionsConverter.Convert(accounts, null, null, entries, null);
+      const transactionAccounts = TransactionsConverter.Convert(accounts, null, null, entries, null, null);
       expect(transactionAccounts).toBeTruthy();
       expect(transactionAccounts.length).toEqual(2);
       expect(transactionAccounts[0].Days[0].Balance.Realized).toEqual(1500);
@@ -110,7 +110,7 @@ describe('TransactionsParser', () => {
          TransferEntity.Parse({ ExpenseAccountID: 'ID1', IncomeAccountID: 'ID2', Date: new Date("2021-02-04"), Value: 54, Sorting: 3 })
       ];
 
-      const transactionAccounts = TransactionsConverter.Convert(accounts, null, null, entries, transfers);
+      const transactionAccounts = TransactionsConverter.Convert(accounts, null, null, entries, transfers, null);
 
       expect(transactionAccounts).toBeTruthy();
       expect(transactionAccounts.length).toEqual(2);

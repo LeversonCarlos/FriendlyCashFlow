@@ -4,6 +4,8 @@
 
   "TRANSFER_FROM_LABEL": "Transferência de {0}",
   "TRANSFER_TO_LABEL": "Transferência para {0}",
+  "INITIAL_BALANCE_LABEL": "Saldo Inicial",
+  "OVERDUE_BALANCE_LABEL": "Lançamentos em Atraso",
 
   "ADD_INCOME_MENU": "Nova Entrada",
   "ADD_EXPENSE_MENU": "Nova Saída",

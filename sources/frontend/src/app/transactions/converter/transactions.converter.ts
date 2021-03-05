@@ -1,10 +1,11 @@
 import { AccountEntity, AccountsData } from "@elesse/accounts";
+import { BalanceEntity } from "@elesse/balances";
 import { CategoryEntity, enCategoryType } from "@elesse/categories";
 import { EntryEntity } from "@elesse/entries";
 import { TransferEntity } from "@elesse/transfers";
 import { combineLatest, Observable } from "rxjs";
 import { map } from "rxjs/operators";
-import { Balance, TransactionAccount, TransactionBase, TransactionDay, TransactionEntry, TransactionTransfer } from "../model/transactions.model";
+import { Balance, TransactionAccount, TransactionBalance, TransactionBase, TransactionDay, TransactionEntry, TransactionTransfer } from "../model/transactions.model";
 
 export class TransactionsConverter {
 
@@ -12,12 +13,16 @@ export class TransactionsConverter {
       accountsObservable: Observable<AccountEntity[]>,
       incomeCategoriesObservable: Observable<CategoryEntity[]>,
       expenseCategoriesObservable: Observable<CategoryEntity[]>,
-      entriesObservable: Observable<EntryEntity[]>, transfersObservable: Observable<TransferEntity[]>,
-      transferTo: string, transferFrom: string): Observable<TransactionAccount[]> =>
-      combineLatest([accountsObservable, incomeCategoriesObservable, expenseCategoriesObservable, entriesObservable, transfersObservable])
+      entriesObservable: Observable<EntryEntity[]>,
+      transfersObservable: Observable<TransferEntity[]>,
+      balanceObservable: Observable<BalanceEntity[]>,
+      transferTo: string, transferFrom: string,
+      initialBalanceText: string, overdueBalanceText: string): Observable<TransactionAccount[]> =>
+      combineLatest([accountsObservable, incomeCategoriesObservable, expenseCategoriesObservable, entriesObservable, transfersObservable, balanceObservable])
          .pipe(
-            map(([accounts, incomeCategories, expenseCategories, entries, transfers]) =>
-               TransactionsConverter.Convert(accounts, incomeCategories, expenseCategories, entries, transfers, transferTo, transferFrom)
+            map(([accounts, incomeCategories, expenseCategories, entries, transfers, balances]) =>
+               TransactionsConverter.Convert(accounts, incomeCategories, expenseCategories, entries, transfers, balances,
+                  transferTo, transferFrom, initialBalanceText, overdueBalanceText)
             )
          );
 
@@ -27,13 +32,16 @@ export class TransactionsConverter {
       expenseCategoriesList: CategoryEntity[],
       entriesParam: EntryEntity[],
       transfersParam: TransferEntity[],
-      transferTo: string = null, transferFrom: string = null): TransactionAccount[] {
+      balancesParam: BalanceEntity[],
+      transferTo: string = null, transferFrom: string = null,
+      initialBalanceText: string = null, overdueBalanceText: string = null): TransactionAccount[] {
       if (accountsParam == null || accountsParam.length == 0)
          return [];
 
       const accountsDict = TransactionsConverter.GetAccountsDictionary(accountsParam);
       TransactionsConverter.DistributeEntriesThroughAccounts(accountsDict, incomeCategoriesList, expenseCategoriesList, entriesParam);
       TransactionsConverter.DistributeTransfersThroughAccounts(accountsDict, transfersParam, transferTo, transferFrom);
+      TransactionsConverter.DistributeBalancesThroughAccounts(accountsDict, balancesParam, initialBalanceText, overdueBalanceText);
       const accountsResult = TransactionsConverter.ParseDictionaryDataIntoTransactionData(accountsDict, accountsParam);
 
       return accountsResult;
@@ -114,6 +122,56 @@ export class TransactionsConverter {
                if (transferAccount.Type == enCategoryType.Income && transferFrom && transferFrom.includes('{0}'))
                   accountText = transferFrom.replace('{0}', accountText);
                const transaction = TransactionTransfer.Parse(transfer, accountText, transferAccount.Type);
+
+               // SUM TRANSACTION VALUE INTO ACCOUNT GENERAL BALANCE
+               accountDict.Balance.Expected += transaction.Value;
+               if (transaction.Paid)
+                  accountDict.Balance.Realized += transaction.Value;
+
+               // LOCATE DAY ON DICTIONARY
+               const dayDict = accountDict.GetDay(transaction.Date);
+
+               // SUM TRANSACTION VALUE INTO DAY BALANCE
+               dayDict.Balance.Expected += transaction.Value;
+               if (transaction.Paid)
+                  dayDict.Balance.Realized += transaction.Value;
+
+               // PUSH TRANSACTION INTO DAY TRANSACTIONS
+               dayDict.Transactions.push(transaction);
+
+            }
+
+         }
+      }
+
+   }
+
+   private static DistributeBalancesThroughAccounts(
+      accountsDict: Record<string, AccountDict>,
+      balanceParam: BalanceEntity[],
+      initialBalanceText: string, overdueBalanceText: string) {
+
+      // LOOP THROUGH THE ENTRIES LIST
+      if (balanceParam?.length > 0) {
+         for (let balanceIndex = 0; balanceIndex < balanceParam.length; balanceIndex++) {
+            const balance = balanceParam[balanceIndex];
+
+            // LOCATE ACCOUNT ON DICTIONARY
+            const accountDict = accountsDict[balance.AccountID];
+
+            // INITIAL BALANCES
+            const initialBalanceValue = balance.RealizedValue;
+            const overdueBalanceValue = balance.ExpectedValue - balance.RealizedValue;
+
+            // PREPARE CASES
+            const transactionsList = [
+               TransactionBalance.Parse(balance.Date, initialBalanceText, initialBalanceValue, -2)
+            ];
+            if (overdueBalanceValue != 0)
+               transactionsList.push(TransactionBalance.Parse(balance.Date, overdueBalanceText, overdueBalanceValue, -1));
+
+            for (let transactionsListIndex = 0; transactionsListIndex < transactionsList.length; transactionsListIndex++) {
+               const transaction = transactionsList[transactionsListIndex];
 
                // SUM TRANSACTION VALUE INTO ACCOUNT GENERAL BALANCE
                accountDict.Balance.Expected += transaction.Value;

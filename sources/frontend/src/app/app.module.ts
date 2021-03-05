@@ -29,6 +29,7 @@ import { CategoriesProviders } from '@elesse/categories';
 import { PatternsProviders } from '@elesse/patterns';
 import { EntriesProviders } from '@elesse/entries';
 import { TransfersProviders } from '@elesse/transfers';
+import { BalancesProviders } from '@elesse/balances';
 
 @NgModule({
    declarations: [
@@ -45,7 +46,8 @@ import { TransfersProviders } from '@elesse/transfers';
       ResponsiveService, LocalizationService,
       TokenService,
       UrlInterceptorProvider, LangInterceptorProvider, ErrorInterceptorProvider, RequestAuthInterceptorProvider, ResponseAuthInterceptorProvider,
-      AccountsProviders, CategoriesProviders, PatternsProviders, EntriesProviders, TransfersProviders
+      AccountsProviders, CategoriesProviders, PatternsProviders,
+      EntriesProviders, TransfersProviders, BalancesProviders
    ],
    bootstrap: [MainComponent]
 })
