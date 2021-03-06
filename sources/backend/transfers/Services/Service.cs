@@ -1,6 +1,5 @@
 namespace Elesse.Transfers
 {
-
    internal partial class TransferService : Shared.BaseService, ITransferService
    {
 
@@ -18,7 +17,4 @@ namespace Elesse.Transfers
       readonly Balances.IBalanceService _BalanceService;
 
    }
-
-   internal partial struct WARNINGS { }
-
 }

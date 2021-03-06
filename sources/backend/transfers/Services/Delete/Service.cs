@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Elesse.Transfers
 {
-
    partial class TransferService
    {
 
@@ -51,10 +50,4 @@ namespace Elesse.Transfers
       }
 
    }
-
-   partial struct WARNINGS
-   {
-      internal const string INVALID_DELETE_PARAMETER = "INVALID_DELETE_PARAMETER";
-   }
-
 }

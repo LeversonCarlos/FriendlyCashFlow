@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Elesse.Transfers
 {
-
    partial class TransferService
    {
 
@@ -48,11 +47,4 @@ namespace Elesse.Transfers
       }
 
    }
-
-   partial struct WARNINGS
-   {
-      internal const string INVALID_UPDATE_PARAMETER = "INVALID_UPDATE_PARAMETER";
-      internal const string TRANSFER_NOT_FOUND = "TRANSFER_NOT_FOUND";
-   }
-
 }

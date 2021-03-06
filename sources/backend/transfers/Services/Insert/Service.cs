@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 
 namespace Elesse.Transfers
 {
-
    partial class TransferService
    {
 
@@ -55,10 +54,4 @@ namespace Elesse.Transfers
       }
 
    }
-
-   partial struct WARNINGS
-   {
-      internal const string INVALID_INSERT_PARAMETER = "INVALID_INSERT_PARAMETER";
-   }
-
 }
