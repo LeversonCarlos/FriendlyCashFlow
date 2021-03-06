@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 
 namespace Elesse.Patterns
 {
-
    partial class PatternService
    {
 
@@ -41,10 +40,4 @@ namespace Elesse.Patterns
       }
 
    }
-
-   partial struct WARNINGS
-   {
-      internal const string INVALID_INCREASE_PARAMETER = "INVALID_INCREASE_PARAMETER";
-   }
-
 }
