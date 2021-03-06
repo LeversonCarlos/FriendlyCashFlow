@@ -16,7 +16,7 @@ namespace Elesse.Categories.Tests
          var seq = new MockSequence();
          foreach (var result in results)
             _Mock.InSequence(seq)
-               .Setup(m => m.ListCategoriesAsync())
+               .Setup(m => m.ListAsync())
                .ReturnsAsync(result);
          return this;
       }
@@ -28,12 +28,12 @@ namespace Elesse.Categories.Tests
          var seq = new MockSequence();
          foreach (var result in results)
             _Mock.InSequence(seq)
-               .Setup(m => m.SearchCategoriesAsync(It.IsAny<enCategoryType>(), It.IsAny<string>()))
+               .Setup(m => m.SearchAsync(It.IsAny<enCategoryType>(), It.IsAny<string>()))
                .ReturnsAsync(result);
          var seq2 = new MockSequence();
          foreach (var result in results)
             _Mock.InSequence(seq2)
-               .Setup(m => m.SearchCategoriesAsync(It.IsAny<enCategoryType>(), It.IsAny<Shared.EntityID>(), It.IsAny<string>()))
+               .Setup(m => m.SearchAsync(It.IsAny<enCategoryType>(), It.IsAny<Shared.EntityID>(), It.IsAny<string>()))
                .ReturnsAsync(result);
          return this;
       }
@@ -45,7 +45,7 @@ namespace Elesse.Categories.Tests
          var seq = new MockSequence();
          foreach (var result in results)
             _Mock.InSequence(seq)
-               .Setup(m => m.LoadCategoryAsync(It.IsAny<Shared.EntityID>()))
+               .Setup(m => m.LoadAsync(It.IsAny<Shared.EntityID>()))
                .ReturnsAsync(result);
          return this;
       }

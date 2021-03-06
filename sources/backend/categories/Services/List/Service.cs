@@ -11,7 +11,7 @@ namespace Elesse.Categories
       {
 
          // LOAD CATEGORIES
-         var categoriesList = await _CategoryRepository.ListCategoriesAsync();
+         var categoriesList = await _CategoryRepository.ListAsync();
 
          // RESULT
          return Ok(categoriesList);

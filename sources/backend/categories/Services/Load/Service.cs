@@ -14,7 +14,7 @@ namespace Elesse.Categories
             return Warning(WARNINGS.INVALID_LOAD_PARAMETER);
 
          // LOAD CATEGORY
-         var category = await _CategoryRepository.LoadCategoryAsync(categoryID);
+         var category = await _CategoryRepository.LoadAsync(categoryID);
 
          // RESULT
          return Ok(category);

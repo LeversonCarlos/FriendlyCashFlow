@@ -6,7 +6,7 @@ namespace Elesse.Categories
    partial class CategoryRepository
    {
 
-      public async Task UpdateCategoryAsync(ICategoryEntity value)
+      public async Task UpdateAsync(ICategoryEntity value)
       {
 
          // COMPOSE HierarchyText BASED ON PARENT TEXT

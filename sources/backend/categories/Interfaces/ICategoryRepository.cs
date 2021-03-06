@@ -5,14 +5,14 @@ namespace Elesse.Categories
    internal interface ICategoryRepository
    {
 
-      Task InsertCategoryAsync(ICategoryEntity value);
-      Task UpdateCategoryAsync(ICategoryEntity value);
-      Task DeleteCategoryAsync(Shared.EntityID categoryID);
+      Task InsertAsync(ICategoryEntity value);
+      Task UpdateAsync(ICategoryEntity value);
+      Task DeleteAsync(Shared.EntityID categoryID);
 
-      Task<ICategoryEntity[]> ListCategoriesAsync();
-      Task<ICategoryEntity> LoadCategoryAsync(Shared.EntityID categoryID);
-      Task<ICategoryEntity[]> SearchCategoriesAsync(enCategoryType type, string searchText);
-      Task<ICategoryEntity[]> SearchCategoriesAsync(enCategoryType type, Shared.EntityID parentID, string searchText);
+      Task<ICategoryEntity[]> ListAsync();
+      Task<ICategoryEntity> LoadAsync(Shared.EntityID categoryID);
+      Task<ICategoryEntity[]> SearchAsync(enCategoryType type, string searchText);
+      Task<ICategoryEntity[]> SearchAsync(enCategoryType type, Shared.EntityID parentID, string searchText);
 
    }
 }

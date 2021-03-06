@@ -6,7 +6,7 @@ namespace Elesse.Categories
    partial class CategoryRepository
    {
 
-      public async Task<ICategoryEntity[]> SearchCategoriesAsync(enCategoryType type, string searchText)
+      public async Task<ICategoryEntity[]> SearchAsync(enCategoryType type, string searchText)
       {
          var list = await _Collection
             // .Find(filter)
@@ -19,7 +19,7 @@ namespace Elesse.Categories
          return list.ToArray();
       }
 
-      public async Task<ICategoryEntity[]> SearchCategoriesAsync(enCategoryType type, Shared.EntityID parentID, string searchText)
+      public async Task<ICategoryEntity[]> SearchAsync(enCategoryType type, Shared.EntityID parentID, string searchText)
       {
          var list = await _Collection
             // .Find(filter)

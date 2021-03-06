@@ -6,7 +6,7 @@ namespace Elesse.Categories
    partial class CategoryRepository
    {
 
-      public async Task<ICategoryEntity[]> ListCategoriesAsync()
+      public async Task<ICategoryEntity[]> ListAsync()
       {
          var list = await _Collection
             .Find(entity => entity.RowStatus == true)
