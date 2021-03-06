@@ -45,11 +45,6 @@ namespace Elesse.Accounts
 
    }
 
-   partial interface IAccountService
-   {
-      Task<IActionResult> UpdateAsync(UpdateVM updateVM);
-   }
-
    partial struct WARNINGS
    {
       internal const string INVALID_UPDATE_PARAMETER = "INVALID_UPDATE_PARAMETER";

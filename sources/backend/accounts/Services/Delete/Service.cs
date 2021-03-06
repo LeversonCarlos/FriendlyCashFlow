@@ -31,11 +31,6 @@ namespace Elesse.Accounts
 
    }
 
-   partial interface IAccountService
-   {
-      Task<IActionResult> DeleteAsync(string id);
-   }
-
    partial struct WARNINGS
    {
       internal const string INVALID_DELETE_PARAMETER = "INVALID_ACCOUNTID_PARAMETER";

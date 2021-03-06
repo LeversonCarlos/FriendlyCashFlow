@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Elesse.Accounts
 {
-
    partial class AccountService
    {
 
@@ -18,10 +17,4 @@ namespace Elesse.Accounts
       }
 
    }
-
-   partial interface IAccountService
-   {
-      Task<ActionResult<IAccountEntity[]>> ListAsync();
-   }
-
 }

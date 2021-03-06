@@ -23,11 +23,6 @@ namespace Elesse.Accounts
 
    }
 
-   partial interface IAccountService
-   {
-      Task<ActionResult<IAccountEntity>> LoadAsync(string id);
-   }
-
    partial struct WARNINGS
    {
       internal const string INVALID_LOAD_PARAMETER = "INVALID_ACCOUNTID_PARAMETER";

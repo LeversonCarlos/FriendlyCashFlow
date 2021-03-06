@@ -32,11 +32,6 @@ namespace Elesse.Accounts
 
    }
 
-   partial interface IAccountService
-   {
-      Task<IActionResult> ChangeStateAsync(ChangeStateVM changeStateVM);
-   }
-
    partial struct WARNINGS
    {
       internal const string INVALID_CHANGESTATE_PARAMETER = "INVALID_CHANGESTATE_PARAMETER";

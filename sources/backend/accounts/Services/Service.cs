@@ -14,8 +14,6 @@ namespace Elesse.Accounts
 
    }
 
-   public partial interface IAccountService { }
-
    internal partial struct WARNINGS { }
 
 }
