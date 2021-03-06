@@ -4,7 +4,6 @@ using System.Linq;
 
 namespace Elesse.Categories
 {
-
    partial class CategoryService
    {
 
@@ -18,18 +17,18 @@ namespace Elesse.Categories
          // VALIDATE PARENT
          if (updateVM.ParentID != null)
          {
-            var parent = await _CategoryRepository.LoadCategoryAsync(updateVM.ParentID);
+            var parent = await _CategoryRepository.LoadAsync(updateVM.ParentID);
             if (parent == null)
                return Warning(WARNINGS.PARENT_CATEGORY_NOT_FOUND);
          }
 
          // VALIDATE DUPLICITY
-         var categoriesList = await _CategoryRepository.SearchCategoriesAsync(updateVM.Type, updateVM.ParentID, updateVM.Text);
+         var categoriesList = await _CategoryRepository.SearchAsync(updateVM.Type, updateVM.ParentID, updateVM.Text);
          if (categoriesList.Any(x => x.CategoryID != updateVM.CategoryID))
             return Warning(WARNINGS.CATEGORY_TEXT_ALREADY_USED);
 
          // LOCATE CATEGORY
-         var category = (CategoryEntity)(await _CategoryRepository.LoadCategoryAsync(updateVM.CategoryID));
+         var category = (CategoryEntity)(await _CategoryRepository.LoadAsync(updateVM.CategoryID));
          if (category == null)
             return Warning(WARNINGS.CATEGORY_NOT_FOUND);
 
@@ -39,23 +38,11 @@ namespace Elesse.Categories
          category.ParentID = updateVM.ParentID;
 
          // SAVE CHANGES
-         await _CategoryRepository.UpdateCategoryAsync(category);
+         await _CategoryRepository.UpdateAsync(category);
 
          // RESULT
          return Ok();
       }
 
    }
-
-   partial interface ICategoryService
-   {
-      Task<IActionResult> UpdateAsync(UpdateVM updateVM);
-   }
-
-   partial struct WARNINGS
-   {
-      internal const string INVALID_UPDATE_PARAMETER = "INVALID_UPDATE_PARAMETER";
-      internal const string CATEGORY_NOT_FOUND = "CATEGORY_NOT_FOUND";
-   }
-
 }

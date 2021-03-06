@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Elesse.Accounts
 {
-
    partial class AccountService
    {
 
@@ -11,17 +10,11 @@ namespace Elesse.Accounts
       {
 
          // SEARCH ACCOUNTS
-         var accountsList = await _AccountRepository.SearchAccountsAsync(searchText);
+         var accountsList = await _AccountRepository.SearchAsync(searchText);
 
          // RESULT
          return Ok(accountsList);
       }
 
    }
-
-   partial interface IAccountService
-   {
-      Task<ActionResult<IAccountEntity[]>> SearchAsync(string searchText);
-   }
-
 }

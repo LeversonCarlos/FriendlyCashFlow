@@ -4,7 +4,6 @@ using System.Linq;
 
 namespace Elesse.Accounts
 {
-
    partial class AccountService
    {
 
@@ -16,7 +15,7 @@ namespace Elesse.Accounts
             return Warning(WARNINGS.INVALID_CHANGESTATE_PARAMETER);
 
          // LOCATE ACCOUNT
-         var account = (AccountEntity)(await _AccountRepository.LoadAccountAsync(changeStateVM.AccountID));
+         var account = (AccountEntity)(await _AccountRepository.LoadAsync(changeStateVM.AccountID));
          if (account == null)
             return Warning(WARNINGS.ACCOUNT_NOT_FOUND);
 
@@ -24,22 +23,11 @@ namespace Elesse.Accounts
          account.Active = changeStateVM.State;
 
          // SAVE CHANGES
-         await _AccountRepository.UpdateAccountAsync(account);
+         await _AccountRepository.UpdateAsync(account);
 
          // RESULT
          return Ok();
       }
 
    }
-
-   partial interface IAccountService
-   {
-      Task<IActionResult> ChangeStateAsync(ChangeStateVM changeStateVM);
-   }
-
-   partial struct WARNINGS
-   {
-      internal const string INVALID_CHANGESTATE_PARAMETER = "INVALID_CHANGESTATE_PARAMETER";
-   }
-
 }

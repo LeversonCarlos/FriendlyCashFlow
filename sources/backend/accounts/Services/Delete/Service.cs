@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Elesse.Accounts
 {
-
    partial class AccountService
    {
 
@@ -15,12 +14,12 @@ namespace Elesse.Accounts
             return Warning(WARNINGS.INVALID_DELETE_PARAMETER);
 
          // LOCATE ACCOUNT
-         var account = (AccountEntity)(await _AccountRepository.LoadAccountAsync(accountID));
+         var account = (AccountEntity)(await _AccountRepository.LoadAsync(accountID));
          if (account == null)
             return Warning(WARNINGS.ACCOUNT_NOT_FOUND);
 
          // SAVE CHANGES
-         await _AccountRepository.DeleteAccountAsync(accountID);
+         await _AccountRepository.DeleteAsync(accountID);
 
          // TRACK EVENT
          _InsightsService.TrackEvent("Account Service Delete");
@@ -30,15 +29,4 @@ namespace Elesse.Accounts
       }
 
    }
-
-   partial interface IAccountService
-   {
-      Task<IActionResult> DeleteAsync(string id);
-   }
-
-   partial struct WARNINGS
-   {
-      internal const string INVALID_DELETE_PARAMETER = "INVALID_ACCOUNTID_PARAMETER";
-   }
-
 }

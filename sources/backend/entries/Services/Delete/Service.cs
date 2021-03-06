@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Elesse.Entries
 {
-
    partial class EntryService
    {
 
@@ -47,16 +46,4 @@ namespace Elesse.Entries
       }
 
    }
-
-   partial interface IEntryService
-   {
-      Task<IActionResult> DeleteAsync(string id);
-   }
-
-   partial struct WARNINGS
-   {
-      internal const string INVALID_DELETE_PARAMETER = "INVALID_DELETE_PARAMETER";
-      internal const string ENTRY_NOT_FOUND = "ENTRY_NOT_FOUND";
-   }
-
 }

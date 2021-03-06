@@ -1,6 +1,5 @@
 namespace Elesse.Categories
 {
-
    internal partial class CategoryService : Shared.BaseService, ICategoryService
    {
 
@@ -13,9 +12,4 @@ namespace Elesse.Categories
       readonly ICategoryRepository _CategoryRepository;
 
    }
-
-   public partial interface ICategoryService { }
-
-   internal partial struct WARNINGS { }
-
 }

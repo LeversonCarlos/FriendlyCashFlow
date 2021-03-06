@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Elesse.Accounts
 {
-
    partial class AccountService
    {
 
@@ -15,22 +14,11 @@ namespace Elesse.Accounts
             return Warning(WARNINGS.INVALID_LOAD_PARAMETER);
 
          // LOAD ACCOUNT
-         var account = await _AccountRepository.LoadAccountAsync(accountID);
+         var account = await _AccountRepository.LoadAsync(accountID);
 
          // RESULT
          return Ok(account);
       }
 
    }
-
-   partial interface IAccountService
-   {
-      Task<ActionResult<IAccountEntity>> LoadAsync(string id);
-   }
-
-   partial struct WARNINGS
-   {
-      internal const string INVALID_LOAD_PARAMETER = "INVALID_ACCOUNTID_PARAMETER";
-   }
-
 }

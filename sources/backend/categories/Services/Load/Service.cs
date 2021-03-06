@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Elesse.Categories
 {
-
    partial class CategoryService
    {
 
@@ -15,22 +14,11 @@ namespace Elesse.Categories
             return Warning(WARNINGS.INVALID_LOAD_PARAMETER);
 
          // LOAD CATEGORY
-         var category = await _CategoryRepository.LoadCategoryAsync(categoryID);
+         var category = await _CategoryRepository.LoadAsync(categoryID);
 
          // RESULT
          return Ok(category);
       }
 
    }
-
-   partial interface ICategoryService
-   {
-      Task<ActionResult<ICategoryEntity>> LoadAsync(string id);
-   }
-
-   partial struct WARNINGS
-   {
-      internal const string INVALID_LOAD_PARAMETER = "INVALID_CATEGORYID_PARAMETER";
-   }
-
 }

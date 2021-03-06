@@ -1,6 +1,5 @@
 namespace Elesse.Patterns
 {
-
    internal partial class PatternService : Shared.BaseService, IPatternService
    {
 
@@ -13,9 +12,4 @@ namespace Elesse.Patterns
       readonly IPatternRepository _PatternRepository;
 
    }
-
-   public partial interface IPatternService { }
-
-   internal partial struct WARNINGS { }
-
 }

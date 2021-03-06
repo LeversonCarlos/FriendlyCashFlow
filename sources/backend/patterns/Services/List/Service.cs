@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Elesse.Patterns
 {
-
    partial class PatternService
    {
 
@@ -11,17 +10,11 @@ namespace Elesse.Patterns
       {
 
          // LOAD PATTERNS
-         var patternsList = await _PatternRepository.ListPatternsAsync();
+         var patternsList = await _PatternRepository.ListAsync();
 
          // RESULT
          return Shared.Results.Ok(patternsList);
       }
 
    }
-
-   partial interface IPatternService
-   {
-      Task<ActionResult<IPatternEntity[]>> ListAsync();
-   }
-
 }

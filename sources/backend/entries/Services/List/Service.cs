@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 
 namespace Elesse.Entries
 {
-
    partial class EntryService
    {
 
@@ -18,10 +17,4 @@ namespace Elesse.Entries
       }
 
    }
-
-   partial interface IEntryService
-   {
-      Task<ActionResult<IEntryEntity[]>> ListAsync(int year, int month);
-   }
-
 }

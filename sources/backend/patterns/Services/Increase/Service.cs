@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 
 namespace Elesse.Patterns
 {
-
    partial class PatternService
    {
 
@@ -19,7 +18,7 @@ namespace Elesse.Patterns
             throw new ArgumentException(WARNINGS.INVALID_TEXT);
 
          // LOAD PATTERN
-         var pattern = ((PatternEntity)await _PatternRepository.LoadPatternAsync(param.Type, param.CategoryID, param.Text));
+         var pattern = ((PatternEntity)await _PatternRepository.LoadAsync(param.Type, param.CategoryID, param.Text));
 
          // INCREASE PATTERN COUNT
          if (pattern != null)
@@ -41,15 +40,4 @@ namespace Elesse.Patterns
       }
 
    }
-
-   partial interface IPatternService
-   {
-      Task<IPatternEntity> IncreaseAsync(IPatternEntity param);
-   }
-
-   partial struct WARNINGS
-   {
-      internal const string INVALID_INCREASE_PARAMETER = "INVALID_INCREASE_PARAMETER";
-   }
-
 }

@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Elesse.Accounts
 {
-
    partial class AccountService
    {
 
@@ -21,12 +20,12 @@ namespace Elesse.Accounts
             return Warning(validateType);
 
          // VALIDATE DUPLICITY
-         var accountsList = await _AccountRepository.SearchAccountsAsync(updateVM.Text);
+         var accountsList = await _AccountRepository.SearchAsync(updateVM.Text);
          if (accountsList.Any(x => x.AccountID != updateVM.AccountID))
             return Warning(WARNINGS.ACCOUNT_TEXT_ALREADY_USED);
 
          // LOCATE ACCOUNT
-         var account = (AccountEntity)(await _AccountRepository.LoadAccountAsync(updateVM.AccountID));
+         var account = (AccountEntity)(await _AccountRepository.LoadAsync(updateVM.AccountID));
          if (account == null)
             return Warning(WARNINGS.ACCOUNT_NOT_FOUND);
 
@@ -37,23 +36,11 @@ namespace Elesse.Accounts
          account.DueDay = updateVM.DueDay;
 
          // SAVE CHANGES
-         await _AccountRepository.UpdateAccountAsync(account);
+         await _AccountRepository.UpdateAsync(account);
 
          // RESULT
          return Ok();
       }
 
    }
-
-   partial interface IAccountService
-   {
-      Task<IActionResult> UpdateAsync(UpdateVM updateVM);
-   }
-
-   partial struct WARNINGS
-   {
-      internal const string INVALID_UPDATE_PARAMETER = "INVALID_UPDATE_PARAMETER";
-      internal const string ACCOUNT_NOT_FOUND = "ACCOUNT_NOT_FOUND";
-   }
-
 }

@@ -95,14 +95,4 @@ namespace Elesse.Entries
 
    }
 
-   partial struct WARNINGS
-   {
-      internal const string INVALID_ENTRYID = "INVALID_ENTRYID_PARAMETER";
-      internal const string INVALID_PATTERN = "INVALID_PATTERN_PARAMETER";
-      internal const string INVALID_ACCOUNTID = "INVALID_ACCOUNTID_PARAMETER";
-      internal const string INVALID_DUEDATE = "INVALID_DUEDATE_PARAMETER";
-      internal const string INVALID_VALUE = "INVALID_VALUE_PARAMETER";
-      internal const string INVALID_PAYDATE = "INVALID_PAYDATE_PARAMETER";
-   }
-
 }

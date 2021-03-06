@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Elesse.Transfers
 {
-
    partial class TransferService
    {
 
@@ -19,15 +18,4 @@ namespace Elesse.Transfers
       }
 
    }
-
-   partial interface ITransferService
-   {
-      Task<ActionResult<ITransferEntity>> LoadAsync(string id);
-   }
-
-   partial struct WARNINGS
-   {
-      internal const string INVALID_LOAD_PARAMETER = "INVALID_LOAD_PARAMETER";
-   }
-
 }

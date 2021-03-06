@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Elesse.Entries
 {
-
    partial class EntryService
    {
 
@@ -76,15 +75,4 @@ namespace Elesse.Entries
       }
 
    }
-
-   partial interface IEntryService
-   {
-      Task<IActionResult> UpdateAsync(UpdateVM updateVM);
-   }
-
-   partial struct WARNINGS
-   {
-      internal const string INVALID_UPDATE_PARAMETER = "INVALID_UPDATE_PARAMETER";
-   }
-
 }

@@ -4,7 +4,6 @@ using System.Linq;
 
 namespace Elesse.Categories
 {
-
    partial class CategoryService
    {
 
@@ -12,17 +11,11 @@ namespace Elesse.Categories
       {
 
          // LOAD CATEGORIES
-         var categoriesList = await _CategoryRepository.ListCategoriesAsync();
+         var categoriesList = await _CategoryRepository.ListAsync();
 
          // RESULT
          return Ok(categoriesList);
       }
 
    }
-
-   partial interface ICategoryService
-   {
-      Task<ActionResult<ICategoryEntity[]>> ListAsync();
-   }
-
 }

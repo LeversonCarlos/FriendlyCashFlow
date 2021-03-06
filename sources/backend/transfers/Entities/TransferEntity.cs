@@ -3,7 +3,6 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Elesse.Transfers
 {
-
    internal partial class TransferEntity : ITransferEntity
    {
 
@@ -73,15 +72,4 @@ namespace Elesse.Transfers
       public decimal Sorting { get; set; }
 
    }
-
-   partial struct WARNINGS
-   {
-      internal const string INVALID_TRANSFERID = "INVALID_TRANSFERID_PROPERTY";
-      internal const string INVALID_EXPENSEACCOUNTID = "INVALID_EXPENSEACCOUNTID_PROPERTY";
-      internal const string INVALID_INCOMEACCOUNTID = "INVALID_INCOMEACCOUNTID_PROPERTY";
-      internal const string INVALID_EXPENSE_AND_INCOME = "INVALID_EXPENSE_AND_INCOME_PROPERTIES";
-      internal const string INVALID_DATE = "INVALID_DATE_PROPERTY";
-      internal const string INVALID_VALUE = "INVALID_VALUE_PROPERTY";
-   }
-
 }

@@ -5,7 +5,7 @@ namespace Elesse.Accounts
    partial class AccountRepository
    {
 
-      public Task InsertAccountAsync(IAccountEntity value) =>
+      public Task InsertAsync(IAccountEntity value) =>
          _Collection
             .InsertOneAsync(value as AccountEntity);
 

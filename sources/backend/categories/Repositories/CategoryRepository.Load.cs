@@ -6,7 +6,7 @@ namespace Elesse.Categories
    partial class CategoryRepository
    {
 
-      public async Task<ICategoryEntity> LoadCategoryAsync(Shared.EntityID categoryID) =>
+      public async Task<ICategoryEntity> LoadAsync(Shared.EntityID categoryID) =>
          await _Collection
             .Find(entity => entity.CategoryID == categoryID)
             .SingleOrDefaultAsync();

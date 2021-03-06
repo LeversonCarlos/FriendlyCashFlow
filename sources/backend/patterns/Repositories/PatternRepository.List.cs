@@ -8,7 +8,7 @@ namespace Elesse.Patterns
    {
       DateTime LimitDate = DateTime.UtcNow.AddYears(-10);
 
-      public async Task<IPatternEntity[]> ListPatternsAsync()
+      public async Task<IPatternEntity[]> ListAsync()
       {
          var list = await _Collection
             .Find(entity => entity.RowsDate >= LimitDate)
