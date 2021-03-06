@@ -2,7 +2,6 @@ using System.Threading.Tasks;
 
 namespace Elesse.Accounts
 {
-
    partial class AccountService
    {
 
@@ -24,11 +23,4 @@ namespace Elesse.Accounts
       }
 
    }
-
-   partial struct WARNINGS
-   {
-      internal const string DAYS_ONLY_VALID_FOR_CREDIT_CARD_TYPE = "DAYS_ONLY_VALID_FOR_CREDIT_CARD_TYPE";
-      internal const string DAYS_REQUIRED_FOR_CREDIT_CARD_TYPE = "DAYS_REQUIRED_FOR_CREDIT_CARD_TYPE";
-   }
-
 }

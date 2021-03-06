@@ -3,7 +3,6 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Elesse.Accounts
 {
-
    internal class AccountEntity : IAccountEntity
    {
 
@@ -95,13 +94,4 @@ namespace Elesse.Accounts
       public bool RowStatus { get; set; }
 
    }
-
-   partial struct WARNINGS
-   {
-      internal const string INVALID_ACCOUNTID = "INVALID_ACCOUNTID_PARAMETER";
-      internal const string INVALID_TEXT = "INVALID_TEXT_PARAMETER";
-      internal const string INVALID_CLOSING_DAY = "INVALID_CLOSING_DAY_PARAMETER";
-      internal const string INVALID_DUE_DAY = "INVALID_DUE_DAY_PARAMETER";
-   }
-
 }

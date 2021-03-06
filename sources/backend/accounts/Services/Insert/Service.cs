@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 
 namespace Elesse.Accounts
 {
-
    partial class AccountService
    {
 
@@ -36,11 +35,4 @@ namespace Elesse.Accounts
       }
 
    }
-
-   partial struct WARNINGS
-   {
-      internal const string INVALID_INSERT_PARAMETER = "INVALID_INSERT_PARAMETER";
-      internal const string ACCOUNT_TEXT_ALREADY_USED = "ACCOUNT_TEXT_ALREADY_USED";
-   }
-
 }

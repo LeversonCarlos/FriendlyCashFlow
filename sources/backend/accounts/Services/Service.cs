@@ -1,6 +1,5 @@
 namespace Elesse.Accounts
 {
-
    internal partial class AccountService : Shared.BaseService, IAccountService
    {
 
@@ -13,7 +12,4 @@ namespace Elesse.Accounts
       readonly IAccountRepository _AccountRepository;
 
    }
-
-   internal partial struct WARNINGS { }
-
 }

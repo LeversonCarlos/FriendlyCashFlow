@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Elesse.Accounts
 {
-
    partial class AccountService
    {
 
@@ -44,11 +43,4 @@ namespace Elesse.Accounts
       }
 
    }
-
-   partial struct WARNINGS
-   {
-      internal const string INVALID_UPDATE_PARAMETER = "INVALID_UPDATE_PARAMETER";
-      internal const string ACCOUNT_NOT_FOUND = "ACCOUNT_NOT_FOUND";
-   }
-
 }

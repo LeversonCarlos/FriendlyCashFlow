@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Elesse.Accounts
 {
-   public partial interface IAccountService
+   public interface IAccountService
    {
 
       Task<ActionResult<IAccountEntity[]>> SearchAsync(string searchText);

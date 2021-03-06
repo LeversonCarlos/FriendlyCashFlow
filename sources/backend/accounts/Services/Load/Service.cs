@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Elesse.Accounts
 {
-
    partial class AccountService
    {
 
@@ -22,10 +21,4 @@ namespace Elesse.Accounts
       }
 
    }
-
-   partial struct WARNINGS
-   {
-      internal const string INVALID_LOAD_PARAMETER = "INVALID_ACCOUNTID_PARAMETER";
-   }
-
 }

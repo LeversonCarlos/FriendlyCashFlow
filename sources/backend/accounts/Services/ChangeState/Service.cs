@@ -4,7 +4,6 @@ using System.Linq;
 
 namespace Elesse.Accounts
 {
-
    partial class AccountService
    {
 
@@ -31,10 +30,4 @@ namespace Elesse.Accounts
       }
 
    }
-
-   partial struct WARNINGS
-   {
-      internal const string INVALID_CHANGESTATE_PARAMETER = "INVALID_CHANGESTATE_PARAMETER";
-   }
-
 }
