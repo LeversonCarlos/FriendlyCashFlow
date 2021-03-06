@@ -39,11 +39,6 @@ namespace Elesse.Patterns
 
    }
 
-   partial interface IPatternService
-   {
-      Task<IPatternEntity> DecreaseAsync(IPatternEntity patternVM);
-   }
-
    partial struct WARNINGS
    {
       internal const string INVALID_DECREASE_PARAMETER = "INVALID_DECREASE_PARAMETER";

@@ -14,8 +14,6 @@ namespace Elesse.Patterns
 
    }
 
-   public partial interface IPatternService { }
-
    internal partial struct WARNINGS { }
 
 }

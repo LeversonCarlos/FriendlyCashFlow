@@ -42,11 +42,6 @@ namespace Elesse.Patterns
 
    }
 
-   partial interface IPatternService
-   {
-      Task<IPatternEntity> IncreaseAsync(IPatternEntity param);
-   }
-
    partial struct WARNINGS
    {
       internal const string INVALID_INCREASE_PARAMETER = "INVALID_INCREASE_PARAMETER";

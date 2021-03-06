@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Elesse.Patterns
 {
-
    partial class PatternService
    {
 
@@ -18,10 +17,4 @@ namespace Elesse.Patterns
       }
 
    }
-
-   partial interface IPatternService
-   {
-      Task<ActionResult<IPatternEntity[]>> ListAsync();
-   }
-
 }
