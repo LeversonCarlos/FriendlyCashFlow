@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Elesse.Categories
 {
-
    partial class CategoryService
    {
 
@@ -22,10 +21,4 @@ namespace Elesse.Categories
       }
 
    }
-
-   partial struct WARNINGS
-   {
-      internal const string INVALID_LOAD_PARAMETER = "INVALID_CATEGORYID_PARAMETER";
-   }
-
 }

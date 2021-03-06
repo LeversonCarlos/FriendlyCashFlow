@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 
 namespace Elesse.Categories
 {
-
    partial class CategoryService
    {
 
@@ -39,12 +38,4 @@ namespace Elesse.Categories
       }
 
    }
-
-   partial struct WARNINGS
-   {
-      internal const string INVALID_INSERT_PARAMETER = "INVALID_INSERT_PARAMETER";
-      internal const string CATEGORY_TEXT_ALREADY_USED = "CATEGORY_TEXT_ALREADY_USED";
-      internal const string PARENT_CATEGORY_NOT_FOUND = "PARENT_CATEGORY_NOT_FOUND";
-   }
-
 }

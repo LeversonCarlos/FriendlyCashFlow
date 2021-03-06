@@ -3,7 +3,6 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Elesse.Categories
 {
-
    internal class CategoryEntity : ICategoryEntity
    {
 
@@ -70,11 +69,4 @@ namespace Elesse.Categories
       public string HierarchyText { get; set; }
 
    }
-
-   partial struct WARNINGS
-   {
-      internal const string INVALID_CATEGORYID = "INVALID_CATEGORYID_PARAMETER";
-      internal const string INVALID_TEXT = "INVALID_TEXT_PARAMETER";
-   }
-
 }

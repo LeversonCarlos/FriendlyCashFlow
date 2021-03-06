@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Elesse.Categories
 {
-
    partial class CategoryService
    {
 
@@ -35,11 +34,4 @@ namespace Elesse.Categories
       }
 
    }
-
-   partial struct WARNINGS
-   {
-      internal const string INVALID_DELETE_PARAMETER = "INVALID_CATEGORYID_PARAMETER";
-      internal const string STILL_HAS_CHILDREN_CANT_REMOVE = "STILL_HAS_CHILDREN_CANT_REMOVE";
-   }
-
 }

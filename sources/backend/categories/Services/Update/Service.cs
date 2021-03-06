@@ -4,7 +4,6 @@ using System.Linq;
 
 namespace Elesse.Categories
 {
-
    partial class CategoryService
    {
 
@@ -46,11 +45,4 @@ namespace Elesse.Categories
       }
 
    }
-
-   partial struct WARNINGS
-   {
-      internal const string INVALID_UPDATE_PARAMETER = "INVALID_UPDATE_PARAMETER";
-      internal const string CATEGORY_NOT_FOUND = "CATEGORY_NOT_FOUND";
-   }
-
 }
