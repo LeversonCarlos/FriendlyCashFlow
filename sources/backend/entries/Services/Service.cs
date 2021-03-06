@@ -22,8 +22,6 @@ namespace Elesse.Entries
 
    }
 
-   public partial interface IEntryService { }
-
    internal partial struct WARNINGS { }
 
 }
