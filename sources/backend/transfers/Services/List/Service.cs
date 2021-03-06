@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 
 namespace Elesse.Transfers
 {
-
    partial class TransferService
    {
 
@@ -16,10 +15,4 @@ namespace Elesse.Transfers
       }
 
    }
-
-   partial interface ITransferService
-   {
-      Task<ActionResult<ITransferEntity[]>> ListAsync(int year, int month);
-   }
-
 }

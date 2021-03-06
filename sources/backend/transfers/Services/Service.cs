@@ -19,8 +19,6 @@ namespace Elesse.Transfers
 
    }
 
-   public partial interface ITransferService { }
-
    internal partial struct WARNINGS { }
 
 }

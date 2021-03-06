@@ -20,11 +20,6 @@ namespace Elesse.Transfers
 
    }
 
-   partial interface ITransferService
-   {
-      Task<ActionResult<ITransferEntity>> LoadAsync(string id);
-   }
-
    partial struct WARNINGS
    {
       internal const string INVALID_LOAD_PARAMETER = "INVALID_LOAD_PARAMETER";
