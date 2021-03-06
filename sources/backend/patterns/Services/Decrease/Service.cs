@@ -14,7 +14,7 @@ namespace Elesse.Patterns
             throw new ArgumentException(WARNINGS.INVALID_DECREASE_PARAMETER);
 
          // LOAD PATTERN
-         var pattern = (PatternEntity)(await _PatternRepository.LoadPatternAsync(patternVM.Type, patternVM.CategoryID, patternVM.Text));
+         var pattern = (PatternEntity)(await _PatternRepository.LoadAsync(patternVM.Type, patternVM.CategoryID, patternVM.Text));
 
          // IF HADNT FOUND, DO NOTHING
          if (pattern == null)

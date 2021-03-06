@@ -10,7 +10,7 @@ namespace Elesse.Patterns
       {
 
          // LOAD PATTERNS
-         var patternsList = await _PatternRepository.ListPatternsAsync();
+         var patternsList = await _PatternRepository.ListAsync();
 
          // RESULT
          return Shared.Results.Ok(patternsList);

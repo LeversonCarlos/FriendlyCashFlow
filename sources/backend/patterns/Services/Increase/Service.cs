@@ -18,7 +18,7 @@ namespace Elesse.Patterns
             throw new ArgumentException(WARNINGS.INVALID_TEXT);
 
          // LOAD PATTERN
-         var pattern = ((PatternEntity)await _PatternRepository.LoadPatternAsync(param.Type, param.CategoryID, param.Text));
+         var pattern = ((PatternEntity)await _PatternRepository.LoadAsync(param.Type, param.CategoryID, param.Text));
 
          // INCREASE PATTERN COUNT
          if (pattern != null)
