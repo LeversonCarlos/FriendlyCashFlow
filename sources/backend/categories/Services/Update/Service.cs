@@ -47,11 +47,6 @@ namespace Elesse.Categories
 
    }
 
-   partial interface ICategoryService
-   {
-      Task<IActionResult> UpdateAsync(UpdateVM updateVM);
-   }
-
    partial struct WARNINGS
    {
       internal const string INVALID_UPDATE_PARAMETER = "INVALID_UPDATE_PARAMETER";

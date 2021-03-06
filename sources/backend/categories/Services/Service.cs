@@ -14,8 +14,6 @@ namespace Elesse.Categories
 
    }
 
-   public partial interface ICategoryService { }
-
    internal partial struct WARNINGS { }
 
 }

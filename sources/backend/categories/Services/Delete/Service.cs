@@ -36,11 +36,6 @@ namespace Elesse.Categories
 
    }
 
-   partial interface ICategoryService
-   {
-      Task<IActionResult> DeleteAsync(string id);
-   }
-
    partial struct WARNINGS
    {
       internal const string INVALID_DELETE_PARAMETER = "INVALID_CATEGORYID_PARAMETER";
