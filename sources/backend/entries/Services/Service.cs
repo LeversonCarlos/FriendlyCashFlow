@@ -1,6 +1,5 @@
 namespace Elesse.Entries
 {
-
    internal partial class EntryService : Shared.BaseService, IEntryService
    {
 
@@ -21,7 +20,4 @@ namespace Elesse.Entries
       readonly Balances.IBalanceService _BalanceService;
 
    }
-
-   internal partial struct WARNINGS { }
-
 }

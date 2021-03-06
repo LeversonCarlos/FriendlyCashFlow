@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 
 namespace Elesse.Entries
 {
-
    partial class EntryService
    {
 
@@ -59,10 +58,4 @@ namespace Elesse.Entries
       }
 
    }
-
-   partial struct WARNINGS
-   {
-      internal const string INVALID_INSERT_PARAMETER = "INVALID_INSERT_PARAMETER";
-   }
-
 }

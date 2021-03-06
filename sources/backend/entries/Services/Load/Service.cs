@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Elesse.Entries
 {
-
    partial class EntryService
    {
 
@@ -22,10 +21,4 @@ namespace Elesse.Entries
       }
 
    }
-
-   partial struct WARNINGS
-   {
-      internal const string INVALID_LOAD_PARAMETER = "INVALID_ENTRYID_PARAMETER";
-   }
-
 }
