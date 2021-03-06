@@ -14,12 +14,12 @@ namespace Elesse.Accounts
             return Warning(WARNINGS.INVALID_DELETE_PARAMETER);
 
          // LOCATE ACCOUNT
-         var account = (AccountEntity)(await _AccountRepository.LoadAccountAsync(accountID));
+         var account = (AccountEntity)(await _AccountRepository.LoadAsync(accountID));
          if (account == null)
             return Warning(WARNINGS.ACCOUNT_NOT_FOUND);
 
          // SAVE CHANGES
-         await _AccountRepository.DeleteAccountAsync(accountID);
+         await _AccountRepository.DeleteAsync(accountID);
 
          // TRACK EVENT
          _InsightsService.TrackEvent("Account Service Delete");

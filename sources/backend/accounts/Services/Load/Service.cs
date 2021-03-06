@@ -14,7 +14,7 @@ namespace Elesse.Accounts
             return Warning(WARNINGS.INVALID_LOAD_PARAMETER);
 
          // LOAD ACCOUNT
-         var account = await _AccountRepository.LoadAccountAsync(accountID);
+         var account = await _AccountRepository.LoadAsync(accountID);
 
          // RESULT
          return Ok(account);

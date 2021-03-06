@@ -5,13 +5,13 @@ namespace Elesse.Accounts
    internal interface IAccountRepository
    {
 
-      Task InsertAccountAsync(IAccountEntity value);
-      Task UpdateAccountAsync(IAccountEntity value);
-      Task DeleteAccountAsync(Shared.EntityID accountID);
+      Task InsertAsync(IAccountEntity value);
+      Task UpdateAsync(IAccountEntity value);
+      Task DeleteAsync(Shared.EntityID accountID);
 
-      Task<IAccountEntity[]> ListAccountsAsync();
-      Task<IAccountEntity> LoadAccountAsync(Shared.EntityID accountID);
-      Task<IAccountEntity[]> SearchAccountsAsync(string searchText);
+      Task<IAccountEntity[]> SearchAsync(string searchText);
+      Task<IAccountEntity[]> ListAsync();
+      Task<IAccountEntity> LoadAsync(Shared.EntityID accountID);
 
    }
 }

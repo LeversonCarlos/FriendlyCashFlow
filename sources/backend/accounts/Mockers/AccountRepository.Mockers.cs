@@ -16,7 +16,7 @@ namespace Elesse.Accounts.Tests
          var seq = new MockSequence();
          foreach (var result in results)
             _Mock.InSequence(seq)
-               .Setup(m => m.ListAccountsAsync())
+               .Setup(m => m.ListAsync())
                .ReturnsAsync(result);
          return this;
       }
@@ -28,7 +28,7 @@ namespace Elesse.Accounts.Tests
          var seq = new MockSequence();
          foreach (var result in results)
             _Mock.InSequence(seq)
-               .Setup(m => m.SearchAccountsAsync(It.IsAny<string>()))
+               .Setup(m => m.SearchAsync(It.IsAny<string>()))
                .ReturnsAsync(result);
          return this;
       }
@@ -40,7 +40,7 @@ namespace Elesse.Accounts.Tests
          var seq = new MockSequence();
          foreach (var result in results)
             _Mock.InSequence(seq)
-               .Setup(m => m.LoadAccountAsync(It.IsAny<Shared.EntityID>()))
+               .Setup(m => m.LoadAsync(It.IsAny<Shared.EntityID>()))
                .ReturnsAsync(result);
          return this;
       }

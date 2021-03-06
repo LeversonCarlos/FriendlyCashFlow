@@ -19,13 +19,13 @@ namespace Elesse.Accounts
             return Warning(validateType);
 
          // VALIDATE DUPLICITY
-         var accountsList = await _AccountRepository.SearchAccountsAsync(insertVM.Text);
+         var accountsList = await _AccountRepository.SearchAsync(insertVM.Text);
          if (accountsList != null && accountsList.Length > 0)
             return Warning(WARNINGS.ACCOUNT_TEXT_ALREADY_USED);
 
          // ADD NEW ACCOUNT
          var account = new AccountEntity(insertVM.Text, insertVM.Type, insertVM.ClosingDay, insertVM.DueDay);
-         await _AccountRepository.InsertAccountAsync(account);
+         await _AccountRepository.InsertAsync(account);
 
          // TRACK EVENT
          _InsightsService.TrackEvent("Account Service Insert");

@@ -15,7 +15,7 @@ namespace Elesse.Accounts
             return Warning(WARNINGS.INVALID_CHANGESTATE_PARAMETER);
 
          // LOCATE ACCOUNT
-         var account = (AccountEntity)(await _AccountRepository.LoadAccountAsync(changeStateVM.AccountID));
+         var account = (AccountEntity)(await _AccountRepository.LoadAsync(changeStateVM.AccountID));
          if (account == null)
             return Warning(WARNINGS.ACCOUNT_NOT_FOUND);
 
@@ -23,7 +23,7 @@ namespace Elesse.Accounts
          account.Active = changeStateVM.State;
 
          // SAVE CHANGES
-         await _AccountRepository.UpdateAccountAsync(account);
+         await _AccountRepository.UpdateAsync(account);
 
          // RESULT
          return Ok();

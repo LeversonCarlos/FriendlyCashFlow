@@ -10,7 +10,7 @@ namespace Elesse.Accounts
       {
 
          // SEARCH ACCOUNTS
-         var accountsList = await _AccountRepository.SearchAccountsAsync(searchText);
+         var accountsList = await _AccountRepository.SearchAsync(searchText);
 
          // RESULT
          return Ok(accountsList);

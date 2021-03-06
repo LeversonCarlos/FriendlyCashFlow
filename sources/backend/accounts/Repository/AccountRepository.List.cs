@@ -6,7 +6,7 @@ namespace Elesse.Accounts
    partial class AccountRepository
    {
 
-      public async Task<IAccountEntity[]> ListAccountsAsync()
+      public async Task<IAccountEntity[]> ListAsync()
       {
          var list = await _Collection
             .Find(entity => entity.RowStatus == true)

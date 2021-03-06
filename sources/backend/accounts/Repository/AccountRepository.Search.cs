@@ -6,7 +6,7 @@ namespace Elesse.Accounts
    partial class AccountRepository
    {
 
-      public async Task<IAccountEntity[]> SearchAccountsAsync(string searchText)
+      public async Task<IAccountEntity[]> SearchAsync(string searchText)
       {
          // var rowStatusFilter = Builders<AccountEntity>.Filter.Eq(x => x.RowStatus, true);
          // var textFilter = Builders<AccountEntity>.Filter.Regex(x => x.Text, searchText);

@@ -6,7 +6,7 @@ namespace Elesse.Accounts
    partial class AccountRepository
    {
 
-      public Task DeleteAccountAsync(Shared.EntityID accountID) =>
+      public Task DeleteAsync(Shared.EntityID accountID) =>
          _Collection
             .UpdateOneAsync(entity => entity.AccountID == accountID, Builders<AccountEntity>.Update.Set(x => x.RowStatus, false));
 
