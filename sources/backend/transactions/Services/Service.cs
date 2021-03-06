@@ -1,6 +1,5 @@
 namespace Elesse.Transactions
 {
-
    internal partial class TransactionService : Shared.BaseService, ITransactionService
    {
 
@@ -9,9 +8,4 @@ namespace Elesse.Transactions
       { }
 
    }
-
-   public partial interface ITransactionService { }
-
-   internal partial struct WARNINGS { }
-
 }
