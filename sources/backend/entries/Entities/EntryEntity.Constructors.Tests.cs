@@ -52,5 +52,24 @@ namespace Elesse.Entries.Tests
          Assert.Equal(payDate, result.PayDate);
       }
 
+      [Fact]
+      public void Create_WithValidParameters_MustResultInstance()
+      {
+         var pattern = Patterns.PatternEntity.Builder().Build();
+         var accountID = Shared.EntityID.MockerID();
+         var dueDate = Shared.Faker.GetFaker().Date.Soon();
+         var value = Shared.Faker.GetFaker().Random.Decimal(0, 10000);
+
+         var result = EntryEntity.Create(pattern, accountID, dueDate, value);
+
+         Assert.NotNull(result);
+         Assert.NotNull(result.EntryID);
+         Assert.Equal(36, ((string)result.EntryID).Length);
+         Assert.Equal(pattern, result.Pattern);
+         Assert.Equal(accountID, result.AccountID);
+         Assert.Equal(dueDate, result.DueDate);
+         Assert.Equal(value, result.Value);
+      }
+
    }
 }
