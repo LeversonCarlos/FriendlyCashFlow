@@ -5,8 +5,9 @@ using System.Collections.Generic;
 namespace Elesse.Entries
 {
 
-   internal class EntryRecurrenceEntity : ValueObject, IEntryRecurrenceEntity
+   internal partial class EntryRecurrenceEntity : ValueObject, IEntryRecurrenceEntity
    {
+      public const short MaxOccurrence = 1000;
 
       Shared.EntityID _RecurrenceID;
       public Shared.EntityID RecurrenceID
@@ -26,7 +27,7 @@ namespace Elesse.Entries
          get => _CurrentOccurrence;
          private set
          {
-            if (value <= 0 || value > short.MaxValue)
+            if (value <= 0 || value > MaxOccurrence)
                throw new ArgumentException(WARNINGS.INVALID_CURRENTOCCURRENCE);
             _CurrentOccurrence = value;
          }
@@ -38,7 +39,7 @@ namespace Elesse.Entries
          get => _TotalOccurrences;
          private set
          {
-            if (value <= 0 || value > short.MaxValue)
+            if (value <= 0 || value > MaxOccurrence)
                throw new ArgumentException(WARNINGS.INVALID_TOTALOCCURRENCES);
             _TotalOccurrences = value;
          }
