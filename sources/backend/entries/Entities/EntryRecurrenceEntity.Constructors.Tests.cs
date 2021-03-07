@@ -29,30 +29,34 @@ namespace Elesse.Entries.Tests
             new object[] { WARNINGS.INVALID_TOTALOCCURRENCES, Shared.EntityID.MockerID(), 1, EntryRecurrenceEntity.MaxOccurrence+1}
          };
 
-      /*
       [Fact]
       public void Restore_WithValidParameters_MustResultInstance()
       {
-         var entryID = Shared.EntityID.NewID();
-         var pattern = Patterns.PatternEntity.Builder().Build();
-         var accountID = Shared.EntityID.NewID();
-         var dueDate = DateTime.Now.AddDays(1);
-         var value = (decimal)23.45;
-         var paid = true;
-         var payDate = DateTime.Now.AddDays(1);
+         var recurrenceID = Shared.EntityID.MockerID();
+         var currentOccurrence = (short)1;
+         var totalOccurrences = (short)10;
 
-         var result = EntryEntity.Restore(entryID, pattern, accountID, dueDate, value, paid, payDate);
+         var result = EntryRecurrenceEntity.Restore(recurrenceID, currentOccurrence, totalOccurrences);
 
          Assert.NotNull(result);
-         Assert.Equal(entryID, result.EntryID);
-         Assert.Equal(pattern, result.Pattern);
-         Assert.Equal(accountID, result.AccountID);
-         Assert.Equal(dueDate, result.DueDate);
-         Assert.Equal(value, result.Value);
-         Assert.Equal(paid, result.Paid);
-         Assert.Equal(payDate, result.PayDate);
+         Assert.Equal(recurrenceID, result.RecurrenceID);
+         Assert.Equal(currentOccurrence, result.CurrentOccurrence);
+         Assert.Equal(totalOccurrences, result.TotalOccurrences);
       }
-      */
+
+      [Fact]
+      internal void Clone_HashCode_MustBeEqual()
+      {
+         var recurrenceID = Shared.EntityID.MockerID();
+         var currentOccurrence = (short)1;
+         var totalOccurrences = (short)10;
+
+         var first = EntryRecurrenceEntity.Restore(recurrenceID, currentOccurrence, totalOccurrences);
+         var second = first.GetCopy();
+
+         Assert.Equal(first.GetHashCode(), second.GetHashCode());
+      }
+
 
    }
 }
