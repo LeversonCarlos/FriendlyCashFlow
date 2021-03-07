@@ -8,15 +8,15 @@ namespace Elesse.Entries
    internal class EntryRecurrenceEntity : ValueObject, IEntryRecurrenceEntity
    {
 
-      Shared.EntityID _RecurrencyID;
-      public Shared.EntityID RecurrencyID
+      Shared.EntityID _RecurrenceID;
+      public Shared.EntityID RecurrenceID
       {
-         get => _RecurrencyID;
+         get => _RecurrenceID;
          private set
          {
             if (value == null)
-               throw new ArgumentException(WARNINGS.INVALID_RECURRENCYID);
-            _RecurrencyID = value;
+               throw new ArgumentException(WARNINGS.INVALID_RECURRENCEID);
+            _RecurrenceID = value;
          }
       }
 
@@ -46,7 +46,7 @@ namespace Elesse.Entries
 
       protected override IEnumerable<object> GetAtomicValues()
       {
-         yield return RecurrencyID;
+         yield return RecurrenceID;
          yield return CurrentOccurrence;
          yield return TotalOccurrences;
       }

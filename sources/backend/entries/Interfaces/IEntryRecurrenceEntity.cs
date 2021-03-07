@@ -4,7 +4,7 @@ namespace Elesse.Entries
 {
    public interface IEntryRecurrenceEntity
    {
-      Shared.EntityID RecurrencyID { get; }
+      Shared.EntityID RecurrenceID { get; }
       short CurrentOccurrence { get; }
       short TotalOccurrences { get; }
    }
