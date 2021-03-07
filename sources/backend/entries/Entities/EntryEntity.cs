@@ -90,6 +90,16 @@ namespace Elesse.Entries
          }
       }
 
+      IEntryRecurrenceEntity _Recurrence;
+      public IEntryRecurrenceEntity Recurrence
+      {
+         get => _Recurrence;
+         private set
+         {
+            _Recurrence = value;
+         }
+      }
+
       public DateTime SearchDate { get; set; }
       public decimal Sorting { get; set; }
 

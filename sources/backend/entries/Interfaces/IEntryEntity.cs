@@ -15,9 +15,7 @@ namespace Elesse.Entries
       bool Paid { get; }
       DateTime? PayDate { get; }
 
-      // Shared.EntityID RecurrencyID { get; }
-      // short? RecurrencyItem { get; }
-      // short? RecurrencyTotal { get; }
+      IEntryRecurrenceEntity Recurrence { get; }
 
    }
 }
