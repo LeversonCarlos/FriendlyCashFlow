@@ -18,8 +18,7 @@ namespace Elesse.Recurrences
       DateTime Date { get; }
       decimal Value { get; }
 
-      enRecurrenceType Type { get; set; }
-      short Count { get; set; }
+      enRecurrenceType Type { get; }
    }
 
    public interface IRecurrenceEntity : IRecurrenceEntityIdentifier, IRecurrenceEntityProperties
