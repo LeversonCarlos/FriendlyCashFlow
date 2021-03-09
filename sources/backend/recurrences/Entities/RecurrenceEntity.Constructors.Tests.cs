@@ -28,24 +28,24 @@ namespace Elesse.Recurrences.Tests
          Assert.Equal(type, result.Type);
       }
 
-      /*
       [Theory]
       [MemberData(nameof(Restore_WithInvalidParameters_MustThrowException_Data))]
-      public void Restore_WithInvalidParameters_MustThrowException(string exceptionText, Shared.EntityID balanceID, Shared.EntityID accountID, DateTime date, decimal expectedValue, decimal realizedValue)
+      public void Restore_WithInvalidParameters_MustThrowException(string exceptionText, Shared.EntityID recurrenceID, Shared.EntityID patternID, Shared.EntityID accountID, DateTime date, decimal value, enRecurrenceType type)
       {
-         var exception = Assert.Throws<ArgumentException>(() => BalanceEntity.Restore(balanceID, accountID, date, expectedValue, realizedValue));
+         var exception = Assert.Throws<ArgumentException>(() => RecurrenceEntity.Restore(recurrenceID, patternID, accountID, date, value, type));
 
          Assert.NotNull(exception);
          Assert.Equal(exceptionText, exception.Message);
       }
       public static IEnumerable<object[]> Restore_WithInvalidParameters_MustThrowException_Data() =>
          new[] {
-            new object[] { WARNINGS.INVALID_BALANCEID, null, null, null, null, null},
-            new object[] { WARNINGS.INVALID_ACCOUNTID, Shared.EntityID.MockerID(), null, null, null, null},
-            new object[] { WARNINGS.INVALID_DATE, Shared.EntityID.MockerID(), Shared.EntityID.MockerID(), null, null, null},
-            new object[] { WARNINGS.INVALID_DATE, Shared.EntityID.MockerID(), Shared.EntityID.MockerID(), DateTime.MinValue, null, null}
+            new object[] { WARNINGS.INVALID_RECURRENCEID, null, null, null, null, null, null},
+            new object[] { WARNINGS.INVALID_PATTERNID, Shared.EntityID.MockerID(), null, null, null, null, null},
+            new object[] { WARNINGS.INVALID_ACCOUNTID, Shared.EntityID.MockerID(), Shared.EntityID.MockerID(), null, null, null, null},
+            new object[] { WARNINGS.INVALID_DATE, Shared.EntityID.MockerID(), Shared.EntityID.MockerID(), Shared.EntityID.MockerID(), null, null, null},
+            new object[] { WARNINGS.INVALID_DATE, Shared.EntityID.MockerID(), Shared.EntityID.MockerID(), Shared.EntityID.MockerID(), DateTime.MinValue, null, null},
+            new object[] { WARNINGS.INVALID_VALUE, Shared.EntityID.MockerID(), Shared.EntityID.MockerID(), Shared.EntityID.MockerID(), Shared.Faker.GetFaker().Date.Soon(), Shared.Faker.GetFaker().Random.Decimal(decimal.MinValue, 0), null}
          };
-      */
 
    }
 }
