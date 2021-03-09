@@ -16,5 +16,7 @@ namespace Elesse.Entries
       public bool Paid { get; set; }
       public DateTime? PayDate { get; set; }
 
+      // public IEntryRecurrenceEntity Recurrence { get; set; }
+
    }
 }

@@ -16,6 +16,16 @@ namespace Elesse.Entries
             TotalOccurrences = totalOccurrences
          };
 
+      /*
+      public static EntryRecurrenceEntity Create(short currentOccurrence, short totalOccurrences) =>
+         new EntryRecurrenceEntity
+         {
+            RecurrenceID = Shared.EntityID.NewID(),
+            CurrentOccurrence = currentOccurrence,
+            TotalOccurrences = totalOccurrences
+         };
+      */
+
    }
 
 }

@@ -16,6 +16,12 @@ namespace Elesse.Entries
             if (insertVM == null)
                return Warning(WARNINGS.INVALID_INSERT_PARAMETER);
 
+            // DEFINE RECURRENCE
+            /*
+            if (insertVM.Recurrence != null)
+               insertVM.Recurrence = EntryRecurrenceEntity.Create(insertVM.Recurrence,insertVM.Recurrence);
+            */
+
             // INCREASE PATTERN
             Patterns.IPatternEntity pattern = null;
             try { pattern = await _PatternService.IncreaseAsync(insertVM.Pattern); }
@@ -29,6 +35,12 @@ namespace Elesse.Entries
             // APPLY PAYMENT
             if (insertVM.Paid && insertVM.PayDate.HasValue)
                entry.SetPayment(insertVM.PayDate.Value, insertVM.Value);
+
+            // APPLY RECURRENCE
+            /*
+            if (insertVM.Recurrence?.RecurrenceID != null)
+               entry.SetRecurrence(insertVM.Recurrence);
+            */
 
             // REFRESH SORTING
             entry.RefreshSorting();
