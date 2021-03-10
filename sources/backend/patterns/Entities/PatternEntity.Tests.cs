@@ -21,7 +21,7 @@ namespace Elesse.Patterns.Tests
          Assert.Equal(type, entity.Type);
          Assert.Equal(text, entity.Text);
          Assert.Equal(categoryStringID, (string)entity.CategoryID);
-         Assert.Equal(1, entity.RowsCount);
+         Assert.Equal(0, entity.RowsCount);
       }
 
       [Theory]

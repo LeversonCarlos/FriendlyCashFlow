@@ -15,7 +15,7 @@ namespace Elesse.Patterns
             CategoryID = categoryID,
             Text = text,
             RowsDate = DateTime.UtcNow,
-            RowsCount = 1
+            RowsCount = 0
          };
 
    }
