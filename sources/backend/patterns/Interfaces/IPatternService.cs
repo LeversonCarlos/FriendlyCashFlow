@@ -7,6 +7,7 @@ namespace Elesse.Patterns
    {
 
       Task<ActionResult<IPatternEntity[]>> ListAsync();
+      Task<IPatternEntity> LoadAsync(IPatternEntity param);
 
       Task<IPatternEntity> IncreaseAsync(IPatternEntity param);
       Task<IPatternEntity> DecreaseAsync(IPatternEntity patternVM);

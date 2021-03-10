@@ -7,6 +7,7 @@ namespace Elesse.Patterns
       internal const string INVALID_TEXT = "INVALID_TEXT";
 
       internal const string INVALID_INCREASE_PARAMETER = "INVALID_INCREASE_PARAMETER";
+      internal const string INVALID_LOAD_PARAMETER = "INVALID_LOAD_PARAMETER";
       internal const string INVALID_DECREASE_PARAMETER = "INVALID_DECREASE_PARAMETER";
 
    }
