@@ -9,3 +9,4 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("transfers")]
 [assembly: InternalsVisibleTo("transactions")]
 [assembly: InternalsVisibleTo("balances")]
+[assembly: InternalsVisibleTo("recurrences")]
