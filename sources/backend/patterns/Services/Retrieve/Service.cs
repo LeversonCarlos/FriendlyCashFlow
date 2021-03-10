@@ -6,7 +6,7 @@ namespace Elesse.Patterns
    partial class PatternService
    {
 
-      public async Task<IPatternEntity> LoadAsync(IPatternEntity param)
+      public async Task<IPatternEntity> RetrieveAsync(IPatternEntity param)
       {
 
          // VALIDATE PARAMETERS
