@@ -60,5 +60,21 @@ namespace Elesse.Patterns.Tests
          Assert.Equal(param.PatternID, result.PatternID);
       }
 
+      [Fact]
+      public async void Load_WithNonExistingPattern_MustCreateRecord_AndReturnPatternID()
+      {
+         var param = PatternEntity.Builder().Build();
+         var repository = PatternRepositoryMocker
+            .Create()
+            .WithLoadPattern()
+            .Build();
+         var service = PatternService.Builder().With(repository).Build();
+
+         var result = await service.LoadAsync(param);
+
+         Assert.NotNull(result);
+         Assert.IsAssignableFrom<IPatternEntity>(result);
+      }
+
    }
 }

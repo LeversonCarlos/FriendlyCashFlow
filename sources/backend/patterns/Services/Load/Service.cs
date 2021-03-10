@@ -20,6 +20,13 @@ namespace Elesse.Patterns
          // LOAD PATTERN
          var pattern = await _PatternRepository.LoadAsync(param.Type, param.CategoryID, param.Text);
 
+         // ADD NEW PATTERN
+         if (pattern == null)
+         {
+            pattern = PatternEntity.Create(param.Type, param.CategoryID, param.Text);
+            await _PatternRepository.InsertAsync(pattern);
+         }
+
          // RESULT
          return pattern;
       }
