@@ -1,4 +1,5 @@
 using Elesse.Balances;
+using Elesse.Recurrences;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
@@ -20,6 +21,7 @@ namespace Elesse.Entries.Tests
             .AddSingleton(x => Shared.Tests.InsightsServiceMocker.Create().Build())
             .AddScoped(x => new Mock<Identity.IUser>().Object)
             .AddControllers()
+            .AddRecurrenceService(configs)
             .AddBalanceService(configs)
             .AddEntryService(configs)
             .Services
@@ -39,6 +41,7 @@ namespace Elesse.Entries.Tests
             .AddSingleton<IMongoDatabase>(x => null)
             .AddScoped(x => new Mock<Identity.IUser>().Object)
             .AddControllers()
+            .AddRecurrenceService(configs)
             .AddBalanceService(configs)
             .AddEntryService(configs)
             .Services
