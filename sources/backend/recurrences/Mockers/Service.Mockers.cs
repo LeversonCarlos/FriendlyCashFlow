@@ -18,12 +18,12 @@ namespace Elesse.Recurrences.Tests
 
       public RecurrenceServiceMocker WithGetNewRecurrence(Shared.EntityID result)
       {
-         _Mock.Setup(m => m.GetNewRecurrenceAsync(It.IsAny<IRecurrenceEntityProperties>())).ReturnsAsync(result);
+         _Mock.Setup(m => m.GetNewRecurrenceAsync(It.IsAny<IRecurrenceProperties>())).ReturnsAsync(result);
          return this;
       }
       public RecurrenceServiceMocker WithGetNewRecurrence(Exception ex)
       {
-         _Mock.Setup(m => m.GetNewRecurrenceAsync(It.IsAny<IRecurrenceEntityProperties>())).ThrowsAsync(ex);
+         _Mock.Setup(m => m.GetNewRecurrenceAsync(It.IsAny<IRecurrenceProperties>())).ThrowsAsync(ex);
          return this;
       }
 

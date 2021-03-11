@@ -15,7 +15,7 @@ namespace Elesse.Recurrences
 
       readonly IRecurrenceRepository _RecurrenceRepository;
 
-      public Task<EntityID> GetNewRecurrenceAsync(IRecurrenceEntityProperties recurrenceProperties) =>
+      public Task<EntityID> GetNewRecurrenceAsync(IRecurrenceProperties recurrenceProperties) =>
          throw new System.NotImplementedException();
       public Task UpdateAsync(IRecurrenceEntity recurrence) =>
          throw new System.NotImplementedException();
