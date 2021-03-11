@@ -14,14 +14,20 @@ namespace Elesse.Entries
          Mock(
             entryRepository,
             patternService,
-            Balances.BalanceService.Builder().Build()
+            Balances.BalanceService.Builder().Build(),
+            Recurrences.RecurrenceService.Builder().Build()
          );
 
-      internal static EntryService Mock(IEntryRepository entryRepository, Patterns.IPatternService patternService, Balances.IBalanceService balanceService) =>
+      internal static EntryService Mock(
+         IEntryRepository entryRepository,
+         Patterns.IPatternService patternService,
+         Balances.IBalanceService balanceService,
+         Recurrences.IRecurrenceService recurrenceService) =>
          new EntryService(
             entryRepository,
             patternService,
             balanceService,
+            recurrenceService,
             Shared.Tests.InsightsServiceMocker.Create().Build()
          );
 
@@ -53,6 +59,13 @@ namespace Elesse.Entries.Tests
          return this;
       }
 
+      Recurrences.IRecurrenceService _RecurrenceService = Recurrences.RecurrenceService.Mocker().Build();
+      public EntryServiceBuilder With(Recurrences.IRecurrenceService recurrenceService)
+      {
+         _RecurrenceService = recurrenceService;
+         return this;
+      }
+
       Shared.IInsightsService _InsightsService = Shared.Tests.InsightsServiceMocker.Create().Build();
       public EntryServiceBuilder With(Shared.IInsightsService insightsService)
       {
@@ -61,7 +74,7 @@ namespace Elesse.Entries.Tests
       }
 
       public EntryService Build() =>
-         new EntryService(_EntryRepository, _PatternService, _BalanceService, _InsightsService);
+         new EntryService(_EntryRepository, _PatternService, _BalanceService, _RecurrenceService, _InsightsService);
 
    }
 }
