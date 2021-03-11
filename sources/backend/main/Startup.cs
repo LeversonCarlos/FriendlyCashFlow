@@ -12,7 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MongoDB.Driver;
-
+using Elesse.Recurrences;
 
 namespace Elesse.FriendlyCashFlow
 {
@@ -50,6 +50,7 @@ namespace Elesse.FriendlyCashFlow
             .AddSharedService(_Configuration)
             .AddAccountService(_Configuration)
             .AddCategoryService(_Configuration)
+            .AddRecurrenceService(_Configuration)
             .AddBalanceService(_Configuration)
             .AddEntryService(_Configuration)
             .AddTransferService(_Configuration)
