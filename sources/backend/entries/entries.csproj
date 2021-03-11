@@ -38,6 +38,7 @@
     <ProjectReference Include="..\shared\shared.csproj" />
     <ProjectReference Include="..\patterns\patterns.csproj" />
     <ProjectReference Include="..\balances\balances.csproj" />
+    <ProjectReference Include="..\recurrences\recurrences.csproj" />
   </ItemGroup>
 
   <ItemGroup>
