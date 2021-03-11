@@ -10,7 +10,7 @@ namespace Elesse.Recurrences
       Task UpdateAsync(IRecurrenceEntity value);
       // Task DeleteAsync(Shared.EntityID id);
 
-      Task<IRecurrenceEntity> LoadAsync(Shared.EntityID eecurrenceID);
+      Task<IRecurrenceEntity> LoadAsync(Shared.EntityID recurrenceID);
 
    }
 }
