@@ -16,6 +16,11 @@ namespace Elesse.Entries
             if (insertVM == null)
                return Warning(WARNINGS.INVALID_INSERT_PARAMETER);
 
+            // RETRIEVE PATTERN
+            Patterns.IPatternEntity pattern = null;
+            try { pattern = await _PatternService.RetrieveAsync(insertVM.Pattern); }
+            catch (Exception valEx) { return Warning(valEx.Message); }
+
             // DEFINE RECURRENCE
             /*
             if (insertVM.Recurrence != null)
@@ -23,7 +28,6 @@ namespace Elesse.Entries
             */
 
             // INCREASE PATTERN
-            Patterns.IPatternEntity pattern = null;
             try { pattern = await _PatternService.IncreaseAsync(insertVM.Pattern); }
             catch (Exception valEx) { return Warning(valEx.Message); }
 
