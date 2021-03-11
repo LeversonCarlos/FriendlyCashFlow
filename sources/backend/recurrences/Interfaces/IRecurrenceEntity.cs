@@ -10,7 +10,7 @@ namespace Elesse.Recurrences
       Shared.EntityID RecurrenceID { get; }
    }
 
-   public interface IRecurrenceEntityProperties
+   public interface IRecurrenceProperties
    {
       Shared.EntityID PatternID { get; }
 
@@ -21,7 +21,9 @@ namespace Elesse.Recurrences
       enRecurrenceType Type { get; }
    }
 
-   public interface IRecurrenceEntity : IRecurrenceEntityIdentifier, IRecurrenceEntityProperties
-   { }
+   public interface IRecurrenceEntity : IRecurrenceEntityIdentifier
+   {
+      IRecurrenceProperties Properties { get; }
+   }
 
 }

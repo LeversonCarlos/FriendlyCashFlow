@@ -20,61 +20,15 @@ namespace Elesse.Recurrences
          }
       }
 
-      Shared.EntityID _PatternID;
-      public Shared.EntityID PatternID
+      IRecurrenceProperties _Properties;
+      public IRecurrenceProperties Properties
       {
-         get => _PatternID;
+         get => _Properties;
          private set
          {
             if (value == null)
-               throw new ArgumentException(WARNINGS.INVALID_PATTERNID);
-            _PatternID = value;
-         }
-      }
-
-      Shared.EntityID _AccountID;
-      public Shared.EntityID AccountID
-      {
-         get => _AccountID;
-         private set
-         {
-            if (value == null)
-               throw new ArgumentException(WARNINGS.INVALID_ACCOUNTID);
-            _AccountID = value;
-         }
-      }
-
-      DateTime _Date;
-      public DateTime Date
-      {
-         get => _Date;
-         private set
-         {
-            if (value == null || value == DateTime.MinValue)
-               throw new ArgumentException(WARNINGS.INVALID_DATE);
-            _Date = value;
-         }
-      }
-
-      decimal _Value;
-      public decimal Value
-      {
-         get => _Value;
-         private set
-         {
-            if (value <= 0)
-               throw new ArgumentException(WARNINGS.INVALID_VALUE);
-            _Value = value;
-         }
-      }
-
-      enRecurrenceType _Type;
-      public enRecurrenceType Type
-      {
-         get => _Type;
-         private set
-         {
-            _Type = value;
+               throw new ArgumentException(WARNINGS.INVALID_PROPERTIES);
+            _Properties = value;
          }
       }
 
