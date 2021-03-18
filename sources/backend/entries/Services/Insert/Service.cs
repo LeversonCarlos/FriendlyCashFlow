@@ -28,7 +28,7 @@ namespace Elesse.Entries
          catch (Exception ex) { return Shared.Results.Exception(ex); }
       }
 
-      private async Task<Shared.EntityID> InsertNewEntryAsync(InsertVM insertVM, EntryRecurrenceEntity entryRecurrence)
+      internal async Task<Shared.EntityID> InsertNewEntryAsync(InsertVM insertVM, EntryRecurrenceEntity entryRecurrence)
       {
          var pattern = await _PatternService.IncreaseAsync(insertVM.Pattern);
          var entry = EntryEntity.Create(pattern, insertVM.AccountID, insertVM.DueDate, insertVM.Value);
@@ -42,7 +42,7 @@ namespace Elesse.Entries
          return entry.EntryID;
       }
 
-      private async Task<Shared.EntityID[]> InsertNewRecurrencesAsync(InsertVM insertVM)
+      internal async Task<Shared.EntityID[]> InsertNewRecurrencesAsync(InsertVM insertVM)
       {
          var entityIDs = new List<Shared.EntityID>();
          var pattern = await _PatternService.RetrieveAsync(insertVM.Pattern);
