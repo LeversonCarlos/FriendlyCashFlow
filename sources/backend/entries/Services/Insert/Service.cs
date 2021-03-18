@@ -1,6 +1,6 @@
-using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Elesse.Entries
 {
@@ -12,56 +12,45 @@ namespace Elesse.Entries
          try
          {
 
-            // VALIDATE PARAMETERS
             if (insertVM == null)
                return Warning(WARNINGS.INVALID_INSERT_PARAMETER);
 
-            // RETRIEVE PATTERN
-            Patterns.IPatternEntity pattern = null;
-            try { pattern = await _PatternService.RetrieveAsync(insertVM.Pattern); }
-            catch (Exception valEx) { return Warning(valEx.Message); }
+            if (insertVM.Recurrence == null)
+               await InsertNewEntryAsync(insertVM, null);
+            else
+            {
+               var pattern = await _PatternService.RetrieveAsync(insertVM.Pattern);
+               var recurrenceProperties = Recurrences.RecurrenceProperties.Create(pattern.PatternID, insertVM.AccountID, insertVM.DueDate, insertVM.Value, insertVM.Recurrence.Type);
+               var recurrenceID = await _RecurrenceService.GetNewRecurrenceAsync(recurrenceProperties);
 
-            // DEFINE RECURRENCE
-            /*
-            if (insertVM.Recurrence != null)
-               insertVM.Recurrence = EntryRecurrenceEntity.Create(insertVM.Recurrence,insertVM.Recurrence);
-            */
+               for (short currentOccurrence = 1; currentOccurrence <= insertVM.Recurrence.TotalOccurrences; currentOccurrence++)
+               {
+                  var entryRecurrence = EntryRecurrenceEntity.Restore(recurrenceID, currentOccurrence, insertVM.Recurrence.TotalOccurrences);
+                  await InsertNewEntryAsync(insertVM, entryRecurrence);
+                  insertVM.DueDate = insertVM.DueDate.AddMonths(1);
+               }
 
-            // INCREASE PATTERN
-            try { pattern = await _PatternService.IncreaseAsync(insertVM.Pattern); }
-            catch (Exception valEx) { return Warning(valEx.Message); }
+            }
 
-            // CREATE INSTANCE
-            EntryEntity entry = null;
-            try { entry = EntryEntity.Create(pattern, insertVM.AccountID, insertVM.DueDate, insertVM.Value); }
-            catch (Exception valEx) { return Warning(valEx.Message); }
-
-            // APPLY PAYMENT
-            if (insertVM.Paid && insertVM.PayDate.HasValue)
-               entry.SetPayment(insertVM.PayDate.Value, insertVM.Value);
-
-            // APPLY RECURRENCE
-            /*
-            if (insertVM.Recurrence?.RecurrenceID != null)
-               entry.SetRecurrence(insertVM.Recurrence);
-            */
-
-            // REFRESH SORTING
-            entry.RefreshSorting();
-
-            // SAVE ENTRY
-            await _EntryRepository.InsertAsync(entry);
-
-            // INCREASE BALANCE
-            await IncreaseBalanceAsync(entry);
-
-            // TRACK EVENT
             _InsightsService.TrackEvent("Entry Service Insert");
-
-            // RESULT
             return Ok();
          }
+         catch (ArgumentException argEx) { return Warning(argEx.Message); }
          catch (Exception ex) { return Shared.Results.Exception(ex); }
+      }
+
+      private async Task<Shared.EntityID> InsertNewEntryAsync(InsertVM insertVM, EntryRecurrenceEntity entryRecurrence)
+      {
+         var pattern = await _PatternService.IncreaseAsync(insertVM.Pattern);
+         var entry = EntryEntity.Create(pattern, insertVM.AccountID, insertVM.DueDate, insertVM.Value);
+         if (insertVM.Paid && insertVM.PayDate.HasValue)
+            entry.SetPayment(insertVM.PayDate.Value, insertVM.Value);
+         if (entryRecurrence != null)
+            entry.SetRecurrence(entryRecurrence);
+         entry.RefreshSorting();
+         await _EntryRepository.InsertAsync(entry);
+         await IncreaseBalanceAsync(entry);
+         return entry.EntryID;
       }
 
       private Task<Balances.IBalanceEntity> IncreaseBalanceAsync(EntryEntity entry)

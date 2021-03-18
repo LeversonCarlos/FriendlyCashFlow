@@ -94,6 +94,5 @@ namespace Elesse.Entries.Tests
          Assert.IsType<Microsoft.AspNetCore.Mvc.OkResult>(result);
       }
 
-
    }
 }
