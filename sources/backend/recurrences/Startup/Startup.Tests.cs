@@ -1,18 +1,16 @@
-using Elesse.Balances;
-using Elesse.Recurrences;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 using Moq;
 using Xunit;
 
-namespace Elesse.Entries.Tests
+namespace Elesse.Recurrences.Tests
 {
    public class StartupExtentionsTests
    {
 
       [Fact]
-      internal void AddEntryService_InjectedService_MustNotBeNull()
+      internal void AddRecurrenceService_InjectedService_MustNotBeNull()
       {
          var configs = new ConfigurationBuilder()
             .Build();
@@ -22,18 +20,16 @@ namespace Elesse.Entries.Tests
             .AddScoped(x => new Mock<Identity.IUser>().Object)
             .AddControllers()
             .AddRecurrenceService(configs)
-            .AddBalanceService(configs)
-            .AddEntryService(configs)
             .Services
             .BuildServiceProvider();
 
-         var service = services.GetService<IEntryService>();
+         var service = services.GetService<IRecurrenceService>();
 
          Assert.NotNull(service);
       }
 
       [Fact]
-      internal void AddEntryService_InjectedRepository_MustNotBeNull()
+      internal void AddRecurrenceService_InjectedRepository_MustNotBeNull()
       {
          var configs = new ConfigurationBuilder()
             .Build();
@@ -42,12 +38,10 @@ namespace Elesse.Entries.Tests
             .AddScoped(x => new Mock<Identity.IUser>().Object)
             .AddControllers()
             .AddRecurrenceService(configs)
-            .AddBalanceService(configs)
-            .AddEntryService(configs)
             .Services
             .BuildServiceProvider();
 
-         var repository = services.GetService<IEntryRepository>();
+         var repository = services.GetService<IRecurrenceRepository>();
 
          Assert.NotNull(repository);
       }

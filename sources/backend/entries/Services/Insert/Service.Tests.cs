@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Elesse.Entries.Tests
@@ -94,6 +95,50 @@ namespace Elesse.Entries.Tests
          Assert.IsType<Microsoft.AspNetCore.Mvc.OkResult>(result);
       }
 
+      [Fact]
+      public async void Insert_WithValidParametersAndWithThreeRecurrences_MustInsertThreeEntriesAndReturnOkResult()
+      {
+         var faker = Shared.Faker.GetFaker();
+
+         var pattern = Patterns.PatternEntity.Builder().Build();
+         var patternService = Patterns.Tests.PatternServiceMocker
+            .Create()
+            .WithRetrieve(pattern)
+            .WithIncrease(pattern)
+            .Build();
+
+         var recurrenceID = Shared.EntityID.MockerID();
+         var recurrenceService = Recurrences.RecurrenceService.Mocker()
+            .WithGetNewRecurrence(recurrenceID)
+            .Build();
+
+         Moq.Mock<IEntryRepository> entryRepositoryMock = null;
+         var entryRepository = EntryRepositoryMocker.Create()
+            .WithInsert(Task.CompletedTask, Task.CompletedTask, Task.CompletedTask)
+            .With(mock => entryRepositoryMock = mock)
+            .Build(); ;
+
+         var service = EntryService.Builder()
+            .With(entryRepository)
+            .With(patternService)
+            .With(recurrenceService)
+            .Build();
+
+         var param = new InsertVM
+         {
+            Pattern = pattern,
+            AccountID = Shared.EntityID.MockerID(),
+            DueDate = faker.Date.Soon(10),
+            Value = faker.Random.Decimal(10, 1000),
+            Recurrence = new InsertRecurrenceVM { Type = Recurrences.enRecurrenceType.Monthly, TotalOccurrences = 3 },
+            Paid = false
+         };
+         var result = await service.InsertAsync(param);
+
+         entryRepositoryMock.Verify(m => m.InsertAsync(Moq.It.IsAny<EntryEntity>()), Moq.Times.Exactly(3));
+         Assert.NotNull(result);
+         Assert.IsType<Microsoft.AspNetCore.Mvc.OkResult>(result);
+      }
 
    }
 }

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>Elesse.Entries</RootNamespace>
+    <RootNamespace>Elesse.Recurrences</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
@@ -36,20 +36,17 @@
 
   <ItemGroup>
     <ProjectReference Include="..\shared\shared.csproj" />
-    <ProjectReference Include="..\patterns\patterns.csproj" />
-    <ProjectReference Include="..\balances\balances.csproj" />
-    <ProjectReference Include="..\recurrences\recurrences.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Translations\entries.en-US.json" />
-    <None Remove="Translations\entries.pt-BR.json" />
+    <None Remove="Translations\recurrences.en-US.json" />
+    <None Remove="Translations\recurrences.pt-BR.json" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Translations\entries.en-US.json">
+    <Content Include="Translations\recurrences.en-US.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Translations\entries.pt-BR.json">
+    <Content Include="Translations\recurrences.pt-BR.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

@@ -17,13 +17,16 @@ namespace Elesse.Patterns.Tests
          return this;
       }
 
-      /*
-      public PatternServiceMocker WithLoad(string categoryID, ActionResult<IPatternEntity> result)
+      public PatternServiceMocker WithRetrieve(IPatternEntity result)
       {
-         _Mock.Setup(m => m.LoadAsync(categoryID)).ReturnsAsync(result);
+         _Mock.Setup(m => m.RetrieveAsync(It.IsAny<IPatternEntity>())).ReturnsAsync(result);
          return this;
       }
-      */
+      public PatternServiceMocker WithRetrieve(Exception ex)
+      {
+         _Mock.Setup(m => m.RetrieveAsync(It.IsAny<IPatternEntity>())).ThrowsAsync(ex);
+         return this;
+      }
 
       public PatternServiceMocker WithIncrease(IPatternEntity result)
       {
