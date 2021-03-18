@@ -6,6 +6,7 @@ namespace Elesse.Recurrences
    partial class RecurrenceEntity
    {
 
+      /*
       public static RecurrenceEntity Restore(
          Shared.EntityID recurrenceID, Shared.EntityID patternID,
          Shared.EntityID accountID, DateTime date, decimal value,
@@ -18,6 +19,14 @@ namespace Elesse.Recurrences
             Date = date,
             Value = value,
             Type = type
+         };
+      */
+
+      public static RecurrenceEntity Create(IRecurrenceProperties properties) =>
+         new RecurrenceEntity
+         {
+            RecurrenceID = Shared.EntityID.NewID(),
+            Properties = properties
          };
 
    }

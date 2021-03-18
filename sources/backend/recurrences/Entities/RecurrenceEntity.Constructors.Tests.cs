@@ -7,6 +7,7 @@ namespace Elesse.Recurrences.Tests
    partial class RecurrenceEntityTests
    {
 
+      /*
       [Fact]
       public void Restore_WithValidParameters_MustResultInstance()
       {
@@ -47,6 +48,7 @@ namespace Elesse.Recurrences.Tests
             new object[] { WARNINGS.INVALID_DATE, Shared.EntityID.MockerID(), Shared.EntityID.MockerID(), Shared.EntityID.MockerID(), DateTime.MinValue, null},
             new object[] { WARNINGS.INVALID_VALUE, Shared.EntityID.MockerID(), Shared.EntityID.MockerID(), Shared.EntityID.MockerID(), Shared.Faker.GetFaker().Date.Soon(), Shared.Faker.GetFaker().Random.Decimal(decimal.MinValue, 0)}
          };
+      */
 
    }
 }
