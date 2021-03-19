@@ -1,5 +1,3 @@
-using System;
-
 namespace Elesse.Recurrences
 {
 
@@ -7,9 +5,12 @@ namespace Elesse.Recurrences
    {
 
       public static RecurrenceEntity Create(IRecurrenceProperties properties) =>
+         Restore(Shared.EntityID.NewID(), properties);
+
+      internal static RecurrenceEntity Restore(Shared.EntityID recurrenceID, IRecurrenceProperties properties) =>
          new RecurrenceEntity
          {
-            RecurrenceID = Shared.EntityID.NewID(),
+            RecurrenceID = recurrenceID,
             Properties = properties
          };
 
