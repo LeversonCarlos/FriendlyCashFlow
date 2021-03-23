@@ -14,7 +14,7 @@ namespace Elesse.Recurrences.Tests
          var exception = await Assert.ThrowsAsync<ArgumentException>(() => service.InsertAsync(null));
 
          Assert.NotNull(exception);
-         Assert.Equal(WARNINGS.INVALID_PROPERTIES, exception.Message);
+         Assert.Equal(WARNINGS.INVALID_INSERT_PARAMETER, exception.Message);
       }
 
       [Fact]

@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Elesse.Shared;
 
@@ -6,10 +7,13 @@ namespace Elesse.Recurrences
    partial class RecurrenceService
    {
 
-      public async Task<EntityID> InsertAsync(IRecurrenceProperties recurrenceProperties)
+      public async Task<EntityID> InsertAsync(IRecurrenceProperties param)
       {
 
-         var recurrence = RecurrenceEntity.Create(recurrenceProperties);
+         if (param == null)
+            throw new ArgumentException(WARNINGS.INVALID_INSERT_PARAMETER);
+
+         var recurrence = RecurrenceEntity.Create(param);
 
          await _RecurrenceRepository.InsertAsync(recurrence);
 
