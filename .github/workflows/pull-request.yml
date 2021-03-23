@@ -73,6 +73,16 @@ jobs:
           name: balances-tests
           path: ./sources/backend/balances/coverage.info
 
+      - name: Recurrences - Run Tests
+        working-directory: 'sources/backend/recurrences/'
+        run: dotnet test /p:CoverletOutputFormat=lcov
+
+      - name: Recurrences - Store Tests
+        uses: actions/upload-artifact@v2
+        with:
+          name: recurrences-tests
+          path: ./sources/backend/recurrences/coverage.info
+
       - name: Entries - Run Tests
         working-directory: 'sources/backend/entries/'
         run: dotnet test /p:CoverletOutputFormat=lcov
