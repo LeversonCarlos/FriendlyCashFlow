@@ -16,14 +16,14 @@ namespace Elesse.Recurrences.Tests
       readonly Mock<IRecurrenceService> _Mock;
       public RecurrenceServiceMocker() => _Mock = new Mock<IRecurrenceService>();
 
-      public RecurrenceServiceMocker WithGetNewRecurrence(Shared.EntityID result)
+      public RecurrenceServiceMocker WithInsert(Shared.EntityID result)
       {
-         _Mock.Setup(m => m.GetNewRecurrenceAsync(It.IsAny<IRecurrenceProperties>())).ReturnsAsync(result);
+         _Mock.Setup(m => m.InsertAsync(It.IsAny<IRecurrenceProperties>())).ReturnsAsync(result);
          return this;
       }
-      public RecurrenceServiceMocker WithGetNewRecurrence(Exception ex)
+      public RecurrenceServiceMocker WithInsert(Exception ex)
       {
-         _Mock.Setup(m => m.GetNewRecurrenceAsync(It.IsAny<IRecurrenceProperties>())).ThrowsAsync(ex);
+         _Mock.Setup(m => m.InsertAsync(It.IsAny<IRecurrenceProperties>())).ThrowsAsync(ex);
          return this;
       }
 
