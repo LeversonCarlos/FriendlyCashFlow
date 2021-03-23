@@ -6,10 +6,13 @@ namespace Elesse.Entries
    partial class EntryEntity
    {
 
-      public void SetRecurrence(IEntryRecurrenceEntity recurrence)
+      public void SetRecurrence(IEntryRecurrenceEntity param)
       {
-         Recurrence = recurrence;
+         if (param == null)
+            return;
+         Recurrence = EntryRecurrenceEntity.Restore(param.RecurrenceID, param.CurrentOccurrence, param.TotalOccurrences);
       }
+
 
    }
 
