@@ -48,7 +48,6 @@ namespace Elesse.Recurrences.Tests
       {
          var param = RecurrenceEntity.Builder().Build();
          var repository = RecurrenceRepository.Mocker()
-            .WithLoad(new NullReferenceException(WARNINGS.RECURRENCE_NOT_FOUND))
             .Build();
          var service = RecurrenceService.Builder().With(repository).Build();
 
@@ -73,6 +72,22 @@ namespace Elesse.Recurrences.Tests
          await service.UpdateAsync(param);
 
          repositoryMocker.Verify(m => m.UpdateAsync(changedParam));
+      }
+
+      [Fact]
+      public async void Update_WithExceptionOnRepository_MustThrowException()
+      {
+         var exception = new Exception("Exception On Load Function of Repository");
+         var param = RecurrenceEntity.Builder().Build();
+         var repository = RecurrenceRepository.Mocker()
+            .WithLoad(exception)
+            .Build();
+         var service = RecurrenceService.Builder().With(repository).Build();
+
+         var result = await Assert.ThrowsAsync<Exception>(() => service.UpdateAsync(param));
+
+         Assert.NotNull(result);
+         Assert.Equal(exception.Message, result.Message);
       }
 
    }
