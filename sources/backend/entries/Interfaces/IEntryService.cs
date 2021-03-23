@@ -12,6 +12,7 @@ namespace Elesse.Entries
 
       Task<IActionResult> InsertAsync(InsertVM insertVM);
       Task<IActionResult> UpdateAsync(UpdateVM updateVM);
+      Task<IActionResult> UpdateRecurrencesAsync(UpdateVM updateVM);
       Task<IActionResult> DeleteAsync(string id);
 
    }

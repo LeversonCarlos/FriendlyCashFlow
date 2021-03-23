@@ -153,5 +153,18 @@ namespace Elesse.Entries.Tests
          Assert.IsType<Microsoft.AspNetCore.Mvc.OkResult>(result);
       }
 
+      [Fact]
+      public async void UpdateRecurrences_WithNullParameter_MustReturnBadResult()
+      {
+         var service = EntryService.Builder().Build();
+
+         var result = await service.UpdateRecurrencesAsync(null);
+
+         Assert.NotNull(result);
+         Assert.IsType<Microsoft.AspNetCore.Mvc.BadRequestObjectResult>(result);
+         Assert.Equal(Warning(WARNINGS.INVALID_UPDATE_PARAMETER), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
+      }
+
+
    }
 }
