@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
@@ -72,6 +73,56 @@ namespace Elesse.Entries
          pattern = await _PatternService.IncreaseAsync(newPattern);
 
          return pattern;
+      }
+
+      public async Task<IActionResult> UpdateRecurrencesAsync(UpdateVM updateVM)
+      {
+         try
+         {
+
+            var updateResult = await UpdateAsync(updateVM);
+            if (!(updateResult is OkResult))
+               return updateResult;
+
+            if (updateVM.Recurrence == null || updateVM.Recurrence.RecurrenceID == null)
+               return new OkResult();
+
+            var recurrences = (EntryEntity[])await _EntryRepository.LoadRecurrencesAsync(updateVM.Recurrence.RecurrenceID);
+
+            var recurrenceVMs = recurrences
+               .Where(r => r.Recurrence != null && r.Recurrence.CurrentOccurrence > updateVM.Recurrence.CurrentOccurrence)
+               .OrderBy(r => r.Recurrence.CurrentOccurrence)
+               .Select(r => new UpdateVM
+               {
+                  EntryID = r.EntryID,
+                  Pattern = updateVM.Pattern,
+                  AccountID = r.AccountID,
+                  DueDate = r.DueDate,
+                  Value = r.Value,
+                  Paid = r.Paid,
+                  PayDate = r.PayDate,
+                  Recurrence = r.Recurrence
+               })
+               .ToArray();
+
+            foreach (var recurrenceVM in recurrenceVMs)
+            {
+
+               recurrenceVM.Value = updateVM.Value;
+               recurrenceVM.DueDate = updateVM.DueDate = updateVM.DueDate.AddMonths(1);
+
+               if (recurrenceVM.Paid)
+                  continue;
+
+               var recurrenceResult = await UpdateAsync(recurrenceVM);
+               if (!(updateResult is OkResult))
+                  return updateResult;
+
+            }
+
+            return new OkResult();
+         }
+         catch (Exception ex) { return Shared.Results.Exception(ex); }
       }
 
    }
