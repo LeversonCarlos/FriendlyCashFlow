@@ -1,5 +1,3 @@
-using System.Threading.Tasks;
-
 namespace Elesse.Recurrences
 {
 
@@ -13,9 +11,6 @@ namespace Elesse.Recurrences
       }
 
       readonly IRecurrenceRepository _RecurrenceRepository;
-
-      public Task UpdateAsync(IRecurrenceEntity recurrence) =>
-         throw new System.NotImplementedException();
 
    }
 
