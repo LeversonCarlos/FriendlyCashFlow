@@ -1,5 +1,3 @@
-using System.Threading.Tasks;
-using Elesse.Shared;
 using MongoDB.Driver;
 
 namespace Elesse.Recurrences
@@ -18,13 +16,6 @@ namespace Elesse.Recurrences
       readonly string _CollectionName = null;
       IMongoCollection<RecurrenceEntity> _Collection =>
          _MongoDatabase.GetCollection<RecurrenceEntity>(_CollectionName);
-
-      public Task InsertAsync(IRecurrenceEntity value) =>
-         throw new System.NotImplementedException();
-      public Task UpdateAsync(IRecurrenceEntity value) =>
-         throw new System.NotImplementedException();
-      public Task<IRecurrenceEntity> LoadAsync(EntityID recurrenceID) =>
-         throw new System.NotImplementedException();
 
    }
 }
