@@ -11,6 +11,7 @@ namespace Elesse.Entries
 
       Task<IEntryEntity[]> ListAsync(int year, int month);
       Task<IEntryEntity> LoadAsync(Shared.EntityID entryID);
+      Task<IEntryEntity[]> LoadRecurrencesAsync(Shared.EntityID recurrencyID);
 
    }
 }
