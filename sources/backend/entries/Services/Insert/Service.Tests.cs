@@ -109,7 +109,7 @@ namespace Elesse.Entries.Tests
 
          var recurrenceID = Shared.EntityID.MockerID();
          var recurrenceService = Recurrences.RecurrenceService.Mocker()
-            .WithGetNewRecurrence(recurrenceID)
+            .WithInsert(recurrenceID)
             .Build();
 
          Moq.Mock<IEntryRepository> entryRepositoryMock = null;

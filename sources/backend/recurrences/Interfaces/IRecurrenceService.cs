@@ -4,7 +4,7 @@ namespace Elesse.Recurrences
 {
    public partial interface IRecurrenceService
    {
-      Task<Shared.EntityID> GetNewRecurrenceAsync(IRecurrenceProperties recurrenceProperties);
+      Task<Shared.EntityID> InsertAsync(IRecurrenceProperties recurrenceProperties);
       Task UpdateAsync(IRecurrenceEntity recurrence);
    }
 }

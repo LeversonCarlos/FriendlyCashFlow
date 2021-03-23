@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using Moq;
 using Xunit;
 
 namespace Elesse.Recurrences.Tests
@@ -9,23 +7,23 @@ namespace Elesse.Recurrences.Tests
    {
 
       [Fact]
-      public async void GetNewRecurrence_WithInvalidParameter_MustThrowException()
+      public async void Insert_WithInvalidParameter_MustThrowException()
       {
          var service = RecurrenceService.Builder().Build();
 
-         var exception = await Assert.ThrowsAsync<ArgumentException>(() => service.GetNewRecurrenceAsync(null));
+         var exception = await Assert.ThrowsAsync<ArgumentException>(() => service.InsertAsync(null));
 
          Assert.NotNull(exception);
          Assert.Equal(WARNINGS.INVALID_PROPERTIES, exception.Message);
       }
 
       [Fact]
-      public async void GetNewRecurrence_WithValidParameters_MustReturnNewID()
+      public async void Insert_WithValidParameters_MustReturnNewID()
       {
          var service = RecurrenceService.Builder().Build();
          var properties = RecurrenceProperties.Builder().Build();
 
-         var result = await service.GetNewRecurrenceAsync(properties);
+         var result = await service.InsertAsync(properties);
 
          Assert.NotNull(result);
          Assert.IsAssignableFrom<Shared.EntityID>(result);

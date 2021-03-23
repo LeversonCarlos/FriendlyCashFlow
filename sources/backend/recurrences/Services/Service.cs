@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using Elesse.Shared;
 
 namespace Elesse.Recurrences
 {

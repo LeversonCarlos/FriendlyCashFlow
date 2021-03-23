@@ -6,7 +6,7 @@ namespace Elesse.Recurrences
    partial class RecurrenceService
    {
 
-      public async Task<EntityID> GetNewRecurrenceAsync(IRecurrenceProperties recurrenceProperties)
+      public async Task<EntityID> InsertAsync(IRecurrenceProperties recurrenceProperties)
       {
 
          var recurrence = RecurrenceEntity.Create(recurrenceProperties);

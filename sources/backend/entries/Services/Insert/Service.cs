@@ -47,7 +47,7 @@ namespace Elesse.Entries
          var entityIDs = new List<Shared.EntityID>();
          var pattern = await _PatternService.RetrieveAsync(insertVM.Pattern);
          var recurrenceProperties = Recurrences.RecurrenceProperties.Create(pattern.PatternID, insertVM.AccountID, insertVM.DueDate, insertVM.Value, insertVM.Recurrence.Type);
-         var recurrenceID = await _RecurrenceService.GetNewRecurrenceAsync(recurrenceProperties);
+         var recurrenceID = await _RecurrenceService.InsertAsync(recurrenceProperties);
 
          for (short currentOccurrence = 1; currentOccurrence <= insertVM.Recurrence.TotalOccurrences; currentOccurrence++)
          {
