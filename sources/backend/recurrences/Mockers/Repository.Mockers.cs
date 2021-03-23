@@ -27,6 +27,13 @@ namespace Elesse.Recurrences.Tests
                .ReturnsAsync(result);
          return this;
       }
+      public RecurrenceRepositoryMocker WithLoad(Exception ex)
+      {
+         _Mock
+            .Setup(m => m.LoadAsync(It.IsAny<Shared.EntityID>()))
+            .ThrowsAsync(ex);
+         return this;
+      }
 
       public RecurrenceRepositoryMocker WithInsert(Exception ex)
       {

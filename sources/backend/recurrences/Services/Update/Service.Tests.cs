@@ -11,36 +11,51 @@ namespace Elesse.Recurrences.Tests
       {
          var service = RecurrenceService.Builder().Build();
 
-         var exception = await Assert.ThrowsAsync<ArgumentException>(() => service.UpdateAsync(null));
+         var result = await Assert.ThrowsAsync<ArgumentException>(() => service.UpdateAsync(null));
 
-         Assert.NotNull(exception);
-         Assert.Equal(WARNINGS.INVALID_UPDATE_PARAMETER, exception.Message);
+         Assert.NotNull(result);
+         Assert.Equal(WARNINGS.INVALID_UPDATE_PARAMETER, result.Message);
       }
 
       [Fact]
-      public async void Increase_WithNullCategory_MustThrowException()
+      public async void Update_WithNullRecurrence_MustThrowException()
       {
          var service = RecurrenceService.Builder().Build();
          var param = new Moq.Mock<IRecurrenceEntity>().Object;
 
-         var exception = await Assert.ThrowsAsync<ArgumentException>(() => service.UpdateAsync(param));
+         var result = await Assert.ThrowsAsync<ArgumentException>(() => service.UpdateAsync(param));
 
-         Assert.NotNull(exception);
-         Assert.Equal(WARNINGS.INVALID_RECURRENCEID, exception.Message);
+         Assert.NotNull(result);
+         Assert.Equal(WARNINGS.INVALID_RECURRENCEID, result.Message);
       }
 
       [Fact]
-      public async void Increase_WithNullText_MustThrowException()
+      public async void Update_WithNullProperties_MustThrowException()
       {
          var service = RecurrenceService.Builder().Build();
          var patternEntityMocker = new Moq.Mock<IRecurrenceEntity>();
          patternEntityMocker.SetupGet(x => x.RecurrenceID).Returns(Shared.EntityID.MockerID());
          var param = patternEntityMocker.Object;
 
-         var exception = await Assert.ThrowsAsync<ArgumentException>(() => service.UpdateAsync(param));
+         var result = await Assert.ThrowsAsync<ArgumentException>(() => service.UpdateAsync(param));
 
-         Assert.NotNull(exception);
-         Assert.Equal(WARNINGS.INVALID_PROPERTIES, exception.Message);
+         Assert.NotNull(result);
+         Assert.Equal(WARNINGS.INVALID_PROPERTIES, result.Message);
+      }
+
+      [Fact]
+      public async void Update_WithNotFoundRecurrence_MustThrowException()
+      {
+         var param = RecurrenceEntity.Builder().Build();
+         var repository = RecurrenceRepository.Mocker()
+            .WithLoad(new NullReferenceException(WARNINGS.RECURRENCE_NOT_FOUND))
+            .Build();
+         var service = RecurrenceService.Builder().With(repository).Build();
+
+         var result = await Assert.ThrowsAsync<NullReferenceException>(() => service.UpdateAsync(param));
+
+         Assert.NotNull(result);
+         Assert.Equal(WARNINGS.RECURRENCE_NOT_FOUND, result.Message);
       }
 
       /*
