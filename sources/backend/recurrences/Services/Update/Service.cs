@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 
 namespace Elesse.Recurrences
@@ -5,12 +6,19 @@ namespace Elesse.Recurrences
    partial class RecurrenceService
    {
 
-      public async Task UpdateAsync(IRecurrenceEntity recurrenceParam)
+      public async Task UpdateAsync(IRecurrenceEntity param)
       {
 
-         var recurrence = (RecurrenceEntity)(await _RecurrenceRepository.LoadAsync(recurrenceParam.RecurrenceID));
+         if (param == null)
+            throw new ArgumentException(WARNINGS.INVALID_UPDATE_PARAMETER);
+         if (param.RecurrenceID == null)
+            throw new ArgumentException(WARNINGS.INVALID_RECURRENCEID);
+         if (param.Properties == null)
+            throw new ArgumentException(WARNINGS.INVALID_PROPERTIES);
 
-         recurrence.SetProperties(recurrenceParam.Properties);
+         var recurrence = (RecurrenceEntity)(await _RecurrenceRepository.LoadAsync(param.RecurrenceID));
+
+         recurrence.SetProperties(param.Properties);
 
          await _RecurrenceRepository.UpdateAsync(recurrence);
 
