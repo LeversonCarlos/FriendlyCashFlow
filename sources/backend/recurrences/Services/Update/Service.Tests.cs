@@ -44,7 +44,7 @@ namespace Elesse.Recurrences.Tests
       }
 
       [Fact]
-      public async void Update_WithNotFoundRecurrence_MustThrowException()
+      public async void Update_WithNotExistingRecurrence_MustThrowException()
       {
          var param = RecurrenceEntity.Builder().Build();
          var repository = RecurrenceRepository.Mocker()
@@ -58,30 +58,22 @@ namespace Elesse.Recurrences.Tests
          Assert.Equal(WARNINGS.RECURRENCE_NOT_FOUND, result.Message);
       }
 
-      /*
       [Fact]
-      public async void Update_WithInvalidParameter_MustThrowException()
+      public async void Update_WithExistingRecurrence_MustCallRepositoryWithChangedData()
       {
-         var service = RecurrenceService.Builder().Build();
+         var param = RecurrenceEntity.Builder().Build();
+         var changedParam = RecurrenceEntity.Restore(param.RecurrenceID, RecurrenceProperties.Builder().Build());
+         Moq.Mock<IRecurrenceRepository> repositoryMocker = null;
+         var repository = RecurrenceRepository.Mocker()
+            .With(mock => repositoryMocker = mock)
+            .WithLoad(changedParam)
+            .Build();
+         var service = RecurrenceService.Builder().With(repository).Build();
 
-         var exception = await Assert.ThrowsAsync<ArgumentException>(() => service.InsertAsync(null));
+         await service.UpdateAsync(param);
 
-         Assert.NotNull(exception);
-         Assert.Equal(WARNINGS.INVALID_PROPERTIES, exception.Message);
+         repositoryMocker.Verify(m => m.UpdateAsync(changedParam));
       }
-
-      [Fact]
-      public async void Insert_WithValidParameters_MustReturnNewID()
-      {
-         var service = RecurrenceService.Builder().Build();
-         var properties = RecurrenceProperties.Builder().Build();
-
-         var result = await service.InsertAsync(properties);
-
-         Assert.NotNull(result);
-         Assert.IsAssignableFrom<Shared.EntityID>(result);
-      }
-      */
 
    }
 }
