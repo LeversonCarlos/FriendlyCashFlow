@@ -32,6 +32,9 @@ namespace Elesse.Recurrences
          }
       }
 
+      internal void SetProperties(IRecurrenceProperties propertiesParam) =>
+         Properties = RecurrenceProperties.Create(propertiesParam.PatternID, propertiesParam.AccountID, propertiesParam.Date, propertiesParam.Value, propertiesParam.Type);
+
    }
 
 }

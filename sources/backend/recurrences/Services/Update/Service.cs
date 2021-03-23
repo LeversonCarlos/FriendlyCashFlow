@@ -1,25 +1,20 @@
 using System.Threading.Tasks;
-using Elesse.Shared;
 
 namespace Elesse.Recurrences
 {
    partial class RecurrenceService
    {
 
-      public Task UpdateAsync(IRecurrenceEntity recurrence) =>
-         throw new System.NotImplementedException();
-
-      /*
-      public async Task<EntityID> InsertAsync(IRecurrenceProperties recurrenceProperties)
+      public async Task UpdateAsync(IRecurrenceEntity recurrenceParam)
       {
 
-         var recurrence = RecurrenceEntity.Create(recurrenceProperties);
+         var recurrence = (RecurrenceEntity)(await _RecurrenceRepository.LoadAsync(recurrenceParam.RecurrenceID));
 
-         await _RecurrenceRepository.InsertAsync(recurrence);
+         recurrence.SetProperties(recurrenceParam.Properties);
 
-         return recurrence.RecurrenceID;
+         await _RecurrenceRepository.UpdateAsync(recurrence);
+
       }
-      */
 
    }
 }
