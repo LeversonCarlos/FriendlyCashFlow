@@ -56,8 +56,15 @@ namespace Elesse.Entries.Tests
          return this;
       }
 
+      IEntryRecurrenceEntity _Recurrence = null;
+      public EntryEntityBuilder WithRecurrence(IEntryRecurrenceEntity recurrence)
+      {
+         _Recurrence = recurrence;
+         return this;
+      }
+
       public EntryEntity Build() =>
-         EntryEntity.Restore(_EntryID, _Pattern, _AccountID, _DueDate, _Value, _Paid, _PayDate);
+         EntryEntity.Restore(_EntryID, _Pattern, _AccountID, _DueDate, _Value, _Paid, _PayDate, _Recurrence);
 
    }
 }
