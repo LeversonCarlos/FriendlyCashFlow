@@ -4,6 +4,7 @@ using Elesse.Shared;
 
 namespace Elesse.Entries
 {
+
    public class UpdateVM
    {
 
@@ -17,7 +18,15 @@ namespace Elesse.Entries
       public bool Paid { get; set; }
       public DateTime? PayDate { get; set; }
 
-      public IEntryRecurrenceEntity Recurrence { get; set; }
+      public UpdateRecurrenceVM Recurrence { get; set; }
 
    }
+
+   public class UpdateRecurrenceVM : IEntryRecurrenceEntity
+   {
+      public EntityID RecurrenceID { get; set; }
+      public short CurrentOccurrence { get; set; }
+      public short TotalOccurrences { get; set; }
+   }
+
 }

@@ -165,6 +165,80 @@ namespace Elesse.Entries.Tests
          Assert.Equal(Warning(WARNINGS.INVALID_UPDATE_PARAMETER), (result as Microsoft.AspNetCore.Mvc.BadRequestObjectResult).Value);
       }
 
+      [Fact]
+      public async void UpdateRecurrences_WithoutRecurrences_MustReturnOkRequest()
+      {
+         var entity = EntryEntity.Builder().Build();
+         var repository = EntryRepositoryMocker
+            .Create()
+            .WithLoad(entity)
+            .Build();
+         var pattern = Patterns.PatternEntity.Builder().Build();
+         var patternService = Patterns.Tests.PatternServiceMocker
+            .Create()
+            .WithIncrease(pattern)
+            .Build();
+         var service = EntryService.Builder().With(repository).With(patternService).Build();
+
+         var updateVM = new UpdateVM
+         {
+            EntryID = Shared.EntityID.NewID(),
+            Pattern = Patterns.PatternEntity.Builder().Build(),
+            AccountID = entity.AccountID,
+            DueDate = entity.DueDate,
+            Value = entity.Value
+         };
+         var result = await service.UpdateRecurrencesAsync(updateVM);
+
+         Assert.NotNull(result);
+         Assert.IsType<Microsoft.AspNetCore.Mvc.OkResult>(result);
+      }
+
+      [Fact]
+      public async void UpdateRecurrences_WithValidDataAndWithChangedPattern_MustReturnOkRequest()
+      {
+         var recurrenceID = Shared.EntityID.MockerID();
+         var entity = EntryEntity.Builder().WithRecurrence(new UpdateRecurrenceVM { RecurrenceID = recurrenceID, CurrentOccurrence = 1 }).Build();
+         var recurrences = new[] { entity,
+            EntryEntity.Builder().WithRecurrence(new UpdateRecurrenceVM {
+               RecurrenceID = recurrenceID,
+               CurrentOccurrence = 2
+            }).WithPayDate(DateTime.Now).Build(),
+            EntryEntity.Builder().WithRecurrence(new UpdateRecurrenceVM {
+               RecurrenceID = recurrenceID,
+               CurrentOccurrence = 3
+            }).Build()
+         };
+         var repository = EntryRepositoryMocker
+            .Create()
+            .WithLoad(entity)
+            .WithLoadRecurrences(recurrences)
+            .Build();
+         var pattern = Patterns.PatternEntity.Builder().Build();
+         var patternService = Patterns.Tests.PatternServiceMocker
+            .Create()
+            .WithIncrease(pattern)
+            .Build();
+         var service = EntryService.Builder().With(repository).With(patternService).Build();
+
+         var updateVM = new UpdateVM
+         {
+            EntryID = Shared.EntityID.NewID(),
+            Pattern = Patterns.PatternEntity.Builder().Build(),
+            AccountID = entity.AccountID,
+            DueDate = entity.DueDate,
+            Value = entity.Value,
+            Recurrence = new UpdateRecurrenceVM
+            {
+               RecurrenceID = Shared.EntityID.MockerID(),
+               CurrentOccurrence = 1
+            }
+         };
+         var result = await service.UpdateRecurrencesAsync(updateVM);
+
+         Assert.NotNull(result);
+         Assert.IsType<Microsoft.AspNetCore.Mvc.OkResult>(result);
+      }
 
    }
 }

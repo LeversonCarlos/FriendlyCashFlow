@@ -100,8 +100,7 @@ namespace Elesse.Entries
                   DueDate = r.DueDate,
                   Value = r.Value,
                   Paid = r.Paid,
-                  PayDate = r.PayDate,
-                  Recurrence = r.Recurrence
+                  PayDate = r.PayDate
                })
                .ToArray();
 
