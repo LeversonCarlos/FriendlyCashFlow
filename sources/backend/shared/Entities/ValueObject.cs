@@ -1,16 +1,21 @@
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace Elesse.Shared
 {
-   public abstract class ValueObject
+   public abstract class ValueObject: IEquatable<ValueObject>
    {
 
       protected static bool EqualOperator(ValueObject left, ValueObject right)
       {
-         if (ReferenceEquals(left, null) ^ ReferenceEquals(right, null))
+         if (object.Equals(left, null))
+         {
+            if (object.Equals(right, null))
+               return true;
             return false;
-         return ReferenceEquals(left, null) || left.Equals(right);
+         }
+         return left.Equals(right);
       }
       public static bool operator ==(ValueObject left, ValueObject right) =>
          EqualOperator(left, right);
@@ -31,6 +36,9 @@ namespace Elesse.Shared
       public ValueObject GetCopy() =>
          this.MemberwiseClone() as ValueObject;
 
+
+      public bool Equals(ValueObject obj) =>
+         Equals(obj as object);
 
       public override bool Equals(object obj)
       {
