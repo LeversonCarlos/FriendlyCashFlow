@@ -11,5 +11,13 @@ namespace Elesse.Entries
             .Find(entity => entity.EntryID == entryID)
             .SingleOrDefaultAsync();
 
+      public async Task<IEntryEntity[]> LoadRecurrencesAsync(Shared.EntityID recurrenceID)
+      {
+         var list = await _Collection
+            .Find(entity => entity.Recurrence.RecurrenceID == recurrenceID)
+            .ToListAsync();
+         return list.ToArray();
+      }
+
    }
 }

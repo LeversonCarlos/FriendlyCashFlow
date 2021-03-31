@@ -7,7 +7,7 @@ namespace Elesse.Entries
    {
 
       public static EntryEntity Restore(Shared.EntityID entryID, Patterns.IPatternEntity pattern, Shared.EntityID accountID,
-         DateTime dueDate, decimal value, bool paid, DateTime? payDate) =>
+         DateTime dueDate, decimal value, bool paid, DateTime? payDate, IEntryRecurrenceEntity recurrence = null) =>
          new EntryEntity
          {
             EntryID = entryID,
@@ -16,7 +16,8 @@ namespace Elesse.Entries
             DueDate = dueDate,
             Value = value,
             Paid = paid,
-            PayDate = payDate
+            PayDate = payDate,
+            Recurrence = recurrence
          };
 
       public static EntryEntity Create(Patterns.IPatternEntity pattern, Shared.EntityID accountID,

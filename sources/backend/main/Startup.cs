@@ -1,18 +1,18 @@
-using Elesse.Shared;
 using Elesse.Accounts;
-using Elesse.Identity.Helpers;
-using Elesse.Categories;
 using Elesse.Balances;
+using Elesse.Categories;
 using Elesse.Entries;
-using Elesse.Transfers;
+using Elesse.Identity.Helpers;
+using Elesse.Recurrences;
+using Elesse.Shared;
 using Elesse.Transactions;
+using Elesse.Transfers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MongoDB.Driver;
-using Elesse.Recurrences;
 
 namespace Elesse.FriendlyCashFlow
 {

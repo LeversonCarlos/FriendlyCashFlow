@@ -40,6 +40,18 @@ namespace Elesse.Entries.Tests
          return this;
       }
 
+      public EntryRepositoryMocker WithLoadRecurrences() =>
+         WithLoadRecurrences(new IEntryEntity[] { });
+      public EntryRepositoryMocker WithLoadRecurrences(params IEntryEntity[][] results)
+      {
+         var seq = new MockSequence();
+         foreach (var result in results)
+            _Mock.InSequence(seq)
+               .Setup(m => m.LoadRecurrencesAsync(It.IsAny<Shared.EntityID>()))
+               .ReturnsAsync(result);
+         return this;
+      }
+
       public EntryRepositoryMocker WithInsert(params System.Threading.Tasks.Task[] results)
       {
          var seq = new MockSequence();
