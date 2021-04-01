@@ -59,5 +59,11 @@ namespace Elesse.Shared
          return !thisValues.MoveNext() && !otherValues.MoveNext();
       }
 
+      protected static void EnsureBusinessRule(IBusinessRule rule)
+      {
+         if (rule.IsBroken())
+            throw new BusinessRuleException(rule);
+      }
+
    }
 }
