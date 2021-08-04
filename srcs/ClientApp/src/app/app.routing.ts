@@ -4,7 +4,7 @@ import { coreRoutes } from './core/core.routing';
 import { secureRoutes } from './secure/secure.routing';
 
 @NgModule({
-   imports: [RouterModule.forRoot(coreRoutes), RouterModule.forRoot(secureRoutes)],
+   imports: [RouterModule.forRoot(coreRoutes, { relativeLinkResolution: 'legacy' }), RouterModule.forRoot(secureRoutes, { relativeLinkResolution: 'legacy' })],
    exports: [RouterModule]
 })
 export class AppRouting { }
