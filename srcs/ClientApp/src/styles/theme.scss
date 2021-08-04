@@ -1,11 +1,12 @@
+@use '~@angular/material' as mat;
 @import "./colors.scss";
-@include mat-core();
+@include mat.core();
 
-$fs-theme: mat-light-theme($palette-primary, $palette-accent, $palette-warn);
-@include angular-material-theme($fs-theme);
+$fs-theme: mat.define-light-theme($palette-primary, $palette-accent, $palette-warn);
+@include mat.all-component-themes($fs-theme);
 
 body {
    @extend .mat-typography;
    margin: 0;
-   background-color: mat-color($mat-grey, 100);
+   background-color: mat.get-color-from-palette(mat.$grey-palette, 100);
 }
