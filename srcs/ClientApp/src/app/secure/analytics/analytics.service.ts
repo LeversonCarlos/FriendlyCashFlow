@@ -15,21 +15,26 @@ export class AnalyticsService {
       private router: Router, private http: HttpClient) { }
 
    // NAVIGATES
-   public showIndex(year: number, month: number) { this.router.navigate(['/analytics', year, month]); }
+   public showIndex(year: number, month: number, isPrinting: boolean = false) {
+      if (isPrinting)
+         this.router.navigate(['/analytics', year, month, 1]);
+      else
+         this.router.navigate(['/analytics', year, month]);
+   }
 
    /* COLORS */
    public Colors: AnalyticsColors = new AnalyticsColors();
 
    // FILTER DATA
    public FilterData: FilterData = new FilterData()
-   public async setFilter(currentMonth: Date) {
+   public async setFilter(currentMonth: Date, isPrinting: boolean = false) {
       try {
          this.FilterData.setData(currentMonth);
          const year = (currentMonth && currentMonth.getFullYear()) || 0
          const month = (currentMonth && currentMonth.getMonth() + 1) | 0
 
          await this.refreshData(year, month)
-         this.showIndex(year, month);
+         this.showIndex(year, month, isPrinting);
       }
       catch (ex) { console.error(ex); }
    }
