@@ -12,7 +12,7 @@ export class AnalyticsComponent implements OnInit {
 
    constructor(private service: AnalyticsService,
       private route: ActivatedRoute, private media: MediaMatcher) {
-      this.mobileQuery = this.media.matchMedia('(max-width: 960px)');
+      this.mobileQuery = this.media.matchMedia('(max-width: 600px)');
    }
    public mobileQuery: MediaQueryList
 
