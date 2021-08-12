@@ -1,4 +1,4 @@
-<mat-sidenav-container autosize (backdropClick)="snav.close()">
+<mat-sidenav-container [class.printing]="IsPrinting" autosize (backdropClick)="snav.close()">
 
    <mat-sidenav #snav fixedInViewport="true" [mode]="mobileQuery.matches ? 'over' : 'side'"
       [opened]="!mobileQuery.matches" (keydown.escape)="snav.close()">
