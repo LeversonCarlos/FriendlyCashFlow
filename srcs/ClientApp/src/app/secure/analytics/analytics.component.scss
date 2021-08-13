@@ -15,3 +15,24 @@
    margin-bottom: 6px;
    padding: 0;
 }
+
+.printing {
+   .full-card {
+      width: calc(210mm - 48px) !important;
+   }
+}
+
+@media print {
+   span[title] {
+      text-transform: uppercase;
+      color: black;
+      font-weight: 800;
+      font-size: 20px;
+   }
+   .full-card {
+      overflow-y: hidden;
+   }
+   .print-version-toggle {
+      display: none;
+   }
+}

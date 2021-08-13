@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 
 @Component({
@@ -13,6 +13,8 @@ export class FullLayoutComponent implements OnInit {
    }
 
    public mobileQuery: MediaQueryList
+
+   @Input() IsPrinting: boolean
 
    public ngOnInit() {
    }

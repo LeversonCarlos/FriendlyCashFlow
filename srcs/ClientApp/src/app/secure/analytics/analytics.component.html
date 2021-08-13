@@ -1,11 +1,11 @@
-<fs-full-layout>
+<fs-full-layout [IsPrinting]="IsPrinting" [class.printing]="IsPrinting">
    <span title>
       {{ 'ANALYTICS_MAIN_TITLE' | translation | async }}
    </span>
    <div toolbar>
       <fs-analytics-filters *ngIf="!mobileQuery.matches"></fs-analytics-filters>
    </div>
-   <div full-content class="full-screen">
+   <div full-content class="full-screen" >
 
       <div class="full-card">
          <mat-card class="filters-card" *ngIf="mobileQuery.matches">
@@ -16,6 +16,10 @@
          <fs-entries-pareto></fs-entries-pareto>
          <fs-monthly-target></fs-monthly-target>
       </div>
+
+      <mat-card class="mat-elevation-z0 print-version-toggle" >
+         <mat-slide-toggle [(ngModel)]="IsPrinting" (change)="OnPrintVersionChanged(IsPrinting)">{{ 'ANALYTICS_PRINT_VERSION_COMMAND' | translation | async }}</mat-slide-toggle>
+      </mat-card>
 
    </div>
 </fs-full-layout>

@@ -1,37 +1,46 @@
 @import "../../../styles/screenSizes.scss";
 
 .layout-header {
-  height: $header-height;
-  .mat-toolbar {
-    justify-content: space-between;
-  }
+   height: $header-height;
+   .mat-toolbar {
+      justify-content: space-between;
+   }
 }
 
 .layout-details {
-  height: calc(#{$details-height} + #{$screen-padding});
-  overflow-y: hidden;
-  padding: 0 3px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+   height: calc(#{$details-height} + #{$screen-padding});
+   overflow-y: hidden;
+   padding: 0 3px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
 
-  .layout-full-content {
-    width: 100%;
-  }
-
-  .layout-content {
-    width: 60vw;
-    @media (max-width: $max-width-lg) {
-      width: 70%;
-    }
-    @media (max-width: $max-width-md) {
-      width: 80%;
-    }
-    @media (max-width: $max-width-sm) {
-      width: 90%;
-    }
-    @media (max-width: $max-width-xs) {
+   .layout-full-content {
       width: 100%;
-    }
-  }
+   }
+
+   .layout-content {
+      width: 60vw;
+      @media (max-width: $max-width-lg) {
+         width: 70%;
+      }
+      @media (max-width: $max-width-md) {
+         width: 80%;
+      }
+      @media (max-width: $max-width-sm) {
+         width: 90%;
+      }
+      @media (max-width: $max-width-xs) {
+         width: 100%;
+      }
+   }
+}
+
+.printing {
+   .mat-sidenav {
+      display: none !important;
+   }
+   .mat-sidenav-content {
+      margin-left: 0 !important;
+   }
 }

@@ -83,6 +83,11 @@ export class MonthlyTargetChart {
    }
 
    private async yAxisOptions(data: MonthlyTargetVM[]): Promise<Highcharts.YAxisOptions[]> {
+      const goalText = await this.translation.getValue("ANALYTICS_MONTHLY_TARGET_GOAL_LABEL");
+      const goalValue = data
+         .map(x => x.ExpenseAverage)
+         .map(x => this.translation.getNumberFormat(x, 2))
+         .find(x => true);
       const maxBalance = data
          .map(x => x.Balance)
          .sort((a, b) => a < b ? 1 : -1)
@@ -101,7 +106,7 @@ export class MonthlyTargetChart {
             value: 100,
             color: this.GoalColor,
             label: {
-               text: await this.translation.getValue("ANALYTICS_MONTHLY_TARGET_GOAL_LABEL"),
+               text: `${goalText}: ${goalValue}`,
                x: 0,
                style: { fontSize: '1.3vh' }
             },
