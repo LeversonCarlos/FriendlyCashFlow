@@ -1,12 +1,18 @@
 .mat-card {
    margin-bottom: 6px;
    padding: 10px;
- }
- #categoryGoalsContainer {
-    height: 20vh;
- }
+   .mat-card-content:not(:last-child) {
+      margin-bottom: 6px;
+   }
+}
+#categoryGoalsContainer {
+   height: 20vh;
+   @media print {
+      height: 140px;
+   }
+}
 
-.test{
+.test {
    color: #73a8f0;
    color: #318047;
    color: #f5c533;
