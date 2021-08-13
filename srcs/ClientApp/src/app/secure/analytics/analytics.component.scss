@@ -23,6 +23,12 @@
 }
 
 @media print {
+   span[title] {
+      text-transform: uppercase;
+      color: black;
+      font-weight: 800;
+      font-size: 20px;
+   }
    .full-card {
       overflow-y: hidden;
    }

@@ -1,11 +1,21 @@
 div {
-  display: flex;
-  align-items: center;
+   display: flex;
+   align-items: center;
 }
 span {
-  text-transform: uppercase;
+   text-transform: uppercase;
 }
 button {
-  padding: 0;
-  min-width: 36px;
+   padding: 0;
+   min-width: 36px;
+}
+@media print {
+   button {
+      display: none;
+   }
+   span {
+      color: black;
+      font-weight: 800;
+      font-size: 20px;
+   }
 }
