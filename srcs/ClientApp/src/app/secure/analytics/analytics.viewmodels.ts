@@ -45,3 +45,19 @@ export class MonthlyBudgetVM {
    OverflowValue: number
    OverflowPercent: number
 }
+
+export class PatrimonyVM {
+   PreviousMonth: PatrimonyBalance[]
+   CurrentMonth: PatrimonyBalance[]
+}
+
+export class PatrimonyBalance {
+   AccountID: number
+   Text: string
+   Type: number
+   CurrentBalance: number
+   IncomeForecast: number
+   ExpenseForecast: number
+   PaidIncome: number
+   PaidExpense: number
+}

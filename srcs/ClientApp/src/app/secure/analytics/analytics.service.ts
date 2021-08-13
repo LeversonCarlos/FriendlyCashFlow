@@ -1,7 +1,7 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { BusyService } from 'src/app/shared/busy/busy.service';
 import { HttpClient } from '@angular/common/http';
-import { FilterData, CategoryGoalsVM, EntriesParetoVM, MonthlyTargetVM, MonthlyBudgetVM } from './analytics.viewmodels';
+import { FilterData, CategoryGoalsVM, EntriesParetoVM, MonthlyTargetVM, MonthlyBudgetVM, PatrimonyVM } from './analytics.viewmodels';
 import { AppInsightsService } from 'src/app/shared/app-insights/app-insights.service';
 import { Router } from '@angular/router';
 import { AnalyticsColors } from './analytics.colors';
@@ -48,6 +48,7 @@ export class AnalyticsService {
          await this.LoadEntriesPareto(year, month);
          await this.LoadMonthlyTarget(year, month);
          await this.LoadMonthlyBudget(year, month);
+         await this.LoadPatrimony(year, month);
          // this.Colors.Restart();
          this.OnDataRefreshed.emit(true);
       }
@@ -86,6 +87,15 @@ export class AnalyticsService {
       const url = `api/analytics/monthlyBudget/${year}/${month}`;
       this.MonthlyBudget = await this.http.get<MonthlyBudgetVM[]>(url).toPromise();
       return (this.MonthlyBudget != null);
+   }
+
+   /* PATRIMONY */
+   public Patrimony: PatrimonyVM = null
+   public async LoadPatrimony(year: number, month: number): Promise<boolean> {
+      const url = `api/analytics/patrimony/${year}/${month}`;
+      this.Patrimony = await this.http.get<PatrimonyVM>(url).toPromise();
+      console.log(this.Patrimony);
+      return (this.Patrimony != null);
    }
 
 }
