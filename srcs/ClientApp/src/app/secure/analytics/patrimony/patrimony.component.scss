@@ -1,0 +1,27 @@
+.row,.col {
+   margin-bottom: 0;
+   flex-wrap: initial;
+}
+.mat-card {
+   margin-bottom: 6px;
+   padding: 10px;
+   .mat-card-content:not(:last-child) {
+      margin-bottom: 6px;
+   }
+}
+#patrimonyDistributionContainer,
+#patrimonyResumeContainer {
+   height: 25vh;
+   padding: 0;
+   @media print {
+      height: 173px;
+   }
+}
+.mat-list {
+   .mat-list-item {
+      height: 40px !important;
+   }
+   .mat-line {
+      line-height: 1;
+   }
+}
