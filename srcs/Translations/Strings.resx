@@ -216,6 +216,10 @@
   <data name="ANALYTICS_MONTHLY_TARGET_TITLE" xml:space="preserve">
     <value>Monthly Target</value>
   </data>
+  <data name="ANALYTICS_PATRIMONY_DISTRIBUTION_TITLE" xml:space="preserve">
+
+    <value>Patrimony Distribution</value>
+  </data>
   <data name="ANALYTICS_PATRIMONY_RESUME_TITLE" xml:space="preserve">
     <value>Patrimony Resume</value>
   </data>

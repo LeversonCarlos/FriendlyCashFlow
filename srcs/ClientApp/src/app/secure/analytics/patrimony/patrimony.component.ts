@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AnalyticsService } from '../analytics.service';
 import { PatrimonyDistributionItem, PatrimonyResumeItem } from '../analytics.viewmodels';
+import { PatrimonyDistributionPieChart } from './patrimony-distribution-pie.chart';
 
 @Component({
    selector: 'fs-patrimony',
@@ -10,7 +11,7 @@ import { PatrimonyDistributionItem, PatrimonyResumeItem } from '../analytics.vie
 })
 export class PatrimonyComponent implements OnInit, OnDestroy {
 
-   constructor(private service: AnalyticsService) { }
+   constructor(private service: AnalyticsService, private chart: PatrimonyDistributionPieChart) { }
 
    ngOnInit(): void {
       this.OnDataRefreshedSubscription =
@@ -22,8 +23,7 @@ export class PatrimonyComponent implements OnInit, OnDestroy {
 
    private OnDataRefreshedSubscription: Subscription
    private OnDataRefreshed(val: boolean) {
-      // this.chart.show(this.service.Patrimony)
-      console.log(this.service.Patrimony);
+      this.chart.show(this.service.Patrimony.PatrimonyDistribution)
    }
 
    public ngOnDestroy() {
