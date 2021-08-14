@@ -64,17 +64,29 @@ namespace FriendlyCashFlow.API.Analytics
                )
             };
 
+            var patrimonyAccountDistribution = currentMonthBalance.Value
+               .Where(x => x.CurrentBalance > 0)
+               .Select(x => new { x.AccountID, x.CurrentBalance })
+               .ToArray();
+            var patrimonyAccountDetails = this
+               .GetService<Accounts.AccountsService>()
+               .GetDataQuery()
+               .Where(x => patrimonyAccountDistribution.Select(i => i.AccountID).ToArray().Contains(x.AccountID))
+               .Select(x => new { x.AccountID, x.Text })
+               .ToArray();
+            var patrimonyDistribution = patrimonyAccountDistribution
+               .OrderByDescending(x => x.CurrentBalance)
+               .Select(x => new PatrimonyDistributionItem
+               {
+                  Text = patrimonyAccountDetails
+                     .Where(i => i.AccountID == x.AccountID)
+                     .Select(i => i.Text)
+                     .FirstOrDefault(),
+                  Value = x.CurrentBalance
+               })
+               .ToArray();
 
-
-            /*
-            var recurrencyText = $"{"Recurrency".ToUpper()}_{"enRecurrencyType".ToUpper()}";
-            this.GetTranslation($"{recurrencyText}_{x.ToString().ToUpper()}")
-            */
-
-            var patrimony = PatrimonyVM.Create(patrimonyResume);
-            patrimony.PreviousMonth = previousMonthBalanceMessage.Value;
-            patrimony.CurrentMonth = currentMonthBalance.Value;
-
+            var patrimony = PatrimonyVM.Create(patrimonyResume, patrimonyDistribution);
             return patrimony;
 
          }
@@ -97,13 +109,21 @@ namespace FriendlyCashFlow.API.Analytics
    public class PatrimonyVM
    {
       public PatrimonyResumeItem[] PatrimonyResume { get; private set; }
-      public static PatrimonyVM Create(PatrimonyResumeItem[] patrimonyResume) =>
+      public PatrimonyDistributionItem[] PatrimonyDistribution { get; private set; }
+      public static PatrimonyVM Create(
+         PatrimonyResumeItem[] patrimonyResume,
+         PatrimonyDistributionItem[] patrimonyDistribution) =>
          new PatrimonyVM
          {
-            PatrimonyResume = patrimonyResume
+            PatrimonyResume = patrimonyResume,
+            PatrimonyDistribution = patrimonyDistribution
          };
-      public List<Dashboard.BalanceVM> PreviousMonth { get; set; }
-      public List<Dashboard.BalanceVM> CurrentMonth { get; set; }
+   }
+
+   public struct PatrimonyDistributionItem
+   {
+      public string Text { get; set; }
+      public decimal Value { get; set; }
    }
 
    public enum PatrimonyResumeEnum : short { PreviousMonthBalance = 0, CurrentMonthIncome = 1, CurrentMonthExpense = 2, CurrentMonthBalance = 3 };

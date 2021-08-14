@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AnalyticsService } from '../analytics.service';
-import { PatrimonyResumeItem } from '../analytics.viewmodels';
+import { PatrimonyDistributionItem, PatrimonyResumeItem } from '../analytics.viewmodels';
 
 @Component({
    selector: 'fs-patrimony',
@@ -18,8 +18,7 @@ export class PatrimonyComponent implements OnInit, OnDestroy {
    }
 
    public get Resume(): PatrimonyResumeItem[] { return this.service?.Patrimony?.PatrimonyResume }
-
-   public get Data() { return this.service?.Patrimony; }
+   public get Distribution(): PatrimonyDistributionItem[] { return this.service?.Patrimony?.PatrimonyDistribution }
 
    private OnDataRefreshedSubscription: Subscription
    private OnDataRefreshed(val: boolean) {

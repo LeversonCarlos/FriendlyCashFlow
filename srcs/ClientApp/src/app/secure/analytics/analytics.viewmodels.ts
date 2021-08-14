@@ -48,8 +48,7 @@ export class MonthlyBudgetVM {
 
 export class PatrimonyVM {
    PatrimonyResume: PatrimonyResumeItem[];
-   PreviousMonth: PatrimonyBalance[]
-   CurrentMonth: PatrimonyBalance[]
+   PatrimonyDistribution: PatrimonyDistributionItem[]
 }
 
 export enum PatrimonyResumeEnum { PreviousMonthBalance = 0, CurrentMonthIncome = 1, CurrentMonthExpense = 2, CurrentMonthBalance = 3 };
@@ -69,13 +68,7 @@ export class PatrimonyResumeItem {
    }
 }
 
-export class PatrimonyBalance {
-   AccountID: number
-   Text: string
-   Type: number
-   CurrentBalance: number
-   IncomeForecast: number
-   ExpenseForecast: number
-   PaidIncome: number
-   PaidExpense: number
+export class PatrimonyDistributionItem {
+   Text: string;
+   Value: number;
 }
