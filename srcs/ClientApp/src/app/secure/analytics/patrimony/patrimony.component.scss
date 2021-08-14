@@ -1,5 +1,6 @@
 .row,.col {
    margin-bottom: 0;
+   flex-wrap: initial;
 }
 .mat-card {
    margin-bottom: 6px;
@@ -8,14 +9,14 @@
       margin-bottom: 6px;
    }
 }
-/*
-#patrimonyDistributionContainer {
-   height: 30vh;
+#patrimonyDistributionContainer,
+#patrimonyResumeContainer {
+   height: 25vh;
+   padding: 0;
    @media print {
-      height: 206px;
+      height: 173px;
    }
 }
-*/
 .mat-list {
    .mat-list-item {
       height: 40px !important;
