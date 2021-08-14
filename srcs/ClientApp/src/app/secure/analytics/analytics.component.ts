@@ -43,8 +43,20 @@ export class AnalyticsComponent implements OnInit {
       catch (ex) { console.error(ex); }
    }
 
-   public OnPrintVersionChanged(isPrinting:boolean) {
+   public OnPrintVersionChanged(isPrinting: boolean) {
       this.service.setFilter(this.service.FilterData.Month, isPrinting);
+      /*
+      // this isnt working as the charts isnt redraw
+      const date = this.service.FilterData.Month;
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
+      let url = `/analytics/${year}/${month}`
+      if (isPrinting)
+         url += "/1"
+      this.location.replaceState(url);
+      window.dispatchEvent(new Event('resize'));
+      Highcharts.charts.forEach(chart => chart.reflow());
+      */
    }
 
 }
