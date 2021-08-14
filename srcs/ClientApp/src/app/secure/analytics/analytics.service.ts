@@ -94,7 +94,6 @@ export class AnalyticsService {
    public async LoadPatrimony(year: number, month: number): Promise<boolean> {
       const url = `api/analytics/patrimony/${year}/${month}`;
       this.Patrimony = await this.http.get<PatrimonyVM>(url).toPromise();
-      console.log(this.Patrimony);
       return (this.Patrimony != null);
    }
 

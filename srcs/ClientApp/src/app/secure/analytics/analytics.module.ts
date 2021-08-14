@@ -11,11 +11,12 @@ import { EntriesParetoComponent } from './entries-pareto/entries-pareto.componen
 import { MonthlyTargetComponent } from './monthly-target/monthly-target.component';
 import { AnalyticsComponent } from './analytics.component';
 import { MonthlyBudgetComponent } from './monthly-budget/monthly-budget.component';
+import { PatrimonyComponent } from './patrimony/patrimony.component';
 
 
 @NgModule({
    declarations: [AnalyticsComponent, AnalyticsFiltersComponent,
-      CategoryGoalsComponent, EntriesParetoComponent, MonthlyTargetComponent, MonthlyBudgetComponent],
+      CategoryGoalsComponent, EntriesParetoComponent, MonthlyTargetComponent, MonthlyBudgetComponent, PatrimonyComponent],
    imports: [
       CommonModule, SharedModule, CommonSecureModule,
       AnalyticsRouting
