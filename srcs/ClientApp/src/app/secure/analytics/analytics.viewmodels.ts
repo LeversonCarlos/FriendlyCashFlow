@@ -47,8 +47,26 @@ export class MonthlyBudgetVM {
 }
 
 export class PatrimonyVM {
+   PatrimonyResume: PatrimonyResumeItem[];
    PreviousMonth: PatrimonyBalance[]
    CurrentMonth: PatrimonyBalance[]
+}
+
+export enum PatrimonyResumeEnum { PreviousMonthBalance = 0, CurrentMonthIncome = 1, CurrentMonthExpense = 2, CurrentMonthBalance = 3 };
+export class PatrimonyResumeItem {
+   Type: PatrimonyResumeEnum;
+   Value: number;
+   Text: string;
+   get Icon(): string {
+      if (this.Type == PatrimonyResumeEnum.CurrentMonthIncome)
+         return 'add_circle'
+      else if (this.Type == PatrimonyResumeEnum.CurrentMonthExpense)
+         return 'remove_circle'
+      else if (this.Type == PatrimonyResumeEnum.CurrentMonthBalance)
+         return 'monetization_on'
+      else
+         return 'lens'
+   }
 }
 
 export class PatrimonyBalance {

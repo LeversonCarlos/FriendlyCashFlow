@@ -1,1 +1,30 @@
-<p>patrimony works!</p>
+<div class="row">
+
+   <div class="col col-8">
+      <pre style="height: 25vh; overflow-y: scroll;">{{ Data | json }}</pre>
+   </div>
+
+   <div class="col col-4">
+      <mat-card>
+         <mat-card-content>
+            <strong>{{ 'ANALYTICS_PATRIMONY_RESUME_TITLE' | translation | async }}</strong>
+         </mat-card-content>
+         <mat-card-content>
+            <div id="patrimonyContainer"></div>
+            <mat-list dense>
+               <mat-list-item *ngFor="let item of Resume">
+                  <mat-icon matListIcon>{{item.Icon}}</mat-icon>
+                  <h3 mat-line>
+                     <strong>{{ item.Value | number : '1.2-2' }}</strong>
+                  </h3>
+                  <span mat-line>
+                     <small>{{ item.Text }}</small>
+                  </span>
+               </mat-list-item>
+            </mat-list>
+
+         </mat-card-content>
+      </mat-card>
+   </div>
+
+</div>

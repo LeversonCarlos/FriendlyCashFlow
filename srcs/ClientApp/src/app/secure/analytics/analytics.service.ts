@@ -1,7 +1,7 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { BusyService } from 'src/app/shared/busy/busy.service';
 import { HttpClient } from '@angular/common/http';
-import { FilterData, CategoryGoalsVM, EntriesParetoVM, MonthlyTargetVM, MonthlyBudgetVM, PatrimonyVM } from './analytics.viewmodels';
+import { FilterData, CategoryGoalsVM, EntriesParetoVM, MonthlyTargetVM, MonthlyBudgetVM, PatrimonyVM, PatrimonyResumeItem } from './analytics.viewmodels';
 import { AppInsightsService } from 'src/app/shared/app-insights/app-insights.service';
 import { Router } from '@angular/router';
 import { AnalyticsColors } from './analytics.colors';
@@ -94,6 +94,8 @@ export class AnalyticsService {
    public async LoadPatrimony(year: number, month: number): Promise<boolean> {
       const url = `api/analytics/patrimony/${year}/${month}`;
       this.Patrimony = await this.http.get<PatrimonyVM>(url).toPromise();
+      this.Patrimony.PatrimonyResume =
+         this.Patrimony.PatrimonyResume.map(x => Object.assign(new PatrimonyResumeItem, x));
       return (this.Patrimony != null);
    }
 

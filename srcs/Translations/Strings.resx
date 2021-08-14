@@ -216,6 +216,21 @@
   <data name="ANALYTICS_MONTHLY_TARGET_TITLE" xml:space="preserve">
     <value>Monthly Target</value>
   </data>
+  <data name="ANALYTICS_PATRIMONY_RESUME_TITLE" xml:space="preserve">
+    <value>Patrimony Resume</value>
+  </data>
+  <data name="ANALYTICS_PATRIMONYRESUMEENUM_PREVIOUSMONTHBALANCE" xml:space="preserve">
+    <value>Previous Balance</value>
+  </data>
+  <data name="ANALYTICS_PATRIMONYRESUMEENUM_CURRENTMONTHINCOME" xml:space="preserve">
+    <value>Income</value>
+  </data>
+  <data name="ANALYTICS_PATRIMONYRESUMEENUM_CURRENTMONTHEXPENSE" xml:space="preserve">
+    <value>Expense</value>
+  </data>
+  <data name="ANALYTICS_PATRIMONYRESUMEENUM_CURRENTMONTHBALANCE" xml:space="preserve">
+    <value>Current Balance</value>
+  </data>
   <data name="BASE_CANCEL_CHANGES_ABORT" xml:space="preserve">
     <value>Go Back</value>
   </data>

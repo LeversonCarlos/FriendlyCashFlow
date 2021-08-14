@@ -16,13 +16,17 @@ namespace FriendlyCashFlow.API.Analytics
          {
 
             var previousMonth = (new DateTime(searchYear, searchMonth, 1)).AddMonths(-1);
-            var previousMonthBalance = await this.GetService<Dashboard.DashboardService>().GetBalanceAsync((short)previousMonth.Year, (short)previousMonth.Month, false);
+            var previousMonthBalanceMessage = await this.GetService<Dashboard.DashboardService>().GetBalanceAsync((short)previousMonth.Year, (short)previousMonth.Month, false);
             var currentMonthBalance = await this.GetService<Dashboard.DashboardService>().GetBalanceAsync(searchYear, searchMonth, false);
             var currentrMonthFlow = await this.GetService<Entries.EntriesService>().GetDataAsync(searchYear, searchMonth, 0);
 
-            var previousMonthBalanceTotal = previousMonthBalance.Value
-               .Select(x => x.CurrentBalance)
-               .Sum();
+            var previousMonthBalance =
+               PatrimonyResumeItem.Create(
+                  PatrimonyResumeEnum.PreviousMonthBalance,
+                  previousMonthBalanceMessage.Value
+                     .Select(x => x.CurrentBalance)
+                     .Sum(),
+                  this.GetTranslation);
 
             var currentMonthEntryValues = currentrMonthFlow.Value
                .SelectMany(x => x.EntryList)
@@ -34,23 +38,42 @@ namespace FriendlyCashFlow.API.Analytics
                })
                .ToList();
 
-            var currentMonthIncome = currentMonthEntryValues
-               .Select(x => x.IncomeValue)
-               .Sum();
-            var currentMonthExpense = currentMonthEntryValues
-               .Select(x => x.ExpenseValue)
-               .Sum();
+            var currentMonthIncome =
+               PatrimonyResumeItem.Create(
+                  PatrimonyResumeEnum.CurrentMonthIncome,
+                  currentMonthEntryValues
+                     .Select(x => x.IncomeValue)
+                     .Sum(),
+                  this.GetTranslation);
+            var currentMonthExpense =
+               PatrimonyResumeItem.Create(
+                  PatrimonyResumeEnum.CurrentMonthExpense,
+                  currentMonthEntryValues
+                     .Select(x => x.ExpenseValue)
+                     .Sum(),
+                  this.GetTranslation);
 
-
-
-            var patrimony = new PatrimonyVM
-            {
-               PreviousMonthBalance = previousMonthBalanceTotal,
-               CurrentMonthIncome = currentMonthIncome,
-               CurrentMonthExpense = currentMonthExpense,
-               PreviousMonth = previousMonthBalance.Value,
-               CurrentMonth = currentMonthBalance.Value
+            var patrimonyResume = new PatrimonyResumeItem[]{
+               previousMonthBalance,
+               currentMonthIncome,
+               currentMonthExpense,
+               PatrimonyResumeItem.Create(
+                  PatrimonyResumeEnum.CurrentMonthBalance,
+                  previousMonthBalance.Value+currentMonthIncome.Value+currentMonthExpense.Value,
+               this.GetTranslation
+               )
             };
+
+
+
+            /*
+            var recurrencyText = $"{"Recurrency".ToUpper()}_{"enRecurrencyType".ToUpper()}";
+            this.GetTranslation($"{recurrencyText}_{x.ToString().ToUpper()}")
+            */
+
+            var patrimony = PatrimonyVM.Create(patrimonyResume);
+            patrimony.PreviousMonth = previousMonthBalanceMessage.Value;
+            patrimony.CurrentMonth = currentMonthBalance.Value;
 
             return patrimony;
 
@@ -73,11 +96,31 @@ namespace FriendlyCashFlow.API.Analytics
 
    public class PatrimonyVM
    {
-      public decimal PreviousMonthBalance { get; set; }
-      public decimal CurrentMonthIncome { get; set; }
-      public decimal CurrentMonthExpense { get; set; }
+      public PatrimonyResumeItem[] PatrimonyResume { get; private set; }
+      public static PatrimonyVM Create(PatrimonyResumeItem[] patrimonyResume) =>
+         new PatrimonyVM
+         {
+            PatrimonyResume = patrimonyResume
+         };
       public List<Dashboard.BalanceVM> PreviousMonth { get; set; }
       public List<Dashboard.BalanceVM> CurrentMonth { get; set; }
+   }
+
+   public enum PatrimonyResumeEnum : short { PreviousMonthBalance = 0, CurrentMonthIncome = 1, CurrentMonthExpense = 2, CurrentMonthBalance = 3 };
+   public struct PatrimonyResumeItem
+   {
+      public PatrimonyResumeEnum Type { get; private set; }
+      public decimal Value { get; private set; }
+      public string Text { get; private set; }
+      public static PatrimonyResumeItem Create(
+         PatrimonyResumeEnum type, decimal value,
+         Func<string, string> getTranslation) =>
+         new PatrimonyResumeItem
+         {
+            Type = type,
+            Value = value,
+            Text = getTranslation($"{"Analytics".ToUpper()}_{nameof(PatrimonyResumeEnum).ToUpper()}_{type.ToString().ToUpper()}")
+         };
    }
 
 }
