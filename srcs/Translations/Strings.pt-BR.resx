@@ -216,6 +216,24 @@
   <data name="ANALYTICS_MONTHLY_TARGET_TITLE" xml:space="preserve">
     <value>Meta Mensal</value>
   </data>
+  <data name="ANALYTICS_PATRIMONY_DISTRIBUTION_TITLE" xml:space="preserve">
+    <value>Distribuição do Patrimônio</value>
+  </data>
+  <data name="ANALYTICS_PATRIMONY_RESUME_TITLE" xml:space="preserve">
+    <value>Resumo do Patrimônio</value>
+  </data>
+  <data name="ANALYTICS_PATRIMONYRESUMEENUM_PREVIOUSMONTHBALANCE" xml:space="preserve">
+    <value>Saldo Anterior</value>
+  </data>
+  <data name="ANALYTICS_PATRIMONYRESUMEENUM_CURRENTMONTHINCOME" xml:space="preserve">
+    <value>Entradas</value>
+  </data>
+  <data name="ANALYTICS_PATRIMONYRESUMEENUM_CURRENTMONTHEXPENSE" xml:space="preserve">
+    <value>Saídas</value>
+  </data>
+  <data name="ANALYTICS_PATRIMONYRESUMEENUM_CURRENTMONTHBALANCE" xml:space="preserve">
+    <value>Saldo Atual</value>
+  </data>
   <data name="BASE_CANCEL_CHANGES_ABORT" xml:space="preserve">
     <value>Voltar</value>
   </data>
