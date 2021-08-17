@@ -1,0 +1,8 @@
+POST https://localhost:5001/api/users/auth HTTP/1.1
+content-type: application/json
+
+{
+    "GrantType" : "password",
+    "UserName" : "username@mail.com",
+    "Password" : "your-password"
+}

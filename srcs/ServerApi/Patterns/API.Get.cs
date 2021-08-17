@@ -11,7 +11,7 @@ namespace FriendlyCashFlow.API.Patterns
    partial class PatternsService
    {
 
-      private IQueryable<PatternData> GetDataQuery()
+      internal IQueryable<PatternData> GetDataQuery()
       {
          var user = this.GetService<Helpers.User>();
          return this.dbContext.Patterns
