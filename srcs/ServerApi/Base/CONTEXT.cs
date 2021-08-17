@@ -22,13 +22,13 @@ namespace FriendlyCashFlow.API.Base
          this.OnModelCreating_Patterns(modelBuilder);
          this.OnModelCreating_Recurrencies(modelBuilder);
          this.OnModelCreating_Entries(modelBuilder);
+         this.OnModelCreating_Budget(modelBuilder);
          base.OnModelCreating(modelBuilder);
       }
 
       /*
          dotnet ef migrations add Initial
          dotnet ef database update
-         git remote prune origin
        */
 
    }
