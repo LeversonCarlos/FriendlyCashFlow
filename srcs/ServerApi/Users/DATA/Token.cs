@@ -36,7 +36,7 @@ namespace FriendlyCashFlow.API.Base
             .HasKey(c => new { c.UserID, c.RefreshToken });
          modelBuilder.Entity<Users.UserTokenData>()
             .HasIndex(x => new { x.RefreshToken })
-            .HasName("v6_identityUserTokens_index_Search");
+            .HasDatabaseName("v6_identityUserTokens_index_Search");
       }
    }
 }

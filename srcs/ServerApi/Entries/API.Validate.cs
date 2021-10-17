@@ -15,9 +15,9 @@ namespace FriendlyCashFlow.API.Entries
          {
 
             // VALIDATE DATES
-            if (value.DueDate == null || value.DueDate == DateTime.MinValue)
+            if (value.DueDate == DateTime.MinValue)
             { return this.WarningResponse(this.GetTranslation("ENTRIES_DUEDATE_INVALID_WARNING")); }
-            if (value.Paid && (!value.PayDate.HasValue || value.PayDate.Value == null || value.PayDate.Value == DateTime.MinValue))
+            if (value.Paid && (!value.PayDate.HasValue || value.PayDate.Value == DateTime.MinValue))
             { return this.WarningResponse(this.GetTranslation("ENTRIES_PAYDATE_INVALID_WARNING")); }
 
             // VALIDATE VALUE

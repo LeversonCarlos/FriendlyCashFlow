@@ -43,7 +43,7 @@ namespace FriendlyCashFlow.API.Base
          modelBuilder.Entity<Budget.BudgetData>()
             .HasIndex(x => new { x.RowStatus, x.ResourceID, x.PatternID })
             .IncludeProperties(x => new { x.BudgetID, x.Value })
-            .HasName("v6_dataBudget_index_Search");
+            .HasDatabaseName("v6_dataBudget_index_Search");
       }
    }
 }

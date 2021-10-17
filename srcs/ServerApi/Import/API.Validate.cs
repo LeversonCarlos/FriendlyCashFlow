@@ -24,7 +24,7 @@ namespace FriendlyCashFlow.API.Import
             // VALIDATE DATES
             if (value.Entries.Any(x => x.DueDate == DateTime.MinValue))
             { return this.WarningResponse(this.GetTranslation("IMPORT_INVALID_DUEDATE_WARNING")); }
-            if (value.Entries.Any(x => x.Paid && (!x.PayDate.HasValue || x.PayDate.Value == null || x.PayDate.Value == DateTime.MinValue)))
+            if (value.Entries.Any(x => x.Paid && (!x.PayDate.HasValue || x.PayDate.Value == DateTime.MinValue)))
             { return this.WarningResponse(this.GetTranslation("IMPORT_INVALID_PAYDATE_WARNING")); }
 
             // VALIDATE VALUE
