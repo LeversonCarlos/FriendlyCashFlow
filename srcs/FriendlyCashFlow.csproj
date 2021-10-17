@@ -2,6 +2,9 @@
 
    <PropertyGroup>
       <TargetFramework>net5.0</TargetFramework>
+      <!--
+         <RuntimeIdentifiers>win-x64;win-x86;linux-x64;osx-x64</RuntimeIdentifiers>
+      -->
       <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
       <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
       <IsPackable>false</IsPackable>
