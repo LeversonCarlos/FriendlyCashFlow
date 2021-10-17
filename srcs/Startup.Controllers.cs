@@ -13,7 +13,8 @@ namespace FriendlyCashFlow
       private void AddControllers(IServiceCollection services)
       {
          // services.AddCors();
-         services.AddControllersWithViews()
+         services
+            .AddControllersWithViews()
             .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
             .AddJsonOptions(options =>
             {
@@ -45,8 +46,8 @@ namespace FriendlyCashFlow
             endpoints.MapControllers();
             /*
             endpoints.MapControllerRoute(
-                name: "default",
-                pattern: "{controller}/{action=Index}/{id?}");
+               name: "default",
+               pattern: "{controller}/{action=Index}/{id?}");
             */
          });
 

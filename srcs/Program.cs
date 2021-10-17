@@ -11,7 +11,7 @@ namespace FriendlyCashFlow
       }
 
       public static IHostBuilder CreateHostBuilder(string[] args) =>
-          Host
+         Host
             .CreateDefaultBuilder(args)
             .ConfigureWebHostDefaults(webBuilder =>
             {
