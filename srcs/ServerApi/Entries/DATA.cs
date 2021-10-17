@@ -77,16 +77,16 @@ namespace FriendlyCashFlow.API.Base
          modelBuilder.Entity<Entries.EntryData>()
             .HasIndex(x => new { x.RowStatus, x.ResourceID, x.AccountID, x.SearchDate })
             .IncludeProperties(x => new { x.EntryID, x.Type, x.TransferID, x.EntryValue, x.Paid })
-            .HasName("v6_dataEntries_index_SearchDate");
+            .HasDatabaseName("v6_dataEntries_index_SearchDate");
          modelBuilder.Entity<Entries.EntryData>()
             .HasIndex(x => new { x.RowStatus, x.ResourceID, x.AccountID, x.Text })
-            .HasName("v6_dataEntries_index_SearchText");
+            .HasDatabaseName("v6_dataEntries_index_SearchText");
          modelBuilder.Entity<Entries.EntryData>()
             .HasIndex(x => new { x.RowStatus, x.ResourceID, x.TransferID })
-            .HasName("v6_dataEntries_index_SearchTransfer");
+            .HasDatabaseName("v6_dataEntries_index_SearchTransfer");
          modelBuilder.Entity<Entries.EntryData>()
             .HasIndex(x => new { x.RecurrencyID })
-            .HasName("v6_dataEntries_index_SearchRecurrency");
+            .HasDatabaseName("v6_dataEntries_index_SearchRecurrency");
       }
    }
 }

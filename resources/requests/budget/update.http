@@ -1,0 +1,10 @@
+PUT https://localhost:5001/api/budget/1 HTTP/1.1
+content-type: application/json
+Authorization: Bearer ey...allTokenContent...qQ
+
+{
+    "PatternRow" : {
+        "PatternID" : 1
+    },
+    "Value" : 2000
+}

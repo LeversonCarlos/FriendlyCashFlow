@@ -35,7 +35,7 @@ namespace FriendlyCashFlow.API.Base
             .HasKey(c => new { c.UserID, c.ResourceID });
          modelBuilder.Entity<Users.UserResourceData>()
             .HasIndex(x => new { x.RowStatus, x.UserID, x.ResourceID })
-            .HasName("v6_identityUserResources_index_Search");
+            .HasDatabaseName("v6_identityUserResources_index_Search");
       }
 
    }

@@ -46,10 +46,10 @@ namespace FriendlyCashFlow.API.Base
       {
          modelBuilder.Entity<Users.UserData>()
             .HasIndex(x => new { x.RowStatus, x.UserID })
-            .HasName("v6_identityUsers_index_UserID");
+            .HasDatabaseName("v6_identityUsers_index_UserID");
          modelBuilder.Entity<Users.UserData>()
             .HasIndex(x => new { x.RowStatus, x.UserName, x.PasswordHash })
-            .HasName("v6_identityUsers_index_Login");
+            .HasDatabaseName("v6_identityUsers_index_Login");
       }
    }
 }

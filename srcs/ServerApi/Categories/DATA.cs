@@ -44,10 +44,10 @@ namespace FriendlyCashFlow.API.Base
       {
          modelBuilder.Entity<Categories.CategoryData>()
             .HasIndex(x => new { x.RowStatus, x.ResourceID, x.Type, x.CategoryID, x.HierarchyText })
-            .HasName("v6_dataCategories_index_Search");
+            .HasDatabaseName("v6_dataCategories_index_Search");
          modelBuilder.Entity<Categories.CategoryData>()
             .HasIndex(x => new { x.RowStatus, x.ResourceID, x.Type, x.ParentID, x.CategoryID, x.Text })
-            .HasName("v6_dataCategories_index_Parent");
+            .HasDatabaseName("v6_dataCategories_index_Parent");
       }
    }
 }

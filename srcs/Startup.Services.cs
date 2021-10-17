@@ -33,6 +33,7 @@ namespace FriendlyCashFlow
          services.AddScoped<API.Dashboard.DashboardService>();
          services.AddScoped<API.Analytics.AnalyticsService>();
          services.AddScoped<API.Import.ImportService>();
+         services.AddScoped<API.Budget.BudgetService>();
 
          // APPLICATION INSIGHTS
          if (this.AppSettings.AppInsights.Activated && !string.IsNullOrEmpty(this.AppSettings.AppInsights.InstrumentationKey))
