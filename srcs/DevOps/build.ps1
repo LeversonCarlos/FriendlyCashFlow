@@ -61,12 +61,12 @@ cd..
 ## BACKEND BUILDING ##
 Write-Output ""
 Write-Output "> BACKEND UILDING >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-dotnet build --configuration $configuration --no-restore
+dotnet build --configuration $configuration -r win-x86 --self-contained --no-restore
 
 ## PUBLISHING ##
 Write-Output ""
 Write-Output "> PUBLISHING >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-dotnet publish --configuration $configuration --output $output/build --no-restore --no-build
+dotnet publish --configuration $configuration -r win-x86 --self-contained --output $output/build --no-restore --no-build
 
 ## MIGRATIONS ##
 Write-Output ""
