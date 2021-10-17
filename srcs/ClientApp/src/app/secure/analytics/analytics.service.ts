@@ -31,7 +31,7 @@ export class AnalyticsService {
       try {
          this.FilterData.setData(currentMonth);
          const year = (currentMonth && currentMonth.getFullYear()) || 0
-         const month = (currentMonth && currentMonth.getMonth() + 1) | 0
+         const month = (currentMonth && currentMonth.getMonth() + 1) || 0
 
          await this.refreshData(year, month)
          this.showIndex(year, month, isPrinting);
