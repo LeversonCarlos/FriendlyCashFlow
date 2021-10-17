@@ -59,7 +59,7 @@ namespace FriendlyCashFlow.API.Base
       {
          modelBuilder.Entity<Recurrencies.RecurrencyData>()
             .HasIndex(x => new { x.RowStatus, x.ResourceID, x.RecurrencyID })
-            .HasName("v6_dataRecurrencies_index_Search");
+            .HasDatabaseName("v6_dataRecurrencies_index_Search");
       }
    }
 }

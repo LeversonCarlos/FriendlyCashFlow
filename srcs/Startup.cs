@@ -9,10 +9,8 @@ namespace FriendlyCashFlow
    {
 
       public IConfiguration Configuration { get; }
-      public Startup(IConfiguration configuration)
-      {
+      public Startup(IConfiguration configuration) =>
          this.Configuration = configuration;
-      }
 
       public void ConfigureServices(IServiceCollection services)
       {
