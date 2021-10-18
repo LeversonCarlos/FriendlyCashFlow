@@ -41,7 +41,7 @@ $angularManifestFile = 'ClientApp/src/manifest.json'
 ## BACKEND PACKAGES ##
 Write-Output ""
 Write-Output "> BACKEND PACKAGES >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-dotnet restore -r win-x86
+dotnet restore
 
 ## FRONTEND PACKAGES ##
 Write-Output ""
@@ -61,12 +61,12 @@ cd..
 ## BACKEND BUILDING ##
 Write-Output ""
 Write-Output "> BACKEND BUILDING >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-dotnet build --configuration $configuration -r win-x86 --no-restore
+dotnet build --configuration $configuration --no-restore
 
 ## PUBLISHING ##
 Write-Output ""
 Write-Output "> PUBLISHING >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-dotnet publish --configuration $configuration -r win-x86 --no-restore --no-build --self-contained --output $output/build
+dotnet publish --configuration $configuration --no-restore --no-build --self-contained --output $output/build
 
 ## MIGRATIONS ##
 Write-Output ""
