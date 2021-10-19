@@ -7,7 +7,9 @@ on:
   #   types: [created]
 
 env:
-  version: 6.3.${{ github.run_number }}
+  major_version: 6
+  minor_version: 3
+  version: '${{ env.major_version }}.${{ env.minor_version }}.${{ github.run_number }}'
 
 jobs:
 
@@ -119,6 +121,6 @@ jobs:
       - name: Deploy
         uses: azure/webapps-deploy@v2
         with:
-          app-name: friendlycashflowAPI
+          app-name: friendlyCashFlow-dev
           publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
           package: ./publish/build
