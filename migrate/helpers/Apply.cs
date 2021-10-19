@@ -9,11 +9,11 @@ namespace migrate
 
       static async Task Apply(object instance, Type migratorType, System.Reflection.MethodInfo migratorMethod, string connStr)
       {
-         WriteLine(" aplicando migration", ConsoleColor.Green);
+         WriteLine(" Iniciando Migration", ConsoleColor.Green);
          var migratorParams = new object[] { connStr };
          var task = (Task)migratorMethod.Invoke(instance, migratorParams);
          await task;
-         WriteLine(" migration aplicado", ConsoleColor.Green);
+         WriteLine(" Finalizando Migration", ConsoleColor.Green);
       }
 
    }

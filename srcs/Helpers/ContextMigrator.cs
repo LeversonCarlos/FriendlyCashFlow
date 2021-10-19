@@ -11,9 +11,13 @@ namespace FriendlyCashFlow
       {
          try
          {
-            using (var context = API.Base.dbContext.CreateNewContext(connStr))
+            Console.WriteLine("  Criando Contexto");
+            using (var ctx = API.Base.dbContext.CreateNewContext(connStr))
             {
-               await context.Database.MigrateAsync();
+               Console.WriteLine("  Contexto Criado");
+               Console.WriteLine("  Aplicando Migration");
+               await ctx.Database.MigrateAsync();
+               Console.WriteLine("  Migration Aplicado");
             }
          }
          catch (Exception) { throw; }
