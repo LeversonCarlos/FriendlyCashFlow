@@ -61,12 +61,17 @@ jobs:
       - name: Publish
         working-directory: 'srcs'
         run: |
-          dotnet publish --no-build --no-restore --configuration Release --output ./publish/build
+          dotnet publish --no-build --no-restore --configuration Release --output ../publish/build
 
       - name: Migrations
         working-directory: 'srcs'
         run: |
-          dotnet ef migrations script -o ./publish/scripts/migrations.sql -i -v
+          dotnet ef migrations script -o ../publish/scripts/migrations.sql -i -v
+
+      - name: List Artifacts
+        working-directory: 'publish'
+        run: |
+          find . -name \* -print
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
@@ -85,6 +90,11 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           path: ./publish
+
+      - name: List Artifacts
+        working-directory: 'publish'
+        run: |
+          find . -name \* -print
 
       - name: AppSettings Substitution
         uses: microsoft/variable-substitution@v1
