@@ -2,7 +2,7 @@ name: Release
 
 on:
   push:
-    branches: [ master, dev, lc/dev/fixBuildPipeline ]
+    branches: [ master, dev ]
   # release:
   #   types: [created]
 
