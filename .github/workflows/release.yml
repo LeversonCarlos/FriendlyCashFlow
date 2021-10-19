@@ -89,7 +89,7 @@ jobs:
       - name: Download Artifacts
         uses: actions/download-artifact@v2
         with:
-          path: ./publish
+          path: ./
 
       - name: List Artifacts
         working-directory: 'publish'
