@@ -9,7 +9,7 @@ on:
 env:
   major_version: 6
   minor_version: 3
-  version: '${{ env.major_version }}.${{ env.minor_version }}.${{ github.run_number }}'
+  version: '${{ major_version }}.${{ minor_version }}.${{ github.run_number }}'
 
 jobs:
 
