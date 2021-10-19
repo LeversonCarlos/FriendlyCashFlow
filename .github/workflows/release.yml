@@ -35,7 +35,7 @@ jobs:
           echo ${{ env.version }}
           sed -i 's|<Version>1.0.0</Version>|<Version>${{ env.version }}</Version>|g' FriendlyCashFlow.csproj
           sed -i 's|"version": "1.0.0",|"version": "${{ env.version }}",|g' ClientApp/package.json
-          sed -i 's|"version": "1.0.0",|"version": "${{ env.version }}",|g' ClientApp/src/manifest.webmanifest
+          sed -i 's|"version": "1.0.0",|"version": "${{ env.version }}",|g' ClientApp/src/manifest.json
 
       - name: Frontend Packages
         working-directory: 'srcs/ClientApp'
