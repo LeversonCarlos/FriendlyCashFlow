@@ -1,0 +1,40 @@
+name: Pull Request
+
+on: [ pull_request ]
+
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Retrieve Sources
+        uses: actions/checkout@v2
+
+      - name: Setup Dotnet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '5.0.x'
+
+      - name: Frontend Packages
+        working-directory: 'srcs/ClientApp'
+        run: |
+          npm install --no-save
+
+      - name: Frontend Build
+        working-directory: 'srcs/ClientApp'
+        run: |
+          npm run build
+
+      - name: Backend Packages
+        working-directory: 'srcs'
+        run: |
+          dotnet restore
+
+      - name: Backend Build
+        working-directory: 'srcs'
+        run: |
+          dotnet build --configuration Release --no-restore
+        # dotnet test /p:CoverletOutputFormat=opencover
