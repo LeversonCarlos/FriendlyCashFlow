@@ -9,4 +9,9 @@
       <Company>Friendship</Company>
    </PropertyGroup>
 
+   <ItemGroup>
+      <FrameworkReference Include="Microsoft.AspNetCore.App" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.11" />
+   </ItemGroup>
+
 </Project>
