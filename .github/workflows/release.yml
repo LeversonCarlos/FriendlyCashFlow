@@ -7,9 +7,7 @@ on:
   #   types: [created]
 
 env:
-  major_version: 6
-  minor_version: 3
-  version: '${ major_version }.${ minor_version }.${{ github.run_number }}'
+  version: '6.3.${{ github.run_number }}'
 
 jobs:
 
