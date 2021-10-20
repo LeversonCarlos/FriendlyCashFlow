@@ -12,6 +12,7 @@ namespace FriendlyCashFlow
 
          // DATA CONTEXT
          services.AddDbContext<API.Base.dbContext>(x => x.ConfigureSqlServer(this.AppSettings.ConnStr));
+         services.AddStartupTask<StartupMigrator>();
 
          // CONFIGURE INJECTION FOR HELPERS
          services.AddScoped<API.Users.UsersService>();
