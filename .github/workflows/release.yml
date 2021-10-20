@@ -124,7 +124,7 @@ jobs:
           package: ./publish/build
 
       - name: Initial Load
-            uses: fjogeleit/http-request-action@master
-            with:
-              url: '${{ secrets.AZURE_HOST_URL }}'
-              method: 'GET'
+        uses: fjogeleit/http-request-action@master
+        with:
+          url: '${{ secrets.AZURE_HOST_URL }}'
+          method: 'GET'
