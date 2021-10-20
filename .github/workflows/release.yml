@@ -63,15 +63,15 @@ jobs:
         run: |
           dotnet publish --no-build --no-restore --configuration Release --output ../publish/build
 
-      - name: Migrations
-        working-directory: 'srcs'
-        run: |
-          dotnet ef migrations script -o ../publish/scripts/migrations.sql -i -v
+      #- name: Migrations
+      #  working-directory: 'srcs'
+      #  run: |
+      #    dotnet ef migrations script -o ../publish/scripts/migrations.sql -i -v
 
       - name: List Artifacts
         working-directory: 'publish'
         run: |
-          find . -name \* -print
+          find . -name \* -print | sort -n # Ascending
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
@@ -94,7 +94,7 @@ jobs:
       - name: List Artifacts
         working-directory: 'publish'
         run: |
-          find . -name \* -print
+          find . -name \* -print | sort -n # Ascending
 
       - name: AppSettings Substitution
         uses: microsoft/variable-substitution@v1
@@ -122,3 +122,14 @@ jobs:
           app-name: friendlyCashFlow-dev
           publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
           package: ./publish/build
+
+      - name: Initial Load
+        id: initialLoad
+        uses: fjogeleit/http-request-action@master
+        with:
+          url: '${{ secrets.AZURE_HOST_URL }}'
+          method: 'GET'
+          preventFailureOnNoResponse: 'true'
+
+      - name: Initial Load Response
+        run: echo ${{ steps.initialLoad.outputs.response }}

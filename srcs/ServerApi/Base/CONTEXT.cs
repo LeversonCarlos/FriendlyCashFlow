@@ -1,35 +1,62 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 
-namespace FriendlyCashFlow.API.Base
+namespace FriendlyCashFlow
 {
-   internal partial class dbContext : DbContext, IDisposable
+
+   namespace API.Base
    {
 
-      public IServiceProvider serviceProvider { get; set; }
-      public dbContext(DbContextOptions<dbContext> options, IServiceProvider _serviceProvider) : base(options)
-      { this.serviceProvider = _serviceProvider; }
-
-      protected override void OnModelCreating(ModelBuilder modelBuilder)
+      internal partial class dbContext : DbContext, IDisposable
       {
-         this.OnModelCreating_Users(modelBuilder);
-         this.OnModelCreating_UserResources(modelBuilder);
-         this.OnModelCreating_UserRoles(modelBuilder);
-         this.OnModelCreating_UserToken(modelBuilder);
-         this.OnModelCreating_Accounts(modelBuilder);
-         this.OnModelCreating_Categories(modelBuilder);
-         this.OnModelCreating_Balances(modelBuilder);
-         this.OnModelCreating_Patterns(modelBuilder);
-         this.OnModelCreating_Recurrencies(modelBuilder);
-         this.OnModelCreating_Entries(modelBuilder);
-         this.OnModelCreating_Budget(modelBuilder);
-         base.OnModelCreating(modelBuilder);
+
+         public dbContext(DbContextOptions<dbContext> options) : base(options)
+         { }
+
+         protected override void OnModelCreating(ModelBuilder modelBuilder)
+         {
+            this.OnModelCreating_Users(modelBuilder);
+            this.OnModelCreating_UserResources(modelBuilder);
+            this.OnModelCreating_UserRoles(modelBuilder);
+            this.OnModelCreating_UserToken(modelBuilder);
+            this.OnModelCreating_Accounts(modelBuilder);
+            this.OnModelCreating_Categories(modelBuilder);
+            this.OnModelCreating_Balances(modelBuilder);
+            this.OnModelCreating_Patterns(modelBuilder);
+            this.OnModelCreating_Recurrencies(modelBuilder);
+            this.OnModelCreating_Entries(modelBuilder);
+            this.OnModelCreating_Budget(modelBuilder);
+            base.OnModelCreating(modelBuilder);
+         }
+
+         /*
+            dotnet ef migrations add Initial
+            dotnet ef database update
+          */
+
+         internal static dbContext CreateNewContext(string connStr)
+         {
+            var builder = new DbContextOptionsBuilder<dbContext>();
+            builder.ConfigureSqlServer(connStr);
+            var ctx = new dbContext(builder.Options);
+            return ctx;
+         }
+
       }
 
-      /*
-         dotnet ef migrations add Initial
-         dotnet ef database update
-       */
+   }
+
+   internal static class dbContextExtensions
+   {
+      public static DbContextOptionsBuilder ConfigureSqlServer(this DbContextOptionsBuilder self, string connStr)
+      {
+         self.UseSqlServer(connStr, opt =>
+         {
+            opt.MigrationsHistoryTable("v6_MigrationsHistory");
+         });
+         return self;
+      }
 
    }
+
 }
