@@ -124,7 +124,12 @@ jobs:
           package: ./publish/build
 
       - name: Initial Load
+        id: initialLoad
         uses: fjogeleit/http-request-action@master
         with:
           url: '${{ secrets.AZURE_HOST_URL }}'
           method: 'GET'
+          preventFailureOnNoResponse: 'true'
+
+      - name: Initial Load Response
+        run: echo ${{ steps.initialLoad.outputs.response }}
