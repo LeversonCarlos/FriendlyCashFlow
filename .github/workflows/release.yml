@@ -71,7 +71,7 @@ jobs:
       - name: List Artifacts
         working-directory: 'publish'
         run: |
-          find . -name \* -print
+          find . -name \* -print | sort -n # Ascending
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
@@ -94,7 +94,7 @@ jobs:
       - name: List Artifacts
         working-directory: 'publish'
         run: |
-          find . -name \* -print
+          find . -name \* -print | sort -n # Ascending
 
       - name: AppSettings Substitution
         uses: microsoft/variable-substitution@v1
