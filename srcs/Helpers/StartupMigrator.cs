@@ -9,15 +9,28 @@ namespace FriendlyCashFlow
    internal class StartupMigrator : IStartupTask, IDisposable
    {
 
-      public StartupMigrator(API.Base.dbContext context) =>
-         _Context = context;
-      readonly API.Base.dbContext _Context;
+      public StartupMigrator(AppSettings appSettings) =>
+         _AppSettings = appSettings;
+      readonly AppSettings _AppSettings;
 
       public async Task ExecuteAsync(CancellationToken cancellationToken = default)
       {
-         Console.WriteLine("  Applying Migration");
-         await _Context.Database.MigrateAsync();
-         Console.WriteLine("  Migration Applied");
+
+         try
+         {
+
+            Console.WriteLine("  Creating Context");
+            using (var ctx = API.Base.dbContext.CreateNewContext(_AppSettings.ConnStr))
+            {
+               Console.WriteLine("  Context Created");
+
+               Console.WriteLine("  Aplying Migration");
+               await ctx.Database.MigrateAsync();
+               Console.WriteLine("  Migration Applied");
+
+            }
+         }
+         catch (Exception) { throw; }
       }
 
       public void Dispose()
