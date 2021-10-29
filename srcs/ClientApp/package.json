@@ -24,7 +24,7 @@
     "@angular/router": "~12.2.10",
     "@angular/service-worker": "~12.2.10",
     "@microsoft/applicationinsights-web": "~2.6.4",
-    "highcharts": "~8.2.2",
+    "highcharts": "~9.2.2",
     "moment": "~2.29.0",
     "rxjs": "~6.6.3",
     "tslib": "~2.3.0",

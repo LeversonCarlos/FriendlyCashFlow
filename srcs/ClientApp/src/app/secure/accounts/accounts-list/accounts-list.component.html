@@ -2,7 +2,7 @@
    <mat-card-content>
       <mat-tab-group dynamicHeight="false">
          <mat-tab label="{{ 'ACCOUNTS_ACTIVE_ACCOUNTS_LABEL' | translation | async }}">
-            <mat-action-list>
+            <mat-action-list class="scrollbar">
                <button mat-list-item *ngFor="let item of ActiveData" (click)="OnItemClick(item)">
                   <span>{{ item.Text }}</span>
                   <mat-icon matListIcon>{{ item.Icon }}</mat-icon>
@@ -11,7 +11,7 @@
          </mat-tab>
          <mat-tab label="{{ 'ACCOUNTS_ARQUIVED_ACCOUNTS_LABEL' | translation | async }}"
             [disabled]="!ArquivedData?.length">
-            <mat-action-list>
+            <mat-action-list class="scrollbar">
                <button mat-list-item *ngFor="let item of ArquivedData" (click)="OnItemClick(item)">
                   <span>{{ item.Text }}</span>
                   <mat-icon matListIcon>{{ item.Icon }}</mat-icon>
