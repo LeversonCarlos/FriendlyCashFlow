@@ -1,0 +1,135 @@
+name: Release
+
+on:
+  push:
+    branches: [ master, dev ]
+  # release:
+  #   types: [created]
+
+env:
+  version: '6.3.${{ github.run_number }}'
+
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Retrieve Sources
+        uses: actions/checkout@v2
+
+      - name: Setup Dotnet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '5.0.x'
+
+      - name: Setup Tools
+        run: |
+          dotnet tool install --global dotnet-ef
+
+      - name: Setup Version
+        working-directory: 'srcs'
+        run: |
+          echo ${{ env.version }}
+          sed -i 's|<Version>1.0.0</Version>|<Version>${{ env.version }}</Version>|g' FriendlyCashFlow.csproj
+          sed -i 's|"version": "1.0.0",|"version": "${{ env.version }}",|g' ClientApp/package.json
+          sed -i 's|"version": "1.0.0",|"version": "${{ env.version }}",|g' ClientApp/src/manifest.json
+
+      - name: Frontend Packages
+        working-directory: 'srcs/ClientApp'
+        run: |
+          npm install --no-save
+
+      - name: Frontend Build
+        working-directory: 'srcs/ClientApp'
+        run: |
+          npm run build
+
+      - name: Backend Packages
+        working-directory: 'srcs'
+        run: |
+          dotnet restore
+
+      - name: Backend Build
+        working-directory: 'srcs'
+        run: |
+          dotnet build --configuration Release --no-restore
+        # dotnet test /p:CoverletOutputFormat=opencover
+
+      - name: Publish
+        working-directory: 'srcs'
+        run: |
+          dotnet publish --no-build --no-restore --configuration Release --output ../publish/build
+
+      #- name: Migrations
+      #  working-directory: 'srcs'
+      #  run: |
+      #    dotnet ef migrations script -o ../publish/scripts/migrations.sql -i -v
+
+      - name: List Artifacts
+        working-directory: 'publish'
+        run: |
+          find . -name \* -print | sort -n # Ascending
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: publish
+          path: ./publish
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: [build]
+
+    steps:
+
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          path: ./
+
+      - name: List Artifacts
+        working-directory: 'publish'
+        run: |
+          find . -name \* -print | sort -n # Ascending
+
+      - name: AppSettings Substitution
+        uses: microsoft/variable-substitution@v1
+        with:
+          files: './publish/build/appsettings.json,./publish/build/ClientApp/dist/assets/appsettings.json'
+        env:
+          AppSettings.AppInsights.Activated: true
+          AppSettings.AppInsights.InstrumentationKey: '${{ secrets.AZURE_INSIGHTS_KEY }}'
+          AppSettings.AppInsights.GlobalProperties.Environment: DEV
+          AppSettings.BaseHost: '${{ secrets.AZURE_HOST_URL }}'
+          AppSettings.ConnStr: '${{ secrets.AZURE_DATABASE_CONNSTR }}'
+          AppSettings.Mail.FromAddress: '${{ secrets.AZURE_MAIL_FROMADDRESS }}'
+          AppSettings.Mail.FromPassword: '${{ secrets.AZURE_MAIL_FROMPASSWORD }}'
+          AppSettings.Mail.SmtpHost: '${{ secrets.AZURE_MAIL_SMTPHOST }}'
+          AppSettings.Passwords.PasswordSalt: '${{ secrets.AZURE_IDENTITY_PASSWORDSALT }}'
+          AppSettings.Passwords.RequireNumbers: true
+          AppSettings.Token.Audience: '${{ secrets.AZURE_IDENTITY_TOKEN_AUDIENCE }}'
+          AppSettings.Token.Issuer: '${{ secrets.AZURE_IDENTITY_TOKEN_ISSUER }}'
+          AppSettings.Token.RefreshExpirationInSeconds: 604800
+          AppSettings.Token.Secret: '${{ secrets.AZURE_IDENTITY_TOKEN_SECRET }}'
+
+      - name: Deploy
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: friendlyCashFlow-dev
+          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
+          package: ./publish/build
+
+      - name: Initial Load
+        id: initialLoad
+        uses: fjogeleit/http-request-action@master
+        with:
+          url: '${{ secrets.AZURE_HOST_URL }}'
+          method: 'GET'
+          preventFailureOnNoResponse: 'true'
+
+      - name: Initial Load Response
+        run: echo ${{ steps.initialLoad.outputs.response }}

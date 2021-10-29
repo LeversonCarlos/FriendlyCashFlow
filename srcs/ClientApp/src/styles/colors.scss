@@ -23,6 +23,11 @@ $color-warn: mat.get-color-from-palette($palette-warn, default);
 $color-red: mat.get-color-from-palette(mat.$red-palette, 700);
 .forecolor-red { color: $color-red; }
 .backcolor-red { background-color: $color-red; }
+@media (prefers-color-scheme: dark) {
+   $color-red: mat.get-color-from-palette(mat.$red-palette, 400) !global;
+   .forecolor-red { color: $color-red; }
+   .backcolor-red { background-color: $color-red; }
+}
 
 /* GREEN */
 $color-green: mat.get-color-from-palette(mat.$green-palette, 700);

@@ -21,10 +21,10 @@
 
 .mat-card-balance {
   &.positive {
-    background-color: lighten($color: $color-green, $amount: 40);
+   text-shadow: 1px 1px $color-green;
   }
   &.negative {
-    background-color: lighten($color: $color-red, $amount: 40);
+   text-shadow: 1px 1px $color-red;
   }
 }
 

@@ -17,7 +17,7 @@ npm config list
 
 Write-Output ""
 Write-Output "> INSTALL EF >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-dotnet tool install --global dotnet-ef --version 3.1.1-*
+dotnet tool install --global dotnet-ef
 
 Write-Output ""
 Write-Output "> DOTNET TOOLS VERSION >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"

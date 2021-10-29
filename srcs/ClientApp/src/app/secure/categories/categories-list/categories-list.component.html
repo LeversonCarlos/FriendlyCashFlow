@@ -3,7 +3,7 @@
       <mat-tab-group dynamicHeight="false" [selectedIndex]="SelectedTabIndex"
          (selectedIndexChange)="OnTypeSelected($event)">
          <mat-tab *ngFor="let categoryType of Data" label="{{ categoryType.Text }}">
-            <mat-action-list>
+            <mat-action-list class="scrollbar">
                <button mat-list-item *ngFor="let category of categoryType.Categories" (click)="OnItemClick(category)">
                   <div class="splited-text">
                      <span *ngFor="let text of category.SplitedText; let i=index">
