@@ -50,6 +50,7 @@
                      "src/styles/theme.scss",
                      "src/styles/screenSizes.scss",
                      "src/styles/form.scss",
+                     "src/styles/scrollbar.scss",
                      "src/styles/global.scss",
                      "src/styles/mobile.scss",
                      "src/styles/responsive.scss"
