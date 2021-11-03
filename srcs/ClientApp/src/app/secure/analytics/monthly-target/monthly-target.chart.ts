@@ -3,6 +3,7 @@ import { TranslationService } from 'src/app/shared/translation/translation.servi
 import { MonthlyTargetVM } from '../analytics.viewmodels';
 
 import * as Highcharts from 'highcharts';
+import { AnalyticsService } from '../analytics.service';
 declare var require: any;
 let Boost = require('highcharts/modules/boost');
 let noData = require('highcharts/modules/no-data-to-display');
@@ -17,9 +18,11 @@ noData(Highcharts);
 })
 export class MonthlyTargetChart {
 
-   constructor(private translation: TranslationService) { }
+   constructor(private translation: TranslationService, private service: AnalyticsService) {
+      this.BalanceColor = this.service.Colors.GetForecolorSchemeSensitive();
+   }
 
-   private BalanceColor = '#333';
+   private BalanceColor = null;
    private IncomeColor = '#4CAF50';
    private ExpenseColor = '#f44336';
    private GoalColor = 'green';
@@ -108,7 +111,7 @@ export class MonthlyTargetChart {
             label: {
                text: `${goalText}: ${goalValue}`,
                x: 0,
-               style: { fontSize: '1.3vh' }
+               style: { fontSize: '1.3vh', color: this.BalanceColor }
             },
             zIndex: 7,
             width: 2

@@ -4,9 +4,9 @@ export class AnalyticsColors {
 
    /* COLORS */
    /* https://vis4.net/palettes */
-   private get Colors(): string[] {
+   public get Colors(): string[] {
       return ['#73a8f0', '#318047', '#f5c533', '#004789', '#f18302', '#8f5699', '#894a00', '#3ed662',
-         '#808080', '#50ebe8', '#e44d98', '#adff2f', '#ffa07a', '#333333'];
+         '#808080', '#50ebe8', '#e44d98', '#adff2f', '#ffa07a'];
    }
 
    /* CATEGORIES */
@@ -34,6 +34,14 @@ export class AnalyticsColors {
 
       // RETURN THE COLOR ON THE COLORS ARRAY
       return this.Colors[colorIndex];
+   }
+
+   public GetForecolorSchemeSensitive(): string {
+      let color = '#333333';
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+         color = '#dddddd'
+      }
+      return color;
    }
 
 }

@@ -117,7 +117,7 @@ export class CategoryGoalsChart {
             label: {
                text: await this.translation.getValue("ANALYTICS_CATEGORY_GOALS_GOAL_LABEL"),
                x: 0,
-               style: { fontSize: '1.3vh' }
+               style: { fontSize: '1.3vh', color: this.service.Colors.GetForecolorSchemeSensitive() }
             },
             zIndex: 7,
             width: 2
