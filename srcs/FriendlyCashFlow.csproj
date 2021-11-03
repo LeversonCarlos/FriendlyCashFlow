@@ -38,6 +38,7 @@
    </ItemGroup>
 
    <ItemGroup>
+      <None Remove="ServerApi\Analytics\QUERY.ApplicationYield.sql" />
       <None Remove="ServerApi\Analytics\QUERY.CategoryGoals.sql" />
       <None Remove="ServerApi\Analytics\QUERY.EntriesPareto.sql" />
       <None Remove="ServerApi\Analytics\QUERY.MonthlyBudget.sql" />
@@ -51,6 +52,7 @@
    </ItemGroup>
 
    <ItemGroup>
+      <EmbeddedResource Include="ServerApi\Analytics\QUERY.ApplicationYield.sql" />
       <EmbeddedResource Include="ServerApi\Analytics\QUERY.CategoryGoals.sql" />
       <EmbeddedResource Include="ServerApi\Analytics\QUERY.EntriesPareto.sql" />
       <EmbeddedResource Include="ServerApi\Analytics\QUERY.MonthlyBudget.sql" />
