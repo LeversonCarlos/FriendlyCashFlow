@@ -36,4 +36,12 @@ export class AnalyticsColors {
       return this.Colors[colorIndex];
    }
 
+   public GetForecolorSchemeSensitive(): string {
+      let color = '#333333';
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+         color = '#dddddd'
+      }
+      return color;
+   }
+
 }

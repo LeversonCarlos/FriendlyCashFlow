@@ -62,11 +62,15 @@ export class PatrimonyDistributionPieChart {
    }
 
    private legendOptions(): Highcharts.LegendOptions {
+      const self = this;
       return {
          enabled: true,
          labelFormat: '<b>{name}</b>: <small>{y:,.2f}</small>',
          layout: 'vertical',
          verticalAlign: 'top',
+         itemStyle: {
+            color: self.service.Colors.GetForecolorSchemeSensitive()
+         },
          align: 'left'
       };
    }
