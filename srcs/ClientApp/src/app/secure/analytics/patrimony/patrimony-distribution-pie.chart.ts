@@ -92,6 +92,7 @@ export class PatrimonyDistributionPieChart {
          name: await this.translation.getValue("ACCOUNTS_MAIN_TITLE"),
          type: "pie",
          colorByPoint: true,
+         colors: this.service.Colors.Colors,
          data: data
             .map(x => ({
                name: x.Text,
