@@ -1,6 +1,9 @@
 export class AnalyticsColors {
 
-   public Restart() { this.LastCategoryColorIndex = -1; }
+   public Restart() {
+      this.LastCategoryColorIndex = -1;
+      this.LastAccountColorIndex = -1;
+   }
 
    /* COLORS */
    /* https://vis4.net/palettes */
@@ -29,6 +32,33 @@ export class AnalyticsColors {
          // STORE THE GIVEN COLOR INDEX ON THE DICTIONARY FOR FUTURE
          colorIndex = this.LastCategoryColorIndex;
          this.CategoriesColor[categoryID] = colorIndex;
+
+      }
+
+      // RETURN THE COLOR ON THE COLORS ARRAY
+      return this.Colors[colorIndex];
+   }
+
+   /* ACCOUNTS */
+   private AccountsColor: { [accountID: number]: number } = {}
+   private LastAccountColorIndex: number = -1;
+   public GetAccountColor(accountID: number): string {
+
+      // TRY TO LOCATE A COLOR INDEX FOR THE ACCOUNT ON THE DICTIONARY
+      let colorIndex = this.AccountsColor[accountID];
+
+      // HAVENT FOUND
+      if (colorIndex == undefined) {
+
+         // ADD ONE TO THE  LAST COLOR INDEX GIVEN, AND KEEP IT INSIDE ARRAY BOUNDS
+         this.LastAccountColorIndex++;
+         if (this.LastAccountColorIndex >= this.Colors.length) {
+            this.LastAccountColorIndex = 0;
+         }
+
+         // STORE THE GIVEN COLOR INDEX ON THE DICTIONARY FOR FUTURE
+         colorIndex = this.LastAccountColorIndex;
+         this.AccountsColor[accountID] = colorIndex;
 
       }
 
