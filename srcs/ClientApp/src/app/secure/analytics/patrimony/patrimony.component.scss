@@ -1,6 +1,8 @@
 .row,.col {
    margin-bottom: 0;
-   // flex-wrap: initial;
+   @media print {
+      flex-wrap: initial;
+   }
 }
 .mat-card {
    margin-bottom: 6px;
