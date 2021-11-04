@@ -56,7 +56,7 @@ export class ApplicationYieldAccountVM {
    AccountID: number
    AccountText: string
    Gain: number
-   Percent: number
+   Percentual: number
 }
 
 export class PatrimonyVM {
