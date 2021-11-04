@@ -76,11 +76,6 @@ export class CategoryGoalsChart {
    }
 
    private xAxisOptions(data: CategoryGoalsVM[]): Highcharts.XAxisOptions {
-      /*
-      const categoryList = data
-         .map(x => x.Text)
-         .sort((a, b) => a > b ? 1 : -1);
-      */
       return {
          type: 'category',
          /* categories: categoryList, */
@@ -92,6 +87,8 @@ export class CategoryGoalsChart {
             align: 'left',
             y: -5,
             style: {
+               textOverflow: 'none',
+               whiteSpace: 'nowrap',
                color: "#000",
                textShadow: '0px 0px 5px white'
             }

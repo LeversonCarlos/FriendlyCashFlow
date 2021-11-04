@@ -78,7 +78,10 @@ export class ApplicationYieldChart {
          title: { text: null },
          categories: categoryList,
          tickmarkPlacement: 'on',
-         labels: { enabled: true },
+         labels: {
+            enabled: true,
+            reserveSpace: true
+         },
          tickLength: 1
       };
    }
