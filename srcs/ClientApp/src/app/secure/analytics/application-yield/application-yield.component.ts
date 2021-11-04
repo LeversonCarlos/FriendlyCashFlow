@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AnalyticsService } from '../analytics.service';
+import { ApplicationYieldChart } from './application-yield.chart';
 
 @Component({
    selector: 'fs-application-yield',
@@ -9,7 +10,7 @@ import { AnalyticsService } from '../analytics.service';
 })
 export class ApplicationYieldComponent implements OnInit, OnDestroy {
 
-   constructor(private service: AnalyticsService) { }
+   constructor(private service: AnalyticsService, private chart: ApplicationYieldChart) { }
 
    public ngOnInit(): void {
       this.OnDataRefreshedSubscription =
@@ -18,12 +19,14 @@ export class ApplicationYieldComponent implements OnInit, OnDestroy {
 
    private OnDataRefreshedSubscription: Subscription
    private OnDataRefreshed(val: boolean) {
-      // this.chart.show(this.service.ApplicationYield)
-      console.log('ApplicationYield', this.service.ApplicationYield);
+      this.chart.show(this.service.ApplicationYield)
    }
 
    public ngOnDestroy(): void {
-      throw new Error('Method not implemented.');
+      if (this.OnDataRefreshedSubscription) {
+         this.OnDataRefreshedSubscription.unsubscribe()
+         this.OnDataRefreshedSubscription = null;
+      }
    }
 
 }
