@@ -51,7 +51,7 @@ export class ApplicationYieldChart {
 
    private chartOptions(): Highcharts.ChartOptions {
       return {
-         type: 'area',
+         type: 'column',
          backgroundColor: 'transparent'
       };
    }
@@ -64,14 +64,8 @@ export class ApplicationYieldChart {
 
    private plotOptions(): Highcharts.PlotOptions {
       return {
-         area: {
-            stacking: 'percent',
-            lineColor: '#666666',
-            lineWidth: 1,
-            marker: {
-               lineWidth: 1,
-               lineColor: '#666666'
-            }
+         column: {
+            stacking: 'percent'
          }
       };
    }
@@ -94,7 +88,7 @@ export class ApplicationYieldChart {
          title: { text: null },
          gridLineColor: 'transparent',
          // tickPositions: [0, 100, maxValue],
-         // max: maxValue,
+         // max: 101,
          labels: { enabled: false }
       };
    }
@@ -102,48 +96,26 @@ export class ApplicationYieldChart {
    private async tooltipOptions(): Promise<Highcharts.TooltipOptions> {
       const self = this;
       return {
-         shared: true/*,
+         shared: true,
          formatter: function () {
-            const incomePoint: any = this.points[0].point;
-            const incomeText = `<br/>
-               <span style="color:${self.IncomeColor}">\u25CF</span>
-               <span>${incomePoint.series.name}</span>
-               <strong>${self.translation.getNumberFormat(incomePoint.realValue, 2)}</strong>
-               `
-            const expensePoint: any = this.points[1].point;
-            const expenseText = `<br/>
-               <span style="color:${self.ExpenseColor}">\u25CF</span>
-               <span>${expensePoint.series.name}</span>
-               <strong>${self.translation.getNumberFormat(expensePoint.realValue, 2)}</strong>
-               `
-            const balancePoint: any = this.points[2].point;
-            const balanceText = `<br/>
-                  <span style="color:${self.BalanceColor}">\u25CF</span>
-                  <span>${balancePoint.series.name}</span>
-                  <strong>${self.translation.getNumberFormat(balancePoint.y, 2)}</strong>
-                  `
-            const tooltip = `<strong>${incomePoint.name}</strong>${incomeText}${expenseText}${balanceText}`;
-            return tooltip;
+            let tootip = this.points
+               .map(p => {
+                  return `<br/>
+                  <span style="color:${p.color}">\u25CF</span>
+                  <span>${p.series.name}</span>
+                  <strong>${self.translation.getNumberFormat((p.point.options as any).GainValue, 2)}</strong>
+                  `;
+               });
+            const tootipHeader = `<strong>${this.points[0].key}</strong>`;
+            return `${tootipHeader}${tootip}`;
          }
-         */
       };
    }
 
    private async seriesOptions(data: ApplicationYieldVM[]): Promise<Highcharts.SeriesOptionsType[]> {
-      console.log('data', data);
 
       let seriesHash = {};
       let seriesList: Highcharts.SeriesOptionsType[] = [];
-
-      let emptyDataList: Highcharts.PointOptionsObject[] = data
-         .map(date => {
-            return {
-               name: date.DateText,
-               y: 0.0,
-               GainValue: 0.0
-            };
-         });
-      console.log('emptyDataList', emptyDataList);
 
       for (let iDate = 0; iDate < data.length; iDate++) {
          const date = data[iDate];
@@ -152,38 +124,38 @@ export class ApplicationYieldChart {
          for (let iAccount = 0; iAccount < accounts.length; iAccount++) {
             const account = accounts[iAccount];
 
-            let seriesIndex = -1;
             let seriesItem: any = null; //Highcharts.SeriesAreaOptions
 
             if (!seriesHash.hasOwnProperty(account.AccountText)) {
-
-               seriesIndex = seriesList.length;
-               seriesHash[account.AccountText] = seriesIndex;
+               seriesHash[account.AccountText] = seriesList.length;
 
                seriesItem = {
                   name: account.AccountText,
-                  type: 'area',
+                  type: 'column',
                   yAxis: 0,
                   color: this.service.Colors.GetAccountColor(account.AccountID),
-                  data: Object.assign([], emptyDataList)
+                  data: data
+                     .map(date => {
+                        return {
+                           name: date.DateText,
+                           y: 0.0,
+                           GainValue: 0.0
+                        };
+                     })
                };
-               console.log('seriesItem', { date, account, seriesItem });
                seriesList.push(seriesItem);
 
             }
 
-            seriesIndex = seriesHash[account.AccountText];
-            seriesItem = seriesList[seriesIndex];
-
+            seriesItem = seriesList[seriesHash[account.AccountText]];
             let dataItem = seriesItem.data[iDate];
-            dataItem.y = account.Percent;
+            dataItem.y = account.Percentual;
             dataItem.GainValue = account.Gain;
 
          }
 
       }
 
-      console.log('seriesList', { seriesList });
       return seriesList;
    }
 
