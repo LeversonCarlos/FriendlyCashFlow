@@ -3,64 +3,65 @@
 
 .mat-card {
    padding: 10px 5px;
- }
+}
 
 @media (max-width: $max-width-xs) {
-  .col {
-    width: 32%;
-  }
+   .col {
+      width: 32%;
+   }
 }
 
 .mat-card-income {
-  @extend .forecolor-green;
+   @extend .forecolor-green;
 }
 
 .mat-card-expense {
-  @extend .forecolor-red;
+   @extend .forecolor-red;
 }
 
 .mat-card-balance {
-  &.positive {
-   text-shadow: 1px 1px $color-green;
-  }
-  &.negative {
-   text-shadow: 1px 1px $color-red;
-  }
+   color: #333;
+   &.positive {
+      background-color: lighten($color: $color-green, $amount: 20);
+   }
+   &.negative {
+      background-color: lighten($color: $color-red, $amount: 20);
+   }
 }
 
 .mat-card-content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+   display: flex;
+   align-items: center;
+   justify-content: center;
 
-  .mat-icon {
-    font-size: 32px;
-    height: 32px;
-    width: 32px;
-  }
-  strong {
-    font-size: 26px;
-  }
+   .mat-icon {
+      font-size: 32px;
+      height: 32px;
+      width: 32px;
+   }
+   strong {
+      font-size: 26px;
+   }
 
-  @media (max-width: $max-width-xs) {
-    .mat-icon {
-      font-size: 16px;
-      height: 16px;
-      width: 20px;
-    }
-    strong {
-      font-size: 14px;
-    }
-    span {
-      display: none;
-    }
-  }
+   @media (max-width: $max-width-xs) {
+      .mat-icon {
+         font-size: 16px;
+         height: 16px;
+         width: 20px;
+      }
+      strong {
+         font-size: 14px;
+      }
+      span {
+         display: none;
+      }
+   }
 
-  div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    line-height: 1.2;
-  }
+   div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      line-height: 1.2;
+   }
 }
