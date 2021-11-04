@@ -20,11 +20,12 @@
 }
 
 .mat-card-balance {
+   color: #333;
    &.positive {
-      text-shadow: -1px -1px 0 $color-green, 1px -1px 0 $color-green, -1px 1px 0 $color-green, 1px 1px 0 $color-green;
+      background-color: lighten($color: $color-green, $amount: 20);
    }
    &.negative {
-      text-shadow: -1px -1px 0 $color-red, 1px -1px 0 $color-red, -1px 1px 0 $color-red, 1px 1px 0 $color-red;
+      background-color: lighten($color: $color-red, $amount: 20);
    }
 }
 
