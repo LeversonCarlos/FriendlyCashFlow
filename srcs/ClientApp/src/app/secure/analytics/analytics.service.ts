@@ -47,7 +47,7 @@ export class AnalyticsService {
          await this.LoadCategoryGoals(year, month);
          await this.LoadEntriesPareto(year, month);
          await this.LoadMonthlyTarget(year, month);
-         await this.LoadMonthlyBudget(year, month);
+         // await this.LoadMonthlyBudget(year, month);
          await this.LoadApplicationYield(year, month);
          await this.LoadPatrimony(year, month);
          // this.Colors.Restart();
@@ -84,11 +84,13 @@ export class AnalyticsService {
 
    /* MONTHLY BUDGET */
    public MonthlyBudget: MonthlyBudgetVM[] = null
+   /*
    public async LoadMonthlyBudget(year: number, month: number): Promise<boolean> {
       const url = `api/analytics/monthlyBudget/${year}/${month}`;
       this.MonthlyBudget = await this.http.get<MonthlyBudgetVM[]>(url).toPromise();
       return (this.MonthlyBudget != null);
    }
+   */
 
    /* APPLICATION YIELD */
    public ApplicationYield: ApplicationYieldVM[] = null
