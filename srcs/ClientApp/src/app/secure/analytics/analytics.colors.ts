@@ -40,12 +40,12 @@ export class AnalyticsColors {
    }
 
    /* ACCOUNTS */
-   private AccountsColor: { [accountID: number]: number } = {}
+   private AccountsColor: { [accountText: string]: number } = {}
    private LastAccountColorIndex: number = -1;
-   public GetAccountColor(accountID: number): string {
+   public GetAccountColor(accountText: string): string {
 
       // TRY TO LOCATE A COLOR INDEX FOR THE ACCOUNT ON THE DICTIONARY
-      let colorIndex = this.AccountsColor[accountID];
+      let colorIndex = this.AccountsColor[accountText];
 
       // HAVENT FOUND
       if (colorIndex == undefined) {
@@ -58,7 +58,7 @@ export class AnalyticsColors {
 
          // STORE THE GIVEN COLOR INDEX ON THE DICTIONARY FOR FUTURE
          colorIndex = this.LastAccountColorIndex;
-         this.AccountsColor[accountID] = colorIndex;
+         this.AccountsColor[accountText] = colorIndex;
 
       }
 

@@ -133,7 +133,7 @@ export class ApplicationYieldChart {
                   name: account.AccountText,
                   type: 'column',
                   yAxis: 0,
-                  color: this.service.Colors.GetAccountColor(account.AccountID),
+                  color: this.service.Colors.GetAccountColor(account.AccountText),
                   data: data
                      .map(date => {
                         return {
