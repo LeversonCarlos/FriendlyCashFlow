@@ -8,7 +8,7 @@ declare @applicationType  smallint = 3;
 declare @initialDate datetime = cast(ltrim(str(@searchYear))+'-'+ltrim(str(@searchMonth))+'-01 00:00:00' as datetime);
 declare @finalDate datetime = dateadd(day, -1, dateadd(month,1,@initialDate));
 declare @yearInitial datetime = dateadd(month, -11, @initialDate );
-set @initialDate = dateadd(month, (-12), @initialDate);
+set @initialDate = dateadd(month,-11, @initialDate);
 print 'entries interval: ' + convert(varchar, @initialDate, 121) + ' - ' + convert(varchar, @finalDate, 121);
 
 select AccountID, [Text]
