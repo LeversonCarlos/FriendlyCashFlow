@@ -65,6 +65,18 @@ into #RESULT
 from #ENTRIES As E
    left join #ACCOUNTS As A on (A.AccountID = E.AccountID)
 
+update #RESULT
+set Balance =
+   (
+      select sum(B.TotalValue)
+      from #BALANCE As B
+      where
+         B.AccountID = R.AccountID
+         and B.[Date] <= R.[Date]
+   )
+from #RESULT as R
+where Balance is null;
+
 delete
 from #RESULT
 where Balance is null;
