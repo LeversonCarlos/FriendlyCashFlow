@@ -8,8 +8,7 @@ export class AnalyticsColors {
    /* COLORS */
    /* https://vis4.net/palettes */
    public get Colors(): string[] {
-      return ['#73a8f0', '#318047', '#f5c533', '#004789', '#f18302', '#8f5699', '#894a00', '#3ed662',
-         '#808080', '#50ebe8', '#e44d98', '#adff2f', '#ffa07a'];
+      return ['#16A085', '#C0392B', '#2980B9', '#8E44AD', '#FA8072', '#825A2C', '#F39C12', '#D35400', '#27AE60', '#7F8C8D'];
    }
 
    /* CATEGORIES */
