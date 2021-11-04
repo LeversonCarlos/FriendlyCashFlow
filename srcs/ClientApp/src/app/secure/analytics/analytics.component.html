@@ -5,7 +5,7 @@
    <div toolbar>
       <fs-analytics-filters *ngIf="!mobileQuery.matches"></fs-analytics-filters>
    </div>
-   <div full-content class="full-screen" >
+   <div full-content class="full-screen">
 
       <div class="full-card scrollbar">
          <mat-card class="filters-card" *ngIf="mobileQuery.matches">
@@ -13,14 +13,14 @@
          </mat-card>
          <fs-category-goals></fs-category-goals>
          <fs-entries-pareto></fs-entries-pareto>
-         <!-- <fs-monthly-budget></fs-monthly-budget> -->
-         <fs-application-yield></fs-application-yield>
          <fs-monthly-target></fs-monthly-target>
+         <fs-application-yield></fs-application-yield>
          <fs-patrimony></fs-patrimony>
       </div>
 
-      <mat-card class="mat-elevation-z0 print-version-toggle" >
-         <mat-slide-toggle [(ngModel)]="IsPrinting" (change)="OnPrintVersionChanged(IsPrinting)">{{ 'ANALYTICS_PRINT_VERSION_COMMAND' | translation | async }}</mat-slide-toggle>
+      <mat-card class="mat-elevation-z0 print-version-toggle">
+         <mat-slide-toggle [(ngModel)]="IsPrinting" (change)="OnPrintVersionChanged(IsPrinting)">{{
+            'ANALYTICS_PRINT_VERSION_COMMAND' | translation | async }}</mat-slide-toggle>
       </mat-card>
 
    </div>
