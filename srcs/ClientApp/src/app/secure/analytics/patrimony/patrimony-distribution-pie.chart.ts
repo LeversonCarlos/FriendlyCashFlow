@@ -92,11 +92,12 @@ export class PatrimonyDistributionPieChart {
          name: await this.translation.getValue("ACCOUNTS_MAIN_TITLE"),
          type: "pie",
          colorByPoint: true,
-         colors: this.service.Colors.Colors,
+         // colors: this.service.Colors.Colors,
          data: data
             .map(x => ({
                name: x.Text,
-               y: x.Value
+               y: x.Value,
+               color: this.service.Colors.GetAccountColor(x.Text)
             })
             )
       };

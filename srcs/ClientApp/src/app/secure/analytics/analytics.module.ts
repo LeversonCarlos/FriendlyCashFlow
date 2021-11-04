@@ -12,11 +12,13 @@ import { MonthlyTargetComponent } from './monthly-target/monthly-target.componen
 import { AnalyticsComponent } from './analytics.component';
 import { MonthlyBudgetComponent } from './monthly-budget/monthly-budget.component';
 import { PatrimonyComponent } from './patrimony/patrimony.component';
-
+import { ApplicationYieldComponent } from './application-yield/application-yield.component';
 
 @NgModule({
    declarations: [AnalyticsComponent, AnalyticsFiltersComponent,
-      CategoryGoalsComponent, EntriesParetoComponent, MonthlyTargetComponent, MonthlyBudgetComponent, PatrimonyComponent],
+      CategoryGoalsComponent, EntriesParetoComponent,
+      MonthlyBudgetComponent, MonthlyTargetComponent, ApplicationYieldComponent,
+      PatrimonyComponent],
    imports: [
       CommonModule, SharedModule, CommonSecureModule,
       AnalyticsRouting

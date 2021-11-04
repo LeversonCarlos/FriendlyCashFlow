@@ -1,0 +1,16 @@
+.mat-card {
+   margin-bottom: 6px;
+   padding: 10px;
+   .mat-card-content:not(:last-child) {
+      margin-bottom: 6px;
+   }
+   .mat-card-content {
+      overflow-x: hidden;
+   }
+}
+#applicationYieldContainer {
+   height: 18vh;
+   @media print {
+      height: 100px;
+   }
+}

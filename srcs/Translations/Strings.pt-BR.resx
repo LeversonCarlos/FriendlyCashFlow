@@ -216,6 +216,9 @@
   <data name="ANALYTICS_MONTHLY_TARGET_TITLE" xml:space="preserve">
     <value>Meta Mensal</value>
   </data>
+  <data name="ANALYTICS_APPLICATION_YIELD_TITLE" xml:space="preserve">
+    <value>Rendimento de Aplicação</value>
+  </data>
   <data name="ANALYTICS_PATRIMONY_DISTRIBUTION_TITLE" xml:space="preserve">
     <value>Distribuição do Patrimônio</value>
   </data>
