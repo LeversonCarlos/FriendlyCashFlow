@@ -34,7 +34,25 @@ namespace FriendlyCashFlow.API.Analytics
                queryReader.AddParameter("@paramSearchMonth", searchMonth);
 
                if (!await queryReader.ExecuteReaderAsync()) { return null; }
-               return await queryReader.GetDataResultAsync<ApplicationYieldVM>();
+               var data = await queryReader.GetDataResultAsync<ApplicationYieldDTO>();
+               var result = data
+                  .GroupBy(x => x.Date)
+                  .Select(x => new ApplicationYieldVM
+                  {
+                     Date = x.Key,
+                     Accounts = data
+                        .Where(a => a.Date == x.Key)
+                        .Select(a => new ApplicationYieldAccountVM
+                        {
+                           AccountID = a.AccountID,
+                           AccountText = a.AccountText,
+                           Gain = a.Gain,
+                           Percentual = a.Percentual
+                        })
+                        .ToArray()
+                  })
+                  .ToList();
+               return result;
             }
          }
          catch (Exception) { throw; }
@@ -53,10 +71,24 @@ namespace FriendlyCashFlow.API.Analytics
 
    }
 
+   public class ApplicationYieldDTO
+   {
+      public DateTime Date { get; set; }
+      public long AccountID { get; set; }
+      public string AccountText { get; set; }
+      public decimal Gain { get; set; }
+      public decimal Percentual { get; set; }
+   }
+
    public class ApplicationYieldVM
    {
       public DateTime Date { get; set; }
-      public string SmallText { get { return this.Date.ToString("MMM").ToUpper(); } }
+      public string DateText { get { return this.Date.ToString("MMM").ToUpper(); } }
+      public ApplicationYieldAccountVM[] Accounts { get; set; }
+   }
+
+   public class ApplicationYieldAccountVM
+   {
       public long AccountID { get; set; }
       public string AccountText { get; set; }
       public decimal Gain { get; set; }

@@ -48,7 +48,11 @@ export class MonthlyBudgetVM {
 
 export class ApplicationYieldVM {
    Date: Date
-   SmallText: string
+   DateText: string
+   Accounts: ApplicationYieldAccountVM[]
+}
+
+export class ApplicationYieldAccountVM {
    AccountID: number
    AccountText: string
    Gain: number
