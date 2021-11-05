@@ -45,8 +45,8 @@ export class AnalyticsService {
       try {
          if (year == 0 || month == 0) { return false; }
          this.busy.show();
-         await this.LoadCategoryGoals(year, month);
          await this.LoadEntriesPareto(year, month);
+         await this.LoadCategoryGoals(year, month);
          await this.LoadMonthlyTarget(year, month);
          await this.LoadApplicationYield(year, month);
          await this.LoadPatrimony(year, month);
@@ -113,7 +113,7 @@ export class AnalyticsService {
    private HttpGetWithRetry<T>(url: string): Promise<T> {
       return this.http
          .get<T>(url)
-         .pipe(retry(2))
+         // .pipe(retry(2))
          .toPromise();
    }
 
