@@ -92,6 +92,7 @@ export class CategoriesService {
    public async LoadCategoryGoals(year: number, month: number): Promise<boolean> {
       const url = `api/analytics/categoryGoals/${year}/${month}`;
       const categoryGoals = await this.http.get<any[]>(url).toPromise();
+      console.log(categoryGoals);
       return null;
    }
 
