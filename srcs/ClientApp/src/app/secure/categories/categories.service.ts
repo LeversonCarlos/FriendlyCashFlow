@@ -27,6 +27,7 @@ export class CategoriesService {
             .pipe(map(items => items.map(item => Object.assign(new CategoryType(), item))))
             .toPromise();
          return dataList;
+         await this.LoadCategoryGoals(2021, 11);
       }
       catch (ex) { return null; }
       finally { this.busy.hide(); }
@@ -86,6 +87,12 @@ export class CategoriesService {
       }
       catch (ex) { return null; }
       finally { this.busy.hide(); }
+   }
+
+   public async LoadCategoryGoals(year: number, month: number): Promise<boolean> {
+      const url = `api/analytics/categoryGoals/${year}/${month}`;
+      const categoryGoals = await this.http.get<any[]>(url).toPromise();
+      return null;
    }
 
 }

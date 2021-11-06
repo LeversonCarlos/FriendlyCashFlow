@@ -45,8 +45,8 @@ export class AnalyticsService {
       try {
          if (year == 0 || month == 0) { return false; }
          this.busy.show();
-         await this.LoadEntriesPareto(year, month);
          await this.LoadCategoryGoals(year, month);
+         await this.LoadEntriesPareto(year, month);
          await this.LoadMonthlyTarget(year, month);
          await this.LoadApplicationYield(year, month);
          await this.LoadPatrimony(year, month);
