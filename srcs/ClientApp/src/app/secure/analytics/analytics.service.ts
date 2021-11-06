@@ -2,17 +2,15 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { BusyService } from 'src/app/shared/busy/busy.service';
 import { HttpClient } from '@angular/common/http';
 import { FilterData, CategoryGoalsVM, EntriesParetoVM, MonthlyTargetVM, MonthlyBudgetVM, PatrimonyVM, PatrimonyResumeItem, ApplicationYieldVM } from './analytics.viewmodels';
-import { AppInsightsService } from 'src/app/shared/app-insights/app-insights.service';
 import { Router } from '@angular/router';
 import { AnalyticsColors } from './analytics.colors';
-import { retry } from 'rxjs/internal/operators/retry';
 
 @Injectable({
    providedIn: 'root'
 })
 export class AnalyticsService {
 
-   constructor(private busy: BusyService, private appInsights: AppInsightsService,
+   constructor(private busy: BusyService,
       private router: Router, private http: HttpClient) { }
 
    // NAVIGATES
@@ -53,7 +51,7 @@ export class AnalyticsService {
          // this.Colors.Restart();
          this.OnDataRefreshed.emit(true);
       }
-      catch (ex) { this.appInsights.trackException(ex); console.error(ex) }
+      catch (ex) { console.error(ex) }
       finally { this.busy.hide(); }
    }
    public OnDataRefreshed: EventEmitter<boolean> = new EventEmitter<boolean>();
