@@ -23,7 +23,6 @@ export class CategoriesService {
    public async getCategoryTypes(): Promise<CategoryType[]> {
       try {
          this.busy.show();
-         await this.LoadCategoryGoals(2021, 11);
          const dataList = await this.http.get<CategoryType[]>("api/categories/types")
             .pipe(map(items => items.map(item => Object.assign(new CategoryType(), item))))
             .toPromise();
@@ -87,13 +86,6 @@ export class CategoriesService {
       }
       catch (ex) { return null; }
       finally { this.busy.hide(); }
-   }
-
-   public async LoadCategoryGoals(year: number, month: number): Promise<boolean> {
-      const url = `api/analytics/categoryGoals/${year}/${month}`;
-      const categoryGoals = await this.http.get<any[]>(url).toPromise();
-      console.log(categoryGoals);
-      return null;
    }
 
 }

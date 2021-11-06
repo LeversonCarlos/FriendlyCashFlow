@@ -60,7 +60,7 @@ export class AnalyticsService {
    public CategoryGoals: CategoryGoalsVM[] = null
    public async LoadCategoryGoals(year: number, month: number): Promise<boolean> {
       const url = `api/analytics/categoryGoals/${year}/${month}`;
-      this.CategoryGoals = await this.HttpGetWithRetry<CategoryGoalsVM[]>(url);
+      this.CategoryGoals = await this.http.get<CategoryGoalsVM[]>(url).toPromise();
       return (this.CategoryGoals != null);
    }
 
@@ -68,7 +68,7 @@ export class AnalyticsService {
    public EntriesPareto: EntriesParetoVM[] = null
    public async LoadEntriesPareto(year: number, month: number): Promise<boolean> {
       const url = `api/analytics/entriesPareto/${year}/${month}`;
-      this.EntriesPareto = await this.HttpGetWithRetry<EntriesParetoVM[]>(url);
+      this.EntriesPareto = await this.http.get<EntriesParetoVM[]>(url).toPromise();
       return (this.EntriesPareto != null);
    }
 
@@ -76,7 +76,7 @@ export class AnalyticsService {
    public MonthlyTarget: MonthlyTargetVM[] = null
    public async LoadMonthlyTarget(year: number, month: number): Promise<boolean> {
       const url = `api/analytics/monthlyTarget/${year}/${month}`;
-      this.MonthlyTarget = await this.HttpGetWithRetry<MonthlyTargetVM[]>(url);
+      this.MonthlyTarget = await this.http.get<MonthlyTargetVM[]>(url).toPromise();
       return (this.MonthlyTarget != null);
    }
 
@@ -85,7 +85,7 @@ export class AnalyticsService {
    /*
    public async LoadMonthlyBudget(year: number, month: number): Promise<boolean> {
       const url = `api/analytics/monthlyBudget/${year}/${month}`;
-      this.MonthlyBudget = await this.HttpGetWithRetry<MonthlyBudgetVM[]>(url);
+      this.MonthlyBudget = await this.http.get<MonthlyBudgetVM[]>(url).toPromise();
       return (this.MonthlyBudget != null);
    }
    */
@@ -94,7 +94,7 @@ export class AnalyticsService {
    public ApplicationYield: ApplicationYieldVM[] = null
    public async LoadApplicationYield(year: number, month: number): Promise<boolean> {
       const url = `api/analytics/applicationYield/${year}/${month}`;
-      this.ApplicationYield = await this.HttpGetWithRetry<ApplicationYieldVM[]>(url);
+      this.ApplicationYield = await this.http.get<ApplicationYieldVM[]>(url).toPromise();
       return (this.ApplicationYield != null);
    }
 
@@ -102,17 +102,10 @@ export class AnalyticsService {
    public Patrimony: PatrimonyVM = null
    public async LoadPatrimony(year: number, month: number): Promise<boolean> {
       const url = `api/analytics/patrimony/${year}/${month}`;
-      this.Patrimony = await this.HttpGetWithRetry<PatrimonyVM>(url);
+      this.Patrimony = await this.http.get<PatrimonyVM>(url).toPromise();
       this.Patrimony.PatrimonyResume =
          this.Patrimony.PatrimonyResume.map(x => Object.assign(new PatrimonyResumeItem, x));
       return (this.Patrimony != null);
-   }
-
-   private HttpGetWithRetry<T>(url: string): Promise<T> {
-      return this.http
-         .get<T>(url)
-         // .pipe(retry(2))
-         .toPromise();
    }
 
 }
