@@ -2,7 +2,7 @@ name: Release
 
 on:
   push:
-    branches: [ master, dev ]
+    branches: [ master, dev, 'lc/dev/reviewGithubWorkflow' ]
   # release:
   #   types: [created]
 
@@ -98,11 +98,18 @@ jobs:
 
       - name: Define Stable Release
         if: github.ref == 'refs/heads/master'
-        run: echo "::set-env name=suffixVersion::"
+        run: |
+          echo "suffixVersion=" >> $GITHUB_ENV
 
-      - name: Define Pre Release
+      - name: Define Beta Release
         if: github.ref == 'refs/heads/dev'
-        run: echo "::set-env name=suffixVersion::-beta"
+        run: |
+          echo "suffixVersion=-beta" >> $GITHUB_ENV
+
+      - name: Define Test Release
+        if: github.ref == 'refs/heads/lc/dev/reviewGithubWorkflow'
+        run: |
+          echo "suffixVersion=-test" >> $GITHUB_ENV
 
       - name: Download Artifacts
         uses: actions/download-artifact@v2
