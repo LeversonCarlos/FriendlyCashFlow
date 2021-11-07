@@ -59,7 +59,7 @@ export class AnalyticsService {
    /* CATEGORY GOALS */
    public CategoryGoals: CategoryGoalsVM[] = null
    public async LoadCategoryGoals(year: number, month: number): Promise<boolean> {
-      const url = `api/analytics/categoryGoals/${year}/${month}`;
+      const url = `api/monthlyResult/categoryGoals/${year}/${month}`;
       this.CategoryGoals = await this.http.get<CategoryGoalsVM[]>(url).toPromise();
       return (this.CategoryGoals != null);
    }
@@ -67,7 +67,7 @@ export class AnalyticsService {
    /* ENTRIES PARETO */
    public EntriesPareto: EntriesParetoVM[] = null
    public async LoadEntriesPareto(year: number, month: number): Promise<boolean> {
-      const url = `api/analytics/entriesPareto/${year}/${month}`;
+      const url = `api/monthlyResult/entriesPareto/${year}/${month}`;
       this.EntriesPareto = await this.http.get<EntriesParetoVM[]>(url).toPromise();
       return (this.EntriesPareto != null);
    }
@@ -75,7 +75,7 @@ export class AnalyticsService {
    /* MONTHLY TARGET */
    public MonthlyTarget: MonthlyTargetVM[] = null
    public async LoadMonthlyTarget(year: number, month: number): Promise<boolean> {
-      const url = `api/analytics/monthlyTarget/${year}/${month}`;
+      const url = `api/monthlyResult/monthlyTarget/${year}/${month}`;
       this.MonthlyTarget = await this.http.get<MonthlyTargetVM[]>(url).toPromise();
       return (this.MonthlyTarget != null);
    }
@@ -84,7 +84,7 @@ export class AnalyticsService {
    public MonthlyBudget: MonthlyBudgetVM[] = null
    /*
    public async LoadMonthlyBudget(year: number, month: number): Promise<boolean> {
-      const url = `api/analytics/monthlyBudget/${year}/${month}`;
+      const url = `api/monthlyResult/monthlyBudget/${year}/${month}`;
       this.MonthlyBudget = await this.http.get<MonthlyBudgetVM[]>(url).toPromise();
       return (this.MonthlyBudget != null);
    }
@@ -93,7 +93,7 @@ export class AnalyticsService {
    /* APPLICATION YIELD */
    public ApplicationYield: ApplicationYieldVM[] = null
    public async LoadApplicationYield(year: number, month: number): Promise<boolean> {
-      const url = `api/analytics/applicationYield/${year}/${month}`;
+      const url = `api/monthlyResult/applicationYield/${year}/${month}`;
       this.ApplicationYield = await this.http.get<ApplicationYieldVM[]>(url).toPromise();
       return (this.ApplicationYield != null);
    }
@@ -101,7 +101,7 @@ export class AnalyticsService {
    /* PATRIMONY */
    public Patrimony: PatrimonyVM = null
    public async LoadPatrimony(year: number, month: number): Promise<boolean> {
-      const url = `api/analytics/patrimony/${year}/${month}`;
+      const url = `api/monthlyResult/patrimony/${year}/${month}`;
       this.Patrimony = await this.http.get<PatrimonyVM>(url).toPromise();
       this.Patrimony.PatrimonyResume =
          this.Patrimony.PatrimonyResume.map(x => Object.assign(new PatrimonyResumeItem, x));
