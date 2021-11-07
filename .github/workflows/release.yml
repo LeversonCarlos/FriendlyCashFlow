@@ -71,7 +71,6 @@ jobs:
 
       - name: ChangeLog
         run: |
-          mkdir ./publish &&
           mkdir ./publish/changelog &&
           cp ./CHANGELOG.md ./publish/changelog/CHANGELOG.md
 
