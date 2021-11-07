@@ -111,7 +111,7 @@ jobs:
 
       - name: Zip Artifact
         run: |
-          zip -r ./publish/build ./publish/artifacts
+          zip -r ./publish/build artifacts
 
       - name: Create Release
         uses: actions/create-release@v1
@@ -132,7 +132,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./publish/artifacts.zip
+          asset_path: ./artifacts.zip
           asset_name: artifacts.zip
           asset_content_type: application/zip
 
