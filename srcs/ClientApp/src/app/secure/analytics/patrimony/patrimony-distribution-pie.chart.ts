@@ -62,11 +62,15 @@ export class PatrimonyDistributionPieChart {
    }
 
    private legendOptions(): Highcharts.LegendOptions {
+      const self = this;
       return {
          enabled: true,
          labelFormat: '<b>{name}</b>: <small>{y:,.2f}</small>',
          layout: 'vertical',
          verticalAlign: 'top',
+         itemStyle: {
+            color: self.service.Colors.GetForecolorSchemeSensitive()
+         },
          align: 'left'
       };
    }
@@ -88,10 +92,12 @@ export class PatrimonyDistributionPieChart {
          name: await this.translation.getValue("ACCOUNTS_MAIN_TITLE"),
          type: "pie",
          colorByPoint: true,
+         // colors: this.service.Colors.Colors,
          data: data
             .map(x => ({
                name: x.Text,
-               y: x.Value
+               y: x.Value,
+               color: this.service.Colors.GetAccountColor(x.Text)
             })
             )
       };

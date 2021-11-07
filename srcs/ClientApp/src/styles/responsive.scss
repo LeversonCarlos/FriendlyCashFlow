@@ -2,36 +2,36 @@
 @import "./screenSizes.scss";
 
 .row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
 
-  @media (max-width: $max-width-xs) {
-    flex-wrap: wrap;
-  }
+   @media (max-width: $max-width-xs) {
+      flex-wrap: wrap;
+   }
 
-  &.stretch {
-    align-items: stretch;
-  }
+   &.stretch {
+      align-items: stretch;
+   }
 }
 
 .col {
-  margin: 0 0.5vw 2vh 0.5vw;
-  &:first-child {
-    margin-left: 0;
-  }
-  &:last-child {
-    margin-right: 0;
-  }
+   margin: 0 0.5vw 2vh 0.5vw;
+   &:first-child {
+      margin-left: 0;
+   }
+   &:last-child {
+      margin-right: 0;
+   }
 
-  @media (max-width: $max-width-xs) {
-    flex-grow: 1;
-    margin-bottom: 0.75vh;
-  }
+   @media (max-width: $max-width-xs) {
+      flex-grow: 1;
+      margin-bottom: 0.75vh;
+   }
 }
 
 @for $i from 1 through 12 {
-  .col-#{$i} {
-    width: percentage(math.div($i, 12));
-  }
+   .col-#{$i} {
+      width: percentage(math.div($i, 12));
+   }
 }

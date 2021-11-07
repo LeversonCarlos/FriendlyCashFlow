@@ -53,7 +53,7 @@ export class ResponseAuthInterceptor implements HttpInterceptor {
          // IF HAS NO TOKEN, FORCE A LOCATION RELOAD AND THIS WILL SEND USER TO THE LOGIN PAGE
          if (!this.auth.Token || !this.auth.Token.RefreshToken || this.auth.Token.RefreshToken == '') {
             this.auth.Token = null;
-            location.reload(true);
+            location.reload();
             return of(null);
          }
 
@@ -93,7 +93,7 @@ export class ResponseAuthInterceptor implements HttpInterceptor {
                      refreshError: refreshError
                   })
                   this.auth.Token = null;
-                  location.reload(true);
+                  location.reload();
                   this.isRefreshingToken = false
                   return of(null);
                }),

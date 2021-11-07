@@ -46,6 +46,19 @@ export class MonthlyBudgetVM {
    OverflowPercent: number
 }
 
+export class ApplicationYieldVM {
+   Date: Date
+   DateText: string
+   Accounts: ApplicationYieldAccountVM[]
+}
+
+export class ApplicationYieldAccountVM {
+   AccountID: number
+   AccountText: string
+   Gain: number
+   Percentual: number
+}
+
 export class PatrimonyVM {
    PatrimonyResume: PatrimonyResumeItem[];
    PatrimonyDistribution: PatrimonyDistributionItem[]

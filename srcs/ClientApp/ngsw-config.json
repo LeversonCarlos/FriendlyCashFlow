@@ -33,7 +33,8 @@
          "urls": [
             "/api/entries/**",
             "/api/transfers/**",
-            "/api/patterns/**"
+            "/api/patterns/**",
+            "/api/monthlyResult/**"
          ],
          "cacheConfig": {
             "strategy": "freshness",

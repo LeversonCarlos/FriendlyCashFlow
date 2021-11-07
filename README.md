@@ -30,7 +30,7 @@ So, feel free to clone-it and make-it better.
 
 ### Get started
 - **Clone this repo** to your local machine using 
-   ``` shell 
+   ``` shell
    git clone https://github.com/LeversonCarlos/FriendlyCashFlow.git
    ```
 - Install **client packages** with 
@@ -40,10 +40,6 @@ So, feel free to clone-it and make-it better.
 - **Build** the backend project with 
    ``` shell 
    dotnet build ./srcs
-   ```
-- Prepare the **database structure** with 
-   ``` shell 
-   dotnet ef database update --project ./srcs
    ```
 - **Run the application** locally with 
    ``` shell

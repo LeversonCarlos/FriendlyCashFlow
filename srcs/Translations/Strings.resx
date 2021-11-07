@@ -181,7 +181,7 @@
     <value>Target</value>
   </data>
   <data name="ANALYTICS_CATEGORY_GOALS_TITLE" xml:space="preserve">
-    <value>Monthly Target by Category</value>
+    <value>Goal by Expense Category</value>
   </data>
   <data name="ANALYTICS_CATEGORY_GOALS_VALUE_LABEL" xml:space="preserve">
     <value>Accumulated</value>
@@ -214,10 +214,12 @@
     <value>Incomes</value>
   </data>
   <data name="ANALYTICS_MONTHLY_TARGET_TITLE" xml:space="preserve">
-    <value>Monthly Target</value>
+    <value>Accumulated Flow and Balance</value>
+  </data>
+  <data name="ANALYTICS_APPLICATION_YIELD_TITLE" xml:space="preserve">
+    <value>Yield's Proportional Distribution</value>
   </data>
   <data name="ANALYTICS_PATRIMONY_DISTRIBUTION_TITLE" xml:space="preserve">
-
     <value>Patrimony Distribution</value>
   </data>
   <data name="ANALYTICS_PATRIMONY_RESUME_TITLE" xml:space="preserve">

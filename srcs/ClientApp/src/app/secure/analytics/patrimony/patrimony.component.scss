@@ -1,10 +1,13 @@
-.row,.col {
+.row,
+.col {
    margin-bottom: 0;
-   flex-wrap: initial;
+   @media print {
+      flex-wrap: initial;
+   }
 }
 .mat-card {
    margin-bottom: 6px;
-   padding: 10px;
+   padding: 10px 10px 0;
    .mat-card-content:not(:last-child) {
       margin-bottom: 6px;
    }
@@ -14,7 +17,7 @@
    height: 25vh;
    padding: 0;
    @media print {
-      height: 173px;
+      height: 168px;
    }
 }
 .mat-list {

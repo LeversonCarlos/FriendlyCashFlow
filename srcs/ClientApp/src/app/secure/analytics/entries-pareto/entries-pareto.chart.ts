@@ -146,7 +146,7 @@ export class EntriesParetoChart {
          name: "Pareto",
          type: "spline",
          yAxis: 1,
-         color: '#333',
+         color: self.service.Colors.GetForecolorSchemeSensitive(),
          lineWidth: 1,
          marker: { enabled: true, radius: 2 },
          data: data
