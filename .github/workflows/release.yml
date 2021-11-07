@@ -38,6 +38,9 @@ jobs:
           sed -i 's|"version": "1.0.0",|"version": "${{ env.version }}",|g' ClientApp/package.json
           sed -i 's|"version": "1.0.0",|"version": "${{ env.version }}",|g' ClientApp/src/manifest.json
 
+      - name: ChangeLog
+        run: mkdir ./publish/changelog && cp ./CHANGELOG.md ./publish/changelog/CHANGELOG.md
+
       - name: Frontend Packages
         working-directory: 'srcs/ClientApp'
         run: |
@@ -68,9 +71,6 @@ jobs:
       #  working-directory: 'srcs'
       #  run: |
       #    dotnet ef migrations script -o ../publish/scripts/migrations.sql -i -v
-
-      - name: ChangeLog
-        run: cp ./CHANGELOG.md ./publish/changelog/CHANGELOG.md
 
       - name: List Artifacts
         working-directory: 'publish'
