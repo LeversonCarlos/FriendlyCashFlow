@@ -34,7 +34,7 @@
             "/api/entries/**",
             "/api/transfers/**",
             "/api/patterns/**",
-            "/api/analytics/**"
+            "/api/monthlyResult/**"
          ],
          "cacheConfig": {
             "strategy": "freshness",
