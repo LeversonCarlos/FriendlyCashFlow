@@ -109,7 +109,7 @@ jobs:
       - name: Define Test Release
         if: github.ref == 'refs/heads/lc/dev/reviewGithubWorkflow'
         run: |
-          echo "suffixVersion=-test" >> $GITHUB_ENV
+          echo "suffixVersion=" >> $GITHUB_ENV
 
       - name: Download Artifacts
         uses: actions/download-artifact@v2
