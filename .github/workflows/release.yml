@@ -111,7 +111,7 @@ jobs:
 
       - name: Zip Artifact
         run: |
-          zip -r ./publish/build artifacts
+          zip -r artifacts.zip ./publish/build
 
       - name: Create Release
         uses: actions/create-release@v1
