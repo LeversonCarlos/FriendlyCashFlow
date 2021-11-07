@@ -38,12 +38,6 @@ jobs:
           sed -i 's|"version": "1.0.0",|"version": "${{ env.version }}",|g' ClientApp/package.json
           sed -i 's|"version": "1.0.0",|"version": "${{ env.version }}",|g' ClientApp/src/manifest.json
 
-      - name: ChangeLog
-        run: |
-          mkdir ./publish &&
-          mkdir ./publish/changelog &&
-          cp ./CHANGELOG.md ./publish/changelog/CHANGELOG.md
-
       - name: Frontend Packages
         working-directory: 'srcs/ClientApp'
         run: |
@@ -75,6 +69,12 @@ jobs:
       #  run: |
       #    dotnet ef migrations script -o ../publish/scripts/migrations.sql -i -v
 
+      - name: ChangeLog
+        run: |
+          mkdir ./publish &&
+          mkdir ./publish/changelog &&
+          cp ./CHANGELOG.md ./publish/changelog/CHANGELOG.md
+
       - name: List Artifacts
         working-directory: 'publish'
         run: |
@@ -105,6 +105,15 @@ jobs:
         if: github.ref == 'refs/heads/dev'
         run: echo "::set-env name=suffixVersion::-beta"
 
+      - name: Download Artifact
+        uses: actions/download-artifact@v2
+        with:
+          path: ./
+
+      - name: Zip Artifact
+        run: |
+          zip -r ./publish/build ./publish/artifacts
+
       - name: Create Release
         uses: actions/create-release@v1
         id: create_release
@@ -117,15 +126,6 @@ jobs:
           body_path: ./publish/changelog/CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ github.token }}
-
-      - name: Download Artifact
-        uses: actions/download-artifact@v2
-        with:
-          path: ./
-
-      - name: Zip Artifact
-        run: |
-          zip -r ./publish/build ./publish/artifacts
 
       - name: Upload Artifact
         uses: actions/upload-release-asset@v1
