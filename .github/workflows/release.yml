@@ -69,6 +69,9 @@ jobs:
       #  run: |
       #    dotnet ef migrations script -o ../publish/scripts/migrations.sql -i -v
 
+      - name: ChangeLog
+        run: cp ./CHANGELOG.md ./publish/changelog/CHANGELOG.md
+
       - name: List Artifacts
         working-directory: 'publish'
         run: |
@@ -85,6 +88,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build]
     steps:
+
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          path: ./
 
       - name: Dump GitHub context
         env:
@@ -106,15 +114,16 @@ jobs:
           draft: false
           prerelease: false
           release_name: 'v${{ env.version }}${{ env.suffixVersion }}'
-          tag_name: ${{ github.ref }}
-          body_path: CHANGELOG.md
+          tag_name: 'v${{ env.version }}${{ env.suffixVersion }}'
+          target_commitish: ${{ github.sha }}
+          body_path: ./publish/changelog/CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-    needs: [build]
+    needs: [build, release]
     steps:
 
       - name: Download Artifacts
