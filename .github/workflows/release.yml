@@ -2,12 +2,13 @@ name: Release
 
 on:
   push:
-    branches: [ master, dev ]
+    branches: [ master, dev, 'lc/dev/reviewGithubWorkflow' ]
   # release:
   #   types: [created]
 
 env:
   version: '6.3.${{ github.run_number }}'
+  suffixVersion: '-alpha'
 
 jobs:
 
@@ -79,11 +80,41 @@ jobs:
           name: publish
           path: ./publish
 
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+
+      - name: Define Stable Release
+        if: github.ref == 'refs/heads/master'
+        run: echo "::set-env name=suffixVersion::"
+
+      - name: Define Pre Release
+        if: github.ref == 'refs/heads/dev'
+        run: echo "::set-env name=suffixVersion::-beta"
+
+      - name: release
+          uses: actions/create-release@v1
+          id: create_release
+          with:
+            draft: false
+            prerelease: false
+            release_name: 'v${{ env.version }}${{ env.suffixVersion }}'
+            tag_name: ${{ github.ref }}
+            body_path: CHANGELOG.md
+          env:
+            GITHUB_TOKEN: ${{ github.token }}
+
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
     needs: [build]
-
     steps:
 
       - name: Download Artifacts
