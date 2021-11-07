@@ -104,14 +104,15 @@ jobs:
         if: github.ref == 'refs/heads/dev'
         run: echo "::set-env name=suffixVersion::-beta"
 
-      - name: Download Artifact
+      - name: Download Artifacts
         uses: actions/download-artifact@v2
         with:
           path: ./
 
-      - name: Zip Artifact
+      - name: Zip Artifacts
+        working-directory: 'publish/build'
         run: |
-          zip -r artifacts.zip ./publish/build
+          zip -r binaries.zip ./*
 
       - name: Create Release
         uses: actions/create-release@v1
@@ -126,14 +127,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
-      - name: Upload Artifact
+      - name: Upload Artifacts
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./artifacts.zip
-          asset_name: artifacts.zip
+          asset_path: ./binaries.zip
+          asset_name: binaries.zip
           asset_content_type: application/zip
 
   deploy:
