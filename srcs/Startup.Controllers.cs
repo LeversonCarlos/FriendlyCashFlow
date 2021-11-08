@@ -15,10 +15,9 @@ namespace FriendlyCashFlow
          // services.AddCors();
          services
             .AddControllersWithViews()
-            .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
             .AddJsonOptions(options =>
             {
-               options.JsonSerializerOptions.IgnoreNullValues = true;
+               options.JsonSerializerOptions.DefaultIgnoreCondition  = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
                options.JsonSerializerOptions.PropertyNamingPolicy = null; // use PascalCase
                options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
             });
