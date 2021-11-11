@@ -9,6 +9,7 @@ on:
 env:
   version: '6.3.${{ github.run_number }}'
   suffixVersion: '-alpha'
+  preRelease: true
 
 jobs:
 
@@ -100,6 +101,7 @@ jobs:
         if: github.ref == 'refs/heads/master'
         run: |
           echo "suffixVersion=" >> $GITHUB_ENV
+          echo "preRelease=false" >> $GITHUB_ENV
 
       - name: Define Beta Release
         if: github.ref == 'refs/heads/dev'
@@ -126,7 +128,7 @@ jobs:
         id: create_release
         with:
           draft: false
-          prerelease: false
+          prerelease: ${{ env.preRelease }}
           release_name: 'v${{ env.version }}${{ env.suffixVersion }}'
           tag_name: 'v${{ env.version }}${{ env.suffixVersion }}'
           commitish: ${{ github.sha }}
