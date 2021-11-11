@@ -6,7 +6,7 @@
          "type": "coreclr",
          "request": "launch",
          "preLaunchTask": "build",
-         "program": "${workspaceFolder}/srcs/bin/Debug/net5.0/FriendlyCashFlow.dll",
+         "program": "${workspaceFolder}/srcs/bin/Debug/net6.0/FriendlyCashFlow.dll",
          "args": [],
          "cwd": "${workspaceFolder}/srcs",
          "stopAtEntry": false,
