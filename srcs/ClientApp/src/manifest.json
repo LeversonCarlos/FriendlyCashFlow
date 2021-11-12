@@ -7,6 +7,11 @@
    "display": "standalone",
    "scope": "/",
    "start_url": "/",
+   "orientation": "any",
+   "categories": [
+      "finances",
+      "personal finances"
+   ],
    "icons": [
       {
          "src": "assets/icons/icon-72x72.png",
@@ -47,6 +52,13 @@
          "src": "assets/icons/icon-512x512.png",
          "sizes": "512x512",
          "type": "image/png"
+      },
+      {
+         "src": "assets/logo.png",
+         "sizes": "96x96",
+         "type": "image/png",
+         "purpose": "maskable"
+      }
       }
    ]
 }
