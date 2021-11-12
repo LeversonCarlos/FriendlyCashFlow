@@ -73,7 +73,7 @@ jobs:
       - name: ChangeLog
         run: |
           mkdir ./publish/changelog &&
-          cp ./CHANGELOG.md ./publish/changelog/CHANGELOG.md
+          cp ./docs/changelog.md ./publish/changelog/changelog.md
 
       - name: List Artifacts
         working-directory: 'publish'
@@ -133,7 +133,7 @@ jobs:
           release_name: 'v${{ env.version }}${{ env.suffixVersion }}'
           tag_name: 'v${{ env.version }}${{ env.suffixVersion }}'
           commitish: ${{ github.sha }}
-          body_path: ./publish/changelog/CHANGELOG.md
+          body_path: ./publish/changelog/changelog.md
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
