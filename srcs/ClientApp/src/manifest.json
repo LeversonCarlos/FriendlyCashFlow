@@ -12,6 +12,12 @@
       "finances",
       "personal finances"
    ],
+   "shortcuts": [
+      {
+         "name": "Monthly Result",
+         "url": "/analytics"
+      }
+   ],
    "icons": [
       {
          "src": "assets/icons/icon-72x72.png",
@@ -59,6 +65,22 @@
          "type": "image/png",
          "purpose": "maskable"
       }
+   ],
+   "screenshots": [
+      {
+         "src": "https://raw.githubusercontent.com/LeversonCarlos/FriendlyCashFlow/lc/dev/reviewPwa/resources/screenshots/home.png",
+         "sizes": "1024x768",
+         "type": "image/png"
+      },
+      {
+         "src": "https://raw.githubusercontent.com/LeversonCarlos/FriendlyCashFlow/lc/dev/reviewPwa/resources/screenshots/entries.png",
+         "sizes": "1024x768",
+         "type": "image/png"
+      },
+      {
+         "src": "https://raw.githubusercontent.com/LeversonCarlos/FriendlyCashFlow/lc/dev/reviewPwa/resources/screenshots/results.png",
+         "sizes": "1024x768",
+         "type": "image/png"
       }
    ]
 }
