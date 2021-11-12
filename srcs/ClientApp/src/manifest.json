@@ -58,29 +58,6 @@
          "src": "assets/icons/icon-512x512.png",
          "sizes": "512x512",
          "type": "image/png"
-      },
-      {
-         "src": "assets/logo.png",
-         "sizes": "96x96",
-         "type": "image/png",
-         "purpose": "maskable"
-      }
-   ],
-   "screenshots": [
-      {
-         "src": "https://raw.githubusercontent.com/LeversonCarlos/FriendlyCashFlow/lc/dev/reviewPwa/resources/screenshots/home.png",
-         "sizes": "1024x768",
-         "type": "image/png"
-      },
-      {
-         "src": "https://raw.githubusercontent.com/LeversonCarlos/FriendlyCashFlow/lc/dev/reviewPwa/resources/screenshots/entries.png",
-         "sizes": "1024x768",
-         "type": "image/png"
-      },
-      {
-         "src": "https://raw.githubusercontent.com/LeversonCarlos/FriendlyCashFlow/lc/dev/reviewPwa/resources/screenshots/results.png",
-         "sizes": "1024x768",
-         "type": "image/png"
       }
    ]
 }
