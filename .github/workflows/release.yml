@@ -2,7 +2,7 @@ name: Release
 
 on:
   push:
-    branches: [ master, dev, 'lc/dev/reviewInstructions' ]
+    branches: [ master, dev ]
   # release:
   #   types: [created]
 
