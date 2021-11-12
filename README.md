@@ -87,6 +87,9 @@ There is a file on the **srcs folder** called **appsettings.json**. On this file
 - [JSON Web Tokens](https://jwt.io/)
 - [Progressive Web App](https://developers.google.com/web/progressive-web-apps)
 
+## Changelog
+See the [ChangeLog](./docs/historyChangeLog.md) file for details
+
 ## Authors
 - [Leverson Carlos](https://github.com/LeversonCarlos)
 - [other contributors](https://github.com/LeversonCarlos/FriendlyCashFlow/graphs/contributors)
