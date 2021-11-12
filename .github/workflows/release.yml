@@ -2,7 +2,7 @@ name: Release
 
 on:
   push:
-    branches: [ master, dev ]
+    branches: [ master, dev, 'lc/dev/reviewPwa' ]
   # release:
   #   types: [created]
 
