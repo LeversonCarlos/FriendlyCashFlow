@@ -2,6 +2,9 @@
 [GoBack](../README.md)  
 
 ## Current Version
+- Review some properties on manifest to publish the pwa on app stores
+
+## v6.3.187
 - Review the instructions files to keep track of history change logs
 - Review the release workflow to define preRelease properly based on the branch name
 - Upgrade dotnet to 6.0 version
