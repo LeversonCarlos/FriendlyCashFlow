@@ -1,7 +1,7 @@
 # Cash Flow - Changelog
 [GoBack](../README.md)  
 
-## Pre-Release
+## Current Version
 - Review the instructions files to keep track of history change logs
 - Review the release workflow to define preRelease properly based on the branch name
 - Upgrade dotnet to 6.0 version
