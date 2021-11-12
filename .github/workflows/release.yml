@@ -186,7 +186,7 @@ jobs:
       - name: Deploy
         uses: azure/webapps-deploy@v2
         with:
-          app-name: friendlyCashFlow-dev
+          app-name: friendlyCashFlow
           publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
           package: ./publish/build
 
