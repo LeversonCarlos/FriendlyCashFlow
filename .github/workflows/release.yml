@@ -9,6 +9,7 @@ on:
 env:
   version: '6.3.${{ github.run_number }}'
   suffixVersion: '-alpha'
+  preRelease: true
 
 jobs:
 
@@ -24,7 +25,7 @@ jobs:
       - name: Setup Dotnet
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '5.0.x'
+          dotnet-version: '6.0.x'
 
       - name: Setup Tools
         run: |
@@ -72,7 +73,7 @@ jobs:
       - name: ChangeLog
         run: |
           mkdir ./publish/changelog &&
-          cp ./CHANGELOG.md ./publish/changelog/CHANGELOG.md
+          cp ./docs/changelog.md ./publish/changelog/changelog.md
 
       - name: List Artifacts
         working-directory: 'publish'
@@ -100,6 +101,7 @@ jobs:
         if: github.ref == 'refs/heads/master'
         run: |
           echo "suffixVersion=" >> $GITHUB_ENV
+          echo "preRelease=false" >> $GITHUB_ENV
 
       - name: Define Beta Release
         if: github.ref == 'refs/heads/dev'
@@ -107,9 +109,10 @@ jobs:
           echo "suffixVersion=-beta" >> $GITHUB_ENV
 
       # - name: Define Test Release
-      #   if: github.ref == 'refs/heads/lc/dev/reviewGithubWorkflow'
+      #   if: github.ref == 'refs/heads/lc/dev/reviewReleasePipeline'
       #   run: |
       #     echo "suffixVersion=-test" >> $GITHUB_ENV
+      #     echo "preRelease=false" >> $GITHUB_ENV
 
       - name: Download Artifacts
         uses: actions/download-artifact@v2
@@ -126,11 +129,11 @@ jobs:
         id: create_release
         with:
           draft: false
-          prerelease: false
+          prerelease: ${{ env.preRelease }}
           release_name: 'v${{ env.version }}${{ env.suffixVersion }}'
           tag_name: 'v${{ env.version }}${{ env.suffixVersion }}'
           commitish: ${{ github.sha }}
-          body_path: ./publish/changelog/CHANGELOG.md
+          body_path: ./publish/changelog/changelog.md
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
@@ -183,7 +186,7 @@ jobs:
       - name: Deploy
         uses: azure/webapps-deploy@v2
         with:
-          app-name: friendlyCashFlow-dev
+          app-name: friendlyCashFlow
           publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
           package: ./publish/build
 
