@@ -106,7 +106,7 @@ export class ApplicationYieldChart {
                   return `<br/>
                   <span style="color:${p.color}">\u25CF</span>
                   <span>${p.series.name}</span>
-                  <strong>${self.translation.getNumberFormat((p.point.options as any).GainValue, 2)}</strong>
+                  <strong>${self.translation.getNumberFormat((p.point.options as any).OriginalGainF, 2)}</strong>
                   `;
                });
             const tootipHeader = `<strong>${this.points[0].key}</strong>`;
@@ -142,7 +142,8 @@ export class ApplicationYieldChart {
                         return {
                            name: date.DateText,
                            y: 0.0,
-                           GainValue: 0.0
+                           OriginalGain: 0.0,
+                           Gain: 0.0
                         };
                      })
                };
@@ -153,7 +154,8 @@ export class ApplicationYieldChart {
             seriesItem = seriesList[seriesHash[account.AccountText]];
             let dataItem = seriesItem.data[iDate];
             dataItem.y = account.Percentual;
-            dataItem.GainValue = account.Gain;
+            dataItem.OriginalGain = account.OriginalGain;
+            dataItem.Gain = account.Gain;
 
          }
 
