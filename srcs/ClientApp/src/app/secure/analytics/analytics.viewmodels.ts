@@ -55,6 +55,7 @@ export class ApplicationYieldVM {
 export class ApplicationYieldAccountVM {
    AccountID: number
    AccountText: string
+   OriginalGain: number;
    Gain: number
    Percentual: number
 }
