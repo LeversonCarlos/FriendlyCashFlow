@@ -47,6 +47,7 @@ namespace FriendlyCashFlow.API.Analytics
                            AccountID = a.AccountID,
                            AccountText = a.AccountText,
                            Gain = a.Gain,
+                           OriginalGain = a.OriginalGain,
                            Percentual = a.Percentual
                         })
                         .ToArray()
@@ -76,6 +77,7 @@ namespace FriendlyCashFlow.API.Analytics
       public DateTime Date { get; set; }
       public long AccountID { get; set; }
       public string AccountText { get; set; }
+      public decimal OriginalGain { get; set; }
       public decimal Gain { get; set; }
       public decimal Percentual { get; set; }
    }
@@ -91,6 +93,7 @@ namespace FriendlyCashFlow.API.Analytics
    {
       public long AccountID { get; set; }
       public string AccountText { get; set; }
+      public decimal OriginalGain { get; set; }
       public decimal Gain { get; set; }
       public decimal Percentual { get; set; }
    }

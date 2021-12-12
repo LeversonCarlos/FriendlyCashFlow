@@ -135,29 +135,22 @@ export class MonthlyTargetChart {
             const incomePoint: any = this.points[0].point;
             const incomeText = `<br/>
                <span style="color:${self.IncomeColor}">\u25CF</span>
-               <span>${incomePoint.series.name}</span>
+               <span>${incomePoint.series.name}:</span>
                <strong>${self.translation.getNumberFormat(incomePoint.realValue, 2)}</strong>
                `
             const expensePoint: any = this.points[1].point;
             const expenseText = `<br/>
                <span style="color:${self.ExpenseColor}">\u25CF</span>
-               <span>${expensePoint.series.name}</span>
+               <span>${expensePoint.series.name}:</span>
                <strong>${self.translation.getNumberFormat(expensePoint.realValue, 2)}</strong>
                `
-            const goalText = `<br/>
-               <span style="color:transparent">\u25CF</span>
-               <small>(</small>
-               <small>${goalLabel}</small>
-               <small>${self.translation.getNumberFormat(expensePoint.goalValue, 2)}</small>
-               <small>)</small>
-            `
             const balancePoint: any = this.points[2].point;
             const balanceText = `<br/>
-                  <span style="color:${self.BalanceColor}">\u25CF</span>
-                  <span>${balancePoint.series.name}</span>
+                  <span style="color:#999">\u25CF</span>
+                  <span>${balancePoint.series.name}:</span>
                   <strong>${self.translation.getNumberFormat(balancePoint.y, 2)}</strong>
                   `
-            const tooltip = `<strong>${incomePoint.name}</strong>${incomeText}${expenseText}${goalText}${balanceText}`;
+            const tooltip = `<strong>${incomePoint.name}</strong>${incomeText}${expenseText}${balanceText}`;
             return tooltip;
          }
       };

@@ -90,7 +90,7 @@ export class ApplicationYieldChart {
       return {
          title: { text: null },
          gridLineColor: 'transparent',
-         // tickPositions: [0, 100, maxValue],
+         tickPositions: [0, 101],
          // max: 101,
          labels: { enabled: false }
       };
@@ -101,16 +101,15 @@ export class ApplicationYieldChart {
       return {
          shared: true,
          formatter: function () {
-            let tootip = this.points
-               .map(p => {
-                  return `<br/>
+            const tootipList = this.points
+               .map(p => `
                   <span style="color:${p.color}">\u25CF</span>
-                  <span>${p.series.name}</span>
-                  <strong>${self.translation.getNumberFormat((p.point.options as any).GainValue, 2)}</strong>
-                  `;
-               });
+                  <span>${p.series.name}:</span>
+                  <strong>${self.translation.getNumberFormat((p.point.options as any).OriginalGain, 2)}</strong>
+                  `);
+            const tootip = tootipList.join('<br/>');
             const tootipHeader = `<strong>${this.points[0].key}</strong>`;
-            return `${tootipHeader}${tootip}`;
+            return `${tootipHeader}<br/>${tootip}`;
          }
       };
    }
@@ -142,7 +141,8 @@ export class ApplicationYieldChart {
                         return {
                            name: date.DateText,
                            y: 0.0,
-                           GainValue: 0.0
+                           OriginalGain: 0.0,
+                           Gain: 0.0
                         };
                      })
                };
@@ -153,7 +153,8 @@ export class ApplicationYieldChart {
             seriesItem = seriesList[seriesHash[account.AccountText]];
             let dataItem = seriesItem.data[iDate];
             dataItem.y = account.Percentual;
-            dataItem.GainValue = account.Gain;
+            dataItem.OriginalGain = account.OriginalGain;
+            dataItem.Gain = account.Gain;
 
          }
 

@@ -58,6 +58,7 @@ select
          B.AccountID = E.AccountID
          and B.[Date] < E.[Date]
    ) As Balance,
+   E.Value As OriginalGain,
    E.Value As Gain,
    cast(0 as decimal(15,5)) As GainPercentual,
    cast(0 as decimal(15,5)) As Percentual
@@ -80,6 +81,55 @@ where Balance is null;
 delete
 from #RESULT
 where Balance is null;
+
+select [Date], AccountID, abs(Gain) as GainLosses
+into #NegativeGain
+from #RESULT
+where Gain < 0;
+
+create table #NegativeGainReview( [Date] datetime, Gain float, GainPercentual float, GainReduce float);
+
+while exists(select * from #NegativeGain) begin
+   declare @gainDate datetime, @gainAccountID bigint, @gainLosses float ;
+      select top 1 @gainDate=[Date], @gainAccountID=AccountID, @gainLosses=GainLosses
+      from #NegativeGain
+      order by AccountID, [Date];
+
+   delete from #NegativeGainReview;
+      insert into #NegativeGainReview
+      select Date, Gain, 0 as GainPercentual, 0 as GainReduce
+      from #RESULT
+      where
+         AccountID=@gainAccountID and Gain > 0;
+
+   declare @gainTotal float;
+      select @gainTotal=sum(Gain) from #NegativeGainReview;
+
+   update #NegativeGainReview
+      set GainPercentual = Gain / @gainTotal;
+   update #NegativeGainReview
+      set GainReduce = round(@gainLosses * GainPercentual,2);
+
+   update #RESULT
+   set
+      Gain = RESULT.Gain - NegativeGainReview.GainReduce
+   from #RESULT as RESULT
+      inner join #NegativeGainReview as NegativeGainReview on (NegativeGainReview.[Date]=RESULT.[Date])
+   where
+      RESULT.AccountID = @gainAccountID;
+
+   update #RESULT
+   set Gain = 0
+   from #RESULT as RESULT
+   where
+      AccountID = @gainAccountID and
+      [Date] = @gainDate;
+
+   delete from #NegativeGain where AccountID=@gainAccountID and [Date]=@gainDate;
+end
+
+drop table #NegativeGainReview;
+drop table #NegativeGain;
 
 update #RESULT
 set

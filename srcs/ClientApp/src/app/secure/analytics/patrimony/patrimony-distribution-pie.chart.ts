@@ -65,7 +65,7 @@ export class PatrimonyDistributionPieChart {
       const self = this;
       return {
          enabled: true,
-         labelFormat: '<b>{name}</b>: <small>{y:,.2f}</small>',
+         labelFormat: '<span>{name}</span>: <small>{y:,.2f}</small>',
          layout: 'vertical',
          verticalAlign: 'top',
          itemStyle: {
