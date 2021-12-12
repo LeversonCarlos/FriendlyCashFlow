@@ -101,16 +101,15 @@ export class ApplicationYieldChart {
       return {
          shared: true,
          formatter: function () {
-            let tootip = this.points
-               .map(p => {
-                  return `<br/>
+            const tootipList = this.points
+               .map(p => `
                   <span style="color:${p.color}">\u25CF</span>
-                  <span>${p.series.name}</span>
-                  <strong>${self.translation.getNumberFormat((p.point.options as any).OriginalGainF, 2)}</strong>
-                  `;
-               });
+                  <span>${p.series.name}:</span>
+                  <strong>${self.translation.getNumberFormat((p.point.options as any).OriginalGain, 2)}</strong>
+                  `);
+            const tootip = tootipList.join('<br/>');
             const tootipHeader = `<strong>${this.points[0].key}</strong>`;
-            return `${tootipHeader}${tootip}`;
+            return `${tootipHeader}<br/>${tootip}`;
          }
       };
    }
