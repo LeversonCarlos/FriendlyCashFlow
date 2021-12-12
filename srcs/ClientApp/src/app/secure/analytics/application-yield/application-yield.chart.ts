@@ -90,7 +90,7 @@ export class ApplicationYieldChart {
       return {
          title: { text: null },
          gridLineColor: 'transparent',
-         // tickPositions: [0, 100, maxValue],
+         tickPositions: [0, 101],
          // max: 101,
          labels: { enabled: false }
       };
