@@ -2,6 +2,7 @@
 [GoBack](../README.md)  
 
 ## Current Version
+- Use inputMode for the valueEntry input to properly resolve the virtual keyboard
 - Review some properties on manifest to publish the pwa on app stores
 
 ## v6.3.187
