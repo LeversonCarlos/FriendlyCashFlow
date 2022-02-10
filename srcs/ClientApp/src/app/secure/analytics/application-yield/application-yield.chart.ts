@@ -100,16 +100,19 @@ export class ApplicationYieldChart {
       const self = this;
       return {
          shared: true,
+         useHTML: true,
          formatter: function () {
             const tootipList = this.points
                .map(p => `
-                  <span style="color:${p.color}">\u25CF</span>
-                  <span>${p.series.name}:</span>
-                  <strong>${self.translation.getNumberFormat((p.point.options as any).OriginalGain, 2)}</strong>
+                  <div>
+                     <span style="color:${p.color}">\u25CF</span>
+                     <span>${p.series.name}:</span>
+                     <strong>${self.translation.getNumberFormat((p.point.options as any).OriginalGain, 2)}</strong>
+                  </div>
                   `);
-            const tootip = tootipList.join('<br/>');
-            const tootipHeader = `<strong>${this.points[0].key}</strong>`;
-            return `${tootipHeader}<br/>${tootip}`;
+            const tootip = tootipList.join('');
+            const tootipHeader = `<div><strong>${this.points[0].key}</strong></div>`;
+            return `${tootipHeader}${tootip}`;
          }
       };
    }

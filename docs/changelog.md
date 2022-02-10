@@ -1,2 +1,3 @@
 - Use inputMode for the valueEntry input to properly resolve the virtual keyboard
+- Adjust on the applications yield chart to distribute gains from account into months that it had negative gains
 - Review some properties on manifest to publish the pwa on app stores
