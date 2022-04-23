@@ -13,3 +13,9 @@
 - `npx npm-check-updates --upgrade --target "patch" --filter "/@microsoft.*/"`
 - `npx npm-check-updates --upgrade --target "patch" --filter "highcharts,moment,rxjs"`
 - `npx npm-check-updates --upgrade --target "patch" --filter "typescript,tslib,tslint,ts-node,@types/node,zone.js"`
+
+# steps to upgrade nuget packages
+- `dotnet tool install nukeeper --global`
+  - `nukeeper update --change Patch`
+- `dotnet tool install --global dotnet-outdated-tool`
+  - `dotnet outdated --upgrade --version-lock Minor` *only upgrade patchs*
