@@ -4,6 +4,7 @@ import { MonthlyTargetVM } from '../analytics.viewmodels';
 
 import * as Highcharts from 'highcharts';
 import { AnalyticsService } from '../analytics.service';
+import { enCategoryType } from '../../categories/categories.viewmodels';
 declare var require: any;
 let Boost = require('highcharts/modules/boost');
 let noData = require('highcharts/modules/no-data-to-display');
@@ -27,7 +28,7 @@ export class MonthlyTargetChart {
    private ExpenseColor = '#f44336';
    private GoalColor = 'green';
 
-   public async show(data: MonthlyTargetVM[]) {
+   public async show(data: MonthlyTargetVM) {
       try {
          const options = await this.options(data);
          Highcharts.chart('monthlyTargetContainer', options);
@@ -35,7 +36,7 @@ export class MonthlyTargetChart {
       catch (ex) { console.error(ex); }
    }
 
-   private async options(data: MonthlyTargetVM[]): Promise<Highcharts.Options> {
+   private async options(data: MonthlyTargetVM): Promise<Highcharts.Options> {
       return {
          chart: this.chartOptions(),
          title: await this.titleOptions(),
@@ -72,10 +73,10 @@ export class MonthlyTargetChart {
       };
    }
 
-   private xAxisOptions(data: MonthlyTargetVM[]): Highcharts.XAxisOptions {
-      const categoryList = data
-         .sort((a, b) => a.SearchDate > b.SearchDate ? 1 : -1)
-         .map(x => x.SmallText);
+   private xAxisOptions(data: MonthlyTargetVM): Highcharts.XAxisOptions {
+      const categoryList = data.Headers
+         .sort((a, b) => a.Date > b.Date ? 1 : -1)
+         .map(x => x.DateText);
       return {
          title: { text: null },
          categories: categoryList,
@@ -85,21 +86,22 @@ export class MonthlyTargetChart {
       };
    }
 
-   private async yAxisOptions(data: MonthlyTargetVM[]): Promise<Highcharts.YAxisOptions[]> {
-      const goalText = await this.translation.getValue("ANALYTICS_MONTHLY_TARGET_GOAL_LABEL");
-      const goalValue = data
-         .map(x => x.ExpenseAverage)
+   private async yAxisOptions(data: MonthlyTargetVM): Promise<Highcharts.YAxisOptions[]> {
+      const targetText = await this.translation.getValue("ANALYTICS_MONTHLY_TARGET_GOAL_LABEL");
+      const targetValue = data.Headers
+         .map(x => x.TargetValue)
          .map(x => this.translation.getNumberFormat(x, 2))
          .find(x => true);
-      const maxBalance = data
-         .map(x => x.Balance)
+      const maxBalance = data.Headers
+         .map(x => x.BalanceValue)
          .sort((a, b) => a < b ? 1 : -1)
          .reduce((a, b) => a || b, 0) || 0;
-      let maxValue = data
-         .map(x => x.IncomeTarget > x.ExpenseTarget ? x.IncomeTarget : x.ExpenseTarget)
+      let maxValue = data.Items
+         .map(x => x.Value)
          .sort((a, b) => a < b ? 1 : -1)
          .reduce((a, b) => a || b, 0) || 0;
       maxValue = maxValue < 105 ? 105 : maxValue;
+
       return [{
          title: { text: null },
          gridLineColor: 'transparent',
@@ -109,7 +111,7 @@ export class MonthlyTargetChart {
             value: 100,
             color: this.GoalColor,
             label: {
-               text: `${goalText}: ${goalValue}`,
+               text: `${targetText}: ${targetValue}`,
                x: 0,
                style: { fontSize: '1.3vh', color: this.BalanceColor }
             },
@@ -131,60 +133,29 @@ export class MonthlyTargetChart {
       const goalLabel = await this.translation.getValue("ANALYTICS_MONTHLY_TARGET_GOAL_LABEL");
       return {
          shared: true,
+         useHTML: true,
          formatter: function () {
-            const incomePoint: any = this.points[0].point;
-            const incomeText = `<br/>
-               <span style="color:${self.IncomeColor}">\u25CF</span>
-               <span>${incomePoint.series.name}:</span>
-               <strong>${self.translation.getNumberFormat(incomePoint.realValue, 2)}</strong>
-               `
-            const expensePoint: any = this.points[1].point;
-            const expenseText = `<br/>
-               <span style="color:${self.ExpenseColor}">\u25CF</span>
-               <span>${expensePoint.series.name}:</span>
-               <strong>${self.translation.getNumberFormat(expensePoint.realValue, 2)}</strong>
-               `
-            const balancePoint: any = this.points[2].point;
-            const balanceText = `<br/>
-                  <span style="color:#999">\u25CF</span>
-                  <span>${balancePoint.series.name}:</span>
-                  <strong>${self.translation.getNumberFormat(balancePoint.y, 2)}</strong>
-                  `
-            const tooltip = `<strong>${incomePoint.name}</strong>${incomeText}${expenseText}${balanceText}`;
-            return tooltip;
+            const tootipList = this.points
+               .map(p => `
+                  <div>
+                     <span style="color:${p.color}">\u25CF</span>
+                     <span>${p.series.name}:</span>
+                     <strong>${self.translation.getNumberFormat((p.point.options as any).realValue, 2)}</strong>
+                  </div>
+                  `);
+            const tootip = tootipList.join('');
+            const tootipHeader = `<div><strong>${this.points[0].key}</strong></div>`;
+            return `${tootipHeader}${tootip}`;
          }
       };
    }
 
-   private async seriesOptions(data: MonthlyTargetVM[]): Promise<Highcharts.SeriesOptionsType[]> {
-      const incomeSeries: Highcharts.SeriesOptionsType = {
-         name: await this.translation.getValue('ANALYTICS_MONTHLY_TARGET_INCOME_LABEL'),
-         type: 'column',
-         yAxis: 0,
-         color: this.IncomeColor,
-         data: data
-            .sort((a, b) => a.SearchDate > b.SearchDate ? 1 : -1)
-            .map(x => ({
-               name: x.FullText,
-               y: x.IncomeTarget,
-               goalValue: x.IncomeAverage,
-               realValue: x.IncomeValue
-            }))
-      };
-      const expenseSeries: Highcharts.SeriesOptionsType = {
-         name: await this.translation.getValue('ANALYTICS_MONTHLY_TARGET_EXPENSE_LABEL'),
-         type: 'column',
-         yAxis: 0,
-         color: this.ExpenseColor,
-         data: data
-            .sort((a, b) => a.SearchDate > b.SearchDate ? 1 : -1)
-            .map(x => ({
-               name: x.FullText,
-               y: x.ExpenseTarget,
-               goalValue: x.ExpenseAverage,
-               realValue: x.ExpenseValue
-            }))
-      };
+   private async seriesOptions(data: MonthlyTargetVM): Promise<Highcharts.SeriesOptionsType[]> {
+      const result: Highcharts.SeriesOptionsType[] = [];
+
+      result.push(...this.seriesOptions_getSeriesOptionsType(data, enCategoryType.Income));
+      result.push(...this.seriesOptions_getSeriesOptionsType(data, enCategoryType.Expense));
+
       const balanceSeries: Highcharts.SeriesOptionsType = {
          name: await this.translation.getValue('ANALYTICS_MONTHLY_TARGET_BALANCE_LABEL'),
          type: 'line',
@@ -192,14 +163,78 @@ export class MonthlyTargetChart {
          color: this.BalanceColor,
          lineWidth: 1,
          marker: { enabled: true, radius: 2 },
-         data: data
+         data: data.Headers
             .map(x => ({
-               name: x.FullText,
-               y: x.Balance
+               name: x.DateText,
+               y: x.BalanceValue,
+               realValue: x.BalanceValue
             })),
          zIndex: 10
       };
-      return [incomeSeries, expenseSeries, balanceSeries];
+      result.push(balanceSeries);
+
+      return result;
    }
 
+   private seriesOptions_getSeriesOptionsType(data: MonthlyTargetVM, type: enCategoryType): Highcharts.SeriesOptionsType[] {
+
+      const filteredData = data.Items
+         .filter(x => x.Type == type);
+      const seriesData = groupBy(filteredData, item => item.SerieText);
+
+      let seriesColor = type == enCategoryType.Income ? this.IncomeColor : this.ExpenseColor;
+      const getColor = (): string => {
+         const resultColor = seriesColor;
+         seriesColor = Highcharts.color(seriesColor).brighten(10).get().toString();
+         return resultColor;
+      };
+
+      const seriesList = seriesData
+         .map(serie => {
+            return {
+               name: serie[0],
+               color: getColor(),
+               values: serie[1]
+            };
+         });
+
+      return seriesList
+         .map(serieData => {
+            const serieResult: Highcharts.SeriesOptionsType = {
+               name: serieData.name,
+               type: 'column',
+               yAxis: 0,
+               color: serieData.color,
+               data: serieData.values
+                  .sort((a, b) => a.Date > b.Date ? 1 : -1)
+                  .map(x => ({
+                     name: x.DateText,
+                     y: x.Value,
+                     realValue: x.Value
+                  }))
+            };
+            return serieResult;
+         });
+
+   }
+
+
+}
+
+function groupBy<T>(list: T[], keyGetter: (item: T) => string): [key: string, values: T[]][] {
+   const map = new Map<string, T[]>();
+   list.forEach((item) => {
+      const key = keyGetter(item);
+      const collection = map.get(key);
+      if (!collection) {
+         map.set(key, [item]);
+      } else {
+         collection.push(item);
+      }
+   });
+   const result: [key: string, values: T[]][] = [];
+   for (let item of map.entries()) {
+      result.push([item[0], item[1]]);
+   }
+   return result;
 }
