@@ -90,7 +90,6 @@ export class MonthlyTargetChart {
       const targetText = await this.translation.getValue("ANALYTICS_MONTHLY_TARGET_GOAL_LABEL");
       const targetValue = data.Headers
          .map(x => x.TargetValue)
-         .map(x => this.translation.getNumberFormat(x, 2))
          .find(x => true);
       const maxBalance = data.Headers
          .map(x => x.BalanceValue)
@@ -108,10 +107,10 @@ export class MonthlyTargetChart {
          tickPositions: [0, 100, maxValue],
          max: maxValue,
          plotLines: [{
-            value: 100,
+            value: targetValue,
             color: this.GoalColor,
             label: {
-               text: `${targetText}: ${targetValue}`,
+               text: `${targetText}: ${this.translation.getNumberFormat(targetValue, 2)}`,
                x: 0,
                style: { fontSize: '1.3vh', color: this.BalanceColor }
             },
