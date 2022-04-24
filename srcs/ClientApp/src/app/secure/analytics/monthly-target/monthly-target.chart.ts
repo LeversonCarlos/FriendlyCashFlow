@@ -202,6 +202,7 @@ export class MonthlyTargetChart {
             const serieResult: Highcharts.SeriesOptionsType = {
                name: serieData.name,
                type: 'column',
+               stacking: type == enCategoryType.Income ? 'normal' : undefined,
                yAxis: 0,
                color: serieData.color,
                data: serieData.values
