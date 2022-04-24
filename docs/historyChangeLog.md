@@ -2,6 +2,9 @@
 [GoBack](../README.md)  
 
 ## Current Version
+- WIP
+
+## v6.3.197
 - Refactor the monthly target chart to show details of the income data on each month
 - Upgrade packages (backend and frontend) version to the latest patchs
 - Review tooltip size on chart so it doesnt break on small screens
