@@ -4,6 +4,7 @@ declare @searchYear smallint = @paramSearchYear;
 declare @searchMonth smallint = @paramSearchMonth;
 declare @typeExpense smallint = 1;
 declare @typeIncome smallint = 2;
+declare @investmentAccount smallint = 3;
 declare @yearsToAnalyseTarget smallint = 2;
 
 /* INTERVAL */
@@ -14,7 +15,7 @@ set @entriesInitial = dateadd(month, (-12*@yearsToAnalyseTarget), @entriesInitia
 print 'entries interval: ' + convert(varchar, @entriesInitial, 121) + ' - ' + convert(varchar, @entriesFinal, 121);
 
 /* ACCOUNTS */
-select AccountID
+select AccountID, Type
 into #AccountIDs
 from v6_dataAccounts
 where ResourceID=@resourceID and RowStatus=1 and Active=1
@@ -23,6 +24,7 @@ where ResourceID=@resourceID and RowStatus=1 and Active=1
 select
    sub.Date,
    sub.Type,
+   sub.AccountID,
    (select top 1 p.Text from v6_dataPatterns as p where p.PatternID = sub.PatternID ) As [SerieText],
    sub.Value
 into #EntriesData
@@ -31,6 +33,7 @@ from
    select
       cast(ltrim(str(year(SearchDate)))+'-'+ltrim(str(month(SearchDate)))+'-01 00:00:00' as datetime) as Date,
       Type,
+      AccountID,
       (case when Type=1 then 0 else PatternID end) as PatternID,
       sum(EntryValue) As Value
    from v6_dataEntries
@@ -45,6 +48,7 @@ from
    group by
       year(SearchDate), month(SearchDate),
       Type,
+      AccountID,
       (case when Type=1 then 0 else PatternID end)
 
 ) sub;
@@ -59,9 +63,14 @@ declare @standardDeviationValue decimal (15,3), @averageValue decimal (15,3);
       select
          coalesce(STDEVP(Value),0) as StandardDeviationValue,
          coalesce(AVG(Value),0) as AverageValue
-      from #EntriesData
-      where Type=@typeExpense
-   ) sub;
+      from
+      (
+         select sum(Value) as Value
+         from #EntriesData
+         where Type=@typeExpense
+         group by Date
+      ) sub1
+   ) sub2;
 declare @targetValue decimal (15,3);
    select top 1
       @targetValue = TargetValue
@@ -106,10 +115,19 @@ from
 ) sub;
 
 /* ITEMS LIST */
-select *
+select
+   Date,
+   Type,
+   SerieText,
+   sum(Value) as Value
 into #ItemsList
 from #EntriesData
-where Date >= @yearInitial;
+where
+   Date >= @yearInitial
+group by
+   Date,
+   Type,
+   SerieText;
 
 /* RESULTS*/
 select * from #HeadersList order by Date;
