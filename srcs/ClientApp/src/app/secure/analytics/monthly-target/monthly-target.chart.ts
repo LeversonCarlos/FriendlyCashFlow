@@ -171,8 +171,8 @@ export class MonthlyTargetChart {
       };
       result.push(balanceSeries);
 
-      result.push(...this.seriesOptions_getSeriesOptionsType(data, enCategoryType.Expense));
       result.push(...this.seriesOptions_getSeriesOptionsType(data, enCategoryType.Income));
+      result.push(...this.seriesOptions_getSeriesOptionsType(data, enCategoryType.Expense));
 
       return result;
    }
