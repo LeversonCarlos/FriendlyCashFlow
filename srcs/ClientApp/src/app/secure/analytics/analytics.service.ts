@@ -73,10 +73,10 @@ export class AnalyticsService {
    }
 
    /* MONTHLY TARGET */
-   public MonthlyTarget: MonthlyTargetVM[] = null
+   public MonthlyTarget: MonthlyTargetVM = null
    public async LoadMonthlyTarget(year: number, month: number): Promise<boolean> {
       const url = `api/monthlyResult/monthlyTarget/${year}/${month}`;
-      this.MonthlyTarget = await this.http.get<MonthlyTargetVM[]>(url).toPromise();
+      this.MonthlyTarget = await this.http.get<MonthlyTargetVM>(url).toPromise();
       return (this.MonthlyTarget != null);
    }
 
