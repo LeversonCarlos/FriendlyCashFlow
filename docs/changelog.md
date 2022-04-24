@@ -1,3 +1,1 @@
-- Review the instructions files to keep track of history change logs
-- Review the release workflow to define preRelease properly based on the branch name
-- Upgrade dotnet to 6.0 version
+- Refactor the monthly target chart to show details of the income data on each month

@@ -73,10 +73,12 @@ export class EntriesParetoChart {
          shared: true,
          formatter: function () {
             return `
-               <strong>${this.points[1].key}</strong>
+               <span style="color:${this.points[1].color}">\u25CF</span>
+               <span>${this.points[1].key}</span>
                <br/>
+               <span style="color:transparent">\u25CF</span>
                <strong>${self.translation.getNumberFormat(this.points[1].y, 2)}</strong>
-               <small> (${self.translation.getNumberFormat(this.points[0].y, 0)}%)</small>
+               <small> (${self.translation.getNumberFormat(100-this.points[0].y, 0)}%)</small>
                `;
          }
       };

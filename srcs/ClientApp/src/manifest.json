@@ -7,6 +7,17 @@
    "display": "standalone",
    "scope": "/",
    "start_url": "/",
+   "orientation": "any",
+   "categories": [
+      "finances",
+      "personal finances"
+   ],
+   "shortcuts": [
+      {
+         "name": "Monthly Result",
+         "url": "/analytics"
+      }
+   ],
    "icons": [
       {
          "src": "assets/icons/icon-72x72.png",
