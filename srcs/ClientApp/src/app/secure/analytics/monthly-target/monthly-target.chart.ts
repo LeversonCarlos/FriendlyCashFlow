@@ -152,9 +152,6 @@ export class MonthlyTargetChart {
    private async seriesOptions(data: MonthlyTargetVM): Promise<Highcharts.SeriesOptionsType[]> {
       const result: Highcharts.SeriesOptionsType[] = [];
 
-      result.push(...this.seriesOptions_getSeriesOptionsType(data, enCategoryType.Income));
-      result.push(...this.seriesOptions_getSeriesOptionsType(data, enCategoryType.Expense));
-
       const balanceSeries: Highcharts.SeriesOptionsType = {
          name: await this.translation.getValue('ANALYTICS_MONTHLY_TARGET_BALANCE_LABEL'),
          type: 'line',
@@ -171,6 +168,9 @@ export class MonthlyTargetChart {
          zIndex: 10
       };
       result.push(balanceSeries);
+
+      result.push(...this.seriesOptions_getSeriesOptionsType(data, enCategoryType.Expense));
+      result.push(...this.seriesOptions_getSeriesOptionsType(data, enCategoryType.Income));
 
       return result;
    }
