@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace FriendlyCashFlow.API.Analytics
@@ -10,7 +8,7 @@ namespace FriendlyCashFlow.API.Analytics
    partial class AnalyticsService
    {
 
-      internal async Task<ActionResult<List<MonthlyTargetVM>>> GetMonthlyTargetAsync(short searchYear, short searchMonth)
+      internal async Task<ActionResult<MonthlyTargetVM>> GetMonthlyTargetAsync(short searchYear, short searchMonth)
       {
          try
          {
@@ -21,7 +19,7 @@ namespace FriendlyCashFlow.API.Analytics
          catch (Exception ex) { return this.ExceptionResponse(ex); }
       }
 
-      private async Task<List<MonthlyTargetVM>> GetMonthlyTargetAsync_Execute(short searchYear, short searchMonth)
+      private async Task<MonthlyTargetVM> GetMonthlyTargetAsync_Execute(short searchYear, short searchMonth)
       {
          try
          {
@@ -33,8 +31,19 @@ namespace FriendlyCashFlow.API.Analytics
                queryReader.AddParameter("@paramSearchYear", searchYear);
                queryReader.AddParameter("@paramSearchMonth", searchMonth);
 
-               if (!await queryReader.ExecuteReaderAsync()) { return null; }
-               return await queryReader.GetDataResultAsync<MonthlyTargetVM>();
+               if (!await queryReader.ExecuteReaderAsync())
+                  return null;
+               var headersList = await queryReader.GetDataResultAsync<MonthlyTargetHeaderVM>();
+               var itemsList = await queryReader.GetDataResultAsync<MonthlyTargetItemVM>();
+
+               var expenseText = GetTranslation("ANALYTICS_MONTHLY_TARGET_EXPENSE_LABEL");
+               foreach (var item in itemsList)
+               {
+                  if (item.Type == (short)Categories.enCategoryType.Expense)
+                     item.Text = expenseText;
+               }
+
+               return MonthlyTargetVM.Create(headersList.ToArray(), itemsList.ToArray());
             }
          }
          catch (Exception) { throw; }
@@ -46,7 +55,7 @@ namespace FriendlyCashFlow.API.Analytics
    {
 
       [HttpGet("monthlyTarget/{searchYear}/{searchMonth}")]
-      public async Task<ActionResult<List<MonthlyTargetVM>>> GetMonthlyTargetAsync(short searchYear, short searchMonth)
+      public async Task<ActionResult<MonthlyTargetVM>> GetMonthlyTargetAsync(short searchYear, short searchMonth)
       {
          return await this.GetService<AnalyticsService>().GetMonthlyTargetAsync(searchYear, searchMonth);
       }
@@ -55,16 +64,30 @@ namespace FriendlyCashFlow.API.Analytics
 
    public class MonthlyTargetVM
    {
-      public DateTime SearchDate { get; set; }
-      public string SmallText { get { return this.SearchDate.ToString("MMM").ToUpper(); } }
-      public string FullText { get { return this.SearchDate.ToString("MMM yyyy").ToUpper(); } }
-      public decimal IncomeValue { get; set; }
-      public decimal IncomeAverage { get; set; }
-      public decimal IncomeTarget { get; set; }
-      public decimal ExpenseValue { get; set; }
-      public decimal ExpenseAverage { get; set; }
-      public decimal ExpenseTarget { get; set; }
-      public decimal Balance { get; set; }
+      public MonthlyTargetHeaderVM[] Headers { get; private set; }
+      public MonthlyTargetItemVM[] Items { get; private set; }
+      internal static MonthlyTargetVM Create(MonthlyTargetHeaderVM[] headers, MonthlyTargetItemVM[] items) =>
+         new MonthlyTargetVM
+         {
+            Headers = headers,
+            Items = items
+         };
+   }
+
+   public class MonthlyTargetHeaderVM
+   {
+      public DateTime Date { get; set; }
+      public string DateText { get { return this.Date.ToString("MMM").ToUpper(); } }
+      public decimal BalanceValue { get; set; }
+      public decimal TargetValue { get; set; }
+   }
+
+   public class MonthlyTargetItemVM
+   {
+      public DateTime Date { get; set; }
+      public short Type { get; set; }
+      public string Text { get; set; }
+      public decimal Value { get; set; }
    }
 
 }
