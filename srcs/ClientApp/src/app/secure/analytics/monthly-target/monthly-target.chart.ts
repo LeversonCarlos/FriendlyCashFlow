@@ -184,7 +184,10 @@ export class MonthlyTargetChart {
       let seriesColor = type == enCategoryType.Income ? this.IncomeColor : this.ExpenseColor;
       const getColor = (): string => {
          const resultColor = seriesColor;
-         seriesColor = Highcharts.color(seriesColor).brighten(10).get().toString();
+         const rgbToHex = (r: number, g: number, b: number) => '#' + [r, g, b]
+            .map(x => x.toString(16).padStart(2, '0')).join('');
+         const brightenColor: any = Highcharts.color(seriesColor).brighten(0.05);
+         seriesColor = rgbToHex(brightenColor.rgba[0], brightenColor.rgba[1], brightenColor.rgba[2]);
          return resultColor;
       };
 
