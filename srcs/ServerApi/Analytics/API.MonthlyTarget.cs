@@ -40,7 +40,7 @@ namespace FriendlyCashFlow.API.Analytics
                foreach (var item in itemsList)
                {
                   if (item.Type == (short)Categories.enCategoryType.Expense)
-                     item.Text = expenseText;
+                     item.SerieText = expenseText;
                }
 
                return MonthlyTargetVM.Create(headersList.ToArray(), itemsList.ToArray());
@@ -85,8 +85,9 @@ namespace FriendlyCashFlow.API.Analytics
    public class MonthlyTargetItemVM
    {
       public DateTime Date { get; set; }
+      public string DateText { get { return this.Date.ToString("MMM").ToUpper(); } }
       public short Type { get; set; }
-      public string Text { get; set; }
+      public string SerieText { get; set; }
       public decimal Value { get; set; }
    }
 

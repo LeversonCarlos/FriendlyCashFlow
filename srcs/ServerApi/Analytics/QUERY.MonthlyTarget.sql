@@ -23,7 +23,7 @@ where ResourceID=@resourceID and RowStatus=1 and Active=1
 select
    sub.Date,
    sub.Type,
-   (select top 1 p.Text from v6_dataPatterns as p where p.PatternID = sub.PatternID ) As [Text],
+   (select top 1 p.Text from v6_dataPatterns as p where p.PatternID = sub.PatternID ) As [SerieText],
    sub.Value
 into #EntriesData
 from
