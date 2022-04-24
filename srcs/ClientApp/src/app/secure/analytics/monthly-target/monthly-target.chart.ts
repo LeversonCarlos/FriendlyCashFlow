@@ -160,6 +160,7 @@ export class MonthlyTargetChart {
          lineWidth: 1,
          marker: { enabled: true, radius: 2 },
          data: data.Headers
+            .sort((a, b) => a.Date > b.Date ? 1 : -1)
             .map(x => ({
                name: x.DateText,
                y: x.BalanceValue,
@@ -178,7 +179,8 @@ export class MonthlyTargetChart {
    private seriesOptions_getSeriesOptionsType(data: MonthlyTargetVM, type: enCategoryType): Highcharts.SeriesOptionsType[] {
 
       const filteredData = data.Items
-         .filter(x => x.Type == type);
+         .filter(x => x.Type == type)
+         .sort((a, b) => a.Value < b.Value ? 1 : -1);
       const seriesData = groupBy(filteredData, item => item.SerieText);
 
       let seriesColor = type == enCategoryType.Income ? this.IncomeColor : this.ExpenseColor;
