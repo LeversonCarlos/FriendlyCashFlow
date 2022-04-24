@@ -104,8 +104,8 @@ export class MonthlyTargetChart {
       return [{
          title: { text: null },
          gridLineColor: 'transparent',
-         tickPositions: [0, 100, maxValue],
-         max: maxValue,
+         // tickPositions: [0, 100, maxValue],
+         // max: maxValue,
          plotLines: [{
             value: targetValue,
             color: this.GoalColor,
@@ -223,7 +223,6 @@ export class MonthlyTargetChart {
          });
 
    }
-
 
 }
 
