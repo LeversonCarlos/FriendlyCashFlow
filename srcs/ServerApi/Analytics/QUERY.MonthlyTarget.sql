@@ -25,7 +25,7 @@ select
    sub.Date,
    sub.Type,
    sub.AccountID,
-   (select top 1 p.Text from v6_dataPatterns as p where p.PatternID = sub.PatternID ) As [SerieText],
+   (select top 1 p.Text from v6_dataPatterns as p where p.PatternID = sub.PatternID ) As SerieText,
    sub.Value
 into #EntriesData
 from
@@ -84,6 +84,43 @@ declare @targetValue decimal (15,3);
          Value <= (@averageValue + @standardDeviationValue)
    ) sub;
 
+/* LOCATE DATA FROM INVESTMENT ACCOUNTS */
+select
+   Date,
+   Type,
+   Value * (case when Type=@typeIncome then 1 else -1 end) as Value,
+   SerieText
+into #InvestmentData
+from #EntriesData
+where
+   AccountID in ( select AccountID from #AccountIDs where Type=@investmentAccount );
+
+/* REMOVE CURRENT DATA FROM INVESTMENT ACCOUNTS */
+delete
+from #EntriesData
+where
+   AccountID in ( select AccountID from #AccountIDs where Type=@investmentAccount );
+
+/* INSERT SUMARIZED DATA FROM INVESTMENT ACCOUNTS */
+declare @investmentText varchar(50);
+   select top 1 @investmentText=SerieText from #InvestmentData where Type=@typeIncome;
+insert into #EntriesData
+   select
+      Date,
+      (case when Value < 0 then @typeExpense else @typeIncome end) as Type,
+      0 As AccountID,
+      @investmentText as SerieText,
+      Value
+   from
+   (
+      select
+         Date,
+         sum(Value) as Value
+      from #InvestmentData
+      group by
+         Date
+   ) sub
+   where Value <> 0;
 
 /* BALANCE DATA */
 select
@@ -139,4 +176,5 @@ drop table #ItemsList;
 drop table #AccountIDs;
 drop table #EntriesData;
 drop table #BalanceData;
+drop table #InvestmentData;
 set nocount off;
