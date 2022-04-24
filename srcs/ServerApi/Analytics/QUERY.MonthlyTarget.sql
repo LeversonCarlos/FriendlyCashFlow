@@ -4,6 +4,7 @@ declare @searchYear smallint = @paramSearchYear;
 declare @searchMonth smallint = @paramSearchMonth;
 declare @typeExpense smallint = 1;
 declare @typeIncome smallint = 2;
+declare @investmentAccount smallint = 3;
 declare @yearsToAnalyseTarget smallint = 2;
 
 /* INTERVAL */
@@ -14,120 +15,166 @@ set @entriesInitial = dateadd(month, (-12*@yearsToAnalyseTarget), @entriesInitia
 print 'entries interval: ' + convert(varchar, @entriesInitial, 121) + ' - ' + convert(varchar, @entriesFinal, 121);
 
 /* ACCOUNTS */
-select AccountID
+select AccountID, Type
 into #AccountIDs
 from v6_dataAccounts
 where ResourceID=@resourceID and RowStatus=1 and Active=1
 
 /* ENTRIES DATA */
 select
-   cast(ltrim(str(year(SearchDate)))+'-'+ltrim(str(month(SearchDate)))+'-01 00:00:00' as datetime) as SearchDate,
-   Type, sum(EntryValue) As Value
+   sub.Date,
+   sub.Type,
+   sub.AccountID,
+   (select top 1 p.Text from v6_dataPatterns as p where p.PatternID = sub.PatternID ) As SerieText,
+   sub.Value
 into #EntriesData
-from v6_dataEntries
-where
-   RowStatus = 1
-   and ResourceID = @resourceID
-   and AccountID in (select AccountID from #AccountIDs)
-   and SearchDate >= @entriesInitial
-   and SearchDate <= @entriesFinal
-   and TransferID is null
-   and not CategoryID is null
-group by year(SearchDate), month(SearchDate), Type;
-
-/* STANDARD DEVIATION */
-select
-   coalesce(STDEVP(Value),0) as StdDevValue,
-   coalesce(AVG(Value),0) as AverageValue
-into #StdDev
-from #EntriesData
-where Type=@typeExpense;
-
-/* AVERAGE DATA */
-select
-   avg(Value) as AverageValue
-into #AverageData
-from #EntriesData as EntriesData
-   cross join #StdDev as StdDev 
-where
-   Value >= AverageValue - StdDevValue AND
-   Value <= AverageValue + StdDevValue;
-
-/* YEAR DATA */
-select
-   SearchDate,
-   sum(IncomeValue) as IncomeValue,
-   sum(ExpenseValue) as ExpenseValue
-into #YearData
 from
 (
    select
-      SearchDate,
-      (case when Type=@typeIncome then Value else 0 end) as IncomeValue,
-      (case when Type=@typeExpense then Value else 0 end) as ExpenseValue
-   from #EntriesData
-   where SearchDate >= @yearInitial
-) SUB
-group by SearchDate
+      cast(ltrim(str(year(SearchDate)))+'-'+ltrim(str(month(SearchDate)))+'-01 00:00:00' as datetime) as Date,
+      Type,
+      AccountID,
+      (case when Type=1 then 0 else PatternID end) as PatternID,
+      sum(EntryValue) As Value
+   from v6_dataEntries
+   where
+      RowStatus = 1
+      and ResourceID = @resourceID
+      and AccountID in (select AccountID from #AccountIDs)
+      and SearchDate >= @entriesInitial
+      and SearchDate <= @entriesFinal
+      and TransferID is null
+      and not CategoryID is null
+   group by
+      year(SearchDate), month(SearchDate),
+      Type,
+      AccountID,
+      (case when Type=1 then 0 else PatternID end)
 
-/* APPLY TARGET */
-alter table #YearData add IncomeAverage decimal(15,2), ExpenseAverage decimal(15,2);
-   update #YearData
-   set
-      IncomeAverage = (select sum(AverageValue) from #AverageData ),
-      ExpenseAverage = (select sum(AverageValue) from #AverageData )
-   from #YearData;
-alter table #YearData add IncomeTarget decimal(15,4), ExpenseTarget decimal(15,4);
-   update #YearData
-   set
-      IncomeTarget = IncomeValue/IncomeAverage*100,
-      ExpenseTarget = ExpenseValue/ExpenseAverage*100
-   from #YearData;
+) sub;
+
+/* TARGET VALUE */
+declare @standardDeviationValue decimal (15,3), @averageValue decimal (15,3);
+   select
+      @standardDeviationValue = StandardDeviationValue,
+      @averageValue = AverageValue
+   from
+   (
+      select
+         coalesce(STDEVP(Value),0) as StandardDeviationValue,
+         coalesce(AVG(Value),0) as AverageValue
+      from
+      (
+         select sum(Value) as Value
+         from #EntriesData
+         where Type=@typeExpense
+         group by Date
+      ) sub1
+   ) sub2;
+declare @targetValue decimal (15,3);
+   select top 1
+      @targetValue = TargetValue
+   from
+   (
+      select
+         avg(Value) as TargetValue
+      from #EntriesData as EntriesData
+      where
+         Value >= (@averageValue - @standardDeviationValue) AND
+         Value <= (@averageValue + @standardDeviationValue)
+   ) sub;
+
+/* LOCATE DATA FROM INVESTMENT ACCOUNTS */
+select
+   Date,
+   Type,
+   Value * (case when Type=@typeIncome then 1 else -1 end) as Value,
+   SerieText
+into #InvestmentData
+from #EntriesData
+where
+   AccountID in ( select AccountID from #AccountIDs where Type=@investmentAccount );
+
+/* REMOVE CURRENT DATA FROM INVESTMENT ACCOUNTS */
+delete
+from #EntriesData
+where
+   AccountID in ( select AccountID from #AccountIDs where Type=@investmentAccount );
+
+/* INSERT SUMARIZED DATA FROM INVESTMENT ACCOUNTS */
+declare @investmentText varchar(50);
+   select top 1 @investmentText=SerieText from #InvestmentData where Type=@typeIncome;
+insert into #EntriesData
+   select
+      Date,
+      (case when Value < 0 then @typeExpense else @typeIncome end) as Type,
+      0 As AccountID,
+      @investmentText as SerieText,
+      Value
+   from
+   (
+      select
+         Date,
+         sum(Value) as Value
+      from #InvestmentData
+      group by
+         Date
+   ) sub
+   where Value <> 0;
 
 /* BALANCE DATA */
-select Date, sum(PaidValue) as Value
+select
+   Date, sum(PaidValue) as Value
 into #BalanceData
 from v6_dataBalance
 where
    ResourceID=@resourceID
    and AccountID in (select AccountID from #AccountIDs)
    and Date <= @entriesFinal
-group by Date
+group by Date;
 
-/* BALANCE */
-alter table #YearData add Balance decimal(15,2);
-   update #YearData
-   set
-      Balance =
-      (
-         select sum(Value)
-         from #BalanceData
-         where Date <= YearData.SearchDate
-      )
-   from #YearData as YearData;
+/* HEADERS LIST */
+select
+   sub.Date,
+   (
+      select sum(Value)
+      from #BalanceData
+      where Date <= sub.Date
+   ) as BalanceValue,
+   @targetValue as TargetValue
+into #HeadersList
+from
+(
+   select Date
+   from #EntriesData
+   where Date >= @yearInitial
+   group by Date
+) sub;
 
-/* ADJUST CURRENT MONTH */
-declare @balanceCurrentMonth datetime = cast(ltrim(str(@searchYear))+'-'+ltrim(str(@searchMonth))+'-01 00:00:00' as datetime);
-declare @balanceCurrentMonthValue float;
-select top 1 @balanceCurrentMonthValue = Balance
-   from #YearData as YearData
-   where SearchDate = DATEADD(month,-1,@balanceCurrentMonth);
-select top 1 @balanceCurrentMonthValue=@balanceCurrentMonthValue+(IncomeValue-ExpenseValue)
-   from #YearData as YearData
-   where SearchDate=@balanceCurrentMonth;
-update #YearData
-   set Balance=@balanceCurrentMonthValue
-   from #YearData as YearData
-   where SearchDate=@balanceCurrentMonth;
+/* ITEMS LIST */
+select
+   Date,
+   Type,
+   SerieText,
+   sum(Value) as Value
+into #ItemsList
+from #EntriesData
+where
+   Date >= @yearInitial
+group by
+   Date,
+   Type,
+   SerieText;
 
-/* RESULT */
-select * from #YearData;
+/* RESULTS*/
+select * from #HeadersList order by Date;
+select * from #ItemsList order by Date asc, Type desc, Value desc;
 
 /* CLEAR */
+drop table #HeadersList;
+drop table #ItemsList;
 drop table #AccountIDs;
 drop table #EntriesData;
-drop table #YearData;
-drop table #StdDev
-drop table #AverageData
 drop table #BalanceData;
+drop table #InvestmentData;
 set nocount off;

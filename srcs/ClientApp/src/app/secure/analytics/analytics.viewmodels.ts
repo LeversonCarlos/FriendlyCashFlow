@@ -1,3 +1,5 @@
+import { enCategoryType } from "../categories/categories.viewmodels"
+
 export class FilterData {
    public Month: Date
 
@@ -25,17 +27,24 @@ export class EntriesParetoVM {
    Pareto: number
 }
 
+export class MonthlyTargetHeaderVM {
+   Date: Date;
+   DateText: string;
+   BalanceValue: number;
+   TargetValue: number;
+}
+
+export class MonthlyTargetItemVM {
+   Date: Date;
+   DateText: string;
+   Type: enCategoryType;
+   SerieText: string;
+   Value: number;
+}
+
 export class MonthlyTargetVM {
-   SearchDate: Date
-   SmallText: string
-   FullText: string
-   IncomeValue: number
-   IncomeAverage: number
-   IncomeTarget: number
-   ExpenseValue: number
-   ExpenseAverage: number
-   ExpenseTarget: number
-   Balance: number
+   Headers: MonthlyTargetHeaderVM[];
+   Items: MonthlyTargetItemVM[];
 }
 
 export class MonthlyBudgetVM {
