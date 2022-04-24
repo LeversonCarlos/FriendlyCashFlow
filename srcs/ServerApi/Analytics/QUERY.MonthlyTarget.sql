@@ -99,12 +99,10 @@ select
 into #HeadersList
 from
 (
-   select
-      Date
+   select Date
    from #EntriesData
    where Date >= @yearInitial
-   group by
-      Date
+   group by Date
 ) sub;
 
 /* ITEMS LIST */
