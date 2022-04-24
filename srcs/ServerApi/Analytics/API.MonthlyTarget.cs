@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace FriendlyCashFlow.API.Analytics
@@ -35,6 +36,27 @@ namespace FriendlyCashFlow.API.Analytics
                   return null;
                var headersList = await queryReader.GetDataResultAsync<MonthlyTargetHeaderVM>();
                var itemsList = await queryReader.GetDataResultAsync<MonthlyTargetItemVM>();
+
+               var incomeSeriesList = itemsList.Where(x => x.Type == (short)Categories.enCategoryType.Income).Select(x => x.SerieText).Distinct().ToArray();
+               foreach (var header in headersList)
+               {
+                  var existingSeriesOnCurrentMonth = itemsList
+                     .Where(x => x.Type == (short)Categories.enCategoryType.Income && x.Date == header.Date)
+                     .Select(x => x.SerieText)
+                     .Distinct()
+                     .ToArray();
+                  var missingSeriesListOnCurrentMonth = incomeSeriesList
+                     .Where(serie => !existingSeriesOnCurrentMonth.Contains(serie))
+                     .Select(serie => new MonthlyTargetItemVM
+                     {
+                        Date = header.Date,
+                        Type = (short)Categories.enCategoryType.Income,
+                        SerieText = serie,
+                        Value = 0
+                     })
+                     .ToArray();
+                     itemsList.AddRange(missingSeriesListOnCurrentMonth);
+               }
 
                var expenseText = GetTranslation("ANALYTICS_MONTHLY_TARGET_EXPENSE_LABEL");
                foreach (var item in itemsList)

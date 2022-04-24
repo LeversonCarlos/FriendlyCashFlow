@@ -135,6 +135,7 @@ export class MonthlyTargetChart {
          useHTML: true,
          formatter: function () {
             const tootipList = this.points
+               .filter(p => (p.point.options as any).realValue != 0)
                .map(p => `
                   <div>
                      <span style="color:${p.color}">\u25CF</span>
