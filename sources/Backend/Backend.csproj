@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+   <PropertyGroup>
+      <TargetFramework>net6.0</TargetFramework>
+      <Nullable>enable</Nullable>
+      <ImplicitUsings>enable</ImplicitUsings>
+   </PropertyGroup>
+
+   <PropertyGroup>
+      <Version>1.0.0</Version>
+      <AssemblyName>FriendlyCashFlow</AssemblyName>
+      <RootNamespace>Friendly.CashFlow</RootNamespace>
+      <Authors>Leverson Carlos</Authors>
+   </PropertyGroup>
+
+</Project>
