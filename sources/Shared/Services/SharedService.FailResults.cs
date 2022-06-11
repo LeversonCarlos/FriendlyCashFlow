@@ -1,4 +1,4 @@
-﻿namespace Friendly.CashFlow.Services;
+﻿namespace Lewio.CashFlow.Services;
 
 partial class SharedService<TRequest, TResponse>
 {

@@ -6,7 +6,7 @@
          "type": "coreclr",
          "request": "launch",
          "preLaunchTask": "build-v7",
-         "program": "${workspaceFolder}/sources/Backend/bin/Debug/net6.0/FriendlyCashFlow.dll",
+         "program": "${workspaceFolder}/sources/Backend/bin/Debug/net6.0/Lewio.CashFlow.dll",
          "args": [],
          "cwd": "${workspaceFolder}/sources/Backend",
          "stopAtEntry": false,

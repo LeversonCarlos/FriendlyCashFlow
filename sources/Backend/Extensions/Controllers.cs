@@ -1,7 +1,7 @@
-using Friendly.CashFlow.Services;
+using Lewio.CashFlow.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Friendly.CashFlow.Controllers;
+namespace Lewio.CashFlow.Controllers;
 
 public static class ControllersExtensions
 {

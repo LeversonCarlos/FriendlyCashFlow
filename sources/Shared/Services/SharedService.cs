@@ -1,4 +1,4 @@
-﻿namespace Friendly.CashFlow.Services;
+﻿namespace Lewio.CashFlow.Services;
 
 public abstract partial class SharedService<TRequest, TResponse> : IDisposable
    where TRequest : SharedRequestModel

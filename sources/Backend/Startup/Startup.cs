@@ -1,4 +1,4 @@
-namespace Friendly.CashFlow;
+namespace Lewio.CashFlow;
 
 public static partial class StartupExtensions
 {

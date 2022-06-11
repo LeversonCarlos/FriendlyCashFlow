@@ -8,8 +8,8 @@
 
    <PropertyGroup>
       <Version>1.0.0</Version>
-      <AssemblyName>FriendlyCashFlow</AssemblyName>
-      <RootNamespace>Friendly.CashFlow</RootNamespace>
+      <AssemblyName>Lewio.CashFlow</AssemblyName>
+      <RootNamespace>Lewio.CashFlow</RootNamespace>
       <Authors>Leverson Carlos</Authors>
    </PropertyGroup>
 

@@ -1,4 +1,4 @@
-namespace Friendly.CashFlow.Models;
+namespace Lewio.CashFlow.Models;
 
 public class Settings
 {
