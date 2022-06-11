@@ -7,10 +7,13 @@ public class DummyService : SharedService<DummyRequestModel, DummyResponseModel>
 
    protected override async Task OnExecuting()
    {
+      await Task.CompletedTask;
+
+      // SetWarningAndReturn("This", "Is", "Just", "a", "Test");
+      // return;
 
       _Response.Date = DateTime.Now;
 
-      await Task.CompletedTask;
       SetSuccessAndReturn();
    }
 
