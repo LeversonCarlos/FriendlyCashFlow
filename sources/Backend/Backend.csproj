@@ -13,4 +13,8 @@
       <Authors>Leverson Carlos</Authors>
    </PropertyGroup>
 
+   <ItemGroup>
+     <ProjectReference Include="..\Shared\Shared.csproj" />
+   </ItemGroup>
+
 </Project>
