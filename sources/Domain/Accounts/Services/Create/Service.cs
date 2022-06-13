@@ -18,6 +18,7 @@ public class CreateService : SharedService<CreateRequestModel, CreateResponseMod
       };
 
       var savedAccount = await _MainRepository.Accounts.SaveNew(account);
+      _Response.Data = savedAccount.ToEntity();
 
       await Task.CompletedTask;
       SetSuccessAndReturn();
