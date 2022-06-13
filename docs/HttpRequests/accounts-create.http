@@ -1,0 +1,6 @@
+POST https://localhost:5001/api/accounts/create HTTP/1.1
+content-type: application/json
+
+{
+   "Type": 2
+}
