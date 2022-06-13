@@ -12,7 +12,7 @@ public class DummyController : Controller
    IServiceProvider _ServiceProvider;
 
    [HttpPost("")]
-   public Task<ActionResult<DummyResponseModel>> DummyAsync([FromBody] DummyRequestModel request) =>
-      _ServiceProvider.GetService<DummyService>()!.ExecuteAsync(request, ModelState);
+   public Task<ActionResult<DummyResponseModel>> DummyAsync([FromServices] DummyService service, [FromBody] DummyRequestModel request) =>
+      service.ExecuteAsync(request, ModelState);
 
 }
