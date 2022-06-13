@@ -8,3 +8,13 @@ public enum AccountTypeEnum : short
    Investment = 3,
    Service = 4
 }
+
+public interface IAccount
+{
+
+   Guid ID { get; set; }
+   AccountTypeEnum Type { get; set; }
+
+   string Text { get; set; }
+
+}

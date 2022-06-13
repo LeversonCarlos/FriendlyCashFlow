@@ -1,6 +1,6 @@
 ﻿namespace Lewio.CashFlow.Domain.Accounts;
 
-public partial class AccountEntity
+public partial class AccountEntity : IAccount
 {
 
    public Guid ID { get; set; }

@@ -4,5 +4,5 @@ namespace Lewio.CashFlow.Repository;
 
 partial interface IAccountRepository
 {
-   Task<AccountEntity> SaveNew(AccountEntity value);
+   Task<IAccount> SaveNew(IAccount value);
 }
