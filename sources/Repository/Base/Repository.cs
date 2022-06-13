@@ -1,4 +1,3 @@
-
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Lewio.CashFlow.Repository;
@@ -16,9 +15,4 @@ public abstract class BaseRepository : IRepository
    {
    }
 
-}
-
-public partial class MainRepository : BaseRepository, IMainRepository
-{
-   public MainRepository(IServiceProvider serviceProvider) : base(serviceProvider) { }
 }

@@ -2,10 +2,10 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Lewio.CashFlow.Repository;
 
-public static class AccountsRepositoryCollection
+public static class RepositoryInjector
 {
 
-   public static IServiceCollection AddAccountRepository(this IServiceCollection serviceCollection)
+   public static IServiceCollection InjectRepositories(this IServiceCollection serviceCollection)
    {
 
       serviceCollection

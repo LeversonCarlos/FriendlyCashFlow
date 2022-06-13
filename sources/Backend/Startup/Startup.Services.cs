@@ -14,7 +14,7 @@ partial class StartupExtensions
          .AddScoped<DummyService>();
 
       serviceCollection
-         .AddAccountRepository();
+         .InjectRepositories();
 
       serviceCollection
          .AddAccountsServices();
