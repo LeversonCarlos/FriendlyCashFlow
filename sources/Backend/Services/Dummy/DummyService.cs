@@ -19,7 +19,11 @@ public class DummyService : SharedService<DummyRequestModel, DummyResponseModel>
 
 }
 
-public class DummyRequestModel : SharedRequestModel { }
+public class DummyRequestModel : SharedRequestModel
+{
+   [System.ComponentModel.DataAnnotations.Required]
+   public string? Test { get; set; }
+}
 public class DummyResponseModel : SharedResponseModel
 {
    public DateTime Date { get; set; }

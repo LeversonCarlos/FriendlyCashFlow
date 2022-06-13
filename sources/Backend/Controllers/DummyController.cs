@@ -13,6 +13,6 @@ public class DummyController : Controller
 
    [HttpPost("")]
    public Task<ActionResult<DummyResponseModel>> DummyAsync([FromBody] DummyRequestModel request) =>
-      _ServiceProvider.GetService<DummyService>()!.ExecuteAsync(request).ToActionResult();
+      _ServiceProvider.GetService<DummyService>()!.ExecuteAsync(request, ModelState);
 
 }
