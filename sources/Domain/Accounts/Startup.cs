@@ -1,7 +1,7 @@
-using Lewio.CashFlow.Domains.Accounts.Services;
+using Lewio.CashFlow.Domain.Accounts.Services;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Lewio.CashFlow.Domains;
+namespace Lewio.CashFlow.Domain;
 
 public static class AccountsServiceCollection
 {

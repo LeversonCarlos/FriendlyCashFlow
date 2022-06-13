@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Lewio.CashFlow.Services;
 
-namespace Lewio.CashFlow.Domains.Accounts.Services;
+namespace Lewio.CashFlow.Domain.Accounts.Services;
 
 public class CreateRequestModel : SharedRequestModel
 {

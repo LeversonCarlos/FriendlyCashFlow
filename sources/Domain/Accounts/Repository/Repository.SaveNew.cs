@@ -1,4 +1,4 @@
-using Lewio.CashFlow.Domains.Accounts;
+using Lewio.CashFlow.Domain.Accounts;
 
 namespace Lewio.CashFlow.Repository;
 

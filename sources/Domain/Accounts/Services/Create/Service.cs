@@ -2,7 +2,7 @@ using Lewio.CashFlow.Repository;
 using Lewio.CashFlow.Services;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Lewio.CashFlow.Domains.Accounts.Services;
+namespace Lewio.CashFlow.Domain.Accounts.Services;
 
 public class CreateService : SharedService<CreateRequestModel, CreateResponseModel>
 {

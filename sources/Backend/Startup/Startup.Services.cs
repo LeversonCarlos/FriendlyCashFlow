@@ -1,4 +1,4 @@
-using Lewio.CashFlow.Domains;
+using Lewio.CashFlow.Domain;
 using Lewio.CashFlow.Repository;
 using Lewio.CashFlow.Services;
 

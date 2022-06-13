@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Lewio.CashFlow.Domains;
+namespace Lewio.CashFlow.Domain;
 
 public static class DomainInjector
 {

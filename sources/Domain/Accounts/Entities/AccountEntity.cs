@@ -1,4 +1,4 @@
-﻿namespace Lewio.CashFlow.Domains.Accounts;
+﻿namespace Lewio.CashFlow.Domain.Accounts;
 
 public partial class AccountEntity
 {
