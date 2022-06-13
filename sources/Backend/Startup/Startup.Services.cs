@@ -1,3 +1,4 @@
+using Lewio.CashFlow.Domains;
 using Lewio.CashFlow.Services;
 
 namespace Lewio.CashFlow;
@@ -10,6 +11,9 @@ partial class StartupExtensions
 
       serviceCollection
          .AddScoped<DummyService>();
+
+      serviceCollection
+         .AddAccountsServices();
 
       return serviceCollection;
    }
