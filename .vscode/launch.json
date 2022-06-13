@@ -2,6 +2,24 @@
    "version": "0.2.0",
    "configurations": [
       {
+         "name": "Launch v7",
+         "type": "coreclr",
+         "request": "launch",
+         "preLaunchTask": "build-v7",
+         "program": "${workspaceFolder}/sources/Backend/bin/Debug/net6.0/Lewio.CashFlow.dll",
+         "args": [],
+         "cwd": "${workspaceFolder}/sources/Backend",
+         "stopAtEntry": false,
+         "serverReadyAction": {
+            "action": "openExternally",
+            "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+         },
+         "env": {
+            "ASPNETCORE_ENVIRONMENT": "Development",
+            "DEBUG": "true"
+         },
+      },
+      {
          "name": "Launch App",
          "type": "coreclr",
          "request": "launch",
