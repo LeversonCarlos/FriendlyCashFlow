@@ -9,6 +9,7 @@ partial class SharedService<TRequest, TResponse>
    {
       try
       {
+         _Request = request;
          await OnExecuting();
       }
       catch (Exception ex) { SetErrorAndReturn(ex); }
