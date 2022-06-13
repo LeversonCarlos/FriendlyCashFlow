@@ -6,7 +6,7 @@ namespace Lewio.CashFlow.Domains;
 public static class AccountsServiceCollection
 {
 
-   public static IServiceCollection AddAccountsServices(this IServiceCollection serviceCollection)
+   internal static IServiceCollection InjectAccountServices(this IServiceCollection serviceCollection)
    {
 
       serviceCollection
