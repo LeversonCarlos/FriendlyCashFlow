@@ -9,6 +9,7 @@ public static class RepositoryInjector
    {
 
       serviceCollection
+         .AddSingleton<IMainRepository, MainRepository>()
          .AddSingleton<IAccountRepository, AccountRepository>();
 
       return serviceCollection;
