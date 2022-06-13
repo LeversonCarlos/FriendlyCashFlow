@@ -1,6 +1,4 @@
-using Lewio.CashFlow.Repository;
 using Lewio.CashFlow.Services;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Lewio.CashFlow.Domain.Accounts.Services;
 
@@ -19,7 +17,7 @@ public class CreateService : SharedService<CreateRequestModel, CreateResponseMod
          Text = "New Account"
       };
 
-      _Response.Data = await _ServiceProvider.GetService<IMainRepository>()!.Accounts.SaveNew(account);
+      var savedAccount = await _MainRepository.Accounts.SaveNew(account);
 
       await Task.CompletedTask;
       SetSuccessAndReturn();
