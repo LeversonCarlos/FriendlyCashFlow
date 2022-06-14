@@ -9,7 +9,7 @@
    <PropertyGroup>
       <Version>1.0.0</Version>
       <AssemblyName>Lewio.CashFlow.Shared</AssemblyName>
-      <RootNamespace>Lewio.CashFlow</RootNamespace>
+      <RootNamespace>Lewio.CashFlow.Shared</RootNamespace>
       <Authors>Leverson Carlos</Authors>
    </PropertyGroup>
 
