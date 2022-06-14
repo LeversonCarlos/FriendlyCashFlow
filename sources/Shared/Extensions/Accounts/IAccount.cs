@@ -7,9 +7,15 @@ public static class IAccountExtension
       where T : IAccount
    {
       var result = Activator.CreateInstance<T>();
-      result.ID = self.ID;
+      result.AccountID = self.AccountID;
+
       result.Type = self.Type;
       result.Text = self.Text;
+
+      result.CreditCardClosingDay = self.CreditCardClosingDay;
+      result.CreditCardDueDay = self.CreditCardDueDay;
+
+      result.IsActive = self.IsActive;
       return result;
    }
 

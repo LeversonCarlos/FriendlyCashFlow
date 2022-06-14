@@ -11,10 +11,13 @@ public enum AccountTypeEnum : short
 
 public interface IAccount
 {
+   Guid AccountID { get; set; }
 
-   Guid ID { get; set; }
    AccountTypeEnum Type { get; set; }
-
    string Text { get; set; }
 
+   short? CreditCardClosingDay { get; set; }
+   short? CreditCardDueDay { get; set; }
+
+   bool IsActive { get; set; }
 }

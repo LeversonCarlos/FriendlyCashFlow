@@ -12,10 +12,17 @@ public class CreateService : SharedService<CreateRequestModel, CreateResponseMod
 
       var account = new AccountEntity
       {
-         ID = System.Guid.NewGuid(),
+         AccountID = System.Guid.NewGuid(),
          Type = _Request.Type,
-         Text = "New Account"
+         Text = "New Account",
+         IsActive = true
       };
+
+      if (_Request.Type == AccountTypeEnum.CreditCard)
+      {
+         account.CreditCardClosingDay = 10;
+         account.CreditCardDueDay = 15;
+      }
 
       var savedAccount = await _MainRepository.Accounts.SaveNew(account);
       _Response.Data = savedAccount.To<AccountEntity>();
