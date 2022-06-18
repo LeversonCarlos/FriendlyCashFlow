@@ -1,12 +1,11 @@
 using Lewio.CashFlow.Accounts;
 using Microsoft.Extensions.DependencyInjection;
-
-namespace Lewio.CashFlow.Domain;
+namespace Lewio.CashFlow;
 
 public static class AccountsServiceCollection
 {
 
-   internal static IServiceCollection InjectAccountServices(this IServiceCollection serviceCollection)
+   public static IServiceCollection InjectAccountDomain(this IServiceCollection serviceCollection)
    {
 
       serviceCollection
