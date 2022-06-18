@@ -1,4 +1,4 @@
-namespace Lewio.CashFlow.Domain.Accounts.Services;
+namespace Lewio.CashFlow.Accounts;
 
 partial class SaveService
 {
@@ -10,7 +10,7 @@ partial class SaveService
 
          var accountID = _Request.Data.AccountID!.Value;
 
-         _Response.Data = await _MainRepository.Accounts
+         _Response.Data = await _AccountRepository
             .GetByID(accountID)
             .As<AccountEntity>();
 

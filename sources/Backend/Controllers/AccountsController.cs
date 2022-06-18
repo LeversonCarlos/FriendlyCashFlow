@@ -1,4 +1,4 @@
-using Lewio.CashFlow.Domain.Accounts.Services;
+using Lewio.CashFlow.Accounts;
 using Lewio.CashFlow.Services;
 using Microsoft.AspNetCore.Mvc;
 

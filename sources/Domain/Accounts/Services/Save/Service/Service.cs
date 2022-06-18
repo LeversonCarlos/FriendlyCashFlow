@@ -1,8 +1,6 @@
-using Lewio.CashFlow.Services;
+namespace Lewio.CashFlow.Accounts;
 
-namespace Lewio.CashFlow.Domain.Accounts.Services;
-
-public partial class SaveService : SharedService<SaveRequestModel, SaveResponseModel>
+public partial class SaveService : AccountsService<SaveRequestModel, SaveResponseModel>
 {
 
    public SaveService(IServiceProvider serviceProvider) : base(serviceProvider) { }

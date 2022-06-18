@@ -1,10 +1,10 @@
-﻿namespace Lewio.CashFlow.Domain.Accounts;
+﻿namespace Lewio.CashFlow.Accounts;
 
-public partial class AccountEntity : IAccount
+public partial class AccountEntity : IAccountEntity
 {
    public Guid? AccountID { get; set; }
 
-   public AccountTypeEnum Type { get; set; }
+   public AccountEntityTypeEnum Type { get; set; }
    public string Text { get; set; } = "";
 
    public short? CreditCardClosingDay { get; set; }

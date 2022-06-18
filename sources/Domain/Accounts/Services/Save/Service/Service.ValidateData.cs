@@ -1,4 +1,4 @@
-namespace Lewio.CashFlow.Domain.Accounts.Services;
+namespace Lewio.CashFlow.Accounts;
 
 partial class SaveService
 {

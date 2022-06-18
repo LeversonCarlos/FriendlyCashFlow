@@ -1,7 +1,6 @@
 using Lewio.CashFlow.Services;
+namespace Lewio.CashFlow.Accounts;
 #nullable disable
-
-namespace Lewio.CashFlow.Domain.Accounts.Services;
 
 public class SaveResponseModel : SharedResponseModel
 {

@@ -1,4 +1,4 @@
-namespace Lewio.CashFlow.Domain.Accounts.Services;
+namespace Lewio.CashFlow.Accounts;
 
 partial class SaveService
 {
@@ -8,20 +8,20 @@ partial class SaveService
       try
       {
 
-         IAccount? data;
+         IAccountEntity? data;
          if (_Request.Data.IsNew())
          {
-            data = await _MainRepository.Accounts.GetNew();
+            data = await _AccountRepository.GetNew();
             // data.UserID = currentUserID;
             data.AccountID = Guid.NewGuid();
             _Request.Data.AccountID = data.AccountID;
          }
          else
-            data = await _MainRepository.Accounts.GetByID(_Request.Data.AccountID!.Value);
+            data = await _AccountRepository.GetByID(_Request.Data.AccountID!.Value);
 
          data.Apply(_Request.Data);
 
-         if (!await _MainRepository.Accounts.Save(data))
+         if (!await _AccountRepository.Save(data))
             return SetWarningAndReturn("Accounts_SaveService_SaveData_Error");
 
          return true;

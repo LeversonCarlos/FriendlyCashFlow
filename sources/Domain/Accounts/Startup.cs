@@ -1,4 +1,4 @@
-using Lewio.CashFlow.Domain.Accounts.Services;
+using Lewio.CashFlow.Accounts;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Lewio.CashFlow.Domain;
