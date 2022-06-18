@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+   <PropertyGroup>
+      <TargetFramework>net6.0</TargetFramework>
+      <ImplicitUsings>enable</ImplicitUsings>
+      <Nullable>enable</Nullable>
+   </PropertyGroup>
+
+   <PropertyGroup>
+      <Version>1.0.0</Version>
+      <AssemblyName>Lewio.CashFlow.Accounts.Repository</AssemblyName>
+      <RootNamespace>Lewio.CashFlow.Accounts.Repository</RootNamespace>
+      <Authors>Leverson Carlos</Authors>
+   </PropertyGroup>
+
+   <ItemGroup>
+      <ProjectReference Include="..\Accounts.Interface\Accounts.Interface.csproj" />
+   </ItemGroup>
+
+</Project>
