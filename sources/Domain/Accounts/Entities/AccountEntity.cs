@@ -2,7 +2,7 @@
 
 public partial class AccountEntity : IAccount
 {
-   public Guid AccountID { get; set; }
+   public Guid? AccountID { get; set; }
 
    public AccountTypeEnum Type { get; set; }
    public string Text { get; set; } = "";

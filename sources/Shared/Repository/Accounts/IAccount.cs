@@ -11,7 +11,7 @@ public enum AccountTypeEnum : short
 
 public interface IAccount
 {
-   Guid AccountID { get; set; }
+   Guid? AccountID { get; set; }
 
    AccountTypeEnum Type { get; set; }
    string Text { get; set; }
