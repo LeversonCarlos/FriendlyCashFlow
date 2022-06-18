@@ -1,14 +1,13 @@
-using Lewio.CashFlow.Domain.Accounts;
-
+using Lewio.CashFlow.Accounts;
 namespace Lewio.CashFlow.Repository;
 
 partial class AccountRepository
 {
 
-   public async Task<IAccount> GetNew()
+   public async Task<IAccountEntity> GetNew()
    {
       await Task.CompletedTask;
-      var value = default(IAccount);
+      var value = default(IAccountEntity);
       return value!;
    }
 
