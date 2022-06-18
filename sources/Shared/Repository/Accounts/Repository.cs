@@ -4,8 +4,9 @@ namespace Lewio.CashFlow.Repository;
 
 public partial interface IAccountRepository : IRepository
 {
+   Task<IAccount> GetNew();
    Task<IAccount> GetByID(Guid id);
-   Task<bool> SaveNew(IAccount value);
+   Task<bool> Save(IAccount value);
 }
 
 partial interface IMainRepository

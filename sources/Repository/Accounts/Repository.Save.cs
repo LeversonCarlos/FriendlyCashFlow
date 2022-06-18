@@ -5,7 +5,7 @@ namespace Lewio.CashFlow.Repository;
 partial class AccountRepository
 {
 
-   public async Task<bool> SaveNew(IAccount value)
+   public async Task<bool> Save(IAccount value)
    {
       await Task.CompletedTask;
       return true;
