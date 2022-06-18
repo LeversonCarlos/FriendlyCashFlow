@@ -1,6 +1,6 @@
 namespace Lewio.CashFlow.Accounts;
 
-partial class SaveService
+partial class SaveCommand
 {
 
    private async Task<bool> ValidateData()

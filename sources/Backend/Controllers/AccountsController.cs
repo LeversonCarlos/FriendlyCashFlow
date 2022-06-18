@@ -13,7 +13,7 @@ public class AccountsController : Controller
    IServiceProvider _ServiceProvider;
 
    [HttpPost("save")]
-   public Task<ActionResult<SaveResponseModel>> CreateAsync([FromServices] SaveService service, [FromBody] SaveRequestModel request) =>
+   public Task<ActionResult<SaveResponseModel>> CreateAsync([FromServices] SaveCommand service, [FromBody] SaveRequestModel request) =>
       service.ExecuteAsync(request, ModelState);
 
 }

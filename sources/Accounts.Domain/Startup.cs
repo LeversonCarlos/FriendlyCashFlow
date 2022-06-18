@@ -9,7 +9,7 @@ public static class AccountsServiceCollection
    {
 
       serviceCollection
-         .AddScoped<SaveService>();
+         .AddScoped<SaveCommand>();
 
       return serviceCollection;
    }

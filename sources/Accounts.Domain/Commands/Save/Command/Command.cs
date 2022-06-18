@@ -1,9 +1,9 @@
 namespace Lewio.CashFlow.Accounts;
 
-public partial class SaveService : AccountsService<SaveRequestModel, SaveResponseModel>
+public partial class SaveCommand : AccountsCommand<SaveRequestModel, SaveResponseModel>
 {
 
-   public SaveService(IServiceProvider serviceProvider) : base(serviceProvider) { }
+   public SaveCommand(IServiceProvider serviceProvider) : base(serviceProvider) { }
 
    protected override async Task OnExecuting()
    {
