@@ -3,7 +3,9 @@ namespace Lewio.CashFlow.Repository;
 
 public partial interface IAccountRepository : IDisposable
 {
+   Task<IAccountEntity[]> Search(string searchTerms);
    Task<IAccountEntity> GetNew();
    Task<IAccountEntity> GetByID(Guid id);
    Task<bool> Save(IAccountEntity value);
+   Task<bool> Remove(IAccountEntity value);
 }
