@@ -24,4 +24,8 @@ public class AccountsController : Controller
    public Task<ActionResult<SaveResponseModel>> SaveAsync([FromServices] SaveCommand service, [FromBody] SaveRequestModel request) =>
       service.ExecuteAsync(request, ModelState);
 
+   [HttpPost("remove")]
+   public Task<ActionResult<RemoveResponseModel>> RemoveAsync([FromServices] RemoveCommand service, [FromBody] RemoveRequestModel request) =>
+      service.ExecuteAsync(request, ModelState);
+
 }
