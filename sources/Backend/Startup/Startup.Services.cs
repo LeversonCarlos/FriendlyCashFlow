@@ -1,4 +1,3 @@
-using Lewio.CashFlow.Domain;
 using Lewio.CashFlow.Repository;
 using Lewio.CashFlow.Services;
 
@@ -15,7 +14,7 @@ partial class StartupExtensions
 
       serviceCollection
          .InjectRepositories()
-         .InjectDomains();
+         .InjectAccountDomain();
 
       return serviceCollection;
    }

@@ -1,4 +1,4 @@
-using Lewio.CashFlow.Domain.Accounts.Services;
+using Lewio.CashFlow.Accounts;
 using Lewio.CashFlow.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,8 +12,8 @@ public class AccountsController : Controller
       _ServiceProvider = serviceProvider;
    IServiceProvider _ServiceProvider;
 
-   [HttpPost("create")]
-   public Task<ActionResult<CreateResponseModel>> CreateAsync([FromServices] CreateService service, [FromBody] CreateRequestModel request) =>
+   [HttpPost("save")]
+   public Task<ActionResult<SaveResponseModel>> CreateAsync([FromServices] SaveCommand service, [FromBody] SaveRequestModel request) =>
       service.ExecuteAsync(request, ModelState);
 
 }

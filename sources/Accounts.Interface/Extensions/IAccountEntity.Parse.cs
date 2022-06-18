@@ -1,10 +1,9 @@
-namespace Lewio.CashFlow.Domain.Accounts;
+namespace Lewio.CashFlow.Accounts;
 
-public static class IAccountExtension
+partial class IAccountExtension
 {
 
-   public static T To<T>(this IAccount self)
-      where T : IAccount
+   public static T To<T>(this IAccountEntity self) where T : IAccountEntity
    {
       var result = Activator.CreateInstance<T>();
       result.AccountID = self.AccountID;
@@ -16,6 +15,13 @@ public static class IAccountExtension
       result.CreditCardDueDay = self.CreditCardDueDay;
 
       result.IsActive = self.IsActive;
+      return result;
+   }
+
+   public static async Task<T> As<T>(this Task<IAccountEntity> task) where T : IAccountEntity
+   {
+      var self = await task;
+      var result = self.To<T>();
       return result;
    }
 

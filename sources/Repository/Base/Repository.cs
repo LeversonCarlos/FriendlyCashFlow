@@ -1,5 +1,4 @@
 using Microsoft.Extensions.DependencyInjection;
-
 namespace Lewio.CashFlow.Repository;
 
 public abstract class BaseRepository : IRepository

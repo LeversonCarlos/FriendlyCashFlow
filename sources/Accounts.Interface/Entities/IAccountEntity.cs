@@ -1,6 +1,6 @@
-﻿namespace Lewio.CashFlow.Domain.Accounts;
+﻿namespace Lewio.CashFlow.Accounts;
 
-public enum AccountTypeEnum : short
+public enum AccountEntityTypeEnum : short
 {
    General = 0,
    Bank = 1,
@@ -9,11 +9,11 @@ public enum AccountTypeEnum : short
    Service = 4
 }
 
-public interface IAccount
+public interface IAccountEntity
 {
-   Guid AccountID { get; set; }
+   Guid? AccountID { get; set; }
 
-   AccountTypeEnum Type { get; set; }
+   AccountEntityTypeEnum Type { get; set; }
    string Text { get; set; }
 
    short? CreditCardClosingDay { get; set; }
