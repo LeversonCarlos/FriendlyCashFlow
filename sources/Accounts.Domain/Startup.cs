@@ -9,6 +9,7 @@ public static class AccountsServiceCollection
    {
 
       serviceCollection
+         .AddScoped<LoadCommand>()
          .AddScoped<SaveCommand>();
 
       return serviceCollection;

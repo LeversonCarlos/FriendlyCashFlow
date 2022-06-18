@@ -12,8 +12,12 @@ public class AccountsController : Controller
       _ServiceProvider = serviceProvider;
    IServiceProvider _ServiceProvider;
 
+   [HttpPost("load")]
+   public Task<ActionResult<LoadResponseModel>> LoadAsync([FromServices] LoadCommand service, [FromBody] LoadRequestModel request) =>
+      service.ExecuteAsync(request, ModelState);
+
    [HttpPost("save")]
-   public Task<ActionResult<SaveResponseModel>> CreateAsync([FromServices] SaveCommand service, [FromBody] SaveRequestModel request) =>
+   public Task<ActionResult<SaveResponseModel>> SaveAsync([FromServices] SaveCommand service, [FromBody] SaveRequestModel request) =>
       service.ExecuteAsync(request, ModelState);
 
 }
