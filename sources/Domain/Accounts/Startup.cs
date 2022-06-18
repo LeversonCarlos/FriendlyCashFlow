@@ -10,7 +10,7 @@ public static class AccountsServiceCollection
    {
 
       serviceCollection
-         .AddScoped<CreateService>();
+         .AddScoped<SaveService>();
 
       return serviceCollection;
    }

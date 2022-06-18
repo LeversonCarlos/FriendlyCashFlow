@@ -12,8 +12,8 @@ public class AccountsController : Controller
       _ServiceProvider = serviceProvider;
    IServiceProvider _ServiceProvider;
 
-   [HttpPost("create")]
-   public Task<ActionResult<CreateResponseModel>> CreateAsync([FromServices] CreateService service, [FromBody] CreateRequestModel request) =>
+   [HttpPost("save")]
+   public Task<ActionResult<SaveResponseModel>> CreateAsync([FromServices] SaveService service, [FromBody] SaveRequestModel request) =>
       service.ExecuteAsync(request, ModelState);
 
 }
