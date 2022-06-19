@@ -11,7 +11,7 @@ partial class RemoveCommand
          var data = await _AccountRepository.GetByID(_Request.Data.AccountID!.Value);
 
          if (!await _AccountRepository.Remove(data))
-            return SetWarningAndReturn("Accounts_RemoveService_RemoveData_Error");
+            return SetWarningAndReturn("Accounts_RemoveCommand_RemoveData_Error");
 
          return true;
       }
