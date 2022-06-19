@@ -1,6 +1,7 @@
-namespace Lewio.CashFlow.Services;
+using Lewio.CashFlow.Shared;
+namespace Lewio.CashFlow;
 
-public class DummyService : SharedService<DummyRequestModel, DummyResponseModel>
+public class DummyService : SharedCommand<DummyRequestModel, DummyResponseModel>
 {
 
    public DummyService(IServiceProvider serviceProvider) : base(serviceProvider) { }

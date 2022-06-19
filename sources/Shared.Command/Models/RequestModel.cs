@@ -1,4 +1,5 @@
-﻿namespace Lewio.CashFlow.Services;
+﻿namespace Lewio.CashFlow.Shared;
+#nullable disable
 
 public class SharedRequestModel : IDisposable
 {

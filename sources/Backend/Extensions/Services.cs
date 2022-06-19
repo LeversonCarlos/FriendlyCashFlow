@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
-
-namespace Lewio.CashFlow.Services;
+using Lewio.CashFlow.Shared;
+namespace Lewio.CashFlow;
 
 public static class ServicesExtensions
 {
 
-   public static async Task<ActionResult<TResponse>> ExecuteAsync<TRequest, TResponse>(this SharedService<TRequest, TResponse> self, TRequest request, Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary modelState)
+   public static async Task<ActionResult<TResponse>> ExecuteAsync<TRequest, TResponse>(this SharedCommand<TRequest, TResponse> self, TRequest request, Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary modelState)
       where TRequest : SharedRequestModel
       where TResponse : SharedResponseModel
    {
@@ -15,7 +15,7 @@ public static class ServicesExtensions
          response.OK = false;
          response.Messages = modelState.Values
             .SelectMany(x => x.Errors)
-            .Select(x => SharedResponseModel.Message.CreateWarning(x.ErrorMessage))
+            .Select(x => MessageModel.CreateWarning(x.ErrorMessage))
             .ToArray();
          return response;
       }

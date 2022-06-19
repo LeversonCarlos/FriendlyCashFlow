@@ -1,10 +1,10 @@
 using Lewio.CashFlow.Repository;
-using Lewio.CashFlow.Services;
+using Lewio.CashFlow.Shared;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Lewio.CashFlow.Accounts;
 
-public abstract class AccountsCommand<TRequest, TResponse> : SharedService<TRequest, TResponse>
+public abstract class AccountsCommand<TRequest, TResponse> : SharedCommand<TRequest, TResponse>
    where TRequest : SharedRequestModel
    where TResponse : SharedResponseModel
 {
