@@ -17,6 +17,7 @@
      <ProjectReference Include="..\Shared\Shared.csproj" />
      <ProjectReference Include="..\Accounts.Domain\Accounts.Domain.csproj" />
      <ProjectReference Include="..\Repository\Repository.csproj" />
+     <ProjectReference Include="..\Shared.Localization\Shared.Localization.csproj" />
    </ItemGroup>
 
 </Project>

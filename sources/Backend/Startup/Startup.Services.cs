@@ -13,6 +13,7 @@ partial class StartupExtensions
          .AddScoped<DummyService>();
 
       serviceCollection
+         .InjectLocalizationServices()
          .InjectRepositories()
          .InjectAccountDomain();
 
