@@ -2,5 +2,4 @@ POST https://localhost:5001/api/dummy HTTP/1.1
 content-type: application/json
 
 {
-   "Test": "OPA"
 }
