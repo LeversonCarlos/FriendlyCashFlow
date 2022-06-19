@@ -22,11 +22,4 @@
      <ProjectReference Include="..\Shared.Interface\Shared.Interface.csproj" />
    </ItemGroup>
 
-   <ItemGroup>
-      <None Remove="Resources\Strings.restext" />
-      <EmbeddedResource Include="Resources\Strings.restext" >
-         <Generator></Generator>
-      </EmbeddedResource>
-   </ItemGroup>
-
 </Project>
