@@ -1,3 +1,4 @@
+using System.Globalization;
 using Lewio.CashFlow.Shared;
 using Microsoft.Extensions.DependencyInjection;
 namespace Lewio.CashFlow;
@@ -9,8 +10,13 @@ public static class LocalizationServiceCollection
    {
 
       serviceCollection
-         .AddScoped<ILocalization, Localization>();
+         .AddSingleton<ILocalization, Localizator>()
+         .AddLocalization(options =>
+         {
+            options.ResourcesPath = "";
+         });
 
       return serviceCollection;
    }
+
 }

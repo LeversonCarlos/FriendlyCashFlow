@@ -15,6 +15,7 @@
 
    <ItemGroup>
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.0" />
    </ItemGroup>
 
    <ItemGroup>
@@ -22,7 +23,8 @@
    </ItemGroup>
 
    <ItemGroup>
-      <EmbeddedResource Update="Resources\Strings.restext">
+      <None Remove="Resources\Strings.restext" />
+      <EmbeddedResource Include="Resources\Strings.restext" >
          <Generator></Generator>
       </EmbeddedResource>
    </ItemGroup>

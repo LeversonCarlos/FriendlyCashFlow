@@ -1,4 +1,6 @@
+using System.Globalization;
 using Lewio.CashFlow.Repository;
+using Microsoft.AspNetCore.Localization;
 
 namespace Lewio.CashFlow;
 
@@ -12,7 +14,6 @@ partial class StartupExtensions
          .AddScoped<DummyService>();
 
       serviceCollection
-         .InjectLocalizationServices()
          .InjectRepositories()
          .InjectAccountDomain();
 
