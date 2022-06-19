@@ -1,6 +1,6 @@
-﻿namespace Lewio.CashFlow.Services;
+﻿namespace Lewio.CashFlow.Shared;
 
-partial class SharedService<TRequest, TResponse>
+partial class SharedCommand<TRequest, TResponse>
 {
 
    protected virtual Task OnExecuting() => Task.CompletedTask;

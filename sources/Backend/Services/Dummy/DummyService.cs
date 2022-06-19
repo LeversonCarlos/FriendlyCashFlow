@@ -1,6 +1,8 @@
-namespace Lewio.CashFlow.Services;
+using Lewio.CashFlow.Shared;
+namespace Lewio.CashFlow;
+#nullable disable
 
-public class DummyService : SharedService<DummyRequestModel, DummyResponseModel>
+public class DummyService : SharedCommand<DummyRequestModel, DummyResponseModel>
 {
 
    public DummyService(IServiceProvider serviceProvider) : base(serviceProvider) { }
@@ -13,6 +15,7 @@ public class DummyService : SharedService<DummyRequestModel, DummyResponseModel>
       // return;
 
       _Response.Date = DateTime.Now;
+      _Response.Test = await _Localization.GetString("DummyService_OnExecuting");
 
       SetSuccessAndReturn();
    }
@@ -21,10 +24,9 @@ public class DummyService : SharedService<DummyRequestModel, DummyResponseModel>
 
 public class DummyRequestModel : SharedRequestModel
 {
-   [System.ComponentModel.DataAnnotations.Required]
-   public string? Test { get; set; }
 }
 public class DummyResponseModel : SharedResponseModel
 {
    public DateTime Date { get; set; }
+   public string Test { get; set; }
 }

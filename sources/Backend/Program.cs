@@ -8,6 +8,7 @@ public class Program
 
       builder.Services
          .ConfigureSettings(builder.Configuration)
+         .ConfigureLocalization()
          .ConfigureControllers()
          .ConfigureFrontend()
          .ConfigureServices();
@@ -15,6 +16,7 @@ public class Program
       var app = builder.Build();
 
       app
+         .ConfigureLocalization(app.Environment)
          .ConfigureEndpoints(app.Environment)
          .ConfigureFrontend(app.Environment);
 

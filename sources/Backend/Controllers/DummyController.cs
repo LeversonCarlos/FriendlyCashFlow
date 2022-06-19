@@ -1,6 +1,4 @@
-using Lewio.CashFlow.Services;
 using Microsoft.AspNetCore.Mvc;
-
 namespace Lewio.CashFlow.Controllers;
 
 [Route("api/dummy")]

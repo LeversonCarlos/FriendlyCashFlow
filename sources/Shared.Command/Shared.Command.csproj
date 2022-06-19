@@ -8,8 +8,8 @@
 
    <PropertyGroup>
       <Version>1.0.0</Version>
-      <AssemblyName>Lewio.CashFlow.Repository</AssemblyName>
-      <RootNamespace>Lewio.CashFlow.Repository</RootNamespace>
+      <AssemblyName>Lewio.CashFlow.Shared.Command</AssemblyName>
+      <RootNamespace>Lewio.CashFlow.Shared.Command</RootNamespace>
       <Authors>Leverson Carlos</Authors>
    </PropertyGroup>
 
@@ -18,8 +18,7 @@
    </ItemGroup>
 
    <ItemGroup>
-      <ProjectReference Include="..\Accounts.Interface\Accounts.Interface.csproj" />
-      <ProjectReference Include="..\Shared.Interface\Shared.Interface.csproj" />
+     <ProjectReference Include="..\Shared.Interface\Shared.Interface.csproj" />
    </ItemGroup>
 
 </Project>

@@ -22,7 +22,7 @@ partial class SaveCommand
          data.Apply(_Request.Data);
 
          if (!await _AccountRepository.Save(data))
-            return SetWarningAndReturn("Accounts_SaveService_SaveData_Error");
+            return SetWarningAndReturn("Accounts_SaveCommand_SaveData_Error");
 
          return true;
       }
