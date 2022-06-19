@@ -11,14 +11,17 @@ public class Localizator : ILocalization
    }
    readonly IStringLocalizer<Lewio.CashFlow.Shared.Localization.Resources.Strings> _StringLocalizer;
 
-   public async Task<string> GetString(string value)
+   public async Task<string> GetString(string key)
    {
       try
       {
          await Task.CompletedTask;
-         return _StringLocalizer[value];
+         var value = _StringLocalizer[key];
+         if (string.IsNullOrEmpty(value) || value == key)
+            throw new Exception("Not Found");
+         return value;
       }
-      catch { return $"{value.ToUpper().Replace(" ", "_")}"; }
+      catch { return $"{key.ToUpper().Replace(" ", "_")}"; }
    }
 
    public void Dispose()
