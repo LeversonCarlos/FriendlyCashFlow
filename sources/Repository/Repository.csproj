@@ -14,12 +14,12 @@
    </PropertyGroup>
 
    <ItemGroup>
-      <ProjectReference Include="..\Shared\Shared.csproj" />
-      <ProjectReference Include="..\Accounts.Interface\Accounts.Interface.csproj" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
    </ItemGroup>
 
    <ItemGroup>
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+      <ProjectReference Include="..\Accounts.Interface\Accounts.Interface.csproj" />
+      <ProjectReference Include="..\Shared.Interface\Shared.Interface.csproj" />
    </ItemGroup>
 
 </Project>
