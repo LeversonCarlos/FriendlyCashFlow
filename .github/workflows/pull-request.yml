@@ -37,4 +37,4 @@ jobs:
         working-directory: 'sources'
         run: |
           #dotnet build --no-restore
-          dotnet test p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+          dotnet test /p:CoverletOutputFormat=opencover
