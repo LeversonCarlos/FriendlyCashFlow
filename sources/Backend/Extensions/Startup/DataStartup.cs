@@ -12,6 +12,9 @@ public static class DataStartupExtension
       // serviceCollection
       //    .AddDatabaseDeveloperPageExceptionFilter();
 
+      serviceCollection
+         .AddScoped<IMainRepository, MainRepository>();
+
       return serviceCollection;
    }
 }
