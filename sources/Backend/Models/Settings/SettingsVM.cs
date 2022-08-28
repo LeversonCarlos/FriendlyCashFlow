@@ -1,4 +1,4 @@
-namespace Settings;
+namespace Lewio.CashFlow.Settings;
 
 public class SettingsVM
 {

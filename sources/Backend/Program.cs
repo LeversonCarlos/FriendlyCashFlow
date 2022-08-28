@@ -1,3 +1,4 @@
+namespace Lewio.CashFlow;
 using Settings;
 
 public class Program
