@@ -1,11 +1,11 @@
 namespace Lewio.Shared;
 
-public abstract partial class CommandLite<TRequest, TResponse> : IDisposable
+public abstract partial class Command<TRequest, TResponse> : IDisposable
    where TRequest : RequestModel
    where TResponse : ResponseModel
 {
 
-   public CommandLite(IServiceProvider serviceProvider)
+   public Command(IServiceProvider serviceProvider)
    {
       _ServiceProvider = serviceProvider;
       _Response = Activator.CreateInstance<TResponse>();
