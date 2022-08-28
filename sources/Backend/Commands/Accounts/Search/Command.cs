@@ -5,4 +5,13 @@ public partial class SearchCommand : Command<SearchRequestModel, SearchResponseM
 
    public SearchCommand(IServiceProvider serviceProvider) : base(serviceProvider) { }
 
+   protected override async Task OnHandling()
+   {
+
+      if (!await SearchData())
+         return false;
+
+      SetSuccessResult();
+   }
+
 }
