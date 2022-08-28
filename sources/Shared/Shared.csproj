@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+   <PropertyGroup>
+      <TargetFramework>net6.0</TargetFramework>
+      <ImplicitUsings>enable</ImplicitUsings>
+      <Nullable>enable</Nullable>
+   </PropertyGroup>
+
+   <PropertyGroup>
+      <Company>Lewio</Company>
+      <Product>Cash Flow</Product>
+      <Version>1.0.0</Version>
+      <Authors>Leverson Carlos</Authors>
+      <RootNamespace>Lewio.Shared</RootNamespace>
+      <AssemblyName>Lewio.Shared</AssemblyName>
+   </PropertyGroup>
+
+</Project>
