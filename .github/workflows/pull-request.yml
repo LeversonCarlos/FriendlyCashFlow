@@ -36,5 +36,5 @@ jobs:
       - name: Backend Build
         working-directory: 'sources'
         run: |
-          dotnet build --no-restore
-        # dotnet test /p:CoverletOutputFormat=opencover
+          #dotnet build --no-restore
+          dotnet test p:CollectCoverage=true /p:CoverletOutputFormat=opencover
