@@ -9,7 +9,8 @@ public class Program
          .CreateBuilder(args);
 
       builder.Services
-         .AddSettingsServices(builder.Configuration);
+         .AddSettingsServices(builder.Configuration)
+         .AddDataServices(builder.Configuration);
 
       var app = builder
          .Build();
