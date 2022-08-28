@@ -28,12 +28,12 @@ jobs:
       #   run: |
       #     npm run build
 
-      - name: Backend Packages
+      - name: Backend Dependecies
         working-directory: 'sources'
         run: |
           dotnet restore
 
-      - name: Backend Build
+      - name: Backend Tests
         working-directory: 'sources'
         run: |
           #dotnet build --no-restore
