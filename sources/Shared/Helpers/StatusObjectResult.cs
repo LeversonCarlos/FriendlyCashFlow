@@ -17,7 +17,7 @@ partial class StatusObjectResult
 
    public static StatusObjectResult InternalError(Exception value)
    {
-      var response = new BaseResponseModel
+      var response = new ResponseModel
       {
          OK = false,
          Messages = value.ToMessages()

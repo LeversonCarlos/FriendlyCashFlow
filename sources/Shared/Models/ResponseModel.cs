@@ -1,10 +1,10 @@
-﻿namespace Lewio.Shared;
+namespace Lewio.Shared;
 
-public abstract partial class ResponseModel : IDisposable
+public partial class ResponseModel : IDisposable
 {
 
-   public bool OK { get; private set; }
-   public Message[]? Messages { get; private set; }
+   public bool OK { get; internal set; }
+   public Message[]? Messages { get; internal set; }
    public ExecutionVM Execution { get; private set; } = new ExecutionVM();
 
    public virtual void Dispose()

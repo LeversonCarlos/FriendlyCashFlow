@@ -30,7 +30,8 @@ public static class MessageExtensions
          })
          .Select(x => $"{x.Prefix}{x.Text}")
          .ToArray();
-      return new Exception(messages);
+      var message = string.Join(Environment.NewLine, messages);
+      return new Exception(message);
    }
 
 }

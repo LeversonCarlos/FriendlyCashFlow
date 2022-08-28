@@ -4,22 +4,22 @@ namespace Lewio.Shared;
 
 public class OkResult : StatusObjectResult
 {
-   public OkResult(object value) : base(value, StatusCodes.Status200OK) { }
+   public OkResult(object? value) : base(value, StatusCodes.Status200OK) { }
 }
 
 public class BadRequestResult : StatusObjectResult
 {
-   public BadRequestResult(object value) : base(value, StatusCodes.Status400BadRequest) { }
+   public BadRequestResult(object? value) : base(value, StatusCodes.Status400BadRequest) { }
 }
 
 public class ErrorObjectResult : StatusObjectResult
 {
-   public ErrorObjectResult(object value) : base(value, StatusCodes.Status500InternalServerError) { }
+   public ErrorObjectResult(object? value) : base(value, StatusCodes.Status500InternalServerError) { }
 }
 
 public abstract partial class StatusObjectResult : ObjectResult
 {
-   protected StatusObjectResult(object value, int? statusCode) : base(value)
+   protected StatusObjectResult(object? value, int? statusCode) : base(value)
    {
       StatusCode = statusCode;
    }
