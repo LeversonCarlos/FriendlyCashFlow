@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+namespace Lewio.CashFlow;
 
 public static class DataStartupExtension
 {

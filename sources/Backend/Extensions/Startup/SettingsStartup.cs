@@ -1,4 +1,5 @@
-namespace Lewio.CashFlow.Settings;
+using Lewio.CashFlow.Settings;
+namespace Lewio.CashFlow;
 
 public static class SettingsStartupExtension
 {

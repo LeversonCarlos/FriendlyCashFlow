@@ -1,5 +1,4 @@
 namespace Lewio.CashFlow;
-using Settings;
 
 public class Program
 {
@@ -11,6 +10,9 @@ public class Program
       builder.Services
          .AddSettingsServices(builder.Configuration)
          .AddDataServices(builder.Configuration);
+
+      builder.Services
+         .AddAccountsServices(builder.Configuration);
 
       var app = builder
          .Build();
