@@ -6,7 +6,7 @@ namespace Lewio.Shared;
 partial class ResponseModelExtension
 {
 
-   public static async Task<ActionResult<TResponse>> HandleAsync<TRequest, TResponse>(this Command<TRequest, TResponse> self, TRequest request, ModelStateDictionary modelState)
+   public static async Task<ActionResult<TResponse>> HandleAsync<TRequest, TResponse>(this Command<TRequest, TResponse>? self, TRequest request, ModelStateDictionary modelState)
       where TRequest : RequestModel
       where TResponse : ResponseModel
    {
@@ -24,6 +24,8 @@ partial class ResponseModelExtension
       {
          try
          {
+            if (self == null)
+               throw new Exception($"Invalid empty command instance");
             var response = await self.HandleAsync(request);
             response.EnsureValidResponse();
             return StatusObjectResult.Ok(response);

@@ -9,7 +9,7 @@ public partial class SearchCommand : Command<SearchRequestModel, SearchResponseM
    {
 
       if (!await SearchData())
-         return false;
+         return;
 
       SetSuccessResult();
    }

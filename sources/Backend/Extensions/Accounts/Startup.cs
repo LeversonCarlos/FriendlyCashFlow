@@ -10,7 +10,7 @@ public static class AccountsStartupExtension
          .AddScoped<IAccountRepository, AccountRepository>();
 
       serviceCollection
-         .AddTransient(SearchCommand);
+         .AddTransient<SearchCommand>();
 
       return serviceCollection;
    }
