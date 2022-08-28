@@ -8,6 +8,7 @@ public abstract partial class Command<TRequest, TResponse> : IDisposable
    public Command(IServiceProvider serviceProvider)
    {
       _ServiceProvider = serviceProvider;
+      // _Request = default!;
       _Response = Activator.CreateInstance<TResponse>();
    }
    protected readonly IServiceProvider _ServiceProvider;
@@ -16,8 +17,6 @@ public abstract partial class Command<TRequest, TResponse> : IDisposable
 
    public virtual void Dispose()
    {
-      _Request = null;
-      _Response = null;
    }
 
 }
