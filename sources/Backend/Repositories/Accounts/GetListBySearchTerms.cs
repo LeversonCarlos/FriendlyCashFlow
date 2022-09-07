@@ -1,16 +1,15 @@
 using Microsoft.EntityFrameworkCore;
-
 namespace Lewio.CashFlow.Accounts;
 
 partial interface IAccountRepository
 {
-   Task<AccountEntity[]> GetListBySearchTerms(string searchTerms);
+   Task<AccountEntity[]?> GetListBySearchTerms(string searchTerms);
 }
 
 partial class AccountRepository
 {
 
-   public async Task<AccountEntity[]> GetListBySearchTerms(string searchTerms)
+   public async Task<AccountEntity[]?> GetListBySearchTerms(string searchTerms)
    {
 
       var searchTermsPredicate = (AccountEntity entity, string term) =>
