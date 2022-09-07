@@ -13,10 +13,10 @@ partial class AccountRepository
    async Task<AccountEntity[]> IAccountRepository.GetListBySearchTerms(string searchTerms)
    {
 
-      var searchTermsPredicate = new Func<AccountEntity, string, bool>((entity, term) =>
+      var searchTermsPredicate = (AccountEntity entity, string term) =>
       {
          return entity.Text.Contains(term);
-      });
+      };
 
       var query = _DataContext.Accounts
          .WithLoggedInUser(GetLoggedInUser())
