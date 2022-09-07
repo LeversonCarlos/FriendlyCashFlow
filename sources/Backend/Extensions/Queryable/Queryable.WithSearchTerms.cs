@@ -1,9 +1,10 @@
 namespace Lewio.CashFlow.Common;
 
-public static class IQueryableExtensions
+partial class IQueryableExtensions
 {
 
    public static IQueryable<T> WithSearchTerms<T>(this IQueryable<T> query, string? searchTerms, Func<T, string, bool> predicate)
+      where T : BaseEntity
    {
 
       var terms = searchTerms
