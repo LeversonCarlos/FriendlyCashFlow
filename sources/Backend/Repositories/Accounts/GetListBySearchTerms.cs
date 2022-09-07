@@ -18,8 +18,17 @@ partial class AccountRepository
       };
 
       var query = _DataContext.Accounts
-         .WithLoggedInUser(GetLoggedInUser())
-         .WithSearchTerms(searchTerms, searchTermsPredicate);
+         .WithLoggedInUser(GetLoggedInUser());
+      // .WithSearchTerms(searchTerms, (entity, term) => entity.Text.Contains(term))
+
+      var terms = searchTerms
+         ?.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+      if (terms?.Length > 0)
+      {
+         foreach (var term in terms)
+            query = query
+               .Where(entity => entity.Text.Contains(term));
+      }
 
       var dataList = await query.ToArrayAsync();
 
