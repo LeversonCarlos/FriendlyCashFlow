@@ -7,6 +7,26 @@ namespace Lewio.CashFlow.UnitTests;
 partial class AccountsTests
 {
 
+   [Theory]
+   [InlineData("ABC")]
+   [InlineData("AB")]
+   [InlineData("BC")]
+   [InlineData("AC")]
+   public async void LoadCommand_FoundRow_BasedOn_ProvidedParameter(string accountID)
+   {
+      var serviceProvider = SearchCommand_GetServiceProvider();
+
+      var request =  LoadRequestModel.Create(accountID);
+
+      var response = await serviceProvider
+         .GetRequiredService<LoadCommand>()
+         .HandleAsync(request);
+      response.EnsureValidResponse();
+
+      var result = response.Account!.AccountID;
+      Assert.Equal(accountID, result);
+   }
+
    [Fact]
    public async void LoadCommand_WithInvalidAccountID_ResultsError()
    {
@@ -50,6 +70,9 @@ partial class AccountsTests
          .GetRequiredService<Common.DataContext>();
 
       ctx.Accounts.Add(new AccountEntity { UserID = loggedInUser, AccountID = "ABC", Text = "AAA BBB CCC" });
+      ctx.Accounts.Add(new AccountEntity { UserID = loggedInUser, AccountID = "AB", Text = "AAA BBB" });
+      ctx.Accounts.Add(new AccountEntity { UserID = loggedInUser, AccountID = "AC", Text = "AAA CCC" });
+      ctx.Accounts.Add(new AccountEntity { UserID = loggedInUser, AccountID = "BC", Text = "BBB CCC" });
 
       ctx.SaveChanges();
 
