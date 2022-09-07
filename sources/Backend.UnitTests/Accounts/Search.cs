@@ -16,7 +16,7 @@ partial class AccountsTests
    [InlineData("", "ABC|AB|AC|BC")]
    public async void SearchCommand_FoundRows_BasedOn_ProvidedSearchTerms(string searchTerms, string expectedResult)
    {
-      var serviceProvider = SearchCommand_FoundRows_BasedOn_ProvidedSearchTerms_GetServiceProvider();
+      var serviceProvider = SearchCommand_GetServiceProvider();
 
       var request = new SearchRequestModel
       {
@@ -36,7 +36,7 @@ partial class AccountsTests
       Assert.Equal(expectedResult, result);
    }
 
-   private IServiceProvider SearchCommand_FoundRows_BasedOn_ProvidedSearchTerms_GetServiceProvider()
+   private IServiceProvider SearchCommand_GetServiceProvider()
    {
       var serviceProvider = Mocks.Builder
          .ServiceProvider()
