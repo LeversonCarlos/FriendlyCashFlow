@@ -1,22 +1,13 @@
 namespace Lewio.CashFlow.Accounts;
 
-internal static class AccountEntityExtensions
+partial class ModelExtensions
 {
 
-   public static AccountModel ToModel(this AccountEntity entity) =>
-      new AccountModel
-      {
-         AccountID = entity.AccountID,
-         Text = entity.Text,
-         Type = (AccountTypeEnum)entity.Type,
-         ClosingDay = entity.ClosingDay,
-         DueDay = entity.DueDay,
-         DueDate = ToModel_GetDueDate(entity),
-         Active = entity.Active
-      };
-
-   private static DateOnly? ToModel_GetDueDate(this AccountEntity entity)
+   private static DateOnly? GetDueDate(this AccountEntity entity)
    {
+      if (entity == null)
+         return null;
+
       if (entity.Type != (short)AccountTypeEnum.CreditCard)
          return null;
       if (!entity.DueDay.HasValue || entity.DueDay.Value == 0)
