@@ -5,8 +5,8 @@ namespace Lewio.CashFlow
 
    namespace Accounts
    {
-      public partial interface IAccountRepository { }
-      public partial class AccountRepository : BaseRepository, IAccountRepository
+      internal partial interface IAccountRepository { }
+      internal partial class AccountRepository : BaseRepository, IAccountRepository
       {
          public AccountRepository(IServiceProvider serviceProvider) : base(serviceProvider) { }
       }

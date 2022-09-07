@@ -1,8 +1,8 @@
 namespace Lewio.CashFlow.Common;
 
-public partial interface IMainRepository { }
+internal partial interface IMainRepository { }
 
-public partial class MainRepository : BaseRepository, IMainRepository
+internal partial class MainRepository : BaseRepository, IMainRepository
 {
    public MainRepository(IServiceProvider serviceProvider) : base(serviceProvider) { }
 }

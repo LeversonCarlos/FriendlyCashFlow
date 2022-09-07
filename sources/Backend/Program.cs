@@ -12,7 +12,10 @@ public class Program
          .AddDataServices(builder.Configuration);
 
       builder.Services
-         .AddAccountsServices(builder.Configuration);
+         .AddAccountsServices();
+
+      builder.Services
+         .AddScoped<Users.LoggedInUser>(sp => Users.LoggedInUser.Create("DummyUser"));
 
       var app = builder
          .Build();
