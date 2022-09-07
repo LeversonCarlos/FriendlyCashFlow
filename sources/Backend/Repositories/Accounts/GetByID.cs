@@ -3,13 +3,13 @@ namespace Lewio.CashFlow.Accounts;
 
 partial interface IAccountRepository
 {
-   Task<AccountEntity?> GetByID(string id);
+   Task<AccountEntity?> GetByID(EntityID id);
 }
 
 partial class AccountRepository
 {
 
-   public async Task<AccountEntity?> GetByID(string id)
+   public async Task<AccountEntity?> GetByID(EntityID id)
    {
 
       var query = _DataContext.Accounts

@@ -3,7 +3,7 @@ namespace Lewio.CashFlow.Accounts;
 public class AccountModel
 {
 
-   public string AccountID { get; set; }
+   public EntityID AccountID { get; set; }
 
    public string Text { get; set; }
 
