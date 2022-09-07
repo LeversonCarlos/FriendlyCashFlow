@@ -1,6 +1,6 @@
 namespace Lewio.CashFlow.Users;
 
-public struct LoggedInUser
+public class LoggedInUser
 {
    public string UserID { get; private set; }
 

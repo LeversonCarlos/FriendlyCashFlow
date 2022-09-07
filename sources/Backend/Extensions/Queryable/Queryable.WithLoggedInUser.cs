@@ -9,7 +9,7 @@ partial class IQueryableExtensions
       where T : BaseEntity
    {
 
-      if (!loggedInUser.HasValue)
+      if (loggedInUser == null)
          query = query.Where(x => x.UserID == "");
 
       else

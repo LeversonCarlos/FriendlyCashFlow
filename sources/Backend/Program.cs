@@ -14,6 +14,9 @@ public class Program
       builder.Services
          .AddAccountsServices(builder.Configuration);
 
+      builder.Services
+         .AddScoped<Users.LoggedInUser>(sp => Users.LoggedInUser.Create("DummyUser"));
+
       var app = builder
          .Build();
       app
