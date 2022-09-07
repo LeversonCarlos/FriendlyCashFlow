@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend.UnitTests", "Backend.UnitTests\Backend.UnitTests.csproj", "{D3879D27-1FC1-471B-ABC5-47560F8692B3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend.Mocks", "Backend.Mocks\Backend.Mocks.csproj", "{FFC131EE-950A-48B1-813F-B3EA1E4C0BAA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{D3879D27-1FC1-471B-ABC5-47560F8692B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3879D27-1FC1-471B-ABC5-47560F8692B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3879D27-1FC1-471B-ABC5-47560F8692B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFC131EE-950A-48B1-813F-B3EA1E4C0BAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFC131EE-950A-48B1-813F-B3EA1E4C0BAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFC131EE-950A-48B1-813F-B3EA1E4C0BAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFC131EE-950A-48B1-813F-B3EA1E4C0BAA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
