@@ -17,3 +17,24 @@ public struct EntityID
       };
 
 }
+
+public static class EntityIDExtensions
+{
+
+   public static bool IsValid(this EntityID? id)
+   {
+      if (id == null || !id.HasValue)
+         return false;
+      return id.Value.IsValid();
+   }
+
+   public static bool IsValid(this EntityID id)
+   {
+      if (id == null)
+         return false;
+      if (string.IsNullOrEmpty(id.ToString()))
+         return false;
+      return true;
+   }
+
+}

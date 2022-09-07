@@ -8,6 +8,9 @@ partial class LoadCommand
       try
       {
 
+         if (!_Request.AccountID.IsValid())
+            return SetWarningAndReturn("Invalid account id property");
+
          var data = await _ServiceProvider
             .GetRequiredService<IAccountRepository>()
             .GetByID(_Request.AccountID);
