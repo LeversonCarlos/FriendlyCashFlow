@@ -13,10 +13,9 @@ partial class AccountsTests
          .ServiceProvider()
          .Build();
 
-      var searchCommand = serviceProvider
-         .GetService<SearchCommand>();
+      Assert.NotNull(serviceProvider.GetService<SearchCommand>());
+      Assert.NotNull(serviceProvider.GetService<LoadCommand>());
 
-      Assert.NotNull(searchCommand);
    }
 
 }
