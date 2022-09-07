@@ -11,7 +11,7 @@ public abstract class BaseRepository
    protected readonly IServiceProvider _ServiceProvider;
    protected readonly DataContext _DataContext;
 
-   protected Users.LoggedInUser GetLoggedInUser() =>
+   protected Users.LoggedInUser? GetLoggedInUser() =>
       _ServiceProvider.GetService<Users.LoggedInUser>();
 
 }
