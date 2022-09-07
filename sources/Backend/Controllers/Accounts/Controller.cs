@@ -17,6 +17,12 @@ public partial class AccountsController : Controller
          .GetService<SearchCommand>()
          .HandleAsync(request, ModelState);
 
+   [HttpPost("")]
+   public Task<ActionResult<CreateResponseModel>> CreateAsync([FromBody] CreateRequestModel request) =>
+      _ServiceProvider
+         .GetService<CreateCommand>()
+         .HandleAsync(request, ModelState);
+
    [HttpGet("{id}")]
    public Task<ActionResult<LoadResponseModel>> LoadAsync([FromQuery] string id) =>
       _ServiceProvider
