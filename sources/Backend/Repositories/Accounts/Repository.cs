@@ -9,11 +9,6 @@ namespace Lewio.CashFlow
       public partial class AccountRepository : BaseRepository, IAccountRepository
       {
          public AccountRepository(IServiceProvider serviceProvider) : base(serviceProvider) { }
-
-         IQueryable<AccountEntity> GetAccountsQuery() =>
-            _DataContext.Accounts
-               .Where(x => x.UserID == GetLoggedInUser());
-
       }
    }
 

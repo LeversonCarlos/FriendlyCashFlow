@@ -12,7 +12,8 @@ partial class AccountRepository
 
    async Task<AccountEntity[]> IAccountRepository.GetListBySearchTerms(string searchTerms)
    {
-      var query = GetAccountsQuery()
+      var query = _DataContext.Accounts
+         .WithLoggedInUser(GetLoggedInUser())
          .WithSearchTerms(searchTerms, (entity, term) => entity.Text.Contains(term));
 
       var dataList = await query.ToArrayAsync();
