@@ -8,7 +8,8 @@ partial class CreateCommand
       try
       {
 
-         _Request.Account.AccountID = EntityID.New();
+         _Response.AccountID = EntityID.New();
+         _Request.Account.AccountID = _Response.AccountID;
 
          var entity = _Request.Account
             .ToEntity();
@@ -19,9 +20,6 @@ partial class CreateCommand
          await _ServiceProvider
             .GetRequiredService<IAccountRepository>()
             .SaveNew(entity);
-
-         _Response.Account = entity
-            .ToModel();
 
          return true;
       }

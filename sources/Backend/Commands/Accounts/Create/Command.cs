@@ -14,6 +14,9 @@ public partial class CreateCommand : Command<CreateRequestModel, CreateResponseM
       if (!await SaveData())
          return;
 
+      if (!await RefreshData())
+         return;
+
       SetSuccessResult();
    }
 
