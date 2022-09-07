@@ -1,5 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
-   <Import Project="Backend.Tests.References.props" />
+   <Import Project="Backend.UnitTests.References.props" />
 
    <PropertyGroup>
       <TargetFramework>net6.0</TargetFramework>
@@ -13,8 +13,8 @@
       <Product>Cash Flow</Product>
       <Version>1.0.0</Version>
       <Authors>Leverson Carlos</Authors>
-      <RootNamespace>Lewio.CashFlow.Tests</RootNamespace>
-      <AssemblyName>Lewio.CashFlow.Tests</AssemblyName>
+      <RootNamespace>Lewio.CashFlow.UnitTests</RootNamespace>
+      <AssemblyName>Lewio.CashFlow.UnitTests</AssemblyName>
    </PropertyGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-namespace Lewio.CashFlow.Tests;
+namespace Lewio.CashFlow.UnitTests;
 
 public class DummyTests
 {
