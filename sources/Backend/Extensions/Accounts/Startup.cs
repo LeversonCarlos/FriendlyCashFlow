@@ -3,15 +3,20 @@ namespace Lewio.CashFlow;
 
 public static class AccountsStartupExtension
 {
-   public static IServiceCollection AddAccountsServices(this IServiceCollection serviceCollection)
-   {
 
+   public static IServiceCollection AddAccountsRepository(this IServiceCollection serviceCollection)
+   {
       serviceCollection
          .AddScoped<IAccountRepository, AccountRepository>();
-
-      serviceCollection
-         .AddTransient<SearchCommand>();
-
       return serviceCollection;
    }
+
+   public static IServiceCollection AddAccountsCommands(this IServiceCollection serviceCollection)
+   {
+      serviceCollection
+         .AddTransient<SearchCommand>()
+         .AddTransient<LoadCommand>();
+      return serviceCollection;
+   }
+
 }

@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+   <Import Project="Backend.UnitTests.References.props" />
+
+   <PropertyGroup>
+      <TargetFramework>net6.0</TargetFramework>
+      <ImplicitUsings>enable</ImplicitUsings>
+      <Nullable>enable</Nullable>
+      <IsPackable>false</IsPackable>
+   </PropertyGroup>
+
+   <PropertyGroup>
+      <Company>Lewio</Company>
+      <Product>Cash Flow</Product>
+      <Version>1.0.0</Version>
+      <Authors>Leverson Carlos</Authors>
+      <RootNamespace>Lewio.CashFlow.UnitTests</RootNamespace>
+      <AssemblyName>Lewio.CashFlow.UnitTests</AssemblyName>
+   </PropertyGroup>
+
+</Project>

@@ -1,11 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
-   <Import Project="Backend.Tests.References.props" />
+   <Import Project="Backend.Mocks.References.props" />
 
    <PropertyGroup>
       <TargetFramework>net6.0</TargetFramework>
       <ImplicitUsings>enable</ImplicitUsings>
       <Nullable>enable</Nullable>
-      <IsPackable>false</IsPackable>
    </PropertyGroup>
 
    <PropertyGroup>
@@ -13,8 +12,8 @@
       <Product>Cash Flow</Product>
       <Version>1.0.0</Version>
       <Authors>Leverson Carlos</Authors>
-      <RootNamespace>Lewio.CashFlow.Tests</RootNamespace>
-      <AssemblyName>Lewio.CashFlow.Tests</AssemblyName>
+      <RootNamespace>Lewio.CashFlow.Mocks</RootNamespace>
+      <AssemblyName>Lewio.CashFlow.Mocks</AssemblyName>
    </PropertyGroup>
 
 </Project>
