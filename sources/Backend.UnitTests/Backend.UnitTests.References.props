@@ -11,10 +11,12 @@
          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
          <PrivateAssets>all</PrivateAssets>
       </PackageReference>
+      <PackageReference Include="Bogus" Version="34.0.2" />
    </ItemGroup>
 
    <ItemGroup>
       <ProjectReference Include="..\Backend\Backend.csproj" />
+      <ProjectReference Include="..\Backend.Mocks\Backend.Mocks.csproj" />
    </ItemGroup>
 
 </Project>
