@@ -32,7 +32,7 @@ public static class EntityIDExtensions
    {
       if (id == null)
          return false;
-      if (string.IsNullOrEmpty(id.ToString()))
+      if (string.IsNullOrEmpty((string)id))
          return false;
       return true;
    }
