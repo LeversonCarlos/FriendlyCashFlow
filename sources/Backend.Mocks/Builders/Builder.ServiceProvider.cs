@@ -4,16 +4,45 @@ namespace Lewio.CashFlow.Mocks;
 
 partial class Builder
 {
-   public static ServiceProviderBuilder ServiceProvider() => ServiceProviderBuilder.Create();
+   public static ServiceProviderBuilder ServiceProvider(bool withRepositories = true) => ServiceProviderBuilder.Create(withRepositories);
 }
 
 public class ServiceProviderBuilder
 {
-
-   internal static ServiceProviderBuilder Create() =>
-      new ServiceProviderBuilder();
-
    ServiceCollection _ServiceCollection = new ServiceCollection();
+
+   internal static ServiceProviderBuilder Create(bool withRepositories = true)
+   {
+      var builder = new ServiceProviderBuilder();
+      builder
+         .WithDefaults()
+         .WithCommands();
+      if (withRepositories)
+         builder.WithRepositories();
+      return builder;
+   }
+
+   private ServiceProviderBuilder WithDefaults()
+   {
+      _ServiceCollection
+         .AddDbContext<Common.DataContext>(options => options.UseInMemoryDatabase(Guid.NewGuid().ToString()))
+         .AddScoped<Users.LoggedInUser>(sp => Users.LoggedInUser.Create(Guid.NewGuid().ToString()));
+      return this;
+   }
+
+   private ServiceProviderBuilder WithCommands()
+   {
+      _ServiceCollection
+         .AddAccountsCommands();
+      return this;
+   }
+
+   private ServiceProviderBuilder WithRepositories()
+   {
+      _ServiceCollection
+         .AddAccountsRepository();
+      return this;
+   }
 
    public ServiceProviderBuilder With(Action<ServiceCollection> services)
    {
@@ -21,11 +50,5 @@ public class ServiceProviderBuilder
       return this;
    }
 
-   public IServiceProvider Build() =>
-      _ServiceCollection
-         .AddDbContext<Common.DataContext>(options => options.UseInMemoryDatabase(Guid.NewGuid().ToString()))
-         .AddScoped<Users.LoggedInUser>(sp => Users.LoggedInUser.Create(Guid.NewGuid().ToString()))
-         .AddAccountsCommands()
-         .BuildServiceProvider();
-
+   public IServiceProvider Build() => _ServiceCollection.BuildServiceProvider();
 }
