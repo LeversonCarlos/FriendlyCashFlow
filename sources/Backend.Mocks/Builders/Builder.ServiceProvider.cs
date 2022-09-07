@@ -25,7 +25,7 @@ public class ServiceProviderBuilder
       _ServiceCollection
          .AddDbContext<Common.DataContext>(options => options.UseInMemoryDatabase(Guid.NewGuid().ToString()))
          .AddScoped<Users.LoggedInUser>(sp => Users.LoggedInUser.Create(Guid.NewGuid().ToString()))
-         .AddAccountsServices()
+         .AddAccountsCommands()
          .BuildServiceProvider();
 
 }

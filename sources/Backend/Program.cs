@@ -12,7 +12,8 @@ public class Program
          .AddDataServices(builder.Configuration);
 
       builder.Services
-         .AddAccountsServices();
+         .AddAccountsRepository()
+         .AddAccountsCommands();
 
       builder.Services
          .AddScoped<Users.LoggedInUser>(sp => Users.LoggedInUser.Create("DummyUser"));
