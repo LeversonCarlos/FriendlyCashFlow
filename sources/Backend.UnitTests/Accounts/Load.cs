@@ -8,7 +8,7 @@ partial class AccountsTests
 {
 
    [Fact]
-   public async void LoadCommand_WithInvalidAccountID_ResultsError_For()
+   public async void LoadCommand_WithInvalidAccountID_ResultsError()
    {
       var serviceProvider = LoadCommand_GetServiceProvider();
 
@@ -19,7 +19,22 @@ partial class AccountsTests
          .HandleAsync(request);
 
       var ex = Assert.Throws<Exception>(() => response.EnsureValidResponse());
-      Assert.Equal("Invalid account id property", ex.Message);
+      Assert.Equal("Invalid accountID parameter", ex.Message);
+   }
+
+   [Fact]
+   public async void LoadCommand_WithNotFoundRow_ResultsError()
+   {
+      var serviceProvider = LoadCommand_GetServiceProvider();
+
+      var request = LoadRequestModel.Create("SomeID");
+
+      var response = await serviceProvider
+         .GetRequiredService<LoadCommand>()
+         .HandleAsync(request);
+
+      var ex = Assert.Throws<Exception>(() => response.EnsureValidResponse());
+      Assert.Equal("Account not found", ex.Message);
    }
 
    private IServiceProvider LoadCommand_GetServiceProvider()

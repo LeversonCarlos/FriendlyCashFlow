@@ -9,11 +9,14 @@ partial class LoadCommand
       {
 
          if (!_Request.AccountID.IsValid())
-            return SetWarningAndReturn("Invalid account id property");
+            return SetWarningAndReturn("Invalid accountID parameter");
 
          var data = await _ServiceProvider
             .GetRequiredService<IAccountRepository>()
             .GetByID(_Request.AccountID);
+
+         if (data == null)
+            return SetWarningAndReturn("Account not found");
 
          _Response.Account = data
             ?.ToModel();
