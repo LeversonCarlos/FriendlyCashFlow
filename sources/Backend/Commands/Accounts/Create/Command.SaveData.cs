@@ -17,6 +17,8 @@ partial class CreateCommand
          entity.UserID = _ServiceProvider
             .GetRequiredService<Users.LoggedInUser>();
 
+         entity.RowStatus = 1;
+
          await _ServiceProvider
             .GetRequiredService<IAccountRepository>()
             .SaveNew(entity);

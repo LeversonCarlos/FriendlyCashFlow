@@ -18,7 +18,8 @@ partial class AccountRepository
       };
 
       var query = _DataContext.Accounts
-         .WithLoggedInUser(GetLoggedInUser());
+         .WithLoggedInUser(GetLoggedInUser())
+         .Where(x => x.RowStatus == 1);
       // .WithSearchTerms(searchTerms, (entity, term) => entity.Text.Contains(term))
 
       var terms = searchTerms

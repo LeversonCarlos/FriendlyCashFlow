@@ -69,10 +69,10 @@ partial class AccountsTests
       var ctx = serviceProvider
          .GetRequiredService<Common.DataContext>();
 
-      ctx.Accounts.Add(new AccountEntity { UserID = loggedInUser, AccountID = "ABC", Text = "AAA BBB CCC" });
-      ctx.Accounts.Add(new AccountEntity { UserID = loggedInUser, AccountID = "AB", Text = "AAA BBB" });
-      ctx.Accounts.Add(new AccountEntity { UserID = loggedInUser, AccountID = "AC", Text = "AAA CCC" });
-      ctx.Accounts.Add(new AccountEntity { UserID = loggedInUser, AccountID = "BC", Text = "BBB CCC" });
+      ctx.Accounts.Add(new AccountEntity { RowStatus=1, UserID = loggedInUser, AccountID = "ABC", Text = "AAA BBB CCC" });
+      ctx.Accounts.Add(new AccountEntity { RowStatus=1, UserID = loggedInUser, AccountID = "AB", Text = "AAA BBB" });
+      ctx.Accounts.Add(new AccountEntity { RowStatus=1, UserID = loggedInUser, AccountID = "AC", Text = "AAA CCC" });
+      ctx.Accounts.Add(new AccountEntity { RowStatus=1, UserID = loggedInUser, AccountID = "BC", Text = "BBB CCC" });
 
       ctx.SaveChanges();
 
