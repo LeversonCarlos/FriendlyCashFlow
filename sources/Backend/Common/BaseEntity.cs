@@ -8,4 +8,6 @@ internal class BaseEntity
    [Column(TypeName = "varchar(36)"), StringLength(36), Required]
    public string UserID { get; set; }
 
+   public short RowStatus { get; set; } = 0;
+
 }

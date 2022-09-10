@@ -17,7 +17,8 @@ public static class AccountsStartupExtension
          .AddTransient<SearchCommand>()
          .AddTransient<LoadCommand>()
          .AddTransient<CreateCommand>()
-         .AddTransient<UpdateCommand>();
+         .AddTransient<UpdateCommand>()
+         .AddTransient<DeleteCommand>();
       return serviceCollection;
    }
 

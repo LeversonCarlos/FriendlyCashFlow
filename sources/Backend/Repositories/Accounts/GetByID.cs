@@ -14,7 +14,7 @@ partial class AccountRepository
 
       var query = _DataContext.Accounts
          .WithLoggedInUser(GetLoggedInUser())
-         .Where(x => x.AccountID == id);
+         .Where(x => x.AccountID == id && x.RowStatus == 1);
 
       var data = await query.FirstOrDefaultAsync();
 
