@@ -29,4 +29,10 @@ public partial class AccountsController : Controller
          .GetService<UpdateCommand>()
          .HandleAsync(request, ModelState);
 
+   [HttpDelete("{id}")]
+   public Task<ActionResult<DeleteResponseModel>> DeleteAsync([FromQuery] string id) =>
+      _ServiceProvider
+         .GetService<DeleteCommand>()
+         .HandleAsync(DeleteRequestModel.CreateFrom(id), ModelState);
+
 }
