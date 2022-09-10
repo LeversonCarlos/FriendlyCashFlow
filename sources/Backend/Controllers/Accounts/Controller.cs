@@ -17,16 +17,16 @@ public partial class AccountsController : Controller
          .GetService<SearchCommand>()
          .HandleAsync(request, ModelState);
 
-   [HttpPost("")]
-   public Task<ActionResult<CreateResponseModel>> CreateAsync([FromBody] CreateRequestModel request) =>
-      _ServiceProvider
-         .GetService<CreateCommand>()
-         .HandleAsync(request, ModelState);
-
    [HttpGet("{id}")]
    public Task<ActionResult<LoadResponseModel>> LoadAsync([FromQuery] string id) =>
       _ServiceProvider
          .GetService<LoadCommand>()
          .HandleAsync(LoadRequestModel.Create(id), ModelState);
+
+   [HttpPatch("")]
+   public Task<ActionResult<UpdateResponseModel>> UpdateAsync([FromBody] UpdateRequestModel request) =>
+      _ServiceProvider
+         .GetService<UpdateCommand>()
+         .HandleAsync(request, ModelState);
 
 }
