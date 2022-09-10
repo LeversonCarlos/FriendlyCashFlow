@@ -14,6 +14,7 @@ partial class AccountsTests
    [InlineData("AAA", "ABC|AB|AC")]
    [InlineData("A", "ABC|AB|AC")]
    [InlineData("", "ABC|AB|AC|BC")]
+   [InlineData("YY", "")]
    public async void SearchCommand_FoundRows_BasedOn_ProvidedSearchTerms(string searchTerms, string expectedResult)
    {
       var serviceProvider = SearchCommand_GetServiceProvider();
@@ -52,6 +53,7 @@ partial class AccountsTests
       ctx.Accounts.Add(new AccountEntity { RowStatus=1, UserID = loggedInUser, AccountID = "AB", Text = "AAA BBB" });
       ctx.Accounts.Add(new AccountEntity { RowStatus=1, UserID = loggedInUser, AccountID = "AC", Text = "AAA CCC" });
       ctx.Accounts.Add(new AccountEntity { RowStatus=1, UserID = loggedInUser, AccountID = "BC", Text = "BBB CCC" });
+      ctx.Accounts.Add(new AccountEntity { RowStatus=0, UserID = loggedInUser, AccountID = "YY", Text = "YYY" });
 
       ctx.SaveChanges();
 
