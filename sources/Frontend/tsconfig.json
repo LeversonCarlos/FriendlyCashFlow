@@ -4,6 +4,7 @@
    "compilerOptions": {
       "baseUrl": "./",
       "paths": {
+         "@commands/*" : ["src/app/commands/*"],
          "@components/*" : ["src/app/components/*"],
          "@interfaces/*" : ["src/app/interfaces/*"],
          "@models/*" : ["src/app/models/*"],
