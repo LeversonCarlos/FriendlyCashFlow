@@ -2,25 +2,34 @@
    "version": "0.2.0",
    "configurations": [
       {
-         "name": "Launch App",
+         "name": "Attach Backend",
+         "type": "coreclr",
+         "request": "attach",
+         "processName": "Lewio.CashFlow"
+      },
+      {
+         "name": "Launch Backend",
          "type": "coreclr",
          "request": "launch",
-         "preLaunchTask": "build",
-         "program": "${workspaceFolder}/srcs/bin/Debug/net6.0/FriendlyCashFlow.dll",
+         "preLaunchTask": "build-backend",
+         "program": "${workspaceFolder}/sources/Backend/bin/Debug/net6.0/Lewio.CashFlow.dll",
          "args": [],
-         "cwd": "${workspaceFolder}/srcs",
+         "cwd": "${workspaceFolder}/sources/Backend",
          "stopAtEntry": false,
-         "serverReadyAction": {
-            "action": "openExternally",
-            "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
-         },
          "env": {
             "ASPNETCORE_ENVIRONMENT": "Development",
             "DEBUG": "true"
          },
          "sourceFileMap": {
-            "/Views": "${workspaceFolder}/Views"
+            "/Views": "${workspaceFolder}/sources/Backend/Views"
          }
+      },
+      {
+         "name": "Launch Frontend",
+         "type": "msedge",
+         "request": "launch",
+         "preLaunchTask": "Launch Frontend",
+         "url": "http://localhost:4200/"
       }
    ]
 }

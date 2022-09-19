@@ -13,20 +13,15 @@ jobs:
       - name: Retrieve Sources
         uses: actions/checkout@v2
 
-      #- name: Setup Dotnet
-      #  uses: actions/setup-dotnet@v1
-      #  with:
-      #    dotnet-version: '6.0.x'
+      - name: Frontend Dependecies
+        working-directory: 'sources/Frontend'
+        run: |
+          npm install --no-save
 
-      #- name: Frontend Packages
-      #  working-directory: 'srcs/ClientApp'
-      #  run: |
-      #    npm install --no-save
-
-      # - name: Frontend Build
-      #   working-directory: 'srcs/ClientApp'
-      #   run: |
-      #     npm run build
+      - name: Frontend Build
+        working-directory: 'sources/Frontend'
+        run: |
+          npm run build
 
       - name: Backend Dependecies
         working-directory: 'sources'
