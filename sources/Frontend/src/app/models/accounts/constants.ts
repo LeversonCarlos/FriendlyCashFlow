@@ -1,5 +1,5 @@
-export const BaseController: string = "api/accounts";
-export const BaseRoute: string = "/accounts";
+export const BackendRoute: string = "api/accounts";
+export const FrontendRoute: string = "accounts";
 
 export enum ViewRoutes {
    Accounts = "accounts",

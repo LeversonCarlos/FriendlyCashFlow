@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ICommand } from '@interfaces/ICommand';
-import { BaseRoute, ViewRoutes } from '@models/accounts';
+import { FrontendRoute, ViewRoutes } from '@models/accounts';
 
 @Injectable()
 export class NavigateCommand {
@@ -12,7 +12,7 @@ export class NavigateCommand {
 
    public async NavigateTo(route: ViewRoutes): Promise<boolean> {
       try {
-         await this.router.navigate([`/${BaseRoute}/${route}`]);
+         await this.router.navigate([`/${FrontendRoute}/${route}`]);
          return true;
       }
       catch { return false; }

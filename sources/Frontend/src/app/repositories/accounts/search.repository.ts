@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BaseRequest, BaseResponse, ApiClient } from '@components/api-client';
 import { IRepository } from '@interfaces/IRepository';
-import { AccountModel, BaseController } from '@models/accounts';
+import { AccountModel, BackendRoute } from '@models/accounts';
 
 @Injectable()
 export class SearchRepository implements ISearchRepository {
@@ -13,7 +13,7 @@ export class SearchRepository implements ISearchRepository {
    public async Handle(searchTerms: string): Promise<AccountModel[]> {
 
       const request: SearchRequestModel = {
-         Url: `${BaseController}/search`,
+         Url: `${BackendRoute}/search`,
          SearchTerms: searchTerms,
       };
 
