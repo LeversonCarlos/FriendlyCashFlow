@@ -5,8 +5,12 @@ import { AccountsRouting } from './accounts.routing';
 import { AccountsState, } from '@commands/accounts';
 import { NavigateCommandProvider, InitializeCommandProvider, ShowAccountsCommandProvider } from '@commands/accounts';
 
+import { ContainerComponent } from './views/container.component';
+
 @NgModule({
-   declarations: [],
+   declarations: [
+      ContainerComponent
+   ],
    imports: [
       CommonModule,
       AccountsRouting
@@ -14,6 +18,9 @@ import { NavigateCommandProvider, InitializeCommandProvider, ShowAccountsCommand
    providers: [
       AccountsState,
       NavigateCommandProvider, InitializeCommandProvider, ShowAccountsCommandProvider
+   ],
+   bootstrap: [
+      ContainerComponent
    ]
 })
 export class AccountsModule { }
