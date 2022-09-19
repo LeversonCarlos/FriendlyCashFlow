@@ -2,29 +2,49 @@
    "version": "2.0.0",
    "tasks": [
       {
-         "label": "build",
+         "label": "build-backend",
          "command": "dotnet",
          "type": "process",
          "args": [
             "build",
-            "${workspaceFolder}/srcs/FriendlyCashFlow.sln",
+            "${workspaceFolder}/sources/CashFlow.sln",
             "/property:GenerateFullPaths=true",
             "/consoleloggerparameters:NoSummary"
          ],
          "problemMatcher": "$msCompile"
       },
       {
-         "label": "watch",
+         "label": "watch-backend",
          "command": "dotnet",
          "type": "process",
          "args": [
             "watch",
             "run",
-            "${workspaceFolder}/srcs/FriendlyCashFlow.csproj",
+            "${workspaceFolder}/sources/Backend/Backend.csproj",
             "/property:GenerateFullPaths=true",
             "/consoleloggerparameters:NoSummary"
          ],
          "problemMatcher": "$msCompile"
+      },
+      {
+         "label": "frontend",
+         "type": "npm",
+         "script": "start",
+         "isBackground": true,
+         "path": "${workspaceFolder}/sources/Frontend",
+         "problemMatcher": {
+            "owner": "typescript",
+            "pattern": "$tsc",
+            "background": {
+               "activeOnStart": true,
+               "beginsPattern": {
+                  "regexp": "(.*?)"
+               },
+               "endsPattern": {
+                  "regexp": "bundle generation complete"
+               }
+            }
+         }
       }
    ]
 }
