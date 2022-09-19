@@ -10,7 +10,7 @@ export class SearchRepository implements ISearchRepository {
       private apiClient: ApiClient,
    ) { }
 
-   public async Handle(searchTerms: string): Promise<AccountModel[] | null> {
+   public async Handle(searchTerms: string): Promise<AccountModel[]> {
 
       const request: SearchRequestModel = {
          Url: `${BaseController}/search`,
@@ -20,7 +20,7 @@ export class SearchRepository implements ISearchRepository {
       const response = await this.apiClient.Handle<SearchResponseModel>(request);
 
       if (!response || !response.Accounts)
-         return null;
+         return [];
 
       const result = response.Accounts
          .map(x => AccountModel.Parse(x));

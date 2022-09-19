@@ -1,3 +1,3 @@
 export declare interface IRepository<P, R> {
-   Handle(value: P): Promise<R | null>;
+   Handle(value: P): Promise<R>;
 }
