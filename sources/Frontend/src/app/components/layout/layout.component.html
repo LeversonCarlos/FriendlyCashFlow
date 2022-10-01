@@ -1,0 +1,21 @@
+<article>
+
+   <header>
+      <mat-toolbar color="primary">
+         <mat-toolbar-row>
+            <ng-content select="[header]"></ng-content>
+            <span class="spacer"></span>
+            <ng-content select="[toolbar]"></ng-content>
+         </mat-toolbar-row>
+      </mat-toolbar>
+   </header>
+
+   <section>
+      <ng-content select="[content]"></ng-content>
+   </section>
+
+   <footer>
+      <span class="caption">footer</span>
+   </footer>
+
+</article>

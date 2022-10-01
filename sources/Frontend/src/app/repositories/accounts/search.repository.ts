@@ -4,7 +4,7 @@ import { IRepository } from '@interfaces/IRepository';
 import { AccountModel, BackendRoute } from '@models/accounts';
 
 @Injectable()
-export class SearchRepository implements ISearchRepository {
+export class SearchRepository implements IRepository<string, AccountModel[]> {
 
    constructor(
       private apiClient: ApiClient,
@@ -29,11 +29,6 @@ export class SearchRepository implements ISearchRepository {
    }
 
 }
-
-interface ISearchRepositoryDummy extends IRepository<string, AccountModel[]> { }
-export interface ISearchRepository extends ISearchRepositoryDummy { }
-export abstract class ISearchRepository implements ISearchRepositoryDummy { }
-export const SearchRepositoryProvider = { provide: ISearchRepository, useExisting: SearchRepository };
 
 class SearchRequestModel extends BaseRequest {
    SearchTerms: string = '';

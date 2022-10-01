@@ -1,0 +1,18 @@
+@use "@angular/material" as mat;
+@import "./colors.scss";
+@include mat.core();
+
+// @media (prefers-color-scheme: light) {
+   $fs-theme: mat.define-light-theme($palette-primary, $palette-accent, $palette-warn);
+   @include mat.all-component-themes($fs-theme);
+// }
+
+@media (prefers-color-scheme: dark) {
+   $fs-theme: mat.define-dark-theme($palette-primary, $palette-accent, $palette-warn);
+   @include mat.all-component-themes($fs-theme);
+}
+
+body {
+   @extend .mat-typography;
+   @extend .mat-app-background;
+}

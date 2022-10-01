@@ -4,13 +4,13 @@ import { ICommand } from '@interfaces/ICommand';
 import { FrontendRoute, ViewRoutes } from '@models/accounts';
 
 @Injectable()
-export class NavigateCommand {
+export class NavigateCommand implements ICommand<ViewRoutes, boolean> {
 
    constructor(
       private router: Router,
    ) { }
 
-   public async NavigateTo(route: ViewRoutes): Promise<boolean> {
+   public async Handle(route: ViewRoutes): Promise<boolean> {
       try {
          await this.router.navigate([`/${FrontendRoute}/${route}`]);
          return true;
@@ -23,8 +23,3 @@ export class NavigateCommand {
    }
 
 }
-
-export interface INavigateCommand extends ICommand<void, boolean> { }
-export abstract class INavigateCommand { /* this is required to fake the interface on the compiled JS where there is no interface concept */ }
-
-export const NavigateCommandProvider = { provide: INavigateCommand, useExisting: NavigateCommand };

@@ -1,0 +1,32 @@
+@import 'src/styles/variables';
+
+article {
+   display: flex;
+   flex-direction: column;
+   height: 100vh;
+   width: 100vw;
+   overflow: hidden;
+}
+
+header {
+   height: $header-height;
+   color: red;
+   flex-shrink: 1;
+}
+
+section {
+   flex-grow: 1;
+   height: $content-height;
+}
+
+footer {
+   height: $footer-height;
+   flex-shrink: 1;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+span.spacer {
+   flex: 1 1 auto;
+}

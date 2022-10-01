@@ -1,20 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { IInitializeCommand } from '@commands/accounts';
+import { InitializeCommand } from '@commands/accounts';
 
 @Component({
    selector: 'app-container',
    template: `
-    <p>
-      container works!
-    </p>
-  `,
+      <router-outlet></router-outlet>
+   `,
    styles: [
    ]
 })
 export class ContainerComponent implements OnInit {
 
    constructor(
-      initialize: IInitializeCommand
+      initialize: InitializeCommand
    ) {
       initialize.Handle();
    }
