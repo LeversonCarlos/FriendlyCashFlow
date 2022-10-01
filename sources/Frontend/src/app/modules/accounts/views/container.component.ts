@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IInitializeCommand } from '@commands/accounts';
+import { InitializeCommand } from '@commands/accounts';
 
 @Component({
    selector: 'app-container',
@@ -12,7 +12,7 @@ import { IInitializeCommand } from '@commands/accounts';
 export class ContainerComponent implements OnInit {
 
    constructor(
-      initialize: IInitializeCommand
+      initialize: InitializeCommand
    ) {
       initialize.Handle();
    }

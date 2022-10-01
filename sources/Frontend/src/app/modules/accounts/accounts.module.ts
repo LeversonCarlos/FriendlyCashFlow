@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ComponentsModule } from '@components/components.module';
 
 import { AccountsRouting } from './accounts.routing';
-import { AccountsState, } from '@commands/accounts';
-import { NavigateCommandProvider, InitializeCommandProvider, ShowAccountsCommandProvider } from '@commands/accounts';
+import { SearchRepository } from '@repositories/accounts';
+import { AccountsState, InitializeCommand, NavigateCommand, ShowAccountsCommand, } from '@commands/accounts';
 
 import { ContainerComponent } from './views/container.component';
 import { IndexComponent } from './views/index/index.component';
@@ -20,7 +20,8 @@ import { IndexComponent } from './views/index/index.component';
    ],
    providers: [
       AccountsState,
-      NavigateCommandProvider, InitializeCommandProvider, ShowAccountsCommandProvider
+      SearchRepository,
+      NavigateCommand, InitializeCommand, ShowAccountsCommand,
    ],
    bootstrap: [
       ContainerComponent

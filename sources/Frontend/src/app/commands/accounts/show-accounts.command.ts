@@ -5,7 +5,7 @@ import { SearchRepository } from '@repositories/accounts';
 import { AccountsState, NavigateCommand } from '.';
 
 @Injectable()
-export class ShowAccountsCommand implements IShowAccountsCommand {
+export class ShowAccountsCommand implements ICommand<void, boolean> {
 
    constructor(
       private state: AccountsState,
@@ -17,7 +17,7 @@ export class ShowAccountsCommand implements IShowAccountsCommand {
 
    public async Handle(): Promise<boolean> {
       this.RefreshData();
-      if (!await this.navigate.NavigateTo(ViewRoutes.Index))
+      if (!await this.navigate.Handle(ViewRoutes.Index))
          return false;
       return true;
    }
@@ -30,8 +30,3 @@ export class ShowAccountsCommand implements IShowAccountsCommand {
    }
 
 }
-
-export interface IShowAccountsCommand extends ICommand<void, boolean> { }
-export abstract class IShowAccountsCommand { /* this is required to fake the interface on the compiled JS where there is no interface concept */ }
-
-export const ShowAccountsCommandProvider = { provide: IShowAccountsCommand, useExisting: ShowAccountsCommand };

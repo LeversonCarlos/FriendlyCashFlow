@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ICommand } from '@interfaces/ICommand';
-import { IShowAccountsCommand } from '.';
+import { ShowAccountsCommand } from '.';
 
 @Injectable()
-export class InitializeCommand implements IInitializeCommand {
+export class InitializeCommand implements ICommand<void, boolean> {
 
    constructor(
-      private showAccounts: IShowAccountsCommand,
+      private showAccounts: ShowAccountsCommand,
    ) { }
 
    public Handle(): Promise<boolean> {
@@ -15,8 +15,3 @@ export class InitializeCommand implements IInitializeCommand {
    }
 
 }
-
-export interface IInitializeCommand extends ICommand<void, boolean> { }
-export abstract class IInitializeCommand { /* this is required to fake the interface on the compiled JS where there is no interface concept */ }
-
-export const InitializeCommandProvider = { provide: IInitializeCommand, useExisting: InitializeCommand };
