@@ -17,7 +17,7 @@ export class ShowAccountsCommand implements IShowAccountsCommand {
 
    public async Handle(): Promise<boolean> {
       this.RefreshData();
-      if (!await this.navigate.NavigateTo(ViewRoutes.Accounts))
+      if (!await this.navigate.NavigateTo(ViewRoutes.Index))
          return false;
       return true;
    }
