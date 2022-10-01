@@ -1,0 +1,65 @@
+@use '~@angular/material' as mat;
+@import "~@angular/material/theming";
+
+/* PRIMARY */
+$palette-primary: mat.define-palette(mat.$teal-palette);
+$color-primary: mat.get-color-from-palette($palette-primary, default);
+.forecolor-primary { color: $color-primary; }
+.backcolor-primary { background-color: $color-primary; }
+
+/* ACCENT */
+$palette-accent: mat.define-palette(mat.$indigo-palette);
+$color-accent: mat.get-color-from-palette($palette-accent, default);
+.forecolor-accent { color: $color-accent; }
+.backcolor-accent { background-color: $color-accent; }
+
+/* WARN */
+$palette-warn: mat.define-palette(mat.$deep-orange-palette);
+$color-warn: mat.get-color-from-palette($palette-warn, default);
+.forecolor-warn { color: $color-warn; }
+.backcolor-warn { background-color: $color-warn; }
+
+/* RED */
+$color-red: mat.get-color-from-palette(mat.$red-palette, 700);
+.forecolor-red { color: $color-red; }
+.backcolor-red { background-color: $color-red; }
+@media (prefers-color-scheme: dark) {
+   $color-red: mat.get-color-from-palette(mat.$red-palette, 400) !global;
+   .forecolor-red { color: $color-red; }
+   .backcolor-red { background-color: $color-red; }
+}
+
+/* GREEN */
+$color-green: mat.get-color-from-palette(mat.$green-palette, 700);
+.forecolor-green { color: $color-green; }
+.backcolor-green { background-color: $color-green; }
+@media (prefers-color-scheme: dark) {
+   $color-green: mat.get-color-from-palette(mat.$green-palette, 400) !global;
+   .forecolor-green { color: $color-green; }
+   .backcolor-green { background-color: $color-green; }
+}
+
+/* YELLOW */
+$color-yellow: mat.get-color-from-palette(mat.$yellow-palette, 700);
+.forecolor-yellow { color: $color-yellow; }
+.backcolor-yellow { background-color: $color-yellow; }
+
+/* BLACK */
+$color-black: mat.get-color-from-palette(mat.$grey-palette, 900);
+.forecolor-black { color: $color-black; }
+.backcolor-black { background-color: $color-black; }
+
+/* GREY */
+$color-grey: mat.get-color-from-palette(mat.$grey-palette, 700);
+.forecolor-grey { color: $color-grey; }
+.backcolor-grey { background-color: $color-grey; }
+
+/* SILVER */
+$color-silver: mat.get-color-from-palette(mat.$grey-palette, 500);
+.forecolor-silver { color: $color-silver; }
+.backcolor-silver { background-color: $color-silver; }
+
+/* WHITE */
+$color-white: #ffffff;
+.forecolor-white { color: $color-white; }
+.backcolor-white { background-color: $color-white; }
