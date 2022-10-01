@@ -4,10 +4,8 @@ import { IInitializeCommand } from '@commands/accounts';
 @Component({
    selector: 'app-container',
    template: `
-    <p>
-      container works!
-    </p>
-  `,
+      <router-outlet></router-outlet>
+   `,
    styles: [
    ]
 })
