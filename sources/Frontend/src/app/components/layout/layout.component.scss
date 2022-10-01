@@ -12,15 +12,15 @@ header {
    flex-shrink: 1;
 }
 
-section {
-   flex-grow: 1;
-   height: calc( 100vh - #{$headerHeight} - #{$footerHeight} );
-   background-color: yellow;
-}
-
 $footerHeight: 50px;
 footer {
    height: $footerHeight;
    background-color: blue;
    flex-shrink: 1;
+}
+
+section {
+   flex-grow: 1;
+   height: calc( 100vh - #{$headerHeight} - #{$footerHeight} );
+   background-color: yellow;
 }
