@@ -1,0 +1,26 @@
+article {
+   display: flex;
+   height: 100vh;
+   width: 100vw;
+   overflow: hidden;
+}
+
+$headerHeight: 70px;
+header {
+   height: $headerHeight;
+   background-color: red;
+   flex-shrink: 1;
+}
+
+section {
+   flex-grow: 1;
+   height: calc( 100vh - #{$headerHeight} - #{$footerHeight} );
+   background-color: yellow;
+}
+
+$footerHeight: 50px;
+footer {
+   height: $footerHeight;
+   background-color: blue;
+   flex-shrink: 1;
+}
