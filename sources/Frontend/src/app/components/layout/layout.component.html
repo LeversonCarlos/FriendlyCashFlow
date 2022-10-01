@@ -1,7 +1,13 @@
 <article>
 
    <header>
-      <ng-content select="[header]"></ng-content>
+      <mat-toolbar color="primary">
+         <mat-toolbar-row>
+            <ng-content select="[header]"></ng-content>
+            <span class="spacer"></span>
+            <ng-content select="[toolbar]"></ng-content>
+         </mat-toolbar-row>
+      </mat-toolbar>
    </header>
 
    <section>
