@@ -1,3 +1,5 @@
+@import 'src/styles/variables';
+
 article {
    display: flex;
    flex-direction: column;
@@ -6,22 +8,20 @@ article {
    overflow: hidden;
 }
 
-$headerHeight: 56px;
 header {
-   height: $headerHeight;
-   background-color: red;
-   flex-shrink: 1;
-}
-
-$footerHeight: 30px;
-footer {
-   height: $footerHeight;
-   background-color: blue;
+   height: $header-height;
+   color: red;
    flex-shrink: 1;
 }
 
 section {
    flex-grow: 1;
-   height: calc( 100vh - #{$headerHeight} - #{$footerHeight} );
-   background-color: yellow;
+   height: calc( 100vh - #{$header-height} - #{$footer-height} );
+   color: yellow;
+}
+
+footer {
+   height: $footer-height;
+   color: blue;
+   flex-shrink: 1;
 }
