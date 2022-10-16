@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AccountsState } from '@commands/accounts';
 
 @Component({
    selector: 'app-index-list',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IndexListComponent implements OnInit {
 
-   constructor() { }
+   constructor(
+      private state: AccountsState,
+   ) { }
+
+   public get Accounts() { return this.state.Accounts; }
 
    ngOnInit(): void {
    }
