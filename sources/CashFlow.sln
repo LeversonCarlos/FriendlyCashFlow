@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend", "Backend\Backend.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{CDD05819-AAE2-473E-9A44-EA39063F44D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend.UnitTests", "Backend.UnitTests\Backend.UnitTests.csproj", "{D3879D27-1FC1-471B-ABC5-47560F8692B3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend.UnitTests", "..\tests\Backend.UnitTests\Backend.UnitTests.csproj", "{D3879D27-1FC1-471B-ABC5-47560F8692B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend.Mocks", "Backend.Mocks\Backend.Mocks.csproj", "{FFC131EE-950A-48B1-813F-B3EA1E4C0BAA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend.Mocks", "..\tests\Backend.Mocks\Backend.Mocks.csproj", "{FFC131EE-950A-48B1-813F-B3EA1E4C0BAA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
