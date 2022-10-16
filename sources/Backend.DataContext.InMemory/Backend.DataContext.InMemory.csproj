@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+   <PropertyGroup>
+      <TargetFramework>net6.0</TargetFramework>
+      <ImplicitUsings>enable</ImplicitUsings>
+      <Nullable>enable</Nullable>
+   </PropertyGroup>
+
+   <PropertyGroup>
+      <Company>Lewio</Company>
+      <Product>Cash Flow</Product>
+      <Version>1.0.0</Version>
+      <Authors>Leverson Carlos</Authors>
+      <RootNamespace>Lewio.CashFlow</RootNamespace>
+      <AssemblyName>Lewio.CashFlow.DataContext.InMemory</AssemblyName>
+   </PropertyGroup>
+
+   <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.0" />
+   </ItemGroup>
+
+</Project>
