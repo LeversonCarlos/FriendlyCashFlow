@@ -10,8 +10,7 @@ partial class DataContext
    private void OnModelCreating_Accounts(ModelBuilder modelBuilder)
    {
       modelBuilder.Entity<AccountEntity>()
-         .HasIndex(x => new { x.UserID, x.AccountID, x.Text })
-         .HasDatabaseName("v7_Accounts_Search");
+         .HasIndex(x => new { x.UserID, x.AccountID, x.Text });
    }
 
 }
