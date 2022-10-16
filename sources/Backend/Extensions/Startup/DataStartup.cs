@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 namespace Lewio.CashFlow;
 
 public static class DataStartupExtension
@@ -9,7 +8,8 @@ public static class DataStartupExtension
       var connectionString = configuration.GetConnectionString("DataConnection") ?? throw new InvalidOperationException("Connection string 'DataConnection' wasnt found on appsettings");
 
       serviceCollection
-         .AddDbContext<DataContext>(options => options.UseSqlite(connectionString));
+         // .AddSqlLiteContext<Common.DataContext>(connectionString);
+         .AddInMemoryContext<Common.DataContext>();
       // serviceCollection
       //    .AddDatabaseDeveloperPageExceptionFilter();
 

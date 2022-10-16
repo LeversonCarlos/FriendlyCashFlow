@@ -25,7 +25,7 @@ public class ServiceProviderBuilder
    private ServiceProviderBuilder WithDefaults()
    {
       _ServiceCollection
-         .AddDbContext<Common.DataContext>(options => options.UseInMemoryDatabase(Guid.NewGuid().ToString()))
+         .AddInMemoryContext<Common.DataContext>()
          .AddScoped<Users.LoggedInUser>(sp => Users.LoggedInUser.Create(Guid.NewGuid().ToString()));
       return this;
    }
