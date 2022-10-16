@@ -5,7 +5,7 @@ namespace Lewio.CashFlow;
 public static class ServiceCollectionExtension
 {
 
-   public static IServiceCollection AddDataContext<T>(this IServiceCollection serviceCollection)
+   public static IServiceCollection AddInMemoryContext<T>(this IServiceCollection serviceCollection)
       where T: DbContext
    {
       serviceCollection

@@ -8,8 +8,8 @@ public static class DataStartupExtension
       var connectionString = configuration.GetConnectionString("DataConnection") ?? throw new InvalidOperationException("Connection string 'DataConnection' wasnt found on appsettings");
 
       serviceCollection
-         // .AddDataContext<Common.DataContext>(connectionString);
-         .AddDataContext<Common.DataContext>();
+         // .AddSqlLiteContext<Common.DataContext>(connectionString);
+         .AddInMemoryContext<Common.DataContext>();
       // serviceCollection
       //    .AddDatabaseDeveloperPageExceptionFilter();
 
