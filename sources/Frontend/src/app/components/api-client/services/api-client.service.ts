@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { BusyService } from '@components/busy';
 import { BaseRequest, BaseResponse } from '..';
 
@@ -15,7 +16,11 @@ export class ApiClient {
       try {
          this.busy.show();
 
-         const response = await this.http.post<T>(request.Url, request).toPromise();
+         let url = request.Url;
+         if (!environment.production)
+            url = `https://localhost:5001/${request.Url}`;
+
+         const response = await this.http.post<T>(url, request).toPromise();
 
          if (!response)
             throw new Error(`Error: Invalid null response from ${request.Url}`);

@@ -8,11 +8,13 @@ import { AccountsState, InitializeCommand, NavigateCommand, ShowAccountsCommand,
 
 import { ContainerComponent } from './views/container.component';
 import { IndexComponent } from './views/index/index.component';
+import { IndexListComponent } from './views/index/list/list.component';
 
 @NgModule({
    declarations: [
       ContainerComponent,
-      IndexComponent
+      IndexComponent,
+      IndexListComponent
    ],
    imports: [
       CommonModule, ComponentsModule,

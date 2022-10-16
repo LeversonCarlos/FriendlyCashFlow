@@ -9,7 +9,8 @@ public class Program
 
       builder.Services
          .AddSettingsServices(builder.Configuration)
-         .AddDataServices(builder.Configuration);
+         .AddDataServices(builder.Configuration)
+         .AddControllersServices(builder.Configuration);
 
       builder.Services
          .AddAccountsRepository()
@@ -19,11 +20,9 @@ public class Program
          .AddScoped<Users.LoggedInUser>(sp => Users.LoggedInUser.Create("DummyUser"));
 
       var app = builder
-         .Build();
-      app
-         .MapGet("/", () => "Hello World!");
-      app
-         .Run();
+         .Build()
+         .AddControllersServices();
+      app.Run();
 
    }
 }
