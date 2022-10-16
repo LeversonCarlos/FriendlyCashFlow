@@ -11,22 +11,19 @@ export class ShowAccountsCommand implements ICommand<void, boolean> {
       private state: AccountsState,
       private search: SearchRepository,
       private navigate: NavigateCommand,
-   ) {
-      this.state.SearchTermsSubject.subscribe(searchTerms => this.RefreshData());
-   }
+   ) { }
 
    public async Handle(): Promise<boolean> {
-      this.RefreshData();
+      this.state.SearchTermsSubject.subscribe(searchTerms => this.RefreshData());
+      // this.RefreshData();
       if (!await this.navigate.Handle(ViewRoutes.Index))
          return false;
       return true;
    }
 
-   private RefreshData() {
+   private async RefreshData() {
       const searchTerms = this.state.SearchTerms;
-      this.search
-         .Handle(searchTerms)
-         .then(result => this.state.Accounts = result);
+      this.state.Accounts = await this.search.Handle(searchTerms);
    }
 
 }
