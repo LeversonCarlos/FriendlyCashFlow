@@ -17,6 +17,7 @@ from v6_dataAccounts with(nolock)
 where
    RowStatus = 1
    and ResourceID=@resourceID
+   and Active=1
    and [Type]=@applicationType;
 
 select
