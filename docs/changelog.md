@@ -1,1 +1,2 @@
-- Refactor the monthly target chart to show details of the income data on each month
+- Fix standard deviation on analysis reports
+- Upgrade angular version to v14
