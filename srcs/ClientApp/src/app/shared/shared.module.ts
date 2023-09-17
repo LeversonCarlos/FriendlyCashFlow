@@ -44,7 +44,6 @@ import { AppVersionComponent } from './app-version/app-version.component';
 import { LazyLoadingComponent } from './lazy-loading/lazy-loading.component';
 
 @NgModule({
-   entryComponents: [MessageComponent, ConfirmComponent],
    declarations: [BaseLayoutComponent, FullLayoutComponent, SideNavComponent, AppVersionComponent,
       BusyComponent, TranslationPipe, MessageComponent, ConfirmComponent, FabButtonComponent, RelatedBoxComponent, LazyLoadingComponent],
    imports: [

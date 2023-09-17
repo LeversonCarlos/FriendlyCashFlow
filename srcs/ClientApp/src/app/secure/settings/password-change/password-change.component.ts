@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppInsightsService } from 'src/app/shared/app-insights/app-insights.service';
-import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { BusyService } from 'src/app/shared/busy/busy.service';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'src/app/core/auth/auth.service';
@@ -20,7 +20,7 @@ class PasswordChangeVM {
 export class PasswordChangeComponent implements OnInit {
 
    constructor(private msg: MessageService, private auth: AuthService, public busy: BusyService,
-      private appInsights: AppInsightsService, private http: HttpClient, private fb: FormBuilder) { }
+      private appInsights: AppInsightsService, private http: HttpClient, private fb: UntypedFormBuilder) { }
    private Data: PasswordChangeVM = new PasswordChangeVM()
 
    public ngOnInit() {
@@ -30,7 +30,7 @@ export class PasswordChangeComponent implements OnInit {
       catch (ex) { this.appInsights.trackException(ex); console.error(ex) }
    }
 
-   public inputForm: FormGroup;
+   public inputForm: UntypedFormGroup;
    private OnFormCreate() {
       this.inputForm = this.fb.group({
          OldPassword: ['', Validators.required],
@@ -44,7 +44,7 @@ export class PasswordChangeComponent implements OnInit {
       });
    }
 
-   public confirmPasswordValidator(inputForm: FormGroup) {
+   public confirmPasswordValidator(inputForm: UntypedFormGroup) {
       const newPassword = inputForm.get('NewPassword');
       const confirmPassword = inputForm.get('ConfirmPassword');
       const valid = newPassword.value == confirmPassword.value

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EntriesService } from '../entries.service';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { MessageService } from 'src/app/shared/message/message.service';
 import { ActivatedRoute } from '@angular/router';
 import { Entry } from '../entries.viewmodels';
@@ -26,7 +26,7 @@ export class EntryDetailsComponent implements OnInit {
    constructor(private service: EntriesService, private msg: MessageService,
       private categoryService: CategoriesService, private accountService: AccountsService, private patternService: PatternsService, private recurrencyService: RecurrencyService,
       private appInsights: AppInsightsService,
-      private route: ActivatedRoute, private fb: FormBuilder) { }
+      private route: ActivatedRoute, private fb: UntypedFormBuilder) { }
 
 
    /* INIT */
@@ -105,7 +105,7 @@ export class EntryDetailsComponent implements OnInit {
 
 
    /* FORM: CREATE */
-   public inputForm: FormGroup;
+   public inputForm: UntypedFormGroup;
    private OnFormCreate() {
       try {
          this.inputForm = this.fb.group({

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EntriesService } from '../entries.service';
 import { ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { RelatedData } from 'src/app/shared/related-box/related-box.models';
 import { AccountsService } from '../../accounts/accounts.service';
 import { Account } from '../../accounts/accounts.viewmodels';
@@ -19,7 +19,7 @@ export class TransferDetailsComponent implements OnInit {
    constructor(private service: TransfersService,
       private entriesService: EntriesService, private accountService: AccountsService,
       private msg: MessageService,
-      private route: ActivatedRoute, private fb: FormBuilder) { }
+      private route: ActivatedRoute, private fb: UntypedFormBuilder) { }
 
 
    /* INIT */
@@ -75,7 +75,7 @@ export class TransferDetailsComponent implements OnInit {
 
 
    /* FORM: CREATE */
-   public inputForm: FormGroup;
+   public inputForm: UntypedFormGroup;
    private OnFormCreate() {
       this.inputForm = this.fb.group({
          ExpenseAccountRow: [this.ExpenseAccountOptions && this.ExpenseAccountOptions.length ? this.ExpenseAccountOptions[0] : null],

@@ -53,37 +53,6 @@ from
 
 ) sub;
 
-/* TARGET VALUE */
-declare @standardDeviationValue decimal (15,3), @averageValue decimal (15,3);
-   select
-      @standardDeviationValue = StandardDeviationValue,
-      @averageValue = AverageValue
-   from
-   (
-      select
-         coalesce(STDEVP(Value),0) as StandardDeviationValue,
-         coalesce(AVG(Value),0) as AverageValue
-      from
-      (
-         select sum(Value) as Value
-         from #EntriesData
-         where Type=@typeExpense
-         group by Date
-      ) sub1
-   ) sub2;
-declare @targetValue decimal (15,3);
-   select top 1
-      @targetValue = TargetValue
-   from
-   (
-      select
-         avg(Value) as TargetValue
-      from #EntriesData as EntriesData
-      where
-         Value >= (@averageValue - @standardDeviationValue) AND
-         Value <= (@averageValue + @standardDeviationValue)
-   ) sub;
-
 /* LOCATE DATA FROM INVESTMENT ACCOUNTS */
 select
    Date,
@@ -100,6 +69,28 @@ delete
 from #EntriesData
 where
    AccountID in ( select AccountID from #AccountIDs where Type=@investmentAccount );
+
+/* TARGET VALUE */
+declare @targetValue decimal (15,3);
+   select sum(coalesce(Value,0)) as Value
+   into #Average
+   from #EntriesData
+   where Type=@typeExpense
+   group by Date;
+WITH AvgStd AS (
+      SELECT
+         AVG(Value) AS avgnum,
+         STDEVP(Value) AS stdnum
+      from #Average
+   )
+   select
+   @targetValue = AVG(Value)
+   from #Average
+   CROSS JOIN AvgStd
+   where
+      Value >= (avgnum - stdnum) and
+      Value <= (avgnum + stdnum);
+drop table #Average
 
 /* INSERT SUMARIZED DATA FROM INVESTMENT ACCOUNTS */
 declare @investmentText varchar(50);

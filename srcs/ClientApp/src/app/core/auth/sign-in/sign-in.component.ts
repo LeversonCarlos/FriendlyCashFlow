@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { User, SignIn } from '../auth.models';
 import { ActivatedRoute } from '@angular/router';
@@ -13,10 +13,10 @@ import { BusyService } from 'src/app/shared/busy/busy.service';
 export class SignInComponent implements OnInit {
 
    constructor(private service: AuthService, public busy: BusyService,
-      private activatedRoute: ActivatedRoute, private fb: FormBuilder) { }
+      private activatedRoute: ActivatedRoute, private fb: UntypedFormBuilder) { }
 
    public get signupUser(): User { return this.service && this.service.signupUser; }
-   public inputForm: FormGroup;
+   public inputForm: UntypedFormGroup;
    private returnUrl: string;
 
    public ngOnInit() {

@@ -1,8 +1,9 @@
 # Cash Flow - Changelog
 [GoBack](../README.md)  
 
-## Current Version
-- WIP
+## v6.4.x
+- Fix standard deviation on analysis reports
+- Upgrade angular version to v14
 
 ## v6.3.197
 - Refactor the monthly target chart to show details of the income data on each month

@@ -5,7 +5,7 @@
             <mat-label>{{ 'CATEGORIES_DESCRIPTION_LABEL' | translation | async }}</mat-label>
             <input type="text" matInput formControlName="Text" autofocus>
          </mat-form-field>
-         <related-box placeholder="CATEGORIES_PARENT_LABEL" minSize="0" [options]="ParentOptions"
+         <related-box placeholder="CATEGORIES_PARENT_LABEL" [minSize]="0" [options]="ParentOptions"
             formControlName="ParentRow" (optionsChanging)="OnParentChanging($event)">
          </related-box>
       </form>

@@ -7,7 +7,7 @@ on:
   #   types: [created]
 
 env:
-  version: '6.3.${{ github.run_number }}'
+  version: '6.4.${{ github.run_number }}'
   suffixVersion: '-alpha'
   preRelease: true
 

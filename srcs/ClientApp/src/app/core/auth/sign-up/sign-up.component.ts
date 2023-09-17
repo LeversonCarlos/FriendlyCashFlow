@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { BusyService } from 'src/app/shared/busy/busy.service';
 
@@ -11,9 +11,9 @@ import { BusyService } from 'src/app/shared/busy/busy.service';
 export class SignUpComponent implements OnInit {
 
    constructor(private service: AuthService, public busy: BusyService,
-      private fb: FormBuilder) { }
+      private fb: UntypedFormBuilder) { }
 
-   public inputForm: FormGroup;
+   public inputForm: UntypedFormGroup;
 
    public ngOnInit() {
       this.OnFormCreate();
