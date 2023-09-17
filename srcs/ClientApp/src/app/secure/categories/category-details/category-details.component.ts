@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { enCategoryType, Category, CategoryType } from '../categories.viewmodels';
 import { CategoriesService } from '../categories.service';
 import { MessageService } from 'src/app/shared/message/message.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { RelatedData } from 'src/app/shared/related-box/related-box.models';
 
 @Component({
@@ -14,10 +14,10 @@ import { RelatedData } from 'src/app/shared/related-box/related-box.models';
 export class CategoryDetailsComponent implements OnInit {
 
    constructor(private service: CategoriesService, private msg: MessageService,
-      private route: ActivatedRoute, private fb: FormBuilder) { }
+      private route: ActivatedRoute, private fb: UntypedFormBuilder) { }
 
    public Data: Category;
-   public inputForm: FormGroup;
+   public inputForm: UntypedFormGroup;
    public CategoryTypes: CategoryType[];
    public get CategoryType(): CategoryType {
       if (!this.CategoryTypes || !this.Data) { return null; }

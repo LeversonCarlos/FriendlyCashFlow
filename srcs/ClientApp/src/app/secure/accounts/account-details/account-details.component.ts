@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AccountsService } from '../accounts.service';
-import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
+import { UntypedFormGroup, Validators, UntypedFormBuilder, UntypedFormControl } from '@angular/forms';
 import { MessageService } from 'src/app/shared/message/message.service';
 import { enAccountType, Account, AccountType } from '../accounts.viewmodels';
 
@@ -13,11 +13,11 @@ import { enAccountType, Account, AccountType } from '../accounts.viewmodels';
 export class AccountDetailsComponent implements OnInit {
 
    constructor(private service: AccountsService, private msg: MessageService,
-      private route: ActivatedRoute, private fb: FormBuilder) { }
+      private route: ActivatedRoute, private fb: UntypedFormBuilder) { }
 
    public Data: Account;
    public AccountTypes: AccountType[];
-   public inputForm: FormGroup;
+   public inputForm: UntypedFormGroup;
 
    public async ngOnInit() {
       if (!await this.OnDataLoad()) { return; }
@@ -51,8 +51,8 @@ export class AccountDetailsComponent implements OnInit {
       this.inputForm = this.fb.group({
          Text: [this.Data.Text, Validators.required],
          Type: [this.Data.Type, Validators.required],
-         DueDay: new FormControl({ value: this.Data.DueDay, disabled: true }),
-         ClosingDay: new FormControl({ value: this.Data.ClosingDay, disabled: true }),
+         DueDay: new UntypedFormControl({ value: this.Data.DueDay, disabled: true }),
+         ClosingDay: new UntypedFormControl({ value: this.Data.ClosingDay, disabled: true }),
          Active: [this.Data.Active]
       });
       this.inputForm.valueChanges.subscribe(values => {
