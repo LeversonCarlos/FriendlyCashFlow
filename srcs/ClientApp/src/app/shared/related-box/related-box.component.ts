@@ -49,9 +49,11 @@ export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAcces
    }
 
    /* OPTIONS */
+   private IsSelecting = false;
    @Input() public options: RelatedData<any>[] = [];
    @Output() public optionsChanging: EventEmitter<string>;
    public OnOptionSelected(val: MatAutocompleteSelectedEvent) {
+      this.IsSelecting = true;
       this.writeValue(val.option.value);
    }
    public OnDisplayWith(option?: RelatedData<any>): string {
@@ -61,6 +63,10 @@ export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAcces
    }
 
    public OnFocus() {
+      if (this.IsSelecting = true) {
+         this.IsSelecting = false;
+         return;
+      }
       this.OnInputValueChanging(this.inputValue);
       this.autoComplete.openPanel();
    }
