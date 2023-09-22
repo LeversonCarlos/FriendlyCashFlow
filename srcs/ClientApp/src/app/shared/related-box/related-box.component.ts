@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Optional, Self, Input, ElementRef, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { fromEvent, Observable } from 'rxjs';
-import { map, debounceTime } from 'rxjs/operators';
+import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { RelatedData } from './related-box.models';
 import { MatAutocompleteSelectedEvent, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 
@@ -25,7 +25,8 @@ export class RelatedBoxComponent implements OnInit, OnDestroy, ControlValueAcces
       this.inputValueChanged = fromEvent(this.elRef.nativeElement, 'keyup')
          .pipe(
             map(() => this.inputValue),
-            debounceTime(this.delay)
+            debounceTime(this.delay),
+            distinctUntilChanged()
          );
       this.inputValueChanged.subscribe(val => this.OnInputValueChanging(val));
    }
