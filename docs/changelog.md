@@ -1,2 +1,3 @@
-- Fix standard deviation on analysis reports
-- Upgrade angular version to v14
+- fix: Standard deviation on analysis reports
+- chores: Upgrade angular version to v14
+- fix: Avoid clearing the relatedValue preventing raise duplicated focus event
