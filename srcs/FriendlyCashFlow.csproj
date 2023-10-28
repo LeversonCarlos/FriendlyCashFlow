@@ -42,6 +42,7 @@
       <None Remove="ServerApi\Analytics\QUERY.CategoryGoals.sql" />
       <None Remove="ServerApi\Analytics\QUERY.EntriesPareto.sql" />
       <None Remove="ServerApi\Analytics\QUERY.MonthlyBudget.sql" />
+      <None Remove="ServerApi\Analytics\QUERY.YearlyBudget.sql" />
       <None Remove="ServerApi\Analytics\QUERY.MonthlyTarget.sql" />
       <None Remove="ServerApi\Balances\QUERY.Fix.sql" />
       <None Remove="ServerApi\Dashboard\QUERY.Balance.sql" />
@@ -56,6 +57,7 @@
       <EmbeddedResource Include="ServerApi\Analytics\QUERY.CategoryGoals.sql" />
       <EmbeddedResource Include="ServerApi\Analytics\QUERY.EntriesPareto.sql" />
       <EmbeddedResource Include="ServerApi\Analytics\QUERY.MonthlyBudget.sql" />
+      <EmbeddedResource Include="ServerApi\Analytics\QUERY.YearlyBudget.sql" />
       <EmbeddedResource Include="ServerApi\Analytics\QUERY.MonthlyTarget.sql" />
       <EmbeddedResource Include="ServerApi\Balances\QUERY.Fix.sql" />
       <EmbeddedResource Include="ServerApi\Dashboard\QUERY.Balance.sql" />

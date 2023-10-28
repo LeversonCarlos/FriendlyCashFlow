@@ -1,14 +1,25 @@
-.mat-expansion-panel-header-description {
-  margin: 0;
-}
-.type-text {
-  align-self: center;
-  margin-left: 12px;
+mat-panel-title {
+   margin-right: 0;
+   div {
+      &.main {
+         width: 100%;
+      }
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+   }
+   .type-text {
+      margin-left: 12px;
+   }
+
+   .type-values {
+      text-align: end;
+   }
 }
 
-.type-values {
-  width: 100%;
-  text-align: end;
+.mat-expansion-panel-header-description {
+  margin: 0;
 }
 
 .account-row {

@@ -201,6 +201,21 @@
   <data name="ANALYTICS_MONTHLY_BUDGET_TITLE" xml:space="preserve">
     <value>Monthly Expenses over / under Budget</value>
   </data>
+  <data name="ANALYTICS_YEARLY_BUDGET_TITLE" xml:space="preserve">
+    <value>Yearly Expenses over / under Budget</value>
+  </data>
+  <data name="ANALYTICS_YEARLY_BUDGET_GOAL_LABEL" xml:space="preserve">
+    <value>Monthly Target</value>
+  </data>
+  <data name="ANALYTICS_YEARLY_BUDGET_MONTH_LABEL" xml:space="preserve">
+    <value>Month Accumulated</value>
+  </data>
+  <data name="ANALYTICS_YEARLY_BUDGET_YEAR_LABEL" xml:space="preserve">
+    <value>Year Accumulated</value>
+  </data>
+  <data name="ANALYTICS_YEARLY_BUDGET_UNEXPECTED_LABEL" xml:space="preserve">
+    <value>Unexpected</value>
+  </data>
   <data name="ANALYTICS_MONTHLY_TARGET_BALANCE_LABEL" xml:space="preserve">
     <value>Accumulated Balance</value>
   </data>

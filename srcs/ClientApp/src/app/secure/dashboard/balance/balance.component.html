@@ -3,15 +3,17 @@
 
       <mat-expansion-panel-header>
          <mat-panel-title>
-            <mat-icon>{{ balanceType.Icon }}</mat-icon>
-            <span class="type-text">{{ balanceType.Text }}</span>
-         </mat-panel-title>
-         <mat-panel-description>
-            <div class="type-values">
-               <span [class.forecolor-red]="balanceType.PaidValue < 0"
-                  [class.forecolor-green]="balanceType.PaidValue > 0">{{ balanceType.PaidValue | number : '1.2-2' }}</span>
+            <div class="main">
+               <div>
+                  <mat-icon>{{ balanceType.Icon }}</mat-icon>
+                  <span class="type-text">{{ balanceType.Text }}</span>
+               </div>
+               <span
+                  [class.forecolor-red]="balanceType.PaidValue < 0"
+                  [class.forecolor-green]="balanceType.PaidValue > 0">{{ balanceType.PaidValue | number : '1.2-2' }}
+               </span>
             </div>
-         </mat-panel-description>
+         </mat-panel-title>
       </mat-expansion-panel-header>
 
       <mat-nav-list dense>
