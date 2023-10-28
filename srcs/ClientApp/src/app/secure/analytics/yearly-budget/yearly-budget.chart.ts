@@ -8,7 +8,6 @@ declare var require: any;
 let Boost = require('highcharts/modules/boost');
 let noData = require('highcharts/modules/no-data-to-display');
 let More = require('highcharts/highcharts-more');
-let drilldown = require('highcharts/modules/drilldown');
 Boost(Highcharts);
 noData(Highcharts);
 More(Highcharts);
@@ -23,7 +22,6 @@ export class YearlyBudgetChart {
 
    public async show(data: YearlyBudgetVM[]) {
       try {
-         console.log(this.service.YearlyBudget);
          const options = await this.options(data);
          Highcharts.chart('yearlyBudgetContainer', options);
       }
@@ -34,11 +32,11 @@ export class YearlyBudgetChart {
       return {
          chart: this.chartOptions(),
          title: await this.titleOptions(),
-         // plotOptions: this.plotOptions(),
-         // xAxis: this.xAxisOptions(data),
-         // yAxis: await this.yAxisOptions(data),
+         plotOptions: this.plotOptions(),
+         xAxis: this.xAxisOptions(data),
+         yAxis: await this.yAxisOptions(data),
          series: this.seriesOptions(data),
-         // tooltip: await this.tooltipOptions(),
+         tooltip: await this.tooltipOptions(),
          credits: { enabled: false },
          legend: { enabled: false },
       };
@@ -46,7 +44,6 @@ export class YearlyBudgetChart {
 
    private chartOptions(): Highcharts.ChartOptions {
       return {
-         type: 'column',
          backgroundColor: 'transparent'
       };
    }
@@ -60,11 +57,11 @@ export class YearlyBudgetChart {
    private plotOptions(): Highcharts.PlotOptions {
       return {
          column: {
-            stacking: 'normal',
+            //stacking: 'normal',
             groupPadding: 0.1,
             pointPadding: 0,
             //pointWidth: 20,
-            borderWidth: 0
+            borderWidth: 1
          }
       };
    }
@@ -72,7 +69,8 @@ export class YearlyBudgetChart {
    private xAxisOptions(data: YearlyBudgetVM[]): Highcharts.XAxisOptions {
       return {
          type: 'category',
-         /* categories: categoryList, */
+         categories: data
+            .map(x => x.CategoryText),
          title: { text: null },
          labels: {
             rotation: -90,
@@ -91,36 +89,67 @@ export class YearlyBudgetChart {
       };
    }
 
-   private async yAxisOptions(data: YearlyBudgetVM[]): Promise<Highcharts.YAxisOptions> {
-      let maxValue = data
+   private async yAxisOptions(data: YearlyBudgetVM[]): Promise<Highcharts.YAxisOptions[]> {
+
+      /*
+      let monthlyMax = data
          .map(x => x.MonthPercentage)
          .sort((a, b) => a < b ? 1 : -1)
          .reduce((a, b) => a || b, 0) || 0;
-      maxValue = maxValue < 105 ? 105 : maxValue;
-      return {
-         title: { text: null },
-         gridLineColor: 'transparent',
-         tickPositions: [0, 100, maxValue],
-         max: maxValue,
-         plotLines: [{
-            value: 100,
-            color: 'green',
-            label: {
-               text: await this.translation.getValue("ANALYTICS_CATEGORY_GOALS_GOAL_LABEL"),
-               x: 0,
-               style: { fontSize: '1.3vh', color: this.service.Colors.GetForecolorSchemeSensitive() }
-            },
-            zIndex: 7,
-            width: 2
-         }],
-         labels: { enabled: false }
+      monthlyMax = monthlyMax < 105 ? 105 : monthlyMax;
+      monthlyMax = monthlyMax > 200 ? 200 : monthlyMax;
+
+      let yearlyMax = data
+         .map(x => x.MonthPercentage)
+         .sort((a, b) => a < b ? 1 : -1)
+         .reduce((a, b) => a || b, 0) || 0;
+      yearlyMax = yearlyMax < 105 ? 105 : yearlyMax;
+      yearlyMax = yearlyMax > 200 ? 200 : yearlyMax;
+      */
+
+      const getOptions = async (max: number) => {
+         return {
+            title: { text: null },
+            gridLineColor: 'transparent',
+            tickPositions: [0, 100, max],
+            max: max,
+            plotLines: [{
+               value: 100,
+               color: 'green',
+               label: {
+                  text: await this.translation.getValue("ANALYTICS_CATEGORY_GOALS_GOAL_LABEL"),
+                  x: 0,
+                  style: { fontSize: '1.3vh', color: this.service.Colors.GetForecolorSchemeSensitive() }
+               },
+               zIndex: 7,
+               width: 2
+            }],
+            labels: { enabled: false }
+         }
       };
+
+      return [
+         await getOptions(130),
+         {
+            title: { text: null },
+            gridLineColor: 'transparent',
+            max: 130,
+            labels: { enabled: false }
+         },
+         {
+            title: { text: null },
+            gridLineColor: 'transparent',
+            labels: { enabled: false }
+         }
+      ];
    }
 
    private async tooltipOptions(): Promise<Highcharts.TooltipOptions> {
       const self = this;
       const goalLabel = await this.translation.getValue("ANALYTICS_CATEGORY_GOALS_GOAL_LABEL");
-      const valueLabel = await this.translation.getValue("ANALYTICS_CATEGORY_GOALS_VALUE_LABEL");
+      const monthLabel = 'Month';
+      const yearLabel = 'Year';
+      const unexpectedLabel = 'Unexpected'
       return {
          shared: true,
          formatter: function () {
@@ -129,19 +158,35 @@ export class YearlyBudgetChart {
             this.points.forEach(p => {
                const point: any = p.point;
                tootipPointName = point.name;
-               if (point.goalValue > 0) {
+               if (point.BudgetValue > 0) {
                   tooltipResult =
                      '<br/>' +
                      '<span style="color:' + 'green' + '">\u25CF</span> ' +
                      '<span>' + goalLabel + '</span>: ' +
-                     '<strong>' + self.translation.getNumberFormat(point.goalValue, 2) + '</strong>' +
+                     '<strong>' + self.translation.getNumberFormat(point.BudgetValue, 2) + '</strong>' +
                      tooltipResult;
                }
-               tooltipResult +=
-                  '<br/>' +
-                  '<span>\u25CF</span> ' +
-                  '<span>' + valueLabel + '</span>: ' +
-                  '<strong>' + self.translation.getNumberFormat(point.realValue, 2) + '</strong>';
+               if (point.MonthValue > 0) {
+                  tooltipResult +=
+                     '<br/>' +
+                     '<span>\u25CF</span> ' +
+                     '<span>' + monthLabel + '</span>: ' +
+                     '<strong>' + self.translation.getNumberFormat(point.MonthValue, 2) + '</strong>';
+               }
+               if (point.YearValue > 0) {
+                  tooltipResult +=
+                     '<br/>' +
+                     '<span>\u25CF</span> ' +
+                     '<span>' + yearLabel + '</span>: ' +
+                     '<strong>' + self.translation.getNumberFormat(point.YearValue, 2) + '</strong>';
+               }
+               if (point.UnexpectedValue > 0) {
+                  tooltipResult +=
+                     '<br/>' +
+                     '<span style="color:' + 'red' + '">\u25CF</span> ' +
+                     '<span>' + unexpectedLabel + '</span>: ' +
+                     '<strong>' + self.translation.getNumberFormat(point.UnexpectedValue, 2) + '</strong>';
+               }
             });
             tooltipResult = '<strong>' + tootipPointName + '</strong>' + tooltipResult;
             return tooltipResult;
@@ -151,20 +196,54 @@ export class YearlyBudgetChart {
 
    private seriesOptions(data: YearlyBudgetVM[]): Highcharts.SeriesOptionsType[] {
       const self = this;
-      const seriesList: Highcharts.SeriesOptionsType = {
-         name: 'Categories',
+
+      const monthSeries: Highcharts.SeriesOptionsType = {
+         name: 'Month',
          type: 'column',
+         yAxis: 0,
          data: data
-            //.sort((a, b) => a.Text > b.Text ? 1 : -1)
+            .filter(x => x.BudgetValue > 0 && x.MonthValue > 0)
+            // .sort((a, b) => a.Text > b.Text ? 1 : -1)
             .map(x => ({
                name: x.CategoryText,
                color: self.service.Colors.GetCategoryColor(x.CategoryID),
                y: x.MonthPercentage,
-               goalValue: x.BudgetValue,
-               realValue: x.MonthValue
+               BudgetValue: (x.BudgetValue ?? 0),
+               MonthValue: x.MonthValue
             }))
       };
-      return [seriesList];
+
+      const yearSeries: Highcharts.SeriesOptionsType = {
+         name: 'Year',
+         type: 'column',
+         yAxis: 1,
+         data: data
+            .filter(x => x.BudgetValue > 0 && x.YearValue > 0)
+            // .sort((a, b) => a.Text > b.Text ? 1 : -1)
+            .map(x => ({
+               name: x.CategoryText,
+               color: self.service.Colors.GetCategoryColor(x.CategoryID),
+               y: x.YearPercentage,
+               YearValue: x.YearValue
+            }))
+      };
+
+      const unexpectedSeries: Highcharts.SeriesOptionsType = {
+         name: 'Unexpected',
+         type: 'column',
+         yAxis: 2,
+         data: data
+            .filter(x => (x.BudgetValue == undefined || x.BudgetValue == null || x.BudgetValue == 0) && x.MonthValue > 0)
+            // .sort((a, b) => a.Text > b.Text ? 1 : -1)
+            .map(x => ({
+               name: x.CategoryText,
+               color: '#f00',
+               y: x.MonthValue,
+               UnexpectedValue: x.MonthValue
+            }))
+      };
+
+      return [monthSeries, yearSeries, unexpectedSeries];
    }
 
 }
