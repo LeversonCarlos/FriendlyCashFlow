@@ -43,11 +43,13 @@ export class AnalyticsService {
       try {
          if (year == 0 || month == 0) { return false; }
          this.busy.show();
-         await this.LoadCategoryGoals(year, month);
-         await this.LoadEntriesPareto(year, month);
-         await this.LoadMonthlyTarget(year, month);
-         await this.LoadApplicationYield(year, month);
-         await this.LoadPatrimony(year, month);
+         await Promise.all([
+            this.LoadCategoryGoals(year, month),
+            this.LoadEntriesPareto(year, month),
+            this.LoadMonthlyTarget(year, month),
+            this.LoadApplicationYield(year, month),
+            this.LoadPatrimony(year, month),
+         ]);
          // this.Colors.Restart();
          this.OnDataRefreshed.emit(true);
       }
