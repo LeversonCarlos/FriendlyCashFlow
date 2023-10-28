@@ -72,11 +72,15 @@ namespace FriendlyCashFlow.API.Analytics
 
    public class YearlyBudgetVM
    {
-      public long PatternID { get; set; }
-      public string Text { get; set; }
       public long CategoryID { get; set; }
-      public double OverflowValue { get; set; }
-      public double OverflowPercent { get; set; }
+      public string CategoryText { get; set; }
+
+      public decimal? BudgetValue { get; set; }
+
+      public decimal? MonthValue { get; set; }
+      public decimal MonthPercentage { get; set; }
+      public decimal? YearValue { get; set; }
+      public decimal YearPercentage { get; set; }
    }
 
 }
