@@ -55,6 +55,19 @@ export class MonthlyBudgetVM {
    OverflowPercent: number
 }
 
+export class YearlyBudgetVM {
+   CategoryID: number;
+   CategoryText: string;
+
+   BudgetValue: number | null;
+
+   MonthValue: number | null;
+   MonthPercentage: number;
+
+   YearValue: number | null;
+   YearPercentage: number;
+}
+
 export class ApplicationYieldVM {
    Date: Date
    DateText: string

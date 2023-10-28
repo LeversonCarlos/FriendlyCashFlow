@@ -1,7 +1,7 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { BusyService } from 'src/app/shared/busy/busy.service';
 import { HttpClient } from '@angular/common/http';
-import { FilterData, CategoryGoalsVM, EntriesParetoVM, MonthlyTargetVM, MonthlyBudgetVM, PatrimonyVM, PatrimonyResumeItem, ApplicationYieldVM } from './analytics.viewmodels';
+import { FilterData, CategoryGoalsVM, EntriesParetoVM, MonthlyTargetVM, MonthlyBudgetVM, PatrimonyVM, PatrimonyResumeItem, ApplicationYieldVM, YearlyBudgetVM } from './analytics.viewmodels';
 import { Router } from '@angular/router';
 import { AnalyticsColors } from './analytics.colors';
 
@@ -47,6 +47,7 @@ export class AnalyticsService {
             this.LoadCategoryGoals(year, month),
             this.LoadEntriesPareto(year, month),
             this.LoadMonthlyTarget(year, month),
+            this.LoadYearlyBudget(year, month),
             this.LoadApplicationYield(year, month),
             this.LoadPatrimony(year, month),
          ]);
@@ -91,6 +92,14 @@ export class AnalyticsService {
       return (this.MonthlyBudget != null);
    }
    */
+
+   /* YEARLY BUDGET */
+   public YearlyBudget: YearlyBudgetVM[] = null
+   public async LoadYearlyBudget(year: number, month: number): Promise<boolean> {
+      const url = `api/yearlyResult/yearlyBudget/${year}/${month}`;
+      this.YearlyBudget = await this.http.get<YearlyBudgetVM[]>(url).toPromise();
+      return (this.YearlyBudget != null);
+   }
 
    /* APPLICATION YIELD */
    public ApplicationYield: ApplicationYieldVM[] = null
