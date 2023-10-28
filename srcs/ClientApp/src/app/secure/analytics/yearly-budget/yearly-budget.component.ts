@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AnalyticsService } from '../analytics.service';
 import { Subscription } from 'rxjs';
+import { YearlyBudgetChart } from './yearly-budget.chart';
 
 @Component({
    selector: 'fs-yearly-budget',
@@ -11,6 +12,7 @@ export class YearlyBudgetComponent implements OnInit, OnDestroy {
 
    constructor(
       private service: AnalyticsService,
+      private chart: YearlyBudgetChart,
    ) { }
 
    ngOnInit(): void {
@@ -20,8 +22,7 @@ export class YearlyBudgetComponent implements OnInit, OnDestroy {
 
    private OnDataRefreshedSubscription: Subscription
    private OnDataRefreshed(val: boolean) {
-      // this.chart.show(this.service.YearlyBudget)
-      console.log(this.service.YearlyBudget);
+      this.chart.show(this.service.YearlyBudget)
    }
 
    ngOnDestroy(): void {

@@ -1,0 +1,13 @@
+.mat-card {
+   margin-bottom: 6px;
+   padding: 10px;
+   .mat-card-content:not(:last-child) {
+      margin-bottom: 6px;
+   }
+}
+#yearlyBudgetContainer {
+   height: 30vh;
+   @media print {
+      height: 206px;
+   }
+}
