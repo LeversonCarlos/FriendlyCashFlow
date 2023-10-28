@@ -146,10 +146,10 @@ export class YearlyBudgetChart {
 
    private async tooltipOptions(): Promise<Highcharts.TooltipOptions> {
       const self = this;
-      const goalLabel = await this.translation.getValue("ANALYTICS_CATEGORY_GOALS_GOAL_LABEL");
-      const monthLabel = 'Month';
-      const yearLabel = 'Year';
-      const unexpectedLabel = 'Unexpected'
+      const goalLabel = await this.translation.getValue("ANALYTICS_YEARLY_BUDGET_GOAL_LABEL");
+      const monthLabel = await this.translation.getValue("ANALYTICS_YEARLY_BUDGET_MONTH_LABEL");
+      const yearLabel = await this.translation.getValue("ANALYTICS_YEARLY_BUDGET_YEAR_LABEL");
+      const unexpectedLabel = await this.translation.getValue("ANALYTICS_YEARLY_BUDGET_UNEXPECTED_LABEL");
       return {
          shared: true,
          formatter: function () {

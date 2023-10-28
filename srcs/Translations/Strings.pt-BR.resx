@@ -204,6 +204,19 @@
   <data name="ANALYTICS_YEARLY_BUDGET_TITLE" xml:space="preserve">
     <value>Despesas Anuais acima/abaixo do Orçamento</value>
   </data>
+  <data name="ANALYTICS_YEARLY_BUDGET_GOAL_LABEL" xml:space="preserve">
+    <value>Meta Mensal</value>
+  </data>
+  <data name="ANALYTICS_YEARLY_BUDGET_MONTH_LABEL" xml:space="preserve">
+    <value>Acumulado no Mês</value>
+  </data>
+  <data name="ANALYTICS_YEARLY_BUDGET_YEAR_LABEL" xml:space="preserve">
+    <value>Acumulado no Ano</value>
+  </data>
+  <data name="ANALYTICS_YEARLY_BUDGET_UNEXPECTED_LABEL" xml:space="preserve">
+    <value>Imprevisto</value>
+  </data>
+
   <data name="ANALYTICS_MONTHLY_TARGET_BALANCE_LABEL" xml:space="preserve">
     <value>Saldo Acumulado</value>
   </data>
