@@ -201,6 +201,9 @@
   <data name="ANALYTICS_MONTHLY_BUDGET_TITLE" xml:space="preserve">
     <value>Monthly Expenses over / under Budget</value>
   </data>
+  <data name="ANALYTICS_YEARLY_BUDGET_TITLE" xml:space="preserve">
+    <value>Yearly Expenses over / under Budget</value>
+  </data>
   <data name="ANALYTICS_MONTHLY_TARGET_BALANCE_LABEL" xml:space="preserve">
     <value>Accumulated Balance</value>
   </data>

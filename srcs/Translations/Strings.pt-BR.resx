@@ -201,6 +201,9 @@
   <data name="ANALYTICS_MONTHLY_BUDGET_TITLE" xml:space="preserve">
     <value>Despesas Mensais acima/abaixo do Orçamento</value>
   </data>
+  <data name="ANALYTICS_YEARLY_BUDGET_TITLE" xml:space="preserve">
+    <value>Despesas Anuais acima/abaixo do Orçamento</value>
+  </data>
   <data name="ANALYTICS_MONTHLY_TARGET_BALANCE_LABEL" xml:space="preserve">
     <value>Saldo Acumulado</value>
   </data>
