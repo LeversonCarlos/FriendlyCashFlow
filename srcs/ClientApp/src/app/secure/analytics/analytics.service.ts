@@ -96,7 +96,7 @@ export class AnalyticsService {
    /* YEARLY BUDGET */
    public YearlyBudget: YearlyBudgetVM[] = null
    public async LoadYearlyBudget(year: number, month: number): Promise<boolean> {
-      const url = `api/yearlyResult/yearlyBudget/${year}/${month}`;
+      const url = `api/monthlyResult/yearlyBudget/${year}/${month}`;
       this.YearlyBudget = await this.http.get<YearlyBudgetVM[]>(url).toPromise();
       return (this.YearlyBudget != null);
    }

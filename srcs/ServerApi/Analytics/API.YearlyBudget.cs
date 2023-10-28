@@ -62,7 +62,7 @@ namespace FriendlyCashFlow.API.Analytics
    partial class AnalyticsController
    {
 
-      [HttpGet("YearlyBudget/{searchYear}/{searchMonth}")]
+      [HttpGet("yearlyBudget/{searchYear}/{searchMonth}")]
       public async Task<ActionResult<List<YearlyBudgetVM>>> GetYearlyBudgetAsync(short searchYear, short searchMonth)
       {
          return await this.GetService<AnalyticsService>().GetYearlyBudgetAsync(searchYear, searchMonth);
