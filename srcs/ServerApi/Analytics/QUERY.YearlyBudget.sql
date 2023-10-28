@@ -133,7 +133,7 @@ select
    YearValue, YearPercentage
 from #CategoryBudget
 order by
-   BudgetValue desc, MonthValue desc
+   BudgetValue desc, MonthValue desc, YearValue desc
 
 
 /* CLEAR */
