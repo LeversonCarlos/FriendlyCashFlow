@@ -35,22 +35,6 @@ namespace FriendlyCashFlow.API.Analytics
 
                if (!await queryReader.ExecuteReaderAsync()) { return null; }
                var entriesList = await queryReader.GetDataResultAsync<YearlyBudgetVM>();
-               var categoriesList = await queryReader.GetDataResultAsync<EntriesCategoryVM>();
-
-               Func<long, long> getParentCategoryID = null;
-               getParentCategoryID = new Func<long, long>(categoryID =>
-               {
-                  var parentID = categoriesList
-                     .Where(x => x.CategoryID == categoryID)
-                     .Select(x => x.ParentID)
-                     .FirstOrDefault();
-                  if (parentID == 0) { return categoryID; }
-                  return getParentCategoryID(parentID);
-               });
-
-               foreach (var entry in entriesList)
-               { entry.CategoryID = getParentCategoryID(entry.CategoryID); }
-
                return entriesList;
             }
          }
