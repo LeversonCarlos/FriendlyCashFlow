@@ -58,9 +58,9 @@ export class YearlyBudgetChart {
       return {
          column: {
             //stacking: 'normal',
-            groupPadding: 0.1,
+            groupPadding: 0.05,
             pointPadding: 0,
-            //pointWidth: 20,
+            pointWidth: 12,
             borderWidth: 1
          }
       };
@@ -77,7 +77,8 @@ export class YearlyBudgetChart {
             enabled: true,
             reserveSpace: false,
             align: 'left',
-            y: -5,
+            y: 0,
+            x: -5,
             style: {
                textOverflow: 'none',
                whiteSpace: 'nowrap',
@@ -90,23 +91,6 @@ export class YearlyBudgetChart {
    }
 
    private async yAxisOptions(data: YearlyBudgetVM[]): Promise<Highcharts.YAxisOptions[]> {
-
-      /*
-      let monthlyMax = data
-         .map(x => x.MonthPercentage)
-         .sort((a, b) => a < b ? 1 : -1)
-         .reduce((a, b) => a || b, 0) || 0;
-      monthlyMax = monthlyMax < 105 ? 105 : monthlyMax;
-      monthlyMax = monthlyMax > 200 ? 200 : monthlyMax;
-
-      let yearlyMax = data
-         .map(x => x.MonthPercentage)
-         .sort((a, b) => a < b ? 1 : -1)
-         .reduce((a, b) => a || b, 0) || 0;
-      yearlyMax = yearlyMax < 105 ? 105 : yearlyMax;
-      yearlyMax = yearlyMax > 200 ? 200 : yearlyMax;
-      */
-
       const getOptions = async (max: number) => {
          return {
             title: { text: null },
@@ -129,13 +113,13 @@ export class YearlyBudgetChart {
       };
 
       return [
-         await getOptions(130),
          {
             title: { text: null },
             gridLineColor: 'transparent',
             max: 130,
             labels: { enabled: false }
          },
+         await getOptions(130),
          {
             title: { text: null },
             gridLineColor: 'transparent',
@@ -155,28 +139,30 @@ export class YearlyBudgetChart {
          formatter: function () {
             let tooltipResult = '';
             let tootipPointName = '';
+            let hasAddedBudget = false;
             this.points.forEach(p => {
                const point: any = p.point;
                tootipPointName = point.name;
-               if (point.BudgetValue > 0) {
+               if (point.BudgetValue > 0 && hasAddedBudget == false) {
                   tooltipResult =
                      '<br/>' +
                      '<span style="color:' + 'green' + '">\u25CF</span> ' +
                      '<span>' + goalLabel + '</span>: ' +
                      '<strong>' + self.translation.getNumberFormat(point.BudgetValue, 2) + '</strong>' +
                      tooltipResult;
+                  hasAddedBudget = true;
                }
                if (point.MonthValue > 0) {
                   tooltipResult +=
                      '<br/>' +
-                     '<span>\u25CF</span> ' +
+                     '<span style="color:' + point.color + '">\u25CF</span> ' +
                      '<span>' + monthLabel + '</span>: ' +
                      '<strong>' + self.translation.getNumberFormat(point.MonthValue, 2) + '</strong>';
                }
                if (point.YearValue > 0) {
                   tooltipResult +=
                      '<br/>' +
-                     '<span>\u25CF</span> ' +
+                     '<span style="color:' + point.color + '">\u25CF</span> ' +
                      '<span>' + yearLabel + '</span>: ' +
                      '<strong>' + self.translation.getNumberFormat(point.YearValue, 2) + '</strong>';
                }
@@ -197,10 +183,28 @@ export class YearlyBudgetChart {
    private seriesOptions(data: YearlyBudgetVM[]): Highcharts.SeriesOptionsType[] {
       const self = this;
 
+      const yearSeries: Highcharts.SeriesOptionsType = {
+         name: 'Year',
+         type: 'column',
+         yAxis: 0,
+         // pointWidth: 14,
+         data: data
+            .filter(x => x.BudgetValue > 0 && x.YearValue > 0)
+            // .sort((a, b) => a.Text > b.Text ? 1 : -1)
+            .map(x => ({
+               name: x.CategoryText,
+               color: Highcharts.color(self.service.Colors.GetCategoryColor(x.CategoryID)).brighten(0.25).get(),
+               y: x.YearPercentage,
+               BudgetValue: (x.BudgetValue ?? 0),
+               YearValue: x.YearValue
+            }))
+      };
+
       const monthSeries: Highcharts.SeriesOptionsType = {
          name: 'Month',
          type: 'column',
-         yAxis: 0,
+         yAxis: 1,
+         // pointWidth: 12,
          data: data
             .filter(x => x.BudgetValue > 0 && x.MonthValue > 0)
             // .sort((a, b) => a.Text > b.Text ? 1 : -1)
@@ -213,37 +217,23 @@ export class YearlyBudgetChart {
             }))
       };
 
-      const yearSeries: Highcharts.SeriesOptionsType = {
-         name: 'Year',
-         type: 'column',
-         yAxis: 1,
-         data: data
-            .filter(x => x.BudgetValue > 0 && x.YearValue > 0)
-            // .sort((a, b) => a.Text > b.Text ? 1 : -1)
-            .map(x => ({
-               name: x.CategoryText,
-               color: self.service.Colors.GetCategoryColor(x.CategoryID),
-               y: x.YearPercentage,
-               YearValue: x.YearValue
-            }))
-      };
-
       const unexpectedSeries: Highcharts.SeriesOptionsType = {
          name: 'Unexpected',
          type: 'column',
          yAxis: 2,
+         // pointWidth: 18,
          data: data
             .filter(x => (x.BudgetValue == undefined || x.BudgetValue == null || x.BudgetValue == 0) && x.MonthValue > 0)
             // .sort((a, b) => a.Text > b.Text ? 1 : -1)
             .map(x => ({
                name: x.CategoryText,
-               color: '#f00',
+               color: 'red',
                y: x.MonthValue,
                UnexpectedValue: x.MonthValue
             }))
       };
 
-      return [monthSeries, yearSeries, unexpectedSeries];
+      return [yearSeries, monthSeries, unexpectedSeries];
    }
 
 }

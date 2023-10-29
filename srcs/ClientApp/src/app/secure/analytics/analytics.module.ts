@@ -14,13 +14,15 @@ import { MonthlyBudgetComponent } from './monthly-budget/monthly-budget.componen
 import { PatrimonyComponent } from './patrimony/patrimony.component';
 import { ApplicationYieldComponent } from './application-yield/application-yield.component';
 import { YearlyBudgetComponent } from './yearly-budget/yearly-budget.component';
+import { YearlyBudgetTotalsComponent } from './yearly-budget/totals/totals.component';
 
 @NgModule({
    declarations: [AnalyticsComponent, AnalyticsFiltersComponent,
       CategoryGoalsComponent, EntriesParetoComponent,
       MonthlyBudgetComponent, MonthlyTargetComponent, ApplicationYieldComponent,
       PatrimonyComponent,
-      YearlyBudgetComponent],
+      YearlyBudgetComponent, YearlyBudgetTotalsComponent
+   ],
    imports: [
       CommonModule, SharedModule, CommonSecureModule,
       AnalyticsRouting
