@@ -13,12 +13,12 @@ print @yearFinish
 
 /* ENTRIES */
 select
-   cast(ltrim(str(YearDate))+'-'+right('00'+ltrim(str(MonthDate)),2)+'-'+'01' as datetime) as EntryDate, CategoryID, PatternID, EntryValue
+   cast(ltrim(str(YearDate))+'-'+right('00'+ltrim(str(MonthDate)),2)+'-'+'01' as datetime) as EntryDate, SubCategoryID, PatternID, EntryValue
 into #Entries
 from
 (
    select
-      year(SearchDate) as YearDate, month(SearchDate) as MonthDate, CategoryID, PatternID, sum(EntryValue) as EntryValue
+      year(SearchDate) as YearDate, month(SearchDate) as MonthDate, CategoryID as SubCategoryID, PatternID, sum(EntryValue) as EntryValue
    from v6_dataEntries
    where
       RowStatus = 1 and
@@ -27,7 +27,6 @@ from
       TransferID is null and
       SearchDate >= @yearStart and
       SearchDate <= @yearFinish
-      -- and CategoryID in (select CategoryID from #PatternBudget)
    group by
       year(SearchDate), month(SearchDate), CategoryID, PatternID
 ) sub
@@ -35,7 +34,7 @@ from
 
 /* PATTERN BUDGET */
 select
-   Categories.ParentID As CategoryID, Categories.HierarchyText as CategoryText, Categories.CategoryID as SubCategoryID, 
+   Categories.ParentID As CategoryID, Categories.HierarchyText as CategoryText, Categories.CategoryID as SubCategoryID,
    Patterns.PatternID, Patterns.Text as PatternText,
    Budget.[Value] as BudgetValue,
    cast(0 as decimal(15,2)) as MonthValue,
@@ -73,7 +72,7 @@ from #PatternBudget as Categories;
 
 /* CATEGORY BUDGET */
 select
-   CategoryID, CategoryText,
+   CategoryID, CategoryText, SubCategoryID,
    -- PatternID, PatternText,
    BudgetValue,
    MonthValue,
@@ -84,25 +83,25 @@ into #CategoryBudget
 from
 (
    select
-      CategoryID, max(CategoryText) as CategoryText,
+      max(CategoryID) as CategoryID, max(CategoryText) as CategoryText, SubCategoryID,
       sum(coalesce(BudgetValue,0)) as BudgetValue,
       sum(coalesce(MonthValue,0)) as MonthValue,
       sum(coalesce(YearValue,0)) as YearValue
    from #PatternBudget
    where
-      CategoryID in ( select CategoryID from #PatternBudget where not BudgetValue is null)
-   group by CategoryID
+      SubCategoryID in ( select SubCategoryID from #PatternBudget where not BudgetValue is null)
+   group by SubCategoryID
 union
    select
-      CategoryID, max(CategoryText) as CategoryText,
+      max(CategoryID) as CategoryID, max(CategoryText) as CategoryText, SubCategoryID,
       cast(null as decimal(15,2)) as BudgetValue,
       sum(coalesce(MonthValue,0)) as MonthValue,
       sum(coalesce(YearValue,0)) as YearValue
    from #PatternBudget
    where
-      CategoryID in ( select CategoryID from #PatternBudget where BudgetValue is null) and
-      not CategoryID in ( select CategoryID from #PatternBudget where not BudgetValue is null)
-   group by CategoryID
+      SubCategoryID in ( select SubCategoryID from #PatternBudget where BudgetValue is null) and
+      not SubCategoryID in ( select SubCategoryID from #PatternBudget where not BudgetValue is null)
+   group by SubCategoryID
 ) sub
 
 
@@ -128,7 +127,7 @@ from #CategoryBudget
 
 /* RESULT */
 select
-   CategoryID, CategoryText,
+   CategoryID, CategoryText, SubCategoryID,
    -- PatternID,PatternText,
    BudgetValue,
    MonthValue, MonthPercentage,
