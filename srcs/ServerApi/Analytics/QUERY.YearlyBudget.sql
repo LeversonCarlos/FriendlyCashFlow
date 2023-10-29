@@ -35,7 +35,7 @@ from
 
 /* PATTERN BUDGET */
 select
-   Patterns.CategoryID, Categories.HierarchyText as CategoryText,
+   Categories.ParentID As CategoryID, Categories.HierarchyText as CategoryText, Categories.CategoryID as SubCategoryID, 
    Patterns.PatternID, Patterns.Text as PatternText,
    Budget.[Value] as BudgetValue,
    cast(0 as decimal(15,2)) as MonthValue,
