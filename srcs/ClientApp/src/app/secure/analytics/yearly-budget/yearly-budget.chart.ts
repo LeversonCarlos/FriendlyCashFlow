@@ -187,6 +187,7 @@ export class YearlyBudgetChart {
          name: 'Year',
          type: 'column',
          yAxis: 0,
+         // pointWidth: 14,
          data: data
             .filter(x => x.BudgetValue > 0 && x.YearValue > 0)
             // .sort((a, b) => a.Text > b.Text ? 1 : -1)
@@ -203,6 +204,7 @@ export class YearlyBudgetChart {
          name: 'Month',
          type: 'column',
          yAxis: 1,
+         // pointWidth: 12,
          data: data
             .filter(x => x.BudgetValue > 0 && x.MonthValue > 0)
             // .sort((a, b) => a.Text > b.Text ? 1 : -1)
@@ -219,6 +221,7 @@ export class YearlyBudgetChart {
          name: 'Unexpected',
          type: 'column',
          yAxis: 2,
+         // pointWidth: 18,
          data: data
             .filter(x => (x.BudgetValue == undefined || x.BudgetValue == null || x.BudgetValue == 0) && x.MonthValue > 0)
             // .sort((a, b) => a.Text > b.Text ? 1 : -1)
