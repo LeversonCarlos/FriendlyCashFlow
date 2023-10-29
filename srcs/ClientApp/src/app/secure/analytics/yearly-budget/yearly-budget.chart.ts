@@ -91,23 +91,6 @@ export class YearlyBudgetChart {
    }
 
    private async yAxisOptions(data: YearlyBudgetVM[]): Promise<Highcharts.YAxisOptions[]> {
-
-      /*
-      let monthlyMax = data
-         .map(x => x.MonthPercentage)
-         .sort((a, b) => a < b ? 1 : -1)
-         .reduce((a, b) => a || b, 0) || 0;
-      monthlyMax = monthlyMax < 105 ? 105 : monthlyMax;
-      monthlyMax = monthlyMax > 200 ? 200 : monthlyMax;
-
-      let yearlyMax = data
-         .map(x => x.MonthPercentage)
-         .sort((a, b) => a < b ? 1 : -1)
-         .reduce((a, b) => a || b, 0) || 0;
-      yearlyMax = yearlyMax < 105 ? 105 : yearlyMax;
-      yearlyMax = yearlyMax > 200 ? 200 : yearlyMax;
-      */
-
       const getOptions = async (max: number) => {
          return {
             title: { text: null },
