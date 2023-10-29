@@ -5,8 +5,10 @@ declare @searchMonth smallint = @paramSearchMonth;
 
 declare @monthStart datetime = ltrim(str(@searchYear))+'-'+right('00'+ltrim(str(@searchMonth)),2)+'-'+'01';
 declare @monthFinish datetime = dateadd(d,-1, dateadd(m, 1, @monthStart))
-declare @yearStart datetime = dateadd(m, -12, @monthStart)
+declare @yearStart datetime = dateadd(m, -11, @monthStart)
 declare @yearFinish datetime = @monthFinish
+print @yearStart
+print @yearFinish
 
 
 /* ENTRIES */
