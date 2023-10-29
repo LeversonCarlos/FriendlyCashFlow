@@ -1,4 +1,12 @@
 div {
    display: flex;
    justify-content: space-around;
+   line-height: 1.1;
+}
+
+span {
+   display: flex;
+   flex-direction: column;
+   font-size: smaller;
+   align-items: center;
 }

@@ -1,5 +1,14 @@
 <div>
-   <span>{{ TotalBudget | number : '1.2-2' }}</span>
-   <span>{{ TotalMonth | number : '1.2-2' }}</span>
-   <span>{{ TotalUndefined | number : '1.2-2' }}</span>
+   <span>
+      <small>{{ 'ANALYTICS_YEARLY_BUDGET_GOAL_LABEL' | translation | async }}</small>
+      <strong>{{ TotalBudget | number : '1.2-2' }}</strong>
+   </span>
+   <span>
+      <small>{{ 'ANALYTICS_YEARLY_BUDGET_MONTH_LABEL' | translation | async }}</small>
+      <strong>{{ TotalMonth | number : '1.2-2' }}</strong>
+   </span>
+   <span>
+      <small>{{ 'ANALYTICS_YEARLY_BUDGET_UNEXPECTED_LABEL' | translation | async }}</small>
+      <strong>{{ TotalUndefined | number : '1.2-2' }}</strong>
+   </span>
 </div>
