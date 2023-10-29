@@ -58,7 +58,7 @@ export class YearlyBudgetChart {
       return {
          column: {
             //stacking: 'normal',
-            groupPadding: 0.1,
+            groupPadding: 0.05,
             pointPadding: 0,
             pointWidth: 12,
             borderWidth: 1
@@ -77,7 +77,8 @@ export class YearlyBudgetChart {
             enabled: true,
             reserveSpace: false,
             align: 'left',
-            y: -5,
+            y: 0,
+            x: -5,
             style: {
                textOverflow: 'none',
                whiteSpace: 'nowrap',
