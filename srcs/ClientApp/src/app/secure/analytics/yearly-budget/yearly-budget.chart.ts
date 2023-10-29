@@ -60,7 +60,7 @@ export class YearlyBudgetChart {
             //stacking: 'normal',
             groupPadding: 0.1,
             pointPadding: 0,
-            //pointWidth: 20,
+            pointWidth: 12,
             borderWidth: 1
          }
       };
@@ -129,13 +129,13 @@ export class YearlyBudgetChart {
       };
 
       return [
-         await getOptions(130),
          {
             title: { text: null },
             gridLineColor: 'transparent',
             max: 130,
             labels: { enabled: false }
          },
+         await getOptions(130),
          {
             title: { text: null },
             gridLineColor: 'transparent',
@@ -199,10 +199,26 @@ export class YearlyBudgetChart {
    private seriesOptions(data: YearlyBudgetVM[]): Highcharts.SeriesOptionsType[] {
       const self = this;
 
+      const yearSeries: Highcharts.SeriesOptionsType = {
+         name: 'Year',
+         type: 'column',
+         yAxis: 0,
+         data: data
+            .filter(x => x.BudgetValue > 0 && x.YearValue > 0)
+            // .sort((a, b) => a.Text > b.Text ? 1 : -1)
+            .map(x => ({
+               name: x.CategoryText,
+               color: Highcharts.color(self.service.Colors.GetCategoryColor(x.CategoryID)).brighten(0.25).get(),
+               y: x.YearPercentage,
+               BudgetValue: (x.BudgetValue ?? 0),
+               YearValue: x.YearValue
+            }))
+      };
+
       const monthSeries: Highcharts.SeriesOptionsType = {
          name: 'Month',
          type: 'column',
-         yAxis: 0,
+         yAxis: 1,
          data: data
             .filter(x => x.BudgetValue > 0 && x.MonthValue > 0)
             // .sort((a, b) => a.Text > b.Text ? 1 : -1)
@@ -212,22 +228,6 @@ export class YearlyBudgetChart {
                y: x.MonthPercentage,
                BudgetValue: (x.BudgetValue ?? 0),
                MonthValue: x.MonthValue
-            }))
-      };
-
-      const yearSeries: Highcharts.SeriesOptionsType = {
-         name: 'Year',
-         type: 'column',
-         yAxis: 1,
-         data: data
-            .filter(x => x.BudgetValue > 0 && x.YearValue > 0)
-            // .sort((a, b) => a.Text > b.Text ? 1 : -1)
-            .map(x => ({
-               name: x.CategoryText,
-               color: self.service.Colors.GetCategoryColor(x.CategoryID),
-               y: x.YearPercentage,
-               BudgetValue: (x.BudgetValue ?? 0),
-               YearValue: x.YearValue
             }))
       };
 
@@ -246,7 +246,7 @@ export class YearlyBudgetChart {
             }))
       };
 
-      return [monthSeries, yearSeries, unexpectedSeries];
+      return [yearSeries, monthSeries, unexpectedSeries];
    }
 
 }
