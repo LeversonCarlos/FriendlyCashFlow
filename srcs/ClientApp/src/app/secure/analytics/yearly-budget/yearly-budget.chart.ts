@@ -155,16 +155,18 @@ export class YearlyBudgetChart {
          formatter: function () {
             let tooltipResult = '';
             let tootipPointName = '';
+            let hasAddedBudget = false;
             this.points.forEach(p => {
                const point: any = p.point;
                tootipPointName = point.name;
-               if (point.BudgetValue > 0) {
+               if (point.BudgetValue > 0 && hasAddedBudget == false) {
                   tooltipResult =
                      '<br/>' +
                      '<span style="color:' + 'green' + '">\u25CF</span> ' +
                      '<span>' + goalLabel + '</span>: ' +
                      '<strong>' + self.translation.getNumberFormat(point.BudgetValue, 2) + '</strong>' +
                      tooltipResult;
+                  hasAddedBudget = true;
                }
                if (point.MonthValue > 0) {
                   tooltipResult +=
@@ -224,6 +226,7 @@ export class YearlyBudgetChart {
                name: x.CategoryText,
                color: self.service.Colors.GetCategoryColor(x.CategoryID),
                y: x.YearPercentage,
+               BudgetValue: (x.BudgetValue ?? 0),
                YearValue: x.YearValue
             }))
       };
