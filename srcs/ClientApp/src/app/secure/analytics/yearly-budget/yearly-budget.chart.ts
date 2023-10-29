@@ -171,14 +171,14 @@ export class YearlyBudgetChart {
                if (point.MonthValue > 0) {
                   tooltipResult +=
                      '<br/>' +
-                     '<span>\u25CF</span> ' +
+                     '<span style="color:' + point.color + '">\u25CF</span> ' +
                      '<span>' + monthLabel + '</span>: ' +
                      '<strong>' + self.translation.getNumberFormat(point.MonthValue, 2) + '</strong>';
                }
                if (point.YearValue > 0) {
                   tooltipResult +=
                      '<br/>' +
-                     '<span>\u25CF</span> ' +
+                     '<span style="color:' + point.color + '">\u25CF</span> ' +
                      '<span>' + yearLabel + '</span>: ' +
                      '<strong>' + self.translation.getNumberFormat(point.YearValue, 2) + '</strong>';
                }
@@ -240,7 +240,7 @@ export class YearlyBudgetChart {
             // .sort((a, b) => a.Text > b.Text ? 1 : -1)
             .map(x => ({
                name: x.CategoryText,
-               color: '#f00',
+               color: 'red',
                y: x.MonthValue,
                UnexpectedValue: x.MonthValue
             }))
